@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Break</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Break</h1>
+<p>Allows the user to break the run at any point inside the spine.</p>
+<p class="EM3only">This function is only available with EM3.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>ProduceOutput</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If yes, all variables and incomelists are dumped in an output file.<br>
+		Note that dumping incomelists is likely to lead to warnings ("... use of not initialised variable ...").</td>
+	</tr>
+	<tr>
+		<td>OutputFileName</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>name of first output-file after the Break</td>
+		<td>Specifies the name of the output file.<br>
+		If not indicated or n/a the program searches for the first DefOutput after the Break and takes the name from there (parameter File).<br>
+		The path is defined as usual for DefOutput (i.e. via the User Interface respectively the configuration file).</td>
+	</tr>
+	<tr>
+		<td>ProduceTUinfo</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If true, TU info is dumped to the output file for each TU defined before the Break (see DefOuput UnitInfo-parameters).</td>
+	</tr>
+</table>
+</body>
+</html>

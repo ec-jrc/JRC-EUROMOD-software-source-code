@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SwitchablePolicyConfig" targetNamespace="http://tempuri.org/SwitchablePolicyConfig.xsd" xmlns:mstns="http://tempuri.org/SwitchablePolicyConfig.xsd" xmlns="http://tempuri.org/SwitchablePolicyConfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SwitchablePolicyConfig" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SwitchablePolicyConfig" msprop:Generator_UserDSName="SwitchablePolicyConfig">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SwitchablePolicy" msprop:Generator_TableClassName="SwitchablePolicyDataTable" msprop:Generator_TableVarName="tableSwitchablePolicy" msprop:Generator_RowChangedName="SwitchablePolicyRowChanged" msprop:Generator_TablePropName="SwitchablePolicy" msprop:Generator_RowDeletingName="SwitchablePolicyRowDeleting" msprop:Generator_RowChangingName="SwitchablePolicyRowChanging" msprop:Generator_RowEvHandlerName="SwitchablePolicyRowChangeEventHandler" msprop:Generator_RowDeletedName="SwitchablePolicyRowDeleted" msprop:Generator_RowClassName="SwitchablePolicyRow" msprop:Generator_UserTableName="SwitchablePolicy" msprop:Generator_RowEvArgName="SwitchablePolicyRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
+              <xs:element name="NamePattern" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="NamePattern" msprop:Generator_ColumnVarNameInTable="columnNamePattern" msprop:Generator_ColumnPropNameInTable="NamePatternColumn" msprop:Generator_UserColumnName="NamePattern" type="xs:string" minOccurs="0" />
+              <xs:element name="LongName" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="LongName" msprop:Generator_ColumnVarNameInTable="columnLongName" msprop:Generator_ColumnPropNameInTable="LongNameColumn" msprop:Generator_UserColumnName="LongName" type="xs:string" minOccurs="0" />
+              <xs:element name="Look" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="Look" msprop:Generator_ColumnVarNameInTable="columnLook" msprop:Generator_ColumnPropNameInTable="LookColumn" msprop:Generator_UserColumnName="Look" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:SwitchablePolicy" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

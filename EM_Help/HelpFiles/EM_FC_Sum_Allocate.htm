@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Allocate</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Allocate</h1>
+<p>Allows for (re)allocating amounts (incomes, benefits, taxes) between members of assessment units.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Share</td>
+		<td>formula</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Amount to be (re)allocated between assessment unit members.</td>
+	</tr>
+	<tr>
+		<td>Share_Between</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Condition that must be fulfilled by a member of the assessment unit to be among the persons between who the amount is (re)allocated.<br>Syntax rules as for parameter Elig_Cond of function Elig apply.</td>
+	</tr>
+	<tr>
+		<td>Share_All_IfNoElig</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If no member of the assessment unit fulfils the condition defined by Share_Between:<br>- if set to yes: amount is equally (re)allocated among members of the assessment unit.<br>- if set to no: Output_Var is set to zero (respectively zero is added to Output_Add_Var).</td>
+	</tr>
+	<tr>
+		<td>Share_Prop</td>
+		<td>variable or incomelist</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>If the parameter is defined, (re)allocation is carried out in proportion to this variable/incomelist.</td>
+	</tr>
+	<tr>
+		<td>Share_Equ_IfZero</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If the variable/incomelist defined by Share_Prop is zero for all members of the assessment unit (who fulfil Share_Between):<br>- if set to no: an error message is issued.<br>- if set to yes: amount is equally (re)allocated among all members of the assessment unit (who fulfil Share_Between).</td>
+	</tr>
+	<tr>
+		<td>Ignore_Neg_Prop</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If the variable/incomelist defined by Share_Prop is negative it is ignored (i.e.  it is considered to be zero).</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Output_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>yes (if Output_Add_Var is not defined)</td>
+		<td>yes</td>
+		<td></td>
+		<td>Output_Add_Var</td>
+		<td>Variable for storing the result of the function. Result of function overwrites the current value of the variable.</td>
+	</tr>
+	<tr>
+		<td>Output_Add_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>yes (if Output_Var is not defined)</td>
+		<td>yes</td>
+		<td></td>
+		<td>Output_Var</td>
+		<td>Variable for storing the result of the function. Result of function is added to the current value of the variable.</td>
+	</tr>
+	<tr>
+		<td>Result_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Variable for storing the result of the function. Result of function overwrites the current value of the variable.</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Assessment unit for function's calculations.</td>
+	</tr>
+	<tr>
+		<td>Who_Must_Be_Elig</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>nobody</td>
+		<td></td>
+		<td>Function's calculations are carried out if ...<br>- one (one_member): ... one member of the assessment unit is "eligible"<br>- one_adult: ... one adult member of the assessment unit is "eligible"<br>- all (all_members; taxunit): ... all members of the assessment unit are "eligible"<br>- all_adults: ... all adult members of the assessment unit are eligible<br>- nobody: ... always<br>"eligible" is determined by the variable indicated by parameter Elig_Var</td>
+	</tr>
+	<tr>
+		<td>Elig_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>sel_s</td>
+		<td></td>
+		<td>Variable indicating whether a person is "eligible" (see parameter Who_Must_Be_Elig):<br>- zero: person is not eligible<br>- non zero: person is eligible</td>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>-999999999999.99</td>
+		<td></td>
+		<td>Replaces result of function if result is smaller.</td>
+	</tr>
+	<tr>
+		<td>UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>999999999999.99</td>
+		<td></td>
+		<td>Replaces result of function if result is higher.</td>
+	</tr>
+	<tr>
+		<td>Threshold</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>-999999999999.99</td>
+		<td></td>
+		<td>Replaces result of function if result is smaller: if lower limit is not defined by zero, otherwise by lower limit.</td>
+	</tr>
+	<tr>
+		<td>Round_to</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Result is rounded to nearest whole number if set to 1, to nearest number with 1 decimal if set to 0.1, to nearest 10 if set to 10, etc.</td>
+	</tr>
+	<tr>
+		<td>Round_Up</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Result is rounded up to nearest whole number if set to 1, to nearest number with 1 decimal if set to 0.1, to nearest 10 if set to 10, etc.</td>
+	</tr>
+	<tr>
+		<td>Round_Down</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Result is rounded down to nearest whole number if set to 1, to nearest number with 1 decimal if set to 0.1, to nearest 10 if set to 10, etc.</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

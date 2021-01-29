@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Scale</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Scale</h1>
+<p>Allows for scaling monetary variables and monetary parameters.</p>
+<p class="EM3only">This function is only available with EM3.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>FactorVariables</td>
+		<td>amount</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>n/a</td>
+		<td>All monetary variables are multiplied by this factor.<br>
+		The operation concerns all monetary variables existing at the time of execution (i.e. used before).<br>
+		If the function is part of a loop, the scaling is done in each iteration.</td>
+	</tr>
+	<tr>
+		<td>FactorParameter</td>
+		<td>amount</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>n/a</td>
+		<td>All monetary parameters are multiplied by this factor.<br>
+		Monetary parameters are identified by having a period (#m, #y, etc). Rates (#mr, #yr, etc.) are considered non-monetary.<br>
+		The operation concerns all parameters defined after the Scale function. Loops have no effect (i.e. the scaling is done once).<br>
+		Note that the factor is always applied on the original parameter values. Thus a subsequent Scale with e.g. FactorParameter 0.5 after a Scale with FactorParameter 0.3 would not result in a factor 0.15, but 0.5 is applied.<br>Consequently a FactorParameter 1 undoes all scaling.</td>
+	</tr>
+</table>
+</body>
+</html>

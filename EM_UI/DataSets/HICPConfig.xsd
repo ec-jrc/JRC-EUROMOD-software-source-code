@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="HICPConfig" targetNamespace="http://tempuri.org/HICPConfig.xsd" xmlns:mstns="http://tempuri.org/HICPConfig.xsd" xmlns="http://tempuri.org/HICPConfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="HICPConfig" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="HICPConfig" msprop:Generator_UserDSName="HICPConfig">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="HICP" msprop:Generator_TableClassName="HICPDataTable" msprop:Generator_TableVarName="tableHICP" msprop:Generator_TablePropName="HICP" msprop:Generator_RowDeletingName="HICPRowDeleting" msprop:Generator_RowChangingName="HICPRowChanging" msprop:Generator_RowEvHandlerName="HICPRowChangeEventHandler" msprop:Generator_RowDeletedName="HICPRowDeleted" msprop:Generator_UserTableName="HICP" msprop:Generator_RowChangedName="HICPRowChanged" msprop:Generator_RowEvArgName="HICPRowChangeEvent" msprop:Generator_RowClassName="HICPRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Country" msprop:Generator_ColumnVarNameInTable="columnCountry" msprop:Generator_ColumnPropNameInRow="Country" msprop:Generator_ColumnPropNameInTable="CountryColumn" msprop:Generator_UserColumnName="Country" type="xs:string" />
+              <xs:element name="Year" msprop:Generator_ColumnVarNameInTable="columnYear" msprop:Generator_ColumnPropNameInRow="Year" msprop:Generator_ColumnPropNameInTable="YearColumn" msprop:Generator_UserColumnName="Year" type="xs:int" />
+              <xs:element name="Value" msprop:Generator_ColumnVarNameInTable="columnValue" msprop:Generator_ColumnPropNameInRow="Value" msprop:Generator_ColumnPropNameInTable="ValueColumn" msprop:Generator_UserColumnName="Value" type="xs:double" minOccurs="0" />
+              <xs:element name="Comment" msprop:Generator_ColumnVarNameInTable="columnComment" msprop:Generator_ColumnPropNameInRow="Comment" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInTable="CommentColumn" msprop:Generator_UserColumnName="Comment" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="HICPKey1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:HICP" />
+      <xs:field xpath="mstns:Country" />
+      <xs:field xpath="mstns:Year" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

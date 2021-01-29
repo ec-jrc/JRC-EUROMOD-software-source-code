@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Store</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Store</h1>
+<p>Provides a 'save as' functionality for variables, incomelists and components of incomelists.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>PostLoop</td>
+		<td>text</td>
+		<td></td>
+		<td>yes (if PostFix is not definde)</td>
+		<td>yes</td>
+		<td></td>
+		<td>PostFix</td>
+		<td>Copies of stored variables are called VarName_PostLoopIteration.<br>For example: Var = yem, PostLoop = myloop: name of copies = yem_myloop1 (1. iteration), yem_myloop2 (2. iteration), etc.</td>
+	</tr>
+	<tr>
+		<td>PostFix</td>
+		<td>text</td>
+		<td></td>
+		<td>yes (if PostLoop is not definde)</td>
+		<td>yes</td>
+		<td></td>
+		<td>PostLoop</td>
+		<td>Copies of stored variables are called VarName_PostFix.<br>For example: Var = yem, PostFix = bkup: name of copy = yem_bkup.</td>
+	</tr>
+	<tr>
+		<td>Var</td>
+		<td>variable</td>
+		<td>VAR</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td></td>
+		<td>Name of a variable to be stored.</td>
+	</tr>
+	<tr>
+		<td>Var_Level</td>
+		<td>taxunit</td>
+		<td>VAR</td>
+		<td>no</td>
+		<td>within group</td>
+		<td></td>
+		<td></td>
+		<td>Alternative assessment unit: variable's value is assessed based on this unit.<br>Note that the parameter is only relevant if PostLoop refers to a UnitLoop.</td>
+	</tr>
+	<tr>
+		<td>IL</td>
+		<td>incomelist</td>
+		<td>IL</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td></td>
+		<td>Incomelist whose entries (i.e. variables) are to be stored.</td>
+	</tr>
+	<tr>
+		<td>IL_Level</td>
+		<td>taxunit</td>
+		<td>IL</td>
+		<td>no</td>
+		<td>within group</td>
+		<td></td>
+		<td></td>
+		<td>Alternative assessment unit: the value of the variables included in IL is assessed based on this unit.<br>Note that the parameter is only relevant if PostLoop refers to a UnitLoop.</td>
+	</tr>
+	<tr>
+		<td>Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>EligUnit of UnitLoop</td>
+		<td></td>
+		<td>Alternative assessment unit: the value of all variables is assessed based on this unit, except for those which have a specific own Var_Level/IL_Level.<br>Note that the parameter is only relevant if PostLoop refers to a UnitLoop.</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

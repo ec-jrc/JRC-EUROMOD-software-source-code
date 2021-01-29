@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function CallProgramme</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Summary of parameters for function CallProgramme</h1>
+<p>Allows for calling an external application.<br>
+Note that the function is only available under Windows as it uses platform specific code.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Programme</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name of the application to be called.<br>Example: Excel.exe</td>
+	</tr>
+	<tr>
+		<td>Path</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Path to the application.<br>
+		Dispensable if the application is installed at the standard path for programmes.<br>
+		However, note that the path is also used as the working directory for the application.<br>
+		Example: C:\Program Files\Microsoft Office\ <br>
+		Note that spaces can be used without encapsulating the path by &quot;.</td>
+	</tr>
+	<tr>
+		<td>Argument</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>Programme argument to be passed to the application.<br>
+		Example: C:\EuromodFiles\Tools\EMT_FillTemplate.xls (to e.g. open Excel with this workbook)</td>
+	</tr>
+	<tr>
+		<td>UnifySlash</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If set to yes all occurrences of / are replaced by \ in parameters Path and Argument.</td>
+	</tr>
+	<tr>
+		<td>Wait</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes: EUROMOD calculations are stopped until the called programme terminates.<br>
+		If set to no: EUROMOD calculations continue without waiting.</td>
+	</tr>
+	<tr>
+		<td>RepByEMPath</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>..\</td>
+		<td>Any occurrences of RepByEMPath in parameters Path, and Argument are replaced by the path of the current EUROMOD content
+		(see <a href="EM_FS_HeaderPage.htm">EUROMOD Installation and Architecture</a>).<br>
+		Example: RepByEMPath = &amp;, Argument = &amp;Tools\SomeFile.xls, EUROMOD content is stored at C:\EuromodFiles\ <br>
+		Result: Argument is interpreted as C:\EuromodFiles\Tools\SomeFile.xls.<br><br>
+		Remark: Technically the programme obtains knowledge about the path of the
+		EUROMOD content via the parameter EMCONTENTPATH in the configuration file
+		(see <a href="EM_FS_ConfigurationFile.htm">EUROMOD Installation and
+		Architecture - EUROMOD software (user interface and executable) - The configuration file</a>).</td>
+	</tr>
+</table>
+</body>
+</html>

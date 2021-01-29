@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>EUROMOD input and output</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>EUROMOD input and output</h1>
+
+<p>EUROMOD output is essentially based on two inputs:</p>
+<ol type="a">
+<li>household micro-data and</li>
+
+<li>EUROMOD <i>parameters</i>, which store rules on how to calculate taxes and benefits</li>
+</ol>
+
+<p>Using these two information sources the model calculates all
+taxes and benefits that lend themselves for simulation. For example the income
+tax is calculated by taking the income the tax is based on from the dataset and
+applying the tax rules stored in the EUROMOD <i>parameters</i>, e.g. the tax schedule, on this base. These calculations
+are carried out for each household in the dataset and the result is written to
+a micro-output file. The output is at the individual level. It should however
+be taken into account that some of the results, for example family benefits,
+only make sense on household or family level. In such cases the benefit is
+usually assigned to the head of the assessment unit.</p>
+
+<p>The main output of the model - disposable income for each
+household in the dataset - is made up of elements taken from the survey data -
+basically earnings and original income from other sources, as well as taxes and
+benefits that are not simulated - combined with taxes and benefits that are
+simulated by the model. The most common reason for not simulating a tax or
+benefit is lack of information, e.g. most pensions cannot be calculated by the
+model as the datasets usually do not contain information on past contributions
+to the pension system.</p>
+
+<p>For each country implemented in EUROMOD there are:</p>
+<ol type="a">
+<li>one or more dataset(s), i.e. survey data collected in different years and</li>
+<li>one or more <i>system(s)</i>, i.e. tax-benefit rules for different policy years.</li>
+</ol>
+<p>Ideally, to calculate taxes and benefits for the year 2010
+one would use the 2010 policy rules together with data referring to the year
+2010. However, corresponding data is not always available and even if so,
+preparing and integrating new data in the model is a very laborious task.
+Therefore datasets are used for simulating several policy years, by up-dating monetary
+values to the corresponding policy year. Usually, for each <i>system</i> there is a dataset that is most suitable, normally the one
+whose collection year is nearest to the policy year. These optimal <i>system</i>-dataset combinations are referred
+to as <i>best match</i>. The EUROMOD <i>run dialog</i> shows
+which data and <i>systems</i> can be
+combined and which of these combinations are optimal. For further information
+on the EUROMOD <i>run dialog</i> and how to
+produce output with EUROMOD see <a href="EM_WW_RunDialog.htm">Working with
+EUROMOD - Running EUROMOD</a>.</p>
+
+<p>EUROMOD stores its output in text
+files. As a default a standard output file is produced, which is called <i>cc_YYYY_std.txt</i>. <i>cc</i> stands for the country short name and <i>YYYY</i> stands for the tax-benefit year, e.g. <i>hu_2010_std.txt</i> if the output is based on the 2010 rules of the
+Hungarian tax-benefit system.</p>
+
+<p>The output contains:</p>
+
+<ul>
+<li>identification numbers, household identifier (idhh), person identifier (idperson),
+identifiers of parents (idmother, idfather)
+and partner (idpartner)</li>
+<li>sample weight (dwt), which is the same for all household members</li>
+<li>demographic information, e.g. age (dag), gender (dgn), level of
+education (dec), economic status (les), etc.</li>
+<li>monthly original income (ils_origy)</li>
+<li>monthly disposable income (ils_dispy)</li>
+<li>other important aggregates on monthly basis, e.g. taxes (ils_tax),
+benefits (ils_ben), employee, employer and
+self-employed social insurance contributions (ils_sicee,
+ils_sicer, ils_sicse),
+earnings (ils_earns), public pensions (ils_pen), etc.</li>
+<li>several other informative variables (simulated
+or taken from data, demographic or monetary) and monetary aggregates</li>
+<li>possibly information on
+special assessment units, e.g. the inner family, (HeadID,
+IsDependentChild, IsParnter,
+etc.)</li>
+</ul>
+<p>EUROMOD <strong><i>Country Reports</i></strong> document
+the way in which each country's tax-benefit system is modelled, i.e. the
+EUROMOD <i>parameters</i>. For further
+information see <a
+href="http://www.iser.essex.ac.uk/euromod/resources-for-euromod-users/country-reports">http://www.iser.essex.ac.uk/euromod/resources-for-euromod-users/country-reports</a>.</p>
+
+<p>Moreover, some simple statistics showing the redistributive
+effects of taxes and benefits in the EU, calculated by EUROMOD, can be viewed
+here: <a href="http://www.iser.essex.ac.uk/euromod/statistics">http://www.iser.essex.ac.uk/euromod/statistics</a>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+﻿<div class="w3-container">
+    <div id="embe-id-modal-getstring" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+            <div class="w3-center">
+                <br>
+                <span onclick="document.getElementById('embe-id-modal-getstring').style.display='none'" class="w3-button w3-large w3-hover-deep-orange w3-display-topright" title="Close Modal">&times;</span>
+            </div>
+            <div class="w3-container">
+                <label id="embe-id-modal-getstring-text"></label>
+                <input id="embe-id-modal-getstring-value" class="w3-input w3-border" type="text">
+            </div>
+            <div class="w3-display-container" style="height:70px;">
+                <div class="w3-display-middle">
+                    <button onclick="embe_StringInputBox_Close(true)" type="button" class="w3-button w3-white w3-border w3-border-deep-orange w3-round-large">&nbsp;&nbsp;&nbsp;Ok&nbsp;&nbsp;&nbsp;</button>
+                    <button onclick="embe_StringInputBox_Close(false)" type="button" class="w3-button w3-white w3-border w3-border-deep-orange w3-round-large">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var embe_StringInputBox_TakeResponseFunc;
+
+    function embe_StringInputBox_Open(text, takeResponseFunc) {
+        document.getElementById('embe-id-modal-getstring').style.display = 'block';
+        document.getElementById('embe-id-modal-getstring-text').innerHTML = text;
+        document.getElementById("embe-id-modal-getstring-value").value = "";
+        document.getElementById("embe-id-modal-getstring-value").focus();
+        embe_StringInputBox_TakeResponseFunc = takeResponseFunc;
+    }
+
+    function embe_StringInputBox_Close(dialogResult) {
+        var v = "";
+        if (dialogResult)
+        {
+            v = document.getElementById('embe-id-modal-getstring-value').value;
+            if (!v) { alert("Please indicate a value."); return; }
+        }
+        document.getElementById('embe-id-modal-getstring').style.display = 'none';
+        embe_StringInputBox_TakeResponseFunc(dialogResult, v);
+    }
+</script>

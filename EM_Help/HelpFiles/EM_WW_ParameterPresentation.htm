@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Presentation of (normal and) special parameters</title>
+</head>
+
+<body>
+
+<h1>Presentation of (normal and) special parameters</h1>
+
+<p>Each
+parameter is represented by one row in the spine. (See <a
+href="EM_BC_PresentationTaxBen.htm">EUROMOD Basic Concepts - Presentation of
+countries' tax-benefit systems</a> and <a href="EM_BC_Terminology.htm">EUROMOD
+Basic Concepts - Terminology</a> for more information on the EUROMOD spine and
+the order of policies and functions.)</p>
+<ul>
+<li>The <strong>Policy column</strong> of this row takes the name of the
+parameter, for example <i>Output_Var</i> for
+the parameter taking the name of the output variable of the respective function
+or <i>LowLim</i> for taking a lower limit
+for the result of the function. In general the <i>Policy</i> column is not editable. See <a href="#TM_EditableName">Parameters
+with editable parameter name</a> below for an exception.</li>
+
+<li>The <strong>Grp/No column</strong>
+is described in the paragraphs <a href="#TM_GroupParameters">Group parameters</a>
+and <a href="#TM_FootnoteParameters">Footnote parameters</a> below.</li>
+
+<li>The <strong>Comment column</strong>
+may contain a note or remark with respect to this specific parameter.</li>
+
+<li>The <strong>System columns</strong>,
+i.e. the columns between the <i>Grp/No</i> and the <i>Comment</i>
+column, contain the value of the parameter for each respective system.
+Parameter values range from simple numbers (e.g. the rate of a particular tax
+band) to complex formulas (e.g. a condition describing the eligibility for a
+certain benefit). For detailed information see <a
+href="EM_FC_ParameterTypes.htm">EUROMOD Functions - Types of parameter values</a>.
+For more information on EUROMOD systems see <a
+href="EM_BC_PresentationTaxBen.htm">EUROMOD Basic Concepts - Presentation of
+countries' tax-benefit systems</a> and <a href="EM_BC_Terminology.htm">EUROMOD
+Basic Concepts - Terminology</a>.</li>
+</ul>
+
+<h4>Group parameters</h4>
+
+<p>Parameters of a
+function may form a group in the sense that they can describe their information
+only in combination, or that parameters of the group provide additional
+information to the information described by other parameters of the group.
+Examples for the former are the parameters <i>Comp_Cond</i>
+and <i>Comp_perElig</i> of the function <i>BenCalc</i>, in the sense that the condition
+<i>and</i> the amount form the information
+that makes up the component. An example for the latter is the parameter <i>Comp_UpLim</i>, which is additional information
+with respect to the component. See <a href="EM_FC_BenCalc.htm">EUROMOD
+Functions - The policy function BenCalc</a> for a description of the function <i>BenCalc</i> and its parameters.</p>
+
+<p>Parameters are grouped via the <i>Grp/No</i> column. This column contains the same (integer) number for
+all parameters belonging to the same group. By convention groups are in
+ascending order, i.e. group 1 followed by group 2, etc. However, this is not
+imperative, i.e. group 4711 followed by group 1147 would work as well. Note
+that the <i>Band_ </i>parameters of the
+function<i> SchedCalc</i> form an exception
+to this rule, as in this case the group number also determines the order of the
+bands. See <a href="EM_FC_SchedCalc.htm">EUROMOD Functions - The policy
+function SchedCalc</a> for a description of the function <i>SchedCalc</i> and its parameters.</p>
+
+<h4>Footnote parameters</h4>
+
+<p>Footnote parameters are parameters, which provide further
+information on other parameters or parts of other parameters (symbolically:
+they contain footnote information to something in the &quot;text&quot;). For
+example the footnote parameter<i> #_LowLim</i>
+may define a lower limit for a formula or a part of a formula.</p>
+
+<p>The footnote parameter and the operand it belongs to are
+linked by an integer number. For the footnote parameter this number is contained
+in the <i>Grp/No</i> column, whereas the
+operand is simply followed by <i>#number</i>.
+For example, consider the formula <i>yem<strong>#2</strong> *
+10%</i>, and the footnote parameter <i>#_LowLim</i>,
+whose <i>Grp/No</i>
+column is set to <strong>2</strong>. If the parameter <i>#_LowLim</i> takes a value of 1000
+(indicated in the <i>System</i> column(s))
+the formula would be calculated as 10 % of employment income (i.e. <i>yem</i>), if employment income is higher
+than 1000 and as 10% of 1000, if employment income is up to 1000.</p>
+
+<p>Note that a footnote parameter can be linked to more than
+one operand, however only within the same function.</p>
+
+<p>For more information on footnote parameters see <a
+href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for
+the further specification of operands</a>.</p>
+
+<h4><a name="TM_EditableName"></a>Parameters with editable parameter name</h4>
+
+<p>Some functions comprise parameters, where the <i>Policy</i> column does not contain a
+parameter name in the narrow sense, but information that could be seen as a
+parameter value, which is equal for all systems. For example, for the function<i> DefConst</i> the <i>Policy</i> column contains the name of the constant, whereas the system
+columns contain the value of the constant for the respective system. In
+principle this is a shortcut - it would also be possible to use two parameters
+(<i>Const_Name, Const_Value</i>) - with the
+advantage of being clearer and using less space. For obvious reasons the <i>Policy</i> column is editable for such
+parameters. For more information see the descriptions of the functions<i> <a href="EM_FC_DefVar_DefConst.htm">DefConst</a>, <a
+href="EM_FC_DefVar_DefConst">DefVar</a>, <a href="EM_FC_Uprate.htm">Uprate</a>, <a
+href="EM_FC_SetDefault.htm">SetDefault</a>, <a href="EM_FC_DefIL.htm">DefIL</a></i>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

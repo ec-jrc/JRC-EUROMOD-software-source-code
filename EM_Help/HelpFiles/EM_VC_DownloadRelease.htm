@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Compare and merge bundle</title>
+</head>
+
+<body>
+
+<h1>Compare and merge bundle</h1>
+
+<p>This form allows users to synchronise their local project with content from a given VC project/bundle. 
+You can access this form by clicking the <i>Compare and merge bundle</i> button in the <i>Version Control</i> 
+ribbon's section <i>ADVANCED OPTIONS</i>.</p>
+
+<p>The process of synchronise your local project is completed in three steps: choose the VC project, choose 
+the bundle, choose the actions.</p>
+
+<h4>Choose the project</h4>
+<p>The <i>Project</i> combo-box on the top of the form, will allow you to select the VC project with which 
+you want to synchronise your local project. If your local project is already connected to a VC project, 
+then this VC project will appear preselected in the <i>Project</i> combo-box. Selecting a VC project will
+fill the <i>Bundle</i> combo-box with the available bundles for this project.</p>
+
+<h4>Choose the bundle</h4>
+<p>The <i>Bundle</i> combo-box (located just below the <i>Project</i> combo-box), will allow you to select
+a particular bundle (or version) of the VC project that you want to synchronise your local project with.
+You can get more info for a specific bundle after you select it by clicking the <i>Full Info</i> button 
+next to it. Once you select a given bundle, the application will download all the bundle details (this may 
+take a while) and compare each available unit to your local project. This information will then be displayed 
+in the grid below, listing for each available unit its <i>Name</i>, <i>Type</i>, <i>Version</i> info (date & 
+bundle it was commited to), its <i>Local Status</i> and a set of available actions that you can perform. The 
+<i>Local Status</i> can be:</p>
+<ul>
+	<li><i>Corresponds</i>: meaning that the local unit is identical to the VC unit.</li>
+	<li><i>Differs</i>: meaning that the local unit is different to the VC unit.</li>
+	<li><i>Missing</i>: meaning that the local unit does not exist at all.</li>
+</ul>
+
+<h4>Choose the action for each unit</h4>
+<p>There are three possible actions for each unit:</p>
+<ul>
+	<li><i>Get Online Version</i>: meaning that you will download the VC unit and overwrite your local unit.
+	Note that any not uploaded changes of the former local unit will be lost.</li>
+	<li><i>Keep Local Version</i>: meaning in fact no action, i.e. the VC unit is not downloaded.</li>
+	<li><i>Get Merge Support</i>: will download the VC unit in a special folder and build a merging environment
+	allowing you to use the <i>Merge Tool</i> to consolidate the two versions (VC & local). For more information 
+	on merging see <a href="EM_VC_MergeTool.htm">The Merge Tool</a>.</li>
+</ul>
+
+<p>Depending on the <i>Type</i> and <i>Local Status</i> of each unit, some of these actions may be disabled. For 
+example if your local unit already <i>corresponds</i> to the VC unit, then all actions will be disabled as there 
+is nothing further to be done. Similarly, if the unit type is not supported by the <i>Merge Tool</i>, the <i>Get 
+Merge Support</i> action will be disabled.</p>
+
+<p>In order to make the action selection process more efficient, just under the grid on the right side you will
+also find three buttons that allow you to change the selected action for all units with one click: <i>Get All</i>, 
+<i>Keep All</i> and <i>Merge All</i>. These will of course only affect units for which the action is available.</p>
+
+<p>Once you have selected all the required actions, you can click on the <i>Download</i> button to complete the
+synchronisation process.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Selecting components and values</title>
+</head>
+
+<body>
+
+<h1>Selecting components and values</h1>
+
+<p>There are a number of operations which can be applied on
+several components (policies/functions/parameters) or values. For example one
+can delete a range of parameters in one go or copy the values of several
+parameters.</p>
+
+<p>For this purpose it is necessary to select the respective
+components and/or values, respectively the corresponding range of cells in the
+display. This is accomplished by selecting the first cell of the range, and
+then pressing and holding the <i>Shift</i>
+key while selecting the last cell of the range. Light blue back colour will
+show the selection.</p>
+
+<p>The selected region can be 'manually' unselected by either
+pressing the Escape-key or by selecting a cell outside the region. The
+selection is also automatically cancelled by several other actions, in
+particular actions, which cause (or risk causing) a 'broken' selection, i.e.
+the selected cells are not placed in a single rectangle anymore (also see
+below).</p>
+
+<p>&nbsp;</p>
+
+<p>The following notes and hints may be useful in understanding
+how selecting works:</p>
+<ul>
+<li>The 'first' and 'last' cell of the selection
+(which are to be selected by the user) build the top-left and bottom-right end
+points of the selection, and the selection will contain all cells in between
+them. It is however not necessary to select the top-left end point first. In
+other words selecting from the cell in row A, column B to the cell in row X,
+column Y leads to the same result as selecting from the cell in row X, column Y
+to the cell in row A, column B.</li>
+
+<li>The selection (and the related operation) does
+only concern visible cells. Cells between the end points, which are hidden due
+to collapsing or hidden columns, are not part of the selection. Therefore, to
+avoid a 'broken' selection, any selection is cancelled by collapsing or
+expanding.</li>
+
+<li>Instead of using the mouse for selecting the
+first and last cell of the selection the arrow keys (left, right, up, down) and
+the position keys (page down, page up, etc.) can be used. The selection starts
+when such a key is pressed together with the <i>Shift</i> key and ends once the <i>Shift</i>
+key is released.</li>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

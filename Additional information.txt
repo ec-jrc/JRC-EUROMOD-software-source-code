@@ -1,0 +1,31 @@
+EUROMOD (website: https://euromod-web.jrc.ec.europa.eu/  contact: JRC-EUROMOD@ec.europa.eu ) is a tax-benefit microsimulation model for the European Union and the UK that enables researchers and policy analysts to calculate, 
+in a comparable manner, the effects of taxes and benefits on household incomes and work incentives for the population of each country and for the EU as a whole. 
+
+EUROMOD comprises a user interface, an executable, plugins and a specific file structure. This repository includes the source code of the software (user interface, executable, plugins and some additional libraries and files).
+
+In the development of EUROMOD, DevExpress (https://www.devexpress.com/) (WINFORMS version 14.2.4) was used to develop the user interface (EM_UI) and plugins (EM_Plugins).
+Devexpress libraries are not open source and every software developer who uses Devexpress products in a design time environment (IDE) must acquire a licence.
+As a result, while DevExpress libraries are needed to compile the user interface and plugins, they have not been included in the open source distribution of EUROMOD. 
+Instead, a licence for its use and the needed files should be obtained directly from DevExpress if you wish to compile these elements.
+
+Elements included in the EUROMOD software source code:
+
+- EM_Executable: Source code of the EM3 executable (EUROMOD calculator engine EM3).
+               - EM_Executable
+               - EM_ExecutableCaller
+               - EM_Transformer
+- EM_Help: EUROMOD help files.
+- EM_Libraries: Libraries which are used in other components.
+- EM_Plugins:
+               - Hypothetical Household: The Hypothetical Household Tool (HHoT) is a EUROMOD plugin for designing hypothetical households and generating data according to the chosen household characteristics. 
+                 This hypothetical household data can then be used to estimate the effects of taxes and benefits on household disposable income.
+               - Income List Components: The Income List Components plugin extracts information about the income lists used in the selected countries/years. In particular, it visualises the components of the income list. 
+               - StatisticsPresenter: The Statistics Presenter plugin is an analysis tool that produces a fixed set of statistics on income distribution based on (a) EUROMOD output file(s). 
+               - VariablesChecker: The Variables Checker plugin provides methods for validating the EUROMOD variables file. 
+               - Web Statistics: it generates summary tables with the baseline estimates on the distribution of different income components (from market income to disposable income) 
+		 as well as on the incidence of taxes and benefits across decile income groups. It also provides summary statistics on income inequality and poverty indicators, as well as on marginal effective tax rates.
+- EM_UI: EUROMOD user interface.
+- Executable: Source code of the EM2 executable (EUROMOD calculator engine EM2).
+- externallibs: Ionic.Zip.dll (and Readme.txt) which are used in EUROMOD.
+- Supporting Material: XML templates that are used by the HHoT, PET and Statistics presenter plugins.
+- vcapi: plugin which allows EUROMOD developers to connect to a dedicated version control server to manage the different versions of the model.

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Format of the variables file</title>
+</head>
+
+<body>
+
+<h1>Format of the variables file</h1>
+
+<p>The file storing EUROMOD variables (see <a
+href="EM_WW_Variables.htm">Working with EUROMOD - Administration of EUROMOD
+variables</a>) has the following format (<i><span style='color:#FF6600'>xxx</span></i> denotes an example and <strong><i><span style='color:#99CC00'>xxx</span></i></strong>
+denotes a comment):</p>
+
+<p style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt'><span lang=IT style='mso-ansi-language:
+IT'>&lt;?xml version=&quot;1.0&quot; ?&gt;</span></p>
+
+<p><strong><span lang=IT style='mso-ansi-language:
+IT'>&lt;VarConfig xmlns=&quot;http://euromod.com/VarConfig.xsd&quot;&gt;</span></strong></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT'><span style='mso-spacerun:yes'>    </span></span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+variable:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;Variable&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;ID&gt;<i><span style='color:#FF6600'>8B0EEE12-6D72-42C6-9730-1A195AB98AA7</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Name&gt;<i><span style='color:#FF6600'>&lt;![CDATA[afc]]&gt;</span></i>&lt;/Name&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Monetary&gt;<i><span style='color:#FF6600'>0</span></i>&lt;/Monetary&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><span lang=IT style='mso-ansi-language:
+IT'>&lt;AutoLabel&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[assets : financial capital]]&gt;</span></i>&lt;/AutoLabel&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT'><span style='mso-spacerun:yes'>       
+</span></span><strong><i><span
+style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each country specific description:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong>&lt;CountryLabel&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>6CCEF1AC-34A6-49F0-9D71-D219FAE6A90A</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;VariableID&gt;<i><span
+style='color:#FF6600'>8B0EEE12-6D72-42C6-9730-1A195AB98AA7</span></i>&lt;/VariableID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;Country&gt;<i><span
+style='color:#FF6600'>at</span></i>&lt;/Country&gt;</p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT'><span style='mso-spacerun:yes'>           
+</span>&lt;Label&gt;<i><span style='color:#FF6600'>&lt;![CDATA[Finanzkapital]]&gt;</span></i>&lt;/Label&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT'><span style='mso-spacerun:yes'>       
+</span><strong>&lt;/CountryLabel&gt;</strong></span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT'><span style='mso-spacerun:yes'>    </span></span><strong>&lt;/Variable&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+acronym type:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;AcronymType&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;ID&gt;<i><span style='color:#FF6600'>D0E67181-46DF-4629-83DB-4115448365FE</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;LongName&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[demographic]]&gt;</span></i>&lt;/LongName&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;ShortName&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[d]]&gt;</span></i>&lt;/ShortName&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+acronym level:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong>&lt;AcronymLevel&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>6CCA8A22-0FDD-4A25-BFEC-3EDB56F435CC</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;Index&gt;<i><span
+style='color:#FF6600'>1</span></i>&lt;/Index&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;TypeID&gt;<i><span
+style='color:#FF6600'>D0E67181-46DF-4629-83DB-4115448365FE</span></i>&lt;/TypeID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;Name&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[main]]&gt;</span></i>&lt;/Name&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+acronym:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span><strong>&lt;Acronym&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>                </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>FB3DBC6E-9238-4BAA-BF36-0E0171EA0A52</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                </span>&lt;LevelID&gt;<i><span style='color:#FF6600'>6CCA8A22-0FDD-4A25-BFEC-3EDB56F435CC</span></i>&lt;/LevelID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                </span>&lt;Name&gt;<i><span style='color:#FF6600'>&lt;![CDATA[ct]]&gt;</span></i>&lt;/Name&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                </span>&lt;Description&gt;<i><span style='color:#FF6600'>&lt;![CDATA[country]]&gt;</span></i>&lt;/Description&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+category:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>                </span><strong>&lt;Category&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>                    </span>&lt;AcronymID&gt;<i><span style='color:#FF6600'>FB3DBC6E-9238-4BAA-BF36-0E0171EA0A52</span></i>&lt;/AcronymID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                    </span>&lt;Value&gt;<i><span style='color:#FF6600'>1</span></i>&lt;/Value&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                    </span>&lt;Description&gt;<i><span style='color:#FF6600'>&lt;![CDATA[at]]&gt;</span></i>&lt;/Description&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>                </span><strong>&lt;/Category&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span><strong>&lt;/Acronym&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong>&lt;/AcronymLevel&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;/AcronymType&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each switchable
+policy:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;SwitchablePolicy&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><span style='mso-spacerun:yes'>    </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>79513cab-d092-477d-b17e-442882767cbf</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><span style='mso-spacerun:yes'>    </span>&lt;NamePattern&gt;<i><span style='color:#FF6600'>&lt;![CDATA[yem_??]]&gt;</span></i>&lt;/NamePattern&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><span style='mso-spacerun:yes'>    </span>&lt;LongName&gt;<i><span style='color:#FF6600'>&lt;![CDATA[Minimum Wage]]&gt;</span></i>&lt;/LongName&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;/SwitchablePolicy&gt;</strong></p>
+
+<p><strong>&lt;/VarConfig&gt;</strong></p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

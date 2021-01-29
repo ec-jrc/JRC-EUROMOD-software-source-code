@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function CallProgramme</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>The special function CallProgramme</h1>
+
+<p>CallProgramme
+allows for calling an external application. For example, a statistic programme,
+like Stata, can be called at the end of the spine to
+further process the output produced by EUROMOD. Note that the function is limited
+to the Windows platform.<a href="#_ftn1"
+name="_ftnref1" title="">[1]</a></p>
+
+<p>Example 1 calls Microsoft Excel to open a certain workbook.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>CallProgramme</td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Programme</td>
+		<td>Excel.exe</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Argument</td>
+		<td>&amp;Output\SomeExcelWorkbook</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RepByEMPath</td>
+		<td>&amp;</td>
+		<td></td>
+	</tr>
+</table>
+	
+<p>The parameter <i>Programme</i> defines the application to be called as Microsoft Excel. The
+parameter <i>Argument</i> specifies an
+argument to be passed to Excel: <i>&amp;Output\SomeExcelWorkbook</i>, which is the name and path of the
+workbook that Excel should open (ignoring the <i>&amp;</i> for a moment). The parameter <i>RepByEMPath</i> allows for using the
+path of the current EUROMOD installation for the specification of the parameter
+<i>Argument</i>. Assuming EUROMOD is
+installed at <i>C:\EuromodFiles\</i>, the
+argument passed to Excel is in fact <i>&quot;C:\EuromodFiles\Output\SomeExcelWorkbook&quot;</i>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> This restriction is necessary because a c++
+programme has, apart from multithreading, only one possibility to call another
+programme independently of the platform (the <i>stdlib</i> function <i>system</i>). This approach, however, shows
+the usually unwanted behaviour to wait with any further execution until the
+called programme has finished.</p>
+
+</div>
+
+</body>
+
+</html>

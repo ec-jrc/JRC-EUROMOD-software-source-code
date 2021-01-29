@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special functions DropUnit and KeepUnit</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special functions DropUnit and KeepUnit</h1>
+
+<p>DropUnit
+and KeepUnit allow for dropping individuals,
+families or whole households with certain characteristics from the
+calculations. For DropUnit
+the parameter drop_cond
+indicates a condition determining who is to be dropped, while for KeepUnit the parameter keep_cond describes who is to be kept, i.e.
+those who do not fulfil the condition are dropped. The following examples show
+some applications.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DropUnit</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>drop_cond</td>
+		<td>{dag&lt;15}</td>
+		<td>drop all children younger than 15</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DropUnit</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>drop_cond</td>
+		<td>{poa&gt;0}</td>
+		<td>all households receiving pension are dropped
+</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>KeepUnit</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>keep_cond</td>
+		<td>{yem&gt;0}</td>
+		<td>only keep couples where both partners have</td>
+	</tr>
+	<tr>
+		<td>keep_cond_who</td>
+		<td>all</td>
+		<td>positive employment income</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>couple_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>KeepUnit</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>keep_cond</td>
+		<td></td>
+		<td>{il_earns&gt;0}#1 &amp; {il_pension=0}#1 &amp; {dag&gt;14} &amp; {dag&lt;66}</td>
+		<td>keep household if there is at least one person</td>
+	</tr>
+	<tr>
+		<td>#_level</td>
+		<td>1</td>
+		<td>individual_sl</td>
+		<td>with positive earnings, not receiving pensions</td>
+	</tr>
+	<tr>
+		<td>keep_cond_who</td>
+		<td></td>
+		<td>one</td>
+		<td>and aged between 15 and 65</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In example 1 all children younger than 15 are
+dropped. Example 2 drops whole households (TAX_UNIT=household_sl), namely those in receipt of
+pension. In example 3 only singles with positive employment income as well as
+couples where both partners (keep_cond_who=all) have positive employment income
+are kept. Note that only the couple (single) is kept, but not their children or
+other relatives. Finally, example 4 shows a bit more complex use and
+illustrates the application of different levels of assessment. The keep
+condition defines persons aged between 15 and 65, who have positive earnings
+and do not receive pensions. As a default (and as usual) the incomelists il_earns and il_pension would be assessed on TAX_UNIT level, therefore it is necessary to
+use the level parameter to only take individual incomes into account. This is
+not necessary for the personal variable dag, which is anyway (also as usual) assessed on
+individual level. The parameter keep_cond_who tells that at least one person must fulfil the
+condition for the household to be kept (it could in fact be omitted as one is the default and is only there to
+make it explicit).</p>
+
+<p>Usually the
+dropping of units will take place at the very beginning of the spine, i.e.
+before the respective tax-benefit calculations. However, in principle it can be
+done anytime, as the &quot;time&quot; of dropping the units depends on when the
+function appears in the policy/module order. Consequently all assessment units
+built so far are deleted, as the program cannot rely that the persons forming
+these constellations still exist.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

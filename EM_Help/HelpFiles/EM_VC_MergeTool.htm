@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The Merge Tool</title>
+</head>
+
+<body>
+
+<h1>The Merge Tool</h1>
+
+<p>The user interface provides a tool that supports the merging
+of two versions of a country or add-on. Imagine developer A and developer B
+both have worked on country X. The tool firstly allows viewing what was changed
+between the two versions. Secondly, the tool offers facilities to determine which 
+changes are to be overtaken in the final merged version.</p>
+
+<p>Please note that the following description, for simplicity
+reasons, refers to countries only though all descriptions apply for add-ons as
+well.</p>
+
+<h4>Selecting the versions</h4>
+
+<p>Clicking the button <i>Merge Country</i> (in the <i> NEW ONLINE BUNDLE </i> section) or
+<i> Compare & merge country</i> (in the <i>ADVANCED OPTION</i> section)in the VC ribbon opens a dialog which 
+allows defining the versions which are to be compared and merged,
+whereupon one of the versions is always the country, which is currently loaded
+by the user interface and from which the dialog was started. This version is
+referred to as the <strong><i>Local Version</i></strong>.</p>
+
+<p>Consequently, the dialog allows for loading a <strong><i>Remote
+Version</i></strong>, which is the country folder containing the version (i.e.
+XML-files) that should be compared and merged with the <i>Local
+Version</i>.</p>
+
+<p>Moreover, a <strong><i>Parent Version</i></strong> can be selected from the <i>Advanced options</i>. This
+is the version from which as well the local as the remote version started from,
+i.e. ideally the base where the two versions diverged. This parent version is
+used by the interface (solely) to decide whether a change occurred in the local
+version or in the remote version.<a href="#_ftn1" name="_ftnref1" title="">[1]</a></p>
+
+<p>Taking into account, that a parent version may not always be
+available, the dialog allows that either the local (by checking the box <i>Use Local</i>) or the remote version (by
+checking the box <i>Use Remote</i>) may be
+defined as the parent version, meaning that all changes are considered as
+remote respectively local. By default (without selecting any parent version from the advanced options), the local version
+ will be defined as parent version.</p>
+
+
+
+<p>Clicking <i>OK</i> performs
+the comparison, which, depending on the extent of differences, may take a
+while, and opens the <i>merge dialog</i>.</p>
+
+<h4>The merge dialog</h4>
+
+<p>The merge dialog is split up into three areas:</p>
+<ul>
+	<li>The (small) upper part displays changes in the country settings (see <i>Representation of changes in country settings</i>)</li>
+
+	<li>The (big) middle part displays all other changes (see <i>Representation of changes</i>)</li>
+
+	<li>The (small) lower part comprises three buttons, which allow for performing the merge (see <i>Performing
+	the merge - button Apply</i>) or interrupting one's work by optionally saving the so far taken definitions (see <i>Interrupting
+	one's work - buttons Save and</i> <i>Close</i>).</li>
+</ul>
+
+<h5>Representation of changes</h5>
+
+<p>The middle and main part of the merge dialog comprises a
+register with the following four tabs:</p>
+<ul>
+	<li><i>Systems</i>: This tab lists added and deleted systems as well as changes in system settings.</li>
+
+	<li><i>Policy</i>-Spine:
+	Is the main tab and displays all changes in the policy spine, i.e. added and
+	deleted policies, functions and parameters; changes in policy/function-switches
+	and parameter values; other changes in policies, functions and parameters, like
+	e.g. changed name, comment, etc.</li>
+
+	<li><i>Data</i>:
+	This tab lists added and deleted datasets as well as changes in dataset settings.
+	In addition, it shows changes in the systems which can be used with the
+	datasets. Moreover, it lists changes in the settings of policy-switches.</li>
+
+	<li><i>Conditional Formatting</i>: This tab lists changes in conditional formatting settings.</li>
+<li><i>Uprating indices</i>: This tab lists changes in uprating indices.</li>
+<li><i>Extensions</i>: This tab lists changes in extensions.</li>
+<li><i>Switches</i>: This tab lists changes in switches.</li>
+<li><i>Groups</i>: This tab lists changes in groups.</li>
+</ul>
+<p>The structure of the eight tabs is very similar and will be
+described by means of the main tab, the <i>Policy-Spine</i>
+tab.</p>
+
+<p>The main part of each tab is taken by two &quot;lists&quot;
+(with tree-structure, to allow for collapsing and expanding the information),
+where the left one presents the local spine, whereas the right one presents the
+remote spine. The two lists are synchronised so that one can see local and
+remote spine side-by-side. That means, amongst others, that expanding or
+scrolling in one of the two lists always effects in the same move of the other
+list. Initially the two spines are an extract of the two spines, in the sense
+that only those parts of the spine are displayed which contain changes. Please
+note that, given the tree-structure of the list, this means that if e.g. a parameter
+is changed the parent-function and parent-policy is visible too. However, the
+sibling-parameters are not displayed, neither the &quot;aunt&quot;-functions
+(unless they show changes as well). This initial view can be further reduced by
+filtering changes, as described below, or extended to the full spine by
+pressing the button <i>Release Filter</i>.</p>
+
+<p>The bottom part of the tab fulfils two tasks: The
+left-bottom-part allows for filtering the changes. That means it provides
+options to show only certain types of changes. As an example, one may want to
+see only added and removed policies, but not anything else (i.e. added/deleted
+functions/parameters should be not displayed, neither changes in values
+switches or other settings of policies, functions and parameters).</p>
+
+<p>The right-bottom-part allows for accepting and rejecting
+changes, i.e. determining which changes are to be overtaken into the merged
+version. For more information see <i>Defining
+the carrying out of the merge</i> below.</p>
+
+<h6>Types and representation of changes</h6>
+
+<p>In principle, there are three types of changes:</p>
+<ul>
+	<li><strong>Additions</strong> (of policies, functions and parameters) are displayed by a green plus at the left edge of the spine.</li>
+
+	<li>Accordingly, <strong>removals</strong> are displayed by a red minus.</li>
+
+	<li><strong>Changes</strong> are marked by a pencil. Note that changes may concern parameter-<i><strong>values</strong></i>
+	or policy/function-<i><strong>switches</strong></i>, as well as
+	parameter/function/policy-<i><strong>settings</strong></i> (like e.g. comments,
+	private-settings, etc.). Accordingly, each policy, function and parameter is
+	accompanied by columns containing these <i><strong>settings</strong></i>, as well as the <i><strong>value/switch</strong></i>-settings per
+	system. This means that a &quot;change&quot; (display of a pencil) in e.g. a
+	policy may mean that the policy switch is changed in one or more systems and/or
+	that any policy-setting, like e.g. its name, is changed. Which of these
+	settings is changed is represented by highlighting the respective cell with
+	either red or green colour (the meaning of red and green will be explained in
+	the paragraph after the next).</li>
+</ul>
+
+<p>Whether a change is local or remote is represented by
+showing the plus/minus/pencil and the highlighting in either the (left) local
+tree or the (right) remote tree. Note that for added components the respective
+other tree shows an empty row (as the component does not exist in this
+version). For deleted components, the concerned tree shows the name (for better
+understanding), while the other tree (where the component still exists) shows
+the full information.</p>
+
+<p>Alongside each change-symbol (plus/minus/pencil) there is
+another symbol, which indicates whether the change is accepted or rejected,
+i.e. should go into the merged version or not. Accepted changes are accompanied
+by a green hook, whereas rejected changes are accompanied by a red cross.
+Moreover, there is a third symbol, an arrow pointing to the right. This symbol
+may show up if e.g. a policy has several changes, i.e. the name and the comment
+is changed, and/or the switch is changed in more than one system. The arrow is
+displayed if these changes are partly accepted and partly rejected. Whether the changes 
+are accepted or rejected, is represented by the colour of
+the highlighting. Green highlighting marks an accepted change, while red
+highlighting marks a rejected change.</p>
+
+<h6>Special display of order-changes</h6>
+
+<p>Given the fact that the local and the remote spine are synchronised,
+in the sense that &quot;twin&quot;-polices, functions and parameters are
+displayed side-by-side, the order of the spine is not necessarily correctly
+displayed, as it may differ between local and remote version.<a href="#_ftn2" name="_ftnref2" title="">[2]</a></p>
+
+<p>For watching the real order, and possibly assess differences
+in the order of the local and the remote spine, a special column can be shown.
+This is accomplished by clicking the button <i>Show
+Order</i>. The column shows entries like <i>LR:7</i> or <i>L:7/R:8</i>,
+where the former, if displayed with a function, means, that the function is in
+both spines the 7th within its parent-policy. The latter means,
+that the function is the 7th in the <i>L</i>ocal
+spine whereas it is the 8th in the <i>R</i>emote
+spine.</p>
+
+<p>Note that &quot;parallelism&quot; is not affected by new or
+removed components. For example orders like local <i>PolA-PolB-PolC-PolD</i> and remote <i>PolA-PolB-<strong>newPolBC-PolC-PolD</strong></i> would be numbered as
+<i>PolA</i><i>(LR:1)-PolB(LR:2)-<strong>newPolBC</strong>(L:R:3)-PolC(LR:4)-PolD(LR:5).</i></p>
+
+<p>Also note that for a full view of the order you may want to
+show the full spine by clicking the button <i>Release
+Filter</i>.</p>
+
+<p>As it would however be rather cumbersome to watch out for
+order changes in the order-column, policies and functions where the function-
+respectively parameter-order differs in local and remote spine are marked by a
+highlighted (green or red) button at the very left edge of the local spine.
+Differences in the order of policies are indicated by a highlighted button at
+the very left of the heading-row of the local spine.</p>
+
+<h6>Filtering changes</h6>
+
+<p>The merge tool offers, in the left-bottom part of the
+dialog, several options to hide and show different types of changes, with the
+intent to provide the user with a better overview.</p>
+
+<p><i>Remote / Local:</i></p>
+<ul>
+	<li><i>Local and
+	Remote</i>: With this option checked as well local as remote changes are
+	displayed.</li>
+
+	<li><i>Local only</i>:
+	With this option checked only local changes are displayed. For a better
+	understanding note that the displays of the local and remote spine are still
+	synchronised, i.e. show the same policies, functions and parameters. However,
+	if for example a function is changed in the remote version, but not in the
+	local version, this function will not be visible (neither in the local nor in
+	the remote spine).</li>
+
+	<li><i>Remote
+	only</i>: With this option checked only remote changes are displayed, in the
+	same sense as described above for <i>Local
+	only</i>.</li>
+</ul>
+
+<p><i>Type:</i></p>
+<ul>
+	<li><i>Added</i>:
+	Checking this option effects that added policies,
+	functions and parameters are displayed (unless they are out-ruled by a <i>Level</i>- or <i>Remote/Local</i>-filter), while unchecking the option means that added
+	policies are not displayed.</li>
+
+	<li><i>Removed</i>:
+	Checking/unchecking this option effects the same for
+	removed components as described above for added components.</li>
+
+	<li><i>Reordered</i>:
+	Checking/unchecking this option effects the same for policies and function with
+	different function- respectively parameter-order in the two spines as described
+	above for added components.</li>
+
+	<li><i>Changed</i>:
+	In principle checking/unchecking this option effects
+	the same for changed components as described above for added components.
+	However, the filter can be further refined by showing only selected types of
+	changes:</li>
+	<ul>
+		<li><i>All
+		Settings / Selected Settings</i>: If the option <i>All Settings</i> is checked, all components with changes in any setting
+		(name, comment, private, ...) are shown. This can
+		however be restricted to, e.g. only show components where the comment is
+		changed, by unchecking <i>All Settings</i>
+		and therewith enable the check-boxes alongside the single settings. The task is
+		accomplished by unchecking all single-settings except the <i>Comment</i>-setting (and perhaps the <i>Name</i>-setting for a better overview).</li>
+
+		<li><i>All Values
+		/ Selected Values</i>: This option works in the same manner for
+		parameter-values and policy/function-switches per system as described above for
+		<i>Settings</i>.</li>
+	</ul>
+</ul>
+
+
+<p><i>Level:</i></p>
+<ul>
+<li><i>Parameter</i>:
+Selecting this option corresponds in fact to no <i>Level</i>-filter.</li>
+
+<li><i>Function</i>:
+Selecting this option effects that only changes on policy- and function level
+are displayed, i.e. parameter-level changes are hidden.</li>
+
+<li><i>Policy</i>:
+Selecting this option effects that only changes on policy-level are displayed,
+i.e. function- and parameter-level changes are hidden.</li>
+</ul>
+
+<p>Please note that the filters only take effect once the
+button <i>Apply / Update Filter</i> is
+clicked.</p>
+
+<p>As mentioned above, the button <i>Release Filter</i> effects the display of the
+full spine, i.e. suspends all filters.</p>
+
+<h5>Defining the carrying out of the merge</h5>
+
+<p>Initially the merge tool suggests accepting all changes,
+i.e. overtake them into the merged version. This is reflected by green hooks
+and green highlighting. Only if there is a conflict, i.e. a component was
+changed in the local version as well as in the remote version, the local
+version is preferred, i.e. the remote version shows a red cross (or left-arrow)
+and possibly a red highlighting. This default setting can be changed in several
+ways.</p>
+
+<h6>Accepting / rejecting all changes</h6>
+
+<p>In the left-bottom part of the dialog the merge tool offers
+the buttons <i>Accept All</i> and <i>Reject All</i> to accept respectively reject
+all changes. For technical reasons (in context with conflict cases)
+accepting/rejecting all changes can be only done for one version at once. In
+other words, if one wants to accept <i>all</i>,
+i.e. local <i>and</i> remote, changes, one
+needs to firstly activate the option <i>Local</i>,
+then click the respective button, to repeat the same by activating the option <i>Remote</i>.</p>
+
+<p>Still what &quot;all&quot; effectively means depends on the
+option <i>Visible Only</i>. If the option is not activated
+&quot;all&quot; actually means all. However, if the option is activated,
+filters are taken into account, which is described under <i>Effectiveness of filters</i> below.</p>
+
+<p>Accepting all (local or remote) changes may lead to conflicts,
+where the tool needs the user's decision on what to do. For example, if all
+remote changes are to be accepted and a policy's comment was changed in the
+local version as well as in the remote version (i.e. both differ from the
+parent version), and the respective local change is currently set to being
+accepted, there is a conflict that cannot be solved by the tool without further
+information. For such cases, the handling is determined by the options under <i>Conflicts -Prefer ...</i>. If the option <i>Local</i> is selected, the tool will
+automatically keep the acceptance of the local change and not set the remote
+change to accept. If the option <i>Remote</i>
+is selected, the tool will set the remote change to accept and automatically
+reject the local change. If the option <i>Warn</i>
+is selected, the tool issues a warning for each conflict that it is about to
+act as if the option <i>Remote</i> (in case
+of <i>Accept All</i> remote changes) was
+selected and allows the user to refuse this doing.</p>
+
+<h6>Effectiveness of filters</h6>
+
+<p>If the option <i>Visible Only</i> is activated, filters are taken into account. For
+example, assume that the option <i>Added</i>
+is activated only, while the check-boxes for <i>Removed</i>, <i>Reordered</i> and <i>Changed</i> are not ticked. In this case the
+list of changes would only show added components. Respectively clicking for
+example <i>Accept All</i> will only accept
+the addition of components, but not the removal, change or reordering. Note
+however, that no definition set before the clicking of the button will be
+reset, i.e. an already accepted removal would not be changed to rejected.</p>
+
+<p>For clarification, it should also be mentioned that
+&quot;visible&quot; refers to filters and not to actual visibility. That means
+missing visibility due to collapsing has no effect.</p>
+
+<h6>Accepting / rejecting single changes</h6>
+
+<p>Accepting and rejecting of changes can also be fine-tuned to
+single policies, functions and parameters and even to single settings,
+parameter-values and policy/function-switches. For this purpose, the merge tool
+provides context menus.</p>
+
+<p>Right-clicking the change-symbols (plus/minus/pencil or
+hook/cross) left of the changed component opens a context menu with the options
+<i>Accept Changes</i>, <i>Reject Changes</i> and a check-box <i>Visible
+Only</i>. The logic behind this is the same as described under <i>Accepting / rejecting all changes</i>, just
+that the reference is the respective policy, function or parameter (i.e. all
+changed values/switches and settings) instead of <i>all</i>.</p>
+
+<p>Right-clicking the cell of a single change, e.g. the change
+of the value of a parameter within a certain system, offers the same context
+menu, except that the option <i>Visible Only</i> is not available as it does not make sense. Again,
+the logic behind this is the same as described above, just that the reference
+in this case is the single change instead of all changes of the parameter's
+values and settings.</p>
+
+<p>A very similar context menu is offered by right-clicking an
+&quot;order change&quot;, i.e. one of the highlighted buttons at the very left
+edge of the local tree. In this case the context menu offers the options <i>Accept Order</i>, <i>Reject Order</i> and a check-box <i>Include
+Sub-Nodes</i>. Selecting <i>Accept Order</i>
+means that the local order is to be taken as the relevant for the merged
+version. Selecting <i>Reject Order</i> means
+that the local order is rejected and thus that the remote order is taken as the
+relevant for the merged version. Ticking the check-box <i>Include Sub-Nodes</i> effects that the relevant order for
+&quot;children&quot; (functions and parameters in the case of policies;
+parameters in the case of functions) is the same as that for the
+&quot;parent&quot;. This means selecting an order for the button concerning the
+spine (the button alongside the column-headers) implies selecting an order for
+all policies, functions and parameters of the merged version.</p>
+
+<h5>Representation of changes in country settings</h5>
+
+<p>The upper part of the merge dialog displays the
+country-settings of the local (on the left side) and the remote version (right
+of it). Concretely it shows the name of the country (e.g. Austria, Hungary, Romania) and whether the country is &quot;private&quot; or
+not. If these settings are different in the local and the remote version, the
+changed-symbol (pencil) is displayed alongside the setting, together with
+either the accept-symbol (green hook) or the reject-symbol (red
+cross). Clicking this symbol opens a context menu with the options <i>Accept</i> and <i>Reject</i>.</p>
+
+<h5>Interrupting one's work - buttons Save and Close</h5>
+
+<p>If there are many differences between the local and the
+remote version it may take quite some consideration to decide what should go
+into the finally merged version. Therefore, the merge tool provides a <i>Save</i> button for saving all the so far
+taken decisions on accepting and rejecting changes. The merge tool and even the
+whole interface can then be closed without loss of the so far accomplished
+work. Upon the next time the merge tool is opened for the respective country,
+the user interface asks whether the &quot;in-progress merging&quot; should be
+used or not.</p>
+
+<p>Note that opening the merge tool with a saved version also
+reduces the loading time as the comparison of the local and the remote version
+does not have to be repeated.</p>
+
+<p>Also note that the question whether an &quot;in-progress
+merging&quot; is to be used is even asked if the merge tool is closed by the <i>Close</i> button, i.e. accepting/rejecting
+changes is not saved. The user interface then refers to the copies of the
+local-, remote- and parent-version of the country it made at the first opening
+of the merge tool (in a sub-folder of the country folder, called <i>Merge</i>). In this case the comparison of
+versions has to be repeated and loading is not accelerated.</p>
+
+<p>As however these copies in the <i>Merge</i> folder are at risk to being outdated in the sense that the
+local version diverges from the actual country version, the interface performs
+a respective comparison and, if necessary, warns that &quot;the info is possibly
+not up-to-date&quot;.</p>
+
+<h5>Performing the merge - button Apply</h5>
+
+<p>Pressing the <i>Apply</i>
+button will perform the merge by taking the decisions on accepting or rejecting
+changes into account. Once accomplished the user interface shows this merged
+version. All intermediate info (concretely the <i>Merge</i> folder within the country folder) is deleted.</p>
+
+<p>Please note that the tool may show the info that &quot;...
+the local XML-files used for merging are possibly not up-to-date&quot;. This
+happens if the country was changed while merging was in progress (see <i>Interrupting one's work - buttons Save and
+Close</i>). It is up to the user to decide whether she still wants to perform
+the merge.</p>
+
+<p>Finally note that the changes caused by the merge cannot be
+undone by using the undo functionality. However, the user interface produces a
+backup before starting the action, which can be restored via the button <i>Restore</i> in the ribbon <i>Country Tools</i>. For more information see
+(<a href="EM_WW_BackupRestore.htm">Working with EUROMOD - Backup - Restore</a>).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> Technically that means that, for a
+beginning, local and remote version are directly
+compared. A difference between the two is then considered as local change, if
+remote and parent version match and as remote change, if local and parent
+version match. If both, local and remote version, diverge from parent version,
+the change is classified as a &quot;conflict&quot;.</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a> In fact the order may not reflect the
+real one for both spines, as for simplicity reasons it follows the location in
+the XML-file, which is arbitrary and especially for new components frequently
+different from the real order.</p>
+
+</div>
+
+</body>
+
+</html>

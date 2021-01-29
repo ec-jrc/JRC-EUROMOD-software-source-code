@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Command line parameters</title>
+</head>
+
+<body>
+
+<h1>Command line parameters</h1>
+
+<p>There are two ways to run the EUROMOD executable from command line, and both can use either a configuration file or command line parameters to define the run properties:</p>
+<ol>
+	<li>With a set of named parameters <strong>(this is the recommended way)</strong></li>
+	<li>With a set of unnamed parameters</li>
+</ol>
+
+<h4>Running EUROMOD with a set of named parameters</h4>
+<p>This is now the preferred method of calling the executable from command line, as it provides the golden ballance between user-friendliness and flexibility. 
+The syntax for calling the executable with a set of named parameters is:</p>
+
+<p><i>EM_ExecutableCaller &lt;parameters&gt;</i></p>
+
+<p>In this case, the order in which you have to place the parameters is arbitrary. The currently available list of parameters is described in the table below:</p>
+
+<table class="info">
+	<tr>
+		<th>Parameter</th>
+		<th>Usage</th>
+		<th>Comments</th>
+	</tr>
+	<tr>
+		<td><nobr>-config <i>&lt;config_path&gt;</i></nobr></td>
+		<td>Special</td>
+		<td>The path to a configuration file (e.g. -config &quot;<i>&lt;configuration file path&gt;\configuration file name.xml</i>&quot;). <br>If this parameter is 
+		specified, then there is no need to specify any other parameters, as everything else can be specified within the configuration file. You can read more about the 
+		<a href="EM_FS_ConfigurationFile.htm">configuration file</a> in the relevant help section. <br><strong>The usage for the remaining parameters below assume 
+		that the -config parameter is not specified.</strong></td>
+	</tr>
+	<tr class="separate">
+		<td><nobr>-emPath <i>&lt;project_path&gt;</i></nobr></td>
+		<td>Required</td>
+		<td>The path to the EUROMOD project you want to run (e.g. -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot;).</td>
+	</tr>
+	<tr>
+		<td><nobr>-sys <i>&lt;system_name&gt;</i></nobr></td>
+		<td>Required</td>
+		<td>The name of the system you wish to run (e.g. -sys &quot;BE_2014&quot;).</td>
+	</tr>
+	<tr>
+		<td><nobr>-data <i>&lt;dataset_name&gt;</i></nobr></td>
+		<td>Optional</td>
+		<td>The name of the dataset you wish to use (e.g. -data &quot;BE_2015_a1&quot;). If no dataset is given, "the best match" will be used.</td>
+	</tr>
+	<tr>
+		<td><nobr>-outPath <i>&lt;output_path&gt;</i></nobr></td>
+		<td>Optional</td>
+		<td>The folder where you want to write the model output (e.g. -outPath &quot;C:\Euromod\EuromodFiles_I1.0+\Output&quot;).</td>
+	</tr>
+	<tr>
+		<td><nobr>-dataPath <i>&lt;data_path&gt;</i></nobr></td>
+		<td>Optional</td>
+		<td>The folder where you store your input data (e.g. -inPath &quot;C:\Euromod\EuromodFiles_I1.0+\Input&quot;).</td>
+	</tr>
+	<tr>
+		<td><nobr>-addOn <i>&lt;addOn_name&gt;|&lt;add-on-system&gt;</i></nobr></td>
+		<td>Optional</td>
+		<td>This allows you to run an add-on (e.g. -addOn &quot;MTR|MTR_BE&quot;).<br>
+		Note that one can use to parameter for adding as many add-ons as desired.</td>
+	</tr>
+	<tr>
+		<td><nobr>-extSwitch <i>&lt;extension_name&gt;=&lt;value&gt;</nobr></i></td>
+		<td>Optional</td>
+		<td>This allows you to change an extension value (e.g. -extSwitch &quot;BTA_??=off&quot;).<br>
+		Note that one can use the parameter for as many extension value changes as required.</td>
+	</tr>
+	<tr>
+		<td><nobr>-globalPath <i>&lt;global_path&gt;</i></nobr></td>
+		<td>Optional</td>
+		<td>The folder where you store your global files (e.g. -globalPath &quot;C:\Euromod\EuromodFiles_I1.0+\XMLParam\Config\&quot;). 
+		<br>It is useful in cases where you need to store different versions of your country files in different places (e.g. because you are creating reforms from Stata),
+		but your golbal files do not change and you do not want to have to replicate the full project folder structure for each reform.</td>
+	</tr>
+	<tr>
+		<td><nobr>-forceOutputInEuro</nobr></td>
+		<td>Optional</td>
+		<td>This parameter forces the EUROMOD executable to produce all output in Euro.</td>
+	</tr>
+	<tr>
+		<td><nobr>-forceSequentialRun</nobr></td>
+		<td>Optional</td>
+		<td>This parameter forces the EUROMOD executable to use only a single thread to run the model (by default, EUROMOD tries to fully utilise your 
+		CPU by using all available threads).</td>
+	</tr>
+	<tr>
+		<td><nobr>-forceSequentialOutput</nobr></td>
+		<td>Optional</td>
+		<td>This parameter forces the EUROMOD executable to use only a single thread to prepare the output file (while everything else still runs in multiple threads). 
+		It can be useful in cases where RAM is sparse, as it cuts memory usage to almost half, while the total execution time is still much faster than when using -forceSequentialRun.</td>
+	</tr>
+</table>
+
+<p>Some examples for illustration:
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -config &quot;C:\Euromod\EuromodFiles_I1.0+\XMLParam\Temp\EMConfig30aab8ef-ae5b-4601-842c-fdeb67c49116.xml&quot;</i>
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot; -sys BE_2014 -data BE_2015_a1</i>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;(or <i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -data BE_2015_a1 -sys BE_2014 -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot;)</i>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;(or <i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -sys BE_2014 -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot; -data BE_2015_a1)</i>
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot; -sys BE_2014 -data BE_2015_a1 -dataPath &quot;C:\Euromod\ModelData&quot; -outPath &quot;C:\Euromod\OutputFolder&quot;</i>
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot; -sys BE_2014 -data BE_2015_a1 -addOn &quot;MTR|MTR_BE&quot;</i>
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; -emPath &quot;C:\Euromod\EuromodFiles_I1.0+&quot; -sys BE_2014 -data BE_2015_a1 -globalPath &quot;C:\Euromod\EuromodFiles_I1.0+\XMLParam\Config&quot; -forceOutputInEuro</i>
+<br><small>(Note: quotes are only necessary where an argument (e.g. path) contains blanks but it is important to <strong>*not*</strong> end your path with a backslash because this confuses windows!)</small></p>
+
+<p>&nbsp;</p>
+
+<h4>Running EUROMOD with a set of unnamed parameters</h4>
+<p>This simplified way of calling the executable from command line is the old way of running EUROMOD and in this case the <strong>order of parameters is crucial</strong>. 
+Please note that this method is still available for backwards compatibility only, but will likely be phased out in the future so we do not recommend using it.</p>
+
+<p>If you provide the EUROMOD executable with a <strong>single unnamed parameter</strong>, then this is expected to be the path to a configuration file. The syntax for this is:</p>
+<p><i>EM_ExecutableCaller &lt;config_file&gt;</i></p>
+<p>For example: </p>
+<p><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; &quot;C:\Euromod\EuromodFiles_I1.0+\XMLParam\Temp\EMConfig30aab8ef-ae5b-4601-842c-fdeb67c49116.xml&quot;</i></p>
+
+<p><br>If you provide the EUROMOD executable with <strong>three to five unnamed parameters</strong>, then the syntax becomes:</p>
+<p><i>EM_ExecutableCaller &lt;project_path&gt; &lt;system_name&gt; &lt;data_name&gt; [&lt;data_path&gt;] [&lt;output_path&gt;]</i>
+<br>where the default value for &lt;data_path&gt; is &quot;&lt;project_path&gt;\Input&quot;
+<br>and the default value for &lt;output_path&gt; is &quot;&lt;project_path&gt;\Output&quot;</p>
+
+<p>Some examples for illustration:
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; &quot;C:\Euromod\EuromodFiles_I1.0+&quot; BE_2014 BE_2015_a1</i>
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; &quot;C:\Euromod\EuromodFiles_I1.0+&quot; BE_2014 BE_2015_a1 &quot;C:\Euromod\ModelData&quot;</i>
+<br><i>&quot;C:\Program Files\EUROMOD\Executable\EM_ExecutableCaller.exe&quot; &quot;C:\Euromod\EuromodFiles_I1.0+&quot; BE_2014 BE_2015_a1 &quot;C:\Euromod\ModelData&quot; &quot;C:\Euromod\OutputFolder&quot;</i>
+<br><small>(Note: quotes are only necessary where an argument (e.g. path) contains blanks but it is important to <strong>*not*</strong> end your path with a backslash because this confuses windows!)</small></p>
+
+<p>Note that the dataset indicated with <i>data_name</i> must be registered via the <i>Configure Databases</i> dialog. This is necessary for obtaining important data settings like the income year of the data.</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+
+</div>
+
+</body>
+
+</html>

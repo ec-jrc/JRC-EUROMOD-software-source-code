@@ -1,0 +1,2599 @@
+<?xml version="1.0" standalone="yes"?>
+<HouseholdSettings>
+  <xs:schema id="HouseholdSettings" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+    <xs:element name="HouseholdSettings" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:DecimalSeparator=".">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="HouseholdStructure">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ID" type="xs:int" />
+                <xs:element name="ParentID" type="xs:int" minOccurs="0" />
+                <xs:element name="isChecked" type="xs:boolean" minOccurs="0" />
+                <xs:element name="isExpanded" type="xs:boolean" minOccurs="0" />
+                <xs:element name="HouseholdName" type="xs:string" minOccurs="0" />
+                <xs:element name="orderId" type="xs:int" minOccurs="0" />
+                <xs:element name="dataId" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Example_x0020_Household">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="dataId" type="xs:int" />
+                <xs:element name="PersonName" type="xs:string" />
+                <xs:element name="checked" type="xs:boolean" minOccurs="0" />
+                <xs:element name="orderId" type="xs:int" minOccurs="0" />
+                <xs:element name="dag" type="xs:string" minOccurs="0" />
+                <xs:element name="dgn" type="xs:string" minOccurs="0" />
+                <xs:element name="idpartner" type="xs:string" minOccurs="0" />
+                <xs:element name="idfather" type="xs:string" minOccurs="0" />
+                <xs:element name="idmother" type="xs:string" minOccurs="0" />
+                <xs:element name="dms" type="xs:string" minOccurs="0" />
+                <xs:element name="dec" type="xs:string" minOccurs="0" />
+                <xs:element name="deh" type="xs:string" minOccurs="0" />
+                <xs:element name="ddi" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn1" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn1_BE" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn1_UK" type="xs:string" minOccurs="0" />
+                <xs:element name="yem" type="xs:string" minOccurs="0" />
+                <xs:element name="poa" type="xs:string" minOccurs="0" />
+                <xs:element name="yse" type="xs:string" minOccurs="0" />
+                <xs:element name="lhw" type="xs:string" minOccurs="0" />
+                <xs:element name="les" type="xs:string" minOccurs="0" />
+                <xs:element name="ypr" type="xs:string" minOccurs="0" />
+                <xs:element name="ysenr" type="xs:string" minOccurs="0" />
+                <xs:element name="afc" type="xs:string" minOccurs="0" />
+                <xs:element name="aiv" type="xs:string" minOccurs="0" />
+                <xs:element name="aldagar" type="xs:string" minOccurs="0" />
+                <xs:element name="aldagariv" type="xs:string" minOccurs="0" />
+                <xs:element name="aldar" type="xs:string" minOccurs="0" />
+                <xs:element name="aldnaar" type="xs:string" minOccurs="0" />
+                <xs:element name="amolv" type="xs:string" minOccurs="0" />
+                <xs:element name="amoyl" type="xs:string" minOccurs="0" />
+                <xs:element name="amriv" type="xs:string" minOccurs="0" />
+                <xs:element name="amrmv" type="xs:string" minOccurs="0" />
+                <xs:element name="aobiv" type="xs:string" minOccurs="0" />
+                <xs:element name="aoc" type="xs:string" minOccurs="0" />
+                <xs:element name="bac" type="xs:string" minOccurs="0" />
+                <xs:element name="bac00" type="xs:string" minOccurs="0" />
+                <xs:element name="bac01" type="xs:string" minOccurs="0" />
+                <xs:element name="bacot" type="xs:string" minOccurs="0" />
+                <xs:element name="bacpm" type="xs:string" minOccurs="0" />
+                <xs:element name="bca01" type="xs:string" minOccurs="0" />
+                <xs:element name="bca02" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc00" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc01my" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc02my" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc03my" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc04my" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc05" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc05my" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc06" type="xs:string" minOccurs="0" />
+                <xs:element name="bcc06my" type="xs:string" minOccurs="0" />
+                <xs:element name="bcclg" type="xs:string" minOccurs="0" />
+                <xs:element name="bccmy" type="xs:string" minOccurs="0" />
+                <xs:element name="bccnw" type="xs:string" minOccurs="0" />
+                <xs:element name="bccrd" type="xs:string" minOccurs="0" />
+                <xs:element name="bch" type="xs:string" minOccurs="0" />
+                <xs:element name="bch00" type="xs:string" minOccurs="0" />
+                <xs:element name="bchab" type="xs:string" minOccurs="0" />
+                <xs:element name="bcham" type="xs:string" minOccurs="0" />
+                <xs:element name="bchas01" type="xs:string" minOccurs="0" />
+                <xs:element name="bchas02" type="xs:string" minOccurs="0" />
+                <xs:element name="bchas03" type="xs:string" minOccurs="0" />
+                <xs:element name="bchasxc" type="xs:string" minOccurs="0" />
+                <xs:element name="bchba" type="xs:string" minOccurs="0" />
+                <xs:element name="bchbals" type="xs:string" minOccurs="0" />
+                <xs:element name="bchcc" type="xs:string" minOccurs="0" />
+                <xs:element name="bchdi" type="xs:string" minOccurs="0" />
+                <xs:element name="bchdied" type="xs:string" minOccurs="0" />
+                <xs:element name="bched" type="xs:string" minOccurs="0" />
+                <xs:element name="bched01" type="xs:string" minOccurs="0" />
+                <xs:element name="bched02" type="xs:string" minOccurs="0" />
+                <xs:element name="bched03" type="xs:string" minOccurs="0" />
+                <xs:element name="bched04" type="xs:string" minOccurs="0" />
+                <xs:element name="bchlg" type="xs:string" minOccurs="0" />
+                <xs:element name="bchlp" type="xs:string" minOccurs="0" />
+                <xs:element name="bchlp00" type="xs:string" minOccurs="0" />
+                <xs:element name="bchmt" type="xs:string" minOccurs="0" />
+                <xs:element name="bchnm" type="xs:string" minOccurs="0" />
+                <xs:element name="bchor" type="xs:string" minOccurs="0" />
+                <xs:element name="bchot" type="xs:string" minOccurs="0" />
+                <xs:element name="bchpl" type="xs:string" minOccurs="0" />
+                <xs:element name="bchprls" type="xs:string" minOccurs="0" />
+                <xs:element name="bchuc" type="xs:string" minOccurs="0" />
+                <xs:element name="bchunlp" type="xs:string" minOccurs="0" />
+                <xs:element name="bchyc" type="xs:string" minOccurs="0" />
+                <xs:element name="bcrbafh" type="xs:string" minOccurs="0" />
+                <xs:element name="bcrchdi" type="xs:string" minOccurs="0" />
+                <xs:element name="bcrdi" type="xs:string" minOccurs="0" />
+                <xs:element name="bcrsvcc" type="xs:string" minOccurs="0" />
+                <xs:element name="bdi" type="xs:string" minOccurs="0" />
+                <xs:element name="bdica" type="xs:string" minOccurs="0" />
+                <xs:element name="bdicc" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict01" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0109" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0110" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0111" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0112" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0113" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict02" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0209" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0210" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0211" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0212" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0213" type="xs:string" minOccurs="0" />
+                <xs:element name="bdict0214" type="xs:string" minOccurs="0" />
+                <xs:element name="bdictiv01" type="xs:string" minOccurs="0" />
+                <xs:element name="bdimb" type="xs:string" minOccurs="0" />
+                <xs:element name="bdimy" type="xs:string" minOccurs="0" />
+                <xs:element name="bdinc" type="xs:string" minOccurs="0" />
+                <xs:element name="bdioa" type="xs:string" minOccurs="0" />
+                <xs:element name="bdiot" type="xs:string" minOccurs="0" />
+                <xs:element name="bdirw" type="xs:string" minOccurs="0" />
+                <xs:element name="bdisc" type="xs:string" minOccurs="0" />
+                <xs:element name="bdisv" type="xs:string" minOccurs="0" />
+                <xs:element name="bdiwi" type="xs:string" minOccurs="0" />
+                <xs:element name="bdixp" type="xs:string" minOccurs="0" />
+                <xs:element name="bed" type="xs:string" minOccurs="0" />
+                <xs:element name="bed00" type="xs:string" minOccurs="0" />
+                <xs:element name="bedes" type="xs:string" minOccurs="0" />
+                <xs:element name="bedet" type="xs:string" minOccurs="0" />
+                <xs:element name="bedot" type="xs:string" minOccurs="0" />
+                <xs:element name="bedsl" type="xs:string" minOccurs="0" />
+                <xs:element name="bfa" type="xs:string" minOccurs="0" />
+                <xs:element name="bfaam" type="xs:string" minOccurs="0" />
+                <xs:element name="bfaba" type="xs:string" minOccurs="0" />
+                <xs:element name="bfacc" type="xs:string" minOccurs="0" />
+                <xs:element name="bfach00" type="xs:string" minOccurs="0" />
+                <xs:element name="bfached" type="xs:string" minOccurs="0" />
+                <xs:element name="bfachnm" type="xs:string" minOccurs="0" />
+                <xs:element name="bfachot" type="xs:string" minOccurs="0" />
+                <xs:element name="bfacp" type="xs:string" minOccurs="0" />
+                <xs:element name="bfacs" type="xs:string" minOccurs="0" />
+                <xs:element name="bfafp" type="xs:string" minOccurs="0" />
+                <xs:element name="bfalg" type="xs:string" minOccurs="0" />
+                <xs:element name="bfalp" type="xs:string" minOccurs="0" />
+                <xs:element name="bfama" type="xs:string" minOccurs="0" />
+                <xs:element name="bfamh" type="xs:string" minOccurs="0" />
+                <xs:element name="bfamt" type="xs:string" minOccurs="0" />
+                <xs:element name="bfana" type="xs:string" minOccurs="0" />
+                <xs:element name="bfaot" type="xs:string" minOccurs="0" />
+                <xs:element name="bfapl" type="xs:string" minOccurs="0" />
+                <xs:element name="bfapt" type="xs:string" minOccurs="0" />
+                <xs:element name="bfauc" type="xs:string" minOccurs="0" />
+                <xs:element name="bfawk" type="xs:string" minOccurs="0" />
+                <xs:element name="bhl" type="xs:string" minOccurs="0" />
+                <xs:element name="bhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bhl01" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlac" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlmt" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlmy" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlot" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlps" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlwk" type="xs:string" minOccurs="0" />
+                <xs:element name="bhlxp" type="xs:string" minOccurs="0" />
+                <xs:element name="bho" type="xs:string" minOccurs="0" />
+                <xs:element name="bho00" type="xs:string" minOccurs="0" />
+                <xs:element name="bho01" type="xs:string" minOccurs="0" />
+                <xs:element name="bho02" type="xs:string" minOccurs="0" />
+                <xs:element name="bhoht" type="xs:string" minOccurs="0" />
+                <xs:element name="bhomy" type="xs:string" minOccurs="0" />
+                <xs:element name="bhoot" type="xs:string" minOccurs="0" />
+                <xs:element name="bhope" type="xs:string" minOccurs="0" />
+                <xs:element name="bhosd" type="xs:string" minOccurs="0" />
+                <xs:element name="bhotn" type="xs:string" minOccurs="0" />
+                <xs:element name="bhout" type="xs:string" minOccurs="0" />
+                <xs:element name="bma" type="xs:string" minOccurs="0" />
+                <xs:element name="bmaab" type="xs:string" minOccurs="0" />
+                <xs:element name="bmaba" type="xs:string" minOccurs="0" />
+                <xs:element name="bmact" type="xs:string" minOccurs="0" />
+                <xs:element name="bmaer" type="xs:string" minOccurs="0" />
+                <xs:element name="bmals" type="xs:string" minOccurs="0" />
+                <xs:element name="bmamy" type="xs:string" minOccurs="0" />
+                <xs:element name="bmana" type="xs:string" minOccurs="0" />
+                <xs:element name="bmanc" type="xs:string" minOccurs="0" />
+                <xs:element name="bmapr" type="xs:string" minOccurs="0" />
+                <xs:element name="bmase" type="xs:string" minOccurs="0" />
+                <xs:element name="bmawk" type="xs:string" minOccurs="0" />
+                <xs:element name="bml" type="xs:string" minOccurs="0" />
+                <xs:element name="bmu" type="xs:string" minOccurs="0" />
+                <xs:element name="boact" type="xs:string" minOccurs="0" />
+                <xs:element name="boactcm" type="xs:string" minOccurs="0" />
+                <xs:element name="boaht" type="xs:string" minOccurs="0" />
+                <xs:element name="boamt" type="xs:string" minOccurs="0" />
+                <xs:element name="boanc" type="xs:string" minOccurs="0" />
+                <xs:element name="boawr" type="xs:string" minOccurs="0" />
+                <xs:element name="bot" type="xs:string" minOccurs="0" />
+                <xs:element name="botre" type="xs:string" minOccurs="0" />
+                <xs:element name="bpl" type="xs:string" minOccurs="0" />
+                <xs:element name="bplct" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00" type="xs:string" minOccurs="0" />
+                <xs:element name="bsaab" type="xs:string" minOccurs="0" />
+                <xs:element name="bsaam" type="xs:string" minOccurs="0" />
+                <xs:element name="bsacm" type="xs:string" minOccurs="0" />
+                <xs:element name="bsafu" type="xs:string" minOccurs="0" />
+                <xs:element name="bsaht" type="xs:string" minOccurs="0" />
+                <xs:element name="bsals" type="xs:string" minOccurs="0" />
+                <xs:element name="bsamm" type="xs:string" minOccurs="0" />
+                <xs:element name="bsaoa" type="xs:string" minOccurs="0" />
+                <xs:element name="bsaot" type="xs:string" minOccurs="0" />
+                <xs:element name="bsapm" type="xs:string" minOccurs="0" />
+                <xs:element name="bsapmot" type="xs:string" minOccurs="0" />
+                <xs:element name="bsapu" type="xs:string" minOccurs="0" />
+                <xs:element name="bsatm" type="xs:string" minOccurs="0" />
+                <xs:element name="bsatmpb" type="xs:string" minOccurs="0" />
+                <xs:element name="bsu" type="xs:string" minOccurs="0" />
+                <xs:element name="bsuwd" type="xs:string" minOccurs="0" />
+                <xs:element name="buncm" type="xs:string" minOccurs="0" />
+                <xs:element name="bunct01" type="xs:string" minOccurs="0" />
+                <xs:element name="bunctmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="bunls" type="xs:string" minOccurs="0" />
+                <xs:element name="bunmt" type="xs:string" minOccurs="0" />
+                <xs:element name="bunmtmy" type="xs:string" minOccurs="0" />
+                <xs:element name="bunnc" type="xs:string" minOccurs="0" />
+                <xs:element name="bunot" type="xs:string" minOccurs="0" />
+                <xs:element name="bunpe01" type="xs:string" minOccurs="0" />
+                <xs:element name="bunpe02" type="xs:string" minOccurs="0" />
+                <xs:element name="bunst" type="xs:string" minOccurs="0" />
+                <xs:element name="buntr" type="xs:string" minOccurs="0" />
+                <xs:element name="bwkmt" type="xs:string" minOccurs="0" />
+                <xs:element name="byr" type="xs:string" minOccurs="0" />
+                <xs:element name="dcz" type="xs:string" minOccurs="0" />
+                <xs:element name="ddilv" type="xs:string" minOccurs="0" />
+                <xs:element name="ddita" type="xs:string" minOccurs="0" />
+                <xs:element name="dqb" type="xs:string" minOccurs="0" />
+                <xs:element name="drgur" type="xs:string" minOccurs="0" />
+                <xs:element name="drgur00" type="xs:string" minOccurs="0" />
+                <xs:element name="ked" type="xs:string" minOccurs="0" />
+                <xs:element name="kfb" type="xs:string" minOccurs="0" />
+                <xs:element name="kfbcc" type="xs:string" minOccurs="0" />
+                <xs:element name="khl" type="xs:string" minOccurs="0" />
+                <xs:element name="khooo" type="xs:string" minOccurs="0" />
+                <xs:element name="kivho" type="xs:string" minOccurs="0" />
+                <xs:element name="lcd01" type="xs:string" minOccurs="0" />
+                <xs:element name="lcd02" type="xs:string" minOccurs="0" />
+                <xs:element name="lcd03" type="xs:string" minOccurs="0" />
+                <xs:element name="lcd04" type="xs:string" minOccurs="0" />
+                <xs:element name="lcd05" type="xs:string" minOccurs="0" />
+                <xs:element name="lcs" type="xs:string" minOccurs="0" />
+                <xs:element name="lfs" type="xs:string" minOccurs="0" />
+                <xs:element name="lindi" type="xs:string" minOccurs="0" />
+                <xs:element name="loc" type="xs:string" minOccurs="0" />
+                <xs:element name="lochz" type="xs:string" minOccurs="0" />
+                <xs:element name="lptmy" type="xs:string" minOccurs="0" />
+                <xs:element name="pdi" type="xs:string" minOccurs="0" />
+                <xs:element name="pdi00" type="xs:string" minOccurs="0" />
+                <xs:element name="pdica" type="xs:string" minOccurs="0" />
+                <xs:element name="pdida" type="xs:string" minOccurs="0" />
+                <xs:element name="pdimy" type="xs:string" minOccurs="0" />
+                <xs:element name="pdinc" type="xs:string" minOccurs="0" />
+                <xs:element name="pdint" type="xs:string" minOccurs="0" />
+                <xs:element name="pdinw" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiot" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiss" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiss01" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiss02" type="xs:string" minOccurs="0" />
+                <xs:element name="pditx" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiuc" type="xs:string" minOccurs="0" />
+                <xs:element name="pfa" type="xs:string" minOccurs="0" />
+                <xs:element name="phl" type="xs:string" minOccurs="0" />
+                <xs:element name="phlmy" type="xs:string" minOccurs="0" />
+                <xs:element name="pls" type="xs:string" minOccurs="0" />
+                <xs:element name="poaca" type="xs:string" minOccurs="0" />
+                <xs:element name="poafr" type="xs:string" minOccurs="0" />
+                <xs:element name="poals" type="xs:string" minOccurs="0" />
+                <xs:element name="poaml" type="xs:string" minOccurs="0" />
+                <xs:element name="poamr" type="xs:string" minOccurs="0" />
+                <xs:element name="poamt" type="xs:string" minOccurs="0" />
+                <xs:element name="poanc" type="xs:string" minOccurs="0" />
+                <xs:element name="poaot" type="xs:string" minOccurs="0" />
+                <xs:element name="poaps01" type="xs:string" minOccurs="0" />
+                <xs:element name="poaps02" type="xs:string" minOccurs="0" />
+                <xs:element name="poapu" type="xs:string" minOccurs="0" />
+                <xs:element name="poawr" type="xs:string" minOccurs="0" />
+                <xs:element name="poaxp" type="xs:string" minOccurs="0" />
+                <xs:element name="powpt" type="xs:string" minOccurs="0" />
+                <xs:element name="psact" type="xs:string" minOccurs="0" />
+                <xs:element name="psu" type="xs:string" minOccurs="0" />
+                <xs:element name="psu00" type="xs:string" minOccurs="0" />
+                <xs:element name="psumy" type="xs:string" minOccurs="0" />
+                <xs:element name="psuor" type="xs:string" minOccurs="0" />
+                <xs:element name="psuot" type="xs:string" minOccurs="0" />
+                <xs:element name="psups" type="xs:string" minOccurs="0" />
+                <xs:element name="psupu" type="xs:string" minOccurs="0" />
+                <xs:element name="psuss" type="xs:string" minOccurs="0" />
+                <xs:element name="psutx" type="xs:string" minOccurs="0" />
+                <xs:element name="psuwd" type="xs:string" minOccurs="0" />
+                <xs:element name="psuwd00" type="xs:string" minOccurs="0" />
+                <xs:element name="psuwdcm" type="xs:string" minOccurs="0" />
+                <xs:element name="psuwdct" type="xs:string" minOccurs="0" />
+                <xs:element name="psuwdnc" type="xs:string" minOccurs="0" />
+                <xs:element name="pxp" type="xs:string" minOccurs="0" />
+                <xs:element name="pxp00" type="xs:string" minOccurs="0" />
+                <xs:element name="pxpot" type="xs:string" minOccurs="0" />
+                <xs:element name="tpr" type="xs:string" minOccurs="0" />
+                <xs:element name="xcc" type="xs:string" minOccurs="0" />
+                <xs:element name="xcd" type="xs:string" minOccurs="0" />
+                <xs:element name="xched" type="xs:string" minOccurs="0" />
+                <xs:element name="xcmie" type="xs:string" minOccurs="0" />
+                <xs:element name="xed" type="xs:string" minOccurs="0" />
+                <xs:element name="xhchm" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcnhrt" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcot" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcrh" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcsc" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcscel" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcscht" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcscrf" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcscwt" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl01" type="xs:string" minOccurs="0" />
+                <xs:element name="xht" type="xs:string" minOccurs="0" />
+                <xs:element name="xishl" type="xs:string" minOccurs="0" />
+                <xs:element name="xislf" type="xs:string" minOccurs="0" />
+                <xs:element name="xmp" type="xs:string" minOccurs="0" />
+                <xs:element name="xmp00" type="xs:string" minOccurs="0" />
+                <xs:element name="xmpam" type="xs:string" minOccurs="0" />
+                <xs:element name="xmpot" type="xs:string" minOccurs="0" />
+                <xs:element name="xog" type="xs:string" minOccurs="0" />
+                <xs:element name="xpp" type="xs:string" minOccurs="0" />
+                <xs:element name="xuf" type="xs:string" minOccurs="0" />
+                <xs:element name="yag" type="xs:string" minOccurs="0" />
+                <xs:element name="yag01" type="xs:string" minOccurs="0" />
+                <xs:element name="yag02" type="xs:string" minOccurs="0" />
+                <xs:element name="yaj" type="xs:string" minOccurs="0" />
+                <xs:element name="yemab" type="xs:string" minOccurs="0" />
+                <xs:element name="yemaj" type="xs:string" minOccurs="0" />
+                <xs:element name="yemcs" type="xs:string" minOccurs="0" />
+                <xs:element name="yemhl" type="xs:string" minOccurs="0" />
+                <xs:element name="yemnr" type="xs:string" minOccurs="0" />
+                <xs:element name="yemnt" type="xs:string" minOccurs="0" />
+                <xs:element name="yemot" type="xs:string" minOccurs="0" />
+                <xs:element name="yempv01" type="xs:string" minOccurs="0" />
+                <xs:element name="yemtj" type="xs:string" minOccurs="0" />
+                <xs:element name="yemxp" type="xs:string" minOccurs="0" />
+                <xs:element name="yfb00" type="xs:string" minOccurs="0" />
+                <xs:element name="yivwg01" type="xs:string" minOccurs="0" />
+                <xs:element name="yivwg02" type="xs:string" minOccurs="0" />
+                <xs:element name="yiy" type="xs:string" minOccurs="0" />
+                <xs:element name="yiy00" type="xs:string" minOccurs="0" />
+                <xs:element name="yiydv" type="xs:string" minOccurs="0" />
+                <xs:element name="yiyit" type="xs:string" minOccurs="0" />
+                <xs:element name="yiyitdp" type="xs:string" minOccurs="0" />
+                <xs:element name="yiyitob" type="xs:string" minOccurs="0" />
+                <xs:element name="yiyitsb" type="xs:string" minOccurs="0" />
+                <xs:element name="yiynt" type="xs:string" minOccurs="0" />
+                <xs:element name="yiyot" type="xs:string" minOccurs="0" />
+                <xs:element name="yiytx" type="xs:string" minOccurs="0" />
+                <xs:element name="yiytx00" type="xs:string" minOccurs="0" />
+                <xs:element name="yiytx01" type="xs:string" minOccurs="0" />
+                <xs:element name="yls" type="xs:string" minOccurs="0" />
+                <xs:element name="ymp" type="xs:string" minOccurs="0" />
+                <xs:element name="yot" type="xs:string" minOccurs="0" />
+                <xs:element name="yot01" type="xs:string" minOccurs="0" />
+                <xs:element name="yot02" type="xs:string" minOccurs="0" />
+                <xs:element name="ypp" type="xs:string" minOccurs="0" />
+                <xs:element name="ypp01" type="xs:string" minOccurs="0" />
+                <xs:element name="ypp02" type="xs:string" minOccurs="0" />
+                <xs:element name="yprld" type="xs:string" minOccurs="0" />
+                <xs:element name="yprmr" type="xs:string" minOccurs="0" />
+                <xs:element name="yprnt" type="xs:string" minOccurs="0" />
+                <xs:element name="yprro" type="xs:string" minOccurs="0" />
+                <xs:element name="yprrt" type="xs:string" minOccurs="0" />
+                <xs:element name="yprtx" type="xs:string" minOccurs="0" />
+                <xs:element name="ypt" type="xs:string" minOccurs="0" />
+                <xs:element name="ypt00" type="xs:string" minOccurs="0" />
+                <xs:element name="yptmp" type="xs:string" minOccurs="0" />
+                <xs:element name="yptmpnt" type="xs:string" minOccurs="0" />
+                <xs:element name="yptmptx" type="xs:string" minOccurs="0" />
+                <xs:element name="yptot" type="xs:string" minOccurs="0" />
+                <xs:element name="yseag" type="xs:string" minOccurs="0" />
+                <xs:element name="ysebs" type="xs:string" minOccurs="0" />
+                <xs:element name="yseil" type="xs:string" minOccurs="0" />
+                <xs:element name="ysena" type="xs:string" minOccurs="0" />
+                <xs:element name="yst" type="xs:string" minOccurs="0" />
+                <xs:element name="ysv" type="xs:string" minOccurs="0" />
+                <xs:element name="yunsv" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtp" type="xs:string" minOccurs="0" />
+                <xs:element name="bcctuyn" type="xs:string" minOccurs="0" />
+                <xs:element name="bchdiyn" type="xs:string" minOccurs="0" />
+                <xs:element name="bhoen1130" type="xs:string" minOccurs="0" />
+                <xs:element name="bhoen30" type="xs:string" minOccurs="0" />
+                <xs:element name="bhoen50" type="xs:string" minOccurs="0" />
+                <xs:element name="bunctmt" type="xs:string" minOccurs="0" />
+                <xs:element name="bunncmt" type="xs:string" minOccurs="0" />
+                <xs:element name="bunncmy" type="xs:string" minOccurs="0" />
+                <xs:element name="ddipd" type="xs:string" minOccurs="0" />
+                <xs:element name="ddipd00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmp" type="xs:string" minOccurs="0" />
+                <xs:element name="dmsyy03" type="xs:string" minOccurs="0" />
+                <xs:element name="l01" type="xs:string" minOccurs="0" />
+                <xs:element name="l02" type="xs:string" minOccurs="0" />
+                <xs:element name="lap" type="xs:string" minOccurs="0" />
+                <xs:element name="lap00" type="xs:string" minOccurs="0" />
+                <xs:element name="lbl" type="xs:string" minOccurs="0" />
+                <xs:element name="lcr" type="xs:string" minOccurs="0" />
+                <xs:element name="lcr01" type="xs:string" minOccurs="0" />
+                <xs:element name="lcs10" type="xs:string" minOccurs="0" />
+                <xs:element name="lct" type="xs:string" minOccurs="0" />
+                <xs:element name="lemiw" type="xs:string" minOccurs="0" />
+                <xs:element name="lhw00" type="xs:string" minOccurs="0" />
+                <xs:element name="lhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="lhwiv00" type="xs:string" minOccurs="0" />
+                <xs:element name="lhwiv01" type="xs:string" minOccurs="0" />
+                <xs:element name="lim" type="xs:string" minOccurs="0" />
+                <xs:element name="limiv" type="xs:string" minOccurs="0" />
+                <xs:element name="liwivwh" type="xs:string" minOccurs="0" />
+                <xs:element name="lle" type="xs:string" minOccurs="0" />
+                <xs:element name="lpf" type="xs:string" minOccurs="0" />
+                <xs:element name="lpm01" type="xs:string" minOccurs="0" />
+                <xs:element name="lrg" type="xs:string" minOccurs="0" />
+                <xs:element name="lsdmy" type="xs:string" minOccurs="0" />
+                <xs:element name="lseor" type="xs:string" minOccurs="0" />
+                <xs:element name="lsepf" type="xs:string" minOccurs="0" />
+                <xs:element name="poa01" type="xs:string" minOccurs="0" />
+                <xs:element name="poa02" type="xs:string" minOccurs="0" />
+                <xs:element name="poa03" type="xs:string" minOccurs="0" />
+                <xs:element name="poaab" type="xs:string" minOccurs="0" />
+                <xs:element name="poacc" type="xs:string" minOccurs="0" />
+                <xs:element name="poacm" type="xs:string" minOccurs="0" />
+                <xs:element name="poacmdi" type="xs:string" minOccurs="0" />
+                <xs:element name="poacmoa" type="xs:string" minOccurs="0" />
+                <xs:element name="poacmsu" type="xs:string" minOccurs="0" />
+                <xs:element name="poacs" type="xs:string" minOccurs="0" />
+                <xs:element name="poant" type="xs:string" minOccurs="0" />
+                <xs:element name="poasp" type="xs:string" minOccurs="0" />
+                <xs:element name="poass" type="xs:string" minOccurs="0" />
+                <xs:element name="xhc00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcmo" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcmomc" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcmomi" type="xs:string" minOccurs="0" />
+                <xs:element name="xivhcrt" type="xs:string" minOccurs="0" />
+                <xs:element name="yem02" type="xs:string" minOccurs="0" />
+                <xs:element name="yse01" type="xs:string" minOccurs="0" />
+                <xs:element name="yseev" type="xs:string" minOccurs="0" />
+                <xs:element name="ysetx" type="xs:string" minOccurs="0" />
+                <xs:element name="drg01_FR" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn1_CZ" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn1_PL" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2_CZ" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2_ES" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2_IT" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2_PL" type="xs:string" minOccurs="0" />
+                <xs:element name="lpm_EE" type="xs:string" minOccurs="0" />
+                <xs:element name="lpm_EL" type="xs:string" minOccurs="0" />
+                <xs:element name="lcl_IT" type="xs:string" minOccurs="0" />
+                <xs:element name="lcl_AT" type="xs:string" minOccurs="0" />
+                <xs:element name="lse00_HU" type="xs:string" minOccurs="0" />
+                <xs:element name="lse00_SI" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_EE" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_EL" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_PL" type="xs:string" minOccurs="0" />
+                <xs:element name="tpceepx_UK" type="xs:string" minOccurs="0" />
+                <xs:element name="tpceepx_IE" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh" type="xs:string" minOccurs="0" />
+                <xs:element name="xhcrt" type="xs:string" minOccurs="0" />
+                <xs:element name="yempv" type="xs:string" minOccurs="0" />
+                <xs:element name="amrrm" type="xs:string" minOccurs="0" />
+                <xs:element name="ddi01" type="xs:string" minOccurs="0" />
+                <xs:element name="ddi02" type="xs:string" minOccurs="0" />
+                <xs:element name="tintcho" type="xs:string" minOccurs="0" />
+                <xs:element name="yem01" type="xs:string" minOccurs="0" />
+                <xs:element name="yemiv" type="xs:string" minOccurs="0" />
+                <xs:element name="yseiv" type="xs:string" minOccurs="0" />
+                <xs:element name="drg01" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2" type="xs:string" minOccurs="0" />
+                <xs:element name="lpm" type="xs:string" minOccurs="0" />
+                <xs:element name="lcl" type="xs:string" minOccurs="0" />
+                <xs:element name="lse00" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar" type="xs:string" minOccurs="0" />
+                <xs:element name="tpceepx" type="xs:string" minOccurs="0" />
+                <xs:element name="lcl_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="dmsyy04" type="xs:string" minOccurs="0" />
+                <xs:element name="dmb" type="xs:string" minOccurs="0" />
+                <xs:element name="ysenr00" type="xs:string" minOccurs="0" />
+                <xs:element name="ysenr01" type="xs:string" minOccurs="0" />
+                <xs:element name="ysere01" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiac" type="xs:string" minOccurs="0" />
+                <xs:element name="pdiwr" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn01" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_BG" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_DE" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_EE" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_FR" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_IE" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_NL" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_PT" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_SI" type="xs:string" minOccurs="0" />
+                <xs:element name="bsa00_SK" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_CY" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_DK" type="xs:string" minOccurs="0" />
+                <xs:element name="bccot_AT" type="xs:string" minOccurs="0" />
+                <xs:element name="bcbplcs_DK" type="xs:string" minOccurs="0" />
+                <xs:element name="pdica_DE" type="xs:string" minOccurs="0" />
+                <xs:element name="dcc_DE" type="xs:string" minOccurs="0" />
+                <xs:element name="twl" type="xs:string" minOccurs="0" />
+                <xs:element name="bcbma01_NL" type="xs:string" minOccurs="0" />
+                <xs:element name="bcbma02_NL" type="xs:string" minOccurs="0" />
+                <xs:element name="yseub_IT" type="xs:string" minOccurs="0" />
+                <xs:element name="yseib_IT" type="xs:string" minOccurs="0" />
+                <xs:element name="pdica_FI" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//HouseholdStructure" />
+        <xs:field xpath="ID" />
+      </xs:unique>
+      <xs:unique name="Example_x0020_Household_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//Example_x0020_Household" />
+        <xs:field xpath="dataId" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <HouseholdStructure>
+    <ID>143230940</ID>
+    <ParentID>-1</ParentID>
+    <isChecked>true</isChecked>
+    <isExpanded>true</isExpanded>
+    <HouseholdName>Example Household</HouseholdName>
+    <orderId>0</orderId>
+    <dataId>143230940</dataId>
+  </HouseholdStructure>
+  <HouseholdStructure>
+    <ID>1215819353</ID>
+    <ParentID>143230940</ParentID>
+    <isChecked>true</isChecked>
+    <isExpanded>false</isExpanded>
+    <HouseholdName>Adult1</HouseholdName>
+    <orderId>0</orderId>
+    <dataId>1729580931</dataId>
+  </HouseholdStructure>
+  <HouseholdStructure>
+    <ID>949382252</ID>
+    <ParentID>143230940</ParentID>
+    <isChecked>true</isChecked>
+    <isExpanded>false</isExpanded>
+    <HouseholdName>Adult2</HouseholdName>
+    <orderId>1</orderId>
+    <dataId>1537426458</dataId>
+  </HouseholdStructure>
+  <HouseholdStructure>
+    <ID>1244505704</ID>
+    <ParentID>143230940</ParentID>
+    <isChecked>true</isChecked>
+    <isExpanded>false</isExpanded>
+    <HouseholdName>Child1</HouseholdName>
+    <orderId>2</orderId>
+    <dataId>1894605218</dataId>
+  </HouseholdStructure>
+  <HouseholdStructure>
+    <ID>746959858</ID>
+    <ParentID>143230940</ParentID>
+    <isChecked>true</isChecked>
+    <isExpanded>false</isExpanded>
+    <HouseholdName>Child2</HouseholdName>
+    <orderId>3</orderId>
+    <dataId>1408796238</dataId>
+  </HouseholdStructure>
+  <Example_x0020_Household>
+    <dataId>1729580931</dataId>
+    <PersonName>Adult1</PersonName>
+    <checked>true</checked>
+    <orderId>0</orderId>
+    <dag>Value|RefTable_1927503380|40|False|50|1</dag>
+    <dgn>1</dgn>
+    <idpartner>1537426458</idpartner>
+    <idfather>0</idfather>
+    <idmother>0</idmother>
+    <dms>2</dms>
+    <dec>0</dec>
+    <deh>4</deh>
+    <ddi>0</ddi>
+    <drgn1_BE>1</drgn1_BE>
+    <drgn1_UK>7</drgn1_UK>
+    <yem>Value|RefTable_1188845774|1000|False|0|0</yem>
+    <poa>Value|RefTable_1188845774|0|False||</poa>
+    <yse>Value|RefTable_1188845774|0|False|0|0</yse>
+    <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
+    <les>3</les>
+    <ypr>Value|RefTable_1188845774|0|False|0|0</ypr>
+    <ysenr>Value|RefTable_1188845774|0|False|0|0</ysenr>
+    <afc>Value|RefTable_1188845774|0|False|0|0</afc>
+    <aiv>Value|RefTable_1188845774|0|False|0|0</aiv>
+    <aldagar>Value|RefTable_1927503380|0|False|0|0</aldagar>
+    <aldagariv>Value|RefTable_1927503380|0|False|0|0</aldagariv>
+    <aldar>Value|RefTable_1927503380|0|False|0|0</aldar>
+    <aldnaar>Value|RefTable_1927503380|0|False|0|0</aldnaar>
+    <amolv>Value|RefTable_1188845774|0|False|0|0</amolv>
+    <amoyl>Value|RefTable_1927503380|0|False|0|0</amoyl>
+    <amriv>Value|RefTable_1188845774|0|False|0|0</amriv>
+    <amrmv>Value|RefTable_1188845774|0|False|0|0</amrmv>
+    <aobiv>Value|RefTable_1188845774|0|False|0|0</aobiv>
+    <aoc>Value|RefTable_1188845774|0|False|0|0</aoc>
+    <bac>Value|RefTable_1188845774|0|False|0|0</bac>
+    <bac00>Value|RefTable_1188845774|0|False|0|0</bac00>
+    <bac01>Value|RefTable_1188845774|0|False|0|0</bac01>
+    <bacot>Value|RefTable_1188845774|0|False|0|0</bacot>
+    <bacpm>Value|RefTable_1188845774|0|False|0|0</bacpm>
+    <bca01>Value|RefTable_1188845774|0|False|0|0</bca01>
+    <bca02>Value|RefTable_1188845774|0|False|0|0</bca02>
+    <bcc>Value|RefTable_1188845774|0|False|0|0</bcc>
+    <bcc00>Value|RefTable_1188845774|0|False|0|0</bcc00>
+    <bcc01my>Value|RefTable_1927503380|0|False|0|0</bcc01my>
+    <bcc02my>Value|RefTable_1927503380|0|False|0|0</bcc02my>
+    <bcc03my>Value|RefTable_1927503380|0|False|0|0</bcc03my>
+    <bcc04my>Value|RefTable_1927503380|0|False|0|0</bcc04my>
+    <bcc05>Value|RefTable_1188845774|0|False|0|0</bcc05>
+    <bcc05my>Value|RefTable_1927503380|0|False|0|0</bcc05my>
+    <bcc06>Value|RefTable_1188845774|0|False|0|0</bcc06>
+    <bcc06my>Value|RefTable_1927503380|0|False|0|0</bcc06my>
+    <bcclg>Value|RefTable_1188845774|0|False|0|0</bcclg>
+    <bccmy>Value|RefTable_1927503380|0|False|0|0</bccmy>
+    <bccnw>Value|RefTable_1188845774|0|False|0|0</bccnw>
+    <bccrd>Value|RefTable_1188845774|0|False|0|0</bccrd>
+    <bch>Value|RefTable_1188845774|0|False|0|0</bch>
+    <bch00>Value|RefTable_1188845774|0|False|0|0</bch00>
+    <bchab>Value|RefTable_1188845774|0|False|0|0</bchab>
+    <bcham>Value|RefTable_1188845774|0|False|0|0</bcham>
+    <bchas01>Value|RefTable_1188845774|0|False|0|0</bchas01>
+    <bchas02>Value|RefTable_1188845774|0|False|0|0</bchas02>
+    <bchas03>Value|RefTable_1188845774|0|False|0|0</bchas03>
+    <bchasxc>Value|RefTable_1188845774|0|False|0|0</bchasxc>
+    <bchba>Value|RefTable_1188845774|0|False|0|0</bchba>
+    <bchbals>Value|RefTable_1188845774|0|False|0|0</bchbals>
+    <bchcc>Value|RefTable_1188845774|0|False|0|0</bchcc>
+    <bchdi>Value|RefTable_1188845774|0|False|0|0</bchdi>
+    <bchdied>Value|RefTable_1188845774|0|False|0|0</bchdied>
+    <bched>Value|RefTable_1188845774|0|False|0|0</bched>
+    <bched01>Value|RefTable_1188845774|0|False|0|0</bched01>
+    <bched02>Value|RefTable_1188845774|0|False|0|0</bched02>
+    <bched03>Value|RefTable_1188845774|0|False|0|0</bched03>
+    <bched04>Value|RefTable_1188845774|0|False|0|0</bched04>
+    <bchlg>Value|RefTable_1188845774|0|False|0|0</bchlg>
+    <bchlp>Value|RefTable_1188845774|0|False|0|0</bchlp>
+    <bchlp00>Value|RefTable_1188845774|0|False|0|0</bchlp00>
+    <bchmt>Value|RefTable_1188845774|0|False|0|0</bchmt>
+    <bchnm>Value|RefTable_1188845774|0|False|0|0</bchnm>
+    <bchor>Value|RefTable_1188845774|0|False|0|0</bchor>
+    <bchot>Value|RefTable_1188845774|0|False|0|0</bchot>
+    <bchpl>Value|RefTable_1188845774|0|False|0|0</bchpl>
+    <bchprls>Value|RefTable_1188845774|0|False|0|0</bchprls>
+    <bchuc>Value|RefTable_1188845774|0|False|0|0</bchuc>
+    <bchunlp>Value|RefTable_1188845774|0|False|0|0</bchunlp>
+    <bchyc>Value|RefTable_1188845774|0|False|0|0</bchyc>
+    <bcrbafh>Value|RefTable_1188845774|0|False|0|0</bcrbafh>
+    <bcrchdi>Value|RefTable_1188845774|0|False|0|0</bcrchdi>
+    <bcrdi>Value|RefTable_1188845774|0|False|0|0</bcrdi>
+    <bcrsvcc>Value|RefTable_1188845774|0|False|0|0</bcrsvcc>
+    <bdi>Value|RefTable_1188845774|0|False|0|0</bdi>
+    <bdica>Value|RefTable_1188845774|0|False|0|0</bdica>
+    <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
+    <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
+    <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
+    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
+    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
+    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
+    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
+    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
+    <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
+    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
+    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
+    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
+    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
+    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
+    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
+    <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
+    <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
+    <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
+    <bdinc>Value|RefTable_1188845774|0|False|0|0</bdinc>
+    <bdioa>Value|RefTable_1188845774|0|False|0|0</bdioa>
+    <bdiot>Value|RefTable_1188845774|0|False|0|0</bdiot>
+    <bdirw>Value|RefTable_1188845774|0|False|0|0</bdirw>
+    <bdisc>Value|RefTable_1188845774|0|False|0|0</bdisc>
+    <bdisv>Value|RefTable_1188845774|0|False|0|0</bdisv>
+    <bdiwi>Value|RefTable_1188845774|0|False|0|0</bdiwi>
+    <bdixp>Value|RefTable_1188845774|0|False|0|0</bdixp>
+    <bed>Value|RefTable_1188845774|0|False|0|0</bed>
+    <bed00>Value|RefTable_1188845774|0|False|0|0</bed00>
+    <bedes>Value|RefTable_1188845774|0|False|0|0</bedes>
+    <bedet>Value|RefTable_1188845774|0|False|0|0</bedet>
+    <bedot>Value|RefTable_1188845774|0|False|0|0</bedot>
+    <bedsl>Value|RefTable_1188845774|0|False|0|0</bedsl>
+    <bfa>Value|RefTable_1188845774|0|False|0|0</bfa>
+    <bfaam>Value|RefTable_1188845774|0|False|0|0</bfaam>
+    <bfaba>Value|RefTable_1188845774|0|False|0|0</bfaba>
+    <bfacc>Value|RefTable_1188845774|0|False|0|0</bfacc>
+    <bfach00>Value|RefTable_1188845774|0|False|0|0</bfach00>
+    <bfached>Value|RefTable_1188845774|0|False|0|0</bfached>
+    <bfachnm>Value|RefTable_1188845774|0|False|0|0</bfachnm>
+    <bfachot>Value|RefTable_1188845774|0|False|0|0</bfachot>
+    <bfacp>Value|RefTable_1188845774|0|False|0|0</bfacp>
+    <bfacs>Value|RefTable_1188845774|0|False|0|0</bfacs>
+    <bfafp>Value|RefTable_1188845774|0|False|0|0</bfafp>
+    <bfalg>Value|RefTable_1188845774|0|False|0|0</bfalg>
+    <bfalp>Value|RefTable_1188845774|0|False|0|0</bfalp>
+    <bfama>Value|RefTable_1188845774|0|False|0|0</bfama>
+    <bfamh>Value|RefTable_1188845774|0|False|0|0</bfamh>
+    <bfamt>Value|RefTable_1188845774|0|False|0|0</bfamt>
+    <bfana>Value|RefTable_1188845774|0|False|0|0</bfana>
+    <bfaot>Value|RefTable_1188845774|0|False|0|0</bfaot>
+    <bfapl>Value|RefTable_1188845774|0|False|0|0</bfapl>
+    <bfapt>Value|RefTable_1188845774|0|False|0|0</bfapt>
+    <bfauc>Value|RefTable_1188845774|0|False|0|0</bfauc>
+    <bfawk>Value|RefTable_1188845774|0|False|0|0</bfawk>
+    <bhl>Value|RefTable_1188845774|0|False|0|0</bhl>
+    <bhl00>Value|RefTable_1188845774|0|False|0|0</bhl00>
+    <bhl01>Value|RefTable_1188845774|0|False|0|0</bhl01>
+    <bhlac>Value|RefTable_1188845774|0|False|0|0</bhlac>
+    <bhlmt>Value|RefTable_1188845774|0|False|0|0</bhlmt>
+    <bhlmy>Value|RefTable_1188845774|0|False|0|0</bhlmy>
+    <bhlot>Value|RefTable_1188845774|0|False|0|0</bhlot>
+    <bhlps>Value|RefTable_1188845774|0|False|0|0</bhlps>
+    <bhlwk>Value|RefTable_1188845774|0|False|0|0</bhlwk>
+    <bhlxp>Value|RefTable_1188845774|0|False|0|0</bhlxp>
+    <bho>Value|RefTable_1188845774|0|False|0|0</bho>
+    <bho00>Value|RefTable_1188845774|0|False|0|0</bho00>
+    <bho01>Value|RefTable_1188845774|0|False|0|0</bho01>
+    <bho02>Value|RefTable_1188845774|0|False|0|0</bho02>
+    <bhoht>Value|RefTable_1188845774|0|False|0|0</bhoht>
+    <bhomy>Value|RefTable_1927503380|0|False|0|0</bhomy>
+    <bhoot>Value|RefTable_1188845774|0|False|0|0</bhoot>
+    <bhope>Value|RefTable_1188845774|0|False|0|0</bhope>
+    <bhosd>Value|RefTable_1188845774|0|False|0|0</bhosd>
+    <bhotn>Value|RefTable_1188845774|0|False|0|0</bhotn>
+    <bhout>Value|RefTable_1188845774|0|False|0|0</bhout>
+    <bma>Value|RefTable_1188845774|0|False|0|0</bma>
+    <bmaab>Value|RefTable_1188845774|0|False|0|0</bmaab>
+    <bmaba>Value|RefTable_1188845774|0|False|0|0</bmaba>
+    <bmact>Value|RefTable_1188845774|0|False|0|0</bmact>
+    <bmaer>Value|RefTable_1188845774|0|False|0|0</bmaer>
+    <bmals>Value|RefTable_1188845774|0|False|0|0</bmals>
+    <bmamy>Value|RefTable_1188845774|0|False|0|0</bmamy>
+    <bmana>Value|RefTable_1188845774|0|False|0|0</bmana>
+    <bmanc>Value|RefTable_1188845774|0|False|0|0</bmanc>
+    <bmapr>Value|RefTable_1188845774|0|False|0|0</bmapr>
+    <bmase>Value|RefTable_1188845774|0|False|0|0</bmase>
+    <bmawk>Value|RefTable_1188845774|0|False|0|0</bmawk>
+    <bml>Value|RefTable_1188845774|0|False|0|0</bml>
+    <bmu>Value|RefTable_1188845774|0|False|0|0</bmu>
+    <boact>Value|RefTable_1188845774|0|False|0|0</boact>
+    <boactcm>Value|RefTable_1188845774|0|False|0|0</boactcm>
+    <boaht>Value|RefTable_1188845774|0|False|0|0</boaht>
+    <boamt>Value|RefTable_1188845774|0|False|0|0</boamt>
+    <boanc>Value|RefTable_1188845774|0|False|0|0</boanc>
+    <boawr>Value|RefTable_1188845774|0|False|0|0</boawr>
+    <bot>Value|RefTable_1188845774|0|False|0|0</bot>
+    <botre>Value|RefTable_1188845774|0|False|0|0</botre>
+    <bpl>Value|RefTable_1188845774|0|False|0|0</bpl>
+    <bplct>Value|RefTable_1188845774|0|False|0|0</bplct>
+    <bsa>Value|RefTable_1188845774|0|False|0|0</bsa>
+    <bsa00>Value|RefTable_1188845774|0|False|0|0</bsa00>
+    <bsaab>Value|RefTable_1188845774|0|False|0|0</bsaab>
+    <bsaam>Value|RefTable_1188845774|0|False|0|0</bsaam>
+    <bsacm>Value|RefTable_1188845774|0|False|0|0</bsacm>
+    <bsafu>Value|RefTable_1188845774|0|False|0|0</bsafu>
+    <bsaht>Value|RefTable_1188845774|0|False|0|0</bsaht>
+    <bsals>Value|RefTable_1188845774|0|False|0|0</bsals>
+    <bsamm>Value|RefTable_1188845774|0|False|0|0</bsamm>
+    <bsaoa>Value|RefTable_1188845774|0|False|0|0</bsaoa>
+    <bsaot>Value|RefTable_1188845774|0|False|0|0</bsaot>
+    <bsapm>Value|RefTable_1188845774|0|False|0|0</bsapm>
+    <bsapmot>Value|RefTable_1188845774|0|False|0|0</bsapmot>
+    <bsapu>Value|RefTable_1188845774|0|False|0|0</bsapu>
+    <bsatm>Value|RefTable_1188845774|0|False|0|0</bsatm>
+    <bsatmpb>Value|RefTable_1188845774|0|False|0|0</bsatmpb>
+    <bsu>Value|RefTable_1188845774|0|False|0|0</bsu>
+    <bsuwd>Value|RefTable_1188845774|0|False|0|0</bsuwd>
+    <buncm>Value|RefTable_1188845774|0|False|0|0</buncm>
+    <bunct01>Value|RefTable_1188845774|0|False|0|0</bunct01>
+    <bunctmy01>Value|RefTable_1927503380|0|False|0|0</bunctmy01>
+    <bunls>Value|RefTable_1188845774|0|False|0|0</bunls>
+    <bunmt>Value|RefTable_1188845774|0|False|0|0</bunmt>
+    <bunmtmy>Value|RefTable_1927503380|0|False|0|0</bunmtmy>
+    <bunnc>Value|RefTable_1188845774|0|False|0|0</bunnc>
+    <bunot>Value|RefTable_1188845774|0|False|0|0</bunot>
+    <bunpe01>Value|RefTable_1188845774|0|False|0|0</bunpe01>
+    <bunpe02>Value|RefTable_1188845774|0|False|0|0</bunpe02>
+    <bunst>Value|RefTable_1188845774|0|False|0|0</bunst>
+    <buntr>Value|RefTable_1188845774|0|False|0|0</buntr>
+    <bwkmt>Value|RefTable_1188845774|0|False|0|0</bwkmt>
+    <byr>Value|RefTable_1188845774|0|False|0|0</byr>
+    <dcz>1</dcz>
+    <ddilv>Value|RefTable_1927503380|0|False|0|0</ddilv>
+    <ddita>0</ddita>
+    <dqb>1</dqb>
+    <drgur>1</drgur>
+    <drgur00>1</drgur00>
+    <ked>Value|RefTable_1188845774|0|False|0|0</ked>
+    <kfb>Value|RefTable_1188845774|0|False|0|0</kfb>
+    <kfbcc>Value|RefTable_1188845774|0|False|0|0</kfbcc>
+    <khl>Value|RefTable_1188845774|0|False|0|0</khl>
+    <khooo>Value|RefTable_1188845774|0|False|0|0</khooo>
+    <kivho>Value|RefTable_1188845774|0|False|0|0</kivho>
+    <lcd01>Value|RefTable_1927503380|1|False|0|0</lcd01>
+    <lcd02>Value|RefTable_1927503380|1|False|0|0</lcd02>
+    <lcd03>Value|RefTable_1927503380|1|False|0|0</lcd03>
+    <lcd04>Value|RefTable_1927503380|1|False|0|0</lcd04>
+    <lcd05>Value|RefTable_1927503380|1|False|0|0</lcd05>
+    <lcs>0</lcs>
+    <lfs>Value|RefTable_1927503380|15|False|0|0</lfs>
+    <lindi>4</lindi>
+    <loc>5</loc>
+    <lochz>0</lochz>
+    <lptmy>Value|RefTable_1927503380|0|False|0|0</lptmy>
+    <pdi>Value|RefTable_1188845774|0|False|0|0</pdi>
+    <pdi00>Value|RefTable_1188845774|0|False|0|0</pdi00>
+    <pdica>Value|RefTable_1188845774|0|False|0|0</pdica>
+    <pdida>Value|RefTable_1188845774|0|False|0|0</pdida>
+    <pdimy>Value|RefTable_1927503380|0|False|0|0</pdimy>
+    <pdinc>Value|RefTable_1188845774|0|False|0|0</pdinc>
+    <pdint>Value|RefTable_1188845774|0|False|0|0</pdint>
+    <pdinw>Value|RefTable_1188845774|0|False|0|0</pdinw>
+    <pdiot>Value|RefTable_1188845774|0|False|0|0</pdiot>
+    <pdiss>Value|RefTable_1188845774|0|False|0|0</pdiss>
+    <pdiss01>Value|RefTable_1188845774|0|False|0|0</pdiss01>
+    <pdiss02>Value|RefTable_1188845774|0|False|0|0</pdiss02>
+    <pditx>Value|RefTable_1188845774|0|False|0|0</pditx>
+    <pdiuc>Value|RefTable_1188845774|0|False|0|0</pdiuc>
+    <pfa>Value|RefTable_1188845774|0|False|0|0</pfa>
+    <phl>Value|RefTable_1188845774|0|False|0|0</phl>
+    <phlmy>Value|RefTable_1927503380|0|False|0|0</phlmy>
+    <pls>Value|RefTable_1188845774|0|False|0|0</pls>
+    <poaca>Value|RefTable_1188845774|0|False|0|0</poaca>
+    <poafr>Value|RefTable_1188845774|0|False|0|0</poafr>
+    <poals>Value|RefTable_1188845774|0|False|0|0</poals>
+    <poaml>Value|RefTable_1188845774|0|False|0|0</poaml>
+    <poamr>Value|RefTable_1188845774|0|False|0|0</poamr>
+    <poamt>Value|RefTable_1188845774|0|False|0|0</poamt>
+    <poanc>Value|RefTable_1188845774|0|False|0|0</poanc>
+    <poaot>Value|RefTable_1188845774|0|False|0|0</poaot>
+    <poaps01>Value|RefTable_1188845774|0|False|0|0</poaps01>
+    <poaps02>Value|RefTable_1188845774|0|False|0|0</poaps02>
+    <poapu>Value|RefTable_1188845774|0|False|0|0</poapu>
+    <poawr>Value|RefTable_1188845774|0|False|0|0</poawr>
+    <poaxp>Value|RefTable_1188845774|0|False|0|0</poaxp>
+    <powpt>Value|RefTable_1188845774|0|False|0|0</powpt>
+    <psact>Value|RefTable_1188845774|0|False|0|0</psact>
+    <psu>Value|RefTable_1188845774|0|False|0|0</psu>
+    <psu00>Value|RefTable_1188845774|0|False|0|0</psu00>
+    <psumy>Value|RefTable_1927503380|0|False|0|0</psumy>
+    <psuor>Value|RefTable_1188845774|0|False|0|0</psuor>
+    <psuot>Value|RefTable_1188845774|0|False|0|0</psuot>
+    <psups>Value|RefTable_1188845774|0|False|0|0</psups>
+    <psupu>Value|RefTable_1188845774|0|False|0|0</psupu>
+    <psuss>Value|RefTable_1188845774|0|False|0|0</psuss>
+    <psutx>Value|RefTable_1188845774|0|False|0|0</psutx>
+    <psuwd>Value|RefTable_1188845774|0|False|0|0</psuwd>
+    <psuwd00>Value|RefTable_1188845774|0|False|0|0</psuwd00>
+    <psuwdcm>Value|RefTable_1188845774|0|False|0|0</psuwdcm>
+    <psuwdct>Value|RefTable_1188845774|0|False|0|0</psuwdct>
+    <psuwdnc>Value|RefTable_1188845774|0|False|0|0</psuwdnc>
+    <pxp>Value|RefTable_1188845774|0|False|0|0</pxp>
+    <pxp00>Value|RefTable_1188845774|0|False|0|0</pxp00>
+    <pxpot>Value|RefTable_1188845774|0|False|0|0</pxpot>
+    <tpr>Value|RefTable_1188845774|0|False|0|0</tpr>
+    <xcc>Value|RefTable_1188845774|0|False|0|0</xcc>
+    <xcd>Value|RefTable_1188845774|0|False|0|0</xcd>
+    <xched>Value|RefTable_1188845774|0|False|0|0</xched>
+    <xcmie>Value|RefTable_1188845774|0|False|0|0</xcmie>
+    <xed>Value|RefTable_1188845774|0|False|0|0</xed>
+    <xhchm>Value|RefTable_1188845774|0|False|0|0</xhchm>
+    <xhcnhrt>Value|RefTable_1188845774|0|False|0|0</xhcnhrt>
+    <xhcot>Value|RefTable_1188845774|0</xhcot>
+    <xhcrh>Value|RefTable_1188845774|0|False|0|0</xhcrh>
+    <xhcsc>Value|RefTable_1188845774|0|False|0|0</xhcsc>
+    <xhcscel>Value|RefTable_1188845774|0|False|0|0</xhcscel>
+    <xhcscht>Value|RefTable_1188845774|0|False|0|0</xhcscht>
+    <xhcscrf>Value|RefTable_1188845774|0|False|0|0</xhcscrf>
+    <xhcscwt>Value|RefTable_1188845774|0|False|0|0</xhcscwt>
+    <xhl>Value|RefTable_1188845774|0|False|0|0</xhl>
+    <xhl01>Value|RefTable_1188845774|0|False|0|0</xhl01>
+    <xht>Value|RefTable_1188845774|0|False|0|0</xht>
+    <xishl>Value|RefTable_1188845774|0|False|0|0</xishl>
+    <xislf>Value|RefTable_1188845774|0|False|0|0</xislf>
+    <xmp>Value|RefTable_1188845774|0|False|0|0</xmp>
+    <xmp00>Value|RefTable_1188845774|0|False|0|0</xmp00>
+    <xmpam>Value|RefTable_1188845774|0|False|0|0</xmpam>
+    <xmpot>Value|RefTable_1188845774|0|False|0|0</xmpot>
+    <xog>Value|RefTable_1188845774|0|False|0|0</xog>
+    <xpp>Value|RefTable_1188845774|0|False|0|0</xpp>
+    <xuf>Value|RefTable_1188845774|0|False|0|0</xuf>
+    <yag>Value|RefTable_1188845774|0|False|0|0</yag>
+    <yag01>Value|RefTable_1188845774|0|False|0|0</yag01>
+    <yag02>Value|RefTable_1188845774|0|False|0|0</yag02>
+    <yaj>Value|RefTable_1188845774|0|False|0|0</yaj>
+    <yemab>Value|RefTable_1188845774|0|False|0|0</yemab>
+    <yemaj>Value|RefTable_1188845774|0|False|0|0</yemaj>
+    <yemcs>Value|RefTable_1188845774|0|False|0|0</yemcs>
+    <yemhl>Value|RefTable_1188845774|0|False|0|0</yemhl>
+    <yemnr>Value|RefTable_1188845774|0|False|0|0</yemnr>
+    <yemnt>Value|RefTable_1188845774|0|False|0|0</yemnt>
+    <yemot>Value|RefTable_1188845774|0|False|0|0</yemot>
+    <yempv01>Value|RefTable_1188845774|0|False|0|0</yempv01>
+    <yemtj>Value|RefTable_1188845774|0|False|0|0</yemtj>
+    <yemxp>Value|RefTable_1188845774|0|False|0|0</yemxp>
+    <yfb00>Value|RefTable_1188845774|0|False|0|0</yfb00>
+    <yivwg01>Value|RefTable_1188845774|0|False|0|0</yivwg01>
+    <yivwg02>Value|RefTable_1188845774|0|False|0|0</yivwg02>
+    <yiy>Value|RefTable_1188845774|0|False|0|0</yiy>
+    <yiy00>Value|RefTable_1188845774|0|False|0|0</yiy00>
+    <yiydv>Value|RefTable_1188845774|0|False|0|0</yiydv>
+    <yiyit>Value|RefTable_1188845774|0|False|0|0</yiyit>
+    <yiyitdp>Value|RefTable_1188845774|0|False|0|0</yiyitdp>
+    <yiyitob>Value|RefTable_1188845774|0|False|0|0</yiyitob>
+    <yiyitsb>Value|RefTable_1188845774|0|False|0|0</yiyitsb>
+    <yiynt>Value|RefTable_1188845774|0|False|0|0</yiynt>
+    <yiyot>Value|RefTable_1188845774|0|False|0|0</yiyot>
+    <yiytx>Value|RefTable_1188845774|0|False|0|0</yiytx>
+    <yiytx00>Value|RefTable_1188845774|0|False|0|0</yiytx00>
+    <yiytx01>Value|RefTable_1188845774|0|False|0|0</yiytx01>
+    <yls>Value|RefTable_1188845774|0|False|0|0</yls>
+    <ymp>Value|RefTable_1188845774|0|False|0|0</ymp>
+    <yot>Value|RefTable_1188845774|0|False|0|0</yot>
+    <yot01>Value|RefTable_1188845774|0|False|0|0</yot01>
+    <yot02>Value|RefTable_1188845774|0|False|0|0</yot02>
+    <ypp>Value|RefTable_1188845774|0|False|0|0</ypp>
+    <ypp01>Value|RefTable_1188845774|0|False|0|0</ypp01>
+    <ypp02>Value|RefTable_1188845774|0|False|0|0</ypp02>
+    <yprld>Value|RefTable_1188845774|0|False|0|0</yprld>
+    <yprmr>Value|RefTable_1188845774|0|False|0|0</yprmr>
+    <yprnt>Value|RefTable_1188845774|0|False|0|0</yprnt>
+    <yprro>Value|RefTable_1188845774|0|False|0|0</yprro>
+    <yprrt>Value|RefTable_1188845774|0|False|0|0</yprrt>
+    <yprtx>Value|RefTable_1188845774|0|False|0|0</yprtx>
+    <ypt>Value|RefTable_1188845774|0|False|0|0</ypt>
+    <ypt00>Value|RefTable_1188845774|0|False|0|0</ypt00>
+    <yptmp>Value|RefTable_1188845774|0|False|0|0</yptmp>
+    <yptmpnt>Value|RefTable_1188845774|0|False|0|0</yptmpnt>
+    <yptmptx>Value|RefTable_1188845774|0|False|0|0</yptmptx>
+    <yptot>Value|RefTable_1188845774|0|False|0|0</yptot>
+    <yseag>Value|RefTable_1188845774|0|False|0|0</yseag>
+    <ysebs>Value|RefTable_1188845774|0|False|0|0</ysebs>
+    <yseil>Value|RefTable_1188845774|0|False|0|0</yseil>
+    <ysena>Value|RefTable_1188845774|0|False|0|0</ysena>
+    <yst>Value|RefTable_1188845774|0|False|0|0</yst>
+    <ysv>Value|RefTable_1188845774|0|False|0|0</ysv>
+    <yunsv>Value|RefTable_1188845774|0|False|0|0</yunsv>
+    <amrtp>2</amrtp>
+    <bcctuyn>0</bcctuyn>
+    <bchdiyn>0</bchdiyn>
+    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
+    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
+    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
+    <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
+    <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
+    <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
+    <ddipd>0</ddipd>
+    <ddipd00>0</ddipd00>
+    <dmp>9</dmp>
+    <dmsyy03>0</dmsyy03>
+    <l01>0</l01>
+    <l02>0</l02>
+    <lap>0</lap>
+    <lap00>0</lap00>
+    <lbl>0</lbl>
+    <lcr>0</lcr>
+    <lcr01>0</lcr01>
+    <lcs10>0</lcs10>
+    <lct>0</lct>
+    <lemiw>999</lemiw>
+    <lhw00>Value|RefTable_1927503380|0|False|0|0</lhw00>
+    <lhw01>Value|RefTable_1927503380|0|False|0|0</lhw01>
+    <lhwiv00>Value|RefTable_1927503380|0|False|0|0</lhwiv00>
+    <lhwiv01>Value|RefTable_1927503380|0|False|0|0</lhwiv01>
+    <lim>1</lim>
+    <limiv>0</limiv>
+    <liwivwh>Value|RefTable_1927503380|0|False|0|0</liwivwh>
+    <lle>0</lle>
+    <lpf>0</lpf>
+    <lpm01>0</lpm01>
+    <lrg>1</lrg>
+    <lsdmy>Value|RefTable_1927503380|0|False|0|0</lsdmy>
+    <lseor>0</lseor>
+    <lsepf>0</lsepf>
+    <poa01>Value|RefTable_1188845774|0|False|0|0</poa01>
+    <poa02>Value|RefTable_1188845774|0|False|0|0</poa02>
+    <poa03>Value|RefTable_1188845774|0|False|0|0</poa03>
+    <poaab>Value|RefTable_1188845774|0|False|0|0</poaab>
+    <poacc>Value|RefTable_1188845774|0|False|0|0</poacc>
+    <poacm>Value|RefTable_1188845774|0|False|0|0</poacm>
+    <poacmdi>Value|RefTable_1188845774|0|False|0|0</poacmdi>
+    <poacmoa>Value|RefTable_1188845774|0|False|0|0</poacmoa>
+    <poacmsu>Value|RefTable_1188845774|0|False|0|0</poacmsu>
+    <poacs>Value|RefTable_1188845774|0|False|0|0</poacs>
+    <poant>Value|RefTable_1188845774|0|False|0|0</poant>
+    <poasp>Value|RefTable_1188845774|0|False|0|0</poasp>
+    <poass>Value|RefTable_1188845774|0|False|0|0</poass>
+    <xhc00>Value|RefTable_1188845774|0|False|0|0</xhc00>
+    <xhcmo>Value|RefTable_1188845774|0|False|0|0</xhcmo>
+    <xhcmomc>Value|RefTable_1188845774|0|False|0|0</xhcmomc>
+    <xhcmomi>Value|RefTable_1188845774|0|False|0|0</xhcmomi>
+    <xivhcrt>Value|RefTable_1188845774|0|False|0|0</xivhcrt>
+    <yem02>Value|RefTable_1188845774|0|False|0|0</yem02>
+    <yse01>Value|RefTable_1188845774|0|False|0|0</yse01>
+    <yseev>Value|RefTable_1188845774|0|False|0|0</yseev>
+    <ysetx>Value|RefTable_1188845774|0|False|0|0</ysetx>
+    <drg01_FR>1</drg01_FR>
+    <drgn1_CZ>1</drgn1_CZ>
+    <drgn1_PL>1</drgn1_PL>
+    <drgn2_CZ>1</drgn2_CZ>
+    <drgn2_ES>30</drgn2_ES>
+    <drgn2_IT>13</drgn2_IT>
+    <drgn2_PL>1</drgn2_PL>
+    <lpm_EE>1</lpm_EE>
+    <lpm_EL>0</lpm_EL>
+    <lcl_IT>1</lcl_IT>
+    <lcl_AT>2</lcl_AT>
+    <lse00_HU>0</lse00_HU>
+    <lse00_SI>2</lse00_SI>
+    <amrar_EE>Value|RefTable_1927503380|70.8|False|0|0</amrar_EE>
+    <amrar_EL>Value|RefTable_1927503380|90|False|0|0</amrar_EL>
+    <amrar_PL>Value|RefTable_1927503380|65|False|0|0</amrar_PL>
+    <tpceepx_UK>Value|RefTable_1927503380|0.053|False|0|0</tpceepx_UK>
+    <tpceepx_IE>Value|RefTable_1927503380|0.086|False|0|0</tpceepx_IE>
+    <amrtn>3</amrtn>
+    <liwwh>Value|RefTable_1927503380|200|False|0|0</liwwh>
+    <xhcrt>Value|RefTable_1188845774|250|False|0|0</xhcrt>
+    <yempv>Value|RefTable_1188845774|0</yempv>
+    <amrrm>Value|RefTable_1927503380|3|False|0|0</amrrm>
+    <ddi01>Value|RefTable_1927503380|0|False|0|0</ddi01>
+    <ddi02>999</ddi02>
+    <tintcho>Value|RefTable_1188845774|0|False|0|0</tintcho>
+    <yem01>Value|RefTable_1188845774|0|False|0|0</yem01>
+    <yemiv>Value|RefTable_1188845774|0|False|0|0</yemiv>
+    <yseiv>Value|RefTable_1188845774|0|False|0|0</yseiv>
+    <lcl_LU>2</lcl_LU>
+    <dmsyy04>0</dmsyy04>
+    <dmb>Value|RefTable_1927503380|5|False|0|0</dmb>
+    <ysenr00>Value|RefTable_1927503380|0|False|0|0</ysenr00>
+    <ysenr01>Value|RefTable_1927503380|0|False|0|0</ysenr01>
+    <ysere01>Value|RefTable_1927503380|0|False|0|0</ysere01>
+    <pdiac>Value|RefTable_1927503380|0|False|0|0</pdiac>
+    <pdiwr>Value|RefTable_1927503380|0|False|0|0</pdiwr>
+    <amrtn01>4</amrtn01>
+    <drgn2_FI>2</drgn2_FI>
+    <bsa00_BG>Value|RefTable_1837444076|0|False|0|0</bsa00_BG>
+    <bsa00_DE>Value|RefTable_1837444076|0|False|0|0</bsa00_DE>
+    <bsa00_EE>Value|RefTable_1837444076|0|False|0|0</bsa00_EE>
+    <bsa00_FI>Value|RefTable_1837444076|0|False|0|0</bsa00_FI>
+    <bsa00_FR>Value|RefTable_1837444076|0|False|0|0</bsa00_FR>
+    <bsa00_HR>Value|RefTable_1837444076|0|False|0|0</bsa00_HR>
+    <bsa00_IE>Value|RefTable_1837444076|1|False|0|0</bsa00_IE>
+    <bsa00_LT>Value|RefTable_1837444076|0|False|0|0</bsa00_LT>
+    <bsa00_NL>Value|RefTable_1837444076|0|False|0|0</bsa00_NL>
+    <bsa00_PT>Value|RefTable_1837444076|0|False|0|0</bsa00_PT>
+    <bsa00_SI>Value|RefTable_1837444076|0|False|0|0</bsa00_SI>
+    <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
+    <lct_CY>1</lct_CY>
+    <lct_DK>1</lct_DK>
+    <bccot_AT>0</bccot_AT>
+    <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
+    <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
+    <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
+    <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
+    <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+  </Example_x0020_Household>
+  <Example_x0020_Household>
+    <dataId>1537426458</dataId>
+    <PersonName>Adult2</PersonName>
+    <checked>true</checked>
+    <orderId>1</orderId>
+    <dag>Value|RefTable_1927503380|30|False|50|1</dag>
+    <dgn>0</dgn>
+    <idpartner>1729580931</idpartner>
+    <idfather />
+    <idmother />
+    <dms>2</dms>
+    <dec>0</dec>
+    <deh>4</deh>
+    <ddi>0</ddi>
+    <drgn1_BE>1</drgn1_BE>
+    <drgn1_UK>7</drgn1_UK>
+    <yem>Value|RefTable_1188845774|0|False|250|10</yem>
+    <poa>Value|RefTable_1188845774|0|False||</poa>
+    <yse>Value|RefTable_1188845774|0|False||</yse>
+    <lhw>Value|RefTable_1927503380|0|False|0|0</lhw>
+    <les>7</les>
+    <ypr>Value|RefTable_1188845774|0|False|0|0</ypr>
+    <ysenr>Value|RefTable_1188845774|0|False|0|0</ysenr>
+    <afc>Value|RefTable_1188845774|0|False|0|0</afc>
+    <aiv>Value|RefTable_1188845774|0|False|0|0</aiv>
+    <aldagar>Value|RefTable_1927503380|0|False|0|0</aldagar>
+    <aldagariv>Value|RefTable_1927503380|0|False|0|0</aldagariv>
+    <aldar>Value|RefTable_1927503380|0|False|0|0</aldar>
+    <aldnaar>Value|RefTable_1927503380|0|False|0|0</aldnaar>
+    <amolv>Value|RefTable_1188845774|0|False|0|0</amolv>
+    <amoyl>Value|RefTable_1927503380|0|False|0|0</amoyl>
+    <amriv>Value|RefTable_1188845774|0|False|0|0</amriv>
+    <amrmv>Value|RefTable_1188845774|0|False|0|0</amrmv>
+    <aobiv>Value|RefTable_1188845774|0|False|0|0</aobiv>
+    <aoc>Value|RefTable_1188845774|0|False|0|0</aoc>
+    <bac>Value|RefTable_1188845774|0|False|0|0</bac>
+    <bac00>Value|RefTable_1188845774|0|False|0|0</bac00>
+    <bac01>Value|RefTable_1188845774|0|False|0|0</bac01>
+    <bacot>Value|RefTable_1188845774|0|False|0|0</bacot>
+    <bacpm>Value|RefTable_1188845774|0|False|0|0</bacpm>
+    <bca01>Value|RefTable_1188845774|0|False|0|0</bca01>
+    <bca02>Value|RefTable_1188845774|0|False|0|0</bca02>
+    <bcc>Value|RefTable_1188845774|0|False|0|0</bcc>
+    <bcc00>Value|RefTable_1188845774|0|False|0|0</bcc00>
+    <bcc01my>Value|RefTable_1927503380|0|False|0|0</bcc01my>
+    <bcc02my>Value|RefTable_1927503380|0|False|0|0</bcc02my>
+    <bcc03my>Value|RefTable_1927503380|0|False|0|0</bcc03my>
+    <bcc04my>Value|RefTable_1927503380|0|False|0|0</bcc04my>
+    <bcc05>Value|RefTable_1188845774|0|False|0|0</bcc05>
+    <bcc05my>Value|RefTable_1927503380|0|False|0|0</bcc05my>
+    <bcc06>Value|RefTable_1188845774|0|False|0|0</bcc06>
+    <bcc06my>Value|RefTable_1927503380|0|False|0|0</bcc06my>
+    <bcclg>Value|RefTable_1188845774|0|False|0|0</bcclg>
+    <bccmy>Value|RefTable_1927503380|0|False|0|0</bccmy>
+    <bccnw>Value|RefTable_1188845774|0|False|0|0</bccnw>
+    <bccrd>Value|RefTable_1188845774|0|False|0|0</bccrd>
+    <bch>Value|RefTable_1188845774|0|False|0|0</bch>
+    <bch00>Value|RefTable_1188845774|0|False|0|0</bch00>
+    <bchab>Value|RefTable_1188845774|0|False|0|0</bchab>
+    <bcham>Value|RefTable_1188845774|0|False|0|0</bcham>
+    <bchas01>Value|RefTable_1188845774|0|False|0|0</bchas01>
+    <bchas02>Value|RefTable_1188845774|0|False|0|0</bchas02>
+    <bchas03>Value|RefTable_1188845774|0|False|0|0</bchas03>
+    <bchasxc>Value|RefTable_1188845774|0|False|0|0</bchasxc>
+    <bchba>Value|RefTable_1188845774|0|False|0|0</bchba>
+    <bchbals>Value|RefTable_1188845774|0|False|0|0</bchbals>
+    <bchcc>Value|RefTable_1188845774|0|False|0|0</bchcc>
+    <bchdi>Value|RefTable_1188845774|0|False|0|0</bchdi>
+    <bchdied>Value|RefTable_1188845774|0|False|0|0</bchdied>
+    <bched>Value|RefTable_1188845774|0|False|0|0</bched>
+    <bched01>Value|RefTable_1188845774|0|False|0|0</bched01>
+    <bched02>Value|RefTable_1188845774|0|False|0|0</bched02>
+    <bched03>Value|RefTable_1188845774|0|False|0|0</bched03>
+    <bched04>Value|RefTable_1188845774|0|False|0|0</bched04>
+    <bchlg>Value|RefTable_1188845774|0|False|0|0</bchlg>
+    <bchlp>Value|RefTable_1188845774|0|False|0|0</bchlp>
+    <bchlp00>Value|RefTable_1188845774|0|False|0|0</bchlp00>
+    <bchmt>Value|RefTable_1188845774|0|False|0|0</bchmt>
+    <bchnm>Value|RefTable_1188845774|0|False|0|0</bchnm>
+    <bchor>Value|RefTable_1188845774|0|False|0|0</bchor>
+    <bchot>Value|RefTable_1188845774|0|False|0|0</bchot>
+    <bchpl>Value|RefTable_1188845774|0|False|0|0</bchpl>
+    <bchprls>Value|RefTable_1188845774|0|False|0|0</bchprls>
+    <bchuc>Value|RefTable_1188845774|0|False|0|0</bchuc>
+    <bchunlp>Value|RefTable_1188845774|0|False|0|0</bchunlp>
+    <bchyc>Value|RefTable_1188845774|0|False|0|0</bchyc>
+    <bcrbafh>Value|RefTable_1188845774|0|False|0|0</bcrbafh>
+    <bcrchdi>Value|RefTable_1188845774|0|False|0|0</bcrchdi>
+    <bcrdi>Value|RefTable_1188845774|0|False|0|0</bcrdi>
+    <bcrsvcc>Value|RefTable_1188845774|0|False|0|0</bcrsvcc>
+    <bdi>Value|RefTable_1188845774|0|False|0|0</bdi>
+    <bdica>Value|RefTable_1188845774|0|False|0|0</bdica>
+    <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
+    <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
+    <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
+    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
+    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
+    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
+    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
+    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
+    <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
+    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
+    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
+    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
+    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
+    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
+    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
+    <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
+    <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
+    <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
+    <bdinc>Value|RefTable_1188845774|0|False|0|0</bdinc>
+    <bdioa>Value|RefTable_1188845774|0|False|0|0</bdioa>
+    <bdiot>Value|RefTable_1188845774|0|False|0|0</bdiot>
+    <bdirw>Value|RefTable_1188845774|0|False|0|0</bdirw>
+    <bdisc>Value|RefTable_1188845774|0|False|0|0</bdisc>
+    <bdisv>Value|RefTable_1188845774|0|False|0|0</bdisv>
+    <bdiwi>Value|RefTable_1188845774|0|False|0|0</bdiwi>
+    <bdixp>Value|RefTable_1188845774|0|False|0|0</bdixp>
+    <bed>Value|RefTable_1188845774|0|False|0|0</bed>
+    <bed00>Value|RefTable_1188845774|0|False|0|0</bed00>
+    <bedes>Value|RefTable_1188845774|0|False|0|0</bedes>
+    <bedet>Value|RefTable_1188845774|0|False|0|0</bedet>
+    <bedot>Value|RefTable_1188845774|0|False|0|0</bedot>
+    <bedsl>Value|RefTable_1188845774|0|False|0|0</bedsl>
+    <bfa>Value|RefTable_1188845774|0|False|0|0</bfa>
+    <bfaam>Value|RefTable_1188845774|0|False|0|0</bfaam>
+    <bfaba>Value|RefTable_1188845774|0|False|0|0</bfaba>
+    <bfacc>Value|RefTable_1188845774|0|False|0|0</bfacc>
+    <bfach00>Value|RefTable_1188845774|0|False|0|0</bfach00>
+    <bfached>Value|RefTable_1188845774|0|False|0|0</bfached>
+    <bfachnm>Value|RefTable_1188845774|0|False|0|0</bfachnm>
+    <bfachot>Value|RefTable_1188845774|0|False|0|0</bfachot>
+    <bfacp>Value|RefTable_1188845774|0|False|0|0</bfacp>
+    <bfacs>Value|RefTable_1188845774|0|False|0|0</bfacs>
+    <bfafp>Value|RefTable_1188845774|0|False|0|0</bfafp>
+    <bfalg>Value|RefTable_1188845774|0|False|0|0</bfalg>
+    <bfalp>Value|RefTable_1188845774|0|False|0|0</bfalp>
+    <bfama>Value|RefTable_1188845774|0|False|0|0</bfama>
+    <bfamh>Value|RefTable_1188845774|0|False|0|0</bfamh>
+    <bfamt>Value|RefTable_1188845774|0|False|0|0</bfamt>
+    <bfana>Value|RefTable_1188845774|0|False|0|0</bfana>
+    <bfaot>Value|RefTable_1188845774|0|False|0|0</bfaot>
+    <bfapl>Value|RefTable_1188845774|0|False|0|0</bfapl>
+    <bfapt>Value|RefTable_1188845774|0|False|0|0</bfapt>
+    <bfauc>Value|RefTable_1188845774|0|False|0|0</bfauc>
+    <bfawk>Value|RefTable_1188845774|0|False|0|0</bfawk>
+    <bhl>Value|RefTable_1188845774|0|False|0|0</bhl>
+    <bhl00>Value|RefTable_1188845774|0|False|0|0</bhl00>
+    <bhl01>Value|RefTable_1188845774|0|False|0|0</bhl01>
+    <bhlac>Value|RefTable_1188845774|0|False|0|0</bhlac>
+    <bhlmt>Value|RefTable_1188845774|0|False|0|0</bhlmt>
+    <bhlmy>Value|RefTable_1188845774|0|False|0|0</bhlmy>
+    <bhlot>Value|RefTable_1188845774|0|False|0|0</bhlot>
+    <bhlps>Value|RefTable_1188845774|0|False|0|0</bhlps>
+    <bhlwk>Value|RefTable_1188845774|0|False|0|0</bhlwk>
+    <bhlxp>Value|RefTable_1188845774|0|False|0|0</bhlxp>
+    <bho>Value|RefTable_1188845774|0|False|0|0</bho>
+    <bho00>Value|RefTable_1188845774|0|False|0|0</bho00>
+    <bho01>Value|RefTable_1188845774|0|False|0|0</bho01>
+    <bho02>Value|RefTable_1188845774|0|False|0|0</bho02>
+    <bhoht>Value|RefTable_1188845774|0|False|0|0</bhoht>
+    <bhomy>Value|RefTable_1927503380|0|False|0|0</bhomy>
+    <bhoot>Value|RefTable_1188845774|0|False|0|0</bhoot>
+    <bhope>Value|RefTable_1188845774|0|False|0|0</bhope>
+    <bhosd>Value|RefTable_1188845774|0|False|0|0</bhosd>
+    <bhotn>Value|RefTable_1188845774|0|False|0|0</bhotn>
+    <bhout>Value|RefTable_1188845774|0|False|0|0</bhout>
+    <bma>Value|RefTable_1188845774|0|False|0|0</bma>
+    <bmaab>Value|RefTable_1188845774|0|False|0|0</bmaab>
+    <bmaba>Value|RefTable_1188845774|0|False|0|0</bmaba>
+    <bmact>Value|RefTable_1188845774|0|False|0|0</bmact>
+    <bmaer>Value|RefTable_1188845774|0|False|0|0</bmaer>
+    <bmals>Value|RefTable_1188845774|0|False|0|0</bmals>
+    <bmamy>Value|RefTable_1188845774|0|False|0|0</bmamy>
+    <bmana>Value|RefTable_1188845774|0|False|0|0</bmana>
+    <bmanc>Value|RefTable_1188845774|0|False|0|0</bmanc>
+    <bmapr>Value|RefTable_1188845774|0|False|0|0</bmapr>
+    <bmase>Value|RefTable_1188845774|0|False|0|0</bmase>
+    <bmawk>Value|RefTable_1188845774|0|False|0|0</bmawk>
+    <bml>Value|RefTable_1188845774|0|False|0|0</bml>
+    <bmu>Value|RefTable_1188845774|0|False|0|0</bmu>
+    <boact>Value|RefTable_1188845774|0|False|0|0</boact>
+    <boactcm>Value|RefTable_1188845774|0|False|0|0</boactcm>
+    <boaht>Value|RefTable_1188845774|0|False|0|0</boaht>
+    <boamt>Value|RefTable_1188845774|0|False|0|0</boamt>
+    <boanc>Value|RefTable_1188845774|0|False|0|0</boanc>
+    <boawr>Value|RefTable_1188845774|0|False|0|0</boawr>
+    <bot>Value|RefTable_1188845774|0|False|0|0</bot>
+    <botre>Value|RefTable_1188845774|0|False|0|0</botre>
+    <bpl>Value|RefTable_1188845774|0|False|0|0</bpl>
+    <bplct>Value|RefTable_1188845774|0|False|0|0</bplct>
+    <bsa>Value|RefTable_1188845774|0|False|0|0</bsa>
+    <bsa00>Value|RefTable_1188845774|0|False|0|0</bsa00>
+    <bsaab>Value|RefTable_1188845774|0|False|0|0</bsaab>
+    <bsaam>Value|RefTable_1188845774|0|False|0|0</bsaam>
+    <bsacm>Value|RefTable_1188845774|0|False|0|0</bsacm>
+    <bsafu>Value|RefTable_1188845774|0|False|0|0</bsafu>
+    <bsaht>Value|RefTable_1188845774|0|False|0|0</bsaht>
+    <bsals>Value|RefTable_1188845774|0|False|0|0</bsals>
+    <bsamm>Value|RefTable_1188845774|0|False|0|0</bsamm>
+    <bsaoa>Value|RefTable_1188845774|0|False|0|0</bsaoa>
+    <bsaot>Value|RefTable_1188845774|0|False|0|0</bsaot>
+    <bsapm>Value|RefTable_1188845774|0|False|0|0</bsapm>
+    <bsapmot>Value|RefTable_1188845774|0|False|0|0</bsapmot>
+    <bsapu>Value|RefTable_1188845774|0|False|0|0</bsapu>
+    <bsatm>Value|RefTable_1188845774|0|False|0|0</bsatm>
+    <bsatmpb>Value|RefTable_1188845774|0|False|0|0</bsatmpb>
+    <bsu>Value|RefTable_1188845774|0|False|0|0</bsu>
+    <bsuwd>Value|RefTable_1188845774|0|False|0|0</bsuwd>
+    <buncm>Value|RefTable_1188845774|0|False|0|0</buncm>
+    <bunct01>Value|RefTable_1188845774|0|False|0|0</bunct01>
+    <bunctmy01>Value|RefTable_1927503380|0|False|0|0</bunctmy01>
+    <bunls>Value|RefTable_1188845774|0|False|0|0</bunls>
+    <bunmt>Value|RefTable_1188845774|0|False|0|0</bunmt>
+    <bunmtmy>Value|RefTable_1927503380|0|False|0|0</bunmtmy>
+    <bunnc>Value|RefTable_1188845774|0|False|0|0</bunnc>
+    <bunot>Value|RefTable_1188845774|0|False|0|0</bunot>
+    <bunpe01>Value|RefTable_1188845774|0|False|0|0</bunpe01>
+    <bunpe02>Value|RefTable_1188845774|0|False|0|0</bunpe02>
+    <bunst>Value|RefTable_1188845774|0|False|0|0</bunst>
+    <buntr>Value|RefTable_1188845774|0|False|0|0</buntr>
+    <bwkmt>Value|RefTable_1188845774|0|False|0|0</bwkmt>
+    <byr>Value|RefTable_1188845774|0|False|0|0</byr>
+    <dcz>1</dcz>
+    <ddilv>Value|RefTable_1927503380|0|False|0|0</ddilv>
+    <ddita>0</ddita>
+    <dqb>1</dqb>
+    <drgur>1</drgur>
+    <drgur00>1</drgur00>
+    <ked>Value|RefTable_1188845774|0|False|0|0</ked>
+    <kfb>Value|RefTable_1188845774|0|False|0|0</kfb>
+    <kfbcc>Value|RefTable_1188845774|0|False|0|0</kfbcc>
+    <khl>Value|RefTable_1188845774|0|False|0|0</khl>
+    <khooo>Value|RefTable_1188845774|0|False|0|0</khooo>
+    <kivho>Value|RefTable_1188845774|0|False|0|0</kivho>
+    <lcd01>Value|RefTable_1927503380|1|False|0|0</lcd01>
+    <lcd02>Value|RefTable_1927503380|1|False|0|0</lcd02>
+    <lcd03>Value|RefTable_1927503380|1|False|0|0</lcd03>
+    <lcd04>Value|RefTable_1927503380|1|False|0|0</lcd04>
+    <lcd05>Value|RefTable_1927503380|1|False|0|0</lcd05>
+    <lcs>0</lcs>
+    <lfs>Value|RefTable_1927503380|15|False|0|0</lfs>
+    <lindi>4</lindi>
+    <loc>5</loc>
+    <lochz>0</lochz>
+    <lptmy>Value|RefTable_1927503380|0|False|0|0</lptmy>
+    <pdi>Value|RefTable_1188845774|0|False|0|0</pdi>
+    <pdi00>Value|RefTable_1188845774|0|False|0|0</pdi00>
+    <pdica>Value|RefTable_1188845774|0|False|0|0</pdica>
+    <pdida>Value|RefTable_1188845774|0|False|0|0</pdida>
+    <pdimy>Value|RefTable_1927503380|0|False|0|0</pdimy>
+    <pdinc>Value|RefTable_1188845774|0|False|0|0</pdinc>
+    <pdint>Value|RefTable_1188845774|0|False|0|0</pdint>
+    <pdinw>Value|RefTable_1188845774|0|False|0|0</pdinw>
+    <pdiot>Value|RefTable_1188845774|0|False|0|0</pdiot>
+    <pdiss>Value|RefTable_1188845774|0|False|0|0</pdiss>
+    <pdiss01>Value|RefTable_1188845774|0|False|0|0</pdiss01>
+    <pdiss02>Value|RefTable_1188845774|0|False|0|0</pdiss02>
+    <pditx>Value|RefTable_1188845774|0|False|0|0</pditx>
+    <pdiuc>Value|RefTable_1188845774|0|False|0|0</pdiuc>
+    <pfa>Value|RefTable_1188845774|0|False|0|0</pfa>
+    <phl>Value|RefTable_1188845774|0|False|0|0</phl>
+    <phlmy>Value|RefTable_1927503380|0|False|0|0</phlmy>
+    <pls>Value|RefTable_1188845774|0|False|0|0</pls>
+    <poaca>Value|RefTable_1188845774|0|False|0|0</poaca>
+    <poafr>Value|RefTable_1188845774|0|False|0|0</poafr>
+    <poals>Value|RefTable_1188845774|0|False|0|0</poals>
+    <poaml>Value|RefTable_1188845774|0|False|0|0</poaml>
+    <poamr>Value|RefTable_1188845774|0|False|0|0</poamr>
+    <poamt>Value|RefTable_1188845774|0|False|0|0</poamt>
+    <poanc>Value|RefTable_1188845774|0|False|0|0</poanc>
+    <poaot>Value|RefTable_1188845774|0|False|0|0</poaot>
+    <poaps01>Value|RefTable_1188845774|0|False|0|0</poaps01>
+    <poaps02>Value|RefTable_1188845774|0|False|0|0</poaps02>
+    <poapu>Value|RefTable_1188845774|0|False|0|0</poapu>
+    <poawr>Value|RefTable_1188845774|0|False|0|0</poawr>
+    <poaxp>Value|RefTable_1188845774|0|False|0|0</poaxp>
+    <powpt>Value|RefTable_1188845774|0|False|0|0</powpt>
+    <psact>Value|RefTable_1188845774|0|False|0|0</psact>
+    <psu>Value|RefTable_1188845774|0|False|0|0</psu>
+    <psu00>Value|RefTable_1188845774|0|False|0|0</psu00>
+    <psumy>Value|RefTable_1927503380|0|False|0|0</psumy>
+    <psuor>Value|RefTable_1188845774|0|False|0|0</psuor>
+    <psuot>Value|RefTable_1188845774|0|False|0|0</psuot>
+    <psups>Value|RefTable_1188845774|0|False|0|0</psups>
+    <psupu>Value|RefTable_1188845774|0|False|0|0</psupu>
+    <psuss>Value|RefTable_1188845774|0|False|0|0</psuss>
+    <psutx>Value|RefTable_1188845774|0|False|0|0</psutx>
+    <psuwd>Value|RefTable_1188845774|0|False|0|0</psuwd>
+    <psuwd00>Value|RefTable_1188845774|0|False|0|0</psuwd00>
+    <psuwdcm>Value|RefTable_1188845774|0|False|0|0</psuwdcm>
+    <psuwdct>Value|RefTable_1188845774|0|False|0|0</psuwdct>
+    <psuwdnc>Value|RefTable_1188845774|0|False|0|0</psuwdnc>
+    <pxp>Value|RefTable_1188845774|0|False|0|0</pxp>
+    <pxp00>Value|RefTable_1188845774|0|False|0|0</pxp00>
+    <pxpot>Value|RefTable_1188845774|0|False|0|0</pxpot>
+    <tpr>Value|RefTable_1188845774|0|False|0|0</tpr>
+    <xcc>Value|RefTable_1188845774|0|False|0|0</xcc>
+    <xcd>Value|RefTable_1188845774|0|False|0|0</xcd>
+    <xched>Value|RefTable_1188845774|0|False|0|0</xched>
+    <xcmie>Value|RefTable_1188845774|0|False|0|0</xcmie>
+    <xed>Value|RefTable_1188845774|0|False|0|0</xed>
+    <xhchm>Value|RefTable_1188845774|0|False|0|0</xhchm>
+    <xhcnhrt>Value|RefTable_1188845774|0|False|0|0</xhcnhrt>
+    <xhcot>Value|RefTable_1188845774|0</xhcot>
+    <xhcrh>Value|RefTable_1188845774|0|False|0|0</xhcrh>
+    <xhcsc>Value|RefTable_1188845774|0|False|0|0</xhcsc>
+    <xhcscel>Value|RefTable_1188845774|0|False|0|0</xhcscel>
+    <xhcscht>Value|RefTable_1188845774|0|False|0|0</xhcscht>
+    <xhcscrf>Value|RefTable_1188845774|0|False|0|0</xhcscrf>
+    <xhcscwt>Value|RefTable_1188845774|0|False|0|0</xhcscwt>
+    <xhl>Value|RefTable_1188845774|0|False|0|0</xhl>
+    <xhl01>Value|RefTable_1188845774|0|False|0|0</xhl01>
+    <xht>Value|RefTable_1188845774|0|False|0|0</xht>
+    <xishl>Value|RefTable_1188845774|0|False|0|0</xishl>
+    <xislf>Value|RefTable_1188845774|0|False|0|0</xislf>
+    <xmp>Value|RefTable_1188845774|0|False|0|0</xmp>
+    <xmp00>Value|RefTable_1188845774|0|False|0|0</xmp00>
+    <xmpam>Value|RefTable_1188845774|0|False|0|0</xmpam>
+    <xmpot>Value|RefTable_1188845774|0|False|0|0</xmpot>
+    <xog>Value|RefTable_1188845774|0|False|0|0</xog>
+    <xpp>Value|RefTable_1188845774|0|False|0|0</xpp>
+    <xuf>Value|RefTable_1188845774|0|False|0|0</xuf>
+    <yag>Value|RefTable_1188845774|0|False|0|0</yag>
+    <yag01>Value|RefTable_1188845774|0|False|0|0</yag01>
+    <yag02>Value|RefTable_1188845774|0|False|0|0</yag02>
+    <yaj>Value|RefTable_1188845774|0|False|0|0</yaj>
+    <yemab>Value|RefTable_1188845774|0|False|0|0</yemab>
+    <yemaj>Value|RefTable_1188845774|0|False|0|0</yemaj>
+    <yemcs>Value|RefTable_1188845774|0|False|0|0</yemcs>
+    <yemhl>Value|RefTable_1188845774|0|False|0|0</yemhl>
+    <yemnr>Value|RefTable_1188845774|0|False|0|0</yemnr>
+    <yemnt>Value|RefTable_1188845774|0|False|0|0</yemnt>
+    <yemot>Value|RefTable_1188845774|0|False|0|0</yemot>
+    <yempv01>Value|RefTable_1188845774|0|False|0|0</yempv01>
+    <yemtj>Value|RefTable_1188845774|0|False|0|0</yemtj>
+    <yemxp>Value|RefTable_1188845774|0|False|0|0</yemxp>
+    <yfb00>Value|RefTable_1188845774|0|False|0|0</yfb00>
+    <yivwg01>Value|RefTable_1188845774|0|False|0|0</yivwg01>
+    <yivwg02>Value|RefTable_1188845774|0|False|0|0</yivwg02>
+    <yiy>Value|RefTable_1188845774|0|False|0|0</yiy>
+    <yiy00>Value|RefTable_1188845774|0|False|0|0</yiy00>
+    <yiydv>Value|RefTable_1188845774|0|False|0|0</yiydv>
+    <yiyit>Value|RefTable_1188845774|0|False|0|0</yiyit>
+    <yiyitdp>Value|RefTable_1188845774|0|False|0|0</yiyitdp>
+    <yiyitob>Value|RefTable_1188845774|0|False|0|0</yiyitob>
+    <yiyitsb>Value|RefTable_1188845774|0|False|0|0</yiyitsb>
+    <yiynt>Value|RefTable_1188845774|0|False|0|0</yiynt>
+    <yiyot>Value|RefTable_1188845774|0|False|0|0</yiyot>
+    <yiytx>Value|RefTable_1188845774|0|False|0|0</yiytx>
+    <yiytx00>Value|RefTable_1188845774|0|False|0|0</yiytx00>
+    <yiytx01>Value|RefTable_1188845774|0|False|0|0</yiytx01>
+    <yls>Value|RefTable_1188845774|0|False|0|0</yls>
+    <ymp>Value|RefTable_1188845774|0|False|0|0</ymp>
+    <yot>Value|RefTable_1188845774|0|False|0|0</yot>
+    <yot01>Value|RefTable_1188845774|0|False|0|0</yot01>
+    <yot02>Value|RefTable_1188845774|0|False|0|0</yot02>
+    <ypp>Value|RefTable_1188845774|0|False|0|0</ypp>
+    <ypp01>Value|RefTable_1188845774|0|False|0|0</ypp01>
+    <ypp02>Value|RefTable_1188845774|0|False|0|0</ypp02>
+    <yprld>Value|RefTable_1188845774|0|False|0|0</yprld>
+    <yprmr>Value|RefTable_1188845774|0|False|0|0</yprmr>
+    <yprnt>Value|RefTable_1188845774|0|False|0|0</yprnt>
+    <yprro>Value|RefTable_1188845774|0|False|0|0</yprro>
+    <yprrt>Value|RefTable_1188845774|0|False|0|0</yprrt>
+    <yprtx>Value|RefTable_1188845774|0|False|0|0</yprtx>
+    <ypt>Value|RefTable_1188845774|0|False|0|0</ypt>
+    <ypt00>Value|RefTable_1188845774|0|False|0|0</ypt00>
+    <yptmp>Value|RefTable_1188845774|0|False|0|0</yptmp>
+    <yptmpnt>Value|RefTable_1188845774|0|False|0|0</yptmpnt>
+    <yptmptx>Value|RefTable_1188845774|0|False|0|0</yptmptx>
+    <yptot>Value|RefTable_1188845774|0|False|0|0</yptot>
+    <yseag>Value|RefTable_1188845774|0|False|0|0</yseag>
+    <ysebs>Value|RefTable_1188845774|0|False|0|0</ysebs>
+    <yseil>Value|RefTable_1188845774|0|False|0|0</yseil>
+    <ysena>Value|RefTable_1188845774|0|False|0|0</ysena>
+    <yst>Value|RefTable_1188845774|0|False|0|0</yst>
+    <ysv>Value|RefTable_1188845774|0|False|0|0</ysv>
+    <yunsv>Value|RefTable_1188845774|0|False|0|0</yunsv>
+    <amrtp>2</amrtp>
+    <bcctuyn>0</bcctuyn>
+    <bchdiyn>0</bchdiyn>
+    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
+    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
+    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
+    <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
+    <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
+    <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
+    <ddipd>0</ddipd>
+    <ddipd00>0</ddipd00>
+    <dmp>9</dmp>
+    <dmsyy03>0</dmsyy03>
+    <l01>0</l01>
+    <l02>0</l02>
+    <lap>0</lap>
+    <lap00>0</lap00>
+    <lbl>0</lbl>
+    <lcr>0</lcr>
+    <lcr01>0</lcr01>
+    <lcs10>0</lcs10>
+    <lct>0</lct>
+    <lemiw>999</lemiw>
+    <lhw00>Value|RefTable_1927503380|0|False|0|0</lhw00>
+    <lhw01>Value|RefTable_1927503380|0|False|0|0</lhw01>
+    <lhwiv00>Value|RefTable_1927503380|0|False|0|0</lhwiv00>
+    <lhwiv01>Value|RefTable_1927503380|0|False|0|0</lhwiv01>
+    <lim>1</lim>
+    <limiv>0</limiv>
+    <liwivwh>Value|RefTable_1927503380|0|False|0|0</liwivwh>
+    <lle>0</lle>
+    <lpf>0</lpf>
+    <lpm01>0</lpm01>
+    <lrg>1</lrg>
+    <lsdmy>Value|RefTable_1927503380|0|False|0|0</lsdmy>
+    <lseor>0</lseor>
+    <lsepf>0</lsepf>
+    <poa01>Value|RefTable_1188845774|0|False|0|0</poa01>
+    <poa02>Value|RefTable_1188845774|0|False|0|0</poa02>
+    <poa03>Value|RefTable_1188845774|0|False|0|0</poa03>
+    <poaab>Value|RefTable_1188845774|0|False|0|0</poaab>
+    <poacc>Value|RefTable_1188845774|0|False|0|0</poacc>
+    <poacm>Value|RefTable_1188845774|0|False|0|0</poacm>
+    <poacmdi>Value|RefTable_1188845774|0|False|0|0</poacmdi>
+    <poacmoa>Value|RefTable_1188845774|0|False|0|0</poacmoa>
+    <poacmsu>Value|RefTable_1188845774|0|False|0|0</poacmsu>
+    <poacs>Value|RefTable_1188845774|0|False|0|0</poacs>
+    <poant>Value|RefTable_1188845774|0|False|0|0</poant>
+    <poasp>Value|RefTable_1188845774|0|False|0|0</poasp>
+    <poass>Value|RefTable_1188845774|0|False|0|0</poass>
+    <xhc00>Value|RefTable_1188845774|0|False|0|0</xhc00>
+    <xhcmo>Value|RefTable_1188845774|0|False|0|0</xhcmo>
+    <xhcmomc>Value|RefTable_1188845774|0|False|0|0</xhcmomc>
+    <xhcmomi>Value|RefTable_1188845774|0|False|0|0</xhcmomi>
+    <xivhcrt>Value|RefTable_1188845774|0|False|0|0</xivhcrt>
+    <yem02>Value|RefTable_1188845774|0|False|0|0</yem02>
+    <yse01>Value|RefTable_1188845774|0|False|0|0</yse01>
+    <yseev>Value|RefTable_1188845774|0|False|0|0</yseev>
+    <ysetx>Value|RefTable_1188845774|0|False|0|0</ysetx>
+    <drg01_FR>1</drg01_FR>
+    <drgn1_CZ>1</drgn1_CZ>
+    <drgn1_PL>1</drgn1_PL>
+    <drgn2_CZ>1</drgn2_CZ>
+    <drgn2_ES>30</drgn2_ES>
+    <drgn2_IT>13</drgn2_IT>
+    <drgn2_PL>1</drgn2_PL>
+    <lpm_EE>1</lpm_EE>
+    <lpm_EL>0</lpm_EL>
+    <lcl_IT>1</lcl_IT>
+    <lcl_AT>2</lcl_AT>
+    <lse00_HU>0</lse00_HU>
+    <lse00_SI>2</lse00_SI>
+    <amrar_EE>Value|RefTable_1927503380|70.8|False|0|0</amrar_EE>
+    <amrar_EL>Value|RefTable_1927503380|90|False|0|0</amrar_EL>
+    <amrar_PL>Value|RefTable_1927503380|65|False|0|0</amrar_PL>
+    <tpceepx_UK>Value|RefTable_1927503380|0.053|False|0|0</tpceepx_UK>
+    <tpceepx_IE>Value|RefTable_1927503380|0.086|False|0|0</tpceepx_IE>
+    <amrtn>3</amrtn>
+    <liwwh>Value|RefTable_1927503380|0|False|0|0</liwwh>
+    <xhcrt>Value|RefTable_1188845774|0|False|0|0</xhcrt>
+    <yempv>Value|RefTable_1188845774|0</yempv>
+    <amrrm>Value|RefTable_1927503380|3|False|0|0</amrrm>
+    <ddi01>Value|RefTable_1927503380|0|False|0|0</ddi01>
+    <ddi02>999</ddi02>
+    <tintcho>Value|RefTable_1188845774|0|False|0|0</tintcho>
+    <yem01>Value|RefTable_1188845774|0|False|0|0</yem01>
+    <yemiv>Value|RefTable_1188845774|0|False|0|0</yemiv>
+    <yseiv>Value|RefTable_1188845774|0|False|0|0</yseiv>
+    <lcl_LU>2</lcl_LU>
+    <dmsyy04>0</dmsyy04>
+    <dmb>Value|RefTable_1927503380|5|False|0|0</dmb>
+    <ysenr00>Value|RefTable_1927503380|0|False|0|0</ysenr00>
+    <ysenr01>Value|RefTable_1927503380|0|False|0|0</ysenr01>
+    <ysere01>Value|RefTable_1927503380|0|False|0|0</ysere01>
+    <pdiac>Value|RefTable_1927503380|0|False|0|0</pdiac>
+    <pdiwr>Value|RefTable_1927503380|0|False|0|0</pdiwr>
+    <amrtn01>4</amrtn01>
+    <drgn2_FI>2</drgn2_FI>
+    <bsa00_BG>Value|RefTable_1837444076|0|False|0|0</bsa00_BG>
+    <bsa00_DE>Value|RefTable_1837444076|0|False|0|0</bsa00_DE>
+    <bsa00_EE>Value|RefTable_1837444076|0|False|0|0</bsa00_EE>
+    <bsa00_FI>Value|RefTable_1837444076|0|False|0|0</bsa00_FI>
+    <bsa00_FR>Value|RefTable_1837444076|0|False|0|0</bsa00_FR>
+    <bsa00_HR>Value|RefTable_1837444076|0|False|0|0</bsa00_HR>
+    <bsa00_IE>Value|RefTable_1837444076|1|False|0|0</bsa00_IE>
+    <bsa00_LT>Value|RefTable_1837444076|0|False|0|0</bsa00_LT>
+    <bsa00_NL>Value|RefTable_1837444076|0|False|0|0</bsa00_NL>
+    <bsa00_PT>Value|RefTable_1837444076|0|False|0|0</bsa00_PT>
+    <bsa00_SI>Value|RefTable_1837444076|0|False|0|0</bsa00_SI>
+    <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
+    <lct_CY>1</lct_CY>
+    <lct_DK>1</lct_DK>
+    <bccot_AT>0</bccot_AT>
+    <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
+    <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
+    <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
+    <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
+    <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+  </Example_x0020_Household>
+  <Example_x0020_Household>
+    <dataId>1894605218</dataId>
+    <PersonName>Child1</PersonName>
+    <checked>true</checked>
+    <orderId>2</orderId>
+    <dag>Value|RefTable_1927503380|14|False|0|0</dag>
+    <dgn>1</dgn>
+    <idpartner>0</idpartner>
+    <idfather>1729580931</idfather>
+    <idmother>1537426458</idmother>
+    <dms>1</dms>
+    <dec>3</dec>
+    <deh>2</deh>
+    <ddi>0</ddi>
+    <drgn1_BE>1</drgn1_BE>
+    <drgn1_UK>7</drgn1_UK>
+    <yem>Value|RefTable_1927503380|0|False|80|2</yem>
+    <poa>Value|RefTable_1188845774|0|False||</poa>
+    <yse>Value|RefTable_1188845774|0|False||</yse>
+    <lhw>Value|RefTable_1927503380|0|False|0|0</lhw>
+    <les>6</les>
+    <ypr>Value|RefTable_1188845774|0|False|0|0</ypr>
+    <ysenr>Value|RefTable_1188845774|0|False|0|0</ysenr>
+    <afc>Value|RefTable_1188845774|0|False|0|0</afc>
+    <aiv>Value|RefTable_1188845774|0|False|0|0</aiv>
+    <aldagar>Value|RefTable_1927503380|0|False|0|0</aldagar>
+    <aldagariv>Value|RefTable_1927503380|0|False|0|0</aldagariv>
+    <aldar>Value|RefTable_1927503380|0|False|0|0</aldar>
+    <aldnaar>Value|RefTable_1927503380|0|False|0|0</aldnaar>
+    <amolv>Value|RefTable_1188845774|0|False|0|0</amolv>
+    <amoyl>Value|RefTable_1927503380|0|False|0|0</amoyl>
+    <amriv>Value|RefTable_1188845774|0|False|0|0</amriv>
+    <amrmv>Value|RefTable_1188845774|0|False|0|0</amrmv>
+    <aobiv>Value|RefTable_1188845774|0|False|0|0</aobiv>
+    <aoc>Value|RefTable_1188845774|0|False|0|0</aoc>
+    <bac>Value|RefTable_1188845774|0|False|0|0</bac>
+    <bac00>Value|RefTable_1188845774|0|False|0|0</bac00>
+    <bac01>Value|RefTable_1188845774|0|False|0|0</bac01>
+    <bacot>Value|RefTable_1188845774|0|False|0|0</bacot>
+    <bacpm>Value|RefTable_1188845774|0|False|0|0</bacpm>
+    <bca01>Value|RefTable_1188845774|0|False|0|0</bca01>
+    <bca02>Value|RefTable_1188845774|0|False|0|0</bca02>
+    <bcc>Value|RefTable_1188845774|0|False|0|0</bcc>
+    <bcc00>Value|RefTable_1188845774|0|False|0|0</bcc00>
+    <bcc01my>Value|RefTable_1927503380|0|False|0|0</bcc01my>
+    <bcc02my>Value|RefTable_1927503380|0|False|0|0</bcc02my>
+    <bcc03my>Value|RefTable_1927503380|0|False|0|0</bcc03my>
+    <bcc04my>Value|RefTable_1927503380|0|False|0|0</bcc04my>
+    <bcc05>Value|RefTable_1188845774|0|False|0|0</bcc05>
+    <bcc05my>Value|RefTable_1927503380|0|False|0|0</bcc05my>
+    <bcc06>Value|RefTable_1188845774|0|False|0|0</bcc06>
+    <bcc06my>Value|RefTable_1927503380|0|False|0|0</bcc06my>
+    <bcclg>Value|RefTable_1188845774|0|False|0|0</bcclg>
+    <bccmy>Value|RefTable_1927503380|0|False|0|0</bccmy>
+    <bccnw>Value|RefTable_1188845774|0|False|0|0</bccnw>
+    <bccrd>Value|RefTable_1188845774|0|False|0|0</bccrd>
+    <bch>Value|RefTable_1188845774|0|False|0|0</bch>
+    <bch00>Value|RefTable_1188845774|0|False|0|0</bch00>
+    <bchab>Value|RefTable_1188845774|0|False|0|0</bchab>
+    <bcham>Value|RefTable_1188845774|0|False|0|0</bcham>
+    <bchas01>Value|RefTable_1188845774|0|False|0|0</bchas01>
+    <bchas02>Value|RefTable_1188845774|0|False|0|0</bchas02>
+    <bchas03>Value|RefTable_1188845774|0|False|0|0</bchas03>
+    <bchasxc>Value|RefTable_1188845774|0|False|0|0</bchasxc>
+    <bchba>Value|RefTable_1188845774|0|False|0|0</bchba>
+    <bchbals>Value|RefTable_1188845774|0|False|0|0</bchbals>
+    <bchcc>Value|RefTable_1188845774|0|False|0|0</bchcc>
+    <bchdi>Value|RefTable_1188845774|0|False|0|0</bchdi>
+    <bchdied>Value|RefTable_1188845774|0|False|0|0</bchdied>
+    <bched>Value|RefTable_1188845774|0|False|0|0</bched>
+    <bched01>Value|RefTable_1188845774|0|False|0|0</bched01>
+    <bched02>Value|RefTable_1188845774|0|False|0|0</bched02>
+    <bched03>Value|RefTable_1188845774|0|False|0|0</bched03>
+    <bched04>Value|RefTable_1188845774|0|False|0|0</bched04>
+    <bchlg>Value|RefTable_1188845774|0|False|0|0</bchlg>
+    <bchlp>Value|RefTable_1188845774|0|False|0|0</bchlp>
+    <bchlp00>Value|RefTable_1188845774|0|False|0|0</bchlp00>
+    <bchmt>Value|RefTable_1188845774|0|False|0|0</bchmt>
+    <bchnm>Value|RefTable_1188845774|0|False|0|0</bchnm>
+    <bchor>Value|RefTable_1188845774|0|False|0|0</bchor>
+    <bchot>Value|RefTable_1188845774|0|False|0|0</bchot>
+    <bchpl>Value|RefTable_1188845774|0|False|0|0</bchpl>
+    <bchprls>Value|RefTable_1188845774|0|False|0|0</bchprls>
+    <bchuc>Value|RefTable_1188845774|0|False|0|0</bchuc>
+    <bchunlp>Value|RefTable_1188845774|0|False|0|0</bchunlp>
+    <bchyc>Value|RefTable_1188845774|0|False|0|0</bchyc>
+    <bcrbafh>Value|RefTable_1188845774|0|False|0|0</bcrbafh>
+    <bcrchdi>Value|RefTable_1188845774|0|False|0|0</bcrchdi>
+    <bcrdi>Value|RefTable_1188845774|0|False|0|0</bcrdi>
+    <bcrsvcc>Value|RefTable_1188845774|0|False|0|0</bcrsvcc>
+    <bdi>Value|RefTable_1188845774|0|False|0|0</bdi>
+    <bdica>Value|RefTable_1188845774|0|False|0|0</bdica>
+    <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
+    <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
+    <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
+    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
+    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
+    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
+    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
+    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
+    <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
+    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
+    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
+    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
+    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
+    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
+    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
+    <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
+    <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
+    <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
+    <bdinc>Value|RefTable_1188845774|0|False|0|0</bdinc>
+    <bdioa>Value|RefTable_1188845774|0|False|0|0</bdioa>
+    <bdiot>Value|RefTable_1188845774|0|False|0|0</bdiot>
+    <bdirw>Value|RefTable_1188845774|0|False|0|0</bdirw>
+    <bdisc>Value|RefTable_1188845774|0|False|0|0</bdisc>
+    <bdisv>Value|RefTable_1188845774|0|False|0|0</bdisv>
+    <bdiwi>Value|RefTable_1188845774|0|False|0|0</bdiwi>
+    <bdixp>Value|RefTable_1188845774|0|False|0|0</bdixp>
+    <bed>Value|RefTable_1188845774|0|False|0|0</bed>
+    <bed00>Value|RefTable_1188845774|0|False|0|0</bed00>
+    <bedes>Value|RefTable_1188845774|0|False|0|0</bedes>
+    <bedet>Value|RefTable_1188845774|0|False|0|0</bedet>
+    <bedot>Value|RefTable_1188845774|0|False|0|0</bedot>
+    <bedsl>Value|RefTable_1188845774|0|False|0|0</bedsl>
+    <bfa>Value|RefTable_1188845774|0|False|0|0</bfa>
+    <bfaam>Value|RefTable_1188845774|0|False|0|0</bfaam>
+    <bfaba>Value|RefTable_1188845774|0|False|0|0</bfaba>
+    <bfacc>Value|RefTable_1188845774|0|False|0|0</bfacc>
+    <bfach00>Value|RefTable_1188845774|0|False|0|0</bfach00>
+    <bfached>Value|RefTable_1188845774|0|False|0|0</bfached>
+    <bfachnm>Value|RefTable_1188845774|0|False|0|0</bfachnm>
+    <bfachot>Value|RefTable_1188845774|0|False|0|0</bfachot>
+    <bfacp>Value|RefTable_1188845774|0|False|0|0</bfacp>
+    <bfacs>Value|RefTable_1188845774|0|False|0|0</bfacs>
+    <bfafp>Value|RefTable_1188845774|0|False|0|0</bfafp>
+    <bfalg>Value|RefTable_1188845774|0|False|0|0</bfalg>
+    <bfalp>Value|RefTable_1188845774|0|False|0|0</bfalp>
+    <bfama>Value|RefTable_1188845774|0|False|0|0</bfama>
+    <bfamh>Value|RefTable_1188845774|0|False|0|0</bfamh>
+    <bfamt>Value|RefTable_1188845774|0|False|0|0</bfamt>
+    <bfana>Value|RefTable_1188845774|0|False|0|0</bfana>
+    <bfaot>Value|RefTable_1188845774|0|False|0|0</bfaot>
+    <bfapl>Value|RefTable_1188845774|0|False|0|0</bfapl>
+    <bfapt>Value|RefTable_1188845774|0|False|0|0</bfapt>
+    <bfauc>Value|RefTable_1188845774|0|False|0|0</bfauc>
+    <bfawk>Value|RefTable_1188845774|0|False|0|0</bfawk>
+    <bhl>Value|RefTable_1188845774|0|False|0|0</bhl>
+    <bhl00>Value|RefTable_1188845774|0|False|0|0</bhl00>
+    <bhl01>Value|RefTable_1188845774|0|False|0|0</bhl01>
+    <bhlac>Value|RefTable_1188845774|0|False|0|0</bhlac>
+    <bhlmt>Value|RefTable_1188845774|0|False|0|0</bhlmt>
+    <bhlmy>Value|RefTable_1188845774|0|False|0|0</bhlmy>
+    <bhlot>Value|RefTable_1188845774|0|False|0|0</bhlot>
+    <bhlps>Value|RefTable_1188845774|0|False|0|0</bhlps>
+    <bhlwk>Value|RefTable_1188845774|0|False|0|0</bhlwk>
+    <bhlxp>Value|RefTable_1188845774|0|False|0|0</bhlxp>
+    <bho>Value|RefTable_1188845774|0|False|0|0</bho>
+    <bho00>Value|RefTable_1188845774|0|False|0|0</bho00>
+    <bho01>Value|RefTable_1188845774|0|False|0|0</bho01>
+    <bho02>Value|RefTable_1188845774|0|False|0|0</bho02>
+    <bhoht>Value|RefTable_1188845774|0|False|0|0</bhoht>
+    <bhomy>Value|RefTable_1927503380|0|False|0|0</bhomy>
+    <bhoot>Value|RefTable_1188845774|0|False|0|0</bhoot>
+    <bhope>Value|RefTable_1188845774|0|False|0|0</bhope>
+    <bhosd>Value|RefTable_1188845774|0|False|0|0</bhosd>
+    <bhotn>Value|RefTable_1188845774|0|False|0|0</bhotn>
+    <bhout>Value|RefTable_1188845774|0|False|0|0</bhout>
+    <bma>Value|RefTable_1188845774|0|False|0|0</bma>
+    <bmaab>Value|RefTable_1188845774|0|False|0|0</bmaab>
+    <bmaba>Value|RefTable_1188845774|0|False|0|0</bmaba>
+    <bmact>Value|RefTable_1188845774|0|False|0|0</bmact>
+    <bmaer>Value|RefTable_1188845774|0|False|0|0</bmaer>
+    <bmals>Value|RefTable_1188845774|0|False|0|0</bmals>
+    <bmamy>Value|RefTable_1188845774|0|False|0|0</bmamy>
+    <bmana>Value|RefTable_1188845774|0|False|0|0</bmana>
+    <bmanc>Value|RefTable_1188845774|0|False|0|0</bmanc>
+    <bmapr>Value|RefTable_1188845774|0|False|0|0</bmapr>
+    <bmase>Value|RefTable_1188845774|0|False|0|0</bmase>
+    <bmawk>Value|RefTable_1188845774|0|False|0|0</bmawk>
+    <bml>Value|RefTable_1188845774|0|False|0|0</bml>
+    <bmu>Value|RefTable_1188845774|0|False|0|0</bmu>
+    <boact>Value|RefTable_1188845774|0|False|0|0</boact>
+    <boactcm>Value|RefTable_1188845774|0|False|0|0</boactcm>
+    <boaht>Value|RefTable_1188845774|0|False|0|0</boaht>
+    <boamt>Value|RefTable_1188845774|0|False|0|0</boamt>
+    <boanc>Value|RefTable_1188845774|0|False|0|0</boanc>
+    <boawr>Value|RefTable_1188845774|0|False|0|0</boawr>
+    <bot>Value|RefTable_1188845774|0|False|0|0</bot>
+    <botre>Value|RefTable_1188845774|0|False|0|0</botre>
+    <bpl>Value|RefTable_1188845774|0|False|0|0</bpl>
+    <bplct>Value|RefTable_1188845774|0|False|0|0</bplct>
+    <bsa>Value|RefTable_1188845774|0|False|0|0</bsa>
+    <bsa00>Value|RefTable_1188845774|0|False|0|0</bsa00>
+    <bsaab>Value|RefTable_1188845774|0|False|0|0</bsaab>
+    <bsaam>Value|RefTable_1188845774|0|False|0|0</bsaam>
+    <bsacm>Value|RefTable_1188845774|0|False|0|0</bsacm>
+    <bsafu>Value|RefTable_1188845774|0|False|0|0</bsafu>
+    <bsaht>Value|RefTable_1188845774|0|False|0|0</bsaht>
+    <bsals>Value|RefTable_1188845774|0|False|0|0</bsals>
+    <bsamm>Value|RefTable_1188845774|0|False|0|0</bsamm>
+    <bsaoa>Value|RefTable_1188845774|0|False|0|0</bsaoa>
+    <bsaot>Value|RefTable_1188845774|0|False|0|0</bsaot>
+    <bsapm>Value|RefTable_1188845774|0|False|0|0</bsapm>
+    <bsapmot>Value|RefTable_1188845774|0|False|0|0</bsapmot>
+    <bsapu>Value|RefTable_1188845774|0|False|0|0</bsapu>
+    <bsatm>Value|RefTable_1188845774|0|False|0|0</bsatm>
+    <bsatmpb>Value|RefTable_1188845774|0|False|0|0</bsatmpb>
+    <bsu>Value|RefTable_1188845774|0|False|0|0</bsu>
+    <bsuwd>Value|RefTable_1188845774|0|False|0|0</bsuwd>
+    <buncm>Value|RefTable_1188845774|0|False|0|0</buncm>
+    <bunct01>Value|RefTable_1188845774|0|False|0|0</bunct01>
+    <bunctmy01>Value|RefTable_1927503380|0|False|0|0</bunctmy01>
+    <bunls>Value|RefTable_1188845774|0|False|0|0</bunls>
+    <bunmt>Value|RefTable_1188845774|0|False|0|0</bunmt>
+    <bunmtmy>Value|RefTable_1927503380|0|False|0|0</bunmtmy>
+    <bunnc>Value|RefTable_1188845774|0|False|0|0</bunnc>
+    <bunot>Value|RefTable_1188845774|0|False|0|0</bunot>
+    <bunpe01>Value|RefTable_1188845774|0|False|0|0</bunpe01>
+    <bunpe02>Value|RefTable_1188845774|0|False|0|0</bunpe02>
+    <bunst>Value|RefTable_1188845774|0|False|0|0</bunst>
+    <buntr>Value|RefTable_1188845774|0|False|0|0</buntr>
+    <bwkmt>Value|RefTable_1188845774|0|False|0|0</bwkmt>
+    <byr>Value|RefTable_1188845774|0|False|0|0</byr>
+    <dcz>1</dcz>
+    <ddilv>Value|RefTable_1927503380|0|False|0|0</ddilv>
+    <ddita>0</ddita>
+    <dqb>1</dqb>
+    <drgur>1</drgur>
+    <drgur00>1</drgur00>
+    <ked>Value|RefTable_1188845774|0|False|0|0</ked>
+    <kfb>Value|RefTable_1188845774|0|False|0|0</kfb>
+    <kfbcc>Value|RefTable_1188845774|0|False|0|0</kfbcc>
+    <khl>Value|RefTable_1188845774|0|False|0|0</khl>
+    <khooo>Value|RefTable_1188845774|0|False|0|0</khooo>
+    <kivho>Value|RefTable_1188845774|0|False|0|0</kivho>
+    <lcd01>Value|RefTable_1927503380|1|False|0|0</lcd01>
+    <lcd02>Value|RefTable_1927503380|1|False|0|0</lcd02>
+    <lcd03>Value|RefTable_1927503380|1|False|0|0</lcd03>
+    <lcd04>Value|RefTable_1927503380|1|False|0|0</lcd04>
+    <lcd05>Value|RefTable_1927503380|1|False|0|0</lcd05>
+    <lcs>0</lcs>
+    <lfs>Value|RefTable_1927503380|15|False|0|0</lfs>
+    <lindi>4</lindi>
+    <loc>5</loc>
+    <lochz>0</lochz>
+    <lptmy>Value|RefTable_1927503380|0|False|0|0</lptmy>
+    <pdi>Value|RefTable_1188845774|0|False|0|0</pdi>
+    <pdi00>Value|RefTable_1188845774|0|False|0|0</pdi00>
+    <pdica>Value|RefTable_1188845774|0|False|0|0</pdica>
+    <pdida>Value|RefTable_1188845774|0|False|0|0</pdida>
+    <pdimy>Value|RefTable_1927503380|0|False|0|0</pdimy>
+    <pdinc>Value|RefTable_1188845774|0|False|0|0</pdinc>
+    <pdint>Value|RefTable_1188845774|0|False|0|0</pdint>
+    <pdinw>Value|RefTable_1188845774|0|False|0|0</pdinw>
+    <pdiot>Value|RefTable_1188845774|0|False|0|0</pdiot>
+    <pdiss>Value|RefTable_1188845774|0|False|0|0</pdiss>
+    <pdiss01>Value|RefTable_1188845774|0|False|0|0</pdiss01>
+    <pdiss02>Value|RefTable_1188845774|0|False|0|0</pdiss02>
+    <pditx>Value|RefTable_1188845774|0|False|0|0</pditx>
+    <pdiuc>Value|RefTable_1188845774|0|False|0|0</pdiuc>
+    <pfa>Value|RefTable_1188845774|0|False|0|0</pfa>
+    <phl>Value|RefTable_1188845774|0|False|0|0</phl>
+    <phlmy>Value|RefTable_1927503380|0|False|0|0</phlmy>
+    <pls>Value|RefTable_1188845774|0|False|0|0</pls>
+    <poaca>Value|RefTable_1188845774|0|False|0|0</poaca>
+    <poafr>Value|RefTable_1188845774|0|False|0|0</poafr>
+    <poals>Value|RefTable_1188845774|0|False|0|0</poals>
+    <poaml>Value|RefTable_1188845774|0|False|0|0</poaml>
+    <poamr>Value|RefTable_1188845774|0|False|0|0</poamr>
+    <poamt>Value|RefTable_1188845774|0|False|0|0</poamt>
+    <poanc>Value|RefTable_1188845774|0|False|0|0</poanc>
+    <poaot>Value|RefTable_1188845774|0|False|0|0</poaot>
+    <poaps01>Value|RefTable_1188845774|0|False|0|0</poaps01>
+    <poaps02>Value|RefTable_1188845774|0|False|0|0</poaps02>
+    <poapu>Value|RefTable_1188845774|0|False|0|0</poapu>
+    <poawr>Value|RefTable_1188845774|0|False|0|0</poawr>
+    <poaxp>Value|RefTable_1188845774|0|False|0|0</poaxp>
+    <powpt>Value|RefTable_1188845774|0|False|0|0</powpt>
+    <psact>Value|RefTable_1188845774|0|False|0|0</psact>
+    <psu>Value|RefTable_1188845774|0|False|0|0</psu>
+    <psu00>Value|RefTable_1188845774|0|False|0|0</psu00>
+    <psumy>Value|RefTable_1927503380|0|False|0|0</psumy>
+    <psuor>Value|RefTable_1188845774|0|False|0|0</psuor>
+    <psuot>Value|RefTable_1188845774|0|False|0|0</psuot>
+    <psups>Value|RefTable_1188845774|0|False|0|0</psups>
+    <psupu>Value|RefTable_1188845774|0|False|0|0</psupu>
+    <psuss>Value|RefTable_1188845774|0|False|0|0</psuss>
+    <psutx>Value|RefTable_1188845774|0|False|0|0</psutx>
+    <psuwd>Value|RefTable_1188845774|0|False|0|0</psuwd>
+    <psuwd00>Value|RefTable_1188845774|0|False|0|0</psuwd00>
+    <psuwdcm>Value|RefTable_1188845774|0|False|0|0</psuwdcm>
+    <psuwdct>Value|RefTable_1188845774|0|False|0|0</psuwdct>
+    <psuwdnc>Value|RefTable_1188845774|0|False|0|0</psuwdnc>
+    <pxp>Value|RefTable_1188845774|0|False|0|0</pxp>
+    <pxp00>Value|RefTable_1188845774|0|False|0|0</pxp00>
+    <pxpot>Value|RefTable_1188845774|0|False|0|0</pxpot>
+    <tpr>Value|RefTable_1188845774|0|False|0|0</tpr>
+    <xcc>Value|RefTable_1188845774|0|False|0|0</xcc>
+    <xcd>Value|RefTable_1188845774|0|False|0|0</xcd>
+    <xched>Value|RefTable_1188845774|0|False|0|0</xched>
+    <xcmie>Value|RefTable_1188845774|0|False|0|0</xcmie>
+    <xed>Value|RefTable_1188845774|0|False|0|0</xed>
+    <xhchm>Value|RefTable_1188845774|0|False|0|0</xhchm>
+    <xhcnhrt>Value|RefTable_1188845774|0|False|0|0</xhcnhrt>
+    <xhcot>Value|RefTable_1188845774|0</xhcot>
+    <xhcrh>Value|RefTable_1188845774|0|False|0|0</xhcrh>
+    <xhcsc>Value|RefTable_1188845774|0|False|0|0</xhcsc>
+    <xhcscel>Value|RefTable_1188845774|0|False|0|0</xhcscel>
+    <xhcscht>Value|RefTable_1188845774|0|False|0|0</xhcscht>
+    <xhcscrf>Value|RefTable_1188845774|0|False|0|0</xhcscrf>
+    <xhcscwt>Value|RefTable_1188845774|0|False|0|0</xhcscwt>
+    <xhl>Value|RefTable_1188845774|0|False|0|0</xhl>
+    <xhl01>Value|RefTable_1188845774|0|False|0|0</xhl01>
+    <xht>Value|RefTable_1188845774|0|False|0|0</xht>
+    <xishl>Value|RefTable_1188845774|0|False|0|0</xishl>
+    <xislf>Value|RefTable_1188845774|0|False|0|0</xislf>
+    <xmp>Value|RefTable_1188845774|0|False|0|0</xmp>
+    <xmp00>Value|RefTable_1188845774|0|False|0|0</xmp00>
+    <xmpam>Value|RefTable_1188845774|0|False|0|0</xmpam>
+    <xmpot>Value|RefTable_1188845774|0|False|0|0</xmpot>
+    <xog>Value|RefTable_1188845774|0|False|0|0</xog>
+    <xpp>Value|RefTable_1188845774|0|False|0|0</xpp>
+    <xuf>Value|RefTable_1188845774|0|False|0|0</xuf>
+    <yag>Value|RefTable_1188845774|0|False|0|0</yag>
+    <yag01>Value|RefTable_1188845774|0|False|0|0</yag01>
+    <yag02>Value|RefTable_1188845774|0|False|0|0</yag02>
+    <yaj>Value|RefTable_1188845774|0|False|0|0</yaj>
+    <yemab>Value|RefTable_1188845774|0|False|0|0</yemab>
+    <yemaj>Value|RefTable_1188845774|0|False|0|0</yemaj>
+    <yemcs>Value|RefTable_1188845774|0|False|0|0</yemcs>
+    <yemhl>Value|RefTable_1188845774|0|False|0|0</yemhl>
+    <yemnr>Value|RefTable_1188845774|0|False|0|0</yemnr>
+    <yemnt>Value|RefTable_1188845774|0|False|0|0</yemnt>
+    <yemot>Value|RefTable_1188845774|0|False|0|0</yemot>
+    <yempv01>Value|RefTable_1188845774|0|False|0|0</yempv01>
+    <yemtj>Value|RefTable_1188845774|0|False|0|0</yemtj>
+    <yemxp>Value|RefTable_1188845774|0|False|0|0</yemxp>
+    <yfb00>Value|RefTable_1188845774|0|False|0|0</yfb00>
+    <yivwg01>Value|RefTable_1188845774|0|False|0|0</yivwg01>
+    <yivwg02>Value|RefTable_1188845774|0|False|0|0</yivwg02>
+    <yiy>Value|RefTable_1188845774|0|False|0|0</yiy>
+    <yiy00>Value|RefTable_1188845774|0|False|0|0</yiy00>
+    <yiydv>Value|RefTable_1188845774|0|False|0|0</yiydv>
+    <yiyit>Value|RefTable_1188845774|0|False|0|0</yiyit>
+    <yiyitdp>Value|RefTable_1188845774|0|False|0|0</yiyitdp>
+    <yiyitob>Value|RefTable_1188845774|0|False|0|0</yiyitob>
+    <yiyitsb>Value|RefTable_1188845774|0|False|0|0</yiyitsb>
+    <yiynt>Value|RefTable_1188845774|0|False|0|0</yiynt>
+    <yiyot>Value|RefTable_1188845774|0|False|0|0</yiyot>
+    <yiytx>Value|RefTable_1188845774|0|False|0|0</yiytx>
+    <yiytx00>Value|RefTable_1188845774|0|False|0|0</yiytx00>
+    <yiytx01>Value|RefTable_1188845774|0|False|0|0</yiytx01>
+    <yls>Value|RefTable_1188845774|0|False|0|0</yls>
+    <ymp>Value|RefTable_1188845774|0|False|0|0</ymp>
+    <yot>Value|RefTable_1188845774|0|False|0|0</yot>
+    <yot01>Value|RefTable_1188845774|0|False|0|0</yot01>
+    <yot02>Value|RefTable_1188845774|0|False|0|0</yot02>
+    <ypp>Value|RefTable_1188845774|0|False|0|0</ypp>
+    <ypp01>Value|RefTable_1188845774|0|False|0|0</ypp01>
+    <ypp02>Value|RefTable_1188845774|0|False|0|0</ypp02>
+    <yprld>Value|RefTable_1188845774|0|False|0|0</yprld>
+    <yprmr>Value|RefTable_1188845774|0|False|0|0</yprmr>
+    <yprnt>Value|RefTable_1188845774|0|False|0|0</yprnt>
+    <yprro>Value|RefTable_1188845774|0|False|0|0</yprro>
+    <yprrt>Value|RefTable_1188845774|0|False|0|0</yprrt>
+    <yprtx>Value|RefTable_1188845774|0|False|0|0</yprtx>
+    <ypt>Value|RefTable_1188845774|0|False|0|0</ypt>
+    <ypt00>Value|RefTable_1188845774|0|False|0|0</ypt00>
+    <yptmp>Value|RefTable_1188845774|0|False|0|0</yptmp>
+    <yptmpnt>Value|RefTable_1188845774|0|False|0|0</yptmpnt>
+    <yptmptx>Value|RefTable_1188845774|0|False|0|0</yptmptx>
+    <yptot>Value|RefTable_1188845774|0|False|0|0</yptot>
+    <yseag>Value|RefTable_1188845774|0|False|0|0</yseag>
+    <ysebs>Value|RefTable_1188845774|0|False|0|0</ysebs>
+    <yseil>Value|RefTable_1188845774|0|False|0|0</yseil>
+    <ysena>Value|RefTable_1188845774|0|False|0|0</ysena>
+    <yst>Value|RefTable_1188845774|0|False|0|0</yst>
+    <ysv>Value|RefTable_1188845774|0|False|0|0</ysv>
+    <yunsv>Value|RefTable_1188845774|0|False|0|0</yunsv>
+    <amrtp>2</amrtp>
+    <bcctuyn>0</bcctuyn>
+    <bchdiyn>0</bchdiyn>
+    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
+    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
+    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
+    <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
+    <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
+    <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
+    <ddipd>0</ddipd>
+    <ddipd00>0</ddipd00>
+    <dmp>9</dmp>
+    <dmsyy03>0</dmsyy03>
+    <l01>0</l01>
+    <l02>0</l02>
+    <lap>0</lap>
+    <lap00>0</lap00>
+    <lbl>0</lbl>
+    <lcr>0</lcr>
+    <lcr01>0</lcr01>
+    <lcs10>0</lcs10>
+    <lct>0</lct>
+    <lemiw>999</lemiw>
+    <lhw00>Value|RefTable_1927503380|0|False|0|0</lhw00>
+    <lhw01>Value|RefTable_1927503380|0|False|0|0</lhw01>
+    <lhwiv00>Value|RefTable_1927503380|0|False|0|0</lhwiv00>
+    <lhwiv01>Value|RefTable_1927503380|0|False|0|0</lhwiv01>
+    <lim>1</lim>
+    <limiv>0</limiv>
+    <liwivwh>Value|RefTable_1927503380|0|False|0|0</liwivwh>
+    <lle>0</lle>
+    <lpf>0</lpf>
+    <lpm01>0</lpm01>
+    <lrg>1</lrg>
+    <lsdmy>Value|RefTable_1927503380|0|False|0|0</lsdmy>
+    <lseor>0</lseor>
+    <lsepf>0</lsepf>
+    <poa01>Value|RefTable_1188845774|0|False|0|0</poa01>
+    <poa02>Value|RefTable_1188845774|0|False|0|0</poa02>
+    <poa03>Value|RefTable_1188845774|0|False|0|0</poa03>
+    <poaab>Value|RefTable_1188845774|0|False|0|0</poaab>
+    <poacc>Value|RefTable_1188845774|0|False|0|0</poacc>
+    <poacm>Value|RefTable_1188845774|0|False|0|0</poacm>
+    <poacmdi>Value|RefTable_1188845774|0|False|0|0</poacmdi>
+    <poacmoa>Value|RefTable_1188845774|0|False|0|0</poacmoa>
+    <poacmsu>Value|RefTable_1188845774|0|False|0|0</poacmsu>
+    <poacs>Value|RefTable_1188845774|0|False|0|0</poacs>
+    <poant>Value|RefTable_1188845774|0|False|0|0</poant>
+    <poasp>Value|RefTable_1188845774|0|False|0|0</poasp>
+    <poass>Value|RefTable_1188845774|0|False|0|0</poass>
+    <xhc00>Value|RefTable_1188845774|0|False|0|0</xhc00>
+    <xhcmo>Value|RefTable_1188845774|0|False|0|0</xhcmo>
+    <xhcmomc>Value|RefTable_1188845774|0|False|0|0</xhcmomc>
+    <xhcmomi>Value|RefTable_1188845774|0|False|0|0</xhcmomi>
+    <xivhcrt>Value|RefTable_1188845774|0|False|0|0</xivhcrt>
+    <yem02>Value|RefTable_1188845774|0|False|0|0</yem02>
+    <yse01>Value|RefTable_1188845774|0|False|0|0</yse01>
+    <yseev>Value|RefTable_1188845774|0|False|0|0</yseev>
+    <ysetx>Value|RefTable_1188845774|0|False|0|0</ysetx>
+    <drg01_FR>1</drg01_FR>
+    <drgn1_CZ>1</drgn1_CZ>
+    <drgn1_PL>1</drgn1_PL>
+    <drgn2_CZ>1</drgn2_CZ>
+    <drgn2_ES>30</drgn2_ES>
+    <drgn2_IT>13</drgn2_IT>
+    <drgn2_PL>1</drgn2_PL>
+    <lpm_EE>1</lpm_EE>
+    <lpm_EL>0</lpm_EL>
+    <lcl_IT>1</lcl_IT>
+    <lcl_AT>2</lcl_AT>
+    <lse00_HU>0</lse00_HU>
+    <lse00_SI>2</lse00_SI>
+    <amrar_EE>Value|RefTable_1927503380|70.8|False|0|0</amrar_EE>
+    <amrar_EL>Value|RefTable_1927503380|90|False|0|0</amrar_EL>
+    <amrar_PL>Value|RefTable_1927503380|65|False|0|0</amrar_PL>
+    <tpceepx_UK>Value|RefTable_1927503380|0.053|False|0|0</tpceepx_UK>
+    <tpceepx_IE>Value|RefTable_1927503380|0.086|False|0|0</tpceepx_IE>
+    <amrtn>3</amrtn>
+    <liwwh>Value|RefTable_1927503380|0|False|0|0</liwwh>
+    <xhcrt>Value|RefTable_1188845774|0</xhcrt>
+    <yempv>Value|RefTable_1188845774|0</yempv>
+    <amrrm>Value|RefTable_1927503380|3|False|0|0</amrrm>
+    <ddi01>Value|RefTable_1927503380|0|False|0|0</ddi01>
+    <ddi02>999</ddi02>
+    <tintcho>Value|RefTable_1188845774|0|False|0|0</tintcho>
+    <yem01>Value|RefTable_1188845774|0|False|0|0</yem01>
+    <yemiv>Value|RefTable_1188845774|0|False|0|0</yemiv>
+    <yseiv>Value|RefTable_1188845774|0|False|0|0</yseiv>
+    <lcl_LU>2</lcl_LU>
+    <dmsyy04>0</dmsyy04>
+    <dmb>Value|RefTable_1927503380|5|False|0|0</dmb>
+    <ysenr00>Value|RefTable_1927503380|0|False|0|0</ysenr00>
+    <ysenr01>Value|RefTable_1927503380|0|False|0|0</ysenr01>
+    <ysere01>Value|RefTable_1927503380|0|False|0|0</ysere01>
+    <pdiac>Value|RefTable_1927503380|0|False|0|0</pdiac>
+    <pdiwr>Value|RefTable_1927503380|0|False|0|0</pdiwr>
+    <amrtn01>4</amrtn01>
+    <drgn2_FI>2</drgn2_FI>
+    <bsa00_BG>Value|RefTable_1837444076|0|False|0|0</bsa00_BG>
+    <bsa00_DE>Value|RefTable_1837444076|0|False|0|0</bsa00_DE>
+    <bsa00_EE>Value|RefTable_1837444076|0|False|0|0</bsa00_EE>
+    <bsa00_FI>Value|RefTable_1837444076|0|False|0|0</bsa00_FI>
+    <bsa00_FR>Value|RefTable_1837444076|0|False|0|0</bsa00_FR>
+    <bsa00_HR>Value|RefTable_1837444076|0|False|0|0</bsa00_HR>
+    <bsa00_IE>Value|RefTable_1837444076|1|False|0|0</bsa00_IE>
+    <bsa00_LT>Value|RefTable_1837444076|0|False|0|0</bsa00_LT>
+    <bsa00_NL>Value|RefTable_1837444076|0|False|0|0</bsa00_NL>
+    <bsa00_PT>Value|RefTable_1837444076|0|False|0|0</bsa00_PT>
+    <bsa00_SI>Value|RefTable_1837444076|0|False|0|0</bsa00_SI>
+    <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
+    <lct_CY>1</lct_CY>
+    <lct_DK>1</lct_DK>
+    <bccot_AT>0</bccot_AT>
+    <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
+    <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
+    <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
+    <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
+    <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+  </Example_x0020_Household>
+  <Example_x0020_Household>
+    <dataId>1408796238</dataId>
+    <PersonName>Child2</PersonName>
+    <checked>true</checked>
+    <orderId>3</orderId>
+    <dag>Value|RefTable_1927503380|7|False|0|0</dag>
+    <dgn>0</dgn>
+    <idpartner />
+    <idfather>1729580931</idfather>
+    <idmother>1537426458</idmother>
+    <dms>1</dms>
+    <dec>2</dec>
+    <deh>1</deh>
+    <ddi>0</ddi>
+    <drgn1_BE>1</drgn1_BE>
+    <drgn1_UK>7</drgn1_UK>
+    <yem>Value|RefTable_1927503380|0|False|0|0</yem>
+    <poa>Value|RefTable_1927503380|0|False|0|0</poa>
+    <yse>Value|RefTable_1927503380|0|False|0|0</yse>
+    <lhw>Value|RefTable_1927503380|0|False|0|0</lhw>
+    <les>6</les>
+    <ypr>Value|RefTable_1188845774|0|False|0|0</ypr>
+    <ysenr>Value|RefTable_1188845774|0|False|0|0</ysenr>
+    <afc>Value|RefTable_1188845774|0|False|0|0</afc>
+    <aiv>Value|RefTable_1188845774|0|False|0|0</aiv>
+    <aldagar>Value|RefTable_1927503380|0|False|0|0</aldagar>
+    <aldagariv>Value|RefTable_1927503380|0|False|0|0</aldagariv>
+    <aldar>Value|RefTable_1927503380|0|False|0|0</aldar>
+    <aldnaar>Value|RefTable_1927503380|0|False|0|0</aldnaar>
+    <amolv>Value|RefTable_1188845774|0|False|0|0</amolv>
+    <amoyl>Value|RefTable_1927503380|0|False|0|0</amoyl>
+    <amriv>Value|RefTable_1188845774|0|False|0|0</amriv>
+    <amrmv>Value|RefTable_1188845774|0|False|0|0</amrmv>
+    <aobiv>Value|RefTable_1188845774|0|False|0|0</aobiv>
+    <aoc>Value|RefTable_1188845774|0|False|0|0</aoc>
+    <bac>Value|RefTable_1188845774|0|False|0|0</bac>
+    <bac00>Value|RefTable_1188845774|0|False|0|0</bac00>
+    <bac01>Value|RefTable_1188845774|0|False|0|0</bac01>
+    <bacot>Value|RefTable_1188845774|0|False|0|0</bacot>
+    <bacpm>Value|RefTable_1188845774|0|False|0|0</bacpm>
+    <bca01>Value|RefTable_1188845774|0|False|0|0</bca01>
+    <bca02>Value|RefTable_1188845774|0|False|0|0</bca02>
+    <bcc>Value|RefTable_1188845774|0|False|0|0</bcc>
+    <bcc00>Value|RefTable_1188845774|0|False|0|0</bcc00>
+    <bcc01my>Value|RefTable_1927503380|0|False|0|0</bcc01my>
+    <bcc02my>Value|RefTable_1927503380|0|False|0|0</bcc02my>
+    <bcc03my>Value|RefTable_1927503380|0|False|0|0</bcc03my>
+    <bcc04my>Value|RefTable_1927503380|0|False|0|0</bcc04my>
+    <bcc05>Value|RefTable_1188845774|0|False|0|0</bcc05>
+    <bcc05my>Value|RefTable_1927503380|0|False|0|0</bcc05my>
+    <bcc06>Value|RefTable_1188845774|0|False|0|0</bcc06>
+    <bcc06my>Value|RefTable_1927503380|0|False|0|0</bcc06my>
+    <bcclg>Value|RefTable_1188845774|0|False|0|0</bcclg>
+    <bccmy>Value|RefTable_1927503380|0|False|0|0</bccmy>
+    <bccnw>Value|RefTable_1188845774|0|False|0|0</bccnw>
+    <bccrd>Value|RefTable_1188845774|0|False|0|0</bccrd>
+    <bch>Value|RefTable_1188845774|0|False|0|0</bch>
+    <bch00>Value|RefTable_1188845774|0|False|0|0</bch00>
+    <bchab>Value|RefTable_1188845774|0|False|0|0</bchab>
+    <bcham>Value|RefTable_1188845774|0|False|0|0</bcham>
+    <bchas01>Value|RefTable_1188845774|0|False|0|0</bchas01>
+    <bchas02>Value|RefTable_1188845774|0|False|0|0</bchas02>
+    <bchas03>Value|RefTable_1188845774|0|False|0|0</bchas03>
+    <bchasxc>Value|RefTable_1188845774|0|False|0|0</bchasxc>
+    <bchba>Value|RefTable_1188845774|0|False|0|0</bchba>
+    <bchbals>Value|RefTable_1188845774|0|False|0|0</bchbals>
+    <bchcc>Value|RefTable_1188845774|0|False|0|0</bchcc>
+    <bchdi>Value|RefTable_1188845774|0|False|0|0</bchdi>
+    <bchdied>Value|RefTable_1188845774|0|False|0|0</bchdied>
+    <bched>Value|RefTable_1188845774|0|False|0|0</bched>
+    <bched01>Value|RefTable_1188845774|0|False|0|0</bched01>
+    <bched02>Value|RefTable_1188845774|0|False|0|0</bched02>
+    <bched03>Value|RefTable_1188845774|0|False|0|0</bched03>
+    <bched04>Value|RefTable_1188845774|0|False|0|0</bched04>
+    <bchlg>Value|RefTable_1188845774|0|False|0|0</bchlg>
+    <bchlp>Value|RefTable_1188845774|0|False|0|0</bchlp>
+    <bchlp00>Value|RefTable_1188845774|0|False|0|0</bchlp00>
+    <bchmt>Value|RefTable_1188845774|0|False|0|0</bchmt>
+    <bchnm>Value|RefTable_1188845774|0|False|0|0</bchnm>
+    <bchor>Value|RefTable_1188845774|0|False|0|0</bchor>
+    <bchot>Value|RefTable_1188845774|0|False|0|0</bchot>
+    <bchpl>Value|RefTable_1188845774|0|False|0|0</bchpl>
+    <bchprls>Value|RefTable_1188845774|0|False|0|0</bchprls>
+    <bchuc>Value|RefTable_1188845774|0|False|0|0</bchuc>
+    <bchunlp>Value|RefTable_1188845774|0|False|0|0</bchunlp>
+    <bchyc>Value|RefTable_1188845774|0|False|0|0</bchyc>
+    <bcrbafh>Value|RefTable_1188845774|0|False|0|0</bcrbafh>
+    <bcrchdi>Value|RefTable_1188845774|0|False|0|0</bcrchdi>
+    <bcrdi>Value|RefTable_1188845774|0|False|0|0</bcrdi>
+    <bcrsvcc>Value|RefTable_1188845774|0|False|0|0</bcrsvcc>
+    <bdi>Value|RefTable_1188845774|0|False|0|0</bdi>
+    <bdica>Value|RefTable_1188845774|0|False|0|0</bdica>
+    <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
+    <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
+    <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
+    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
+    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
+    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
+    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
+    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
+    <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
+    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
+    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
+    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
+    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
+    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
+    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
+    <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
+    <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
+    <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
+    <bdinc>Value|RefTable_1188845774|0|False|0|0</bdinc>
+    <bdioa>Value|RefTable_1188845774|0|False|0|0</bdioa>
+    <bdiot>Value|RefTable_1188845774|0|False|0|0</bdiot>
+    <bdirw>Value|RefTable_1188845774|0|False|0|0</bdirw>
+    <bdisc>Value|RefTable_1188845774|0|False|0|0</bdisc>
+    <bdisv>Value|RefTable_1188845774|0|False|0|0</bdisv>
+    <bdiwi>Value|RefTable_1188845774|0|False|0|0</bdiwi>
+    <bdixp>Value|RefTable_1188845774|0|False|0|0</bdixp>
+    <bed>Value|RefTable_1188845774|0|False|0|0</bed>
+    <bed00>Value|RefTable_1188845774|0|False|0|0</bed00>
+    <bedes>Value|RefTable_1188845774|0|False|0|0</bedes>
+    <bedet>Value|RefTable_1188845774|0|False|0|0</bedet>
+    <bedot>Value|RefTable_1188845774|0|False|0|0</bedot>
+    <bedsl>Value|RefTable_1188845774|0|False|0|0</bedsl>
+    <bfa>Value|RefTable_1188845774|0|False|0|0</bfa>
+    <bfaam>Value|RefTable_1188845774|0|False|0|0</bfaam>
+    <bfaba>Value|RefTable_1188845774|0|False|0|0</bfaba>
+    <bfacc>Value|RefTable_1188845774|0|False|0|0</bfacc>
+    <bfach00>Value|RefTable_1188845774|0|False|0|0</bfach00>
+    <bfached>Value|RefTable_1188845774|0|False|0|0</bfached>
+    <bfachnm>Value|RefTable_1188845774|0|False|0|0</bfachnm>
+    <bfachot>Value|RefTable_1188845774|0|False|0|0</bfachot>
+    <bfacp>Value|RefTable_1188845774|0|False|0|0</bfacp>
+    <bfacs>Value|RefTable_1188845774|0|False|0|0</bfacs>
+    <bfafp>Value|RefTable_1188845774|0|False|0|0</bfafp>
+    <bfalg>Value|RefTable_1188845774|0|False|0|0</bfalg>
+    <bfalp>Value|RefTable_1188845774|0|False|0|0</bfalp>
+    <bfama>Value|RefTable_1188845774|0|False|0|0</bfama>
+    <bfamh>Value|RefTable_1188845774|0|False|0|0</bfamh>
+    <bfamt>Value|RefTable_1188845774|0|False|0|0</bfamt>
+    <bfana>Value|RefTable_1188845774|0|False|0|0</bfana>
+    <bfaot>Value|RefTable_1188845774|0|False|0|0</bfaot>
+    <bfapl>Value|RefTable_1188845774|0|False|0|0</bfapl>
+    <bfapt>Value|RefTable_1188845774|0|False|0|0</bfapt>
+    <bfauc>Value|RefTable_1188845774|0|False|0|0</bfauc>
+    <bfawk>Value|RefTable_1188845774|0|False|0|0</bfawk>
+    <bhl>Value|RefTable_1188845774|0|False|0|0</bhl>
+    <bhl00>Value|RefTable_1188845774|0|False|0|0</bhl00>
+    <bhl01>Value|RefTable_1188845774|0|False|0|0</bhl01>
+    <bhlac>Value|RefTable_1188845774|0|False|0|0</bhlac>
+    <bhlmt>Value|RefTable_1188845774|0|False|0|0</bhlmt>
+    <bhlmy>Value|RefTable_1188845774|0|False|0|0</bhlmy>
+    <bhlot>Value|RefTable_1188845774|0|False|0|0</bhlot>
+    <bhlps>Value|RefTable_1188845774|0|False|0|0</bhlps>
+    <bhlwk>Value|RefTable_1188845774|0|False|0|0</bhlwk>
+    <bhlxp>Value|RefTable_1188845774|0|False|0|0</bhlxp>
+    <bho>Value|RefTable_1188845774|0|False|0|0</bho>
+    <bho00>Value|RefTable_1188845774|0|False|0|0</bho00>
+    <bho01>Value|RefTable_1188845774|0|False|0|0</bho01>
+    <bho02>Value|RefTable_1188845774|0|False|0|0</bho02>
+    <bhoht>Value|RefTable_1188845774|0|False|0|0</bhoht>
+    <bhomy>Value|RefTable_1927503380|0|False|0|0</bhomy>
+    <bhoot>Value|RefTable_1188845774|0|False|0|0</bhoot>
+    <bhope>Value|RefTable_1188845774|0|False|0|0</bhope>
+    <bhosd>Value|RefTable_1188845774|0|False|0|0</bhosd>
+    <bhotn>Value|RefTable_1188845774|0|False|0|0</bhotn>
+    <bhout>Value|RefTable_1188845774|0|False|0|0</bhout>
+    <bma>Value|RefTable_1188845774|0|False|0|0</bma>
+    <bmaab>Value|RefTable_1188845774|0|False|0|0</bmaab>
+    <bmaba>Value|RefTable_1188845774|0|False|0|0</bmaba>
+    <bmact>Value|RefTable_1188845774|0|False|0|0</bmact>
+    <bmaer>Value|RefTable_1188845774|0|False|0|0</bmaer>
+    <bmals>Value|RefTable_1188845774|0|False|0|0</bmals>
+    <bmamy>Value|RefTable_1188845774|0|False|0|0</bmamy>
+    <bmana>Value|RefTable_1188845774|0|False|0|0</bmana>
+    <bmanc>Value|RefTable_1188845774|0|False|0|0</bmanc>
+    <bmapr>Value|RefTable_1188845774|0|False|0|0</bmapr>
+    <bmase>Value|RefTable_1188845774|0|False|0|0</bmase>
+    <bmawk>Value|RefTable_1188845774|0|False|0|0</bmawk>
+    <bml>Value|RefTable_1188845774|0|False|0|0</bml>
+    <bmu>Value|RefTable_1188845774|0|False|0|0</bmu>
+    <boact>Value|RefTable_1188845774|0|False|0|0</boact>
+    <boactcm>Value|RefTable_1188845774|0|False|0|0</boactcm>
+    <boaht>Value|RefTable_1188845774|0|False|0|0</boaht>
+    <boamt>Value|RefTable_1188845774|0|False|0|0</boamt>
+    <boanc>Value|RefTable_1188845774|0|False|0|0</boanc>
+    <boawr>Value|RefTable_1188845774|0|False|0|0</boawr>
+    <bot>Value|RefTable_1188845774|0|False|0|0</bot>
+    <botre>Value|RefTable_1188845774|0|False|0|0</botre>
+    <bpl>Value|RefTable_1188845774|0|False|0|0</bpl>
+    <bplct>Value|RefTable_1188845774|0|False|0|0</bplct>
+    <bsa>Value|RefTable_1188845774|0|False|0|0</bsa>
+    <bsa00>Value|RefTable_1188845774|0|False|0|0</bsa00>
+    <bsaab>Value|RefTable_1188845774|0|False|0|0</bsaab>
+    <bsaam>Value|RefTable_1188845774|0|False|0|0</bsaam>
+    <bsacm>Value|RefTable_1188845774|0|False|0|0</bsacm>
+    <bsafu>Value|RefTable_1188845774|0|False|0|0</bsafu>
+    <bsaht>Value|RefTable_1188845774|0|False|0|0</bsaht>
+    <bsals>Value|RefTable_1188845774|0|False|0|0</bsals>
+    <bsamm>Value|RefTable_1188845774|0|False|0|0</bsamm>
+    <bsaoa>Value|RefTable_1188845774|0|False|0|0</bsaoa>
+    <bsaot>Value|RefTable_1188845774|0|False|0|0</bsaot>
+    <bsapm>Value|RefTable_1188845774|0|False|0|0</bsapm>
+    <bsapmot>Value|RefTable_1188845774|0|False|0|0</bsapmot>
+    <bsapu>Value|RefTable_1188845774|0|False|0|0</bsapu>
+    <bsatm>Value|RefTable_1188845774|0|False|0|0</bsatm>
+    <bsatmpb>Value|RefTable_1188845774|0|False|0|0</bsatmpb>
+    <bsu>Value|RefTable_1188845774|0|False|0|0</bsu>
+    <bsuwd>Value|RefTable_1188845774|0|False|0|0</bsuwd>
+    <buncm>Value|RefTable_1188845774|0|False|0|0</buncm>
+    <bunct01>Value|RefTable_1188845774|0|False|0|0</bunct01>
+    <bunctmy01>Value|RefTable_1927503380|0|False|0|0</bunctmy01>
+    <bunls>Value|RefTable_1188845774|0|False|0|0</bunls>
+    <bunmt>Value|RefTable_1188845774|0|False|0|0</bunmt>
+    <bunmtmy>Value|RefTable_1927503380|0|False|0|0</bunmtmy>
+    <bunnc>Value|RefTable_1188845774|0|False|0|0</bunnc>
+    <bunot>Value|RefTable_1188845774|0|False|0|0</bunot>
+    <bunpe01>Value|RefTable_1188845774|0|False|0|0</bunpe01>
+    <bunpe02>Value|RefTable_1188845774|0|False|0|0</bunpe02>
+    <bunst>Value|RefTable_1188845774|0|False|0|0</bunst>
+    <buntr>Value|RefTable_1188845774|0|False|0|0</buntr>
+    <bwkmt>Value|RefTable_1188845774|0|False|0|0</bwkmt>
+    <byr>Value|RefTable_1188845774|0|False|0|0</byr>
+    <dcz>1</dcz>
+    <ddilv>Value|RefTable_1927503380|0|False|0|0</ddilv>
+    <ddita>0</ddita>
+    <dqb>1</dqb>
+    <drgur>1</drgur>
+    <drgur00>1</drgur00>
+    <ked>Value|RefTable_1188845774|0|False|0|0</ked>
+    <kfb>Value|RefTable_1188845774|0|False|0|0</kfb>
+    <kfbcc>Value|RefTable_1188845774|0|False|0|0</kfbcc>
+    <khl>Value|RefTable_1188845774|0|False|0|0</khl>
+    <khooo>Value|RefTable_1188845774|0|False|0|0</khooo>
+    <kivho>Value|RefTable_1188845774|0|False|0|0</kivho>
+    <lcd01>Value|RefTable_1927503380|1|False|0|0</lcd01>
+    <lcd02>Value|RefTable_1927503380|1|False|0|0</lcd02>
+    <lcd03>Value|RefTable_1927503380|1|False|0|0</lcd03>
+    <lcd04>Value|RefTable_1927503380|1|False|0|0</lcd04>
+    <lcd05>Value|RefTable_1927503380|1|False|0|0</lcd05>
+    <lcs>0</lcs>
+    <lfs>Value|RefTable_1927503380|15|False|0|0</lfs>
+    <lindi>4</lindi>
+    <loc>5</loc>
+    <lochz>0</lochz>
+    <lptmy>Value|RefTable_1927503380|0|False|0|0</lptmy>
+    <pdi>Value|RefTable_1188845774|0|False|0|0</pdi>
+    <pdi00>Value|RefTable_1188845774|0|False|0|0</pdi00>
+    <pdica>Value|RefTable_1188845774|0|False|0|0</pdica>
+    <pdida>Value|RefTable_1188845774|0|False|0|0</pdida>
+    <pdimy>Value|RefTable_1927503380|0|False|0|0</pdimy>
+    <pdinc>Value|RefTable_1188845774|0|False|0|0</pdinc>
+    <pdint>Value|RefTable_1188845774|0|False|0|0</pdint>
+    <pdinw>Value|RefTable_1188845774|0|False|0|0</pdinw>
+    <pdiot>Value|RefTable_1188845774|0|False|0|0</pdiot>
+    <pdiss>Value|RefTable_1188845774|0|False|0|0</pdiss>
+    <pdiss01>Value|RefTable_1188845774|0|False|0|0</pdiss01>
+    <pdiss02>Value|RefTable_1188845774|0|False|0|0</pdiss02>
+    <pditx>Value|RefTable_1188845774|0|False|0|0</pditx>
+    <pdiuc>Value|RefTable_1188845774|0|False|0|0</pdiuc>
+    <pfa>Value|RefTable_1188845774|0|False|0|0</pfa>
+    <phl>Value|RefTable_1188845774|0|False|0|0</phl>
+    <phlmy>Value|RefTable_1927503380|0|False|0|0</phlmy>
+    <pls>Value|RefTable_1188845774|0|False|0|0</pls>
+    <poaca>Value|RefTable_1188845774|0|False|0|0</poaca>
+    <poafr>Value|RefTable_1188845774|0|False|0|0</poafr>
+    <poals>Value|RefTable_1188845774|0|False|0|0</poals>
+    <poaml>Value|RefTable_1188845774|0|False|0|0</poaml>
+    <poamr>Value|RefTable_1188845774|0|False|0|0</poamr>
+    <poamt>Value|RefTable_1188845774|0|False|0|0</poamt>
+    <poanc>Value|RefTable_1188845774|0|False|0|0</poanc>
+    <poaot>Value|RefTable_1188845774|0|False|0|0</poaot>
+    <poaps01>Value|RefTable_1188845774|0|False|0|0</poaps01>
+    <poaps02>Value|RefTable_1188845774|0|False|0|0</poaps02>
+    <poapu>Value|RefTable_1188845774|0|False|0|0</poapu>
+    <poawr>Value|RefTable_1188845774|0|False|0|0</poawr>
+    <poaxp>Value|RefTable_1188845774|0|False|0|0</poaxp>
+    <powpt>Value|RefTable_1188845774|0|False|0|0</powpt>
+    <psact>Value|RefTable_1188845774|0|False|0|0</psact>
+    <psu>Value|RefTable_1188845774|0|False|0|0</psu>
+    <psu00>Value|RefTable_1188845774|0|False|0|0</psu00>
+    <psumy>Value|RefTable_1927503380|0|False|0|0</psumy>
+    <psuor>Value|RefTable_1188845774|0|False|0|0</psuor>
+    <psuot>Value|RefTable_1188845774|0|False|0|0</psuot>
+    <psups>Value|RefTable_1188845774|0|False|0|0</psups>
+    <psupu>Value|RefTable_1188845774|0|False|0|0</psupu>
+    <psuss>Value|RefTable_1188845774|0|False|0|0</psuss>
+    <psutx>Value|RefTable_1188845774|0|False|0|0</psutx>
+    <psuwd>Value|RefTable_1188845774|0|False|0|0</psuwd>
+    <psuwd00>Value|RefTable_1188845774|0|False|0|0</psuwd00>
+    <psuwdcm>Value|RefTable_1188845774|0|False|0|0</psuwdcm>
+    <psuwdct>Value|RefTable_1188845774|0|False|0|0</psuwdct>
+    <psuwdnc>Value|RefTable_1188845774|0|False|0|0</psuwdnc>
+    <pxp>Value|RefTable_1188845774|0|False|0|0</pxp>
+    <pxp00>Value|RefTable_1188845774|0|False|0|0</pxp00>
+    <pxpot>Value|RefTable_1188845774|0|False|0|0</pxpot>
+    <tpr>Value|RefTable_1188845774|0|False|0|0</tpr>
+    <xcc>Value|RefTable_1188845774|0|False|0|0</xcc>
+    <xcd>Value|RefTable_1188845774|0|False|0|0</xcd>
+    <xched>Value|RefTable_1188845774|0|False|0|0</xched>
+    <xcmie>Value|RefTable_1188845774|0|False|0|0</xcmie>
+    <xed>Value|RefTable_1188845774|0|False|0|0</xed>
+    <xhchm>Value|RefTable_1188845774|0|False|0|0</xhchm>
+    <xhcnhrt>Value|RefTable_1188845774|0|False|0|0</xhcnhrt>
+    <xhcot>Value|RefTable_1927503380|0|False|0|0</xhcot>
+    <xhcrh>Value|RefTable_1188845774|0|False|0|0</xhcrh>
+    <xhcsc>Value|RefTable_1188845774|0|False|0|0</xhcsc>
+    <xhcscel>Value|RefTable_1188845774|0|False|0|0</xhcscel>
+    <xhcscht>Value|RefTable_1188845774|0|False|0|0</xhcscht>
+    <xhcscrf>Value|RefTable_1188845774|0|False|0|0</xhcscrf>
+    <xhcscwt>Value|RefTable_1188845774|0|False|0|0</xhcscwt>
+    <xhl>Value|RefTable_1188845774|0|False|0|0</xhl>
+    <xhl01>Value|RefTable_1188845774|0|False|0|0</xhl01>
+    <xht>Value|RefTable_1188845774|0|False|0|0</xht>
+    <xishl>Value|RefTable_1188845774|0|False|0|0</xishl>
+    <xislf>Value|RefTable_1188845774|0|False|0|0</xislf>
+    <xmp>Value|RefTable_1188845774|0|False|0|0</xmp>
+    <xmp00>Value|RefTable_1188845774|0|False|0|0</xmp00>
+    <xmpam>Value|RefTable_1188845774|0|False|0|0</xmpam>
+    <xmpot>Value|RefTable_1188845774|0|False|0|0</xmpot>
+    <xog>Value|RefTable_1188845774|0|False|0|0</xog>
+    <xpp>Value|RefTable_1188845774|0|False|0|0</xpp>
+    <xuf>Value|RefTable_1188845774|0|False|0|0</xuf>
+    <yag>Value|RefTable_1188845774|0|False|0|0</yag>
+    <yag01>Value|RefTable_1188845774|0|False|0|0</yag01>
+    <yag02>Value|RefTable_1188845774|0|False|0|0</yag02>
+    <yaj>Value|RefTable_1188845774|0|False|0|0</yaj>
+    <yemab>Value|RefTable_1188845774|0|False|0|0</yemab>
+    <yemaj>Value|RefTable_1188845774|0|False|0|0</yemaj>
+    <yemcs>Value|RefTable_1188845774|0|False|0|0</yemcs>
+    <yemhl>Value|RefTable_1188845774|0|False|0|0</yemhl>
+    <yemnr>Value|RefTable_1188845774|0|False|0|0</yemnr>
+    <yemnt>Value|RefTable_1188845774|0|False|0|0</yemnt>
+    <yemot>Value|RefTable_1188845774|0|False|0|0</yemot>
+    <yempv01>Value|RefTable_1188845774|0|False|0|0</yempv01>
+    <yemtj>Value|RefTable_1188845774|0|False|0|0</yemtj>
+    <yemxp>Value|RefTable_1188845774|0|False|0|0</yemxp>
+    <yfb00>Value|RefTable_1188845774|0|False|0|0</yfb00>
+    <yivwg01>Value|RefTable_1188845774|0|False|0|0</yivwg01>
+    <yivwg02>Value|RefTable_1188845774|0|False|0|0</yivwg02>
+    <yiy>Value|RefTable_1188845774|0|False|0|0</yiy>
+    <yiy00>Value|RefTable_1188845774|0|False|0|0</yiy00>
+    <yiydv>Value|RefTable_1188845774|0|False|0|0</yiydv>
+    <yiyit>Value|RefTable_1188845774|0|False|0|0</yiyit>
+    <yiyitdp>Value|RefTable_1188845774|0|False|0|0</yiyitdp>
+    <yiyitob>Value|RefTable_1188845774|0|False|0|0</yiyitob>
+    <yiyitsb>Value|RefTable_1188845774|0|False|0|0</yiyitsb>
+    <yiynt>Value|RefTable_1188845774|0|False|0|0</yiynt>
+    <yiyot>Value|RefTable_1188845774|0|False|0|0</yiyot>
+    <yiytx>Value|RefTable_1188845774|0|False|0|0</yiytx>
+    <yiytx00>Value|RefTable_1188845774|0|False|0|0</yiytx00>
+    <yiytx01>Value|RefTable_1188845774|0|False|0|0</yiytx01>
+    <yls>Value|RefTable_1188845774|0|False|0|0</yls>
+    <ymp>Value|RefTable_1188845774|0|False|0|0</ymp>
+    <yot>Value|RefTable_1188845774|0|False|0|0</yot>
+    <yot01>Value|RefTable_1188845774|0|False|0|0</yot01>
+    <yot02>Value|RefTable_1188845774|0|False|0|0</yot02>
+    <ypp>Value|RefTable_1188845774|0|False|0|0</ypp>
+    <ypp01>Value|RefTable_1188845774|0|False|0|0</ypp01>
+    <ypp02>Value|RefTable_1188845774|0|False|0|0</ypp02>
+    <yprld>Value|RefTable_1188845774|0|False|0|0</yprld>
+    <yprmr>Value|RefTable_1188845774|0|False|0|0</yprmr>
+    <yprnt>Value|RefTable_1188845774|0|False|0|0</yprnt>
+    <yprro>Value|RefTable_1188845774|0|False|0|0</yprro>
+    <yprrt>Value|RefTable_1188845774|0|False|0|0</yprrt>
+    <yprtx>Value|RefTable_1188845774|0|False|0|0</yprtx>
+    <ypt>Value|RefTable_1188845774|0|False|0|0</ypt>
+    <ypt00>Value|RefTable_1188845774|0|False|0|0</ypt00>
+    <yptmp>Value|RefTable_1188845774|0|False|0|0</yptmp>
+    <yptmpnt>Value|RefTable_1188845774|0|False|0|0</yptmpnt>
+    <yptmptx>Value|RefTable_1188845774|0|False|0|0</yptmptx>
+    <yptot>Value|RefTable_1188845774|0|False|0|0</yptot>
+    <yseag>Value|RefTable_1188845774|0|False|0|0</yseag>
+    <ysebs>Value|RefTable_1188845774|0|False|0|0</ysebs>
+    <yseil>Value|RefTable_1188845774|0|False|0|0</yseil>
+    <ysena>Value|RefTable_1188845774|0|False|0|0</ysena>
+    <yst>Value|RefTable_1188845774|0|False|0|0</yst>
+    <ysv>Value|RefTable_1188845774|0|False|0|0</ysv>
+    <yunsv>Value|RefTable_1188845774|0|False|0|0</yunsv>
+    <amrtp>2</amrtp>
+    <bcctuyn>0</bcctuyn>
+    <bchdiyn>0</bchdiyn>
+    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
+    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
+    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
+    <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
+    <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
+    <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
+    <ddipd>0</ddipd>
+    <ddipd00>0</ddipd00>
+    <dmp>9</dmp>
+    <dmsyy03>0</dmsyy03>
+    <l01>0</l01>
+    <l02>0</l02>
+    <lap>0</lap>
+    <lap00>0</lap00>
+    <lbl>0</lbl>
+    <lcr>0</lcr>
+    <lcr01>0</lcr01>
+    <lcs10>0</lcs10>
+    <lct>0</lct>
+    <lemiw>999</lemiw>
+    <lhw00>Value|RefTable_1927503380|0|False|0|0</lhw00>
+    <lhw01>Value|RefTable_1927503380|0|False|0|0</lhw01>
+    <lhwiv00>Value|RefTable_1927503380|0|False|0|0</lhwiv00>
+    <lhwiv01>Value|RefTable_1927503380|0|False|0|0</lhwiv01>
+    <lim>1</lim>
+    <limiv>0</limiv>
+    <liwivwh>Value|RefTable_1927503380|0|False|0|0</liwivwh>
+    <lle>0</lle>
+    <lpf>0</lpf>
+    <lpm01>0</lpm01>
+    <lrg>1</lrg>
+    <lsdmy>Value|RefTable_1927503380|0|False|0|0</lsdmy>
+    <lseor>0</lseor>
+    <lsepf>0</lsepf>
+    <poa01>Value|RefTable_1188845774|0|False|0|0</poa01>
+    <poa02>Value|RefTable_1188845774|0|False|0|0</poa02>
+    <poa03>Value|RefTable_1188845774|0|False|0|0</poa03>
+    <poaab>Value|RefTable_1188845774|0|False|0|0</poaab>
+    <poacc>Value|RefTable_1188845774|0|False|0|0</poacc>
+    <poacm>Value|RefTable_1188845774|0|False|0|0</poacm>
+    <poacmdi>Value|RefTable_1188845774|0|False|0|0</poacmdi>
+    <poacmoa>Value|RefTable_1188845774|0|False|0|0</poacmoa>
+    <poacmsu>Value|RefTable_1188845774|0|False|0|0</poacmsu>
+    <poacs>Value|RefTable_1188845774|0|False|0|0</poacs>
+    <poant>Value|RefTable_1188845774|0|False|0|0</poant>
+    <poasp>Value|RefTable_1188845774|0|False|0|0</poasp>
+    <poass>Value|RefTable_1188845774|0|False|0|0</poass>
+    <xhc00>Value|RefTable_1188845774|0|False|0|0</xhc00>
+    <xhcmo>Value|RefTable_1188845774|0|False|0|0</xhcmo>
+    <xhcmomc>Value|RefTable_1188845774|0|False|0|0</xhcmomc>
+    <xhcmomi>Value|RefTable_1188845774|0|False|0|0</xhcmomi>
+    <xivhcrt>Value|RefTable_1188845774|0|False|0|0</xivhcrt>
+    <yem02>Value|RefTable_1188845774|0|False|0|0</yem02>
+    <yse01>Value|RefTable_1188845774|0|False|0|0</yse01>
+    <yseev>Value|RefTable_1188845774|0|False|0|0</yseev>
+    <ysetx>Value|RefTable_1188845774|0|False|0|0</ysetx>
+    <drg01_FR>1</drg01_FR>
+    <drgn1_CZ>1</drgn1_CZ>
+    <drgn1_PL>1</drgn1_PL>
+    <drgn2_CZ>1</drgn2_CZ>
+    <drgn2_ES>30</drgn2_ES>
+    <drgn2_IT>13</drgn2_IT>
+    <drgn2_PL>1</drgn2_PL>
+    <lpm_EE>1</lpm_EE>
+    <lpm_EL>0</lpm_EL>
+    <lcl_IT>1</lcl_IT>
+    <lcl_AT>2</lcl_AT>
+    <lse00_HU>0</lse00_HU>
+    <lse00_SI>2</lse00_SI>
+    <amrar_EE>Value|RefTable_1927503380|70.8|False|0|0</amrar_EE>
+    <amrar_EL>Value|RefTable_1927503380|90|False|0|0</amrar_EL>
+    <amrar_PL>Value|RefTable_1927503380|65|False|0|0</amrar_PL>
+    <tpceepx_UK>Value|RefTable_1927503380|0.053|False|0|0</tpceepx_UK>
+    <tpceepx_IE>Value|RefTable_1927503380|0.086|False|0|0</tpceepx_IE>
+    <amrtn>3</amrtn>
+    <liwwh>Value|RefTable_1927503380|0|False|0|0</liwwh>
+    <xhcrt>Value|RefTable_1927503380|0|False|0|0</xhcrt>
+    <yempv>Value|RefTable_1927503380|0|False|0|0</yempv>
+    <amrrm>Value|RefTable_1927503380|3|False|0|0</amrrm>
+    <ddi01>Value|RefTable_1927503380|0|False|0|0</ddi01>
+    <ddi02>999</ddi02>
+    <tintcho>Value|RefTable_1188845774|0|False|0|0</tintcho>
+    <yem01>Value|RefTable_1188845774|0|False|0|0</yem01>
+    <yemiv>Value|RefTable_1188845774|0|False|0|0</yemiv>
+    <yseiv>Value|RefTable_1188845774|0|False|0|0</yseiv>
+    <lcl_LU>2</lcl_LU>
+    <dmsyy04>0</dmsyy04>
+    <dmb>Value|RefTable_1927503380|5|False|0|0</dmb>
+    <ysenr00>Value|RefTable_1927503380|0|False|0|0</ysenr00>
+    <ysenr01>Value|RefTable_1927503380|0|False|0|0</ysenr01>
+    <ysere01>Value|RefTable_1927503380|0|False|0|0</ysere01>
+    <pdiac>Value|RefTable_1927503380|0|False|0|0</pdiac>
+    <pdiwr>Value|RefTable_1927503380|0|False|0|0</pdiwr>
+    <amrtn01>4</amrtn01>
+    <drgn2_FI>2</drgn2_FI>
+    <bsa00_BG>Value|RefTable_1837444076|0|False|0|0</bsa00_BG>
+    <bsa00_DE>Value|RefTable_1837444076|0|False|0|0</bsa00_DE>
+    <bsa00_EE>Value|RefTable_1837444076|0|False|0|0</bsa00_EE>
+    <bsa00_FI>Value|RefTable_1837444076|0|False|0|0</bsa00_FI>
+    <bsa00_FR>Value|RefTable_1837444076|0|False|0|0</bsa00_FR>
+    <bsa00_HR>Value|RefTable_1837444076|0|False|0|0</bsa00_HR>
+    <bsa00_IE>Value|RefTable_1837444076|1|False|0|0</bsa00_IE>
+    <bsa00_LT>Value|RefTable_1837444076|0|False|0|0</bsa00_LT>
+    <bsa00_NL>Value|RefTable_1837444076|0|False|0|0</bsa00_NL>
+    <bsa00_PT>Value|RefTable_1837444076|0|False|0|0</bsa00_PT>
+    <bsa00_SI>Value|RefTable_1837444076|0|False|0|0</bsa00_SI>
+    <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
+    <lct_CY>1</lct_CY>
+    <lct_DK>1</lct_DK>
+    <bccot_AT>0</bccot_AT>
+    <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
+    <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
+    <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
+    <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
+    <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+  </Example_x0020_Household>
+</HouseholdSettings>

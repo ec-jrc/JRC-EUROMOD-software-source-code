@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The policy function BenCalc</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The policy function BenCalc</h1>
+
+<p>The
+function BenCalc is often referred to as the benefit
+calculator, as it allows for modelling a wide range of policy instruments, in
+particular benefits. This is accomplished by combining the functionalities of
+the functions <a
+href="EM_FC_Elig.htm"><i>Elig</i></a>
+and <a
+href="EM_FC_ArithOp.htm"><i>ArithOp</i></a>.
+Basically, the function calculates its result as a sum of &quot;components&quot;,
+where the value of a component is only added if a certain condition is
+fulfilled by at least one member of the assessment unit. The following stylised
+formulas illustrates the approach:</p>
+
+<p>result = Sum<sub>i</sub>
+(comp<sub>i</sub>_perTU if comp<sub>i</sub>_cond = true) </p>
+
+<p>result = Sum<sub>i</sub>
+(comp<sub>i</sub>_perElig * nElig if comp<sub>i</sub>_cond = true)</p>
+
+<p>That means,
+a component is only added if the component's condition is fulfilled, which is
+defined by the parameter compi_cond. This parameter
+follows the same rules as the parameter elig_cond of
+the function <a
+href="EM_FC_Elig.htm"><i>Elig</i></a>.
+The value of the component is either defined by the parameter compi_perTU or compi_perElig,
+which follow the same rules as the parameter formula
+of the function <a
+href="EM_FC_ArithOp.htm"><i>ArithOp</i></a>.
+In the former case simply the value as defined by compi_perTU
+is added, whereas in the latter case the value as defined by compi_perElig multiplied by the number of assessment unit
+members fulfilling the condition is added. Example 1 illustrates the approach by
+modelling a simple child benefit, where each family with dependent children {nDepChildrenInTaxunit&gt;0} receives a
+monthly amount of 100 Euro (comp_perTU, GrpNo 1)
+plus monthly 10 Euro (comp2_perElig, GrpNo 2) for
+any child younger than three {dag&lt;3}.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>1</td>
+		<td>{nDepChildrenInTaxunit>0}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perTU</td>
+		<td>1</td>
+		<td>100#m</td>
+		<td>benefit pays a fixed amount if there are children</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>2</td>
+		<td>{dag<3}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>2</td>
+		<td>10#m</td>
+		<td>plus an amount per child younger than 3</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bch_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Example 2 presents a frequent application of the function BenCalc – a child benefit where the amount depends on the
+number of children.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>50#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>1</td>
+		<td>{isNtoMchild}#1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>1</td>
+		<td>1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>1</td>
+		<td>2</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>1</td>
+		<td>$base</td>
+		<td>50 for the 1st and 2nd child</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>2</td>
+		<td>{isNtoMchild}#2</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>2</td>
+		<td>3</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>2</td>
+		<td>4</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>2</td>
+		<td>$base*1.5</td>
+		<td>75 for the 3rd and 4th child</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>3</td>
+		<td>{isNtoMchild}#3</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>3</td>
+		<td>5</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>3</td>
+		<td>99</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>3</td>
+		<td>$base*2</td>
+		<td>100 for each child beyond the 4th</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bch_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>The function result is calculated as the sum of three components. The
+condition for component one, comp_cond, Grp/No 1, is
+fulfilled if a person &quot;is the Nth to Mth child&quot;, where N is defined
+by the parameter #_N, Grp/No 1 and M is defined by
+the parameter #_M, Grp/No 1, i.e. the person must be
+the 1st to 2nd child to fulfil the condition. comp_perElig,
+Grp/No 1 is set to $base a basic benefit
+amount of monthly 50 Euro, defined by the parameter base.
+That means 50 Euro monthly are paid for each potential first and second child.
+In the same way component two defines that 75 Euro monthly (50*1.5) are paid
+for the third and fourth chid and component three adds 100 Euro monthly (50*2)
+for each fifth and any further child.</p>
+
+<p>Example 3 uses BenCalc to model a child
+benefit where the amount depends on the age of the children.</p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>50#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>1</td>
+		<td>{IsDepChild} & {dag<=3}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>1</td>
+		<td>$base*2</td>
+		<td>100 for children younger than 3</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>2</td>
+		<td>{IsDepChild} & {dag=4} & {dag<=14}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>2</td>
+		<td>$base</td>
+		<td>50 for children from 4 to 14</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>3</td>
+		<td>{IsDepChild} & {dag>=15} & {dag<=20}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>3</td>
+		<td>$base*1.5</td>
+		<td>75 for children from 15 to 20</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bch_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>	
+
+
+<p>The function result is calculated as the sum of three components. The
+condition for component one, comp_cond, GrpNo 1, is
+fulfilled by children who are up to three years old. The amount paid per child
+fulfilling the condition is defined by parameter comp_perElig,
+GrpNo 1 and set to $base*2, i.e. 100 Euro
+monthly (50*2). In the same way an amount of 50 Euro monthly is paid for each
+child aged four to 14 years and an amount of 75 Euro monthly (50*1.5) for each
+child aged 15 to 20 years.</p>
+
+<p>Example 4 shows a further typical application of the function BenCalc.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>100#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>1</td>
+		<td>{IsHeadofTU}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>1</td>
+		<td>$base</td>
+		<td>100 for the head</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>2</td>
+		<td>{IsPartnerOfHeadofTU}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>2</td>
+		<td>$base*0.5</td>
+		<td>50 for the partner of the head</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>3</td>
+		<td>{IsDepChild}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>3</td>
+		<td>$base*0.3</td>
+		<td>30 per dependent child</td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>4</td>
+		<td>{IsDepParent}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>4</td>
+		<td>$base*0.3</td>
+		<td>30 per dependent (grand)parent</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>big_family_sl</td>
+		<td></td>
+	</tr>
+</table>	
+
+
+<p>Each assessment unit receives a monthly base amount of 100 Euro via
+component 1 – the condition is being the head of the assessment unit and
+obviously each assessment unit has exactly one. Component 2 adds 50 Euro ($base*0.5) for the partner of the head. Another 30 Euro
+per dependent child are added by component 3. And finally, component 4 adds
+further 30 for each dependent (grand)parent.</p>
+
+<p>BenCalc provides parameters allowing for
+the withdrawal of a benefit when income rises. Example 5 illustrates how they
+work.</p>
+
+
+<table class="spine">
+	<caption>Example 5:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>1</td>
+		<td>{IsLoneParent}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>1</td>
+		<td>100#m</td>
+		<td>100 for lone parents with no employment income</td>
+	</tr>
+	<tr>
+		<td>withdraw_base</td>
+		<td></td>
+		<td>yem</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>withdraw_rate</td>
+		<td></td>
+		<td>0.1</td>
+		<td>10 cents are withdrawn for each Euro earned</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bchlp_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+</table>	
+
+<p>In this simple example lone parents with no employment income receive a
+monthly benefit of 100 Euro. Any employment income leads to a withdrawal of the
+benefit. However, the benefit is not withdrawn at a one to one rate, i.e. for
+each earned Euro one Euro of benefit is lost, but at a one to one tenth rate,
+i.e. for each earned Euro only 10 Cents of benefit are lost. The benefit is
+zero only at a monthly employment income of 1,000 Euro or above. The formula
+is: benefit (sum of components) minus withdraw_base
+times withdraw_rate. It is not necessary to define a
+lower limit of zero for the benefit (using parameter lowlim)
+to avoid negative results for employment income above 1,000, as the lower limit
+of the function result is automatically set to zero if the withdraw parameters
+are used.</p>
+
+<p>There are two other parameters allowing for an alternative approach to
+withdraw a benefit with rising income. They are presented in example 6.</p>
+
+
+<table class="spine">
+	<caption>Example 6:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_cond</td>
+		<td>1</td>
+		<td>{IsLoneParent}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>comp_perElig</td>
+		<td>1</td>
+		<td>100#m</td>
+		<td>100 for lone parents with no employment income</td>
+	</tr>
+	<tr>
+		<td>withdraw_base</td>
+		<td></td>
+		<td>yem</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>withdraw_start</td>
+		<td></td>
+		<td>500#m</td>
+		<td>10 cents are withdrawn for each Euro earned</td>
+	</tr>
+	<tr>
+		<td>withdraw_end</td>
+		<td></td>
+		<td>1000#m</td>
+		<td>but only if income is below 100</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bchlp_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+</table>	
+
+<p>Still lone parents receive a monthly benefit of 100 Euro, which is
+totally withdrawn at an employment income of 1,000 Euro monthly (withdraw_end). However, the withdrawal only starts at an
+income of monthly 500 Euro (withdraw_start), up to
+these earnings the full 100 Euro are received. To provide a &quot;smooth&quot;
+decrease of the benefit, the withdrawal must be faster as in example 5, as it
+starts later. The implicit withdrawal rate is therefore one to one fifth, i.e.
+20 Cent for each earned Euro beyond 500. The possibility of calculating an
+implicit withdrawal rate suggests that parameters withdraw_rate
+and withdraw_end are exchangeable – that's true.
+Precisely the formula outlined above must be stated as:</p>
+
+<p><i>tapered result = result (sum of components) – max (withdraw_base – withdraw_start,
+0) * withdraw_rate</i></p>
+
+<p>If withdraw_end is indicated withdraw_rate is calculated as:</p>
+
+<p><i>withdraw_rate = result (sum of components) /
+(withdraw_end – withdraw_start)</i></p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

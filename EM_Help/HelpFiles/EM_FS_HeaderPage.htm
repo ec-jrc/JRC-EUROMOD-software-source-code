@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>EUROMOD Installation and Architecture</title>
+</head>
+
+<body>
+
+<h1>EUROMOD Installation and Architecture</h1>
+
+<p>EUROMOD Architecture can be best described by dividing it
+into &quot;software&quot; and &quot;content&quot;.</p>
+<ul>
+	<li>EUROMOD software basically comprises the EUROMOD
+	user interface and the EUROMOD executable. For a detailed description see <a
+	href="EM_FS_Software.htm">EUROMOD Installation and Architecture - EUROMOD
+	software (user interface and executable)</a>.</li>
+
+	<li>EUROMOD content is a specific file structure.
+	The structure is mainly composed by the EUROMOD parameter files, which
+	essentially describe how the tax-benefit systems of the countries included in EUROMOD are implemented in the model. For a detailed
+	description see <a href="EM_FS_FileStructure.htm">EUROMOD Installation and
+	Architecture - EUROMOD content (parameter files)</a>.</li>
+</ul>
+<p>&nbsp;</p>
+
+<p>When users launch EUROMOD they open in fact the EUROMOD user
+interface which takes care of essentially the whole communication between users
+and the model. The two main tasks of the user interface are to allow for</p>
+<ul>
+	<li>viewing and modifying the implementation of the tax-benefit systems of the counties included in EUROMOD</li>
+	<li>running the model</li>
+</ul>
+
+<p>For accomplishing the former task, the user interface reads
+and modifies information stored in the EUROMOD content. Essentially it reads
+from and writes to parameter files in XML format, which contain the
+instructions the model needs for representing the countries’ tax-benefit
+systems. To do so the user interface needs to know where to find the EUROMOD
+content, that means it requires information where the respective files
+structure is stored. This information is indicated and can be changed via the
+main menu's item <i>Open project</i> (see <a
+href="EM_WW_OpenProject.htm">Working with EUROMOD - Open project</a>). Note
+that in principle it is possible that more than one EUROMOD content exists. In
+other words there are two (or more) such file structures (which may contain
+different versions of the parameter files). In this case the dialog can be used
+to &quot;switch&quot; between these versions. Also note that it is possible to
+simultaneously launch two (or more) instances of the user interface, which may
+display different EUROMOD contents.</p>
+
+<p>The user interface stores the EUROMOD content it points to
+when it is closed and thus, on reopening, is able to display the same content.
+Also with the installation of a more recent version of the software this
+information will not get lost. Thus, only when EUROMOD is installed for the
+very first time, the user interface does not have any information which content
+to display and therefore opens the configuration dialog to allow users to
+select a respective path. For more information see <a
+href="EM_FS_InstallingEuromod.htm">EUROMOD Installation and Architecture -
+Installing EUROMOD</a>.</p>
+
+<p>For accomplishing the latter task – running the model - the
+user interface starts the EUROMOD executable, which in fact carries out the
+tax-benefit calculations and produces respective output in text format. To do
+so the executable needs two sets of information. Firstly, it reads the XML
+parameter files as stored in the EUROMOD content (and possibly modified by the
+user interface). Secondly, it reads a configuration file produced by the user
+interface for this specific run. Most importantly the configuration file tells
+the executable which tax-benefit systems to run on which data.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

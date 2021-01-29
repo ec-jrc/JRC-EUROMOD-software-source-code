@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Groups</title>
+</head>
+
+<body>
+
+<h1>Groups</h1>
+<p>A <strong>Group</strong> is a collection of policies, (single) functions and (single) parameters. This is a purely visual feature which allows for marking items to be connected in a certain way, but has no effect on the model run. </p>
+<p><strong>Groups</strong> are characterised by <strong>Group Markers</strong>: little coloured symbols in the row-number column of the spine. In addition to the visual aspect, they allow for actions like show, hide or expand.</p>
+<p>Administration and application of <strong>Groups</strong> is carried out via a respective group of buttons in the <i>Display</i>-tab and/or via the context menu.</p>
+<h4>Adding Groups</h4>
+<p>To add a <strong>Group</strong> click the button <i>Administrate</i> in the <i>Groups</i> section of the <i>Display</i>-tab. This opens a dialog allowing for adding, changing and deleting <strong>Groups</strong>. For defining the look of the <strong>Group</strong> click the <i>Look</i> column of the <strong>Group’s</strong> row.</p>
+<h4> Adding policies, functions and/or parameters to Groups</h4>
+<p>There are two possibilities: either use the <i>Add to</i> button in the <i>Groups</i> section of the <i>Display</i>-tab, or use the <i>Groups/Add to</i> subitem of the context menu.
+Note that all <strong><i>selected</i></strong> policies/functions/parameters are added to the <strong>Group</strong>. Also note that the adding also concerns all sub-items, i.e. if a policy belongs to a <strong>Group</strong>, all (current and prospective) functions and parameters of the policy automatically belong to the <strong>Group</strong> – likewise for functions. Finally note that only those <strong>Groups</strong> are listed, where the concerned item(s) not already belong(s) to.</p>
+<h4> Removing policies, functions and/or parameters from Groups</h4>
+<p>There are two possibilities: either use the <i>Remove from</i> button in the <i>Groups</i> section of the <i>Display</i>-tab, or use the <i>Groups/Remove from</i> subitem of the context menu.
+Note that all <strong><i>selected</i></strong> policies/functions/parameters are removed from the <strong>Group</strong>. Also note that only those <strong>Groups</strong> are listed, where the concerned item(s) (currently) belong(s) to.</p>
+<h4>Group Actions</h4>
+<p>There are two possibilities to activate any group action: either use the buttons <i>Set Visible</i>, <i>Set Not Visible</i> and <i>Expand</i> in the <i>Groups</i> section of the <i>Display</i>-tab, or use the respective subitems of the context menu.</p>
+<p><strong>Set Visible</strong>: all elements of the <strong>Group</strong> are shown in the sense that a possible hidden-state is removed, however, the parent-elements are not automatically expanded.</p>
+<p><strong>Set Not Visible</strong>: all elements of the <strong>Group</strong> are hidden.</p>
+<p><strong>Expand</strong>: all elements of the <strong>Group</strong> are shown (possible hidden-state removed) and actually made visible by expanding.</p>
+<p> Note that these actions are ignorant in the sense of not caring about any current or contradicting state: <i>Set Visible</i> does for example not care if elements were actually hidden before. Similarly, if one first sets Group A visible and then Group B not visible, with an element belonging to both groups, the element will be not visible in the end. Also note that the actions are in principle not permanent, i.e. get lost once a country is closed. The visible-state is however part of the <i>view settings</i>, which can be stored (see option in the <i>Project Configuration</i> dialog).</p>
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

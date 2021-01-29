@@ -1,0 +1,1541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{86032F25-7A39-4CEE-B28B-C3C1EF31B16F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EM_UI</RootNamespace>
+    <AssemblyName>EM_UI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>E:\christine\Euromod_Store\EMProgrammeFiles\UserInterface\Beta3\Setup_EMUI_Beta3\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>EUROMOD User Interface</ProductName>
+    <PublisherName>EUROMOD</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>78</ApplicationRevision>
+    <ApplicationVersion>1.3.0.78</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>53C7C14BDE5E18C47F5F6D8389DF93C40E723B66</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>EM_UI_4_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.NetCore.1.8.6\lib\net20\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Spreadsheet.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v14.2.UI, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v14.2.Wizard, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraSpreadsheet.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.StaticFiles, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.StaticFiles.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.StaticFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.WebEncoders, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.WebEncoders.3.1.2\lib\netstandard2.0\Microsoft.Extensions.WebEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.8.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.8\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Octokit, Version=0.41.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Octokit.0.41.0\lib\net46\Octokit.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Pipelines, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.4.7.0\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.7.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\ActionGroup.cs" />
+    <Compile Include="Actions\AddFunctionAction.cs" />
+    <Compile Include="Actions\AddParameterAction.cs" />
+    <Compile Include="Actions\AddPolicyAction.cs" />
+    <Compile Include="Actions\AutomaticConditionalFormattingAction.cs" />
+    <Compile Include="Actions\BaseAction.cs" />
+    <Compile Include="Actions\ChangeNodeColorAction.cs" />
+    <Compile Include="Actions\ChangeParameterCommentAction.cs" />
+    <Compile Include="Actions\ChangeParameterGroupAction.cs" />
+    <Compile Include="Actions\ChangeParameterNameAction.cs" />
+    <Compile Include="Actions\ChangeParameterValueAction.cs" />
+    <Compile Include="Actions\ChangePolicyTypeAction.cs" />
+    <Compile Include="Actions\ConditionalFormattingAction.cs" />
+    <Compile Include="Dialogs\AddCountry_SaveAs_AdaptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AddCountry_SaveAs_AdaptForm.Designer.cs">
+      <DependentUpon>AddCountry_SaveAs_AdaptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionAdminCtryAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionSetPrivateAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionRemoveContentAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionAddContentAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionAdminGlobal.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\GroupRemoveContentAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\GroupAdminAction.cs" />
+    <Compile Include="Actions\ConfigureCountryAction.cs" />
+    <Compile Include="Actions\ConfigureDataAction.cs" />
+    <Compile Include="Actions\ConfigureSystemsAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\GroupAddContentAction.cs" />
+    <Compile Include="Actions\RenameSystemAction.cs" />
+    <Compile Include="Actions\RemoveNodeColorsAction.cs" />
+    <Compile Include="Actions\MoveNodesAction.cs" />
+    <Compile Include="Actions\CopySystemAction.cs" />
+    <Compile Include="Actions\DeleteFunctionAction.cs" />
+    <Compile Include="Actions\DeleteParameterAction.cs" />
+    <Compile Include="Actions\DeletePolicyAction.cs" />
+    <Compile Include="Actions\DeleteSystemAction.cs" />
+    <Compile Include="Actions\PasteFunctionAction.cs" />
+    <Compile Include="Actions\PasteMultiValuesAction.cs" />
+    <Compile Include="Actions\PastePolicyAction.cs" />
+    <Compile Include="Actions\RedoAction.cs" />
+    <Compile Include="Actions\RenamePolicyAction.cs" />
+    <Compile Include="Actions\SaveAction.cs" />
+    <Compile Include="Actions\SaveAsAction.cs" />
+    <Compile Include="Actions\SaveSystemOrderAction.cs" />
+    <Compile Include="Actions\SetSelectionPrivateStateAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionSetSwitchesAction.cs" />
+    <Compile Include="Actions\SpreadParameterValueAction.cs" />
+    <Compile Include="Actions\SwitchToNAAction.cs" />
+    <Compile Include="Actions\UndoAction.cs" />
+    <Compile Include="ContextMenu\CellContextMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenu\CellContextMenu.Designer.cs">
+      <DependentUpon>CellContextMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContextMenu\RowContextMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenu\RowContextMenu.Designer.cs">
+      <DependentUpon>RowContextMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CountryAdministration\ConsiderOldFileStructure.cs" />
+    <Compile Include="CountryAdministration\Country.cs" />
+    <Compile Include="CountryAdministration\CountryAdministrator.cs" />
+    <Compile Include="CustomControls\EM_RadioValueEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\EM_ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControls\EM_ToggleButton.Designer.cs">
+      <DependentUpon>EM_ToggleButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\EM_RadioValueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\EM_RadioValueControl.Designer.cs">
+      <DependentUpon>EM_RadioValueControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DataConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\ExchangeRatesConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExchangeRatesConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\DataConfigFacade.cs" />
+    <Compile Include="DataSets\ExchangeRatesConfigFacade.cs" />
+    <Compile Include="DataSets\HICPConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HICPConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\HICPConfigFacade.cs" />
+    <Compile Include="DataSets\SwitchablePolicyConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SwitchablePolicyConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\SwitchablePolicyConfigFacade.cs" />
+    <Compile Include="DataSets\UserSettings.cs">
+      <DependentUpon>UserSettings.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\UserSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserSettings.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\UserSettingsAdministrator.cs" />
+    <Compile Include="DataSets\VarConfig.cs">
+      <DependentUpon>VarConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\VarConfig.Designer.cs">
+      <DependentUpon>VarConfig.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataSets\VarConfigFacade.cs" />
+    <Compile Include="DataSets\XMLTextCDATAWriter.cs" />
+    <Compile Include="DeveloperInfo\DeveloperInfoTools.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVHHLevelVarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVHHLevelVarForm.Designer.cs">
+      <DependentUpon>RVHHLevelVarForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVCompareVersionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVCompareVersionsForm.Designer.cs">
+      <DependentUpon>RVCompareVersionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVExcelInfo.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_IncomelistsCore.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_UpratingFactors.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_CompulsoryPolicies.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_DatabaseConfiguration.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVAdministrator.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVConfigurationForm.Designer.cs">
+      <DependentUpon>RVConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVForm.Designer.cs">
+      <DependentUpon>RVForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_Base.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_ConditionalFormatting.cs" />
+    <Compile Include="DeveloperInfo\ReleaseValidation\RVItem_SystemConfiguration.cs" />
+    <Compile Include="DeveloperInfo\SaveParameterFilesAsTextForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeveloperInfo\SaveParameterFilesAsTextForm.Designer.cs">
+      <DependentUpon>SaveParameterFilesAsTextForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeveloperInfo\UpdatingProgressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeveloperInfo\UpdatingProgressForm.Designer.cs">
+      <DependentUpon>UpdatingProgressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddBookmarkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AddBookmarkForm.Designer.cs">
+      <DependentUpon>AddBookmarkForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddCountryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AddCountryForm.Designer.cs">
+      <DependentUpon>AddCountryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AddParameterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AddParameterForm.Designer.cs">
+      <DependentUpon>AddParameterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ComponentSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ComponentSearchForm.Designer.cs">
+      <DependentUpon>ComponentSearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ComponentUseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ComponentUseForm.Designer.cs">
+      <DependentUpon>ComponentUseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConditionalFormattingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConditionalFormattingForm.Designer.cs">
+      <DependentUpon>ConditionalFormattingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigurationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConfigurationForm.Designer.cs">
+      <DependentUpon>ConfigurationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureDataForm.Designer.cs">
+      <DependentUpon>ConfigureDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureCountryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureCountryForm.Designer.cs">
+      <DependentUpon>ConfigureCountryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ExtractProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ExtractProjectForm.Designer.cs">
+      <DependentUpon>ExtractProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionAndGroupManagement\Dialogs\AdminExtensionsOrGroups.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtensionAndGroupManagement\Dialogs\AdminExtensionsOrGroups.Designer.cs">
+      <DependentUpon>AdminExtensionsOrGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffects.Asc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffectsAlphaRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffectsAlphaRange.Designer.cs">
+      <DependentUpon>PolicyEffectsAlphaRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffectsChooseMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffectsChooseMode.Designer.cs">
+      <DependentUpon>PolicyEffectsChooseMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DeleteCountryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DeleteCountryForm.Designer.cs">
+      <DependentUpon>DeleteCountryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FindReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FindReplaceForm.Designer.cs">
+      <DependentUpon>FindReplaceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImportCountryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ImportCountryForm.Designer.cs">
+      <DependentUpon>ImportCountryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\InfoBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\InfoBox.Designer.cs">
+      <DependentUpon>InfoBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MatrixViewOfIncomelistsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MatrixViewOfIncomelistsForm.Designer.cs">
+      <DependentUpon>MatrixViewOfIncomelistsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NumberedSearchResultsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NumberedSearchResultsForm.Designer.cs">
+      <DependentUpon>NumberedSearchResultsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffects.Designer.cs">
+      <DependentUpon>PolicyEffects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffectsEM2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PolicyEffectsEM3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ProgressInidicator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ProgressInidicator.Designer.cs">
+      <DependentUpon>ProgressInidicator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\OptionalWarningsManager.cs" />
+    <Compile Include="Dialogs\SelectSystemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectSystemsForm.Designer.cs">
+      <DependentUpon>SelectSystemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureSystemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConfigureSystemsForm.Designer.cs">
+      <DependentUpon>ConfigureSystemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionAndGroupManagement\Dialogs\SetExtensionSwitchesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtensionAndGroupManagement\Dialogs\SetExtensionSwitchesForm.Designer.cs">
+      <DependentUpon>SetExtensionSwitchesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SingleClickForDataGridCombo.cs" />
+    <Compile Include="Dialogs\SuccessBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SuccessBox.Designer.cs">
+      <DependentUpon>SuccessBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\UnhideRowsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UnhideRowsForm.Designer.cs">
+      <DependentUpon>UnhideRowsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EDEM\GenerateSystemYears.cs" />
+    <Compile Include="EDEM\MigrateUpratingIndices.cs" />
+    <Compile Include="ExtensionAndGroupManagement\ExtensionAndGroupManager.cs" />
+    <Compile Include="ExtensionAndGroupManagement\ExtensionAndGroupMenuManager.cs" />
+    <Compile Include="ExtensionAndGroupManagement\ExtensionAndGroupMergeHelper.cs" />
+    <Compile Include="ExtensionAndGroupManagement\GlobLocExtensionRow.cs" />
+    <Compile Include="GlobalAdministration\ExchangeRate.cs" />
+    <Compile Include="GlobalAdministration\ExchangeRatesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalAdministration\ExchangeRatesForm.Designer.cs">
+      <DependentUpon>ExchangeRatesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalAdministration\ExRatesSyncForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalAdministration\ExRatesSyncForm.Designer.cs">
+      <DependentUpon>ExRatesSyncForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalAdministration\GlobalAdministrator.cs" />
+    <Compile Include="GlobalAdministration\HICPForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GlobalAdministration\HICPForm.Designer.cs">
+      <DependentUpon>HICPForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport\CompareVersionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExport\CompareVersionsForm.Designer.cs">
+      <DependentUpon>CompareVersionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport\ImportByIDAssistant.cs" />
+    <Compile Include="ImportExport\ImportByIDDiscrepancies.cs" />
+    <Compile Include="IndirectTaxes\IndirectTaxesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndirectTaxes\IndirectTaxesForm.Designer.cs">
+      <DependentUpon>IndirectTaxesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndirectTaxes\IndirectTaxesAction.cs" />
+    <Compile Include="ExtensionAndGroupManagement\NodeOperations\IsExtensionMember.cs" />
+    <Compile Include="NodeOperations\IsNodePrivate.cs" />
+    <Compile Include="ExtensionAndGroupManagement\NodeOperations\IsGroupMember.cs" />
+    <Compile Include="PlugInService\SessionInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Run\RunEM3.cs" />
+    <Compile Include="Run\RunManagerEM3.cs" />
+    <Compile Include="Tools\BrandHandler.cs" />
+    <Compile Include="Tools\InUseFileHandler.cs" />
+    <Compile Include="ExtensionAndGroupManagement\LookDef.cs" />
+    <Compile Include="ExtensionAndGroupManagement\ExtensionOrGroup.cs" />
+    <Compile Include="Tools\UserInfoHandler.cs" />
+    <Compile Include="TreeListManagement\MultiCellSelector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TreeListManagement\SelectPolicyMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TreeListManagement\ViewKeeper.cs" />
+    <Compile Include="UndoManager\RestoreManager.cs" />
+    <Compile Include="UpratingIndices\UpratingIndicesAction.cs" />
+    <Compile Include="UpratingIndices\UpratingIndicesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpratingIndices\UpratingIndicesForm.Designer.cs">
+      <DependentUpon>UpratingIndicesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpratingIndices\UpratingIndicesUsageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpratingIndices\UpratingIndicesUsageForm.Designer.cs">
+      <DependentUpon>UpratingIndicesUsageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VariablesAdministration\SwitchablePoliciesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VariablesAdministration\SwitchablePoliciesForm.Designer.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\ChangeDescriptionAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Editor\FormulaEditorManager.cs" />
+    <Compile Include="ContextMenu\ColumnContextMenuHelper.cs" />
+    <Compile Include="ContextMenu\FunctionContextMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenu\FunctionContextMenu.Designer.cs">
+      <DependentUpon>FunctionContextMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContextMenu\PolicyContextMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContextMenu\PolicyContextMenu.Designer.cs">
+      <DependentUpon>PolicyContextMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\CountryConfigFacade.cs" />
+    <Compile Include="Dialogs\AssignSystemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AssignSystemsForm.Designer.cs">
+      <DependentUpon>AssignSystemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\OptionalWarningsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\OptionalWarningsForm.Designer.cs">
+      <DependentUpon>OptionalWarningsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\CountryConfig.cs">
+      <DependentUpon>CountryConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSets\CountryConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountryConfig.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfigurePathsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ConfigurePathsForm.Designer.cs">
+      <DependentUpon>ConfigurePathsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport\AddOnGenerator.cs" />
+    <Compile Include="ImportExport\AddOnInfoHelper.cs" />
+    <Compile Include="ImportExport\ExportAddOnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExport\ExportAddOnForm.Designer.cs">
+      <DependentUpon>ExportAddOnForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport\ExportSystemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExport\ExportSystemsForm.Designer.cs">
+      <DependentUpon>ExportSystemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport\ImportAddOnForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExport\ImportAddOnForm.designer.cs">
+      <DependentUpon>ImportAddOnForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportExport\ImportExportAdministrator.cs" />
+    <Compile Include="ImportExport\ImportExportHelper.cs" />
+    <Compile Include="ImportExport\ImportSystemsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportExport\ImportSystemsForm.Designer.cs">
+      <DependentUpon>ImportSystemsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Run\Run.cs" />
+    <Compile Include="EM_AppContext.cs" />
+    <Compile Include="EM_UI_MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EM_UI_MainForm.Designer.cs">
+      <DependentUpon>EM_UI_MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NodeOperations\CheckComponentUse.cs" />
+    <Compile Include="NodeOperations\DoesNodeMatchPatterns.cs" />
+    <Compile Include="NodeOperations\GetNodeByID.cs" />
+    <Compile Include="NodeOperations\IsNodeValueDifferent.cs" />
+    <Compile Include="NodeOperations\IsSearchedNode.cs" />
+    <Compile Include="NodeOperations\TreatSpecificNodes.cs" />
+    <Compile Include="NodeOperations\StoreRestoreNodeStates.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Run\RunInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Run\RunInfoForm.Designer.cs">
+      <DependentUpon>RunInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Run\RunMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Run\RunMainForm.Designer.cs">
+      <DependentUpon>RunMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Run\RunManager.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="VersionControl\Dialogs\VCSelectConfigFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCSelectConfigFile.Designer.cs">
+      <DependentUpon>VCSelectConfigFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCDownloadLatestBundle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCDownloadLatestBundle.Designer.cs">
+      <DependentUpon>VCDownloadLatestBundle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCSettings.Designer.cs">
+      <DependentUpon>VCSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCProxy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCProxy.Designer.cs">
+      <DependentUpon>VCProxy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCChangePassword.Designer.cs">
+      <DependentUpon>VCChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCRemoveBundle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCRemoveBundle.Designer.cs">
+      <DependentUpon>VCRemoveBundle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCSelectProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCSelectProject.Designer.cs">
+      <DependentUpon>VCSelectProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCProjectContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCProjectContent.Designer.cs">
+      <DependentUpon>VCProjectContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCNewProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCNewProject.Designer.cs">
+      <DependentUpon>VCNewProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCMultiUpDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCMultiUpDownload.Designer.cs">
+      <DependentUpon>VCMultiUpDownload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCUsersAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCUsersAdd.Designer.cs">
+      <DependentUpon>VCUsersAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCUsers.Designer.cs">
+      <DependentUpon>VCUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCUserUnitRights.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCUserUnitRights.Designer.cs">
+      <DependentUpon>VCUserUnitRights.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\ChangeLogAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\ExchangeRatesConfigApplyAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\SwitchablePolicyConfigApplyAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\SwitchablePolicyConfigMergeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\SwitchablePolicyConfigMergeForm.designer.cs">
+      <DependentUpon>SwitchablePolicyConfigMergeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\HICPConfigApplyAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\ExchangeRatesConfigMergeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\ExchangeRatesConfigMergeForm.designer.cs">
+      <DependentUpon>ExchangeRatesConfigMergeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\HICPConfigMergeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\HICPConfigMergeForm.designer.cs">
+      <DependentUpon>HICPConfigMergeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\NoVCPublicVersion\PublicVersion.cs" />
+    <Compile Include="VersionControl\NoVCPublicVersion\PublicVersionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\NoVCPublicVersion\PublicVersionForm.Designer.cs">
+      <DependentUpon>PublicVersionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\RemovePrivate.cs" />
+    <Compile Include="Tools\ConditionalFormattingHelper.cs" />
+    <Compile Include="TreeListManagement\BookmarkAndColorManager.cs" />
+    <Compile Include="TreeListManagement\TreeListBuilder.cs" />
+    <Compile Include="TreeListTags\FunctionTreeListTag.cs" />
+    <Compile Include="Tools\IconConverter.cs" />
+    <Compile Include="TreeListTags\ParameterTreeListTag.cs" />
+    <Compile Include="TreeListTags\PolicyTreeListTag.cs" />
+    <Compile Include="TreeListManagement\TreeListManager.cs" />
+    <Compile Include="Tools\CopyFolder.cs" />
+    <Compile Include="TreeListTags\SystemTreeListTag.cs" />
+    <Compile Include="TreeListTags\BaseTreeListTag.cs" />
+    <Compile Include="Validate\ParameterValidation.cs" />
+    <Compile Include="Validate\PolicyValidation.cs" />
+    <Compile Include="Validate\SystemValidation.cs" />
+    <Compile Include="VariablesAdministration\CleanVariables\CleanVariablesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VariablesAdministration\CleanVariables\CleanVariablesForm.Designer.cs">
+      <DependentUpon>CleanVariablesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VariablesAdministration\ImportVariables\ImportVariablesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VariablesAdministration\ImportVariables\ImportVariablesForm.Designer.cs">
+      <DependentUpon>ImportVariablesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VariablesAdministration\VariablesActions\AddVariableAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\DeleteVariableAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\ChangeVariableAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\AddAcronymTypeAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\AddAcronymLevelAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\ChangeAcronymAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\AddAcronymAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\DeleteAcronymAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\DeleteAcronymLevelAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\DeleteAcronymTypeAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\ChangeAcronymLevelAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\ChangeAcronymTypeAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\AddCategoryAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\DeleteCategoryAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\ChangeCategoryAction.cs" />
+    <Compile Include="VariablesAdministration\ImportVariables\ImportVariablesManager.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\UpdateAutomaticLabelAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\VariablesBaseAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\VariablesRedoAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesActions\VariablesUndoAction.cs" />
+    <Compile Include="VariablesAdministration\VariablesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VariablesAdministration\VariablesForm.Designer.cs">
+      <DependentUpon>VariablesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VariablesAdministration\VariablesManagement\AcronymManager.cs" />
+    <Compile Include="VariablesAdministration\VariablesManagement\VariablesManager.cs" />
+    <Compile Include="VersionControl\Dialogs\VCDownloadRelease.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCDownloadRelease.Designer.cs">
+      <DependentUpon>VCDownloadRelease.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCAddRemoveUnits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCAddRemoveUnits.Designer.cs">
+      <DependentUpon>VCAddRemoveUnits.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCAdminContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCAdminContent.Designer.cs">
+      <DependentUpon>VCAdminContent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCCommitInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCCommitInfo.Designer.cs">
+      <DependentUpon>VCCommitInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCContentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCContentControl.Designer.cs">
+      <DependentUpon>VCContentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Dialogs\VCLogin.Designer.cs">
+      <DependentUpon>VCLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\VCAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\AcceptRejectMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\AcceptRejectMenu.designer.cs">
+      <DependentUpon>AcceptRejectMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\ApplyAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\VariablesApplyAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\MergeFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\VariablesMergeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\VariablesMergeForm.designer.cs">
+      <DependentUpon>VariablesMergeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\MergeAdministrator.cs" />
+    <Compile Include="VersionControl\Merging\MergeChoicesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\MergeChoicesForm.Designer.cs">
+      <DependentUpon>MergeChoicesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\MergeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\MergeControl.designer.cs">
+      <DependentUpon>MergeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VersionControl\Merging\MergeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionControl\Merging\MergeForm.designer.cs">
+      <DependentUpon>MergeForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ContextMenu\CellContextMenu.resx">
+      <DependentUpon>CellContextMenu.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContextMenu\RowContextMenu.resx">
+      <DependentUpon>RowContextMenu.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContextMenu\FunctionContextMenu.resx">
+      <DependentUpon>FunctionContextMenu.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContextMenu\PolicyContextMenu.resx">
+      <DependentUpon>PolicyContextMenu.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\EM_RadioValueControl.resx">
+      <DependentUpon>EM_RadioValueControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeveloperInfo\ReleaseValidation\RVCompareVersionsForm.resx">
+      <DependentUpon>RVCompareVersionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeveloperInfo\ReleaseValidation\RVConfigurationForm.resx">
+      <DependentUpon>RVConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeveloperInfo\ReleaseValidation\RVForm.resx">
+      <DependentUpon>RVForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeveloperInfo\ReleaseValidation\RVHHLevelVarForm.resx">
+      <DependentUpon>RVHHLevelVarForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeveloperInfo\SaveParameterFilesAsTextForm.resx">
+      <DependentUpon>SaveParameterFilesAsTextForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeveloperInfo\UpdatingProgressForm.resx">
+      <DependentUpon>UpdatingProgressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AddBookmarkForm.resx">
+      <DependentUpon>AddBookmarkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AddCountryForm.resx">
+      <DependentUpon>AddCountryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AddParameterForm.resx">
+      <DependentUpon>AddParameterForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AssignSystemsForm.resx">
+      <DependentUpon>AssignSystemsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ComponentSearchForm.resx">
+      <DependentUpon>ComponentSearchForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ComponentUseForm.resx">
+      <DependentUpon>ComponentUseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ConditionalFormattingForm.resx">
+      <DependentUpon>ConditionalFormattingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ConfigurationForm.resx">
+      <DependentUpon>ConfigurationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ConfigureDataForm.resx">
+      <DependentUpon>ConfigureDataForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ConfigureCountryForm.resx">
+      <DependentUpon>ConfigureCountryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ExtractProjectForm.resx">
+      <DependentUpon>ExtractProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AddCountry_SaveAs_AdaptForm.resx">
+      <DependentUpon>AddCountry_SaveAs_AdaptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionAndGroupManagement\Dialogs\AdminExtensionsOrGroups.resx">
+      <DependentUpon>AdminExtensionsOrGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PolicyEffectsAlphaRange.resx">
+      <DependentUpon>PolicyEffectsAlphaRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PolicyEffectsChooseMode.resx">
+      <DependentUpon>PolicyEffectsChooseMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DeleteCountryForm.resx">
+      <DependentUpon>DeleteCountryForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FindReplaceForm.resx">
+      <DependentUpon>FindReplaceForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ImportCountryForm.resx">
+      <DependentUpon>ImportCountryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\InfoBox.resx">
+      <DependentUpon>InfoBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MatrixViewOfIncomelistsForm.resx">
+      <DependentUpon>MatrixViewOfIncomelistsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\OptionalWarningsForm.resx">
+      <DependentUpon>OptionalWarningsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ConfigurePathsForm.resx">
+      <DependentUpon>ConfigurePathsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PolicyEffects.resx">
+      <DependentUpon>PolicyEffects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectSystemsForm.resx">
+      <DependentUpon>SelectSystemsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ConfigureSystemsForm.resx">
+      <DependentUpon>ConfigureSystemsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtensionAndGroupManagement\Dialogs\SetExtensionSwitchesForm.resx">
+      <DependentUpon>SetExtensionSwitchesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SuccessBox.resx">
+      <DependentUpon>SuccessBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UnhideRowsForm.resx">
+      <DependentUpon>UnhideRowsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalAdministration\ExchangeRatesForm.resx">
+      <DependentUpon>ExchangeRatesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalAdministration\ExRatesSyncForm.resx">
+      <DependentUpon>ExRatesSyncForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalAdministration\HICPForm.resx">
+      <DependentUpon>HICPForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EM_UI_MainForm.resx">
+      <DependentUpon>EM_UI_MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExport\CompareVersionsForm.resx">
+      <DependentUpon>CompareVersionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExport\ExportAddOnForm.resx">
+      <DependentUpon>ExportAddOnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExport\ExportSystemsForm.resx">
+      <DependentUpon>ExportSystemsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportExport\ImportSystemsForm.resx">
+      <DependentUpon>ImportSystemsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndirectTaxes\IndirectTaxesForm.resx">
+      <DependentUpon>IndirectTaxesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Run\RunInfoForm.resx">
+      <DependentUpon>RunInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Run\RunMainForm.resx">
+      <DependentUpon>RunMainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpratingIndices\UpratingIndicesForm.resx">
+      <DependentUpon>UpratingIndicesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpratingIndices\UpratingIndicesUsageForm.resx">
+      <DependentUpon>UpratingIndicesUsageForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VariablesAdministration\CleanVariables\CleanVariablesForm.resx">
+      <DependentUpon>CleanVariablesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VariablesAdministration\ImportVariables\ImportVariablesForm.resx">
+      <DependentUpon>ImportVariablesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VariablesAdministration\SwitchablePoliciesForm.resx" />
+    <EmbeddedResource Include="VariablesAdministration\VariablesForm.resx">
+      <DependentUpon>VariablesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCDownloadLatestBundle.resx">
+      <DependentUpon>VCDownloadLatestBundle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCProxy.resx">
+      <DependentUpon>VCProxy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCChangePassword.resx">
+      <DependentUpon>VCChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCSettings.resx">
+      <DependentUpon>VCSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCRemoveBundle.resx">
+      <DependentUpon>VCRemoveBundle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCSelectConfigFile.resx">
+      <DependentUpon>VCSelectConfigFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCSelectProject.resx">
+      <DependentUpon>VCSelectProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCProjectContent.resx">
+      <DependentUpon>VCProjectContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCNewProject.resx">
+      <DependentUpon>VCNewProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCMultiUpDownload.resx">
+      <DependentUpon>VCMultiUpDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCUsersAdd.resx">
+      <DependentUpon>VCUsersAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCUsers.resx">
+      <DependentUpon>VCUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCDownloadRelease.resx">
+      <DependentUpon>VCDownloadRelease.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCAddRemoveUnits.resx">
+      <DependentUpon>VCAddRemoveUnits.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCAdminContent.resx">
+      <DependentUpon>VCAdminContent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCCommitInfo.resx">
+      <DependentUpon>VCCommitInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCContentControl.resx">
+      <DependentUpon>VCContentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCLogin.resx">
+      <DependentUpon>VCLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Dialogs\VCUserUnitRights.resx">
+      <DependentUpon>VCUserUnitRights.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\AcceptRejectMenu.resx">
+      <DependentUpon>AcceptRejectMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\SwitchablePolicyConfigMergeForm.resx">
+      <DependentUpon>SwitchablePolicyConfigMergeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\ExchangeRatesConfigMergeForm.resx">
+      <DependentUpon>ExchangeRatesConfigMergeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\HICPConfigMergeForm.resx">
+      <DependentUpon>HICPConfigMergeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\VariablesMergeForm.resx">
+      <DependentUpon>VariablesMergeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\MergeChoicesForm.resx">
+      <DependentUpon>MergeChoicesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\MergeControl.resx">
+      <DependentUpon>MergeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\Merging\MergeForm.resx">
+      <DependentUpon>MergeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VersionControl\NoVCPublicVersion\PublicVersionForm.resx">
+      <DependentUpon>PublicVersionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSets\CountryConfig.xsc">
+      <DependentUpon>CountryConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\CountryConfig.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CountryConfig.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\CountryConfig.xss">
+      <DependentUpon>CountryConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DataConfig.xsc">
+      <DependentUpon>DataConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\DataConfig.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataConfig.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\DataConfig.xss">
+      <DependentUpon>DataConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\ExchangeRatesConfig.xsc">
+      <DependentUpon>ExchangeRatesConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\ExchangeRatesConfig.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ExchangeRatesConfig.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\ExchangeRatesConfig.xss">
+      <DependentUpon>ExchangeRatesConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\HICPConfig.xsc">
+      <DependentUpon>HICPConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\HICPConfig.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HICPConfig.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\HICPConfig.xss">
+      <DependentUpon>HICPConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\SwitchablePolicyConfig.xsc">
+      <DependentUpon>SwitchablePolicyConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\SwitchablePolicyConfig.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SwitchablePolicyConfig.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\SwitchablePolicyConfig.xss">
+      <DependentUpon>SwitchablePolicyConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\UserSettings.xsc">
+      <DependentUpon>UserSettings.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\UserSettings.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSets\UserSettings.xss">
+      <DependentUpon>UserSettings.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\VarConfig.xsc">
+      <DependentUpon>VarConfig.xsd</DependentUpon>
+    </None>
+    <None Include="DataSets\VarConfig.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VarConfig.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSets\VarConfig.xss">
+      <DependentUpon>VarConfig.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="..\GlobalSuppressions.cs" />
+    <None Include="Resources\ReleaseInfo.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\ReleaseInfo.png" />
+    <None Include="Icons\TipNotAllCountriesVisible.png" />
+    <None Include="Icons\add.png" />
+    <None Include="Icons\add-20.png" />
+    <None Include="Icons\vc-unlink.png" />
+    <None Include="Icons\vc-connect.png" />
+    <None Include="Resources\brand_background_EUROMOD.jpg" />
+    <None Include="Resources\brand_icon_EUROMOD.ico" />
+    <None Include="Resources\NoFlag.png" />
+    <None Include="Resources\Euromod_Logo_HR_CMYK.jpg" />
+    <None Include="Icons\VCResolved.png" />
+    <None Include="Resources\EUROMOD.jpg" />
+    <None Include="Icons\VCUpToDate.png" />
+    <None Include="Icons\apply16.png" />
+    <None Include="Icons\AllFilters.png" />
+    <None Include="Icons\apply.png" />
+    <None Include="Icons\CleanVariables.gif" />
+    <None Include="Icons\clear.png" />
+    <None Include="Icons\ChangeTypeChanged.png" />
+    <None Include="Icons\ChangeTypeRemoved.png" />
+    <None Include="Icons\blueball_mod.png" />
+    <None Include="Icons\checkbox.png" />
+    <None Include="Icons\checkbox-checked.png" />
+    <None Include="Icons\Compare.gif" />
+    <None Include="Icons\delete16.png" />
+    <None Include="Icons\delete32.png" />
+    <None Include="Icons\find.png" />
+    <None Include="Icons\filter.png" />
+    <Content Include="Icons\Folder.gif" />
+    <None Include="Icons\Folder.png" />
+    <None Include="Icons\globe.png" />
+    <None Include="Icons\green_right_arrow.png" />
+    <None Include="Icons\Help.png" />
+    <None Include="Icons\import.png" />
+    <None Include="Icons\FunctionSpecifier.png" />
+    <None Include="Icons\green_right_arrow_32.png" />
+    <None Include="Icons\merge_accept.png" />
+    <None Include="Icons\merge_accept_order.png" />
+    <None Include="Icons\merge_mixed.png" />
+    <None Include="Icons\merge_reject.png" />
+    <None Include="Icons\merge_reject_order.png" />
+    <None Include="Icons\Merge.png" />
+    <None Include="Icons\log-in-vc.png" />
+    <None Include="Icons\log-out-vc.png" />
+    <None Include="Icons\redo.png" />
+    <None Include="Icons\save.png" />
+    <None Include="Icons\run.ico" />
+    <None Include="Icons\NoFilter.png" />
+    <None Include="Icons\Restore.png" />
+    <None Include="Icons\privateParameter.png" />
+    <None Include="Icons\Save16.png" />
+    <None Include="Icons\redball.png" />
+    <None Include="Icons\RVundef.png" />
+    <None Include="Icons\RVallgood.png" />
+    <None Include="Icons\remove.png" />
+    <None Include="Icons\open-project-32.png" />
+    <None Include="Icons\remove-bundle.png" />
+    <None Include="Icons\NoAddOnImage.png" />
+    <None Include="Icons\save-32.png" />
+    <None Include="Icons\SelectNoCountry.png" />
+    <None Include="Icons\SelectAllCountries.png" />
+    <None Include="Icons\SelectAllSystems.PNG" />
+    <None Include="Icons\SelectAllAddOns.png" />
+    <None Include="Icons\Switch.png" />
+    <None Include="Icons\success.png" />
+    <None Include="Icons\undo.png" />
+    <None Include="Icons\Validate.png" />
+    <None Include="Icons\ValidationInfo.png" />
+    <None Include="Icons\Turn_off.png" />
+    <None Include="Icons\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EM_Executable\EM_Executable\EM_Executable.csproj">
+      <Project>{2e6e0907-98b6-4f73-97e5-f01f1d10382a}</Project>
+      <Name>EM_Executable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_Executable\EM_Transformer\EM_Transformer.csproj">
+      <Project>{3f552049-a3a8-4afc-aa44-ccb648ff76a1}</Project>
+      <Name>EM_Transformer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_Libraries\EM_CommonMSWin\EM_Common_Win.csproj">
+      <Project>{9cfaccaa-f897-480f-b05f-c6087c3ef15f}</Project>
+      <Name>EM_Common_Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_Libraries\EM_Common\EM_Common.csproj">
+      <Project>{e2c621c4-310a-4804-b6c7-570c5fa2f5d6}</Project>
+      <Name>EM_Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_Libraries\EM_Statistics\EM_Statistics.csproj">
+      <Project>{99f3f2d4-97ea-4c33-920e-4b1bf967b84c}</Project>
+      <Name>EM_Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_Libraries\EM_XmlHandler\EM_XmlHandler.csproj">
+      <Project>{ba38d097-e44d-475e-b78a-2de6f2e02b89}</Project>
+      <Name>EM_XmlHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VCAPI\VCUIAPI.csproj">
+      <Project>{072bad88-7be4-4a60-8fe3-d3b5962afa38}</Project>
+      <Name>VCUIAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Humanizer.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

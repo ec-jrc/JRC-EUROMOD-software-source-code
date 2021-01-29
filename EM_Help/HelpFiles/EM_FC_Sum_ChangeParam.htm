@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function ChangeParam</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function ChangeParam</h1>
+<p>Allows for changing the values of parameters of other functions.</p>
+<p class="EM3only">Note: to change the switches of policies or functions use <a href="EM_FC_Sum_ChangeSwitch.htm">ChangeSwitch</a>.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Param_Id</td>
+		<td>text</td>
+		<td>PARAM</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td>Identifier for the parameter to change.</td>
+	</tr>
+	<tr>
+		<td>Param_NewVal</td>
+		<td>text</td>
+		<td>PARAM</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td>New value for parameter (to be exchanged at read time).</td>
+	</tr>
+	<tr>
+		<td>Dataset</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td>If any 'Dataset' parameter is used, the changes only takes place if one of them matches the dataset of the concerned run.<br>
+		The wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. be_20*_a?).</td>
+	</tr>
+</table>
+</body>
+</html>

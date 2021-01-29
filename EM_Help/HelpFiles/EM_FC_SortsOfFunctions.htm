@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Sorts of functions and brief description of available functions</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Sorts of functions and brief description of available functions</h1>
+
+<p>One could classify EUROMOD functions into three categories:
+policy functions, system functions and special functions.</p>
+
+<h4>Policy functions</h4>
+
+<p>These functions are primarily
+designed for implementing policy instruments (taxes and benefits). The category
+contains the following functions:</p>
+<ul>
+	<li><strong>Elig</strong>
+	is referred to as eligibility function as it is most frequently used for
+	determining the eligibility for receiving benefits. However, it also allows for
+	determining the liability for paying taxes, as well as evaluating other
+	conditions.</li>
+
+	<li><strong>BenCalc</strong>
+	is referred to as the benefit calculator, as it allows for modelling a wide
+	range of policy instruments, in particular benefits.</li>
+
+	<li><strong>ArithOp</strong>
+	is a simple calculator, allowing for the most common arithmetical operations.</li>
+
+	<li><strong>SchedCalc</strong>
+	allows for the implementation of the most common (tax) schedules.</li>
+
+	<li><strong>Allocate</strong>
+	allows for (re)allocating amounts (incomes, benefits, taxes) between members of
+	assessment units.</li>
+
+	<li><strong>Min and Max</strong> are simple minimum and maximum calculators.</li>
+</ul>
+
+<h4>System functions</h4>
+
+<p>These functions are designed for
+implementing the &quot;framework&quot; of the tax-benefit model. A country’s
+parameter file contains several special policies to implement this framework.
+The section <a href="EM_BC_PresentationTaxBen.htm">EUROMOD Basic Concepts -
+Presentation of countries' tax-benefit-systems</a> provides more information
+about these special EUROMOD policies and their purpose. Usually, the
+implementation of a special policy uses just one or two particular system
+functions. The category contains the following functions:</p>
+
+<ul>
+	<li><strong>Uprate</strong>
+	is used in the special policy Uprate_cc and allows
+	for the uprating of monetary dataset variables.</li>
+
+	<li><strong>SetDefault</strong>
+	allows for the setting of default values for not existent dataset variables.</li>
+
+	<li><strong>DefIL</strong>
+	is mainly used in the special policy ILDef_cc and
+	allows for the definition of incomelists (see <a href="EM_BC_Terminology.htm">EUROMOD
+	Basic Concepts - EUROMOD terminology</a>).</li>
+
+	<li><strong>DefTU</strong>
+	is mainly used in the special policy TUDef_cc and
+	allows for the definition of assessment units (see <a
+	href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>).</li>
+
+	<li><strong>UpdateTU </strong>allows
+	for the redefinition of assessment units.</li>
+
+	<li><strong>DefOutput</strong>
+	is used in the special policies output_xx_cc and
+	allows for the definition of model output (see <a href="EM_BC_InOut.htm">EUROMOD
+	Basic Concepts - EUROMOD input and output</a>).</li>
+
+	<li><strong>DefVar</strong>
+	and <strong>DefConst</strong> allow for the
+	definition of intermediate variables respectively constants, which can be used
+	by other (mostly policy) functions.</li>
+</ul>
+
+<h4>Special functions</h4>
+
+<p>These functions go beyond the
+implementation of the tax-benefit system. The category contains the following
+functions:</p>
+<ul>
+	<li><strong>Loop</strong>
+	and <strong>UnitLoop</strong> allow for repeating
+	part (or all) of the tax-benefit calculations. As an example, for calculating
+	marginal tax rates at least part of the policies need to be calculated twice,
+	once for original income and once for marginally increased income.</li>
+
+	<li><strong>Store</strong>
+	and <strong>Restore</strong> are mainly, though not
+	exclusively, designed to be used with the loop functions described above, as it
+	is frequently necessary to set some or all variables back to their initial (or
+	some other previous) value after each iteration.</li>
+
+	<li><strong>ChangeParam</strong>
+	allows for changing the value parameters. It also can, for example, be used for
+	more transparent implementation of policy reforms, by avoiding direct changes
+	of the base policy parameters and putting the alterations in separate reform
+	policies instead.</li>
+
+	<li><strong>Totals</strong>
+	allows for the calculation of aggregates (i.e. sums, means, etc.) of variables
+	or incomelists over the whole population (represented by the dataset) or a
+	selected subgroup.</li>
+
+	<li><strong>DropUnit</strong>
+	and <strong>KeepUnit</strong> allow for dropping
+	(keeping only) individuals, families or households with special characteristics
+	from (within) the calculations.</li>
+
+	<li><strong>ILVarOp</strong>
+	allows for operations on the content, i.e. the variables of an incomelist.</li>
+
+	<li><strong>RandSeed</strong>
+	sets the starting point for generating a series of pseudorandom numbers.</li>
+
+	<li><strong>CallProgramme</strong>
+	allows for calling an external application.</li>
+
+	<li><strong>DefInput</strong>
+	allows for reading values for one or more EUROMOD variables from a text file.</li>
+</ul>
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

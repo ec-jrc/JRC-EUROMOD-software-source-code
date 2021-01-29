@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function DropUnit</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function DropUnit</h1>
+<p>Allows for dropping individuals, families or households with special characteristics from the calculations.</p>
+
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Drop_Cond</td>
+		<td>condition</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Condition defining which assessment units (i.e. indvidual, families or households) are to be dropped.</td>
+	</tr>
+	<tr>
+		<td>Drop_Cond_Who</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>one</td>
+		<td>Defines which members of the assessment unit must fulfil Drop_Cond to make the unit fulfil the condition.<br>For possible values see the common parameter Who_Must_Be_Elig.</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

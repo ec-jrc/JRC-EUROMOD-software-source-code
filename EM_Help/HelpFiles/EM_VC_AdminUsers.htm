@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Administrate Users</title>
+</head>
+
+<body>
+
+<h1>Administrate Users</h1>
+
+<p>Pressing the button <i>Administrate Users</i> in the <i>Version Control</i>
+ribbon's section <i>NEW VC PROJECT</i> opens a dialog which allows for:</p>
+<ul>
+	<li>Adding and removing users from the currently connected VC project</li>
+	<li>Defining users' rights for the currently connected VC project</li>
+</ul>
+
+<p>Please note that these
+operations are only available to users which have administration rights for the
+project (see below).</p>
+
+<p>The main part of the dialog lists all users which are part of this VC project and for each of them their respective access rights<a href="#_ftn1" 
+name="_ftnref1" title="">[1]</a>.</p>
+
+<h4>Add Users</h4>
+<p>Pressing this
+button opens a dialog showing all users which potentially can be added to the
+project's VC. That means they are registered with the VC System but not yet
+users of the particular project. Ticking the respective users and pressing the
+button <i>OK</i> adds the users to this VC project, which means
+that they are now shown in the main-dialog's list of users. Initially the new
+users have download rights. For information on how to grant them with other rights see <i>Defining users' rights</i> below.</p>
+
+<h4>Remove Users</h4>
+<p>Users are
+removed from the project's VC by selecting them<a href="#_ftn2" name="_ftnref2" title="">[2]</a>
+and pressing the button <i>Remove Users</i>.
+The dialog asks for confirmation of this operation to avoid unintended removal.</p>
+
+<p>Note that the actual addition or removal of users from the project's VC actually only takes place
+once the main-dialog is closed with <i>OK</i>.
+If the dialog is closed with <i>Cancel</i>
+no action takes place and thus all changes can still be undone.</p>
+
+<h4>Defining users' rights</h4>
+
+<p>A user can (or cannot) have the right to
+perform three types of version control operations: downloading units from VC,
+uploading units to VC and administrative operations. They are displayed and
+manipulated via the list of users in the <i>Version Control - Administrate Users</i> dialog.</p>
+
+<h6>Administration Right</h6>
+<p>This checkbox defines whether the listed user may administrate the project
+(ticked) or not (not ticked). Administration tasks are adding and removing
+units to/from the project's VC and administrating users and their rights. </p>
+
+<h6>Default Right</h6>
+<p>This
+column takes the values <i>Download</i> or <i>Upload</i>. The right can be changed by selecting another value from the
+list.<p>
+<ul>
+	<li><i>Download</i>: This means that the user has the right to download units (e.g. countries). The user
+		is however not allowed to upload any own versions to VC.</li>
+	<li><i>Upload</i>: This means that the user has the right to download units and also to upload new versions.</li>
+</ul>
+
+
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+The Version Control Administrator user is also added by default in all the projects, this user cannot be removed.</p>
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+The selection mechanism follows the usual Windows standards. That means that, to
+selectseveral users, you can click on them while holding the <i>Ctrl</i>-key. Alternatively, click on the first user, press the shift key
+and select the last user. Selected users are marked by blue background colour.</p>
+
+
+</div>
+
+</body>
+
+</html>

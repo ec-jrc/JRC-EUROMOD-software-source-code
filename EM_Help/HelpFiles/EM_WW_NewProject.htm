@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Generate a new EUROMOD project</title>
+</head>
+
+<body>
+
+<h1>Generate a new EUROMOD project</h1>
+
+<p>The item <i>New Project</i>
+of the main menu<a href="#_ftn1" name="_ftnref1"
+title="">[1]</a> (which can also be found in the Version Control ribbon in the <i>PROJECT</i> group)
+opens a dialog which allows for generating a new EUROMOD project. For a
+description of what a EUROMOD project is see <a href="EM_WW_AdminProjects.htm">Working
+with EUROMOD - Administration of EUROMOD projects</a>.</p>
+
+<p>The user interface requires the following information for
+generating a EUROMOD project:</p>
+
+<h4>Project Path and Project Name</h4>
+<p>The <i>Project Path</i> is the path where the new project is to be stored. The user interface will 
+generate a folder using the name you provided in the <i>Project Name</i> field, containing the EUROMOD 
+file structure at the indicated path. Note that the folder named in <i>Project Path</i> must already 
+exist and that it must not contain a folder <i>Project Name</i> already. For more information on the 
+EUROMOD file structure see <a href="EM_FS_FileStructure.htm">EUROMOD Installation and Architecture - 
+EUROMOD content (parameter files)</a>.</p>
+
+<h4>Base Project</h4>
+<p>In fact, a EUROMOD project will rarely be generated &quot;from scratch&quot;,
+usually it will be a copy of an existing project, that then can be adapted.
+Consequently, the generate-project-dialog allows for selecting this <i>Base Project</i>, with the following
+options:</p>
+<ul>
+<li><i>Project on
+Disk</i>: With this option selected, the dialog allows for selecting (or typing)
+the name of the folder, where the base project is stored<a href="#_ftn2" name="_ftnref2" title="">[2]</a>. Note that this will be the default choice if you are not logged into Version Control.</li>
+
+<li><i>Project on
+VC</i>: With this option selected, the dialog allows for selecting a base
+project stored in the EUROMOD version control system. Once the option is
+ticked, the combo-box alongside will list all the VC projects you have access to.<br>
+Note however, that this option is only available if the user is connected to
+the EUROMOD version control system (in which case, it is actually the pre-selected option). Consequently, if this is not (yet) the
+case, clicking the option <i>Project on VC</i>
+opens the version control login dialog, asking for a user name and password
+(see <a href="EM_VC_LogInOut.htm">EUROMOD Version Control - Logging in and out</a>). 
+Also note that, when first ticking the option, it may take a short while, as
+the available projects must be requested form the VC-system. For further
+information on the EUROMOD VC-system see <a href="EM_VC_HeaderPage.htm">EUROMOD
+Version Control</a>).</li>
+
+<li><i>No Base Project</i>: As mentioned above,
+projects will rarely be generated &quot;from scratch&quot;, but it is still
+possible and enabled by selecting this option.</li>
+</ul>
+<h4>Content of the new project</h4>
+<p>The button <i>Define Content</i> allows for
+specifying which parts of the base project are overtaken into the new project.
+Consequently, it is not available if the option <i>No Base Project</i> is selected. Moreover, an error message will be
+displayed on clicking it, if no base project was selected yet.<br>
+Otherwise clicking the button opens a dialog which lists all units (countries,
+add-ons, config files etc.) of the base project. The user can then tick the
+units she wants to overtake into the new project.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a>
+You find the main menu above the <i>Run
+EUROMOD</i> button. Press the little arrow to open it.</p>
+
+<p class="footnote"><a href="#_ftnref2"
+name="_ftn2" title="">[2]</a>
+At the local disk or some network drive available to the user.</p>
+
+</div>
+
+</body>
+
+</html>

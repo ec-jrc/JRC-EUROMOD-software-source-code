@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function DefIl</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function DefIl</h1>
+<p>Allows for the definition of incomelists.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>text</td>
+		<td></td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name of the incomelist.</td>
+	</tr>
+	<tr>
+		<td>[Placeholder]</td>
+		<td>policy column: variable or incomelist<br>system column: factor</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>[Placeholder] stands for the name of a component (variable or incomelist) of the incomelist, which is defined in the policy column.<br>
+		A plus (+) in the respective system's column means that the component is added. A minus (-) indicates that the component is subtracted.<br>
+		Also, a factor can be used, e.g. +3 means that the component is added 3 times.</td>
+	</tr>
+	<tr>
+		<td>Warn_If_NonMonetary</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If yes, a warning is issued if any component is non-monetary.</td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td>text</td>
+		<td>REG_EXP</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Pattern (regular expression) defining a group of variables, which should become components of the incomelist, e.g. x[0-9]+.</td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td>text</td>
+		<td>REG_EXP</td>
+		<td>no</td>
+		<td>within group</td>
+		<td>+</td>
+		<td>A plus (+) means that the variables matching the respective RegExp_Def are added to the incomelist. A minus (-) indicates that the variables are subtracted.<br>
+		Also, a factor can be used, e.g. +3 means that the variables are added 3 times.<br>
+		If the parameter is omitted, variables are added.</td>
+	</tr>
+</table>
+
+</body>
+</html>

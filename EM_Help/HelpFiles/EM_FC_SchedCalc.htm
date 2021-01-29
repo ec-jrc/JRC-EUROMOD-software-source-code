@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The policy function SchedCalc</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The policy function SchedCalc</h1>
+
+<p>The
+function SchedCalc is a schedule calculator. Its
+basic functionality is demonstrated in example 1.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SchedCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_upLim</td>
+		<td>1</td>
+		<td>5000#y</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>1</td>
+		<td>0</td>
+		<td>income below 5,000 is exempted</td>
+	</tr>
+	<tr>
+		<td>band_upLim</td>
+		<td>2</td>
+		<td>50000#y</td>
+		<td>income between 5,000 and 50,000</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>2</td>
+		<td>0.25</td>
+		<td>is taxed with a 25% rate</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>3</td>
+		<td>0.5</td>
+		<td>income above 50,000 is taxed with a 50% rate</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>tin_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>In the example the income defined by the incomelist il_taxableY
+is divided into three bands, where the income band from annually 0 to 5,000
+Euro (band_upLim, Grp/No 1) is taxed with a rate of
+0% (band_rate, Grp/No 1), the income band from 5,000
+to 50,000 Euro (band_upLim, GrpNo 2) with a rate of
+25% (band2_rate, GrpNo 2) and all income above
+50,000 Euro per year with a rate of 50% (band_rate, GrpNo 3).
+An income of 60,000 Euro per year would for example lead to a tax of annually
+16,250 Euro (5,000*0%+(50,000-5,000)*25%+(60,000-50,000)*50%)
+and an income of 25,000 to a tax of 5,000 (5,000*0%+(25,000-5,000)*25%). You
+may have noticed that there is no explicit definition of the lower limit of the
+first band. This is not necessary, because it is by default zero. To change
+this default the parameter band_lowLim, Grp/No 1 can
+be used. There is also no explicit definition of the upper limit of the third
+band, as by default the upper limit of the last band is infinite (actually
+999,999,999.99). In fact the same schedule could be constructed by skipping the
+0% band. Example 2 demonstrates how.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SchedCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>1</td>
+		<td>5000#y</td>
+		<td>income below 5,000 is exempted</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>1</td>
+		<td>0.25</td>
+		<td>income between 5,000 and 50,000</td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>2</td>
+		<td>50000#y</td>
+		<td>is taxed with a 25% rate</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>2</td>
+		<td>0.5</td>
+		<td>income above 50,000 is taxed with a 50% rate</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>tin_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>From a technical point of view it is possible to combine lower and upper
+band limits, but if so this should be done with care, usually it is confusing.</p>
+
+<p>Example 3 shows another option to use the function SchedCalc.
+Instead of applying rates on the bands, fixed amounts are used.</p>
+
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SchedCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>1</td>
+		<td>5000#y</td>
+		<td>income below 5,000 is exempted</td>
+	</tr>
+	<tr>
+		<td>band_amount</td>
+		<td>1</td>
+		<td>500#y</td>
+		<td>income between 5,000 and 50,000</td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>2</td>
+		<td>50000#y</td>
+		<td>is taxed by a fixed amount of 500</td>
+	</tr>
+	<tr>
+		<td>band_amount</td>
+		<td>2</td>
+		<td>1000#y</td>
+		<td>income above 50,000 is taxed by a fixed amount of 1,000</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>tin_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>For the income band from 5,000 (band_lowLim, Grp/No
+1) to 50,000 (band_lowLim, GrpNo 2) an amount
+of 500 (band_amount, Grp/No 1) is due and for all
+income above 50,000 an amount of 1,000 (band_amount, GrpNo
+2) is added. An income of 60,000 would for example lead to a tax of
+1,500 and an income of 25,000 to a tax of 500. Obviously it is not possible to
+define as well a rate as an amount for a single band. However, technically it
+is possible to mix rates and amounts for different bands (e.g. define a rate
+for band one and an amount for band two). Yet as it seems rather unlikely that
+this is necessary, the programme issues a warning in such cases, assuming that
+this was done by mistake.</p>
+
+<p>The optional parameter quotient is relevant
+for joint taxation: for couples the income of both partners is added and (in
+the simplest case) divided by two, then the schedule is applied, to afterwards
+multiply the resulting tax by two. With progressive tax-schedules this
+procedure is of advantage for couples where one partner has low (or no) and the
+other high income, as the average income falls into lower tax bands. Example 4
+demonstrates a simple joint taxation schedule.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SchedCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>1</td>
+		<td>5000#y</td>
+		<td>income below 5,000 is exempted</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>1</td>
+		<td>0.25</td>
+		<td>income between 5,000 and 50,000</td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>2</td>
+		<td>50000#y</td>
+		<td>is taxed with a 25% rate</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>2</td>
+		<td>0.5</td>
+		<td>income above 50,000 is taxed with a 50% rate</td>
+	</tr>
+	<tr>
+		<td>quotient</td>
+		<td></td>
+		<td>2</td>
+		<td>couple's income is divided by 2, resulting tax is multiplied by 2</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>tin_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>If the income of 60,000 is earned by a couple where one partner earns
+50,000 and the other 10,000 the resulting tax is 12,500 (50,000 + 10,000 =
+60,000; 60,000 / 2 = 30,000; (30,000 – 5,000) * 25% = 6,250; 6,250 * 2 =
+12,500) when a quotient of 2 is applied, compared to 16,250 in example 1 (note
+that the parameter TAX_UNIT is set to couple_sl in example4).</p>
+
+<p>For the sake of completeness, example 5 illustrates how to use the optional
+and rarely used parameter simple_prog. If this
+parameter is used, the same rate/amount is applied on all income. The
+respective rate/amount is the one of the highest band the income falls into.</p>
+
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SchedCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>1</td>
+		<td>5000#y</td>
+		<td>persons with income below 5,000 are exempted</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>1</td>
+		<td>0.25</td>
+		<td>persons with income between 5,000 and 50,000</td>
+	</tr>
+	<tr>
+		<td>band_lowLim</td>
+		<td>2</td>
+		<td>50000#y</td>
+		<td>are taxed at a rate of 25% on the whole income</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>2</td>
+		<td>0.5</td>
+		<td>persons with income above 50,000</td>
+	</tr>
+	<tr>
+		<td>simple_prog</td>
+		<td></td>
+		<td>yes</td>
+		<td>are taxed at a rate of 50% on the whole income</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>tin_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>To use again the two examples with an income of 60,000 respectively
+25,000: in the 60,000 case the tax amounts to 30,000 (60,000 * 50%), because
+the highest band reached with this income is band two with a rate of 50%.
+Accordingly, in the 25,000 case the tax is 6,250 (25,000 * 25%).</p>
+
+<p>SchedCalc
+provides two further optional parameters. The first, baseThreshold,
+is a threshold for the base income. If the base income is below this threshold
+the result(ing tax) is set to zero. The second, roundBase, allows rounding the
+base income. By setting the parameter to 1 the base income is rounded to whole
+numbers (e.g. 123.123 to 123 and 789.789 to 790). By setting it to 1,000 the
+base income is rounded to whole thousands (e.g. 123,123.123 to 123,000 and
+789,789.789 to 790,000). By setting it to 0.1 the base income is rounded to
+have one decimal place (e.g. 123.123 to 123.1 and 789.789 to 789.8).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

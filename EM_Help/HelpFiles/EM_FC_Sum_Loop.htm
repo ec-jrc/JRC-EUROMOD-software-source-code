@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Loop</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Loop</h1>
+<p>Allows for repeating a part (or all) of the tax-benefit calculations.</p>
+
+<h4>Function Specific Parameters</h4>
+
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Loop_Id</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Unique identifier for the loop.<br>The identifier is used amongst others for constructing the name of the loop count variable 'LoopCount_Loop_Id'.</td>
+	</tr>
+	<tr>
+		<td>Num_Iterations</td>
+		<td>amount</td>
+		<td>yes (if BreakCond is not defined)</td>
+		<td>yes</td>
+		<td>BreakCond</td>
+		<td>Number of loop iterations.</td>
+	</tr>
+	<tr>
+		<td>BreakCond</td>
+		<td>condition</td>
+		<td>yes (if Num_Iterations is not defined)</td>
+		<td>yes</td>
+		<td>Num_Iterations</td>
+		<td>Break condition checked at the end of the loop.<br>The condition must not contain household/individual specific operators.</td>
+	</tr>
+	<tr>
+		<td>First_Pol</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>Start_After_Pol, First_Func, Start_After_Func</td>
+		<td>Name of loop's first policy.</td>
+	</tr>
+	<tr>
+		<td>First_Func</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>First_Pol, Start_After_Pol, Start_After_Func</td>
+		<td>Identifier of loop's first function.<br>The identifier cannot refer to functions which are independent of the policy spine (func_loop, func_unitloop, etc.).<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+	<tr>
+		<td>Start_After_Pol</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>First_Pol, First_Func, Start_After_Func</td>
+		<td>Name of the policy after which the loop starts.</td>
+	</tr>
+	<tr>
+		<td>Start_After_Func</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>First_Pol, Start_After_Pol, First_Func</td>
+		<td>Identifier of the function after which the loop starts.<br>The identifier cannot refer to functions which are independent of the policy spine (func_loop, func_unitloop, etc.).<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+	<tr>
+		<td>Last_Pol</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>Stop_Before_Pol, Last_Func, Stop_Before_Func</td>
+		<td>Name of loop's last policy.</td>
+	</tr>
+	<tr>
+		<td>Last_Func</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>Last_Pol, Stop_Before_Pol, Stop_Before_Func</td>
+		<td>Identifier of loop's last function.<br>The identifier cannot refer to functions which are independent of the policy spine (func_loop, func_unitloop, etc.).<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+	<tr>
+		<td>Stop_Before_Pol</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>Last_Pol, Last_Func, Stop_Before_Func</td>
+		<td>Name of the policy before which the loop ends.</td>
+	</tr>
+	<tr>
+		<td>Stop_Before_Func</td>
+		<td>text</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>Last_Pol, Stop_Before_Pol, Last_Func</td>
+		<td>Identifier of the function before which the loop ends.<br>The identifier cannot refer to functions which are independent of the policy spine (func_loop, func_unitloop, etc.).<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

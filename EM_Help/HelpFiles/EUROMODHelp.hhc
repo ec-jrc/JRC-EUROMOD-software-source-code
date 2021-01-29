@@ -1,0 +1,818 @@
+<!-- Sitemap 1.0 -->		
+</HEAD><BODY>		
+<OBJECT type="text/site properties">		
+	<param name="ImageType" value="Folder">	
+</OBJECT>		
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD Basic Concepts">
+		<param name="Local" value="EM_BC_Introduction.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD input and output">
+		<param name="Local" value="EM_BC_InOut.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The EUROMOD user interface">
+		<param name="Local" value="EM_BC_UserInterface.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Presentation of countries' tax-benefit-systems">
+		<param name="Local" value="EM_BC_PresentationTaxBen.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD terminology">
+		<param name="Local" value="EM_BC_Terminology.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Working with EUROMOD">
+		<param name="Local" value="EM_WW_HeaderPage.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Running EUROMOD">
+		<param name="Local" value="EM_WW_RunDialog.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing countries' tax-benefit-systems">
+		<param name="Local" value="EM_WW_ChangingTBS.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Adding systems">
+		<param name="Local" value="EM_WW_AddingSystems.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Renaming systems">
+		<param name="Local" value="EM_WW_RenamingSystems.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Deleting systems">
+		<param name="Local" value="EM_WW_DeletingSystems.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Cleaning systems">
+		<param name="Local" value="EM_WW_CleaningSystems.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing the order of systems">
+		<param name="Local" value="EM_WW_SystemOrder.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The Hidden Systems Box">
+		<param name="Local" value="EM_WW_ColumnChooser.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Matrix view of incomelists">
+		<param name="Local" value="EM_WW_MatrixViewIncomelists.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Selecting components and values">
+		<param name="Local" value="EM_WW_Selecting.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Adding policies">
+		<param name="Local" value="EM_WW_AddingPolicies.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Deleting policies">
+		<param name="Local" value="EM_WW_DeletingPolicies.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing the order of policies">
+		<param name="Local" value="EM_WW_PolicyOrder.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Copying policies">
+		<param name="Local" value="EM_WW_CopyingPolicies.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Setting policies and functions private">
+		<param name="Local" value="EM_WW_SetPolicyPrivate.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing policy view">
+		<param name="Local" value="EM_WW_ChangingPolicyView.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Adding functions">
+		<param name="Local" value="EM_WW_AddingFunctions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Deleting functions">
+		<param name="Local" value="EM_WW_DeletingFunctions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing the order of functions">
+		<param name="Local" value="EM_WW_FunctionOrder.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Copying functions">
+		<param name="Local" value="EM_WW_CopyingFunctions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Displaying function specifiers">
+		<param name="Local" value="EM_WW_DisplayingFunctionSpecifiers.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Presentation of (normal and) special parameters">
+		<param name="Local" value="EM_WW_ParameterPresentation.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Adding parameters">
+		<param name="Local" value="EM_WW_AddingParameters.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing parameters">
+		<param name="Local" value="EM_WW_ChangingParameters.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Deleting parameters">
+		<param name="Local" value="EM_WW_DeletingParameters.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Copying parameter values (and comments)">
+		<param name="Local" value="EM_WW_CopyingParameterValues.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Defining uprating factors">
+		<param name="Local" value="EM_WW_DefiningUpratingFactors.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Defining indirect tax rates and excises prices">
+		<param name="Local" value="EM_WW_DefiningIndirectTaxes.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Undo and redo">
+		<param name="Local" value="EM_WW_Undo.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Expanding and collapsing policies and functions">
+		<param name="Local" value="EM_WW_ExpandCollapse.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		"<param name="Name" value="Hiding policies, functions and parameters">"
+		<param name="Local" value="EM_WW_HidingRows.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Private comments">
+		<param name="Local" value="EM_WW_PrivateComments.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing text size">
+		<param name="Local" value="EM_WW_TextSize.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Saving and file locking">
+		<param name="Local" value="EM_WW_Saving.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing Countries' Settings">
+		<param name="Local" value="EM_WW_ChangingSettings.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing country settings">
+		<param name="Local" value="EM_WW_CountriesNames.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Changing system settings">
+		<param name="Local" value="EM_WW_SystemSettings.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Configuring datasets">
+		<param name="Local" value="EM_WW_ConfiguringDatasets.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Finding errors">
+		<param name="Local" value="EM_WW_FindingErrors.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Searching and replacing">
+		<param name="Local" value="EM_WW_SearchReplace.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Checking component use">
+		<param name="Local" value="EM_WW_ComponentUse.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Extensions">
+		<param name="Local" value="EM_WW_Extensions.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Formatting">
+		<param name="Local" value="EM_WW_Formatting.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Conditional formatting">
+		<param name="Local" value="EM_WW_ConditionalFormatting.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Groups">
+		<param name="Local" value="EM_WW_Groups.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Marking nodes with colour">
+		<param name="Local" value="EM_WW_NodesColour.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Setting bookmarks">
+		<param name="Local" value="EM_WW_Bookmarks.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administration of EUROMOD projects">
+		<param name="Local" value="EM_WW_AdminProjects.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="New project">
+		<param name="Local" value="EM_WW_NewProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Open project">
+		<param name="Local" value="EM_WW_OpenProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Configure project">
+		<param name="Local" value="EM_WW_Configuration.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Help and info">
+		<param name="Local" value="EM_WW_UsingHelp.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administration of countries">
+		<param name="Local" value="EM_WW_Administration.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Adding countries / add-ons">
+		<param name="Local" value="EM_WW_AddingCountries.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Deleting countries / add-ons">
+		<param name="Local" value="EM_WW_DeletingCountries.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Importing countries">
+		<param name="Local" value="EM_WW_ImportingCountries.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Importing and exporting systems">
+		<param name="Local" value="EM_WW_ImportingExportingSystems.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Importing and exporting add-ons">
+		<param name="Local" value="EM_WW_ImportingExportingAddOns.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Backup - Restore">
+		<param name="Local" value="EM_WW_BackupRestore.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Comparing versions of a country">
+		<param name="Local" value="EM_WW_ComparingCountryVersions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Generating a EUROMOD public version">
+		<param name="Local" value="EM_WW_PublicVersion.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Handling of the decimal and thousand separators in EUROMOD">
+		<param name="Local" value="EM_WW_DecimalSeparator.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Information upon updating progress">
+		<param name="Local" value="EM_WW_UpdatingProgress.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Save country XML-parameter-files formatted">
+		<param name="Local" value="EM_WW_SaveAsText.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administration of EUROMOD variables">
+		<param name="Local" value="EM_WW_Variables.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administrating variables">
+		<param name="Local" value="EM_WW_AdministratingVariables.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administrating  acronyms">
+		<param name="Local" value="EM_WW_AdministratingAcronyms.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Saving variables and acronyms">
+		<param name="Local" value="EM_WW_SavingVariables.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Importing variables">
+		<param name="Local" value="EM_WW_ImportingVariables.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Cleaning variables">
+		<param name="Local" value="EM_WW_CleaningVariables.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Applications">
+		<param name="Local" value="EM_WW_Applications.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Policy Effects tool">
+		<param name="Local" value="EM_WW_PolicyEffects.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Plug-ins">
+		<param name="Local" value="EM_WW_Plugins.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary Statistics">
+		<param name="Local" value="EM_WW_SummaryStatistics.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Configuration">
+		<param name="Local" value="EM_WW_Configuration.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Open project">
+		<param name="Local" value="EM_WW_OpenProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Help and info">
+		<param name="Local" value="EM_WW_UsingHelp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Keyboard shortcuts">
+		<param name="Local" value="EM_WW_KeyboardShortcuts.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD Functions">
+		<param name="Local" value="EM_FC_HeaderPage.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="What are functions and how are they used">
+		<param name="Local" value="EM_FC_WhatAndHow.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="What are functions">
+		<param name="Local" value="EM_FC_WhatAreFunctions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Interactions between functions">
+		<param name="Local" value="EM_FC_InteractionsBetweenFunctions.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Sorts of functions and brief description of available functions">
+		<param name="Local" value="EM_FC_SortsOfFunctions.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Common parameters and general features in interpreting their values">
+		<param name="Local" value="EM_FC_GeneralFeatures.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Common Parameters">
+		<param name="Local" value="EM_FC_CommonParameters.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Types of parameter values">
+		<param name="Local" value="EM_FC_ParameterTypes.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Parameter values and the assessment unit">
+		<param name="Local" value="EM_FC_ParameterValues.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Footnote parameters for the further specification of operands">
+		<param name="Local" value="EM_FC_FootnoteParameters.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Identifiers and the placeholders =cc= and =sys=">
+		<param name="Local" value="EM_FC_Placeholders.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Description of functions and their parameters">
+		<param name="Local" value="EM_FC_DescriptionOfFunctions.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The policy function ArithOp">
+		<param name="Local" value="EM_FC_ArithOp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The policy function Elig">
+		<param name="Local" value="EM_FC_Elig.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The policy function BenCalc">
+		<param name="Local" value="EM_FC_BenCalc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The policy function SchedCalc">
+		<param name="Local" value="EM_FC_SchedCalc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The policy function Allocate">
+		<param name="Local" value="EM_FC_Allocate.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The policy functions Min and Max">
+		<param name="Local" value="EM_FC_Min_Max.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system function Uprate">
+		<param name="Local" value="EM_FC_Uprate.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system function SetDefault">
+		<param name="Local" value="EM_FC_SetDefault.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system function DefIL">
+		<param name="Local" value="EM_FC_DefIL.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system functions DefTU and UpdateTU">
+		<param name="Local" value="EM_FC_DefTU_UpdateTU.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system function DefOutput">
+		<param name="Local" value="EM_FC_DefOutput.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system functions DefVar and DefConst">
+		<param name="Local" value="EM_FC_DefVar_DefConst.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special functions Loop and UnitLoop">
+		<param name="Local" value="EM_FC_Loop_UnitLoop.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special functions Store and Restore">
+		<param name="Local" value="EM_FC_Store_Restore.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function ChangeParam">
+		<param name="Local" value="EM_FC_ChangeParam.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function ChangeSwitch">
+		<param name="Local" value="EM_FC_ChangeSwitch.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function Totals">
+		<param name="Local" value="EM_FC_Totals.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special functions DropUnit and KeepUnit">
+		<param name="Local" value="EM_FC_DropUnit_KeepUnit.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function IlArithOp">
+		<param name="Local" value="EM_FC_IlArithOp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function IlVarOp">
+		<param name="Local" value="EM_FC_IlVarOp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function RandSeed">
+		<param name="Local" value="EM_FC_RandSeed.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function CallProgramme">
+		<param name="Local" value="EM_FC_CallProgramme.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function DefInput">
+		<param name="Local" value="EM_FC_DefInput.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function Scale">
+		<param name="Local" value="EM_FC_Scale.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function AddHHMembers">
+		<param name="Local" value="EM_FC_AddHHMembers.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function Break">
+		<param name="Local" value="EM_FC_Break.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		"<param name="Name" value="The special functions AddOn_Applic, AddOn_Pol, AddOn_Func and AddOn_Par">"
+		<param name="Local" value="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of functions and their parameters">
+		<param name="Local" value="EM_FC_SummaryOfFunctions.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function ArithOp">
+		<param name="Local" value="EM_FC_Sum_ArithOp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Elig">
+		<param name="Local" value="EM_FC_Sum_Elig.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function BenCalc">
+		<param name="Local" value="EM_FC_Sum_BenCalc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function SchedCalc">
+		<param name="Local" value="EM_FC_Sum_SchedCalc.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Allocate">
+		<param name="Local" value="EM_FC_Sum_Allocate.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Min">
+		<param name="Local" value="EM_FC_Sum_Min.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Max">
+		<param name="Local" value="EM_FC_Sum_Max.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Uprate">
+		<param name="Local" value="EM_FC_Sum_Uprate.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function SetDefault">
+		<param name="Local" value="EM_FC_Sum_SetDefault.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DefIL">
+		<param name="Local" value="EM_FC_Sum_DefIL.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DefTU">
+		<param name="Local" value="EM_FC_Sum_DefTU.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function UpdateTU">
+		<param name="Local" value="EM_FC_Sum_UpdateTU.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DefOutput">
+		<param name="Local" value="EM_FC_Sum_DefOutput.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DefVar">
+		<param name="Local" value="EM_FC_Sum_DefVar.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DefConst">
+		<param name="Local" value="EM_FC_Sum_DefConst.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Loop">
+		<param name="Local" value="EM_FC_Sum_Loop.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function UnitLoop">
+		<param name="Local" value="EM_FC_Sum_UnitLoop.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Store">
+		<param name="Local" value="EM_FC_Sum_Store.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Restore">
+		<param name="Local" value="EM_FC_Sum_Restore.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function ChangeParam">
+		<param name="Local" value="EM_FC_Sum_ChangeParam.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function ChangeSwitch">
+		<param name="Local" value="EM_FC_Sum_ChangeSwitch.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Totals">
+		<param name="Local" value="EM_FC_Sum_Totals.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DropUnit">
+		<param name="Local" value="EM_FC_Sum_DropUnit.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function KeepUnit">
+		<param name="Local" value="EM_FC_Sum_KeepUnit.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function IlArithOp">
+		<param name="Local" value="EM_FC_Sum_IlArithOp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function IlVarOp">
+		<param name="Local" value="EM_FC_Sum_IlVarOp.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function RandSeed">
+		<param name="Local" value="EM_FC_Sum_RandSeed.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function CallProgramme">
+		<param name="Local" value="EM_FC_Sum_CallProgramme.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function DefInput">
+		<param name="Local" value="EM_FC_Sum_DefInput.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Scale">
+		<param name="Local" value="EM_FC_Sum_Scale.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function AddHHMembers">
+		<param name="Local" value="EM_FC_Sum_AddHHMembers.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function Break">
+		<param name="Local" value="EM_FC_Sum_Break.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function AddOn_Applic">
+		<param name="Local" value="EM_FC_Sum_AddOn_Applic.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function AddOn_Pol">
+		<param name="Local" value="EM_FC_Sum_AddOn_Pol.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function AddOn_Func">
+		<param name="Local" value="EM_FC_Sum_AddOn_Func.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function AddOn_Par">
+		<param name="Local" value="EM_FC_Sum_AddOn_Par.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function AddOn_ExtensionSwitch">
+		<param name="Local" value="EM_FC_Sum_AddOn_ExtensionSwitch.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Queries">
+		<param name="Local" value="EM_FC_Queries.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Change log">
+		<param name="Local" value="EM_FC_ChangeLog.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD Installation and Architecture">
+		<param name="Local" value="EM_FS_HeaderPage.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Installing EUROMOD">
+		<param name="Local" value="EM_FS_InstallingEuromod.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD software (user interface and executable)">
+		<param name="Local" value="EM_FS_Software.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The configuration file">
+		<param name="Local" value="EM_FS_ConfigurationFile.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Command line parameters">
+		<param name="Local" value="EM_FS_CommandLine.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD content (parameter files)">
+		<param name="Local" value="EM_FS_FileStructure.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Organisation of files">
+		<param name="Local" value="EM_FS_OrganisationOfFiles.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Format of country parameter files">
+		<param name="Local" value="EM_FS_ParameterFiles.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Format of the variables file">
+		<param name="Local" value="EM_FS_VariablesFile.htm">
+		</OBJECT>
+</UL>		
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="EUROMOD Version Control">
+		<param name="Local" value="EM_VC_HeaderPage.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Workflow guide & basic concepts">
+		<param name="Local" value="EM_VC_WFI_General.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Downloading a VC project bundle">
+		<param name="Local" value="EM_VC_WFI_DownloadingRelease.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Creating a new bundle for an existing VC project">
+		<param name="Local" value="EM_VC_WFI_GeneratingRelease.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Creating and managing a VC project">
+		<param name="Local" value="EM_VC_WFI_Admin.htm">
+		</OBJECT>
+</UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="VC forms & functions">
+		<param name="Local" value="EM_VC_FormsFunctions.htm">
+		</OBJECT>
+<UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="VC Settings">
+		<param name="Local" value="EM_VC_Settings.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Logging in and out">
+		<param name="Local" value="EM_VC_LogInOut.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Connecting & Disconnecting a project">
+		<param name="Local" value="EM_VC_ConnectingProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="New Project">
+		<param name="Local" value="EM_WW_NewProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Download Bundle">
+		<param name="Local" value="EM_VC_DownloadRelease.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Start/Finish Merging">
+		<param name="Local" value="EM_VC_StartFinishMerging.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The Merge Tool">
+		<param name="Local" value="EM_VC_MergeTool.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The Merge Tool for Variables">
+		<param name="Local" value="EM_VC_VarMergeTool.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administrate Content">
+		<param name="Local" value="EM_VC_AdminContent.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Administrate Users">
+		<param name="Local" value="EM_VC_AdminUsers.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Remove Bundles">
+		<param name="Local" value="EM_VC_RemoveBundles.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Add VC Project">
+		<param name="Local" value="EM_VC_AddProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Remove VC Project">
+		<param name="Local" value="EM_VC_RemoveProject.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="New bundle from local version">
+		<param name="Local" value="EM_VC_NewBundleFromLocalVersion.htm">
+		</OBJECT>
+</UL>		
+</UL>		
+</UL>		
+</BODY></HTML>		

@@ -1,0 +1,676 @@
+<Template>
+  <TemplateInfo>
+    <Name>Summary Statistics - Variable</Name>
+    <Title>Summary Statistics - For variable [@custom_variable]</Title>
+    <Subtitle>Results for [baseSysPretty]</Subtitle>
+    <Button>[baseSys]</Button>
+    <Description><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green112\blue192;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\widctlpar\sa200\sl276\slmult1\cf1\b\f0\fs22 Summary Statistics \endash  Variable\cf0\b0 : this template can be used to \ul analyse a specific monetary variable or income list\ulnone . \par
+The follow-up screen will ask you to \ul select the EUROMOD standard output files\ulnone  that you want to include in the analytics. By default, it will show you the files saved in the EUROMOD output folder of your current project, but you can change the folder by clicking on the \ldblquote\'85\rdblquote  button.  Multiple files can be selected using Ctrl + Shift.\par
+
+\pard\sa200\sl276\slmult1 The next screen will ask you for the variable or income list name that should be analysed. Note: the variable needs to be included in the EUROMOD standard output file.\f1\lang9\par
+}]]></Description>
+    <GeneralDescription><![CDATA[]]></GeneralDescription>
+    <TemplateType>Default</TemplateType>
+    <RequiredVariables>
+      <RequiredVariable>
+        <Name>weight</Name>
+        <ReadVar>dwt</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>idhh</Name>
+        <ReadVar>idhh</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>idperson</Name>
+        <ReadVar>idperson</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>age</Name>
+        <ReadVar>dag</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsDispy</Name>
+        <ReadVar>ils_dispy</ReadVar>
+      </RequiredVariable>
+    </RequiredVariables>
+    <OptionalVariables>
+    </OptionalVariables>
+    <UserVariables>
+      <UserVariable>
+        <UserInputType>VariableName</UserInputType>
+        <Description>This variable will be used to generate the analytics.</Description>
+        <Title>Please enter the name of the variable to be analysed:</Title>
+        <Name>custom_variable</Name>
+        <DefaultValue>ils_tax</DefaultValue>
+      </UserVariable>
+      <!--
+      <UserVariable>
+        <UserInputType>Numeric</UserInputType>
+        <Title>Pleasae enter a random number:</Title>
+        <Name>custom_value</Name>
+      </UserVariable>
+      <UserVariable>
+        <UserInputType>Categorical</UserInputType>
+        <Title>Please select an option.</Title>
+        <Name>custom_selection</Name>
+        <ComboItems>
+          <ComboItem>
+            <Name>First Option</Name>
+            <Value>1st</Value>
+          </ComboItem>
+          <ComboItem>
+            <Name>Second Option</Name>
+            <Value>2nd</Value>
+          </ComboItem>
+          <ComboItem>
+            <Name>Third Option</Name>
+            <Value>3rd</Value>
+          </ComboItem>
+        </ComboItems>
+      </UserVariable>
+      <UserVariable>
+        <UserInputType>PageSelection</UserInputType>
+      </UserVariable> -->
+    </UserVariables>
+  </TemplateInfo>
+  <Globals>
+		<Actions>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>[@custom_variable]</OutputVar>
+      </Action>
+      <Action>
+				<CalculationType>CreateFlag</CalculationType>
+				<OutputVar>HasCustomVar</OutputVar>
+        <CalculationLevel>Individual</CalculationLevel>
+				<Filter>
+          <FormulaString><![CDATA[USR_VAR[@myVar] > 0]]></FormulaString>
+          <Parameters>
+            <Parameter>
+              <Name>myVar</Name>
+              <VarName>custom_variable</VarName>
+            </Parameter>
+          </Parameters>
+				</Filter>
+      </Action>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>HasCustomVar</OutputVar>
+        <CalculationLevel>Household</CalculationLevel>
+        <Filter>
+          <FormulaString><![CDATA[USR_VAR[@myVar] > 0]]></FormulaString>
+          <Parameters>
+            <Parameter>
+              <Name>myVar</Name>
+              <VarName>custom_variable</VarName>
+            </Parameter>
+          </Parameters>
+        </Filter>
+      </Action>
+			<Action>
+				<CalculationType>CreateOECDScale</CalculationType>
+				<OutputVar>OECDscale</OutputVar>
+			</Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqDispy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsDispy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateDeciles</CalculationType>
+        <OutputVar>deciles_eqDispy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>IncomeVar</Name>
+            <VarName>eqDispy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>GroupingVar</Name>
+            <VarName>idhh</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationLevel>Individual</CalculationLevel>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalHasCustomVar</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>HasCustomVar</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationLevel>Household</CalculationLevel>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalHasCustomVar</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>HasCustomVar</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationLevel>Individual</CalculationLevel>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[USR_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalCustomVariable</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>custom_variable</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationLevel>Household</CalculationLevel>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[USR_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalCustomVariable</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>custom_variable</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+		</Actions>
+	</Globals>
+	<Pages>
+		<Page>
+      <Name>Aggregates</Name>
+      <Title><![CDATA[Aggregates]]></Title>
+      <Subtitle>[@custom_variable]</Subtitle>
+      <Button>Aggregates</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table provides an <b><span
+style='color:#0070C0'>overview of the aggregated annual amount</span></b> of
+the selected variable. The first column shows the aggregated amount of the
+selected variable in each decile as well as the total aggregated amount. The
+second column shows the distribution of the variable (aggregated amount) across
+income groups.<b><span style='color:#0070C0'> </span></b></p>
+
+<p style='line-height:1.5'>The calculation of the decile
+groups is based on disposable equivalised incomes.</p>]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <Filter>
+              <Parameters>
+                <Parameter>
+                  <Name>Dec</Name>
+                  <VarName>deciles_eqDispy</VarName>
+                </Parameter>
+              </Parameters>
+            </Filter>
+          </Action>
+          <Columns>
+            <Column>
+              <Name>Aggregated amount</Name>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[USR_VAR[@SumVar] * 12]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>custom_variable</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>#,0.00</StringFormat>
+            </Column>
+            <Column>
+              <Name>Distribution across groups</Name>
+              <Action>
+                <CalculationType>CalculateArithmetic</CalculationType>
+                <FormulaString><![CDATA[BASE_COL[0] / (SAVED_VAR[@TotVal] * 12)]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>TotVal</Name>
+                    <VarName>totalCustomVariable</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile 1</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 1]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 2</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 2]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 3</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 3]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 4</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 4]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 5</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 5]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 6</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 6]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 7</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 7]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 8</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 8]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 9</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 9]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 10</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 10]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Total</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+            </Row>
+          </Rows>
+        </Table>
+			</Tables>
+		</Page>
+		<Page>
+      <Name>Households receiving/paying the selected variable</Name>
+      <Title>Households receiving/paying the selected variable</Title>
+      <Subtitle>[@custom_variable]</Subtitle>
+      <Button>Households receiving/paying the selected variable</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'><span lang=EN>The table
+provides <b><span style='color:#0070C0'>an overview of households
+receiving/paying the selected variable. </span></b>The first column shows the
+number of households receiving/paying. The second column shows the share of
+households receiving/paying within the income group while the third column
+shows the distribution of the variable across income groups. </span></p>
+
+<p style='line-height:1.5'><span lang=EN>The calculation of
+the decile groups is based on disposable equivalised incomes.</span></p>]]></Description>
+      <Tables>
+				<Table>
+          <Action>
+            <CalculationLevel>Household</CalculationLevel>
+            <Filter>
+              <Parameters>
+                <Parameter>
+                  <Name>Dec</Name>
+                  <VarName>deciles_eqDispy</VarName>
+                </Parameter>
+              </Parameters>
+            </Filter>
+          </Action>
+					<Columns>
+            <Column>
+              <Name>Number of households</Name>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>HasCustomVar</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>#,0.00</StringFormat>
+            </Column>
+            <Column>
+              <Name>Share within group</Name>
+              <Action>
+                <CalculationType>CalculatePopulationCount</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@CountVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>CountVar</Name>
+                    <VarName>HasCustomVar</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+            <Column>
+              <Name>Distribution across groups</Name>
+              <Action>
+                <CalculationType>CalculateArithmetic</CalculationType>
+                <FormulaString><![CDATA[BASE_COL[0] / SAVED_VAR[@TotVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>HasCustomVar</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TotVar</Name>
+                    <VarName>totalHasCustomVar</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+					</Columns>
+					<Rows>
+            <Row>
+              <Name>Decile 1</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 1]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 2</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 2]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 3</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 3]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 4</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 4]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 5</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 5]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 6</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 6]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 7</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 7]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 8</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 8]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 9</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 9]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 10</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 10]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Total</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+            </Row>
+          </Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+      <Name>Individuals receiving/paying the selected variable</Name>
+      <Title>Individuals receiving/paying the selected variable</Title>
+      <Subtitle>[@custom_variable]</Subtitle>
+      <Button>Individuals receiving/paying the selected variable</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'><span lang=EN>The table
+provides <b><span style='color:#0070C0'>an overview of individuals
+receiving/paying the selected variable. </span></b>The first column shows the
+number of people receiving/paying. The second column shows the share of people
+receiving/paying within the income group while the third column shows the
+distribution of the variable across income groups. </span></p>
+
+<p style='line-height:1.5'><span lang=EN>The calculation of
+the decile groups is based on disposable equivalised incomes.</span></p>
+]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <CalculationLevel>Individual</CalculationLevel>
+            <Filter>
+              <Parameters>
+                <Parameter>
+                  <Name>Dec</Name>
+                  <VarName>deciles_eqDispy</VarName>
+                </Parameter>
+              </Parameters>
+            </Filter>
+          </Action>
+          <Columns>
+            <Column>
+              <Name>Number of individuals</Name>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>HasCustomVar</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>#,0.00</StringFormat>
+            </Column>
+            <Column>
+              <Name>Share within group</Name>
+              <Action>
+                <CalculationType>CalculatePopulationCount</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@CountVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>CountVar</Name>
+                    <VarName>HasCustomVar</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+            <Column>
+              <Name>Distribution across groups</Name>
+              <Action>
+                <CalculationType>CalculateArithmetic</CalculationType>
+                <FormulaString><![CDATA[BASE_COL[0] / SAVED_VAR[@TotVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>HasCustomVar</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>TotVar</Name>
+                    <VarName>totalHasCustomVar</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile 1</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 1]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 2</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 2]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 3</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 3]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 4</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 4]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 5</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 5]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 6</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 6]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 7</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 7]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 8</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 8]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 9</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 9]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 10</Name>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 10]]></FormulaString>
+                </Filter>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Total</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+            </Row>
+          </Rows>
+        </Table>
+			</Tables>
+		</Page>
+	</Pages>
+</Template>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Obtaining information upon updating
+progress</title>
+</head>
+
+<body>
+
+<h1>Obtaining information upon updating
+progress</h1>
+
+<p>The ribbon <i>Administration
+Tools</i> provides a button <i>Updating
+Progress</i>, which allows for opening a dialog that provides options to obtain
+information upon the model’s &quot;updating progress&quot;. That means EUROMOD
+developers (and users) can assess which policy years are implemented for each
+country and which datasets are available to run the respective systems.</p>
+
+<p>The dialog is organised as a register with four tabs. The
+first tab allows for controlling the information which is to be provided, while
+the latter three display the respective information:</p>
+
+<p><strong><i>Tab Systems</i></strong>:
+displays a table which lists the policy years (columns) which are implemented
+for each country (rows). The crossing cell indicates whether the respective
+system is &quot;available&quot;, i.e. presumably ready for use, &quot;private&quot;,
+i.e. presumably not yet ready for use or not existing: &quot;-&quot;. These
+policy year columns only display standard systems, i.e. systems following the
+naming convention <i>cc_yyyy</i>. Other available
+systems, which are not covered by this, are listed in the column <i>other</i>. If such a system is private, this
+is indicated in brackets.</p>
+
+<p><strong><i>Tab Datasets</i></strong>:
+provides information on the available datasets for each country. The columns
+display data years, which are extracted from the dataset name, i.e. if the
+dataset's name is <i>cc_yyyy_xxx</i> (e.g. <i>be_2007_a3</i>, <i>uk_2009_lpc1</i>, etc.) the dataset is listed in the respective column.
+There are three additional columns: The column <i>hypo</i> lists hypo data, the column <i>training</i> lists training data and the column <i>other</i> lists other datasets which do not follow the naming
+convention (i.e. essentially <i>sl_demo_v4</i>).
+The rest of the columns indicate the datasets' properties: i.e. their
+collection and income year and whether they are private or not.</p>
+
+<p><strong><i>Tab Combinations</i></strong>:
+displays for each country the possible combinations of implemented systems and
+available datasets, where the crossing cells indicate whether this combination
+is only available (<i>x</i>) or a best match
+(<i>best</i>). The information corresponds
+to that shown in the data configuration dialog (see <a
+href="EM_WW_ConfiguringDatasets.htm">Working with EUROMOD - Configuring datasets</a>)
+and just allows getting information on several countries at once.</p>
+
+<p><strong><i>Tab Settings</i></strong>: As mentioned above, this tab serves controlling
+the information which is displayed in the other tabs. The list on the left hand
+side allows for selecting the countries which are included, which buttons to
+select <i>All</i> or <i>No</i> country. Clicking the
+button <i>Generate</i> produces respectively
+refreshes the information as described above for the selected countries. The
+checkboxes on its left allow for including/excluding parts of the information. The box <i>Export to text
+files</i> provides options for outputting the current content of the three
+information tabs into text files. The field <i>Folder</i>
+must indicate an output path where to store the resulting text files. The
+folder can be selected with the button right of the field. The three fields below
+must indicate the file names for storing the information. The checkboxes left
+of them allow for including/excluding the respective tab.</p>
+
+<p>Note that the information to generate the tables is taken
+from the indications as provided in the countries’ configuration dialogs (see <a
+href="EM_WW_SystemSettings.htm">Working with EUROMOD - Changing system settings</a>
+and <a href="EM_WW_ConfiguringDatasets.htm">Working with EUROMOD - Configuring datasets</a>)
+and is as accurate and up-to-date as this base.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

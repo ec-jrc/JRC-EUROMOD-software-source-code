@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Checking component use</title>
+</head>
+
+<body>
+
+<h1>Checking component use</h1>
+
+<p>Selecting the ribbon <i>Country
+Tools</i> and pressing the button <i>Component
+Use</i> opens the <i>Component Use</i>
+dialog. This dialog allows for checking which &quot;components&quot; are used for
+the implementation of the country in EUROMOD. The following components can be
+included into the check:</p>
+
+<h4>Included components</h4>
+
+<p><strong>Variables:</strong>
+If this option is selected all EUROMOD variables, as listed in the variables
+file, are included into the check. As the checking for the use of all variables
+may cause that the check takes quite a lot of time, the variables can be
+restricted to those <i>having country
+specific description</i>. For closer information see <a
+href="EM_WW_Variables.htm">Working with EUROMOD - Administration of EUROMOD
+variables</a>. Moreover, the check-boxes <i>monetary</i>,
+<i>non-monetary</i>, <i>simulated</i> and <i>non-simulated</i>
+allow for further restriction to the variables which feature the respective
+characteristics.</p>
+
+<p><strong>Assessment Units:</strong> Selecting this option includes assessment units in the check
+(see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD
+terminology</a>).</p>
+
+<p><strong>Incomelists:</strong> Selecting this option includes incomelists in the check (see <a
+href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>).</p>
+
+<p><strong>Queries:</strong></i>
+Selecting this option includes EUROMOD queries in the check (see <a
+href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a>).</p>
+
+<p><strong>Component named:</strong> This option allows for checking the use of a specific
+component, i.e. a specific variable, assessment unit, incomelist
+or query. Moreover, it allows for checking the use of variables and constants
+generated with the functions <a href="EM_FC_DefVar_DefConst"><i>DefVar</i> and <i>DefConst</i></a> (which are not
+taken into account by the option <i>All Variables</i>).</p>
+
+<p><strong>Ignore if Switched Off:</strong>
+Selecting this option means that components solely used in switched off
+policies respectively functions are not recognised as used.</p>
+
+<p><strong>Include Systems:</strong> The list allows for
+restricting the check for usage to the selected systems.</p>
+
+<h4>Listing of used components</h4>
+
+<p>Pressing the <i>Start</i>
+button starts the check. A progress bar is displayed to inform about the time
+still necessary for the check. Once the check is finished, components as
+selected are listed if they are used in the implementation of the country. If a
+component is used several times, it is listed as often as it is used, each time
+with the respective location of the use.</p>
+
+<h4>Jumping to a component</h4>
+
+<p>Selecting a specific use of a component and pressing the
+button <i>Goto</i>
+closes the dialog to jump to the selected use in the country's implementation.
+If the dialog is reopened (by pressing the button <i>Component Use</i>) it still shows the content of the last check, i.e.
+jumping to a component does not &quot;destroy&quot; the results of the check.
+The results of the last check are in general only cleared by a new check, but
+not for example by closing the dialog.</p>
+
+<h4>Storing results</h4>
+
+<p>Pressing the <i>Store</i>
+button allows for specifying a file where the current listing of component
+usage is stored in tabulated text format.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

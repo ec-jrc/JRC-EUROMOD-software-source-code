@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function DefOutput</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function DefOutput</h1>
+<p>Allows for the definition of model output.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>File</td>
+		<td>text</td>
+		<td></td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name of text file to write the output to (the extension .txt can be omitted).</td>
+	</tr>
+	<tr>
+		<td>Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>Name of a variable to be included in the output.</td>
+	</tr>
+	<tr>
+		<td>VarGroup</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>Regular expression that describes a group of variables to be included in the output, where * stands for any character and ? stands for one arbitrary character (e.g. b* includes all variables starting with b).</td>
+	</tr>
+	<tr>
+		<td>IL</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>Name of an incomelist to be included in the output.<br>The total value of the incomelist is outputted (see parameter DefIL for outputting components).</td>
+	</tr>
+	<tr>
+		<td>ILGroup</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>Regular expression that describes a group of incomelists to be included in the output, where * stands for any character and ? stands for one arbitrary character (e.g. ils* for all system incomelists).</td>
+	</tr>
+	<tr>
+		<td>DefIL</td>
+		<td>incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>Name of an incomelist to be included in the output.<br>The content of the incomelist is outputted, i.e. the variables contained in the incomelist (see parameter IL for outputting the total value).</td>
+	</tr>
+	<tr>
+		<td>UnitInfo_Id</td>
+		<td>categorical</td>
+		<td>UNIT_INFO</td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>The UnitInfo parameters allow the determination of the "status" of single members within the assessment unit specified by UnitInfo_TU.<br>Possible values of UnitInfo_Id are:<br>- HeadID: the output includes PersonId of the unit's Head.<br>- IsPartner: the output includes a 0/1-variable for being Partner.<br>- IsDependentChild (IsDepChild): the output includes a 0/1-variable for being a dependent child.<br>- IsOwnChild: the output includes a 0/1-variable for being an own child.<br>- IsOwnDependentChild (IsOwnDepChild): the output includes a 0/1-variable for being an own dependent child.<br>- IsDepParent: the output includes a 0/1-variable for being a dependent parent.<br>- IsDepRelative: the output includes a 0/1-variable for being a dependent relative.<br>- IsLoneParent: the output includes a 0/1-variable for being a lone parent.</td>
+	</tr>
+	<tr>
+		<td>UnitInfo_TU</td>
+		<td>taxunit</td>
+		<td>UNIT_INFO</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Assessment unit for which UnitInfo_Id parameters apply.<br>Note, that outputting unit info variables usually only makes sense if TAX_UNIT is set to an individual assessment unit.</td>
+	</tr>
+	<tr>
+		<td>nDecimals</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>2</td>
+		<td>Number of decimals of monetary variables to show in output.<br>Values with more decimals are rounded.</td>
+	</tr>
+	<tr>
+		<td>Suppress_Void_Message</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes, the warning for an 'undefined' variable is suppressed.</td>
+	</tr>
+	<tr>
+		<td>Replace_Void_By</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>0</td>
+		<td>Amount to be used for 'undefined' in the output.</td>
+	</tr>
+	<tr>
+		<td>Append</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes: any existing content of the output file is removed.<br>If set to no: output is added to any existing content of the output file.</td>
+	</tr>
+	<tr>
+		<td>MultiplyMonetaryBy</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>1</td>
+		<td>All monetary values are multiplied by this factor.<br>(Allows e.g. for the specification of a special exchange rate).</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>taxunit</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Assessment unit for function's calculations.</td>
+	</tr>
+	<tr>
+		<td>Who_Must_Be_Elig</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>nobody</td>
+		<td>Function's calculations are carried out if ...<br>- one (one_member): ... one member of the assessment unit is "eligible"<br>- one_adult: ... one adult member of the assessment unit is "eligible"<br>- all (all_members; taxunit): ... all members of the assessment unit are "eligible"<br>- all_adults: ... all adult members of the assessment unit are eligible<br>- nobody: ... always<br>"eligible" is determined by the variable indicated by parameter Elig_Var</td>
+	</tr>
+	<tr>
+		<td>Elig_Var</td>
+		<td>variable</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>sel_s</td>
+		<td>Variable indicating whether a person is "eligible" (see parameter Who_Must_Be_Elig):<br>- zero: person is not eligible<br>- non zero: person is eligible</td>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Elig</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Elig</h1>
+<p>Is most frequently used for determining the eligibility for receiving benefits. However, it also
+allows for determining the liability for paying taxes, as well as evaluating other conditions.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Elig_Cond</td>
+		<td>condition</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>A combination of conditions: output variable is set to 1 if they are fulfilled, else to 0.<br><br>
+		The comibation consists of:<br>
+		- conditions which must be fulfilled, e.g. {dag&lt;19},<br>
+		- conditions which must not be fulfilled, e.g. !{IsMarried},<br>
+		- combined by the logical operators &amp; (and) and | (or), e.g. {dag&lt;19}
+		&amp; !{IsMarried},<br>
+		- (possibly) grouped by parentheses, e.g. {dag&lt;15} | ({dag&lt;19} &amp; !{IsMarried}).<br>
+		<br>
+		A single condition has<br>
+		- either 1 component, usually a yes-no-query, e.g. {IsUnemployed}<br>
+		- or 2 components separated by a comparison operator
+		&gt;,&lt;,&gt;=,&lt;=,=,!=, e.g. {poa=0}.<br>
+		<br>
+		The operands left and right from the comparison operator are:<br>
+		- numeric values, e.g. 10, 0.3, (-25), note that negative values must be
+		bracketed<br>
+		- numeric values with a period, e.g. 12000#m, 1000#y<br>
+		- amount#i as place holders for numeric values
+		specified by footnote parameters<br>
+		- variables, e.g. yem<br>
+		- incomelists, e.g. ils_dispy<br>
+		- queries, e.g. IsUnemployed</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Output_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>sel_s</td>
+		<td></td>
+		<td>Variable for storing the result of the function. Result of function overwrites the current value of the variable.</td>
+	</tr>
+		<tr>
+		<td>Result_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Variable for storing the result of the function. Result of function overwrites the current value of the variable.<br>
+		Note that Result_Var provides an <strong>additional</strong> variable to store the result. 
+		That means, even if it is used and the parameter <i>Output_Var</i> is not indicated, <i>sel_s</i> will be set to the result of the function.
+		</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Assessment unit for function's calculations.</td>
+	</tr>
+	<tr>
+		<td>Who_Must_Be_Elig</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>nobody</td>
+		<td></td>
+		<td>Function's calculations are carried out if ...<br>- one (one_member): ... one member of the assessment unit is "eligible"<br>- one_adult: ... one adult member of the assessment unit is "eligible"<br>- all (all_members; taxunit): ... all members of the assessment unit are "eligible"<br>- all_adults: ... all adult members of the assessment unit are eligible<br>- nobody: ... always<br>"eligible" is determined by the variable indicated by parameter Elig_Var</td>
+	</tr>
+	<tr>
+		<td>Elig_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>sel_s</td>
+		<td></td>
+		<td>Variable indicating whether a person is "eligible" (see parameter Who_Must_Be_Elig):<br>- zero: person is not eligible<br>- non zero: person is eligible</td>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Importing & Exporting add-ons</title>
+</head>
+
+<body>
+
+<h1>Importing & Exporting add-ons</h1>
+
+<h4>Importing add-ons</h4>
+
+<p>To import an add-on, select the ribbon <i>Country Tools</i> and click the button <i>Import Add-On</i>. In the appearing dialog first select one of the
+add-ons listed in the combo-box. Once an add-on is selected, the systems of
+this add-on are listed in the left box. Select the add-on system you want to
+import. Once an add-on system is selected, the right box lists all systems of
+the country which can be used as base for the selected add-on system. Select
+one of the systems and click OK. This generates the respective add-on system
+and imports it into the country. For further information on importing systems
+see <a href="EM_WW_ImportingExportingSystems.htm">Working with EUROMOD -
+Importing and exporting systems</a>. For further information on add-ons see <a
+href="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">EUROMOD functions - EUROMOD add-ons and the
+special functions <i>AddOn_Applic</i><i>, AddOn_Pol, AddOn_Func</i> and <i>AddOnPar</i></a>.</p>
+
+<h4>Exporting add-ons</h4>
+
+<p>To export an add-on, select the ribbon <i>Country Tools</i> and click the button <i>Export Add-On</i>. The appearing dialog asks for the following
+information respectively offers the following options:</p>
+<ul>
+<li><strong>Long Name:</strong> Indicate a descriptive name for the add-on (e.g.
+marginal tax rates).</li>
+
+<li><strong>Short Name:</strong> Indicate a short name for the add-on, which will be
+displayed in the add-on gallery. Ideally use two or three-character
+abbreviations (e.g. MTR). Note that you cannot use an abbreviation, which is
+already in use for another add-on, nor the short name of a country (i.e. AT, BE, ..., UK).</li>
+
+<li><strong>Symbol:</strong> Indicate a picture in portable network graphic format (png). Ideally the size of the image is 32x32 pixels. You
+can also select the image with the file search dialog opened by pressing the
+button alongside the <i>Symbol</i> field. If
+you do not indicate a symbol, a default image will be used.</li>
+
+<li><strong>Add-On System / Base System:</strong> The
+&quot;technique&quot; to generate the add-on is to identify the differences
+between the indicated <i>Add-On System</i>
+and <i>Base System</i>, in order to
+summarise the differences in the add-on. That means, for example, if a policy
+is only used in the add-on system but not in the base system, a respective <i>AddOn_Pol</i>
+function is generated in the add-on. <span style='color:red'>Note that
+&quot;not used&quot; in this context is identified by the switch of the base
+system being set to <i>n/a</i></span>.
+For further information on add-ons see <a href="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">EUROMOD
+functions - EUROMOD add-ons and the special functions <i>AddOn_Applic</i><i>, AddOn_Pol, AddOn_Func</i>
+and <i>AddOnPar</i></a>.</li>
+
+<li><strong>Use symbolic identifiers:</strong> If this option is not selected the
+add-on refers to elements of the base system (policies, functions and
+parameters) by their GUIDs (<strong>G</strong>lobally
+<strong>U</strong>nique <strong>Id</strong>entifiers). This is the recommended approach if there are no
+plans to use the add-on on for several systems or countries. If the option is
+selected, the GUIDs are exchanged by not system specific symbolic identifiers.
+However, developers need to be aware that symbolic identifiers use an
+identification mechanism which is more flexible (e.g. it supports using the
+add-on system for several systems or countries), but also less secure.
+Particularly symbolic identifiers are not unique. For further information see <a
+href="EM_FC_Placeholders.htm">EUROMOD Functions – Identifiers and the
+placeholders =cc= and =sys=</a>.</li>
+
+<li><strong>Use country placeholder:</strong> This option can be selected if the
+add-on is to be used for several countries. It changes references to policy
+names from e.g. <i>yse_sl</i>
+to <i>yse</i><i>_=cc=</i>, and taxunit
+parameters from e.g. <i>individual_sl</i>
+to <i>individual_=cc=</i>. For further
+information see <a href="EM_FC_Placeholders.htm">EUROMOD Functions –
+Identifiers and the placeholders =cc= and =sys=</a>.</li>
+
+<li><strong>Export and delete / Export only:</strong> If the former option is
+selected, the add-on system is deleted after generating the add-on. Moreover,
+the parameter file is &quot;cleaned&quot; (see the respective paragraph in <a
+href="EM_WW_ImportingExportingSystems.htm">Working with EUROMOD - Importing and
+exporting systems</a> for a description of the cleaning process). If the latter
+option is used, the country’s parameter file is not changed.</li>
+</ul>
+
+<p>Confirming the specifications with <i>OK</i> generates the respective add-on and instructs you to go to the
+add-on gallery (i.e. the ribbon <i>Add-Ons</i>)
+to view the new add-on.</p>
+
+<p>Note that using the export mechanism for generating an
+add-on that can be used for another country than the one it was extracted from
+must be seen as a starting point only. It is most likely that the developer,
+after exporting, has to do some adaptions to make the add-on &quot;multi
+country compliant&quot;. As an example, the export mechanism may link an add-on
+policy, which is located before the standard output policy to the last country
+(specific) policy (by using <i>Insert_After_Pol</i>) instead of the (common) standard output
+policy (by using <i>Insert_Before_Pol</i>).
+Also the above mentioned insecurity of using symbolic identifiers (and, though
+less critical, country placeholders), should be taken into account.</p>
+
+<p>Also note that the changes caused by importing or exporting
+add-ons cannot be undone by using the undo functionality. However, the user
+interface produces a backup before starting the action, which can be restored
+via the button <i>Restore</i> in the ribbon <i>Country Tools</i>. For more information see
+(<a href="EM_WW_BackupRestore.htm">Working with EUROMOD - Backup - Restore</a>).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

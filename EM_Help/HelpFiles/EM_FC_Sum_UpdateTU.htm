@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function UpdateTu</title>
+</head>
+
+<body>
+<h1>Summary of parameters for function UpdateTu</h1>
+<p>Allows for the re-assessment of assessment units.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>taxunit</td>
+		<td>yes, if Update_All is not defined</td>
+		<td>yes</td>
+		<td>Name of the assessment unit.</td>
+	</tr>
+	<tr>
+		<td>Update_All</td>
+		<td>yes/no</td>
+		<td>yes, if Name is not defined</td>
+		<td>yes</td>
+		<td>If set to yes all assessment units are updated.</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

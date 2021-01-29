@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Interactions between functions</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Interactions between functions</h1>
+
+<p>Usually more than one function is used to calculate a
+benefit or tax. That means that the functions interact in some way. One could
+classify these interactions in four categories:</p>
+<ul>
+	<li>Condition: one function (usually Elig) evaluates a condition and
+	a subsequent function operates on the basis of the result of this evaluation.</li>
+
+	<li>Input: one function calculates some result,
+	which is used as an input by a subsequent function.</li>
+
+	<li>Addition: one function calculates a part of a
+	policy and a subsequent function calculates another part of the policy and
+	therefore needs to add to the first part.</li>
+
+	<li>Replacement (actually not a real interaction): a
+	subsequent function replaces the result of a precedent function, which of
+	course only makes sense if the result of the first function is used in between.</li>
+</ul>
+
+<p>The following examples illustrate these different forms of
+interaction.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Elig</td>
+		<td class="on">on</td>
+		<td>eligibility rule</td>
+	</tr>
+	<tr>
+		<td>elig_cond</td>
+		<td>{dag &lt; 3}</td>
+		<td>there must be at least one child aged &lt;3</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>benefit calculation</td>
+	</tr>
+	<tr>
+		<td>who_must_be_elig</td>
+		<td>one_member</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>100#m</td>
+		<td>the benefit amounts to 100 € per month</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bch_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In example 1 the second function, ArithOp, uses the result of the
+first function, Elig, to
+determine whether the benefit is calculated for a family or not, dependent on
+the value of the parameter who_must_be_elig.
+What happens in detail is that the function Elig sets the variable sel_s to one for all persons younger than three and
+to zero for all older persons. The function ArithOp uses this information together with the
+value of the parameter who_must_be_elig.
+A value of one_member means that at least one member of the family needs to be
+eligible, i.e. for at least one person in the family the variable sel_s must be set to one. If
+this is the case the benefit is calculated for the family, i.e. the variable bch_s set to 100, otherwise no
+calculation takes place, i.e. the variable bch_s keeps its value of zero.
+(To be precise, in the concrete example any possibly existing value of the
+variable would be overwritten by zero. This is however an alterable behaviour.)</p>
+
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>calculate lower limit</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>xcc * 0.1</td>
+		<td>lower limit is 10% of child care costs</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>sin01_s</td>
+		<td>write lower limit to intermediate variable</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>benefit calculation</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>100#m</td>
+		<td>the benefit amounts to 100 € per month</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>sin01_s</td>
+		<td>with a lower limit as calculated above</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bcc_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Example 2 shows a child care benefit,
+which amounts to 100 Euro monthly, with a lower limit of 10% of child care
+costs. The first function calculates the lower limit, i.e. 10% of the variable
+for child care costs, xcc
+(x=expenditure, cc=child care), and writes it to the intermediate variable sin01_s (s=system, in=intermediate, _s=simulated). The
+second function uses the result of the first function by setting the parameter lowlim to sin01_s,
+i.e. applying the value of this variable as the lower limit of its own result,
+which is written to the variable bcc_s
+(b=benefit, cc=child care, _s=simulated).</p>
+
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>calculate health insurance contributions</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>yem*0.05</td>
+		<td>calculate health contributions as 5% of employment income</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>tscee_s</td>
+		<td>write health contributions to output variable</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>calculate unemployment insurance contributions</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>yem*0.03</td>
+		<td>calculate unemployment contributions as 3% of employment income</td>
+	</tr>
+	<tr>
+		<td>output_add_var</td>
+		<td>tscee_s</td>
+		<td>add unemployment contributions to output variable</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl/td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Example 3 calculates employee
+social insurance contributions as the sum of health contributions (5% of
+employment income yem) and
+unemployment contributions (3% of employment income). The first function
+calculates health contributions and <strong>writes</strong>
+its result to the output variable tscee_s
+(t=tax, sc=social contribution, ee=employee,
+_s=simulated). The second function calculates unemployment contributions and <strong>adds</strong> its result to the output variable tscee_s. Whether the result of a
+function overwrites the output variable or adds to any previous value is
+determined by using either the parameter output_var (output variable is overwritten) or output_add_var (result is added
+to output variable).</p>
+
+
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>calculate lower limit for child care benefit</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>xcc * 0.1</td>
+		<td>lower limit is 10% of child care costs</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>sin01_s</td>
+		<td>write lower limit to intermediate variable</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>benefit calculation child care benefit</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>100#m</td>
+		<td>the benefit amounts to 100 € per month</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>sin01_s</td>
+		<td>with a lower limit as calculated above</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bcc_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>calculate lower limit education benefit</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>xed * 0.1</td>
+		<td>lower limit is 10% of education costs</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>sin01_s</td>
+		<td>write lower limit to intermediate variable</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td>replacing previous value</td>
+	</tr>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>benefit calculation education benefit</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>100#m</td>
+		<td>the benefit amounts to 100 € per month</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>sin01_s</td>
+		<td>with a lower limit as calculated above</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bched_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Example 4 extends the child care
+benefit of Example 2 by an (similarly designed) education benefit. For both
+benefits the intermediate variable sin01_s is used
+for calculating the lower limit. Once the childcare benefit is calculated, its
+lower limit is no longer used and can be replaced by the lower limit of the
+education benefit.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Branding</title>
+</head>
+
+<body>
+
+<h1>Branding</h1>
+
+<p>EUROMOD allows for using a different "brand" than "EUROMOD", which intends to give EUROMOD the look of this alternative brand.</p>
+
+<p>A different brand is implemented by adding a folder "Brand" to the root of the <a href="EM_FS_OrganisationOfFiles.htm">EUROMOD File Structure</a>. 
+This folder must contain a file named "BrandingSettings.xml" with the following content:</p>
+
+<ul>
+<li><b>Brand name:</b> This is the only compulsory setting. The name is used instead of "EUROMOD".</li>
+<li><b>Background Image:</b> The name of a picture-file (pgn, bmp, gif, jpg) stored in the Brand folder. The picture is used instead of the EUROMOD logo in the user interface.</li>
+<li><b>Background Image Layout:</b> Defines how the Background Image is displayed. Possible values are: Zoom (default), Center, Tile and None.</li>
+<li><b>Icon:</b> The name of an icon-file (ico) stored in the Brand folder. The icon is used instead of the EUROMOD icon for the user interface.</li>
+</ul>
+
+<p>The example illustrates the possible content of such a settings file:</p>
+<p class="code">&lt;BrandingSettings&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;BrandName&gt;MyBrand&lt;/BrandName&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;BackgroundImage&gt;MyBrandLogo.jpg&lt;/BackgroundImage&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;BackgroundImageLayout&gt;Tile&lt;/BackgroundImageLayout&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;Icon&gt;MyBrand.ico&lt;/Icon&gt;<br>
+&lt;/BrandingSettings&gt;</p>
+
+<p>Once a different brand is used, the text "POWERED BY EUROMOD" appears in the status bar of the user interface.</p>
+
+</body>
+
+</html>

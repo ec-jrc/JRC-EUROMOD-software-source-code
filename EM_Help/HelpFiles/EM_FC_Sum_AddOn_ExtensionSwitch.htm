@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function AddOn_ExtensionSwitch</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function AddOn_ExtensionSwitch</h1>
+<p>Add-on function: Allows add-ons to switch extensions on or off. </p>
+<p class="EM3only">This function is only available with EM3.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Extension_Name</td>
+		<td>text</td>
+		<td>yes (if Extension_Id is not defined</td>
+		<td>yes</td>
+		<td>Extension_Id</td>
+		<td>Name of the extension (long- and short name can be used) e.g. 'benefit take-up adjustments' or 'BTA'.</td>
+	</tr>
+	<tr>
+		<td>Extension_Id</td>
+		<td>text</td>
+		<td>yes (if Extension_Name is not defined)</td>
+		<td>yes</td>
+		<td>Extension_Name</td>
+		<td>Identifier of the extension (look up in XML or use Extension_Name instead).</td>
+	</tr>
+	<tr>
+		<td>Extension_Switch</td>
+		<td>on/off</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Whether this extension should be turned on or off.</td>
+	</tr>
+	<tr>
+		<td>Dataset</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>If any 'Dataset' parameter is used (several can be used within one group), the setting is only applied if one of them matches the dataset of the concerned run. The wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. be_20*_a?).</td>
+	</tr>
+	<tr>
+		<td>System</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>If any 'System' parameter is used (several can be used within one group), the setting is only applied if one of them matches the system of the concerned run. The wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. be_20??).</td>
+	</tr>
+</table>
+</body>
+</html>

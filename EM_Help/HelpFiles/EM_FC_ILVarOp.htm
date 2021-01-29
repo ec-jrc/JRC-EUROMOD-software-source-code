@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function ILVarOp</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special function ILVarOp</h1>
+
+<p>ILVarOp
+allows for operations on the content, i.e. the variables of an incomelist. The
+following examples show some applications of the function, to illustrate its
+purposes.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ILVarOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>operator_il</td>
+		<td>il_earns</td>
+		<td>all variables within the incomelist il_earns</td>
+	</tr>
+	<tr>
+		<td>operand</td>
+		<td>101%</td>
+		<td>are increased by 1%</td>
+	</tr>
+	<tr>
+		<td>operation</td>
+		<td>mul</td>
+		<td>parameter could be skipped as 'mul' is default</td>
+	</tr>
+	<tr>
+		<td>sel_var</td>
+		<td>all</td>
+		<td>parameter could be skipped as 'all' is default</td>
+	</tr>
+</table>
+	
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ILVarOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>operator_il</td>
+		<td>il_earns</td>
+		<td>the variable with the highest value within the</td>
+	</tr>
+	<tr>
+		<td>operand</td>
+		<td>101%</td>
+		<td>incomelist il_earns is increased by 1%</td>
+	</tr>
+	<tr>
+		<td>operation</td>
+		<td>mul</td>
+		<td>parameter could be skipped as ‘mul’ is default</td>
+	</tr>
+	<tr>
+		<td>sel_var</td>
+		<td>max</td>
+		<td></td>
+	</tr>
+</table>
+	
+
+<p>In the examples variables of the incomelist il_earns are increased by 1%. While in the
+former example all variables of the incomelist are increased (sel_var=all), in the latter only the &quot;main&quot;
+variable, i.e. the variable with the highest value is increased (sel_var=max). Assuming that il_earns consists of yem and yse this means that in example 1 both employment
+income and self-employment income are increased while in example 2 yem is increased if the respective
+person’s employment income is higher then her/his self-employment income,
+otherwise yse is
+increased. If yem and yse are equal, the first (with respect to entries
+in the incomelist) is increased.<a href="#_ftn1"
+name="_ftnref1" title="">[1]</a>
+As not hard to guess, ILVarOp can be applied this way in marginal tax rate
+calculations. Note that ILVarOp does not provide the parameter TAX_UNIT, that means it always operates on
+individual level. Also note that ILVarOp operates on variable level, that means there
+is no difference between il_abc=yem+yse+poa and il_def=yem+il_ghi, where il_ghi=yse+poa. Finally, note that the parameter operation could have been skipped in both
+examples as mul is
+default, as well as parameter sel_var could have been skipped in example 1 as all is default.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ILVarOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>operator_il</td>
+		<td>il_earns</td>
+		<td>the value of the variable yot is added</td>
+	</tr>
+	<tr>
+		<td>operand</td>
+		<td>yot</td>
+		<td>to the smallest variable within il_earns</td>
+	</tr>
+	<tr>
+		<td>operation</td>
+		<td>add</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>sel_var</td>
+		<td>min</td>
+		<td></td>
+	</tr>
+</table>
+	
+<p>In example 3 the parameter operation is set to add instead of mul, which means that the operand is added to all/special variables
+within il_earns.
+In the example the variable yot (for other income) is added to either yem or yse, dependent on which of the two is smaller.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> This may need reconsideration if it
+causes problems.</p>
+
+</div>
+
+</body>
+
+</html>

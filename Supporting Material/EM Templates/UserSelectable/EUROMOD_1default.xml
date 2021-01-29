@@ -1,0 +1,2125 @@
+<Template>
+  <TemplateInfo>
+    <Name>Summary Statistics - Default</Name>
+    <Title>Summary Statistics - Default</Title>
+    <Subtitle>Results for [baseSysPretty]</Subtitle>
+    <Button>[baseSys]</Button>
+    <Description><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang2057{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red0\green112\blue192;\red0\green0\blue0;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\widctlpar\sa200\sl276\slmult1\cf1\b\f0\fs22 Summary Statistics - Default\cf2\b0 : this template provides \ul detailed statistics for a single country\ulnone . I\cf0 t shows detailed results by income components and decile groups. Multiple files can be selected in which case results will be shown in separate tabs. \par
+
+\pard\sa200\sl276\slmult1 The follow-up screen will ask you to \ul select the EUROMOD standard output file(s)\ulnone  that you want to include in the analytics. By default, it will show you the files saved in the EUROMOD output folder of your current project, but you can change the folder by clicking on the \ldblquote\'85\rdblquote  button.  Multiple files can be selected using Ctrl + Shift.\f1\lang9\par
+}]]></Description>
+    <GeneralDescription>
+      <![CDATA[<p style='line-height:1.5'><b><span style='color:#0070C0'>Income
+concepts: </span></b></p>
+
+<p style='line-height:1.5'><u>Market/Original incomes</u>
+are the sum of income from employment and self-employment plus income from
+other sources. Other sources include income from investment, property, private
+pensions, private transfers, children younger than 16, minus private transfers
+paid to other households. See income list ils_origy in the country models.</p>
+
+<p style='line-height:1.5'><u>Disposable incomes</u> are
+the sum of market incomes and benefits (incl. pensions) minus taxes and social
+insurance contributions. See income list ils_dispy in the country models. 
+<u>Equivalised disposable income</u> is the total
+disposable household income divided by the modified OECD scale to take
+differences in household composition into account. The <u>modified OECD</u>
+scale attributes a weight of 1 to the head of the household, a weight of 0.5 to
+every person above the age of 14 and a weight of 0.3 to every child aged 0-14.</p>
+
+<p style='line-height:1.5'><u>Decile groups</u> are
+calculated by ranking individuals according to their <u>equivalised</u>
+disposable household income and dividing them into ten similar-sized groups.</p>
+
+<p style='line-height:1.5'>All monetary amounts – except
+for the fiscal overview – are presented in average monthly amounts and in the
+currency defined in the Euromod output file.</p>
+
+<p style='line-height:1.5'><b><span style='color:#0070C0'>Poverty
+indicators:</span></b></p>
+
+<p style='line-height:1.5'>Households are defined as <u>being
+at risk of poverty (poor)</u> if their equivalised disposable household income
+is below the poverty line. <u>The poverty line</u> is defined as 60% of the
+country specific median equivalised disposable household income. The <u>poverty
+gap</u> is the difference between the poverty line and the median income of
+people at-risk-of poverty divided by the poverty line. The median income of
+people at-risk-of poverty is based on equivalised disposable income.</p>
+
+<p style='line-height:1.5'>NOTE: negative equivalised
+disposable household incomes are recoded to 0 for all poverty related results.</p>
+
+<p style='line-height:1.5'><b><span style='color:#0070C0'>Inequality
+indicators:</span></b></p>
+
+<p style='line-height:1.5'><u>Gini</u> measures the
+distribution of income within a country where 0 means perfect income equality
+and 1 means perfect income inequality. </p>
+
+<p style='line-height:1.5'>The <u>S80/20 ratio</u> - also
+referred to as the income quintile share ratio – is the ratio of the total
+income received by the 20% of the population with the highest income to that
+received by the bottom 20%. </p>
+
+<p style='line-height:1.5'>NOTE: negative incomes are
+recoded to 0 for results on Gini and S80/20 indicators.</p>
+
+<p style='line-height:1.5'><b><span style='color:#0070C0'>Definition
+of age-groups:</span></b></p>
+
+<p style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:1.5'>Sub-population groups are defined as follows:</p>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-indent:-18.0pt;line-height:1.5'><span style='font-family:Symbol'>·    </span><u>Children</u> are persons
+younger than 18</p>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-indent:-18.0pt;line-height:1.5'><span style='font-family:Symbol'>·    </span><u>Working Age are</u>
+persons aged 18 up to the age of 64</p>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-indent:-18.0pt;line-height:1.5'><span style='font-family:Symbol'>·    </span>Someone is <u>economically
+active</u> if he/she has income from employment or self-employment </p>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-indent:-18.0pt;line-height:1.5'><span style='font-family:Symbol'>·    </span><u>Elderly</u> are persons
+aged 65 or older</p>]]>
+    </GeneralDescription>
+    <TemplateType>Default</TemplateType>
+    <RequiredVariables>
+      <RequiredVariable>
+        <Name>weight</Name>
+        <ReadVar>dwt</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>idhh</Name>
+        <ReadVar>idhh</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>idperson</Name>
+        <ReadVar>idperson</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>age</Name>
+        <ReadVar>dag</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsSicEe</Name>
+        <ReadVar>ils_sicee</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsSicSe</Name>
+        <ReadVar>ils_sicse</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsSicEr</Name>
+        <ReadVar>ils_sicer</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsTax</Name>
+        <ReadVar>ils_tax</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsBen</Name>
+        <ReadVar>ils_ben</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsTaxSim</Name>
+        <ReadVar>ils_taxsim</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsBenSim</Name>
+        <ReadVar>ils_bensim</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsEarns</Name>
+        <ReadVar>ils_earns</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsDispy</Name>
+        <ReadVar>ils_dispy</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsOrigy</Name>
+        <ReadVar>ils_origy</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>yem</Name>
+        <ReadVar>yem</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>yse</Name>
+        <ReadVar>yse</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsBenMt</Name>
+        <ReadVar>ils_benmt</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsBenNt</Name>
+        <ReadVar>ils_bennt</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
+        <Name>ilsPen</Name>
+        <ReadVar>ils_pen</ReadVar>
+      </RequiredVariable>
+          <RequiredVariable>
+        <Name>ilsSicdy</Name>
+        <ReadVar>ils_sicdy</ReadVar>
+      </RequiredVariable>
+    </RequiredVariables>
+    <OptionalVariables>
+      <OptionalVariable>
+        <Name>ilsSicCt</Name>
+        <ReadVar>ils_sicct</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
+      <OptionalVariable>
+        <Name>ilsSicOt</Name>
+        <ReadVar>ils_sicot</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
+      <OptionalVariable>
+        <Name>ilsB1Bun</Name>
+        <ReadVar>ils_b1_bun</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
+      <OptionalVariable>
+        <Name>ilsB2BfaEd</Name>
+        <ReadVar>ils_b2_bfaed</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
+      <OptionalVariable>
+        <Name>ilsB2BsaHo</Name>
+        <ReadVar>ils_b2_bsaho</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
+      <OptionalVariable>
+        <Name>ilsB2PenHl</Name>
+        <ReadVar>ils_b2_penhl</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
+    </OptionalVariables>
+  </TemplateInfo>
+  <Globals>
+		<Filters>
+			<Filter>
+				<Name>FilterPerson</Name>
+        <FormulaString><![CDATA[true]]></FormulaString>
+			</Filter>
+			<Filter>
+				<Name>FilterChildren</Name>
+        <FormulaString><![CDATA[OBS_VAR[@age] < 18]]></FormulaString>
+				<Parameters>
+					<Parameter>
+            <Name>age</Name>
+						<VarName>age</VarName>
+					</Parameter>
+				</Parameters>
+			</Filter>
+			<Filter>
+				<Name>FilterElderly</Name>
+        <FormulaString><![CDATA[OBS_VAR[@age] >= 65]]></FormulaString>
+				<Parameters>
+					<Parameter>
+            <Name>age</Name>
+            <VarName>age</VarName>
+					</Parameter>
+				</Parameters>
+			</Filter>
+				<Filter>
+				<Name>FilterWorkingAge</Name>
+          <FormulaString><![CDATA[OBS_VAR[@age] >= 18 && OBS_VAR[@age] < 65]]></FormulaString>
+				<Parameters>
+					<Parameter>
+            <Name>age</Name>
+            <VarName>age</VarName>
+					</Parameter>
+				</Parameters>
+			</Filter>
+			<Filter>
+				<Name>FilterWorkingAgeActive</Name>
+        <FormulaString><![CDATA[OBS_VAR[@age] >= 18 && OBS_VAR[@age] < 65 && (OBS_VAR[@yem] + OBS_VAR[@yse]) > 0]]></FormulaString>
+				<Parameters>
+					<Parameter>
+            <Name>age</Name>
+            <VarName>age</VarName>
+					</Parameter>
+					<Parameter>
+            <Name>yem</Name>
+            <VarName>yem</VarName>
+					</Parameter>
+					<Parameter>
+            <Name>yse</Name>
+            <VarName>yse</VarName>
+					</Parameter>
+				</Parameters>
+			</Filter>
+		</Filters>
+		<Actions>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>FilterPerson</OutputVar>
+        <Filter>
+          <Name>FilterPerson</Name>
+        </Filter>
+      </Action>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>FilterChildren</OutputVar>
+        <Filter>
+          <Name>FilterChildren</Name>
+        </Filter>
+      </Action>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>FilterElderly</OutputVar>
+        <Filter>
+          <Name>FilterElderly</Name>
+        </Filter>
+      </Action>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>FilterWorkingAge</OutputVar>
+        <Filter>
+          <Name>FilterWorkingAge</Name>
+        </Filter>
+      </Action>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>FilterWorkingAgeActive</OutputVar>
+        <Filter>
+          <Name>FilterWorkingAgeActive</Name>
+        </Filter>
+      </Action>
+			<Action>
+        <CalculationType>CreateOECDScale</CalculationType>
+				<OutputVar>OECDscale</OutputVar>
+			</Action>
+			<Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+				<OutputVar>eqDispy</OutputVar>
+				<Parameters>
+					<Parameter>
+            <VarName>ilsDispy</VarName>
+					</Parameter>
+					<Parameter>
+						<Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+					</Parameter>
+				</Parameters>
+			</Action>
+			<Action>
+        <CalculationType>CreateArithmetic</CalculationType>
+				<OutputVar>Earns</OutputVar>
+        <FormulaString><![CDATA[OBS_VAR[@IlsEarns]]]></FormulaString>
+        <Parameters>
+          <Parameter>
+            <Name>IlsEarns</Name>
+            <VarName>ilsEarns</VarName>
+          </Parameter>
+         </Parameters>
+      </Action>
+			<Action>
+        <CalculationType>CreateArithmetic</CalculationType>
+				<OutputVar>OtherMarketIncome</OutputVar>
+        <FormulaString><![CDATA[OBS_VAR[@ilsOrigy] - OBS_VAR[@Earns]]]></FormulaString>
+        <Parameters>
+          <Parameter>
+            <Name>ilsOrigy</Name>
+            <VarName>ilsOrigy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>Earns</Name>
+            <VarName>Earns</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateArithmetic</CalculationType>
+        <OutputVar>Sic</OutputVar>
+        <FormulaString><![CDATA[OBS_VAR[@ilsSicdy]]]></FormulaString>
+        <Parameters>
+          <Parameter>
+            <Name>ilsSicdy</Name>
+            <VarName>ilsSicdy</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+			<Action>
+        <CalculationType>CreateArithmetic</CalculationType>
+				<OutputVar>GovRevenue</OutputVar>
+        <FormulaString><![CDATA[OBS_VAR[@ilsTax] + OBS_VAR[@Sic] + OBS_VAR[@ilsSicEr]]]></FormulaString>
+				<Parameters>
+					<Parameter>
+            <Name>ilsTax</Name>
+            <VarName>ilsTax</VarName>
+          </Parameter>
+					<Parameter>
+            <Name>Sic</Name>
+            <VarName>Sic</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>ilsSicEr</Name>
+            <VarName>ilsSicEr</VarName>
+          </Parameter>
+        </Parameters>
+			</Action>
+      <Action>
+        <CalculationType>CreateDeciles</CalculationType>
+        <OutputVar>deciles_eqDispy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>IncomeVar</Name>
+            <VarName>eqDispy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>GroupingVar</Name>
+            <VarName>idhh</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateArithmetic</CalculationType>
+        <FormulaString><![CDATA[SAVED_VAR[@MeanDec] * 0.6]]></FormulaString>
+        <OutputVar>povLine</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>MeanDec</Name>
+            <VarName>deciles_eqDispy~dec~5</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculatePovertyGap</CalculationType>
+        <OutputVar>povGap</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>IncomeVar</Name>
+            <VarName>eqDispy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>PovertyLine</Name>
+            <VarName>povLine</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateFlag</CalculationType>
+        <OutputVar>IsPoor</OutputVar>
+        <Filter>
+          <Name>FilterPoor</Name>
+          <FormulaString><![CDATA[OBS_VAR[@eqDispy] <= SAVED_VAR[@povLine]]]></FormulaString>
+          <Parameters>
+            <Parameter>
+              <Name>eqDispy</Name>
+              <VarName>eqDispy</VarName>
+            </Parameter>
+            <Parameter>
+              <Name>povLine</Name>
+              <VarName>povLine</VarName>
+            </Parameter>
+          </Parameters>
+        </Filter>
+      </Action>
+      <Action>
+        <CalculationType>CreateArithmetic</CalculationType>
+        <OutputVar>incomeAT</OutputVar>
+        <FormulaString><![CDATA[OBS_VAR[@ilsOrigy] - (OBS_VAR[@ilsTax] + OBS_VAR[@Sic])]]></FormulaString>
+        <Parameters>
+          <Parameter>
+            <Name>ilsOrigy</Name>
+            <VarName>ilsOrigy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>ilsTax</Name>
+            <VarName>ilsTax</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>Sic</Name>
+            <VarName>Sic</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateArithmetic</CalculationType>
+        <OutputVar>incomeATPP</OutputVar>
+        <FormulaString><![CDATA[OBS_VAR[@incomeAT] + OBS_VAR[@ilsPen]]]></FormulaString>
+        <Parameters>
+          <Parameter>
+            <Name>incomeAT</Name>
+            <VarName>incomeAT</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>ilsPen</Name>
+            <VarName>ilsPen</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqIncomeAT</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>incomeAT</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqIncomeATPP</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>incomeATPP</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqOrigy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsOrigy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>ilsDispy</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>ilsOrigy</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>Earns</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>ilsBen</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>ilsTax</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>Sic</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>ilsBenSim</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>ilsTaxSim</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>IsPoor</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqDispy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsDispy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqOrigy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsOrigy</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqEarns</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>Earns</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqBen</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsBen</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqTax</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsTax</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqSic</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>Sic</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqBenSim</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsBenSim</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateEquivalized</CalculationType>
+        <OutputVar>eqTaxSim</OutputVar>
+        <Parameters>
+          <Parameter>
+            <VarName>ilsTaxSim</VarName>
+          </Parameter>
+          <Parameter>
+            <Name>EquivalenceScale</Name>
+            <VarName>OECDscale</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalDispy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>ilsDispy</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalOrigy</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>ilsOrigy</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalEarns</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>Earns</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalBen</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>ilsBen</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalTax</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>ilsTax</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalSic</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>Sic</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>FilterPerson</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>FilterChildren</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>FilterWorkingAge</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>FilterElderly</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CreateHHValue</CalculationType>
+        <OutputVar>FilterWorkingAgeActive</OutputVar>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalPerson</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>FilterPerson</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalChildren</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>FilterChildren</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalWorkingAge</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>FilterWorkingAge</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalElderly</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>FilterElderly</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+      <Action>
+        <CalculationType>CalculateSumWeighted</CalculationType>
+        <FormulaString><![CDATA[OP_VAR[@SumVar]]]></FormulaString>
+        <OutputVar>totalWorkingAgeActive</OutputVar>
+        <Parameters>
+          <Parameter>
+            <Name>SumVar</Name>
+            <VarName>FilterWorkingAgeActive</VarName>
+          </Parameter>
+        </Parameters>
+      </Action>
+    </Actions>
+	</Globals>
+	<Pages>
+    <Page>
+      <Name>FiscalOverview</Name>
+      <Title><![CDATA[Market Incomes and Government Revenue && Expenditure]]></Title>
+      <Subtitle>Yearly, mill., currency as defined in EM output</Subtitle>
+      <Button>Fiscal Overview</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows <b><span
+style='color:#0070C0'>total annual amounts </span></b>of the specified
+tax-benefit system(s). It provides an overview of market incomes as well as
+government revenue and expenditure covered in EUROMOD. </p>
+
+<p style='line-height:1.5'>The aggregated amount for “other
+social insurance contributions” is already included in “employee social
+insurance contributions” in all EM versions released before 2018.</p>
+<p>Results refer to the following income lists:</p>
+<ul>
+	<li>Total market incomes: ils_origy</li>
+	<li>Income from (self) employment: ils_earns</li>
+	<li>Other market incomes: ils_origy minus ils_earns</li>
+	<li>Government revenue through taxes and social insurance contributions are the sum of:
+		<ul>
+			<li>Direct taxes: ils_tax</li>
+			<li>Employee social insurance contributions: ils_sicee</li>
+			<li>Self-employed social insurance contributions: ils_sicse</li>
+			<li>Other social insurance contributions: ils_sicot</li>
+			<li>Employer social insurance contributions (not part of disposable income): ils_sicer</li>
+		</ul>
+	</li>
+	<li>Credited social insurance contributions (not part of disposable income): ils_sicct</li>
+	<li>Government expenditure on social transfers: ils_ben <br>Which is the sum of:
+		<ul>
+			<li>Unemployment benefits: ils_b1_bun</li>
+			<li>Family and education benefits: ils_b2_bfaed</li>
+			<li>Social assistance and housing benefits: ils_b2_bsaho</li>
+			<li>Pensions, health and disability benefits: ils_b2_penhl</li>
+		</ul>
+		As well as the sum of:
+		<ul>
+			<li>Means-tested non-pension benefits: ils_benmt</li>
+			<li>Non-means-tested non-pension benefits: ils_bennt</li>
+			<li>Pensions: ils_pen</li>
+		</ul>
+	</li>
+</ul>
+]]></Description>
+			<Tables>
+				<Table>
+          <Action>
+            <CalculationLevel>Individual</CalculationLevel>
+            <CalculationType>CalculateSumWeighted</CalculationType>
+            <FormulaString><![CDATA[OP_VAR[@SumVar] * 12 / 1000000]]></FormulaString>
+          </Action>
+          <StringFormat>#,0.00</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Amounts</Name>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>Total market incomes</Name>
+							<Strong>true</Strong>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsOrigy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <HasSeparatorAfter>true</HasSeparatorAfter>
+						</Row>
+						<Row>
+							<Name>... income from (self) employment</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>Earns</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>... other sources</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>OtherMarketIncome</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Government revenue through taxes and social insurance contributions</Name>
+							<Strong>true</Strong>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <HasSeparatorAfter>true</HasSeparatorAfter>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>GovRevenue</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>... direct taxes</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsTax</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>... employee social insurance contributions</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsSicEe</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>... self-employed social insurance contributions</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsSicSe</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>... other social insurance contributions</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsSicOt</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>... employer social insurance contributions (not part of disposable income)</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsSicEr</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Credited social insurance contributions (not part of disposable income)</Name>
+              <Strong>true</Strong>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsSicCt</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Government expenditure on social transfers</Name>
+							<Strong>true</Strong>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+              <HasSeparatorAfter>true</HasSeparatorAfter>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsBen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+						<Row>
+							<Name>by target group</Name>
+              <Action>
+                <CalculationType>Empty</CalculationType>
+              </Action>
+            </Row>
+            <Row>
+              <Name>... unemployment benefits</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsB1Bun</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>... family and education benefits</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsB2BfaEd</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>... social assistance and housing benefits</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsB2BsaHo</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>... pensions, health and disability benefits</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsB2PenHl</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>by benefit design</Name>
+              <Action>
+                <CalculationType>Empty</CalculationType>
+              </Action>
+            </Row>
+						<Row>
+							<Name>... means-tested non-pension benefits</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsBenMt</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+						<Row>
+							<Name>... non-means-tested non-pension benefits</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsBenNt</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+						<Row>
+							<Name>... pensions</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>SumVar</Name>
+                    <VarName>ilsPen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+      <Name>Poverty</Name>
+      <Button>Poverty</Button>
+      <Title>Basic Poverty Indices</Title>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows <b><span
+style='color:#0070C0'>the poverty risk </span></b><u>of the total population
+and different sub-population groups</u> as well as the <u>poverty line</u> and
+the <u>poverty gap</u>.</p>]]></Description>
+			<Tables>
+				<Table>
+          <Columns>
+						<Column>
+							<Name>Poverty Risk</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <CalculationType>CalculatePopulationCount</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@CountVar]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>CountVar</Name>
+                    <VarName>IsPoor</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+							<StringFormat>P2</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>Population</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+						</Row>
+						<Row>
+							<Name>Children</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+								  <Name>FilterChildren</Name>
+							  </Filter>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Working Age</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+                  <Name>FilterWorkingAge</Name>
+                </Filter>
+              </Action>
+						</Row>
+						<Row>
+							<Name><![CDATA[	  Working Age Economically Active]]></Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+                  <Name>FilterWorkingAgeActive</Name>
+                </Filter>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Elderly</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+                  <Name>FilterElderly</Name>
+                </Filter>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Poverty Line</Name>
+              <Tooltip>60% of the country specific median equivalised disposable household income.</Tooltip>
+              <Action>
+                <BlendParameters>false</BlendParameters>
+                <CalculationType>CalculateArithmetic</CalculationType>
+                <FormulaString><![CDATA[SAVED_VAR[@povLine]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>povLine</Name>
+                    <VarName>povLine</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <StringFormat>#,0.00</StringFormat>
+						</Row>
+						<Row>
+							<Name>Poverty Gap</Name>
+              <Tooltip>Difference between the median equivalised disposable income of people at-risk-of-poverty and poverty line, as a percentage of poverty line.</Tooltip>
+              <Action>
+                <BlendParameters>false</BlendParameters>
+                <CalculationType>CalculateArithmetic</CalculationType>
+                <FormulaString><![CDATA[SAVED_VAR[@povGap]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>povGap</Name>
+                    <VarName>povGap</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+    <Page>
+      <Name>Inequality</Name>
+      <Title>Basic Inequality Indices</Title>
+      <Button>Inequality</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows the <b><span
+style='color:#0070C0'>Gini index and S80/20 indicator </span></b><u>for
+selected income concepts:</u></p>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-indent:-18.0pt;line-height:1.5;'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The comparison of the original income with the original income
+after taxes shows to what extent taxes contribute to redistribution. </p>
+
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.0pt;margin-bottom:.0001pt;text-indent:-18.0pt;line-height:1.5;'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black'>The comparison of the original income
+plus public pensions after taxes with the original income after taxes shows the
+role of public pensions for redistribution.</span></p>
+
+<p style='margin-left:35.7pt;text-indent:-17.85pt;line-height:1.5'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The comparison of the original income with the disposable income
+shows the extent of income redistribution performed by the tax-benefit system
+as a whole (incl. social insurance contributions and benefits beyond public
+pensions). </p>
+
+<p style='line-height:1.5'>The calculated indexes are
+income-concept-specific. However, the definition of the top and bottom 20% is
+always based on disposable income.</p>]]></Description>
+			<Tables>
+				<Table>
+          <Columns>
+						<Column>
+							<Name>Gini</Name>
+              <Tooltip>Measures the distribution of income within a country where 0 means perfect income equality and 1 means perfect income inequality.</Tooltip>
+              <Action>
+                <CalculationType>CalculateGini</CalculationType>
+                <Parameters>
+                  <Parameter>
+                    <Name>GroupingVar</Name>
+                    <VarName>idhh</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>0.0000</StringFormat>
+						</Column>
+						<Column>
+							<Name>S80/S20</Name>
+              <Tooltip>Ratio of total income received top quintile to that received by bottom quintile.</Tooltip>
+              <Action>
+                <CalculationType>CalculateS8020</CalculationType>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecileVar</Name>
+                    <VarName>deciles_eqDispy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>0.0000</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>Original Income</Name>
+              <Tooltip>Earnings from employment and self-employment plus other market incomes (from investment, property, private pensions, private transfers, children younger than 16) minus private transfers paid to other households.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>RecodeNegatives</Name>
+                    <BoolValue>true</BoolValue>
+                  </Parameter>
+                  <Parameter>
+                    <Name>GiniVar</Name>
+                    <VarName>eqOrigy</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>S8020Var</Name>
+                    <VarName>eqOrigy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Original Income after Taxes/SIC</Name>
+              <Tooltip>Original income – Taxes – Social Insurance Contributions.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>RecodeNegatives</Name>
+                    <BoolValue>true</BoolValue>
+                  </Parameter>
+                  <Parameter>
+                    <Name>GiniVar</Name>
+                    <VarName>eqIncomeAT</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>S8020Var</Name>
+                    <VarName>eqIncomeAT</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Original Income incl. Public Pensions after Taxes/SIC</Name>
+              <Tooltip>Original income + Public Pensions – Taxes – Social Insurance Contributions.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>RecodeNegatives</Name>
+                    <BoolValue>true</BoolValue>
+                  </Parameter>
+                  <Parameter>
+                    <Name>GiniVar</Name>
+                    <VarName>eqIncomeATPP</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>S8020Var</Name>
+                    <VarName>eqIncomeATPP</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+						<Row>
+							<Name>Disposable Income</Name>
+              <Tooltip>Original income + Benefits (incl. Public Pensions) – Taxes – Social Insurance Contributions.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>RecodeNegatives</Name>
+                    <BoolValue>true</BoolValue>
+                  </Parameter>
+                  <Parameter>
+                    <Name>GiniVar</Name>
+                    <VarName>eqDispy</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>S8020Var</Name>
+                    <VarName>eqDispy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+						</Row>
+					</Rows>
+        </Table>
+			</Tables>
+		</Page>
+    <Page>
+      <Name>MeanIncome</Name>
+      <Title>Mean household income by decile groups and income components</Title>
+      <Button>Mean Household income</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows the <b><span
+style='color:#0070C0'>mean household income of decile groups </span></b>disaggregated
+by its income components. The <u>last two columns</u> show to what extent <u>benefits</u>
+and <u>taxes</u> are simulated in Euromod (rather than taken from the
+inputdata), expressed as the share of simulated benefits/taxes of all
+benefits/taxes. The <u>last two rows</u> show the mean income of the total
+population (<u>All</u>) and the population at-risk-of-poverty (<u>Poor</u>). </p>
+
+<p style='line-height:1.5'>While the calculation of the
+decile groups is based on equivalised income, the reported mean incomes refer
+to non-equivalised household results.</p>
+]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <CalculationType>CalculateWeightedAverage</CalculationType>
+            <FormulaString><![CDATA[OP_VAR[@AverageVar]]]></FormulaString>
+            <CalculationLevel>Household</CalculationLevel>
+          </Action>
+          <StringFormat>#,0.00</StringFormat>
+          <Columns>
+            <Column>
+              <Name>Disposable Income</Name>
+              <Tooltip>Original income + Benefits (incl. Public Pensions) – Taxes – Social Insurance Contributions.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>ilsDispy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Original Income</Name>
+              <Tooltip>Earnings from employment and self-employment plus other market incomes (from investment, property, private pensions, private transfers, children younger than 16) minus private transfers paid to other households.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>ilsOrigy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>...of which earnings</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>Earns</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[Benefits incl.<br/>Pub. Pen.]]></Name>
+              <Tooltip>Family, education, pensions, disability, health, social assistance, housing and unemployment benefits.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>ilsBen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Taxes</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>ilsTax</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[Social<br/>Ins. Contrib.]]></Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>Sic</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Simulated Benefits</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@SimBen] / OP_VAR[@OrigBen]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SimBen</Name>
+                    <VarName>ilsBenSim</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>OrigBen</Name>
+                    <VarName>ilsBen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+            <Column>
+              <Name>Simulated Taxes</Name>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@SimTax] / OP_VAR[@OrigTax]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SimTax</Name>
+                    <VarName>ilsTaxSim</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>OrigTax</Name>
+                    <VarName>ilsTax</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile</Name>
+              <ForEachValueOf>deciles_eqDispy</ForEachValueOf>
+            </Row>
+            <Row>
+              <Name>All</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+            </Row>
+            <Row>
+              <Name>Poor</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Poor] > 0]]></FormulaString>
+                  <Parameters>
+                    <Parameter>
+                      <Name>Poor</Name>
+                      <VarName>IsPoor</VarName>
+                    </Parameter>
+                  </Parameters>
+                </Filter>
+              </Action>
+            </Row>
+          </Rows>
+        </Table>
+      </Tables>
+    </Page>
+    <Page>
+      <Name>MeanEqIncome</Name>
+      <Title>Mean equivalised income by decile groups and income components</Title>
+      <Button>Mean income (equ)</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows the <b><span
+style='color:#0070C0'>mean equivalised income of decile groups disaggregated by
+its income components</span></b>. The <u>last two columns</u> show to what
+extent <u>benefits</u> and <u>taxes</u> are simulated in Euromod (rather than
+taken from the inputdata), expressed as the share of simulated benefits/taxes
+of all benefits/taxes. The <u>last two rows</u> show the mean income of the
+total population (<u>All</u>) and the population at-risk-of-poverty (<u>Poor</u>).</p>
+
+<p style='line-height:1.5'>The calculation of the decile
+groups and the reported mean incomes is based on equivalised income.</p>
+]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <CalculationType>CalculateWeightedAverage</CalculationType>
+            <FormulaString><![CDATA[OP_VAR[@AverageVar]]]></FormulaString>
+          </Action>
+          <StringFormat>#,0.00</StringFormat>
+          <Columns>
+            <Column>
+              <Name>Disposable Income</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>eqDispy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Original Income</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>eqOrigy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>...of which earnings</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>eqEarns</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[Benefits<br/>incl. pub. Pen.]]></Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>eqBen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Taxes</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>eqTax</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[Social<br/>Ins. Contrib.]]></Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>eqSic</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Simulated Benefits</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@SimBen] / OP_VAR[@OrigBen]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SimBen</Name>
+                    <VarName>eqBenSim</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>OrigBen</Name>
+                    <VarName>eqBen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+            <Column>
+              <Name>Simulated Taxes</Name>
+              <Action>
+                <CalculationType>CalculateSumWeighted</CalculationType>
+                <FormulaString><![CDATA[OP_VAR[@SimTax] / OP_VAR[@OrigTax]]]></FormulaString>
+                <Parameters>
+                  <Parameter>
+                    <Name>SimTax</Name>
+                    <VarName>eqTaxSim</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>OrigTax</Name>
+                    <VarName>eqTax</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+              <StringFormat>P2</StringFormat>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile</Name>
+              <ForEachValueOf>deciles_eqDispy</ForEachValueOf>
+            </Row>
+            <Row>
+              <Name>All</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+            </Row>
+            <Row>
+              <Name>Poor</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Poor] > 0]]></FormulaString>
+                  <Parameters>
+                    <Parameter>
+                      <Name>Poor</Name>
+                      <VarName>IsPoor</VarName>
+                    </Parameter>
+                  </Parameters>
+                </Filter>
+              </Action>
+            </Row>
+          </Rows>
+        </Table>
+      </Tables>
+    </Page>
+    <Page>
+      <Name>SharesIncome</Name>
+      <Title>Shares of Income and Income-Components</Title>
+      <Subtitle>received/paid by each Decile Group</Subtitle>
+      <Button>Share of Inc.</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows the <b><span
+style='color:#0070C0'>shares of unequivalised household income and each income
+component </span></b>received or paid by each income decile. It answers the
+question of how much income is concentrated in each income decile and shows who
+receives the highest share of income support and who pays the highest taxes and
+social insurance contributions to the welfare state. The <u>last row</u> shows
+how much income is concentrated at the population at-risk-of-poverty.</p>]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <CalculationType>CalculateSumWeighted</CalculationType>
+            <FormulaString><![CDATA[OP_VAR[@VarDecSum] / SAVED_VAR[@VarTotSum] ]]></FormulaString>
+          </Action>
+          <StringFormat>P2</StringFormat>
+          <Columns>
+            <Column>
+              <Name>Disposable Income</Name>
+              <Tooltip>Original income + Benefits (incl. Public Pensions) – Taxes – Social Insurance Contributions.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>ilsDispy</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalDispy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Original Income</Name>
+              <Tooltip>Earnings from employment and self-employment plus other market incomes (from investment, property, private pensions, private transfers, children younger than 16) minus private transfers paid to other households.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>ilsOrigy</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalOrigy</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[of which<br/>Cur. Earned Inc.]]></Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>Earns</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalEarns</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[Benefits<br/>incl. Pub. Pen.]]></Name>
+              <Tooltip>Family, education, pensions, disability, health, social assistance, housing and unemployment benefits.</Tooltip>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>ilsBen</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalBen</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Taxes</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>ilsTax</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalTax</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name><![CDATA[Social<br/>Ins. Contrib.]]></Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>Sic</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalSic</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile</Name>
+              <ForEachValueOf>deciles_eqDispy</ForEachValueOf>
+            </Row>
+            <Row>
+              <Name>Poor</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Poor] > 0]]></FormulaString>
+                  <Parameters>
+                    <Parameter>
+                      <Name>Poor</Name>
+                      <VarName>IsPoor</VarName>
+                    </Parameter>
+                  </Parameters>
+                </Filter>
+              </Action>
+            </Row>
+          </Rows>
+        </Table>
+      </Tables>
+    </Page>
+    <Page>
+      <Name>HHComposition</Name>
+      <Title>Household composition - Average Number of...</Title>
+      <Button>HH Average ...</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table gives background
+information on the household composition by presenting the <b><span
+style='color:#0070C0'>average household size of different decile groups</span></b>
+and the average number of children, working-age adults and elderlies. The <u>last
+row</u> gives the same information for the population at-risk-of-poverty.</p>]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <CalculationLevel>Household</CalculationLevel>
+            <CalculationType>CalculateWeightedAverage</CalculationType>
+            <FormulaString><![CDATA[OP_VAR[@AverageVar]]]></FormulaString>
+          </Action>
+          <StringFormat>0.00</StringFormat>
+          <Columns>
+            <Column>
+              <Name>Total</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>FilterPerson</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Children</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>FilterChildren</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Working Age (WA)</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>FilterWorkingAge</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>WA Econ.Act.</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>FilterWorkingAgeActive</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Elderly</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>AverageVar</Name>
+                    <VarName>FilterElderly</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile</Name>
+              <ForEachValueOf>deciles_eqDispy</ForEachValueOf>
+            </Row>
+            <Row>
+              <Name>All</Name>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+            </Row>
+            <Row>
+              <Name>Poor</Name>
+              <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
+              <Action>
+                <Filter>
+                  <FormulaString><![CDATA[OBS_VAR[@Poor] > 0]]></FormulaString>
+                  <Parameters>
+                    <Parameter>
+                      <Name>Poor</Name>
+                      <VarName>IsPoor</VarName>
+                    </Parameter>
+                  </Parameters>
+                </Filter>
+              </Action>
+            </Row>
+          </Rows>
+        </Table>
+      </Tables>
+    </Page>
+    <Page>
+      <Name>SharesDecile</Name>
+      <Title>Share of population groups in each decile</Title>
+      <Button>Dec.Share of ...</Button>
+      <Description>
+        <![CDATA[<p class=MsoNormal style='line-height:1.5'>The table gives background
+information on the <b><span style='color:#0070C0'>share of age-groups in
+different decile groups</span></b>.</p>]]></Description>
+      <Tables>
+        <Table>
+          <Action>
+            <CalculationType>CalculateSumWeighted</CalculationType>
+            <FormulaString><![CDATA[OP_VAR[@VarDecSum] / SAVED_VAR[@VarTotSum]]]></FormulaString>
+          </Action>
+          <StringFormat>P2</StringFormat>
+          <Columns>
+            <Column>
+              <Name>Total</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>FilterPerson</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalPerson</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Children</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>FilterChildren</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalChildren</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Working Age (WA)</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>FilterWorkingAge</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalWorkingAge</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>WA Econ.Act.</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>FilterWorkingAgeActive</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalWorkingAgeActive</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+            <Column>
+              <Name>Elderly</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>VarDecSum</Name>
+                    <VarName>FilterElderly</VarName>
+                  </Parameter>
+                  <Parameter>
+                    <Name>VarTotSum</Name>
+                    <VarName>totalElderly</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile</Name>
+              <ForEachValueOf>deciles_eqDispy</ForEachValueOf>
+            </Row>
+          </Rows>
+        </Table>
+      </Tables>
+    </Page>
+    <Page>
+      <Name>Deciles</Name>
+      <Title>Decile and Poverty Cut Offs</Title>
+      <Button>Cut Offs</Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows the <b><span
+style='color:#0070C0'>cut-off points of equivalised disposable household income
+</span></b>for each decile group as well as the poverty line.</p>]]></Description>
+      <Tables>
+        <Table>
+          <StringFormat>#,0.00</StringFormat>
+          <Columns>
+            <Column>
+              <Name>Cut Offs</Name>
+              <Action>
+                <CalculationType>CalculateArithmetic</CalculationType>
+                <FormulaString><![CDATA[SAVED_VAR[@DecVar]]]></FormulaString>
+              </Action>
+            </Column>
+          </Columns>
+          <Rows>
+            <Row>
+              <Name>Decile 1</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~1</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 2</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~2</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 3</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~3</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 4</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~4</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 5</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~5</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 6</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~6</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 7</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~7</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 8</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~8</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Decile 9</Name>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>deciles_eqDispy~dec~9</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+            <Row>
+              <Name>Poverty Line</Name>
+              <Tooltip>60% of the country specific median equivalised disposable household income.</Tooltip>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+              <Strong>true</Strong>
+              <Action>
+                <Parameters>
+                  <Parameter>
+                    <Name>DecVar</Name>
+                    <VarName>povLine</VarName>
+                  </Parameter>
+                </Parameters>
+              </Action>
+            </Row>
+          </Rows>
+        </Table>
+      </Tables>
+    </Page>
+  </Pages>
+</Template>

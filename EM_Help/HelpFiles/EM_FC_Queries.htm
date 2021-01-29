@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Queries</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Queries</h1>
+
+<table class="info left">
+	<tr>
+		<th>Query</th>
+		<th>Description</th>
+		<th>Parameters</th>
+		<th>Aliases</th>
+	</tr>
+<tr>
+	<td>IsHeadOfTu</td>
+	<td>
+		Returns 1 if a person is the 'Head' of the assessment unit, i.e. fulfils
+		the fixed head condition and the ExtHeadCond of the
+		assessment unit specification, 0 otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>IsHead</td>
+</tr>
+<tr>
+	<td>IsPartner</td>
+	<td>
+		Returns 1 if a person is the 'Partner' of the assessment unit, i.e.
+		fulfils the PartnerCond of the assessment unit
+		specification, 0 otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>IsPartnerOfHeadOfTu</td>
+</tr>
+<tr>
+	<td>IsDepChild</td>
+	<td>
+		Returns 1 if a person is a 'dependent child', i.e. fulfils the DepChildCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>IsDependentChild</td>
+</tr>
+<tr>
+	<td>IsOwnChild</td>
+	<td>
+		Returns 1 if a person is an 'own child', i.e. fulfils the OwnChildCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsOwnDepChild</td>
+	<td>
+		Returns 1 if a person is an 'own dependent child', i.e. fulfils the OwnDepChildCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>IsOwnDependentChild</td>
+</tr>
+<tr>
+	<td>IsLooseDepChild</td>
+	<td>
+		Returns 1 if a person is a 'loose dependent child', i.e. fulfils the LooseDepChildCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>IsLooseDependentChild</td>
+</tr>
+<tr>
+	<td>IsDepParent</td>
+	<td>
+		Returns 1 if a person is a 'dependent parent', i.e. fulfils the DepParentCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>
+		IsDependentParent<br>
+		IsDepPar
+	</td>
+</tr>
+<tr>
+	<td>IsDepRelative</td>
+	<td>
+		Returns 1 if a person is a 'dependent relative', i.e. fulfils the DepRelativeCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>
+		IsDependentRelative<br>
+		IsDepRel
+	</td>
+</tr>
+<tr>
+	<td>IsLoneParentOfDepChild</td>
+	<td>
+		Returns 1 if a person is a 'lone parent', i.e. fulfils the LoneParentCond of the assessment unit specification, 0
+		otherwise.<br>
+		See the (summary) description of function DefTU for
+		further details.
+	</td>
+	<td></td>
+	<td>IsSingleParentOfDepChild</td>
+</tr>
+<tr>
+	<td>IsMarried</td>
+	<td>Returns 1 if a person is married, i.e. variable dms = 2, 0 otherwise.</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsCohabiting</td>
+	<td>
+		Returns 1 if a person has a partner, i.e. variable idpartner
+		&gt; 0, and is not married, i.e. variable dms != 2, 0 otherwise.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsWithPartner</td>
+	<td>
+		Returns 1 if a person has a partner, i.e. variable idpartner
+		&gt; 0, irrespective of being married, i.e. the variable dms,
+		0 otherwise.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsInEducation</td>
+	<td>
+		Returns 1 if a person is in education, i.e. variable dec
+		&gt; 0 and variable les = 6, 0 otherwise.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsDisabled</td>
+	<td>
+		Returns 1 if a person is disabled, i.e. variable ddi
+		&gt; 0.
+		If ddi does not exist, ddilv
+		is used and a respective warning is issued.
+		If neither ddi nor ddilv
+		exist the query is ignored (person is considered not disabled) and a
+		respective warning issued.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsCivilServant</td>
+	<td>Returns 1 if a person is a civil servant, i.e. variable lcs = 1, 0 otherwise</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsBlueColl</td>
+	<td>
+		Returns 1 if a person is a blue-collar worker, i.e. variable loc = 6 (skilled agriculture) or 7 (craft worker) or 8
+		(plant operator) or 9 (elementary occupation) or 0 (armed force), 0
+		otherwise.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsParent</td>
+	<td>
+		Returns 1 if this person or its partner has at least one child, i.e. idMother[child] = idPerson[person] or idFather[child]
+		= idPerson[person] or idMother[child] = idPartner[person] or idFather[child] = idPartner[person], 0 otherwise.<br>
+		Note that the query is independent of any assessment unit definition (e.g. as
+		there is no child definition, 'children' have no age limit).
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsParentOfDepChild</td>
+	<td>
+		Returns 1 if:
+		<ul>
+			<li>either at least one 'own dependant child' of the person or its partner belongs to the assessment unit</li>
+			<li>or at least one 'loose dependent child' belongs to the assessment unit and the person is 'Head' or 'Partner'</li>
+		</ul>
+		where:
+		<ul>
+			<li>for being an 'own dependent child' query IsDepChild must apply</li>
+			<li>for being a 'loose dependent child' query IsLooseDepChild must apply</li>
+			<li>for being 'Head' query IsHead must apply</li>
+			<li>for being 'Partner' query IsPartner must apply</li>
+		</ul>
+		0 otherwise.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsLoneParent</td>
+	<td>Is equivalent to IsParent &amp; !IsWithPartner.</td>
+	<td></td>
+	<td>
+		IsLonePar<br>
+		IsSingleParent<br>
+		IsSinglePar
+	</td>
+</tr>
+<tr>
+	<td>nChildrenOfCouple#x</td>
+	<td>
+		Returns the number of a couple's children.<br>
+		<br>
+		For a specific assessment unit 'couple's children' must fulfil each of the
+		following three conditions:
+		<ol>
+			<li>idMother[child] = idPerson[Head]
+			or idMother[child] = idPartner[Head]
+			or idFather[child] = idPerson[Head]
+			or idFather[child] = idPartner[Head]
+			</li>
+			<li>dag[child] &gt;= parameter #_AgeMin</li>
+			<li>dag[child] &lt;= parameter #_AgeMax</li>
+		</ol>
+		where<br>
+		<ul>
+			<li>for being 'Head' query IsHead must apply</li>
+			<li>the head's 'Partner' does not have to be in the same assessment unit</li>
+		</ul>
+		<br>
+		Note that children of the whole household are counted (not just children
+		belonging to the assessment unit) and that no assessment unit specific child
+		definition is applied.
+	</td>
+	<td>
+		#_AgeMin; optional<br>
+		#_AgeMax; optional
+	</td>
+	<td>nChOfCouple</td>
+</tr>
+<tr>
+	<td>nDepChildrenOfCouple#x</td>
+	<td>
+		Returns the number of a couple's dependent children.<br>
+		<br>
+		For a specific assessment unit 'couple's dependent children' must fulfil each
+		of the following five conditions:
+		<ol>
+			<li>query IsDepChild or query IsLooseDepChild applies</li>
+			<li>child is part of the assessment unit</li>
+			<li>idMother[child] = idPerson[Head]
+			or idMother[child] = idPerson[Partner]
+			or idFather[child] = idPerson[Head]
+			or idFather[child] = idPerson[Partner]
+			or idMother[child] = idFather[child]
+			= 0</li>
+			<li>dag[child] &gt;= parameter #_AgeMin</li>
+			<li>dag[child] &lt;= parameter #_AgeMax</li>
+		</ol>
+		where:
+		<ul>
+			<li>for being 'Head' query IsHead must apply</li>
+			<li>for being 'Partner' query IsPartner must apply</li>
+		</ul>
+	</td>
+	<td>
+		#_AgeMin; optional<br>
+		#_AgeMax; optional
+	</td>
+	<td>nDepChOfCouple</td>
+</tr>
+<tr>
+	<td>nPersInUnit#x</td>
+	<td>
+		Returns the number of persons in the assessment unit who fulfil dag &gt;=
+		parameter #_AgeMin and dag&lt;=#_AgeMax.
+	</td>
+	<td>
+		#_AgeMin; optional<br>
+		#_AgeMax; optional
+	</td>
+	<td>
+		npersonsintu<br>
+		nPersonsInTaxunit<br>
+		nPersInTu<br>
+		nPersTaxunit
+	</td>
+</tr>
+<tr>
+	<td>nAdultsInTu#x</td>
+	<td>
+		Returns the number of adults in the assessment unit who fulfil dag &gt;=
+		parameter #_AgeMin and dag &lt;= parameter #_AgeMax.<br>
+		For being counted as adult the query IsDepChild
+		must not apply.
+	</td>
+	<td>
+		#_AgeMin; optional<br>
+		#_AgeMax; optional
+	</td>
+	<td>nAdultsInTaxunit</td>
+</tr>
+<tr>
+	<td>nDepChildrenInTu#x</td>
+	<td>
+		Returns the number of dependent children in the assessment unit who fulfil
+		dag &gt;= parameter #_AgeMin and dag &lt;=
+		parameter #_AgeMax.<br>
+		For being counted as dependent child the query IsDepChild
+		must apply.
+	</td>
+	<td>
+		#_AgeMin; optional<br>
+		#_AgeMax; optional
+	</td>
+	<td>
+		nDepChInTu<br>
+		nDepChildrenInTaxunit<br>
+		nDepChInTaxunit
+	</td>
+</tr>
+<tr>
+	<td>nLooseDepChildrenInTu</td>
+	<td>
+		Returns the number of loose dependent children in the assessment unit.<br>
+		For being counted as loose dependent child the query IsLooseDepChild
+		must apply.
+	</td>
+	<td></td>
+	<td>
+		nLooseDepChInTu<br>
+		nLooseDepChildrenInTaxunit<br>
+		nLooseDepchInTaxunit
+	</td>
+</tr>
+<tr>
+	<td>nDepParentsInTu</td>
+	<td>
+		Returns the number of dependent parents in the assessment unit.<br>
+		For being counted as dependent parent the query IsDepParent
+		must apply.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>nDepRelativesInTu</td>
+	<td>
+		Returns the number of dependent relatives in the assessment unit.<br>
+		For being counted as dependent relative the query IsDepRelative
+		must apply.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>nDepParentsAndRelativesInTu</td>
+	<td>Is equivalent to nDepParentsInTu + nDepRelativesInTu.</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsNtoMchild#x</td>
+	<td>
+		Returns 1 if a person belongs to the n to m
+		oldest dependent children of the assessment unit, 0 otherwise.<br>
+		For being counted as 'dependent child' query IsDepChild
+		must apply.<br>
+		n and m are defined by parameters #_N and #_M. <br>
+		<br>
+		If children are equally aged, they are sorted by idPerson,
+		i.e. children with lower idPerson are considered to be older 
+		than their equally aged siblings.<br>
+		<br>
+		Example:<br>
+		#_N = 2, #_M=4.<br>
+		Assesment unit comprises 6 children aged 12, 10, 8,
+		6, 4 and 2.<br>
+		Condition is fulfilled for the 2nd-oldest (10), the 3rd-oldest (8) and the
+		4th-oldest (6) child.
+	</td>
+	<td>
+		#_M; compulsory<br>
+		#_N; compulsory
+	</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HasMaxValInTu#x</td>
+	<td>
+		Returns 1 if a person has the highest value of a specific variable in the
+		assessment unit, 0 otherwise.<br>
+		Parameter #_val defines the specific value.<br>
+		Parameter #_unique treats the case of several persons with the same highest
+		value: If set to yes, the return value is 1 for the person first occurring in
+		the dataset only, otherwise for all persons with this value.<br>
+		If parameter #_adults_only is set to yes dependent
+		children cannot be selected unless there is no adult in the assessment unit.
+		For being regarded a 'dependent child' query IsDepChild
+		must apply.
+	</td>
+	<td>
+		#_val; compulsory<br>
+		#_unique; optional<br>
+		#_adults_only; optional
+	</td>
+	<td>IsRichestInTu</td>
+</tr>
+<tr>
+	<td>HasMinValInTu#x</td>
+	<td>
+		Returns 1 if a person has the lowest value of a specific variable in the
+		assessment unit, 0 otherwise.<br>
+		Parameter #_val defines the specific value.<br>
+		Parameter #_unique treats the case of several persons with the same lowest
+		value: If set to yes, the return value is 1 for the person first occurring in
+		the dataset only, otherwise for all persons with this value.<br>
+		If parameter #_adults_only is set to yes dependent
+		children cannot be selected unless there is no adult in the assessment unit.
+		For being regarded a 'dependent child' query IsDepChild
+		must apply.
+	</td>
+	<td>
+		#_val; compulsory<br>
+		#_unique; optional<br>
+		#_adults_only; optional
+	</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetPartnerIncome#x</td>
+	<td>
+		Returns the income of a person's partner.<br>
+		The partner is defined as the person in household whose 'idperson' equals the concerned person's 'idpartner'.<br>
+		Parameter #_income defines the relevant income (as variable or incomelist).<br>
+		Note that the query is independent of any assessment unit definition (and being married).<br>
+		Also note that the query returns zero if there is no partner.<br>
+		Finally note that the query has an alias 'GetPartnerInfo' which is supposed to be used when a non-monetary information upon the partner is requested (e.g. age).<br>
+		There is however no real difference (i.e. GetPartnerIncome and GetPartnerInfo return the same result).
+	</td>
+	<td>#_income; compulsory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetCoupleIncome#x</td>
+	<td>
+		Returns the income of a person and her/his partner.<br>
+		The partner is defined as the person in household whose 'idperson' equals the concerned person's 'idpartner'.<br>
+		Parameter #_income defines the relevant income (as variable or incomelist).<br>
+		Note that the query is independent of any assessment unit definition (and being married).<br>
+	</td>
+	<td>#_income; compulsory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetParentsIncome#x</td>
+	<td>
+		Returns the income of a person's (both) parents.<br>
+		The parents are defined as the persons in household whose 'idperson' equals the concerned person's 'idfather' or 'idmother'.<br>
+		Parameter #_income defines the relevant income (as variable or incomelist).<br>
+		Note that the query is independent of any assessment unit definition.<br>
+		Also note that the query returns zero if there are no parents, respectively the income of one parent if there is only one.<br>
+	</td>
+	<td>#_income; compulsory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetMotherIncome#x</td>
+	<td>
+		Returns the income of a person's mother.<br>
+		The mother is defined as the person in household whose 'idperson' equals the concerned person's 'idmother'.<br>
+		Parameter #_income defines the relevant income (as variable or incomelist).<br>
+		Note that the query is independent of any assessment unit definition.<br>
+		Also note that the query returns zero if there is no mother.<br>
+		Finally note that the query has an alias 'GetMotherInfo' which is supposed to be used when a non-monetary information upon the mother is requested (e.g. age).<br>
+		There is however no real difference (i.e. GetMotherIncome and GetMotherInfo return the same result).
+	</td>
+	<td>#_income; compulsory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetFatherIncome#x</td>
+	<td>
+		Returns the income of a person's father.<br>
+		The father is defined as the person in household whose 'idperson' equals the concerned person's 'idfather'.<br>
+		Parameter #_income defines the relevant income (as variable or incomelist).<br>
+		Note that the query is independent of any assessment unit definition.<br>
+		Also note that the query returns zero if there is no father.<br>
+		Finally note that the query has an alias 'GetFatherInfo' which is supposed to be used when a non-monetary information upon the father is requested (e.g. age).<br>
+		There is however no real difference (i.e. GetFatherIncome and GetFatherInfo return the same result).
+	</td>
+	<td>#_income; compulsory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetOwnChildrenIncome#x</td>
+	<td>
+		Returns the income of a person's children (all of them).<br>
+		The children are defined as persons in household whose 'idfather' or 'idmother' equals the concerned person's 'idperson'.<br>
+		Parameter #_income defines the relevant income (as variable or incomelist).<br>
+		Note that the query is independent of any assessment unit definition.<br>
+		Also note that the query returns the sum of all children's income and zero if there are no children.<br>
+	</td>
+	<td>#_income; compulsory</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetSystemYear</td>
+	<td>
+		The query tries to extract the system's year from the system's name, by
+		searching for 4 subsequent digits, and returns the result if found, -1
+		otherwise.
+	</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetDataIncomeYear</td>
+	<td>Returns the income year of the applied dataset.</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsOutputCurrencyEuro</td>
+	<td>Returns 1 if the output currency of the system is Euro, 0 if national currency.</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsParamCurrencyEuro</td>
+	<td>Returns 1 if the system is parametrised in Euro, 0 if in national currency.</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>GetExchangeRate</td>
+	<td>Returns system's exchange rate from euro to national currency.</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>IsUsedDatabase#x</td>
+	<td>
+		Returns 1 if a specific database is the database used by the current run.<br>
+		Parameter #_DataBasename defines the respective
+		database. The wildcards * and ? can
+		be used, where * stands for any character and ? stands
+		for one arbitrary character (e.g. be_20*_v?).
+	</td>
+	<td>#_DataBasename; compulsory</td>
+	<td></td>
+</tr>
+</table>
+
+</div>
+
+</body>
+
+</html>

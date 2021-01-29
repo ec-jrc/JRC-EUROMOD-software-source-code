@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Exporting & Importing Systems</title>
+</head>
+
+<body>
+
+<h1>Exporting & Importing Systems</h1>
+
+<h4>Exporting systems</h4>
+<p>To export (a) system(s), select the ribbon <i>Country Tools</i> and click the button <i>Export System(s)</i>. In the appearing
+dialog select the system(s) you want to export and indicate an <i>Export folder</i>. You can use the button beside
+the field to open a file search dialog, allowing for selecting a respective
+path. If you want to remove the exported systems from the country select <i>Export and delete</i>, if you want to export
+the systems without removing them select <i>Export
+only</i>. Click <i>OK</i> to start the
+procedure.</p>
+
+<p>The export procedure creates a folder named after the
+country's short name (e.g. a folder &quot;DK&quot; if systems are exported from
+Denmark), which encloses parameter files, which contain the exported systems.
+In fact the procedure is very similar to the save-as procedure (see <a
+href="EM_WW_Saving.htm">Working with EUROMOD - Saving, saving as and auto-saving</a>), with mainly two differences. Firstly
+(and obviously) the not exported systems are removed from the &quot;export
+country's&quot; parameter files and, if the option<i> Export and delete</i> was selected, the exported systems are removed
+from the origin country's parameter files. Secondly (and less obviously) the
+origin country's as well as the export country's parameter files are
+&quot;cleaned&quot;. That means all policies, functions or parameters, which
+contain only <i>n/a</i>
+values for all remaining systems, are removed. To understand this, imagine
+having implemented a reform scenario by using many new policies, functions and
+parameters. If the reform's system is exported (for later use or storage
+purposes) it would leave a lot of garbage in the country's parameter files. If
+however all elements only used for the reform are set to <i>n/a</i> in all other systems, the
+export procedure cares for their removal.</p>
+
+<p>Note that the export procedure also stores the data
+configurations of the exported systems, and, if the option<i> Export and delete</i> was selected, deletes them in the country's
+parameter file.</p>
+
+<h4>Importing systems</h4>
+
+<p>To import systems to a country select the ribbon <i>Country Tools</i> and click the button <i>Import System(s)</i>. In the appearing
+dialog first select the folder where the systems are stored by using the folder
+button. This could be either a folder created by the export procedure (see
+above) or a folder created with the <i>Save
+As</i> procedure (see <a href="EM_WW_Saving.htm">Working with EUROMOD - Saving,
+saving as and auto-saving</a>) or even another
+country's folder. Once an appropriate folder is selected, the systems contained
+in the respective parameter files are displayed in the <i>Systems</i> list. Select one or more systems and click <i>OK</i> to start the procedure.</p>
+
+<p>The import procedure has to match the imported system(s)
+with the systems already included in the country's parameter file. That means,
+in order to present them in the country's spine, it has to add policies,
+functions or parameters, which only exist in the imported systems. These
+elements are set to <i>n/a</i>
+in the existing systems, amongst others, to allow for &quot;tidy&quot; removal
+with the export procedure (see above).</p>
+
+<p>Note that the import procedure asks for a name for an
+imported system (only) if a system with the same name already exists. Moreover,
+if the country of the imported system(s) does not correspond with the import
+country, the procedure asks whether the polices should be renamed respectively,
+i.e. for example from <i>ILDef_ee</i>
+to <i>ILDef_hu</i>,
+<i>tin_ee</i> to <i>tin_hu</i>, <i>bsa_ee</i> to <i>bsa_hu</i>, etc. if
+an Estonian system is imported to Hungary. This allows aligning the respective
+policies side by side.</p>
+
+<p>Note that the import procedure also imports the data
+configurations of the imported systems, if it finds respective information in
+the import parameter files.</p>
+
+<p>Also note that the import dialog offers a checkbox <i>Match by Unique Identifier</i>. The box is
+only enabled when such an import is possible, for which the first (but not
+only) condition is, that the systems are imported from another version of the
+same country. For further details please consult <a
+href="EM_WW_ComparingCountryVersions.htm">Working with EUROMOD - Comparing
+versions of a country</a>, paragraph <i>Importing</i><i> systems by
+matching unique identifiers</i>.</p>
+
+<p>Finally note that the changes caused by importing or
+exporting systems cannot be undone by using the undo functionality. However,
+the user interface produces a backup before starting the action, which can be
+restored via the button <i>Restore</i> in
+the ribbon <i>Country Tools</i>. For more
+information see (<a href="EM_WW_BackupRestore.htm">Working with EUROMOD - Backup
+- Restore</a>).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

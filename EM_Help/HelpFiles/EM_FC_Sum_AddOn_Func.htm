@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function AddOn_Func</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function AddOn_Func</h1>
+<p>Add-on function: Allows for adding a function.</p>
+
+<h4>Function Specific Parameters</h4>
+
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Id_Func</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Identifier of the function to insert.<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+	<tr>
+		<td>Insert_Before_Func</td>
+		<td>text</td>
+		<td>yes (if Insert_After_Func is not defined)</td>
+		<td>yes</td>
+		<td>Insert_After_Func</td>
+		<td>Identifier of the function before which the add-on function should be inserted.<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+	<tr>
+		<td>Insert_After_Func</td>
+		<td>text</td>
+		<td>yes (if Insert_Before_Func is not defined)</td>
+		<td>yes</td>
+		<td>Insert_Before_Func</td>
+		<td>Identifier of the function after which the add-on function should be inserted.<br>(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+	</tr>
+</table>
+
+</body>
+</html>

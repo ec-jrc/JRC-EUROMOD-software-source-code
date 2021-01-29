@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Defining Indirect Tax Rates and Excises Prices</title>
+</head>
+
+<body>
+
+<h1>Defining Indirect Tax Rates and Excises Prices</h1>
+
+<p>The user interface provides support for defining indirect tax rates and excises prices based on a respective table.</p>
+
+<table class="info">
+	<tr>
+		<th>Index</th>
+		<th>2015</th>
+		<th>2020</th>
+		<th>Comment</th>
+	</tr>
+	<tr>
+		<td>$VAT_zero</td>
+		<td>0%</td>
+		<td>0%</td>
+		<td>VAT zero rate</td>
+	</tr>
+	<tr>
+		<td>$VAT_std</td>
+		<td>24%</td>
+		<td>20%</td>
+		<td>Standard VAT rate</td>
+	</tr>
+	<tr>
+		<td>$PRICE_WINE</td>
+		<td>n/a</td>
+		<td>6.37</td>
+		<td>Average price of wine, per lt</td>
+	</tr>
+</table>
+
+<h4>Generating the table</h4>
+
+<p>The table is filled in via a dialog opened by clicking the button <i>Indirect Taxes</i> in the ribbon <i>Country Tools</i>.</p>
+
+<p>To add a tax-rate/excise-price to the table just fill the last, empty row respectively. This will automatically generate another empty row for a further tax-rate/excise-price.</p>
+
+<p>To delete a tax-rate/excise-price select the respective row by clicking its column-header (the whole line will be marked by blue background). Then press the <i>Delete</i> key. 
+For deleting several rows use the <i>Ctrl</i> and <i>Shift</i> keys as usual to select the rows. Then press <i>Delete</i>.</p>
+
+<p>To add years (i.e. columns) to the table, fill the year in the field above the button <i>Add Year</i> to then press the button. 
+Use the button <i>Delete Year</i> to delete the year selected in the combo-box above the button. Year columns can be shifted by using the mouse to drag them to the desired location.</p>
+
+<p>In order to paste values into the table (e.g. from Excel), firstly select the respective cells. Then use <i>Ctrl-V</i> (or <i>Shift-Insert</i>) for pasting. 
+Similarly, to copy values from the table to the clipboard, firstly select the respective cells, to then use <i>Ctrl-C</i> (or <i>Ctrl-Insert</i>) for copying.</p>
+
+<p>Pressing the button <i>Save & Close</i> will, after a (successful) check for validity, store the definitions in the table.</p>
+
+<h4>Using the definitions</h4>
+
+<p>As the table provides different values based on a year, it needs to be decided which of these values is used for a concrete run. 
+This decision is taken based on the used dataset: The <a href="EM_WW_ConfiguringDatasets.htm">dialog for configuring datasets</a> provides a field <i>Ind.Tax Table Year</i> for this purpose. 
+By filling in a year, each run using this dataset will use the values in the table as defined for this year.</p>
+
+<p>Most likely the definitions will be used in <i><a href="EM_FC_IlArithOp.htm">IlArithOp</a></i> functions. 
+However, in fact the factors can in general be used like constants (defined by <i><a href="EM_FC_DefVar_DefConst.htm">DefConst</a></i> functions).
+The only particularity is, that the constants will adopt different values dependent on the used dataset.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

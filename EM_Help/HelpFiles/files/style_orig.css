@@ -1,0 +1,276 @@
+body, p, div, span, td, tr, th, li, a, h1, h2, h3, h4, h5, h6
+{
+	font-family: "Arial";
+	font-size: 10pt;
+}
+
+p, div, span, td, tr, th, li, a, h1, h2, h3, h4, h5, h6
+{
+	margin-top: 0cm;
+	margin-right: 0cm;
+	margin-bottom: 6pt;
+	margin-left: 0cm;
+	text-align: justify;
+	line-height: 130%;
+}
+h1
+{
+	font-size: 14pt;
+	color: #FF3333;
+	font-style: italic;
+	margin-top: 12pt;
+	margin-bottom: 12pt;
+}
+h4
+{
+	font-size: 12pt;
+	font-weight: bold;
+	color: #4444AA;
+	margin-top: 12pt;
+	margin-bottom: 6pt;
+}
+h5
+{
+	font-size: 11pt;
+	font-weight: bold;
+	color: #336699;
+	margin-top: 12pt;
+	margin-bottom: 6pt;
+	font-style: italic;
+}
+
+.h5
+{
+	font-size: 11pt;
+	font-weight: bold;
+	color: #336699;
+	font-style: italic;
+}
+
+h6
+{
+	font-size: 10pt;
+	font-weight: bold;
+	color: #222266;
+	margin-top: 12pt;
+	margin-bottom: 6pt;
+}
+
+strong
+{
+	color: #222266;
+}
+
+.h6
+{
+	font-size: 10pt;
+	font-weight: bold;
+	color: #222266;
+}
+
+ul, ol
+{
+	margin-bottom: 24pt;
+}
+
+ul h5, ol h5
+{
+	display: inline;
+}
+
+table
+{
+	border-collapse: separate;
+	border-color: grey;
+	margin-bottom: 18pt;
+}
+
+table tr th, table tr td, table tr
+{
+	padding: 5pt;
+}
+
+table.spine
+{
+	border: 1pt solid black;
+	border-collapse: collapse;
+}
+
+table.info
+{
+	border: 2pt solid black;
+	border-collapse: collapse;
+}
+
+table.error, table.footnote
+{
+	margin-left: 15pt;
+	border: none;
+	border-collapse: collapse;
+}
+
+table.error tr td
+{
+	font-family: "Courier New";
+	padding: 1pt 20pt 1pt 1pt;
+	font-size: 7pt;
+}
+
+table.footnote tr td
+{
+	padding: 1pt;
+}
+
+table.spine tr th, table.spine , table.spine tr td, table.spine tr
+{
+	padding: 2pt 10pt 2pt 10pt;
+	border: 1pt solid black;
+}
+
+table.spine tr th, table.spine caption, table.spine tr td, table.spine tr td *
+{
+	font-family: "Verdana","sans-serif";
+	font-size: 10pt;
+}
+
+table.spine tr.policy td, table.spine tr.policy
+{
+	font-size: 11pt;
+	background-color: #ffffff;
+	color: #000066;
+	font-weight: normal;
+	font-style: italic;
+}
+
+table.spine tr.policy td.system
+{
+	font-weight: bold;
+	font-style: normal;
+}
+
+table.spine tr.function, table.spine tr.function td
+{
+	background-color: #CCC0D9;
+	font-weight: bold;
+}
+
+
+table.info tr th, table.info tr, table.info tr td
+{
+	color: #000000;
+	padding: 2pt 10pt 2pt 10pt;
+	border: 1pt solid black;
+}
+
+table.info tr th, table.info caption, table.info tr td, table.info tr td *
+{
+	font-family: "Verdana","sans-serif";
+	font-size: 10pt;
+}
+
+table.info tr th
+{
+	background-color: #8DB3E2;
+	font-weight: bold;
+}
+
+table.info tr td, table.info tr td
+{
+	background-color: #ffffff;
+	font-weight: normal;
+}
+
+table.info tr th.light
+{
+	font-weight: normal;
+	font-style: italic;
+}
+
+table.info tr th.error, table.info tr td.error
+{
+	font-weight: bold;
+	color: #EE0000;
+}
+table.info tr th.warning, table.info tr td.warning
+{
+	font-weight: bold;
+	color: #F6800A;
+}
+
+table.info tr th, table.info tr td, table.info tr td *
+{
+	text-align: center;
+}
+
+table.info.left tr th, table.info.left tr td, table.info.left tr td *
+{
+	text-align: left;
+}
+
+table.info td ul
+{
+	display: block;
+}
+
+table.info td ul li
+{
+	text-align: left;
+}
+
+table tr.separate
+{
+	border-top-width: 2pt;
+}
+
+th
+{
+	background-color: #8DB3E2;
+	color: #000000;
+}
+
+.on
+{
+	color: #00B050;
+}
+
+.off
+{
+	color: #B05000;
+}
+
+.toggle
+{
+	color: #A0A000;
+}
+
+.changed, table.spine tr td.changed, table.spine tr.policy td.changed, table.spine tr.function td.changed
+{
+	background-color: #FFCC00;
+}
+
+.EM3only
+{
+	color:MediumSeaGreen;
+}
+
+a:link
+{
+	color:blue;
+	text-decoration: underline;
+	text-underline: single;
+}
+a:visited
+{
+	color: purple;
+	text-decoration: underline;
+	text-underline: single;
+}
+p.footnote, p.footnote a, .footnote *
+{
+	font-size: 8pt;
+}
+caption
+{
+	font-style: italic;
+	text-align: left;
+}

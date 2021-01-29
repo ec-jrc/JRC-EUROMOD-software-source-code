@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The policy function Allocate</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The policy function Allocate</h1>
+
+<p>As outlined in section <a href="EM_FC_ParameterValues.htm">EUROMOD Functions - Parameter
+values and the assessment unit</a>, the result of a function is in first
+instance assigned to the head of the assessment unit. This behaviour may
+sometimes be unwanted. As an example assume a family benefit, which is in
+reality assigned to the mother. More often than not the father earns more than
+the mother and therefore, in the model, he is the head of the assessment unit
+to whom the benefit is assigned initially. The function Allocate
+allows &quot;correcting&quot; this assignment by providing possibilities to
+reallocate amounts between members of assessment units. Example 1 shows the
+simplest application of the function.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Allocate</td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share</td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In the example the variable <i>bfa_s</i>
+(b=benefit, fa=family, s=simulated) indicated by the parameter <i>share</i> is reallocated. The function Allocate accomplishes this by firstly building the sum of
+the variable over all members of the assessment unit, to afterwards “share”
+this sum between assessment unit members with respect to the rules defined by
+the respective parameter settings. In the example no special rules are defined,
+therefore the default applies, which is sharing between all members of the
+assessment unit.</p>
+
+<p>To make the
+example more realistic example 2 extends example 1 by the parameter <i>share_between</i>, which is set to <i>!{IsDepChild}</i>. That means that sharing
+now involves only adult members of the assessment unit, i.e. children do not
+get a share (where being a child/adult is determined by the assessment unit’s
+child definition). In most cases this would mean, that a family benefit, which
+was assigned in first instance to the father is shared between both parents.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Allocate</td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share</td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share_between</td>
+		<td>!{IsDepChild}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p><a name="_Ref143712994">Example 3 illustrates a more complex
+reallocation. Tax credits as defined by incomelist <i>il_taxcredits</i> (parameter <i>share</i>)
+are shared between members of the assessment unit in proportion to their
+taxable income as defined by incomelist <i>il_taxableY</i>
+(parameter <i>share_prop</i>). The result is
+written to the variable <i>tintc_s</i>
+(t=tax, in=income, tc=tax credit) as defined by parameter <i>output_var</i>. The parameter <i>share_equ_ifzero</i>
+handles the case that no member of the assessment unit has any taxable income.
+If the parameter is set to <i>yes</i> equal
+sharing takes place, if it is set to <i>no</i>
+or omitted an error message is issued for assessment units without taxable
+income. Note that no error message is issued if there is nothing to share, i.e.
+if there are no tax credits for any member of the assessment unit.</a></p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Allocate</td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share</td>
+		<td>il_taxcredits</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share_prop</td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share_equ_ifzero</td>
+		<td>yes</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>tintc_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>Example 4 illustrates that rather
+complex reallocations are possible if the full capacity of the parmeter <i>share_between</i> is utilised. <i>share_between</i> is a condition parameter,
+i.e. follows the same syntax as the parameter elig_cond
+of function elig. The parameter <i>share_all_ifnoelig</i> handles the case that no assessment unit member
+fulfils the conditions set in parameter <i>share_between</i>.
+If set to <i>yes</i> or omitted sharing
+takes place among all members of the assessment unit, if set to <i>no</i> the output variable is set to zero.
+Note, that special care must be taken to avoid “vanishing” benefits or taxes if
+<i>share</i> and <i>output_var</i> refer to the same variable and <i>share_all_ifnoelig</i> is set to <i>no</i>.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Allocate</td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share</td>
+		<td>sin01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share_between</td>
+		<td>{dgn=0} & !{IsDepChild} & {IsInEductaion}</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>share_all_ifnoelig</td>
+		<td>no</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>sin02_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Finally note, that Allocate always operates on
+all members of the assessment unit. That means that the parameter who_must_be_elig is not applicable.</p>
+
+<h5>The phase-out function Allocate_F210</h5>
+
+<p>Allocate underwent several changes which
+also changed the default behaviour of the function. As the former version is
+still used in some countries' parameter files, a phase-out function Allocate_F210 was introduced, which temporarily maintains
+the old behaviour. Allocate_F210 will be removed as
+soon as there are no applications left in any parameter files. Meanwhile a
+warning is issued with respect to its phase-out nature.</p>
+
+<p>There are the following differences between Allocate and Allocate_F210:</p>
+<ul>
+	<li>With Allocate_F210, if the amount to be shared is defined by a
+	variable, it is not compulsory to indicate an output variable (by parameters output_var or output_add_var).
+	If no output variable is defined the variable to share is also the variable
+	where the function result is written to.</li>
+	<li>Allocate_F210 provides a parameter adults_only. If set to yes reallocation involves only adult members of the
+	assessment unit. Note that the default setting of the parameter is yes.</li>
+	<li>With Allocate_F210 an error message is issued if the parameter share_all_ifnoelig is set to no
+	and there are no “eligible” persons with respect to the condition defined by share_between. The default setting of the parameter is no.<a href="#_ftn1"
+	name="_ftnref1" title="">[1]</a></li>
+</ul>
+<p>Hint: The
+default behaviour of Allocate_F210 almost can be
+obtained by Allocate with the following parameter
+settings: output_var set to the same variable as share; share_between set to !{IsDepChild}; share_all_ifnoelig
+set to no. There is still an important difference:
+if there are no adults in the assessment unit, Allocate
+sets the output variable to zero while Allocate_F210
+shares between all members of the assessment unit, i.e. including children.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<div>
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> If there are no
+&quot;eligible&quot; persons with respect to <i>share_between</i> and <i>share_all_ifnoelig</i>
+is set to <i>yes</i> as well as <i>adults only</i> sharing takes place among
+all adults. If there are no adults, the head gets all.</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

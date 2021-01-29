@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Footnote parameters for the further specification of operands</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Footnote parameters for the further specification of operands</h1>
+
+<p>The operands of formula parameters and condition parameters
+may be &quot;further specified&quot; by using so called footnotes and
+respective footnote parameters. Explanations and examples below illustrate what
+this means and introduce another bunch of common parameters, as footnote
+parameters are applicable with several functions (more specific, with all
+functions providing formula and/or condition parameters<a href="#_ftn1" name="_ftnref1" title="">[1]</a>).</p>
+
+<h4>Further specification of operands by footnotes: limits</h4>
+
+<p>Besides showing how to apply limits not only on the function
+result (as by parameters lowlim,
+uplim and threshold) but also on single operands, example 1
+illustrates the usage of footnotes.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>func_ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>yem#1 * 0.1 + yse#2 * 0.15</td>
+		<td>10% of employment and 15% of self-employment income</td>
+	</tr>
+	<tr>
+		<td>#_uplim</td>
+		<td>1</td>
+		<td>20000#y</td>
+		<td>upper limit for employment income</td>
+	</tr>
+	<tr>
+		<td>#_uplim</td>
+		<td>2</td>
+		<td>30000#y</td>
+		<td>upper limit for self-employment income</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>sin01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>The example calculates 10% of
+employment income (yem)
+and 15% of self-employment income (yse)
+as the function's result, where an upper limit of 20,000 Euro annually is set
+for employment income and an upper limit of 30,000 Euro annually for
+self-employment income. The #1 and #2 in the formula indicate, that the operands yem and yse
+are to be further specified, while the parameters #_uplim, <i>Grp</i><i>/No 1</i> and #_uplim, <i>Grp</i><i>/No 2</i> conduct this further specification, in this case by defining
+the mentioned limits.</p>
+
+<p>Note that, footnotes can apply any integer number, e.g.
+using #4711 and #_uplim, <i>Grp</i><i>/No 4711</i>
+instead of #1 and #_uplim, <i>Grp</i><i>/No 1</i> would be
+possible as well. Also note that, footnotes can be used more than once: if the
+upper limit for employment income and self-employment income were the same, one
+could write the formula as yem#1*0.1+yse#1*0.15
+and omit the parameter #_uplim,
+<i>Grp</i><i>/No 2</i>.</p>
+
+<h4>Further specification of operands by footnotes: amounts</h4>
+
+<p>If there is more than one system it is sometimes more
+transparent to indicate amounts outside the formula.
+Example 2 illustrates the issue.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td class="system">SL_reform</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>func_ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>amount#1 + yem*amount#2</td>
+		<td>amount#1 + yem*amount#2</td>
+		<td>function results to</td>
+	</tr>
+	<tr>
+		<td>#_amount</td>
+		<td>1</td>
+		<td>10000#y</td>
+		<td class="changed">15000#y</td>
+		<td>a basic amount</td>
+	</tr>
+	<tr>
+		<td>#_amount</td>
+		<td>2</td>
+		<td>0.1</td>
+		<td class="changed">0.15</td>
+		<td>plus x% of empl. income</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>sin01_s</td>
+		<td>sin01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>It would as well be possible to
+write the formulas as 10000#y + yem*0.1 for the system SL_demo and 15000#y + yem*0.15 for SL_reform,
+but with this approach the differences between the base and the reform system
+would be less transparent. Apparently, this matter becomes especially
+significant, with a rather complex formula and the
+implementation of several policy years. Therefore, good modelling practise
+suggests to thoroughly considering, whether to pack
+amounts, which tend to change with the policy year within the formula or outside.</p>
+
+<h4>Further specification of operands by footnotes: assessment units</h4>
+
+<p>Section <a href="EM_FC_ParameterValues.htm">EUROMOD
+Functions - Parameter values and the assessment unit</a> discussed the
+interpretation of operands (variables, incomelists
+and queries) if they are used with assessment units, which comprise more than
+one person, and announced the possibility of changing the function's assessment
+unit (indicated by parameter TAX_UNIT) for single
+operands. Example 3 now illustrates this possibility.</p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>func_ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>IsInEducation * xed – ils_dispy#1 / 3</td>
+		<td>individual level education benefit</td>
+	</tr>
+	<tr>
+		<td>#_level</td>
+		<td>1</td>
+		<td>tu_sben_family_sl</td>
+		<td>financing expenditure on education</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td></td>
+		<td></td>
+		<td>with means test on family level</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bun_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>func_ArithOp</td>
+		<td></td>
+		<td class="off">off</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>IsInEducation#1 * xed#1 – ils_dispy / 3</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_level</td>
+		<td>1</td>
+		<td>tu_individual_sl</td>
+		<td>does not work !!!</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td></td>
+		<td>0</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bun_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Both functions in example 3 seem to
+calculate a benefit, which finances people's expenditure on education (xed). The assessment unit of the
+first function is individual. That means, if the footnote was ignored, all
+education expenditure of a person in education going beyond a third of her/his
+personal disposable income (ils_dispy)
+would be financed. With the footnote #1 applied on
+the operand ils_dispy and
+the specifying parameter #_level, Grp/No
+1 defining tu_sben_family_sl
+as the relevant assessment unit, the means test is extended to family's
+disposable income, i.e. only education expenditure going beyond a third of the
+family's disposable income is financed. Note, that the level
+of education expenditure is not changed, i.e. the benefit still concerns the person's
+education expenditure.</p>
+
+<p>The second function looks like doing the same thing the
+other way round, but that's not quite true. In fact it would lead to the
+following warning – therefore it is switched off: &quot;Assessment unit cannot
+be used as alternative level. (Only assessment units containing the function's
+main assessment unit are allowed ...); Handling:
+Alternative level is ignored&quot;. The main assessment unit of the function is
+<i>tu_sben_family_sl</i>,
+i.e. some definition of the family. Thus the warning says that only assessment
+units containing the family are allowed, and obviously an individual’s family
+is not part of the individual (but the other way round). But why is this problematic?
+The answer is, that the programme would not know <i>which</i> individual in the family and therefore
+prefers to ignore the level change over possibly causing confusion by doing
+something arbitrary. That means level changes are only possible to bigger (comprising)
+units (in the example e.g. the whole household) but not to smaller (sub) units.</p>
+
+<p>This bad example demonstrates the clubfoot of the high
+flexibility offered by adaptable definitions of assessment units in general and
+by the possibility of applying them on the most detailed level in particular,
+and suggests using these options with great care, especially with respect to
+transparency.</p>
+
+<h4>Further specification of operands by footnotes: specification of queries</h4>
+
+<p>A few queries need or allow for further specification. For example for the query GetPartnerIncome
+a specification of &quot;income&quot; is necessary. Example 4 illustrates how
+such specifications are established.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>func_ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>nDepChildrenInTaxunit#1</td>
+		<td>count the number of dependent children</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>1</td>
+		<td>10</td>
+		<td>aged 10 to 16</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>2</td>
+		<td>16</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>The example calculates the number of
+dependent children aged between 10 and 16 in the family. nDepChildrenInTaxunit is a
+query that counts the dependent children in the assessment unit. It has two
+optional parameters, #_AgeMin and
+#_AgeMax, which are set to
+10 respectively 16 in the example. To find out which queries require or allow
+for further specification see section <a href="EM_FC_Queries.htm">EUROMOD
+Functions - Queries</a>.</p>
+
+<h4>Further specification of operands by footnotes: types</h4>
+
+<p>For the sake of completeness the following example illustrates
+a rarely applicable usage of footnotes. In principle EUROMOD automatically
+finds out whether a non-numeric operand is a variable, an incomelist
+or a query. If there is however an ambiguity because a variable and an incomelist have the same name, the type of an operand can
+be explicitly defined. As such equal naming is in fact bad modelling style (not
+least as names of incomelists should always start
+with il
+or ils) the usage of this
+functionality should be exceptional. Example 5 shows how to (unnecessarily)
+define yem as a variable.
+Allowed parameter values are var
+(or variable), il (or incomelist)
+and query.</p>
+
+<table class="spine">
+	<caption>Example 5:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>func_ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>yem#1 * 0.1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_type</td>
+		<td>1</td>
+		<td>var</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>Note that in conditions footnotes can be placed either inside
+the curly brackets, i.e. <i>{A#x}</i> or outside <i>{A}#x</i>. Internally the model changes <i>{A}#x</i> to <i>{A#x}</i>,
+respectively <i>{A &lt; B}#x</i> to <i>{A#x &lt; b#x}</i>.</p>
+
+</div>
+
+</body>
+
+</html>

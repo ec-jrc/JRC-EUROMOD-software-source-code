@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataConfig" targetNamespace="http://euromod.com/DataConfig.xsd" xmlns:mstns="http://euromod.com/DataConfig.xsd" xmlns="http://euromod.com/DataConfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataConfig" msdata:IsDataSet="true" msdata:Locale="en" msdata:EnforceConstraints="False" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataConfig" msprop:Generator_UserDSName="DataConfig">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataBase" msprop:Generator_TableClassName="DataBaseDataTable" msprop:Generator_TableVarName="tableDataBase" msprop:Generator_TablePropName="DataBase" msprop:Generator_RowDeletingName="DataBaseRowDeleting" msprop:Generator_RowChangingName="DataBaseRowChanging" msprop:Generator_RowEvHandlerName="DataBaseRowChangeEventHandler" msprop:Generator_RowDeletedName="DataBaseRowDeleted" msprop:Generator_UserTableName="DataBase" msprop:Generator_RowChangedName="DataBaseRowChanged" msprop:Generator_RowEvArgName="DataBaseRowChangeEvent" msprop:Generator_RowClassName="DataBaseRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="Comment" msprop:Generator_ColumnVarNameInTable="columnComment" msprop:Generator_ColumnPropNameInRow="Comment" msprop:Generator_ColumnPropNameInTable="CommentColumn" msprop:Generator_UserColumnName="Comment" type="xs:string" minOccurs="0" />
+              <xs:element name="YearCollection" msprop:Generator_ColumnVarNameInTable="columnYearCollection" msprop:Generator_ColumnPropNameInRow="YearCollection" msprop:Generator_ColumnPropNameInTable="YearCollectionColumn" msprop:Generator_UserColumnName="YearCollection" type="xs:string" minOccurs="0" />
+              <xs:element name="YearInc" msprop:Generator_ColumnVarNameInTable="columnYearInc" msprop:Generator_ColumnPropNameInRow="YearInc" msprop:Generator_ColumnPropNameInTable="YearIncColumn" msprop:Generator_UserColumnName="YearInc" type="xs:string" minOccurs="0" />
+              <xs:element name="Currency" msprop:Generator_ColumnVarNameInTable="columnCurrency" msprop:Generator_ColumnPropNameInRow="Currency" msprop:Generator_ColumnPropNameInTable="CurrencyColumn" msprop:Generator_UserColumnName="Currency" type="xs:string" minOccurs="0" />
+              <xs:element name="FilePath" msprop:Generator_ColumnVarNameInTable="columnFilePath" msprop:Generator_ColumnPropNameInRow="FilePath" msprop:Generator_ColumnPropNameInTable="FilePathColumn" msprop:Generator_UserColumnName="FilePath" type="xs:string" minOccurs="0" />
+              <xs:element name="DecimalSign" msprop:Generator_ColumnVarNameInTable="columnDecimalSign" msprop:Generator_ColumnPropNameInRow="DecimalSign" msprop:Generator_ColumnPropNameInTable="DecimalSignColumn" msprop:Generator_UserColumnName="DecimalSign" type="xs:string" minOccurs="0" />
+              <xs:element name="Private" msprop:Generator_ColumnVarNameInTable="columnPrivate" msprop:Generator_ColumnPropNameInRow="Private" msprop:Generator_ColumnPropNameInTable="PrivateColumn" msprop:Generator_UserColumnName="Private" type="xs:string" minOccurs="0" />
+              <xs:element name="UseCommonDefault" msprop:Generator_ColumnVarNameInTable="columnUseCommonDefault" msprop:Generator_ColumnPropNameInRow="UseCommonDefault" msprop:Generator_ColumnPropNameInTable="UseCommonDefaultColumn" msprop:Generator_UserColumnName="UseCommonDefault" type="xs:string" default="&quot;no&quot;" minOccurs="0" />
+              <xs:element name="ReadXVariables" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="ReadXVariables" msprop:Generator_ColumnVarNameInTable="columnReadXVariables" msprop:Generator_ColumnPropNameInTable="ReadXVariablesColumn" msprop:Generator_UserColumnName="ReadXVariables" type="xs:string" minOccurs="0" />
+              <xs:element name="ListStringOutVar" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="ListStringOutVar" msprop:Generator_ColumnVarNameInTable="columnListStringOutVar" msprop:Generator_ColumnPropNameInTable="ListStringOutVarColumn" msprop:Generator_UserColumnName="ListStringOutVar" type="xs:string" minOccurs="0" />
+              <xs:element name="IndirectTaxTableYear" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="IndirectTaxTableYear" msprop:Generator_ColumnVarNameInTable="columnIndirectTaxTableYear" msprop:Generator_ColumnPropNameInTable="IndirectTaxTableYearColumn" msprop:Generator_UserColumnName="IndirectTaxTableYear" type="xs:string" minOccurs="0" />
+              <xs:element name="DBSystemConfig" msprop:Generator_TableClassName="DBSystemConfigDataTable" msprop:Generator_TableVarName="tableDBSystemConfig" msprop:Generator_TablePropName="DBSystemConfig" msprop:Generator_RowDeletingName="DBSystemConfigRowDeleting" msprop:Generator_RowChangingName="DBSystemConfigRowChanging" msprop:Generator_RowEvHandlerName="DBSystemConfigRowChangeEventHandler" msprop:Generator_RowDeletedName="DBSystemConfigRowDeleted" msprop:Generator_UserTableName="DBSystemConfig" msprop:Generator_RowChangedName="DBSystemConfigRowChanged" msprop:Generator_RowEvArgName="DBSystemConfigRowChangeEvent" msprop:Generator_RowClassName="DBSystemConfigRow" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="SystemID" msprop:Generator_ColumnVarNameInTable="columnSystemID" msprop:Generator_ColumnPropNameInRow="SystemID" msprop:Generator_ColumnPropNameInTable="SystemIDColumn" msprop:Generator_UserColumnName="SystemID" type="xs:string" />
+                    <xs:element name="SystemName" msprop:Generator_ColumnVarNameInTable="columnSystemName" msprop:Generator_ColumnPropNameInRow="SystemName" msprop:Generator_ColumnPropNameInTable="SystemNameColumn" msprop:Generator_UserColumnName="SystemName" type="xs:string" minOccurs="0" />
+                    <xs:element name="DataBaseID" msprop:Generator_ColumnVarNameInTable="columnDataBaseID" msprop:Generator_ColumnPropNameInRow="DataBaseID" msprop:Generator_ColumnPropNameInTable="DataBaseIDColumn" msprop:Generator_UserColumnName="DataBaseID" type="xs:string" />
+                    <xs:element name="UseDefault" msprop:Generator_ColumnVarNameInTable="columnUseDefault" msprop:Generator_ColumnPropNameInRow="UseDefault" msprop:Generator_ColumnPropNameInTable="UseDefaultColumn" msprop:Generator_UserColumnName="UseDefault" type="xs:string" minOccurs="0" />
+                    <xs:element name="UseCommonDefault" msprop:Generator_ColumnVarNameInTable="columnUseCommonDefault" msprop:Generator_ColumnPropNameInRow="UseCommonDefault" msprop:Generator_ColumnPropNameInTable="UseCommonDefaultColumn" msprop:Generator_UserColumnName="UseCommonDefault" type="xs:string" default="&quot;no&quot;" minOccurs="0" />
+                    <xs:element name="Uprate" msprop:Generator_ColumnVarNameInTable="columnUprate" msprop:Generator_ColumnPropNameInRow="Uprate" msprop:Generator_ColumnPropNameInTable="UprateColumn" msprop:Generator_UserColumnName="Uprate" type="xs:string" minOccurs="0" />
+                    <xs:element name="BestMatch" msprop:Generator_ColumnVarNameInTable="columnBestMatch" msprop:Generator_ColumnPropNameInRow="BestMatch" msprop:Generator_ColumnPropNameInTable="BestMatchColumn" msprop:Generator_UserColumnName="BestMatch" type="xs:string" minOccurs="0" />
+                    <xs:element name="PolicySwitch" msprop:Generator_TableClassName="PolicySwitchDataTable" msprop:Generator_TableVarName="tablePolicySwitch" msprop:Generator_TablePropName="PolicySwitch" msprop:Generator_RowDeletingName="PolicySwitchRowDeleting" msprop:Generator_RowChangingName="PolicySwitchRowChanging" msprop:Generator_RowEvHandlerName="PolicySwitchRowChangeEventHandler" msprop:Generator_RowDeletedName="PolicySwitchRowDeleted" msprop:Generator_UserTableName="PolicySwitch" msprop:Generator_RowChangedName="PolicySwitchRowChanged" msprop:Generator_RowEvArgName="PolicySwitchRowChangeEvent" msprop:Generator_RowClassName="PolicySwitchRow" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="SwitchablePolicyID" msprop:Generator_ColumnVarNameInTable="columnSwitchablePolicyID" msprop:Generator_ColumnPropNameInRow="SwitchablePolicyID" msprop:Generator_ColumnPropNameInTable="SwitchablePolicyIDColumn" msprop:Generator_UserColumnName="SwitchablePolicyID" type="xs:string" />
+                          <xs:element name="SystemID" msprop:Generator_ColumnVarNameInTable="columnSystemID" msprop:Generator_ColumnPropNameInRow="SystemID" msprop:Generator_ColumnPropNameInTable="SystemIDColumn" msprop:Generator_UserColumnName="SystemID" type="xs:string" minOccurs="0" />
+                          <xs:element name="DataBaseID" msprop:Generator_ColumnVarNameInTable="columnDataBaseID" msprop:Generator_ColumnPropNameInRow="DataBaseID" msprop:Generator_ColumnPropNameInTable="DataBaseIDColumn" msprop:Generator_UserColumnName="DataBaseID" type="xs:string" minOccurs="0" />
+                          <xs:element name="Value" msprop:Generator_ColumnVarNameInTable="columnValue" msprop:Generator_ColumnPropNameInRow="Value" msprop:Generator_ColumnPropNameInTable="ValueColumn" msprop:Generator_UserColumnName="Value" type="xs:string" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Extension" msprop:Generator_TableClassName="ExtensionDataTable" msprop:Generator_TableVarName="tableExtension" msprop:Generator_RowChangedName="ExtensionRowChanged" msprop:Generator_TablePropName="Extension" msprop:Generator_RowDeletingName="ExtensionRowDeleting" msprop:Generator_RowChangingName="ExtensionRowChanging" msprop:Generator_RowEvHandlerName="ExtensionRowChangeEventHandler" msprop:Generator_RowDeletedName="ExtensionRowDeleted" msprop:Generator_RowClassName="ExtensionRow" msprop:Generator_UserTableName="Extension" msprop:Generator_RowEvArgName="ExtensionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
+              <xs:element name="ShortName" msprop:Generator_ColumnVarNameInTable="columnShortName" msprop:Generator_ColumnPropNameInRow="ShortName" msprop:Generator_ColumnPropNameInTable="ShortNameColumn" msprop:Generator_UserColumnName="ShortName" type="xs:string" minOccurs="0" />
+              <xs:element name="Look" msprop:Generator_ColumnVarNameInTable="columnLook" msprop:Generator_ColumnPropNameInRow="Look" msprop:Generator_ColumnPropNameInTable="LookColumn" msprop:Generator_UserColumnName="Look" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="PolicySwitch_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PolicySwitch" />
+      <xs:field xpath="mstns:SwitchablePolicyID" />
+    </xs:unique>
+    <xs:unique name="DBSystemConfig_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DBSystemConfig" />
+      <xs:field xpath="mstns:SystemID" />
+      <xs:field xpath="mstns:DataBaseID" />
+    </xs:unique>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataBase" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:unique name="Extension_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Extension" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:keyref name="FK_DataBase_DBSystemConfig" refer="Constraint1" msdata:IsNested="true" msprop:rel_Generator_UserChildTable="DBSystemConfig" msprop:rel_Generator_ChildPropName="GetDBSystemConfigRows" msprop:rel_Generator_UserRelationName="FK_DataBase_DBSystemConfig" msprop:rel_Generator_RelationVarName="relationFK_DataBase_DBSystemConfig" msprop:rel_Generator_UserParentTable="DataBase" msprop:rel_Generator_ParentPropName="DataBaseRow" msdata:UpdateRule="None">
+      <xs:selector xpath=".//mstns:DBSystemConfig" />
+      <xs:field xpath="mstns:DataBaseID" />
+    </xs:keyref>
+    <xs:keyref name="FK_DBSystemConfig_PolicySwitch" refer="DBSystemConfig_Constraint1" msdata:IsNested="true" msprop:rel_Generator_UserChildTable="PolicySwitch" msprop:rel_Generator_ChildPropName="GetPolicySwitchRows" msprop:rel_Generator_UserRelationName="FK_DBSystemConfig_PolicySwitch" msprop:rel_Generator_RelationVarName="relationFK_DBSystemConfig_PolicySwitch" msprop:rel_Generator_UserParentTable="DBSystemConfig" msprop:rel_Generator_ParentPropName="DBSystemConfigRowParent" msdata:AcceptRejectRule="Cascade">
+      <xs:selector xpath=".//mstns:PolicySwitch" />
+      <xs:field xpath="mstns:SystemID" />
+      <xs:field xpath="mstns:DataBaseID" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

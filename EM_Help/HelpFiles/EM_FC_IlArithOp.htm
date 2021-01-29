@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function IlArithOp</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special function IlArithOp</h1>
+
+<p>The following example illustrates a simple application of the function IlArithOp:</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefVar</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define variables for prices (€/kg) and quantities (kg/month)</td>
+	</tr>
+	<tr>
+		<td>pApples</td>
+		<td></td>
+		<td>2</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>pCoffee</td>
+		<td></td>
+		<td>20</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>pBread</td>
+		<td></td>
+		<td>3.5</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>qApples</td>
+		<td></td>
+		<td>15</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>qCoffee</td>
+		<td></td>
+		<td>0.5</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>qBread</td>
+		<td></td>
+		<td>10</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define price incomelist</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td></td>
+		<td>il_prices</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>pApples</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>pCoffee</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>pBread</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define quantity incomelist</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td></td>
+		<td>il_quantities</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>qApples</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>qCoffee</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>qBread</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>IlArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>calculate expenditure</td>
+	</tr>
+	<tr>
+		<td>Base_ILName</td>
+		<td></td>
+		<td>il_prices</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Base_Prefix</td>
+		<td></td>
+		<td>p</td>
+		<td>all vars in il_prices must start with 'p'</td>
+	</tr>
+	<tr>
+		<td>ILName</td>
+		<td>1</td>
+		<td>il_quantities</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Prefix</td>
+		<td>1</td>
+		<td>q</td>
+		<td>all vars in il_quantities must start with 'q'</td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>BASE_IL_COMPONENT * IL_COMPONENT[il_quantities]</td>
+		<td>all vars of il_prices are multiplied by the respective vars in il_quantities</td>
+	</tr>
+	<tr>
+		<td>Out_ILName</td>
+		<td></td>
+		<td>il_expenditure</td>
+		<td>incomelist holding the result variables</td>
+	</tr>
+	<tr>
+		<td>Out_Prefix</td>
+		<td></td>
+		<td>x</td>
+		<td>all vars in il_expenditure start with 'x'</td>
+	</tr>
+</table>
+
+<p>In the example all variables of the incomelist 'il_prices' (defined by parameter 'Base_ILName') are multiplied by the corresponding variables in the incomelist 'il_quantities' (defined by parameter 'ILName' (group 1)), 
+where corresponding means that they have the same <i>core-name</i>, i.e. the name without the prefix defined by parameters 'Base_Prefix' respectively 'Prefix' (group 1). 
+The result is written to newly generated variables starting with 'x', as defined by parameter 'Out_Prefix', followed by the <i>core-name</i>.<br>
+Thus we get three new variables:<br>
+xApples = pApples * qApples<br>
+xCoffee = pCoffee * qCoffee<br>
+xBread = pBread * qBread<br>
+In addition a new incomelist 'il_expenditure' (defined by parameter 'Out_ILName') is created that holds the three new variables.
+<a href="#_ftn1" name="_ftnref1" title="">[1]</a>
+</p>
+
+<p>In general the variables included in the calculations are specified by the incomlist defined by parameter 'Base_ILName'.<br>
+The formula applied on these variables is defined by parameter 'Formula' and allows for three types of placeholders:
+<ul>
+  <li><i>BASE_IL_COMPONENT</i> refers to a variable in the incomelist defined by parameter 'Base_ILName', for example 'pApples'</li>
+  <li><i>IL_COMPONENT[incomelist-identifier]</i> refers to a variable in the incomelist defined by parameter 'ILName'.
+  <br>As the parameter is not unique, the identifier inside the brackets indicates the name of the incomelist (e.g. [il_quantities]) or the group-number (e.g. [1]).<br>
+  The variable within the incomelist corresponds to the variable in the base-incomelist in the sense that they share the <i>core-name</i>, 
+  i.e. the name without the corresponding prefix (parameters 'Base_Prefix'/'Prefix') and postfix (parameters 'Base_Postfix'/'Postfix'), for example 'qApples'.</li>
+  <li><i>OUT_IL_COMPONENT</i> refers to a variable in the incomelist defined by parameter 'Out_ILName'.<br>
+  The variable within the incomelist corresponds to the variable in the base-incomelist in the same sense as described as above, for example 'xApples'.<br>
+  Using this placeholder requires the incomelist defined by 'Out_ILName' to exist before the IlArithOp is carried out (usually it is generated by another IlArithOp).</li>
+</ul>
+</p>
+
+<p>The following rules complete the definition of the function IlArithOp:
+<ul>
+  <li>The incomelists (defined by parameters 'Base_ILName'/'ILName'/'Out_ILName') are always used at the "decomposed" level.<br>
+  That means it is irrelevant whether they contain incomelists, IlArithOp always looks at the final variables.</li>
+  <li>Any "factors" in the incomelist definition are ignored.<br>
+  That means, for IlArithOp it is irrelevant if a variable is added with '+' or '-' or even '-11'.</li>
+  <li>There must be either a prefix (parameters 'Base_Prefix'/'Prefix'/'Out_Prefix') or a postfix (parameters 'Base_Postfix'/'Postfix'/'Out_Postfix') or both.</li>
+  <li>The name of each variable in the incomelists must start with the prefix (if defined) and end with the postfix (if defined).</li>
+  <li>The incomelists defined by parameter 'Base_ILName' determines the variables that are generated/calculated.</li>
+  <li>Consequently, the incomelists defined by parameter 'ILName' must contain at least the corresponding variables. 
+  (Base-IL contains variable 'BasePrefix_VarName' -> IL must contain variable 'Prefix_VarName').<br>
+  It does however not matter if the incomelist contains additional variables.</li>
+  <li>If the incomelists defined by parameter 'Out_ILName' exists before the IlArithOp is carried out, the above rule applies for the out-incomelist.<br></li>
+  <li>If the incomelists defined by parameter 'Out_ILName' does not exist before the IlArithOp is carried out, respective variables are generated. These variables must not exist before.<br>
+  In addition an incomelist named as defined by parameter 'Out_ILName' is created that holds the newly generated variables.</li>
+  <li>IlArithOp does not have an TAX_UNIT parameter. That means all calculations are carried out on the individual level (i.e. aggregation must be taken into account elsewhere if necessary).</li>
+</ul>
+</p>
+
+<p>The next example illustrates a more likely application of IlArithOp.
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefConst</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define VAT rates</td>
+	</tr>
+	<tr>
+		<td>$tco_vat_std</td>
+		<td></td>
+		<td>21%</td>
+		<td>standard rate</td>
+	</tr>
+	<tr>
+		<td>$tco_vat_red1</td>
+		<td></td>
+		<td>12%</td>
+		<td>reduced rate 1</td>
+	</tr>
+	<tr>
+		<td>$tco_vat_red2</td>
+		<td></td>
+		<td>6%</td>
+		<td>reduced rate 2</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define incomelist containing all expenditure variables</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td></td>
+		<td>il_x_all</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td></td>
+		<td>x[0-9]+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define incomelist containing all expenditure variables taxed with reduced rate 1</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td></td>
+		<td>il_x_vatred1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td></td>
+		<td>x1[0-9]+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define incomelist containing all expenditure variables taxed with reduced rate 2</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td></td>
+		<td>il_x_vatred2</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td></td>
+		<td>x2[0-9]+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define incomelist containing all expenditure variables exempted from VAT</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td></td>
+		<td>il_x_vatexempt</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td></td>
+		<td>x3[0-9]+</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td></td>
+		<td>+</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>IlArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>initialise incomelist il_vatrate, which will hold the appropriate rates for all expenditure variables</td>
+	</tr>
+	<tr>
+		<td>Base_ILName</td>
+		<td></td>
+		<td>il_x_all</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Base_Prefix</td>
+		<td></td>
+		<td>x</td>
+		<td>all variables in 'il_x_all' must start with 'x'</td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>$tco_vat_std</td>
+		<td>initialise new variables with standard rate (to overwrite below, if necessary)</td>
+	</tr>
+	<tr>
+		<td>Out_ILName</td>
+		<td></td>
+		<td>il_vatrate</td>
+		<td>incomelist 'il_vatrate' will be generated, to hold newly generated variables</td>
+	</tr>
+	<tr>
+		<td>Out_Prefix</td>
+		<td></td>
+		<td>vatrate</td>
+		<td>names of newly generated variables will start with 'vatrate' (e.g. vatrate02111)<br>one such variable is generated for each variable in 'il_x_all'</td>
+	</tr>
+	<tr class="function">
+		<td>IlArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>overwrite rates in 'il_vatrate' for expenditure taxed with reduced rate 1</td>
+	</tr>
+	<tr>
+		<td>Base_ILName</td>
+		<td></td>
+		<td>il_x_vatred1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Base_Prefix</td>
+		<td></td>
+		<td>x</td>
+		<td>all variables in 'il_x_vatred1' must start with 'x'</td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>$tco_vat_red1</td>
+		<td>overwrite standard rate with reduced rate 1</td>
+	</tr>
+	<tr>
+		<td>Out_ILName</td>
+		<td></td>
+		<td>il_vatrate</td>
+		<td>'il_vatrate' and its content already exists, respective variables (as contained in 'il_x_vatred1') are overwritten</td>
+	</tr>
+	<tr>
+		<td>Out_Prefix</td>
+		<td></td>
+		<td>vatrate</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>IlArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>overwrite rates in 'il_vatrate' for expenditure taxed with reduced rate 2</td>
+	</tr>
+	<tr>
+		<td>Base_ILName</td>
+		<td></td>
+		<td>il_x_vatred2</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Base_Prefix</td>
+		<td></td>
+		<td>x</td>
+		<td>all variables in 'il_x_vatred2' must start with 'x'</td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>$tco_vat_red2</td>
+		<td>overwrite standard rate with reduced rate 2</td>
+	</tr>
+	<tr>
+		<td>Out_ILName</td>
+		<td></td>
+		<td>il_vatrate</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Out_Prefix</td>
+		<td></td>
+		<td>vatrate</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>IlArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>overwrite rates in 'il_vatrate' for expenditure exempted from VAT</td>
+	</tr>
+	<tr>
+		<td>Base_ILName</td>
+		<td></td>
+		<td>il_x_vatexempt</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Base_Prefix</td>
+		<td></td>
+		<td>x</td>
+		<td>all variables in 'il_x_vatexempt' must start with 'x'</td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>0</td>
+		<td>overwrite standard rate with zero</td>
+	</tr>
+	<tr>
+		<td>Out_ILName</td>
+		<td></td>
+		<td>il_vatrate</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Out_Prefix</td>
+		<td></td>
+		<td>vatrate</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>IlArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>calculate VAT for all expenditure variables</td>
+	</tr>
+	<tr>
+		<td>Base_ILName</td>
+		<td></td>
+		<td>il_x_all</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Base_Prefix</td>
+		<td></td>
+		<td>x</td>
+		<td>all variables in 'il_x_all' must start with 'x'</td>
+	</tr>
+	<tr>
+		<td>ILName</td>
+		<td>1</td>
+		<td>il_vatrate</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Prefix</td>
+		<td>1</td>
+		<td>vatrate</td>
+		<td>all variables in 'il_vatrate' must start with 'vatrate'</td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>BASE_IL_COMPONENT * IL_COMPONENT[il_vatrate] / (1+IL_COMPONENT[il_vatrate])</td>
+		<td>calculate VAT from gros expenditure, e.g. tva02111 = x02111 * vatrate02111 / (1+vatrate02111)</td>
+	</tr>
+	<tr>
+		<td>Out_ILName</td>
+		<td></td>
+		<td>il_tva</td>
+		<td>'il_tva' contains total VAT on all expenditure</td>
+	</tr>
+	<tr>
+		<td>Out_Prefix</td>
+		<td></td>
+		<td>tva</td>
+		<td></td>
+	</tr>
+</table>
+</p>
+
+<p>&nbsp;</p>
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>Of course the example is abstract in the sense that it is not really reasonable to define quantities and prices as quasi constants.</p>
+
+</div>
+
+</body>
+
+</html>

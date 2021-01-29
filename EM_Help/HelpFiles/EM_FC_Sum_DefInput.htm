@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function DefInput</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function DefInput</h1>
+<p>Allows for readingvalues for one or more EUROMOD variables from a text file.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>path</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Path of the input file.</td>
+	</tr>
+	<tr>
+		<td>file</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name of the input file.</td>
+	</tr>
+	<tr>
+		<td>RowMergeVar</td>
+		<td>variable</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>ColMergeVar != n/a means 'lookup mode', i.e. one
+		EUROMOD variable (per person) is set to a specific value looked up in the
+		input file. The variable is defined by InputVar. Which value is looked up
+		depends on the person's value of the variable defined by RowMergeVar as well
+		as the person's value of the variable defined by ColMergeVar. The lookup
+		value is the value of the cell whose row and column headers in the input file
+		coincide with these variables.<br>
+		<br>
+		ColMergeVar = n/a means 'input mode', i.e. one or more EUROMOD variables
+		(per person) are set to values defined in a specific row of the input file.
+		The header row of the input file names the respective variables, while the
+		other rows contain their values in the same order. One of these variables
+		must be the variable defined by RowMergeVar. The row selected for a person is
+		the one where the person's value of RowMergeVar coincides with the value of
+		this variable in the input file. Note that, other than for the 'lookup mode',
+		the RowMergeVar does not need to be located in the first column of the input
+		file.<br><br>
+		Note that the variables inputted in 'input mode' as well as the variable
+		defined by InputVar must exist, i.e. be defined in the variables file or by
+		EUROMOD functions (e.g. DefVar).</td>
+	</tr>
+	<tr>
+		<td>ColMergeVar</td>
+		<td>variable</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>See description of parameter RowMergeVar.</td>
+	</tr>
+	<tr>
+		<td>InputVar</td>
+		<td>variable</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>See description of parameter RowMergeVar.</td>
+	</tr>
+	<tr>
+		<td>DefaultIfNoMatch</td>
+		<td>amount</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Input variable(s) are set to this value if no match can be established.<br>
+		If not defined an error message is issued if no match can be established.</td>
+	</tr>
+	<tr>
+		<td>IgnoreNRows</td>
+		<td>amount</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>0</td>
+		<td>The first n rows of the input file are ignored (e.g. because they contain descriptions or headings).</td>
+	</tr>
+	<tr>
+		<td>IgnoreNCols</td>
+		<td>amount</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>0</td>
+		<td>The first n columns of the input file are ignored (e.g. because they contain descriptions or headings).</td>
+	</tr>
+	<tr>
+		<td>DecSepComma</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes, input file is assumed to use comma as decimal separator otherwise point.</td>
+	</tr>
+	<tr>
+		<td>DoRanges</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes, matches are established by considering RowMergeVar and ColMergeVar in the input file as upper limits.<br>
+		Example: RowMergeVar dag in the input file set to 10, 30, 70, 150 <br>
+		Interpretation:<br>
+		all persons aged up to 10 (including) are assigned the value of the 10-column,<br>
+		all persons aged older than 10 up to 30 are assigned the value of the 30-column,<br>
+		all persons aged older than 30 up to 70 are assigned the value of the 70-column,<br>
+		all persons aged older than 70 up to 150 are assigned the value of the 150-column,<br>
+		no match is found for anyone older than 150.</td>
+	</tr>
+	<tr>
+		<td>RepByEMPath</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Any occurrences of RepByEMPath in parameter Path are replaced by the path
+		of the current EUROMOD content (see <a href="EM_FS_HeaderPage.htm">EUROMOD Installation	and Architecture</a>).<br>
+		Example: RepByEMPath = &amp;, Path = &amp;Tools\SomeFile.xls, EUROMOD content is stored at C:\EuromodFiles\ <br>
+		Result: Path is interpreted as C:\EuromodFiles\Tools\SomeFile.xls.<br><br>
+		Note that this parameter is only available under Windows as it uses platform specific functions.<br><br>
+		Remark: Technically the programme obtains knowledge about the path of the
+		EUROMOD content via the parameter EMCONTENTPATH in the configuration file
+		(see <a href="EM_FS_ConfigurationFile.htm">EUROMOD Installation and Architecture - EUROMOD software (user interface and executable) - The configuration file</a>).</td>
+	</tr>
+</table>
+</body>
+</html>

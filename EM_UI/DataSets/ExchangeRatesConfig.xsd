@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ExchangeRatesConfig" targetNamespace="http://tempuri.org/ExchangeRatesConfig.xsd" xmlns:mstns="http://tempuri.org/ExchangeRatesConfig.xsd" xmlns="http://tempuri.org/ExchangeRatesConfig.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ExchangeRatesConfig" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ExchangeRatesConfig" msprop:Generator_UserDSName="ExchangeRatesConfig">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ExchangeRates" msprop:Generator_TableClassName="ExchangeRatesDataTable" msprop:Generator_TableVarName="tableExchangeRates" msprop:Generator_TablePropName="ExchangeRates" msprop:Generator_RowDeletingName="ExchangeRatesRowDeleting" msprop:Generator_RowChangingName="ExchangeRatesRowChanging" msprop:Generator_RowEvHandlerName="ExchangeRatesRowChangeEventHandler" msprop:Generator_RowDeletedName="ExchangeRatesRowDeleted" msprop:Generator_UserTableName="ExchangeRates" msprop:Generator_RowChangedName="ExchangeRatesRowChanged" msprop:Generator_RowEvArgName="ExchangeRatesRowChangeEvent" msprop:Generator_RowClassName="ExchangeRatesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Country" msprop:Generator_ColumnVarNameInTable="columnCountry" msprop:Generator_ColumnPropNameInRow="Country" msprop:Generator_ColumnPropNameInTable="CountryColumn" msprop:Generator_UserColumnName="Country" type="xs:string" />
+              <xs:element name="June30" msprop:Generator_ColumnVarNameInTable="columnJune30" msprop:Generator_ColumnPropNameInRow="June30" msprop:Generator_ColumnPropNameInTable="June30Column" msprop:Generator_UserColumnName="June30" type="xs:double" minOccurs="0" />
+              <xs:element name="YearAverage" msprop:Generator_ColumnVarNameInTable="columnYearAverage" msprop:Generator_ColumnPropNameInRow="YearAverage" msprop:Generator_ColumnPropNameInTable="YearAverageColumn" msprop:Generator_UserColumnName="YearAverage" type="xs:double" minOccurs="0" />
+              <xs:element name="FirstSemester" msprop:Generator_ColumnVarNameInTable="columnFirstSemester" msprop:Generator_ColumnPropNameInRow="FirstSemester" msprop:Generator_ColumnPropNameInTable="FirstSemesterColumn" msprop:Generator_UserColumnName="FirstSemester" type="xs:double" minOccurs="0" />
+              <xs:element name="SecondSemester" msprop:Generator_ColumnVarNameInTable="columnSecondSemester" msprop:Generator_ColumnPropNameInRow="SecondSemester" msprop:Generator_ColumnPropNameInTable="SecondSemesterColumn" msprop:Generator_UserColumnName="SecondSemester" type="xs:double" minOccurs="0" />
+              <xs:element name="Default" msprop:Generator_ColumnVarNameInTable="columnDefault" msprop:Generator_ColumnPropNameInRow="Default" msprop:Generator_ColumnPropNameInTable="DefaultColumn" msprop:Generator_UserColumnName="Default" type="xs:string" minOccurs="0" />
+              <xs:element name="ValidFor" msprop:Generator_ColumnVarNameInTable="columnValidFor" msprop:Generator_ColumnPropNameInRow="ValidFor" msprop:Generator_ColumnPropNameInTable="ValidForColumn" msprop:Generator_UserColumnName="ValidFor" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Totals</title>
+</head>
+
+<body>
+<h1>Summary of parameters for function Totals</h1>
+<p>Allows for the calculation of aggregates of variables or incomelists over the whole population or a selected subgroup.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Varname_Sum</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store population sum of Agg_IL / Agg_Var.<br>(e.g. if Varname_Sum = $sum and Agg_Var = yem: sum is stored in $sum_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Mean</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store mean of Agg_IL / Agg_Var.<br>(e.g. if Varname_Mean = $mean and Agg_Var = yem: mean is stored in $mean_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Median</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store median of Agg_IL / Agg_Var.<br>(e.g. if Varname_Median = $median and Agg_Var = yem: median is stored in $median_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Decile</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store decile points of Agg_IL / Agg_Var.<br>(e.g. if Varname_Decile = $dec and Agg_Var = yem: decile points are stored in $dec1_yem, ..., $dec9_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Quintile</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store quintile points of Agg_IL / Agg_Var.<br>(e.g. if Varname_Quintile = $quint and Agg_Var = yem: decile points are stored in $quint1_yem, ..., $quint4_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Count</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store Agg_IL / Agg_Var's count of non-zero values.<br>(e.g. if Varname_Count = $count and Agg_Var = yem: count is stored in $count_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_PosCount</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store Agg_IL / Agg_Var's count of positive values.<br>(e.g. if Varname_PosCount = $poscnt and Agg_Var = yem, count is stored in $poscnt_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_NegCount</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store Agg_IL / Agg_Var's count of negative values.<br>(e.g. if Varname_NegCount = $negcnt and Agg_Var = yem: count is stored in $negcnt_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Min</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store smallest value of Agg_IL / Agg_Var.<br>(e.g. if Varname_Min = $min and Agg_Var = yem: minimum is stored in $min_yem)</td>
+	</tr>
+	<tr>
+		<td>Varname_Max</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name for variable to store largest value of Agg_IL / Agg_Var.<br>(e.g. if Varname_Max = $max and Agg_Var = yem: maximum is stored in $max_yem)</td>
+	</tr>
+	<tr>
+		<td>Agg</td>
+		<td>variable or incomelist</td>
+		<td>at least one</td>
+		<td>no</td>
+		<td></td>
+		<td>Variable or incomelist for which to calculate aggregates.</td>
+	</tr>
+	<tr>
+		<td>Incl_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{1}</td>
+		<td>Condition that must be fulfilled by the assessment unit, as defined by TAX_UNIT, to be taken into account by the statistic.</td>
+	</tr>
+	<tr>
+		<td>Incl_Cond_Who</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>all</td>
+		<td>Defines which members of the assessment unit must fulfil Incl_Cond to make the unit fulfil the condition.<br>For possible values see the common parameter Who_Must_Be_Elig.</td>
+	</tr>
+	<tr>
+		<td>Use_Weights</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If set to yes weights are used to calculate the aggregates.</td>
+	</tr>
+	<tr>
+		<td>Weight_Var</td>
+		<td>variable</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>dwt</td>
+		<td>Specifies an alternative weight variable.</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Assessment unit for function's calculations.</td>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

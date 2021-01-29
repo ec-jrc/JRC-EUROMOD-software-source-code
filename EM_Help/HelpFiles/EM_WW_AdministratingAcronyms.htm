@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Acronym Administration</title>
+</head>
+
+<body>
+
+<h1>Acronym Administration</h1>
+
+<p>The following operations are performed with the <i><strong>variable administration tool</strong></i>. To open this
+tool press the button <i>Variables</i> in
+the ribbon <i>Administration Tools</i> (also
+see <a href="EM_WW_Variables.htm">Working with EUROMOD
+- Administration of EUROMOD variables</a> paragraph <i>Administrating variables and acronyms in the EUROMOD user interface</i>).</p>
+
+<h4>Listing of acronyms</h4>
+
+<p>The variable administration tool lists in its right part all
+acronyms available for generating variable names (see the Data Requirement
+Document (DRD) for detailed information concerning the generation of variable
+names). The acronyms are organised in a tree with three levels. The first level
+exhibits the variable<i> <strong>type</strong></i>, i.e. DEOMOGRAPHIC, TAX, INCOME, etc. The
+second level subdivides types into <i><strong>levels</strong></i>. The levels mainly serve a better
+overview.<a href="#_ftn1" name="_ftnref1" title="">[1]</a>
+Finally, the third level shows the acronyms themselves together with a verbal
+description, which is used to generate the <i>Automatic
+Labels</i> of the variables, which use the respective acronyms. If an acronym
+is categorical (e.g. gender has two categories: male and female), selecting
+this acronym in the <i>Acronyms</i> list
+displays the categories in the <i>Categories</i>
+list (locate below the <i>Acronyms</i> list).</p>
+
+<h4>Adding types</h4>
+
+<p>Click the button <i>Add
+Type</i> in the ribbon <i>Acronyms</i> of
+the variable administration tool. Alternatively use the key combination <i>Alt-T</i>. This appends a new empty type row
+at the end of the <i>Acronyms</i> list.</p>
+
+<h4>Changing types</h4>
+
+<p>To change a type's <i>Description</i>
+(DEOMOGRAPHIC, TAX, INCOME, etc.) or <i>Acronym</i>
+(D, T, Y, etc.) simply edit the respective cell. In the case of changing the <i>Acronym</i> the interface checks if the <i>Acronym</i> is already used by another type
+and, if so, issues a respective message and prevents the change to avoid
+ambiguousness. Moreover, the interface checks whether the <i>Acronym</i> is used in the current listing of variables. If so, a
+warning is issued, which lists the variables concerned. The user is still able
+to accomplish the change, however the description (<i>Automatic Label</i>) of the variables will
+show up question marks to indicate unknown acronyms.</p>
+
+<h4>Deleting types</h4>
+
+<p>Select the type to delete and click the button <i>Delete Type</i> in the ribbon <i>Acronyms</i> of the variable administration
+tool. Alternatively use the key combination <i>Ctrl-Shift-T</i>.
+The interface checks whether this type is used in the current listing of
+variables. If so, a warning is issued, which lists the variables concerned. The
+user is still able to accomplish the removal, however
+the description (<i>Automatic Label</i>) of
+the variables concerned will show up question marks to indicate unknown
+acronyms.</p>
+
+<h4>Adding levels</h4>
+
+<p>Click the button <i>Add
+Level</i> in the ribbon <i>Acronyms</i> of
+the variable administration tool. Alternatively use the key combination <i>Alt-L</i>. This adds a new empty level row.
+Note that, other than for types and acronyms, the order of levels is relevant,
+thus the interface does not simply append the row, but uses the selected row as
+orientation: if another level row or an acronym row is selected, the new row is
+inserted below the respective level. If a type row is selected, the level is
+inserted as the first level of this type.</p>
+
+<h4>Changing levels</h4>
+
+<p>To change a level's <i>description</i>,
+simply edit the respective cell. Note that, other than types and acronyms, levels
+do not possess an <i>Acronym</i> (thus the
+respective cell is not editable), reflecting that levels are not directly used
+in generating the <i>Automatic Label</i> of
+variables.<a href="#_ftn2" name="_ftnref2" title="">[2]</a></p>
+
+<h4>Deleting levels</h4>
+
+<p>Select the level to delete and click the button <i>Delete Level</i> in the ribbon <i>Acronyms</i> of the variable administration
+tool. Alternatively use the key combination <i>Ctrl-Shift-L</i>.
+The interface checks whether acronyms of this level are used in the current
+listing of variables. If so, a warning is issued, which lists the variables
+concerned. The user is still able to accomplish the removal,
+however the description (<i>Automatic Label</i>)
+of the variables concerned will show up question marks to indicate unknown
+acronyms.</p>
+
+<h4>Adding acronyms</h4>
+
+<p>Select the level, where to add the new acronym (or select
+another acronym within the level) and click the button <i>Add Acronym</i> in the ribbon <i>Acronyms</i>
+of the variable administration tool. Alternatively use the key combination <i>Alt-A</i>. This appends a new empty acronym
+row at the end of the level.</p>
+
+<h4>Changing acronyms</h4>
+
+<p>To change an acronym's <i>Description</i>
+(age, gender, etc.) or <i>Acronym</i> (AG,
+GN, etc.) simply edit the respective cell. In the case of changing the <i>Acronym</i> the interface checks if the
+acronym is already used within this type or is incorrect, i.e. does not consist
+of two characters. If so, a respective message is issued and the change is
+prevented to avoid ambiguousness. Moreover, the interface checks whether an
+acronym is used in the current listing of variables. If so, a warning is
+issued, which lists the variables concerned. The user is still able to
+accomplish the change, however the description (<i>Automatic Label</i>) of the variables
+concerned will show up question marks to indicate unknown acronyms.</p>
+
+<h4>Deleting acronyms</h4>
+
+<p>Select the acronym to delete and click the button <i>Delete Acronym</i> in the ribbon <i>Acronyms</i> of the variable administration
+tool. Alternatively use the key combination <i>Ctrl-Shift-A</i>.
+The interface checks whether the acronym is used in the current listing of
+variables. If so, a warning is issued, which lists the variables concerned. The
+user is still able to accomplish the removal, however
+the description (<i>Automatic Label</i>) of
+the variables will show up question marks to indicate unknown acronyms.</p>
+
+<h4>Searching acronyms</h4>
+
+<p>The <i>Search</i> buttons at the top right of the
+ribbon <i>Acronyms</i> allow for searching
+acronyms.</p>
+<ul>
+<li>The button <i>Acronyms</i>
+searches for the acronym as specified in the fields left of the buttons. This is also 
+the default search if you press Enter in the search text field. Select
+the acronym type (DEOMOGRAPHIC, TAX, INCOME, etc.) in the upper field and the
+searched acronym in the field below. Pressing the button selects the matched acronym. 
+Note that, if ALL ACRONYMS is selected instead of a specific type, several matches may
+be found, as acronyms need to be unique only within a type. If more than one occurrence 
+is found, an info box appears showing all the matches. Matches will appear in black colour 
+(blue when hovered) and clicking them will select the corresponding acronym in the acronym 
+tree. Also note that a full acronym description tooltip appears if you hover the mouse over 
+any of the matches.</li>
+
+<li>The button <i>Description</i>
+searches for acronyms with a description as specified in the fields left of the
+button. Select the acronym type (DEOMOGRAPHIC, TAX, INCOME, etc.) in the upper
+field and the searched description in the field below. Note that search patterns <i>?</i> and <i>*</i> can be used
+(and most likely will), where <i>?</i> stands for one arbitrary character and <i>*</i> for any number of arbitrary characters (examples: *child*, *wom?n*). Pressing the button selects the matched acronym. 
+If more than one occurrence is found, an info box appears showing all the matches. 
+Matches will appear in black colour (blue when hovered) and clicking them will select 
+the corresponding acronym in the acronym tree. Also note that a full acronym description 
+tooltip appears if you hover the mouse over any of the matches.
+</li>
+</ul>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+The level also plays a role in the naming rules of
+variables. For more information see <a href="EM_WW_AdministratingVariables.htm">Working
+with EUROMOD - Administrating variables</a>.</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+They are used indirectly by determining the order of acronyms. For more
+information see <a href="EM_WW_AdministratingVariables.htm">Working with
+EUROMOD - Administrating variables</a>.</p>
+
+</div>
+
+</body>
+
+</html>

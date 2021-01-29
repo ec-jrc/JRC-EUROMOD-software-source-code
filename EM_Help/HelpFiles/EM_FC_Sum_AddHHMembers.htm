@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function AddHHMembers</title>
+</head>
+
+<body>
+<h1>Summary of parameters for function AddHHMembers</h1>
+<p>Allows for adding persons to households.</p>
+<p class="EM3only">This function is only available with EM3.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Add_Who</td>
+		<td>categorical</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Defines whether children or partners or other persons are added.<br>Possible values: 'Child', 'Partner', 'Other'.</td>
+	</tr>
+	<tr>
+		<td>ParentCond</td>
+		<td>condition</td>
+		<td>yes, if Add_Who=Child</td>
+		<td>yes</td>
+		<td></td>
+		<td>Condition a person must fulfill to be a parent (i.e. a child is added for the person).<br>Only relevant if Add_Who=Child.</td>
+	</tr>
+	<tr>
+		<td>PartnerCond</td>
+		<td>condition</td>
+		<td>yes, if Add_Who=Partner</td>
+		<td>yes</td>
+		<td></td>
+		<td>Condition a person must fulfill to be a partner (i.e. a partner is added for the person).<br>Only relevant if Add_Who=Partner.</td>
+	</tr>
+	<tr>
+		<td>HHCond</td>
+		<td>condition</td>
+		<td>yes, if Add_Who=Other</td>
+		<td>yes</td>
+		<td></td>
+		<td>Condition the household must fulfill for adding a new person.<br>Only relevant if Add_Who=Other.</td>
+	</tr>
+	<tr>
+		<td>IsPartnerParent</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If yes, the partner of the new parent (person fulfilling ParentCond) gets the other partent of the added child.<br>Only relevant if Add_Who=Child.</td>
+	</tr>
+	<tr>
+		<td>[Placeholder]</td>
+		<td>formula</td>
+		<td>no</td>
+		<td>no</td>
+		<td></td>
+		<td>[Placeholder] stands for the name of the variable, which is defined in the policy column.<br>Variable's initial value for the new person is set in system-column.</td>
+	</tr>
+	<tr>
+		<td>FlagVar</td>
+		<td>variable</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>If indicated, variable is set to 1 for persons added by this AddHHMembes function.<br>Note that the variable must exist.<br>Also note that the variable is not changed for any other persons (thus it can e.g. be used to hold the flag for more than one AddHHMembers functions).</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

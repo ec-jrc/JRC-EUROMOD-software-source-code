@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Parameter values and the assessment unit</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Parameter values and the assessment unit</h1>
+
+<h4>Assessing the result of a function</h4>
+
+<p>If parameters taking variables, incomelists
+and queries as their values are used with assessment units, which comprise more
+than one person, there is an issue of interpretation. Example 1 illustrates the
+problem. The assessment unit of the function is the whole household. So what
+does IsDisabled mean? Is
+the condition fulfilled if there is one disabled person in the household, or must all
+household members be disabled, or a special person? The next question is, to whose earnings does the incomelist
+il_earns refer? To all earnings within the household? To
+the earnings of the disabled person? Similar questions could be posed
+with respect to the housing costs variable xhc.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>IsDisabled * xhc – il_earns</td>
+		<td>benefit funds expenditure for housing</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>0</td>
+		<td>if the head of the household is disabled</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bho_s</td>
+		<td>any earnings (received by anyone in the household)</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_household_sl</td>
+		<td>are deducted</td>
+	</tr>
+</table>
+
+
+<p><a name="TU_level_rules"></a>To answer these questions lets first state the general rules.</p>
+
+<table class="info">
+	<tr>
+		<th>Level of Interpretation</th>
+		<th>... used in<br>condition parameters</th>
+		<th>... used in<br>other parameters</th>
+	</tr>
+	<tr class="separate">
+		<th>monetary variables <br>and incomelists ...</th>
+		<td>assessment unit</td>
+		<td>assessment unit</td>
+	</tr>
+	<tr>
+		<th>non-monetary variables and <br>individual level queries ...</th>
+		<td>individual</td>
+		<td>head of assessment unit</td>
+	</tr>
+	<tr>
+		<th>non individual level queries ...</th>
+		<td>consult description in section <br><a href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a></td>
+		<td>consult description in section <br><a href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a></td>
+	</tr>
+</table>
+
+<p>For the clear interpretation of
+these rules some further information is necessary:</p>
+<ul>
+	<li>&quot;assessment unit&quot;
+	refers to the assessment unit defined by the parameter TAX_UNIT
+	of the function and means that values are added up over all members of the
+	unit.</li>
+
+	<li>Who is the head of the assessment unit is
+	determined on the basis of the respective definition via the function DefTU. (See section <a
+	href="EM_FC_DefVar_DefConst.htm">EUROMOD Functions - The system functions DefTU and UpdateTU</a> for
+	information with respect to defining an assessment unit.)</li>
+
+	<li>Special care needs to be taken if monetary
+	variables and incomelists are used in any of the
+	condition parameters of the function DefTU
+	(e.g. DepChildCond). The
+	rule that they are interpreted on assessment unit level is still valid.
+	However, as the model is operating on a not yet finally defined assessment
+	unit, it is not clear what this means, if the assessment unit is of type <i>SUBGROUP</i>.<a
+	href="#_ftn1" name="_ftnref1" title="">[1]</a>
+	Therefore, it is good practise in such cases to always explicitly define the
+	level of assessment by using a level parameter (see section <a
+	href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for
+	the further specification of operands</a><i>).</i></li>
+
+	<li>Whether a variable is monetary or non-monetary
+	is defined in the variable description file. Note that simulated temporary (stmxx_s) and intermediate (sinxx_s) variables are defined
+	to be monetary.</li>
+
+	<li>It is possible to change the assessment unit
+	generally used by the function (i.e. indicated by parameter TAX_UNIT) for single variables, incomelists
+	or queries. As examples for the application of this feature consider a personal
+	level benefit, where a means test refers to family income or a family based
+	benefit, where a means test should only cover parents’ income. A detailed
+	description of this feature is provided in section <a
+	href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for
+	the further specification of operands</a>.</li>
+</ul>
+
+
+<p>Before answering the question
+raised above, lets exercise by interpreting some more
+simple and stylised examples, based on a simple sample household.</p>
+
+<table class="info">
+	<tr>
+		<th>idperson</th>
+		<th>yem</th>
+		<th>dag</th>
+		<th>dms</th>
+		<th>ils_origy</th>
+		<th>is head?</th>
+	</tr>
+	<tr>
+		<td>101</td>
+		<td>2000</td>
+		<td>40</td>
+		<td>2</td>
+		<td>2000</td>
+		<td>yes</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>1500</td>
+		<td>38</td>
+		<td>2</td>
+		<td>1800</td>
+		<td>no</td>
+	</tr>
+	<tr>
+		<td>103</td>
+		<td>0</td>
+		<td>7</td>
+		<td>0</td>
+		<td>0</td>
+		<td>no</td>
+	</tr>
+</table>
+
+<p>Lets
+interpret some formula parameters of the function ArithOp (i.e. &quot;other&quot; parameters
+with respect to the table of rules above) assuming that the assessment unit
+(parameter TAX_UNIT) is the whole household. </p>
+
+<table class="info">
+	<tr>
+		<th>formula</th>
+		<th>result</th>
+		<th>interpretation</th>
+	</tr>
+	<tr>
+		<td>yem*2</td>
+		<td>(2000+1500+0)*2=7000</td>
+		<td><strong>yem</strong> is a monetary variable therefore added up over all members of the assessment unit</td>
+	</tr>
+	<tr>
+		<td>ils_origy/2</td>
+		<td>(2000+1800+0)/2=1900</td>
+		<td><strong>ils_origy</strong> is an incomelist therefore added up over all members of the assessment unit</td>
+	</tr>
+	<tr>
+		<td>dag</td>
+		<td>40</td>
+		<td><strong>dag</strong> (i.e. age) is a non-monetary variable therefore taken from the head of the assessment unit</td>
+	</tr>
+	<tr>
+		<td>IsMarried</td>
+		<td>1 (i.e. yes)</td>
+		<td><strong>IsMarried</strong> is an individual level query therefore interpreted for the head of the assessment unit (dms=2 means married)</td>
+	</tr>
+</table>
+
+<p>Now lets
+interpret some elig_cond
+parameters of the function Elig
+(i.e. condition parameters with respect to the table of rules above) again
+assuming that the assessment unit is the whole household. As condition
+parameters produce a result on individual level, we need a second function and
+parameter to obtain a result on assessment unit level – in the example the
+parameter who_must_be_elig (wmbe).</p>
+
+<table class="info">
+	<tr>
+		<th rowspan="2">elig_cond</th>
+		<th rowspan="2" colspan="2">individual result</th>
+		<th colspan="2">assessment unit result</th>
+		<th rowspan="2">interpretation</th>
+	</tr>
+	<tr>
+		<th>wmbe=one</th>
+		<th>wmbe=all</th>
+	<tr>
+	<tr class="separate">
+		<td rowspan="3">{yem&lt;1700}</td>
+		<td>101</td>
+		<td>(2000+1500+0)&lt;1700=0</td>
+		<td rowspan="3">(0 or 0 or 0)=0</td>
+		<td rowspan="3">(0 and 0 and 0)=0</td>
+		<td rowspan="3"><strong>yem</strong> is a monetary variable therefore added up over all members of the assessment unit</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>(2000+1500+0)&lt;1700=0</td>
+	</tr>
+	<tr>
+		<td>103</td>
+		<td>(2000+1500+0)&lt;1700=0</td>
+	</tr>
+	<tr class="separate">
+		<td rowspan="3">{ils_origy&gt;3000}</td>
+		<td>101</td>
+		<td>(2000+1800+0)&gt;3000=1</td>
+		<td rowspan="3">(1 or 1 or 1)=1</td>
+		<td rowspan="3">(1 and 1 and 1)=1</td>
+		<td rowspan="3"><strong>ils_origy</strong> is an incomelist therefore added up over all members of the assessment unit</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>(2000+1800+0)&gt;3000=1</td>
+	</tr>
+	<tr>
+		<td>103</td>
+		<td>(2000+1800+0)&gt;3000=1</td>
+	</tr>
+	<tr class="separate">
+		<td rowspan="3">{dag&lt;30}</td>
+		<td>101</td>
+		<td>40&lt;30=0</td>
+		<td rowspan="3">(0 or 0 or 1)=1</td>
+		<td rowspan="3">(0 and 0 and 1)=0</td>
+		<td rowspan="3"><strong>dag</strong> (i.e. age) is a non-monetary variable therefore interpreted on individual level</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>38&lt;30=0</td>
+	</tr>
+	<tr>
+		<td>103</td>
+		<td>7&lt;30=0</td>
+	</tr>
+	<tr class="separate">
+		<td rowspan="3">{IsMarried}</td>
+		<td>101</td>
+		<td>(dms=2)=1</td>
+		<td rowspan="3">(1 or 1 or 0)=1</td>
+		<td rowspan="3">(1 and 1 and 0)=0</td>
+		<td rowspan="3"><strong>IsMarried</strong> is an individual level query therefore interpreted on individual level (dms=2 means married)</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>(dms=2)=1</td>
+	</tr>
+	<tr>
+		<td>103</td>
+		<td>(dms=2)=0</td>
+	</tr>
+</table>
+
+
+<p>After these exercises we are fit to
+answer the questions raised above. IsDisabled
+is an individual level query, i.e. it asks whether the head of the household
+(which is the assessment unit of the function) is disabled. The housing costs
+variable xhc is monetary,
+i.e. it is interpreted on household level. The incomelist
+il_earns is interpreted on
+household level as well. Summarising, the benefit funds the household’s
+expenditure for housing, if the head of the household is disabled. Any
+earnings, received by anyone in the household, are deducted.</p>
+
+<h4>Storing the result of a function</h4>
+
+<p>So far we have clarified how the result of a function is
+evaluated, but it is still not clear where this result is stored. Taking
+example 1 it is clear that it should be stored in the variable bho_s (b=benefit, ho=housing, _s=simulated). But in the
+variable bho_s of which of
+the household members? The following rules answer this question and
+clarify what happens with the function result in general.</p>
+
+<h6>The result of a function is assigned to the head of the assessment unit. That means:</h6>
+<ul>
+	<li>If parameter <strong>output_var</strong> is used the variable defined by parameter
+	<strong>output_var</strong>
+	is set to (overwritten by) the function result.</li>
+
+	<li>If parameter <strong>output_add_var</strong> is used the function result is added
+	to the variable defined by parameter <strong>output_add_var</strong>.</li>
+
+	<li>Any variable defined by parameter <strong>result_var</strong> is set to
+	(overwritten by) the function result.</li>
+</ul>
+
+<h6>For all other members of the assessment unit the following applies:</h6>
+<ul>
+	<li>If parameter <strong>output_var</strong> is used the variable defined by parameter
+	<strong>output_var</strong> is set to zero.</li>
+
+	<li>If parameter <strong>output_add_var</strong> is used the variable defined by
+	parameter <strong>output_var</strong> is not changed (i.e. keeps its value).<a
+	href="#_ftn2" name="_ftnref2" title="">[2]</a></li>
+
+	<li>Any variable defined by parameter <strong>result_var</strong> is set to zero.</li>
+</ul>
+
+<h6>For all members of
+not eligible assessment units (with respect to the settings of parameter <strong>who_must_be_elig</strong>)
+the same rules concerning output and result variable apply as for non-head
+members of eligible assessment units.</h6>
+
+<p>The following stylised example may illustrate the rules,
+assuming the result to store is 1000 and the assessment unit of the function is
+the household.</p>
+
+<table class="info">
+	<tr>
+		<th rowspan="2">idperson</th>
+		<th rowspan="2">is head?</th>
+		<th rowspan="2">is eligible unit</th>
+		<th rowspan="2">previous value of <br>output variable</th>
+		<th colspan="2">value of output variable if</th>
+		<th rowspan="2">value of result <br>variable</th>
+	</tr>
+	<tr>
+		<th>parameter <br><i>output_var</i> <br>is used</th>
+		<th>parameter <br><i>output_add_var</i> <br>is used</th>
+	</tr>
+	<tr class="separate">
+		<td>101</td>
+		<td>yes</td>
+		<td rowspan="2">yes</td>
+		<td>undefined</td>
+		<td>1000</td>
+		<td>1000</td>
+		<td>1000</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>no</td>
+		<td>undefined</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr class="separate">
+		<td>201</td>
+		<td>yes</td>
+		<td rowspan="2">yes</td>
+		<td>1500</td>
+		<td>1000</td>
+		<td>2500</td>
+		<td>1000</td>
+	</tr>
+	<tr>
+		<td>202</td>
+		<td>no</td>
+		<td>1500</td>
+		<td>0</td>
+		<td>1500</td>
+		<td>0</td>
+	</tr>
+	<tr class="separate">
+		<td>301</td>
+		<td>yes</td>
+		<td rowspan="2">no</td>
+		<td>undefined</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>302</td>
+		<td>no</td>
+		<td>undefined</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr class="separate">
+		<td>401</td>
+		<td>yes</td>
+		<td rowspan="2">no</td>
+		<td>1500</td>
+		<td>0</td>
+		<td>1500</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>402</td>
+		<td>no</td>
+		<td>1500</td>
+		<td>0</td>
+		<td>1500</td>
+		<td>0</td>
+	</tr>
+</table>
+
+
+<p>The rules apply for all policy functions with two exceptions. The function Allocate (see section <a href="EM_FC_Allocate.htm">EUROMOD
+Functions - The policy function Allocate</a>) is designed to reallocate the value
+of variables, i.e. allows for assigning results to someone else than the head.
+As a consequence it must be an exception of the rule. Also the function Elig shows a different
+behaviour, which is explained in detail in section <a href="EM_FC_Elig.htm">EUROMOD Functions - The policy function Elig</a>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+For <i>DepChildCond</i>
+the default assessment unit is the whole household, but for any other condition
+a rather arbitrary subgroup is used.</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a><span
+lang=DE-AT> </span>Except the variable was &quot;undefined&quot; before – in which
+case it is set to zero (a defined value). Note that EUROMOD initialises all
+simulated variables by a value called VOID, which amounts to 0.0000000000001,
+to mark them as undefined. </p>
+
+</div>
+
+</body>
+
+</html>

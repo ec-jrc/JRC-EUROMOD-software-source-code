@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function DefVar</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function DefVar</h1>
+<p>Allows for the definition of intermediate variables.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>[Placeholder]</td>
+		<td>policy column: text, system column: formula</td>
+		<td>VAR_DEF</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>[Placeholder] stands for the name of the variable, which is defined in the
+		policy column. Optionally a (constant) initial value can be defined in the
+		(respective) system column (i.e. may be system specific).<br>
+		After its definition the variable can (apart from minor specifics) be used in the same way as regular variables.</td>
+	</tr>
+	<tr>
+		<td>Var_Monetary</td>
+		<td>yes/no</td>
+		<td>VAR_DEF</td>
+		<td>no</td>
+		<td>within group</td>
+		<td>yes</td>
+		<td>If set to no: variable with same group is treated as a non-monetary variable, otherwise as a monetary variable.</td>
+	</tr>
+	<tr>
+		<td>Var_Dataset</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>If set, variables are only defined if the respective dataset is used for the run.<br>
+		The wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. be_20*_a?).</td>
+	</tr>
+	<tr>
+		<td>Var_SystemYear</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>n/a</td>
+		<td>If set, variables are only defined if the run concerns the respective system year.<br>
+		The wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. 20??).</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

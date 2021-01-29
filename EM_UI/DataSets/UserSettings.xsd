@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="UserSettings" targetNamespace="http://tempuri.org/UserSettings.xsd" xmlns:mstns="http://tempuri.org/UserSettings.xsd" xmlns="http://tempuri.org/UserSettings.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="UserSettings" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="UserSettings" msprop:Generator_UserDSName="UserSettings">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Settings" msprop:Generator_TableClassName="SettingsDataTable" msprop:Generator_TableVarName="tableSettings" msprop:Generator_RowChangedName="SettingsRowChanged" msprop:Generator_TablePropName="Settings" msprop:Generator_RowDeletingName="SettingsRowDeleting" msprop:Generator_RowChangingName="SettingsRowChanging" msprop:Generator_RowEvHandlerName="SettingsRowChangeEventHandler" msprop:Generator_RowDeletedName="SettingsRowDeleted" msprop:Generator_RowClassName="SettingsRow" msprop:Generator_UserTableName="Settings" msprop:Generator_RowEvArgName="SettingsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OutputFolder" msprop:Generator_ColumnVarNameInTable="columnOutputFolder" msprop:Generator_ColumnPropNameInRow="OutputFolder" msprop:Generator_ColumnPropNameInTable="OutputFolderColumn" msprop:Generator_UserColumnName="OutputFolder" type="xs:string" minOccurs="0" />
+              <xs:element name="InputFolder" msprop:Generator_ColumnVarNameInTable="columnInputFolder" msprop:Generator_ColumnPropNameInRow="InputFolder" msprop:Generator_ColumnPropNameInTable="InputFolderColumn" msprop:Generator_UserColumnName="InputFolder" type="xs:string" minOccurs="0" />
+              <xs:element name="EuromodFolder" msprop:Generator_ColumnVarNameInTable="columnEuromodFolder" msprop:Generator_ColumnPropNameInRow="EuromodFolder" msprop:Generator_ColumnPropNameInTable="EuromodFolderColumn" msprop:Generator_UserColumnName="EuromodFolder" type="xs:string" minOccurs="0" />
+              <xs:element name="OptionalWarnings" msprop:Generator_ColumnVarNameInTable="columnOptionalWarnings" msprop:Generator_ColumnPropNameInRow="OptionalWarnings" msprop:Generator_ColumnPropNameInTable="OptionalWarningsColumn" msprop:Generator_UserColumnName="OptionalWarnings" type="xs:string" minOccurs="0" />
+              <xs:element name="Bookmarks" msprop:Generator_ColumnVarNameInTable="columnBookmarks" msprop:Generator_ColumnPropNameInRow="Bookmarks" msprop:Generator_ColumnPropNameInTable="BookmarksColumn" msprop:Generator_UserColumnName="Bookmarks" type="xs:string" minOccurs="0" />
+              <xs:element name="ApplicationName" msprop:Generator_ColumnVarNameInTable="columnApplicationName" msprop:Generator_ColumnPropNameInRow="ApplicationName" msprop:Generator_ColumnPropNameInTable="ApplicationNameColumn" msprop:Generator_UserColumnName="ApplicationName" type="xs:string" minOccurs="0" />
+              <xs:element name="RunFromSettings" msprop:Generator_ColumnVarNameInTable="columnRunFromSettings" msprop:Generator_ColumnPropNameInRow="RunFromSettings" msprop:Generator_ColumnPropNameInTable="RunFromSettingsColumn" msprop:Generator_UserColumnName="RunFromSettings" type="xs:string" minOccurs="0" />
+              <xs:element name="AutoSaveInterval" msprop:Generator_ColumnVarNameInTable="columnAutoSaveInterval" msprop:Generator_ColumnPropNameInRow="AutoSaveInterval" msprop:Generator_ColumnPropNameInTable="AutoSaveIntervalColumn" msprop:Generator_UserColumnName="AutoSaveInterval" type="xs:int" default="10" minOccurs="0" />
+              <xs:element name="ParallelRunsAuto" msprop:Generator_ColumnVarNameInTable="columnParallelRunsAuto" msprop:Generator_ColumnPropNameInRow="ParallelRunsAuto" msprop:Generator_ColumnPropNameInTable="ParallelRunsAutoColumn" msprop:Generator_UserColumnName="ParallelRunsAuto" type="xs:boolean" default="true" />
+              <xs:element name="ParallelRuns" msprop:Generator_ColumnVarNameInTable="columnParallelRuns" msprop:Generator_ColumnPropNameInRow="ParallelRuns" msprop:Generator_ColumnPropNameInTable="ParallelRunsColumn" msprop:Generator_UserColumnName="ParallelRuns" type="xs:int" default="1" minOccurs="0" />
+              <xs:element name="PolicySwitchesAutoRename" msprop:Generator_ColumnVarNameInTable="columnPolicySwitchesAutoRename" msprop:Generator_ColumnPropNameInRow="PolicySwitchesAutoRename" msprop:Generator_ColumnPropNameInTable="PolicySwitchesAutoRenameColumn" msprop:Generator_UserColumnName="PolicySwitchesAutoRename" type="xs:boolean" default="false" />
+              <xs:element name="PolicySwitchValues" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="PolicySwitchValues" msprop:Generator_ColumnVarNameInTable="columnPolicySwitchValues" msprop:Generator_ColumnPropNameInTable="PolicySwitchValuesColumn" msprop:Generator_UserColumnName="PolicySwitchValues" type="xs:string" minOccurs="0" />
+              <xs:element name="PolicySwitchesDisplayed" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="PolicySwitchesDisplayed" msprop:Generator_ColumnVarNameInTable="columnPolicySwitchesDisplayed" msprop:Generator_ColumnPropNameInTable="PolicySwitchesDisplayedColumn" msprop:Generator_UserColumnName="PolicySwitchesDisplayed" type="xs:string" minOccurs="0" />
+              <xs:element name="CloseInterfaceWithLastMainform" msprop:nullValue="_empty" msprop:Generator_ColumnPropNameInRow="CloseInterfaceWithLastMainform" msprop:Generator_ColumnVarNameInTable="columnCloseInterfaceWithLastMainform" msprop:Generator_ColumnPropNameInTable="CloseInterfaceWithLastMainformColumn" msprop:Generator_UserColumnName="CloseInterfaceWithLastMainform" type="xs:string" default="&quot;&quot;" minOccurs="0" />
+              <xs:element name="VCLogInAtProjectLoad" msprop:nullValue="false" msprop:Generator_ColumnPropNameInRow="VCLogInAtProjectLoad" msprop:Generator_ColumnVarNameInTable="columnVCLogInAtProjectLoad" msprop:Generator_ColumnPropNameInTable="VCLogInAtProjectLoadColumn" msprop:Generator_UserColumnName="VCLogInAtProjectLoad" type="xs:boolean" default="false" minOccurs="0" />
+              <xs:element name="VCProxyURL" msdata:Caption="DataColumn2" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="VCProxyURL" msprop:Generator_ColumnVarNameInTable="columnVCProxyURL" msprop:Generator_ColumnPropNameInTable="VCProxyURLColumn" msprop:Generator_UserColumnName="VCProxyURL" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="VCProxyPort" msdata:Caption="DataColumn1" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="VCProxyPort" msprop:Generator_ColumnVarNameInTable="columnVCProxyPort" msprop:Generator_ColumnPropNameInTable="VCProxyPortColumn" msprop:Generator_UserColumnName="VCProxyPort" type="xs:string" minOccurs="0" />
+              <xs:element name="VCUseProxy" msprop:Generator_ColumnVarNameInTable="columnVCUseProxy" msprop:Generator_ColumnPropNameInRow="VCUseProxy" msprop:Generator_ColumnPropNameInTable="VCUseProxyColumn" msprop:Generator_UserColumnName="VCUseProxy" type="xs:boolean" default="false" />
+              <xs:element name="VCOrganizationID" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="VCOrganizationID" msprop:Generator_ColumnVarNameInTable="columnVCOrganizationID" msprop:Generator_ColumnPropNameInTable="VCOrganizationIDColumn" msprop:Generator_UserColumnName="VCOrganizationID" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="ViewSettings" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInRow="ViewSettings" msprop:Generator_ColumnVarNameInTable="columnViewSettings" msprop:Generator_ColumnPropNameInTable="ViewSettingsColumn" msprop:Generator_UserColumnName="ViewSettings" type="xs:string" minOccurs="0" />
+              <xs:element name="PlugInSettings" msprop:Generator_ColumnVarNameInTable="columnPlugInSettings" msprop:Generator_ColumnPropNameInRow="PlugInSettings" msprop:nullValue="_null" msprop:Generator_ColumnPropNameInTable="PlugInSettingsColumn" msprop:Generator_UserColumnName="PlugInSettings" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>E:\christine\Euromod_Store\EMProgrammeFiles\UserInterface\Beta3\Setup_EMUI_Beta3\|E:\christine\Euromod_Store\EMProgrammeFiles\UserInterface\Beta2\Setup_EMUI_Beta3\|C:\Euromod\Bauer42\Lieferungen\Beta1\Beta1\Setup\|C:\Euromod\Bauer42\Lieferungen\Beta1\Beta1\|C:\Euromod\Bauer42\Lieferungen\Prototype9\EMUI_Prototype9\Setup\</PublishUrlHistory>
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>de-DE</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+    <ProjectView>ShowAllFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+</Project>

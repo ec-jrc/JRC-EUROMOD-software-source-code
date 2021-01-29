@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Defining Uprating Factors</title>
+</head>
+
+<body>
+
+<h1>Defining Uprating Factors</h1>
+
+<p>The user interface provides support for defining uprating
+factors for monetary variables based on an index table. An example illustrates
+best what this means. Let’s assume we have the following index table:</p>
+
+<table class="info">
+	<tr>
+		<th>Index</th>
+		<th>Reference</th>
+		<th>2012</th>
+		<th>2013</th>
+		<th>2014</th>
+		<th>Comment</th>
+	</tr>
+	<tr>
+		<td>Harmonised CPI (index 2012=100)</td>
+		<td>$Factor_CPI</td>
+		<td>100</td>
+		<td>104.3</td>
+		<td>110.2</td>
+		<td>Source: Eurostat</td>
+	</tr>
+	<tr>
+		<td>Average monthly salary</td>
+		<td>$Factor_WAGE</td>
+		<td>150.4</td>
+		<td>155.8</td>
+		<td>159.4</td>
+		<td>Source: Eurostat</td>
+	</tr>
+</table>
+
+<p>On the basis of this table the user
+interface is able to generate definitions of uprating factors for each
+available dataset and tax-benefit system, which can then be used to uprate
+monetary variables (e.g. in an <i><a
+href="EM_FC_Uprate.htm">Uprate</a></i> function).</p>
+
+<p>More concretely, assume the country comes with two datasets,
+<i>cc_2012_a1</i> and <i>cc_2013_a1</i>, and three systems, <i>cc_2012</i>,
+<i>cc_2013</i> and <i>cc_2014</i>. The user interface will define the following uprating
+factors:</p>
+
+<h6>For system <i>cc_2012</i>:</h6>
+<ul type=none>
+	<li><i>$Factor_CPI = 1</i> if dataset <i>cc_2012_a1</i> is used</li>
+	<li><i>$Factor_WAGE = 1</i> if dataset <i>cc_2012_a1</i> is used</li>
+	<li><i>$Factor_CPI = 0.9588</i> (= 100 / 104.3) if dataset <i>cc_2013_a1</i> is used</li>
+	<li><i>$Factor_WAGE = 0.9653</i> (= 150.4 / 155.8) if dataset <i>cc_2013_a1</i> is used</li>
+</ul>
+
+<h6>For system <i>cc_2013</i>:</h6>
+<ul type=none>
+<li><i>$Factor_CPI = 1.043</i> (= 104.3 / 100) if dataset <i>cc_2012_a1</i> is used</li>
+
+<li><i>$Factor_WAGE = 1.0359</i> (= 155.8 / 150.4) if dataset <i>cc_2012_a1</i> is used</li>
+
+<li><i>$Factor_CPI = 1</i> if dataset <i>cc_2013_a1</i> is used</li>
+
+<li><i>$Factor_WAGE = 1</i> if dataset <i>cc_2013_a1</i> is used</li>
+</ul>
+<h6>For system <i>cc_2014</i>:</h6>
+<ul type=none>
+<li><i>$Factor_CPI = 1.102</i> (= 110.2 / 100) if dataset <i>cc_2012_a1</i> is used</li>
+
+<li><i>$Factor_WAGE = 1.0598</i> (= 159.4 / 150.4) if dataset <i>cc_2012_a1</i> is used</li>
+
+<li><i>$Factor_CPI = 1.0566</i> (= 110.2 / 104.3) if dataset <i>cc_2013_a1</i> is used</li>
+
+<li><i>$Factor_WAGE = 1.0231</i> (= 159.4 / 155.8)
+if dataset <i>cc_2013_a1</i> is used</li>
+</ul>
+
+<p>These factor
+definitions can then be used for example in an <i><a href="EM_FC_Uprate.htm">Uprate</a></i> function as follows:</p>
+
+<table class="spine">
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">cc_2012</td>
+		<td class="system">cc_2013</td>
+		<td class="system">cc_2014</td>
+		<td>Comments</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>bch</td>
+		<td>$Factor_CPI</td>
+		<td>$Factor_CPI</td>
+		<td>$Factor_CPI</td>
+		<td>child benefits are uprated by CPI</td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>$Factor_WAGE</td>
+		<td>$Factor_WAGE</td>
+		<td>$Factor_WAGE</td>
+		<td>employment income is uprated by wage index</td>
+	</tr>
+</table>
+
+<p>which
+means, for example, that the variable <i>bch</i>
+is uprated with a factor 1.102 for the system <i>cc_2014</i>, if dataset <i>cc_2012_a1</i>
+is used. If instead dataset <i>cc_2013_a1</i>
+is used, <i>bch</i> is uprated with a factor
+1.0566.</p>
+
+<h4>Generating
+the index table</h4>
+
+<p>To achieve the above described, the developer firstly must
+fill in the index table. This is accomplished via a dialog opened by clicking
+the button <i>Uprating Indices</i> in the
+ribbon <i>Country Tools</i>. The tab <i>Raw Indices</i> provides the respective
+index table.</p>
+
+<p>To add indices (i.e. rows) to the table just fill the last,
+empty row respectively. This will automatically generate another empty row for
+a further new index.</p>
+
+<p>To delete an index select the respective row by clicking its
+column-header (the whole line will be marked by blue background). Then press
+the <i>Delete</i> key. For deleting several
+indices use the <i>Ctrl</i> and <i>Shift</i> keys as usual to select the rows.
+Then press <i>Delete</i>.</p>
+
+<p>To add years (i.e. columns) to the table, fill the year in
+the field above the button <i>Add Year</i>
+to then press the button. Use the button <i>Delete
+Year</i> to delete the year selected in the combo-box above the button. Year
+columns can be shifted by using the mouse to drag them to the desired location.</p>
+
+<p>In order to paste values into the index table (e.g. from
+Excel), firstly select the respective cells. Then use <i>Ctrl-V</i> (or <i>Shift-Insert</i>)
+for pasting. Similarly, to copy values from the table to the clipboard, firstly
+select the respective cells, to then use <i>Ctrl-C</i>
+(or <i>Ctrl-Insert</i>) for copying.</p>
+
+<p>Pressing the button <i>OK</i>
+will - based on the information in the index table - generate the definitions
+of uprating factors as exemplified above.</p>
+
+<p>Note that, if an index is set to zero for one or more years this may, on using it, have the following effects:<br>
+If the zero-index refers to the system year this leads to "uprating by zero", i.e. setting the concerned variable(s) to zero.<br>
+If the zero-index refers to the data year this leads to "division by zero", i.e. setting the concerned variable(s) to NaN (not a number).<br>
+In both cases the programme issues a respective warning.
+</p>
+
+<h4>Checking
+factors per dataset and system years</h4>
+
+<p>The tab <i>Factors per
+Data and System</i> allows for controlling, which factors will be generated, on
+pressing the <i>OK</i> button. Once a
+dataset is selected in the combo-box on top of the dialog, the table will show
+for this dataset the factors for each system. Note that obviously factors can
+only be calculated, if the (income) year of the dataset (see <a
+href="EM_WW_ConfiguringDatasets.htm">Working with EUROMOD - Configuring
+datasets</a>) is available and the <i>Raw
+Indices</i> table provides as well the year of the dataset as the year of the
+system. If this is not the case, the table shows <i>n/a</i> for not available.</p>
+
+<p>The button <i>Update</i>
+can be used to update the content of the control table, if new information was
+entered to the <i>Raw Indices</i> table.</p>
+
+<h4>Using
+the factor definitions</h4>
+
+<p>Most likely the factor definitions will be used in <i><a href="EM_FC_Uprate.htm">Uprate</a></i>
+functions as outlined above. However, in fact the factors can in general be
+used like constants (defined by <i><a
+href="EM_FC_DefVar_DefConst.htm">DefConst</a></i> functions).
+The only particularity is, that the constants will
+adopt different values dependent on the used dataset. The interested user may
+read the following paragraph to learn how this works, respectively for a closer
+understanding.</p>
+
+<p><strong><span style='color:red'>Important!</span></strong> Please note, that if a new dataset is
+added to an <i><a href="EM_FC_Uprate.htm">Uprate</a></i>
+function (by the parameter <i>dataset</i>)
+the factor definitions will not be automatically available for this dataset. In
+fact it needs opening and closing the dialog for defining Uprating Indices, as
+the respective background information is only generated by this action. Reading
+the following paragraph on the technical background may make this clearer.</p>
+
+<h4>Checking
+the usage of the factors</h4>
+
+<p>The button <i>Check Usage</i>
+allows for assessing which variables are uprated by any factor. Clicking the
+button opens a dialog which explores all <i><a
+href="EM_FC_Sum_Uprate.htm">Uprate</a></i> functions (switched to <i>on</i> or <i>toggle</i>) and collects the variables for which the factors are
+applied. Moreover, it checks if any factor is applied for the parameter <i>Def_Factor</i>.</p>
+
+<p>If a factor is applied on a variable for only part of the systems
+(i.e. tax-benefit-years), this is indicated by showing the respective years in parenthesis
+behind the variable. It is also possible to restrict the check to a range of (or
+single) tax-benefit-years by choosing the respective start- and end-year in the
+<i>From-to</i>-boxes. In this context please
+note that the check takes only standard systems into account, i.e. systems
+named <i>cc_yyyy</i>.</p>
+
+<p>Please also note that the check is limited to <i><a href="EM_FC_Sum_Uprate.htm">Uprate</a></i>
+functions. It does not check if the factor is used anywhere else in the implementation
+of the country. To provide for such an extended search, press the button <i>Go to Component Use</i>, which opens the <a
+href="EM_WW_ComponentUse.htm">Component Use dialog</a>.</p>
+
+<h4>Technical
+background</h4>
+
+<p>The information displayed by the <i>Raw Indices</i> table, as well as the factor definitions generated by
+the user interface on the base of this table, are
+stored in a hidden policy.<a href="#_ftn1"
+name="_ftnref1" title="">[1]</a>
+This policy comprises one <i><a
+href="EM_FC_DefVar_DefConst">DefVar</a></i> function -
+this function contains the information stored in the <i>Raw Indices</i> table<a href="#_ftn2"
+name="_ftnref2" title="">[2]</a>.
+Moreover, it contains one <i><a
+href="EM_FC_DefVar_DefConst.htm">DefConst</a></i> function
+for each of the country's datasets.</p>
+
+<p>The <i><a href="EM_FC_DefVar_DefConst.htm">DefConst</a></i> functions contain a definition for each
+factor of the <i>Raw Indices</i> table, in
+the form:</p>
+
+<table class="spine">
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">cc_2012</td>
+		<td class="system">cc_2013</td>
+		<td class="system">cc_2014</td>
+	</tr>
+	<tr class="function">
+		<td>DefConst</td>
+		<td></td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+	</tr>
+	<tr>
+		<td>$Factor_CPI</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1.043</td>
+		<td>1.102</td>
+	</tr>
+	<tr>
+		<td>const_dataset</td>
+		<td>1</td>
+		<td>cc_2012_a1</td>
+		<td>cc_2012_a1</td>
+		<td>cc_2012_a1</td>
+	</tr>
+	<tr>
+		<td>$Factor_WAGE</td>
+		<td>2</td>
+		<td>1</td>
+		<td>1.0359</td>
+		<td>1.0598</td>
+	</tr>
+	<tr>
+		<td>const_dataset</td>
+		<td>2</td>
+		<td>cc_2012_a1</td>
+		<td>cc_2012_a1</td>
+		<td>cc_2012_a1</td>
+	</tr>
+	<tr class="function">
+		<td>DefConst</td>
+		<td></td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+	</tr>
+	<tr>
+		<td>$Factor_CPI</td>
+		<td>1</td>
+		<td>0.9588</td>
+		<td>1</td>
+		<td>1.0566</td>
+	</tr>
+	<tr>
+		<td>const_dataset</td>
+		<td>1</td>
+		<td>cc_2013_a1</td>
+		<td>cc_2013_a1</td>
+		<td>cc_2013_a1</td>
+	</tr>
+	<tr>
+		<td>$Factor_WAGE</td>
+		<td>2</td>
+		<td>0.9653</td>
+		<td>1</td>
+		<td>1.0231</td>
+	</tr>
+	<tr>
+		<td>const_dataset</td>
+		<td>2</td>
+		<td>cc_2013_a1</td>
+		<td>cc_2013_a1</td>
+		<td>cc_2013_a1</td>
+	</tr>
+</table>
+
+<p>As can be read in the description
+of the function <i><a
+href="EM_FC_Sum_DefConst.htm">DefConst</a></i>, the
+parameter const_dataset effects,
+that: &quot;... constant is only defined if the respective dataset is used for
+the run&quot;. In the example that means that for the system <i>cc_2012</i> the constant <i>$Factor_CPI</i>
+takes on the value 1, if run with the dataset <i>cc_2012_a1</i> and 0.9588, if run with the dataset <i>cc_2013_a1</i>.</p>
+
+<p>Note that the &quot;IntelliSense&quot; (see <a
+href="EM_WW_ChangingParameters.htm">Working with EUROMOD - Changing parameters</a>,
+paragraph <i>Editing formula, condition and
+variable parameters</i>) will for the system <i>cc_2012</i> show two entries for the constant <i>$Factor_CPI</i> (i.e. <i>$Factor_CPI (1)</i> and <i>$Factor_CPI (0.9588)</i>). As
+&quot;IntelliSense&quot; is only typing assistance it does not matter which of
+it is selected.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> The name of the policy is <i>DefUpratingFactors_cc</i>
+and it is the very first policy in the spine.</p>
+
+<p class="footnote"><a href="#_ftnref2"
+name="_ftn2" title="">[2]</a> The first parameter of this function
+stores the <i>Raw Indices</i> tabel's years (in the form &quot;<i>2012°2013°2014</i>&quot;). Each further parameter contains the
+information for one index, i.e. raw of the <i>Raw
+Indices</i> table (in the form &quot;<i>Harmonised
+CPI (index 2012=100) °$Factor_CPI°100°104.3°110.2°Source: Eurostat</i>&quot;) The information is stored in the parameters' name while the
+parameters' values are all set to <i>n/a</i>
+(to avoid unnecessary redundancies). The function is switched off and thus just
+used for informing the dialog.</p>
+
+</div>
+
+</body>
+
+</html>

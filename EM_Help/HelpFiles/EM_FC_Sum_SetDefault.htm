@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function SetDefault</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function SetDefault</h1>
+<p>Allows for the setting of default values for not existent dataset variables.</p>
+
+<h4>Function Specific Parameters</h4>
+
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Dataset</td>
+		<td>text</td>
+		<td>at least one</td>
+		<td>no</td>
+		<td>Name of a dataset(s) for which the default settings apply.<br>If the settings apply for several datasets, the parameter can be used more than once. Moreover, the wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. be_20*_v?).</td>
+	</tr>
+	<tr>
+		<td>[Placeholder]</td>
+		<td>policy column: formula<br>system column: text</td>
+		<td>at least one</td>
+		<td>no</td>
+		<td>[Placeholder] stands for the name of a variable, defined in the policy column, whose default values are specified in the respective system columns (i.e. the default may be system specific).</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

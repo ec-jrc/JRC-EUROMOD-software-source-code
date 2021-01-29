@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function AddOn_Pol</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function AddOn_Pol</h1>
+<p>Add-on function: Allows for adding a policy.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Pol_Name</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Name of the policy to insert (must be unique).</td>
+	</tr>
+	<tr>
+		<td>Insert_Before_Pol</td>
+		<td>text</td>
+		<td>yes (if Insert_After_Pol is not defined)</td>
+		<td>yes</td>
+		<td></td>
+		<td>Insert_After_Pol</td>
+		<td>Name of the policy before which the add-on policy should be inserted.</td>
+	</tr>
+	<tr>
+		<td>Insert_After_Pol</td>
+		<td>text</td>
+		<td>yes (if Insert_Before_Pol is not defined)</td>
+		<td>yes</td>
+		<td></td>
+		<td>Insert_Before_Pol</td>
+		<td>Name of the policy after which the add-on policy should be inserted.</td>
+	</tr>
+	<tr>
+		<td>Allow_Duplicates</td>
+		<td>yes/no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>no</td>
+		<td></td>
+		<td>If set to no: adding a policy twice (i.e. Pol_Name identical) leads to an error message.<br>If set to yes: adding a policy twice works, but "references" cannot be used, i.e. the usage of functions like ChangeParam and Loop is not possible.</td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function DefTu</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function DefTu</h1>
+<p>Allows for the definition of assessment units.<br>Note that parameters may use variables with the prefixes "head:" or "partner:". These prefixes can be used with variables only, not with incomelists or queries.<br>Also note that "{Default}" can be used to further define any default condition (as indicated in Default Value).<br></p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Type</td>
+		<td>categorical</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Indicates the scope of the assessment unit.<br>Possible values:<br>- HH: all members of the household belong to one unit.<br>- IND: each members of the household forms an own unit.<br>- SUBGROUP: unit members are specified as indicated in the parameter Members.</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>text</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>Name of the assessment unit.</td>
+	</tr>
+	<tr>
+		<td>Members</td>
+		<td>text</td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Specifies which members of the household form a unit, if parameter Type is set to SUBGROUP.<br>Syntax: Status & Status & Status & ..., e.g. Partner & OwnChild.<br><br>Possible values for Status:<br>- Partner: defined by parameter PartnerCond<br>- OwnDepChild: defined by parameter OwnDepChildCond<br>- LooseDepChild: defined by parameter LooseDepChildCond<br>- LooseDepChild: defined by parameter LooseDepChildCond<br>- OwnChild: defined by parameter OwnChildCond<br>- DepParent: defined by parameter DepParentCond<br>- DepRelative: defined by parameter DepRelativeCond<br><br>Note, that the Head is obviously always part of unit and (usually) relations are defined with reference to the Head.</td>
+	</tr>
+	<tr>
+		<td>HeadDefInc</td>
+		<td>variable or incomelist</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>ils_OrigY</td>
+		<td>Incomelist used for determining who is the richest person in the assessment unit, see parameter ExtHeadCond.</td>
+	</tr>
+	<tr>
+		<td>ExtHeadCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>!{IsDepChild}</td>
+		<td>Condition further defining the head of the assessment unit. The condition is &amp;-linked with the following fixed head condition:<br>{HeadDefInc&gt;anyother:HeadDefInc} | <br>({HeadDefInc&gt;=anyother:HeadDefInc} & {dag&gt;anyother:dag}) | <br>({HeadDefInc&gt;=anyother:HeadDefInc} & {dag&gt;=anyother:dag} & {idperson&lt;anyother:idperson})<br>
+		where 'anyother' refers to potential heads, in the sense of fulfilling ExtHeadCond.</td>
+	</tr>
+	<tr>
+		<td>PartnerCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{head:idperson=idpartner}</td>
+		<td>Condition defining who is a partner.</td>
+	</tr>
+	<tr>
+		<td>DepChildCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{0}</td>
+		<td>Condition defining who is a dependent child.<br>The "real" default, i.e. if the parameter is not defined or set to n/a, is {0} (i.e. nobody is a child).<br>However, setting the parameter to "{Default}" is interpreted as !{isparent}&amp;{idpartner&lt;=0}.</td>
+	</tr>
+	<tr>
+		<td>OwnChildCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{head:idperson=idmother}|{head:idperson=idfather}|{partner:idperson=idmother}|{partner:idperson=idfather}</td>
+		<td>Condition defining who is an own child.</td>
+	</tr>
+	<tr>
+		<td>OwnDepChildCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{isownchild}&amp;{isdepchild}</td>
+		<td>Condition defining who is an own dependent child.</td>
+	</tr>
+	<tr>
+		<td>LooseDepChildCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{idmother=0}&amp;{idfather=0}&amp;{isdepchild}</td>
+		<td>Condition defining who is a loose dependent child.</td>
+	</tr>
+	<tr>
+		<td>DepParentCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{head:idmother=idperson}|{head:idfather=idperson}|{partner:idmother=idperson}|{partner:idfather=idperson}</td>
+		<td>Condition defining who is a dependent parent.</td>
+	</tr>
+	<tr>
+		<td>DepRelativeCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{0}</td>
+		<td>Condition defining who is a dependent relative.</td>
+	</tr>
+	<tr>
+		<td>LoneParentCond</td>
+		<td>condition</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>{isparentofdepchild}&amp;{idpartner&lt;=0}</td>
+		<td>Condition defining who is a lone parent.</td>
+	</tr>
+	<tr>
+		<td>StopIfNoHeadFound</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes: an error is issued if ExtHeadCond rules out all household members.<br>If se to no: no error issued, instead ExtHeadCond is dropped for affected households.</td>
+	</tr>
+	<tr>
+		<td>NoChildIfHead</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes (possible) child status is removed if person is the Head of the assessment unit.</td>
+	</tr>
+	<tr>
+		<td>NoChildIfPartner</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes (possible) child status is removed if person is Partner as defined by parameter PartnerCond.</td>
+	</tr>
+	<tr>
+		<td>AssignDepChOfDependents</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes dependent children of dependent unit members (i.e. persons who are not Head or Partner of the unit) are assigned to the unit.</td>
+	</tr>
+	<tr>
+		<td>AssignPartnerOfDependents</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>If set to yes partners of dependent unit members (i.e. persons who are not Head or Partner of the unit) are assigned to the unit.</td>
+	</tr>
+	<tr>
+		<td>MultiplePartners</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>warn</td>
+		<td>Allows customizing the behaviour when multiple partners are found in the data.<br><br>Possible values:
+			<br>- warn: Gives out a warning when multiple partners are found, and keeps only the first one.
+			<br>- ignore: Keeps only the first partner found, without giving out any warnings.
+			<br>- allow: Keeps all partners. The head still connects only to the first partner found, but all partners have IsPartner set to true.</td>
+	</tr>
+		<tr>
+		<td>IsStatic</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If set to no, TU is recreated on each use.<br>Set to 'no' e.g. for a child-definition depending on a variable that changes during run.</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

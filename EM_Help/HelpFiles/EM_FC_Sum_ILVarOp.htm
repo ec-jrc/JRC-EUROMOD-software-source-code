@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function IlVarOp</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function IlVarOp</h1>
+<p>Allows for operations on the content (i.e. the variables) of an incomelist.</p>
+
+<h4>Function Specific Parameters</h4>
+
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Operand</td>
+		<td>formula</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td></td>
+		<td>Operand_Factors, Operand_IL</td>
+		<td>Variables of Operator_IL are multiplied/increased by operand.<br>Example: <br>Operator_IL = ils_earns = { yem / yse } <br>Operand = 2.5 <br>All other parameters are set to their defaults. <br>Result: yem = yem * 2.5, yse = yse * 2.5</td>
+	</tr>
+	<tr>
+		<td>Operand_Factors</td>
+		<td>yes/no</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>Operand, Operand_IL</td>
+		<td>Variables of Operator_IL are multiplied/increased by factors of Operator_IL.<br>Example: <br>Operator_IL = ils_earns_mul = { 3 yem / -2 yse } <br>Operand_Factors = yes <br>All other parameters are set to their defaults. <br>Result: yem = yem * 3, yse = yse * (-2)<br></td>
+	</tr>
+	<tr>
+		<td>Operand_IL</td>
+		<td>formula</td>
+		<td>yes (if no substitute is defined)</td>
+		<td>yes</td>
+		<td></td>
+		<td>Operand, Operand_Factors</td>
+		<td>Variables of Operator_IL are multiplied/increased by variables of Operand_IL.<br>Example: <br>Operator_IL = ils_earns = { yem / yse } <br>Operand_IL = il_multiply = { poa / yiy } <br>All other parameters are set to their defaults. <br>Result: yem = yem * poa, yse = yse * yiy<br></td>
+	</tr>
+	<tr>
+		<td>Operator_IL</td>
+		<td>incomelist</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Incomelist containing the variables on which the operation takes place.</td>
+	</tr>
+	<tr>
+		<td>Operation</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>MUL</td>
+		<td></td>
+		<td>Possible values:<br>- MUL: variables of Operator_IL are multiplied by Operand.<br>- ADD: variables of Operator_IL are increased by Operand.<br>- NEGTOZERO: negative variables of Operator_IL are set zo zero, postive variables keep their value.</td>
+	</tr>
+	<tr>
+		<td>Sel_Var</td>
+		<td>categorical</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>ALL</td>
+		<td></td>
+		<td>Possible values:<br>ALL: operation takes place on all variables of Operator_IL.<br>MAX: operation takes place on the highest variable of Operator_IL.<br>MIN: operation takes place on the smallest variable of Operator_IL.<br>MINPOS: operation takes place on the smallest positive variable of Operator_IL (no operation occurs, if there is no positive variable).</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>condition</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>Who_Must_Be_Elig</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>nobody</td>
+		<td>Function's calculations are carried out if ...<br>- one (one_member): ... one member of the assessment unit is "eligible"<br>- one_adult: ... one adult member of the assessment unit is "eligible"<br>- all (all_members; taxunit): ... all members of the assessment unit are "eligible"<br>- all_adults: ... all adult members of the assessment unit are eligible<br>- nobody: ... always<br>"eligible" is determined by the variable indicated by parameter Elig_Var</td>
+	</tr>
+	<tr>
+		<td>Elig_Var</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>sel_s</td>
+		<td>Variable indicating whether a person is "eligible" (see parameter Who_Must_Be_Elig):<br>- zero: person is not eligible<br>- non zero: person is eligible</td>
+	</tr>
+	<tr>
+		<td>#_LowLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is smaller.</td>
+	</tr>
+	<tr>
+		<td>#_UpLim</td>
+		<td>formula</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999.99</td>
+		<td>Footnote parameter for the further specification of an operand: replaces operand if operand is higher.</td>
+	</tr>
+	<tr>
+		<td>#_LimPriority</td>
+		<td>categorical</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>upper</td>
+		<td>Footnote parameter for the further specification of an operand:<br>Possible values:<br>If upper limit (#_UpLim) is smaller than lower limit (#_LowLim) ...<br>- upper: ... upper limit dominates;<br>- lower: ... lower limit dominates;<br>- not defined: ... a warning is issued.</td>
+	</tr>
+	<tr>
+		<td>#_Amount</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates the numeric value of an operand.</td>
+	</tr>
+	<tr>
+		<td>#_Level</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Footnote parameter for the further specification of an operand: indicates an alternative assessment unit for an operand.</td>
+	</tr>
+	<tr>
+		<td>#_AgeMin</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>-999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_AgeMax</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>999999999999</td>
+		<td>Parameter of several queries (e.g. nDepChildrenInTu).</td>
+	</tr>
+	<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+	<tr>
+		<td>#_N</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_M</td>
+		<td>amount</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query IsNtoMchild.</td>
+	</tr>
+	<tr>
+		<td>#_Val</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Income</td>
+		<td>variable or incomelist</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerIncome).</td>
+	</tr>
+	<tr>
+		<td>#_Info</td>
+		<td>variable</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of several queries (e.g. GetPartnerInfo).</td>
+	</tr>
+	<tr>
+		<td>#_Unique</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+	<tr>
+		<td>#_Adults_Only</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td></td>
+		<td>Parameter of query HasMaxValInTu.</td>
+	</tr>
+</table>
+</body>
+</html>

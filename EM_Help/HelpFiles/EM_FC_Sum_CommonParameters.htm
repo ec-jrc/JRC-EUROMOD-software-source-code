@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of common parameters</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Summary of common parameters</h1>
+
+<table class="info">
+	<tr>
+		<th>parameter name</th>
+		<th>value type</th>
+		<th>compulsory / optional</th>
+		<th>default value</th>
+		<th>description</th>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>variable</td>
+		<td rowspan="2">compulsory <a href="#_ftn1" name="_ftnref1" title="">[1]</a></td>
+		<td rowspan="2">n/a</td>
+		<td>variable for storing the result of the function, result of function
+		overwrites current value</td>
+	</tr>
+	<tr>
+		<td>output_add_var</td>
+		<td>variable</td>
+		<td>variable for storing the result of the function, result of function
+		is added to current value of output variable</td>
+	</tr>
+	<tr>
+		<td>result_var</td>
+		<td>variable</td>
+		<td>optional</td>
+		<td>n/a</td>
+		<td>variable for storing the result of the function, always overwritten</td>
+	</tr>
+	<tr>
+		<td>who_must_be_elig</td>
+		<td>categorical</td>
+		<td>optional</td>
+		<td>nobody</td>
+		<td>
+			<p>function’s calculations are carried out if …</p>
+			<ul>
+				<li>one_member (or one): one member of the assessment unit is eligible</li>
+				<li>one_adult: one adult member of the assessment unit is eligible</li>
+				<li>all_members (or all or taxunit): all members of the taxunit are eligible</li>
+				<li>all_adults: all adult members of the taxunit are eligible</li>
+				<li>nobody: always</li>
+			</ul>
+			<p>&quot;eligible&quot; is determined by the variable indicated by parameter elig_var</p>
+		</td>
+	</tr>
+	<tr>
+		<td>elig_var</td>
+		<td>variable</td>
+		<td>optional</td>
+		<td>sel_s</td>
+		<td>variable indicating whether a person is &quot;eligible&quot;</p>
+		<p>zero: person is not eligible</p>
+		<p>non zero: person is eligible</td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>formula</td>
+		<td>optional</td>
+		<td>neg. &#8734; <a href="#_ftn3" name="_ftnref3" title="">[3]</a></td>
+		<td>replaces result of function if result is smaller</td>
+	</tr>
+	<tr>
+		<td>uplim</td>
+		<td>formula</td>
+		<td>optional</td>
+		<td>pos. &#8734;</td>
+		<td>replaces result of function if result is higher</td>
+	</tr>
+	<tr>
+		<td>threshold</td>
+		<td>formula</td>
+		<td>optional</td>
+		<td>neg. &#8734;</td>
+		<td>replaces result of function if result is smaller:</p>
+		<p>if lower limit is not defined by zero, otherwise by lower limit</td>
+	</tr>
+	<tr>
+		<td>limpriority</td>
+		<td>categorical</td>
+		<td>optional</td>
+		<td>upper</td>
+		<td><p>if upper limit is smaller than lower limit:</p>
+		<p>upper: upper limit dominates</p>
+		<p>lower: lower limit dominates</p>
+		<p>not defined: a warning is issued (and default applied if ignored)</p></td>
+	</tr>
+	<tr>
+		<td><p>round_to</p>
+		<p>round_up</p>
+		<p>round_down</p></td>
+		<td>value</td>
+		<td>optional</td>
+		<td>n/a</td>
+		<td>result is rounded to nearest whole number if set to 1, to nearest
+		number with 1 decimal if set to 0.1, to nearest 10 if set to 10, etc.</p>
+		<p>_up always rounds up, _down always rounds down</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>taxunit</td>
+		<td>compulsory <a href="#_ftn2" name="_ftnref2" title="">[2]</a></td>
+		<td>n/a</td>
+		<td>assessment unit for function’s calculations</td>
+	</tr>
+	<tr>
+	<td>&quot;switch&quot;</td>
+	<td>categorical</td>
+	<td>compulsory</td>
+	<td>n/a</td>
+	<td><p>not literally a parameter</p>
+		<ul>
+			<li>on (or 1): function is switched on</li>
+			<li>off (or 0): function is switched off</li>
+			<li>toggle (or 2): function is initially switched off, to be switched 
+			<br>on later (parameters of the function are read and checked)</li>
+		</ul>
+	</td>
+	</tr>
+	<tr>
+		<td>run_cond</td>
+		<td>condition</td>
+		<td>optional</td>
+		<td>{1}</td>
+		<td><p>conditional switch: function is only carried out if the condition is
+		fulfilled</p>
+		<p>the condition should not be individual or household based, but refer
+		to a specific processing state or other global condition</p></td>
+	</tr>
+	<tr>
+		<td>#_lowlim</td>
+		<td>footnote</td>
+		<td>optional</td>
+		<td>neg. &#8734;</td>
+		<td>replaces operand if operand is smaller (see <a
+		href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters
+		for the further specification of operands</a>)</td>
+	</tr>
+	<tr>
+		<td>#_uplim</td>
+		<td>footnote</td>
+		<td>optional</td>
+		<td>pos. &#8734;</td>
+		<td>replaces operand if operand is higher (see <a
+		href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters
+		for the further specification of operands</a>)</td>
+	</tr>
+	<tr>
+		<td>#_amount</td>
+		<td>footnote</td>
+		<td>optional</td>
+		<td>n/a</td>
+		<td>indicates numeric value of an operand (see <a
+		href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters
+		for the further specification of operands</a>)</td>
+	</tr>
+	<tr>
+		<td>#_level</td>
+		<td>footnote</td>
+		<td>optional</td>
+		<td>n/a</td>
+		<td>indicates alternative assessment unit of an operand (see <a
+		href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters
+		for the further specification of operands</a>)</td>
+	</tr>
+	<tr>
+		<td>#_xxx</td>
+		<td>footnote</td>
+		<td>optional</td>
+		<td>n/a</td>
+		<td>indicates further specification of a query (see <a
+		href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a>)</td>
+	</tr>
+	<tr>
+		<td>#_type</td>
+		<td>footnote</td>
+		<td>optional</td>
+		<td>n/a</td>
+		<td>explicitly indicates type of an operand as var (or variable), il (or
+		incomelist) or query (see <a href="EM_FC_FootnoteParameters.htm">EUROMOD
+		Functions - Footnote parameters for the further specification of operands</a>)</td>
+	</tr>
+</table>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> for policy functions with exceptions</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a> for policy functions</p>
+
+<p class="footnote"><a href="#_ftnref3" name="_ftn3" title="">[3]</a> &#8734; in fact stands for 999999999999.99.</p>
+
+</div>
+
+</body>
+
+</html>

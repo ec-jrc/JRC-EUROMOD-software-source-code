@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Policy
+Effects tool</title>
+</head>
+
+<body>
+
+<h1>Policy
+Effects tool</h1>
+
+<h4>What is the Policy Effects
+tool?</h4>
+
+<p>The Policy Effects tool estimates the first-order effects of
+policies on household incomes. The tool is meant to assist with model
+validation (see EUROMOD Country Reports on the EUROMOD website) and compares
+policies in place in two consecutive years, both in nominal and real terms.</p>
+
+<h4>Where can I find this?</h4>
+
+<p>You can find the Policy Effects tool under the
+&quot;Applications&quot; toolbar ribbon, inside the &quot;Tools&quot; group.</p>
+
+<h4>How does it work?</h4>
+
+<p>When you open the Policy Effects tool you are presented with
+an input form, which allows you to specify the (start) period of interest,
+countries, input datasets and indexation factors (<i>alphas</i>, see Methodology below). By default, the tool is set to
+analyse policy changes in the most recent policy year available in the model,
+using the dataset offering the best match for the start of this period (see <a
+href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - Terminology</a>).</p>
+
+<p>The field <i>Output path</i>
+at the bottom of the form allows changing the default output folder where the
+tool stores micro-level output for relevant policy scenarios together with log
+files (standard EUROMOD run logs and a tool-specific log). Note that the output
+folder must exist, otherwise EUROMOD issues an error message, and any existing
+files with the same names will be overwritten without a warning. </p>
+
+<p>To produce micro-output and summary results, click on the
+&quot;Run &amp; Show Results&quot; button. </p>
+
+<h4>Results</h4>
+
+<p>Once specified policy systems have been simulated and
+analysed, you will be presented with the results form. This has a tab control
+(on the bottom) with a separate tab for each country previously selected. Each
+country tab page has one inner tab control (on the top), with a separate tab
+for each selected indexation factor (<i>alpha</i>).</p>
+
+<p>Each summary table shows the effect of policy changes in a
+given period on mean equivalised household disposable
+income by (standard) income component and income decile group, as a percentage
+of mean equivalised household disposable income in
+the starting year. The latter is also used to construct income decile groups.
+Throughout, the modified OECD equivalence scale is used. For example, a 3
+percentage point change for public pensions in the third decile group in
+country A, indicates that changes (increases) in
+public pensions accounted for a 3 percentage point increase in average equivalised household income. In the case of taxes and SIC,
+a positive (negative) number implies that taxes/SIC have been reduced
+(increased). The sum of effects by income component (columns 2 to 8) equals the
+total (column 9).</p>
+
+<p>You can copy-paste any selected cells from these tables,
+either by pressing Ctrl+C or by right-clicking and
+selecting &quot;Copy&quot; from the context menu. You can also export all the
+calculated statistics (all tables for all countries) into a single Excel file,
+by clicking on the &quot;Export&quot; button.</p>
+
+<h4>Methodology</h4>
+
+<p>The estimation of policy changes draws on the method
+suggested by Bargain and Callan (2010, The Journal of Economic Inequality).
+Consider a single household and denote its market income (and other
+characteristics) with <i>y</i> and monetary
+values of tax-benefit parameters as <i>p</i>.
+A function <i>d(</i><i>p,y</i><i>)</i> calculates household disposable income
+on the basis of its market income and monetary parameters, reflecting the
+structure of the tax-benefit system (e.g. tax rates, benefit eligibility
+rules). In period <i>t</i>, household
+disposable income can be denoted as <i>d<sub>t</sub>(p<sub>t</sub>,y<sub>t</sub>)</i>.</p>
+
+<p>The tool estimates the <u>direct</u> effect of policy
+changes on household incomes in the period from <i>t=1 </i>to <i>t=2</i>. To isolate it from other changes in
+the income distribution (e.g. changes in household composition or market
+incomes), household disposable incomes under the two policy systems are
+assessed holding household characteristics and market incomes <u>constant</u>.
+Furthermore, to adjust for changes in nominal income levels over time, the
+monetary parameters of the tax-benefit system are adjusted with a factor <i>alpha</i> which reflects benchmark
+indexation. Specifically, the tool estimates the policy effect (for each
+household) as: </p>
+
+<p align=center style='text-align:center'><img border=0 width=208 height=44 id="_x0000_i1026"
+src="files/policy_effects_1.png"></p>
+
+<p>Note that this is a particular variation of decomposition
+chosen for EUROMOD validation purposes. (The full decomposition framework is
+described in BC2010.) Technically, instead of scaling monetary policy parameters,
+the tool scales monetary input variables with the factor <i>alpha</i> and monetary output variables with the factor <i>1/alpha:</i></p>
+
+<p align=center style='text-align:center'><img border=0 width=213 height=43 id="_x0000_i1025"
+src="files/policy_effects_2.png"></p>
+
+<p>This relies on the assumption that tax-benefit systems are
+linearly homogenous, that is <i>d(</i><i>cp,cy</i><i>)=cd(p,y)</i>. Input
+variable adjustments are limited to market incomes, expenditures and assets
+(specifically: all monetary variables which name starts with <i>y*</i> or <i>x*</i>, variable <i>afc</i>
+as well as all variables included in <i>ils_origy</i>, while excluding variables included in <i>ils_ben</i>). Output
+variable adjustments cover all monetary variables. </p>
+
+<p>Summary results in the table are shown as a percentage of
+(mean) disposable incomes in the starting year, i.e. <i>d<sub>1</sub>(p<sub>1</sub>,y<sub>1</sub>)</i>.</p>
+
+<p>There are two pre-defined choices for benchmark indexation:
+(i) factor <i>alpha</i>
+could be set to 1 in which case the effect of policy changes is calculated
+simply in nominal terms, or (ii) CPI indexation in which case the effect of
+policy changes is calculated in real terms. For (ii), the adjustment factor is
+automatically derived on the basis of Eurostat’s Harmonized Index of Consumer
+Prices – this information needs to be defined (as <i>$HICP</i>) along with other series of uprating indices (in the index
+table). </p>
+
+<p><strong>Note that the tool <u>cannot</u>
+be used when uprating factors are not defined in an index table</strong> (see <a
+href="EM_WW_DefiningUpratingFactors.htm">Defining Uprating Factors</a>).</p>
+
+</div>
+
+</body>
+
+</html>

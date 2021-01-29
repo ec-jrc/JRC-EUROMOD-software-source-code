@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ReferenceTablesDataSet" targetNamespace="http://tempuri.org/ReferenceTablesDataSet.xsd" xmlns:mstns="http://tempuri.org/ReferenceTablesDataSet.xsd" xmlns="http://tempuri.org/ReferenceTablesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ReferenceTablesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ReferenceTablesDataSet" msprop:Generator_UserDSName="ReferenceTablesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ReferenceTables" msprop:Generator_TableClassName="ReferenceTablesDataTable" msprop:Generator_TableVarName="tableReferenceTables" msprop:Generator_RowChangedName="ReferenceTablesRowChanged" msprop:Generator_TablePropName="ReferenceTables" msprop:Generator_RowDeletingName="ReferenceTablesRowDeleting" msprop:Generator_RowChangingName="ReferenceTablesRowChanging" msprop:Generator_RowEvHandlerName="ReferenceTablesRowChangeEventHandler" msprop:Generator_RowDeletedName="ReferenceTablesRowDeleted" msprop:Generator_RowClassName="ReferenceTablesRow" msprop:Generator_UserTableName="ReferenceTables" msprop:Generator_RowEvArgName="ReferenceTablesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TableName" msprop:Generator_ColumnVarNameInTable="columnTableName" msprop:Generator_ColumnPropNameInRow="TableName" msprop:Generator_ColumnPropNameInTable="TableNameColumn" msprop:Generator_UserColumnName="TableName" type="xs:string" minOccurs="0" />
+              <xs:element name="TableDescription" msprop:Generator_ColumnVarNameInTable="columnTableDescription" msprop:Generator_ColumnPropNameInRow="TableDescription" msprop:Generator_ColumnPropNameInTable="TableDescriptionColumn" msprop:Generator_UserColumnName="TableDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="IsEditable" msprop:Generator_ColumnVarNameInTable="columnIsEditable" msprop:Generator_ColumnPropNameInRow="IsEditable" msprop:Generator_ColumnPropNameInTable="IsEditableColumn" msprop:Generator_UserColumnName="IsEditable" type="xs:string" minOccurs="0" />
+              <xs:element name="Comments" msprop:Generator_ColumnVarNameInTable="columnComments" msprop:Generator_ColumnPropNameInRow="Comments" msprop:Generator_ColumnPropNameInTable="CommentsColumn" msprop:Generator_UserColumnName="Comments" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

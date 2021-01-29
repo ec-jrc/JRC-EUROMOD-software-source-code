@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The system function Uprate</title>
+</head>
+
+<body>
+
+<h1>The system function Uprate</h1>
+
+<p>The function Uprate is usually
+used in the special policy Uprate_cc
+(though it could in principle be used in any policy). It allows for the
+uprating of monetary dataset variables to the price level of a policy year.
+Example 1 shows a typical application of Uprate.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_2007</td>
+		<td class="system">SL_2008</td>
+		<td class="system">SL_2009</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td class="off">off</td>
+		<td class="on changed">on</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>dataset</td>
+		<td>n/a</td>
+		<td class="changed">sl_2008_a1</td>
+		<td>sl_2008_a1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>def_factor</td>
+		<td>n/a</td>
+		<td class="changed">1.02</td>
+		<td class="changed">1.03</td>
+		<td>default uprating factor</td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>n/a</td>
+		<td class="changed">1.015</td>
+		<td class="changed">1.025</td>
+		<td>employment income</td>
+	</tr>
+	<tr>
+		<td>yse</td>
+		<td>n/a</td>
+		<td class="changed">1.025</td>
+		<td class="changed">1.045</td>
+		<td>self-employment income</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td class="off">off</td>
+		<td class="on changed">on</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>dataset</td>
+		<td>n/a</td>
+		<td>n/a</td>
+		<td class="changed">sl_2009_a1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>def_factor</td>
+		<td>n/a</td>
+		<td>n/a</td>
+		<td class="changed">1.01</td>
+		<td>default uprating factor</td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>n/a</td>
+		<td>n/a</td>
+		<td class="changed">1.005</td>
+		<td>employment income</td>
+	</tr>
+	<tr>
+		<td>yse</td>
+		<td>n/a</td>
+		<td>n/a</td>
+		<td class="changed">1.015</td>
+		<td>self-employment income</td>
+	</tr>
+</table>
+
+
+<p>In the example the dataset sl_2008_a1 (with monetary
+values referring to the year 2007) does not need any uprating if used with the
+2007 system, therefore the first function is switched
+off for this system. For the other two systems an explicit uprating factor for
+employment income (yem)
+and self-employment income (yse)
+is defined. Employment income is uprated by 1.5% for the policy year 2008 and
+by 2.5% for 2009, self-employment income is uprated by
+2.5% for 2008 and by 4.5% for 2009. All other monetary variables in the dataset
+are uprated by 2% if used with the system SL_2008
+and by 3% if used with the system SL_2009. This is
+accomplished by the parameter def_factor,
+which refers to all monetary variables for which no explicit factor is defined.
+The dataset sl_2009_a1 (with monetary values
+referring to the year 2008) is not intended to be used with the system SL_2007 and does not need any uprating if used with the
+system SL_2008, therefore the second function is
+switched off for these two system. For the system SL_2009
+again an explicit uprating factor for employment income, 5%, and
+self-employment income, 15%, is defined. All other monetary variables in the
+dataset are uprated by 1% (def_factor).
+Finally, there is no uprating function for the dataset sl_2010_a1,
+as it cannot be used with the systems SL_2007 and SL_2008, and no uprating is necessary for the system SL_2009.</p>
+
+<p>The function Uprate provides two
+parameters intended to enhance transparency, which are presented in Example 2.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td></td>
+		<td>uprate_sl_demo_v2</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>def_factor</td>
+		<td></td>
+		<td>1.025</td>
+		<td>default uprating factor</td>
+	</tr>
+	<tr>
+		<td>factor_name</td>
+		<td>1</td>
+		<td>cpi</td>
+		<td>define consumer price index as named factor cpi</td>
+	</tr>
+	<tr>
+		<td>factor_value</td>
+		<td>1</td>
+		<td>1.02</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td></td>
+		<td>cpi</td>
+		<td>apply named factor cpi on employment income</td>
+	</tr>
+	<tr>
+		<td>yse</td>
+		<td></td>
+		<td>cpi</td>
+		<td>apply named factor cpi on self-employment income</td>
+	</tr>
+</table>
+
+<p>The parameters factor_name and factor_value allow for the definition of a
+&quot;named&quot; factor. In the example the consumer price index is labelled
+as cpi
+by parameter factor_name, Grp/No 1, set to 1.02 by
+parameter factor_value, Grp/No 1, and applied on
+employment income (yem)
+and self-employment income (yse).</p>
+
+<p>Another couple of parameters of the function Uprate allow
+for &quot;conditional uprating&quot;, this is illustrated by example 3.</p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>dataset</td>
+		<td></td>
+		<td>sl_demo_a1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>def_factor</td>
+		<td></td>
+		<td>1.025</td>
+		<td>default uprating factor</td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>1</td>
+		<td>1.02</td>
+		<td>employment income …</td>
+	</tr>
+	<tr>
+		<td>Factor_Condition</td>
+		<td>1</td>
+		<td>{drgn1=1}</td>
+		<td>… in region 1</td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>2</td>
+		<td>1.025</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Factor_Condition</td>
+		<td>2</td>
+		<td>{drgn1=3}</td>
+		<td>… in region 2</td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>3</td>
+		<td>1.03</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Factor_Condition</td>
+		<td>3</td>
+		<td>{drgn1=3}</td>
+		<td>… in region 3</td>
+	</tr>
+</table>
+
+<p>In the example employment income (yem) is uprated by three
+different factors, dependent on region. For the region number one, defined by
+setting the parameter Factor_Condition; Grp/No 1 to {drgn1=1} (d=demographic, rg=region,
+n1=nuts level 1), a factor of 1.02 is defined. Analogously, employment income
+in region number two is uprated by 2.5% (Factor_Condition, Grp/No 2 set to {drgn1=2} and
+yem, Grp/No 2 set to 1.025) and in region number three by
+3% (Factor_Condition, Grp/No 3 set to {drgn1=3} and yem, Grp/No 3 set to 1.03).</p>
+
+<p>Another, not unlikely use of
+conditions in the uprate function may however be problematic and therefore
+exemplified here. Assume, that the variable for old age pension (<i>poa</i>) is uprated dependent
+on its level, i.e. if it amounts up to 1,000 the uprating factor is 1.01, while
+if it is higher the factor is 1.02. Now assume a person with original <i>poa</i>=1,000. Thus
+the first condition applies and <i>poa</i> is uprated to 1,010. Consequently the second condition
+applies too, as <i>poa</i>
+now exceeds 1,000, with a resulting <i>poa</i> of 1,030.2.<a href="#_ftn1" name="_ftnref1" title="">[1]</a>
+This is most likely not what was intended, instead one
+would assume that the conditions refer to the original value of <i>poa</i>. However, the
+programme has no &quot;intuitive knowledge&quot; about the content of the
+condition and does not take care about such self-references.<a href="#_ftn2" name="_ftnref2" title="">[2]</a> For
+the example presented here, a solution may be to use <i>func_SchedCalc</i> for uprating
+instead. Another possibility is to generate a copy of the original <i>poa</i> to be used in
+the conditions.</p>
+
+<p>Furthermore,
+some further parameters of the function Uprate allow
+for consistent uprating of “aggregate variables”, i.e. variables that are
+composed of other variables. This is illustrated in example 4.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>dataset</td>
+		<td></td>
+		<td>sl_demo_a1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>def_factor</td>
+		<td></td>
+		<td>1.025</td>
+		<td>default uprating factor</td>
+	</tr>
+	<tr>
+		<td>yempj</td>
+		<td></td>
+		<td>1.03</td>
+		<td>employment income in permanent job</td>
+	</tr>
+	<tr>
+		<td>yemtj</td>
+		<td></td>
+		<td>1.02</td>
+		<td>employment income in temporary job</td>
+	</tr>
+	<tr>
+		<td>aggvar_name</td>
+		<td>1</td>
+		<td>yem</td>
+		<td>employment income is composed of …</td>
+	</tr>
+	<tr>
+		<td>aggvar_part</td>
+		<td>1</td>
+		<td>yempj</td>
+		<td>… income in permanent job</td>
+	</tr>
+	<tr>
+		<td>aggvar_part</td>
+		<td>1</td>
+		<td>yemtj</td>
+		<td>… income in temporary job</td>
+	</tr>
+	<tr>
+		<td>aggvar_tolerance</td>
+		<td>1</td>
+		<td>aggvar_tolerance</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In the example employment income (yem) is composed of employment
+income in permanent jobs (yempj)
+and employment income in temporary jobs (yemtj). To make sure for consistent uprating it is
+not advisable to define a separate uprating factor for the aggregate variable
+and its components (e.g. 1.025 for yem,
+1.03 for yempj and 1.02
+for yemtj), as this most
+likely results in yempj+yemtj&#8800;yem. The
+approach in the example tells the model that an aggregate variable (parameter aggvar1_name set to yem) is composed of particular other variables
+(parameters aggvar_part1 and aggvar_part2
+set yempj respectively yemtj). The
+model than &quot;uprates&quot; the aggregate variable by simply building the
+sum of the already uprated components. Note, that for this reason it is
+necessary to define the uprating factors of the component variables before
+defining the composition of the aggregate variable. In principle it is possible
+that a component variable is itself an aggregate variable (e.g. yempj = yempjag + yempjbs,
+where ag
+stands for agriculture and for bs
+business). In such cases the placing of uprating factors and definitions of
+compositions should be done with great care. Example 4 shows another parameter,
+aggvar_tolerance. This
+parameter allows for imprecise sums. The model checks for each aggregate
+variable whether it is, before uprating, actually the sum of its components,
+with a default tolerance of -0.01 to +0.01. The parameter allows for changing
+this tolerance, in the example it is even tightened.</p>
+
+
+<p>Finally, there is an option to uprate a whole group of variables at once. This is illustrated in example 5.</p>
+
+<table class="spine">
+	<caption>Example 5:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Uprate</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>dataset</td>
+		<td></td>
+		<td>sl_demo_a1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>def_factor</td>
+		<td></td>
+		<td>1.025</td>
+		<td>default uprating factor</td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td>1</td>
+		<td>yem*</td>
+		<td>uprate all employment variables …</td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td>1</td>
+		<td>cpi</td>
+		<td>… with cpi</td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td>2</td>
+		<td>x1*</td>
+		<td>uprate expenditure variables of the first COICOP group …</td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td>2</td>
+		<td>cpi</td>
+		<td>… with cpi</td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td>3</td>
+		<td>x[2-9]*</td>
+		<td>uprate all other expenditure variables …</td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td>3</td>
+		<td>1.3</td>
+		<td>… with 1.3</td>
+	</tr>
+</table>
+
+<p>In the example, all employment variables are uprated with the cpi rate, while expenditure variables 
+are uprated according to their COICOP group. This is feature is very useful if you have an unknown or 
+very large number of variables that you need to uprate simultaneously, as it allows the user to define 
+the variables to be uprated using a regular expression. Note however that this feature cannot be combined 
+with any of the other advanced features such as aggvar or conditions. 
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+For completeness and to fully understand this, it should also be clarified, that
+the function works cumulatively if more than one condition applies. That means
+if condition X with the factor x applies as well as condition Y with the factor
+y, the resulting factor is x*y.</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+To be precise, it does not take care about any references between variables uprated
+in the same function.</p>
+
+</div>
+
+</body>
+
+</html>

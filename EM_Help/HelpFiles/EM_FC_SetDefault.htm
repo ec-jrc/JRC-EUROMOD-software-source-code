@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The system function SetDefault</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The system function SetDefault</h1>
+
+<p>The
+function SetDefault allows for the setting of
+default values for not existent dataset variables, as illustrated by the
+following example, where the dataset hypo_data is
+used with the default values defined by SetDefault.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SetDefault</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>dataset</td>
+		<td>hypo_data</td>
+		<td>name of dataset</td>
+	</tr>
+	<tr>
+		<td>yiy</td>
+		<td>0</td>
+		<td>income : investment</td>
+	</tr>
+	<tr>
+		<td>yot</td>
+		<td>0</td>
+		<td>income : other</td>
+	</tr>
+	<tr>
+		<td>yempj</td>
+		<td>yem</td>
+		<td>income : permanent job</td>
+	</tr>
+</table>
+
+<p>The usage of default values has the effect that the model does not, as
+usual, issue an error message if a (used) variable does not exist in the
+dataset, but first looks whether a default is defined for this variable. In the
+example, if the variables yiy, yot
+or yempj do not exist in the dataset, the model
+assumes yiy and yot to be
+zero for each person, while yempj is set to the
+value of the variable yem (of course yem must exist in the dataset).</p>
+
+<p>Note that
+there is another way to avoid error messages for variables not existent in
+data. If the option use_CommonDefault of the dataset-system
+combination is set (see <a href="EM_WW_ConfiguringDatasets.htm">Working with
+EUROMOD - Configuring datasets</a>), all not existent variables are set to
+zero. The model still considers and prefers any default value set by the
+function SetDefault.</p>
+<p>Summarising, this gives the following behaviour:</p>
+
+<table class="info">
+	<tr>
+		<th rowspan="2" colspan="2">Action if variable does not exist</th>
+		<th colspan="2">function SetDefault</th>
+	</tr>
+	<tr>
+		<th class="light">defines no default value</th>
+		<th class="light">defines a default value</th>
+	</tr>
+	<tr>
+		<th rowspan="2">use_CommonDefault</th>
+		<th class="light">no</th>
+		<td>issue error message</td>
+		<td>set this value</td>
+	</tr>
+	<tr>
+		<th class="light">yes</th>
+		<td>set to zero, no error message</td>
+		<td>set this value</td>
+	</tr>
+</table>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

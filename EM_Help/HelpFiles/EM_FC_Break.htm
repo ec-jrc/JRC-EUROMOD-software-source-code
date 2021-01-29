@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function Break</title>
+</head>
+
+<body>
+
+<h1>The special function Break</h1>
+
+<p>The function Break allows the user to break the run at any point inside the spine. This function 
+is only intendent to be used during the development stage of a system to help the developer locate and
+fix bugs in such system. It is not intendent to be included in published models.</p>
+
+<p class="EM3only">This function is only available with EM3.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Break</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In the above example the execution will immediately stop once the Break function is reached, and EUROMOD 
+will produce an output file (taking the name from the first DefOutput to be found after the Break function, 
+which will typically be the default output function) that contains ALL variables and incomelists available at the time. 
+Note that outputting incomelists will very likely lead to issuing warnings "... use of not initialised variable ...", 
+referring to variables which are included in the incomelists, but only generated after the break.</p>
+
+<p>A more controlled behaviour is shown in the next example:</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Break</td>
+		<td></td>
+		<td>on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>ProduceOutput</td>
+		<td></td>
+		<td>yes</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>OutputFileName</td>
+		<td></td>
+		<td>C:\MyFiles\debugging.txt</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>ProduceTUinfo</td>
+		<td></td>
+		<td>yes</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In example 2, the execution will immediately stop once the Break function is reached, as before, but EUROMOD 
+will this time produce an output file in the specified location and name. If only the filename is specified, 
+then it will be generated in the default output folder (same as the DefOutput works). This file will not only 
+contain variables and incomelists, but also all at the time available TU info.</p>
+
+<p>&nbsp;</p>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function ChangeParam</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special function ChangeParam</h1>
+
+<p>The function ChangeParam
+allows for changing the values of parameters of other functions. Of course
+usually one would not use a function for this purpose, but change the
+parameters directly. There are however some cases where using ChangeParam instead makes sense. 
+An evident example is changing parameters from an add-on. In
+fact, the usage of ChangeParam in add-ons is near to inevitable – how else
+should parameters of the countries' parameter files be changed from the add-on
+parameter file? Another case concerns changing parameters from a reform
+policy without directly changing base policy parameters. Though the reform
+could as well be implemented in the respective policy sheets (still transparent
+by using a reform system), in some cases it may be more transparent to
+summarise the changes in an extra reform policy.</p>
+
+<p>Each parameter change requires two parameters. Firstly, the parameter to change
+needs to be specified by Param_Id, which allows the indication of a unique
+identifier for the parameter. Secondly, the new value for the parameter is
+indicated by the parameter Param_NewVal. The value type of this parameter
+is determined by the value type of the parameter it changes. That means if
+the parameter to be changed indicates a yes/no parameter, Param_NewVal also needs to be set either to yes or no.</p>
+
+<p>ChangeParam is independent of the policy/function order defined by the spine. It simply overwrites the former
+value of the parameter (at read-time) and the program runs as if this value
+never existed. As a consequence, the function can be located anywhere, without
+changing its behaviour.</p>
+
+<p>The optional parameter Dataset can be used to restrict the change to specific datasets.<br>
+If any such parameter is used (several can be used within one group), the change only takes place if one of them matches the dataset of the concerned run.<br>
+The wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g.be_20 * _a ?).</p>
+
+<p>Note that, while the EM2 executable allows for also using ChangeParam to change switches of policies or functions, 
+the EM3 executable provides the function <a href="EM_FC_ChangeSwitch.htm">ChangeSwitch</a> for this task.<br>
+Also note that changing parameters at run-time (as it was possible with reservations with the EM2 executable by using parameter Param_CondVal) 
+is not possible with the EM3 executable.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

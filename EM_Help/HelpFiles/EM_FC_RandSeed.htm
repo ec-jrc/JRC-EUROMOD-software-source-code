@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function RandSeed</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special function RandSeed</h1>
+
+<p>RandSeed
+sets the starting point for generating a series of pseudorandom numbers. In order to better understand how random numbers work in EUROMOD, 
+you need to have an understanding of how random numbers work in computers in general.</p>
+
+<p>Random numbers in computers are actually not random at all. Windows (as well as other Operating Systems) have a long list of pages with 
+stored &quot;random&quot; numbers. The operating system keeps a pointer and each time you ask for a random number it returns the next in 
+line, from the page it is currently reading. Changing the &quot;seed&quot; essentially means moving the pointer to a specific page and 
+taking all the numbers there in order.</p>
+ 
+<p>In practice, this means that if you set a specific &quot;randseed&quot; in the beginning of a system, you can be sure that you will get 
+the exact same sequence of random numbers in every run. if you set the randseed with the same parameter in each system, then you can be sure 
+that all systems get the same sequence of random numbers in every run. If you set the randseed with the same parameter every time before 
+getting a random number, then you will always get the same &quot;random&quot; number.</p>
+
+<p>Few more things to keep in mind are:</p>
+<ul>
+	<li>Any series of numbers you get after a randseed should be more or less equally distributed between 0 and 1. The more random numbers you 
+	get after a single randseed, the better the distribution. If you set the randseed with every random number you ask for then there is no 
+	distribution at all – you always get the same number.</li>
+	<li>Randseed will definitely need to be part of your solution if you are using random numbers and want the results to be replicable (i.e. 
+	if you need to get the same series of random numbers every time)</li>
+	<li>If you set the same randseed and then give random numbers to the same individuals with the same order, then they will have the same 
+	random numbers across systems. If however the number or order of individuals is changed, then there is no way to link random numbers to 
+	individuals.</li>
+</ul>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_rand1</td>
+		<td class="system">SL_rand2</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>RandSeed</td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Seed</td>
+		<td>42134</td>
+		<td>42134</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>rand</td>
+		<td>rand</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>stm01_s</td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>In the example the variable stm01_s is filled for each individual with a random number between 0 and 1 (both included). 
+Assuming both systems use the same data (i.e. the same number of individuals in the same order), you can be sure that 
+for each individual variable stm01_s will have the same value in both systems. Note that, if RandSeed would not be used, 
+or if the <i>Seed</i> was different, the program would produce different results for the systems sl_rand1 and sl_rand2.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

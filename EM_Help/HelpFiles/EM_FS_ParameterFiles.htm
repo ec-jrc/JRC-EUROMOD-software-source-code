@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Format of country parameter files</title>
+</head>
+
+<body>
+
+<h1>Format of country parameter files</h1>
+
+<p>The information required by EUROMOD for implementing a
+country's tax-benefit system is stored in two XML-files (cc stands for the
+country's short name):</p>
+
+<p><i><strong>cc.xml</strong></i> (e.g. HU.xml) essentially contains the
+parameters that describe the country's tax-benefit system.</p>
+
+<p><i><strong>cc_DataConfig.xml</strong></i> (e.g. HU_DataConfig.xml)
+contains information on the input datasets that are used to simulate these
+tax-benefit systems.</p>
+
+<p>The paragraphs below describe the XML-structure of these
+files, where <i><span style='color:#FF6600'>xxx</span></i>
+denotes an example and <strong><i><span
+style='color:#99CC00'>xxx</span></i></strong> denotes a comment. Note that these
+files are used as well by the user interface as by the EUROMOD executable.</p>
+
+<Table border=0 cellspacing=0 cellpadding=0
+ style='background:#333399;border-collapse:collapse;mso-yfti-tbllook:1184;
+ mso-padding-alt:1.4pt 4.25pt 1.4pt 4.25pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td valign=top style='padding:1.4pt 4.25pt 1.4pt 4.25pt'>
+  <p style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><strong><i><span style='color:white'>cc.xml</span></i></strong></p>
+  </td>
+ </tr>
+</table>
+
+<p style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:0cm;margin-bottom:.0001pt'>&lt;?xml
+version=&quot;1.0&quot; ?&gt;</p>
+
+<p><strong>&lt;CountryConfig
+xmlns=&quot;http://euromod.com/CountryConfig.xsd&quot;&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;Country&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>      </span><span
+style='mso-spacerun:yes'>  </span>&lt;ID&gt;<i><span style='color:#FF6600'>863BDA5C-077E-4508-86E9-0A7F69812A1C</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Name&gt;<i><span style='color:#FF6600'>Simpleland</i></span>&lt;/Name&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;ShortName&gt;<i><span
+style='color:#FF6600'>sl</i></span>&lt;/ShortName&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+implemented tax benefit system:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong>&lt;System&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>250851CB-3685-4844-B98D-0BA4C3854808</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;CountryID&gt;<i><span
+style='color:#FF6600'>863BDA5C-077E-4508-86E9-0A7F69812A1C</span></i>&lt;/CountryID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;Name&gt;<i><span
+style='color:#FF6600'>SL_demo</i></span>&lt;/Name&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;CurrencyOutput&gt;<i><span
+style='color:#FF6600'>euro</span></i>&lt;/CurrencyOutput&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;CurrencyParam&gt;<i><span
+style='color:#FF6600'>euro</span></i>&lt;/CurrencyParam&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;ExchangeRateEuro&gt;<i><span
+style='color:#FF6600'>1</span></i>&lt;/ExchangeRateEuro&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;HeadDefInc&gt;<i><span style='color:#FF6600'>ils_origy</i></span>&lt;/HeadDefInc&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;Private&gt;<i><span
+style='color:#FF6600'>no</span></i>&lt;/Private&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span>&lt;Order&gt;<i><span
+style='color:#FF6600'>1</span></i>&lt;/Order&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>            </span><strong><i><span
+style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'>
+each policy of the tax benefit system:</span></i><span style='color:#99CC00'></span></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span><strong><span lang=IT style='mso-ansi-language:IT'>&lt;Policy&gt;</span></strong></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT;mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>374DA5B0-8E08-4664-96B2-BC1794E5AEBC</span></i>&lt;/ID&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT;mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span></span><span style='mso-bidi-font-weight:
+bold'>&lt;SystemID&gt;<i><span style='color:#FF6600'>250851CB-3685-4844-B98D-0BA4C3854808</span></i>&lt;/SystemID&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;ReferencePolID&gt;&lt;/ReferencePolID&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;Name&gt;<i><span
+style='color:#FF6600'>Uprate_sl</i></span>&lt;/Name&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;Type&gt;<i><span
+style='color:#FF6600'>def</i></span>&lt;/Type&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;Comment&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[DEF: UPRATING FACTORS]]&gt;</span></i>&lt;/Comment&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span style='mso-spacerun:yes'>           
+</span><span style='mso-spacerun:yes'>    </span>&lt;Private&gt;<i><span
+style='color:#FF6600'>no</span></i>&lt;/Private&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;PrivateComment&gt;&lt;/PrivateComment&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;Switch&gt;<i><span
+style='color:#FF6600'>on</span></i>&lt;/Switch&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span>&lt;Order&gt;<i><span
+style='color:#FF6600'>1</span></i>&lt;/Order&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span><strong><i><span style='color:#99CC00'>for
+each function of the policy:</span></i><span style='color:#99CC00'></span></strong></span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                </span><strong>&lt;Function&gt;</strong></span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>4F1388B1-4D49-4CE0-BF32-C17328206B73</span></i>&lt;/ID&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span></span><span lang=IT
+style='mso-ansi-language:IT;mso-bidi-font-weight:bold'>&lt;PolicyID&gt;<i><span
+style='color:#FF6600'>374DA5B0-8E08-4664-96B2-BC1794E5AEBC</span></i>&lt;/PolicyID&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT;mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span></span><span
+style='mso-bidi-font-weight:bold'>&lt;Name&gt;<i><span style='color:#FF6600'>Uprate</span></i>&lt;/Name&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT;mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span>&lt;Comment&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[]]&gt;</span></i>&lt;/Comment&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT;mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span>&lt;Private&gt;<i><span
+style='color:#FF6600'>no</span></i>&lt;/Private&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT;mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>             </span><span
+style='mso-spacerun:yes'>       </span></span><span style='mso-bidi-font-weight:
+bold'>&lt;PrivateComment&gt;&lt;/PrivateComment&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span>&lt;Switch&gt;<i><span
+style='color:#FF6600'>on</span></i>&lt;/Switch&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span>&lt;Order&gt;<i><span
+style='color:#FF6600'>1</span></i>&lt;/Order&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span><strong><i><span
+style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'>
+each parameter of the function:</span></i><span style='color:#99CC00'></span></strong></span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span><strong>&lt;Parameter&gt;</strong></span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;ID&gt;<i><span
+style='color:#FF6600'>427912DF-0EC6-4785-B0A3-0E322C08EA28</span></i>&lt;/ID&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;FunctionID&gt;<i><span
+style='color:#FF6600'>4F1388B1-4D49-4CE0-BF32-C17328206B73</span></i>&lt;/FunctionID&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;Name&gt;<i><span style='color:#FF6600'>def_factor</i></span>&lt;/Name&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;Comment&gt;<i><span
+style='color:#FF6600'>&lt;![CDATA[]]</span></i>&gt;&lt;/Comment&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;PrivateComment&gt;&lt;/PrivateComment&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;Value&gt;<i><span
+style='color:#FF6600'>1</span></i>&lt;/Value&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;ValueType&gt;<i><span
+style='color:#FF6600'>amount</span></i>&lt;/ValueType&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span>&lt;Order&gt;<i><span
+style='color:#FF6600'>2</span></i>&lt;/Order&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                       
+</span>&lt;Group&gt;&lt;/Group&gt;</span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                        </span></span>&lt;Private&gt;<i><span
+style='color:#FF6600'>no</span></i>&lt;/Private&gt;</p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span
+style='mso-spacerun:yes'>                    </span><strong>&lt;/Parameter&gt;</strong></span></p>
+
+<p><span
+style='mso-bidi-font-weight:bold'><span style='mso-spacerun:yes'>            
+</span><span style='mso-spacerun:yes'>   </span><strong>&lt;/Function&gt;</strong></span></p>
+
+<p><span
+style='mso-spacerun:yes'>            </span><strong>&lt;/Policy&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong>&lt;<span
+style='mso-bidi-font-weight:bold'>/</span>System&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;<span
+style='mso-bidi-font-weight:bold'>/</span>Country&gt;</strong></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>    </span><strong><i><span
+style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'>
+each conditional format (information required by the user interface - see <a
+href="EM_WW_ConditionalFormatting.htm"><span style='color:#99CC00'>Working with
+EUROMOD - Conditional formatting</span></a>):</span></i><span style='color:
+#99CC00'></span></strong></span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>    </span><strong>&lt;ConditionalFormat&gt;</strong></span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span>&lt;ID&gt;<i><span style='color:#FF6600'>68649e4e-50dd-4460-bac7-b4db9695abd7</span></i>&lt;/ID&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span>&lt;BackColor&gt;&lt;/BackColor&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span>&lt;ForeColor&gt;<i><span
+style='color:#FF6600'>FF80FF00</span></i>&lt;/ForeColor/&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span>&lt;Condition&gt;<i><span
+style='color:#FF6600'>{</i></span><i><span style='color:#FF6600'>*#m*}</span></i>&lt;/Condition&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span>&lt;BaseSystemName&gt;&lt;/BaseSystemName&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>    </span><strong><i><span
+style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'>
+each system concerned by the conditional format:</span></i></strong></span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span><strong>&lt;ConditionalFormat_Systems&gt;</strong></span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>            </span>&lt;ConditionalFormatID&gt;<i><span
+style='color:#FF6600'>68649e4e-50dd-4460-bac7-b4db9695abd7</span></i>&lt;/ConditionalFormatID&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>            </span>&lt;SystemName&gt;<i><span style='color:#FF6600'>SL_demo</i></span>&lt;/SystemName&gt;</span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>        </span><strong>&lt;/ConditionalFormat_Systems&gt;</strong></span></p>
+
+<p><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'><span
+style='mso-spacerun:yes'>    </span><strong>&lt;ConditionalFormat&gt;</strong></span></p>
+
+<p><strong>&lt;/CountryConfig&gt;</strong></p>
+
+<p><strong>&nbsp;</strong></p>
+
+<Table border=0 cellspacing=0 cellpadding=0
+ style='background:#333399;border-collapse:collapse;mso-yfti-tbllook:1184;
+ mso-padding-alt:1.4pt 4.25pt 1.4pt 4.25pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td valign=top style='padding:1.4pt 4.25pt 1.4pt 4.25pt'>
+  <p style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:
+  normal'><strong><i><span style='color:white'>cc_DataConfig.xml</span></i></strong></p>
+  </td>
+ </tr>
+</table>
+
+<p>&lt;?xml version=&quot;1.0&quot; ?&gt;</p>
+
+<p><strong><span lang=IT style='mso-ansi-language:
+IT'>&lt;DataConfig xmlns=&quot;http://euromod.com/DataConfig.xsd&quot;&gt;</span></strong></p>
+
+<p><span lang=IT style='mso-ansi-language:IT'><span
+style='mso-spacerun:yes'>    </span></span><strong><i><span
+style='color:#99CC00'>for each available dataset:</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;DataBase&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;ID&gt;<i><span style='color:#FF6600;
+mso-bidi-font-weight:bold'>DDBC477B-91E6-4A60-BF93-A08C538D57FF</span></i>&lt;/ID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Name&gt;<i><span style='color:#FF6600;
+mso-bidi-font-weight:bold'>sl_demo_v4</span></i>&lt;/Name&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'>      
+</span>&lt;Comment&gt;<i><span style='color:#FF6600;mso-bidi-font-weight:bold'>&lt;![CDATA[]]&gt;</span></i>&lt;/Comment&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;YearCollection&gt;&lt;/YearCollection&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;YearInc&gt;&lt;/YearInc&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Currency&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>euro</span></i>&lt;/Currency&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;FilePath&gt;&lt;/FilePath&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;DecimalSign&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>.</span></i>&lt;/DecimalSign&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Private&gt;&lt;/Private&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;UseCommonDefault&gt;&lt;/UseCommonDefault&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;/DataBase&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong><i><span style='color:#99CC00'>for</i></strong></span><strong><i><span style='color:#99CC00'> each
+system-dataset combination (see <a href="EM_BC_InOut.htm"><span
+style='color:#99CC00'>EUROMOD Basic Concepts - EUROMOD input and output</span></a>):</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;DBSystemConfig&gt;</strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;SystemID&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>250851CB-3685-4844-B98D-0BA4C3854808</span></i>&lt;/SystemID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;SystemName&gt;<i><span style='color:#FF6600;mso-bidi-font-weight:bold'>SL_demo</i></span>&lt;/SystemName&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;DataBaseID&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>DDBC477B-91E6-4A60-BF93-A08C538D57FF</span></i>&lt;/DataBaseID&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;UseDefault&gt;&lt;/UseDefault&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;UseCommonDefault&gt;&lt;/UseCommonDefault&gt; <strong><i><span
+style='color:#99CC00'>outdated, to be removed once not used anymore</span></i></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;Uprate&gt;&lt;/Uprate&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span>&lt;BestMatch&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>yes</span></i>&lt;/BestMatch&gt;</p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong><i><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%;color:#99CC00'>for</i></strong></span><strong><i><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%;color:#99CC00'>
+each default of a switchable policy (see </span></i></strong><strong><i><span style='color:#99CC00'><a
+href="EM_WW_AdministratingPolicySwitches.htm"><span style='color:#99CC00'>Working
+with EUROMOD - Changing Countries' Setting - Administrating policy switches</span></a></span></i></strong><strong><i><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%;color:#99CC00'>):</span></i></strong><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'></span></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'>&lt;PolicySwitch&gt;</span></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>          </span><span style='font-size:8.0pt;
+line-height:130%'>&lt;SwitchablePolicyID&gt;<i><span style='color:#FF6600'>79513cab-d092-477d-b17e-442882767cbf</span></i>&lt;/SwitchablePolicyID&gt;</span></p>
+
+<p><span
+style='mso-spacerun:yes'>          </span><span style='font-size:8.0pt;
+line-height:130%'>&lt;SystemID&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>250851CB-3685-4844-B98D-0BA4C3854808</span></i>&lt;/SystemID&gt;</span></p>
+
+<p><span
+style='mso-spacerun:yes'>          </span><span lang=IT style='font-size:8.0pt;
+line-height:130%;mso-ansi-language:IT'>&lt;DatabaseID&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>DDBC477B-91E6-4A60-BF93-A08C538D57FF</span></i>&lt;/DatabaseID&gt;</span></p>
+
+<p><span
+lang=IT style='mso-ansi-language:IT'><span style='mso-spacerun:yes'>         
+</span></span><span style='font-size:8.0pt;line-height:130%'>&lt;Value&gt;<i><span
+style='color:#FF6600;mso-bidi-font-weight:bold'>&lt;![CDATA[on]]&gt;</span></i>&lt;/Value&gt;</span></p>
+
+<p><span
+style='mso-spacerun:yes'>        </span><strong><span
+style='font-size:8.0pt;mso-bidi-font-size:12.0pt;line-height:130%'>&lt;/PolicySwitch&gt;</span></strong></p>
+
+<p><span
+style='mso-spacerun:yes'>    </span><strong>&lt;/DBSystemConfig&gt;</strong></p>
+
+<p><strong>&lt;/DataConfig&gt;</strong></p>
+
+</div>
+
+</body>
+
+</html>
