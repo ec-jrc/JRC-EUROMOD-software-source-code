@@ -1,4 +1,4 @@
-EUROMOD version 3.2.12
+EUROMOD version 3.4.6
 
 © European Union, Institute for Social and Economic Research, University of Essex
 
@@ -7,6 +7,12 @@ You may not use this work except in compliance with the Licence.
 
 Unless required by applicable law or agreed to in writing, software distributed under the Licence is distributed on an "AS IS" basis, * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
 either express or implied.
+
+The In-depth Analysis plugin was developed as a part of the project “Support for the Microsimulation Hub of the Council of Economic Advisors in Greece”, 
+funded by the European Commission’s Structural Reform Support Programme and implemented by the Joint Research Centre 
+through an administrative arrangement with DG REFORM. All parties agreed to incorporate the plugin to EUROMOD, 
+which implies the public distribution of its compiled version under the EUROMOD End-user licence agreement and its source code under the European 
+Union Public Licence (EUPL-1.2) or a later version of this licence.
 
 EUROMOD includes the following libraries, which are licensed to you under their respective licences. In the event that we accidentally failed to list a required notice, please
 bring it to our attention by sending us an email to JRC-EUROMOD@ec.europa.eu.
@@ -84,7 +90,6 @@ bring it to our attention by sending us an email to JRC-EUROMOD@ec.europa.eu.
 - System.Reflection.Emit. License: MIT. URL: https://github.com/dotnet/corefx. Copyright: Copyright (c) .NET Foundation and Contributors
 - System.Reflection.TypeExtensions. License: MIT. URL: https://github.com/dotnet/corefx. Copyright: Copyright (c) .NET Foundation and Contributors
 - System.Runtime.CompilerServices.Unsafe. License: MIT. URL: https://github.com/dotnet/corefx. Copyright: Copyright (c) .NET Foundation and Contributors
-- System.Runtime.CompilerServices.Unsafe. License: MIT. URL: https://github.com/dotnet/corefx. Copyright: Copyright (c) .NET Foundation and Contributors
 - System.Security.AccessControl. License: MIT. URL: https://github.com/dotnet/runtime. Copyright: Copyright (c) .NET Foundation and Contributors
 - System.Security.Cryptography.Cng. License: MIT. URL: https://github.com/dotnet/corefx. Copyright: Copyright (c) .NET Foundation and Contributors
 - System.Security.Permissions. License: MIT. URL: https://github.com/dotnet/runtime. Copyright: Copyright (c) .NET Foundation and Contributors
@@ -103,6 +108,7 @@ bring it to our attention by sending us an email to JRC-EUROMOD@ec.europa.eu.
 - Octokit. License: MIT. URL: https://github.com/octokit/octokit.net/blob/main/LICENSE.txt. Copyrigth: Copyright (c) 2017 GitHub, Inc.
 - TinyXMLzlib/libpng. License: zlib/libpng. URL: http://www.grinninglizard.com/tinyxmldocs/.
 - Meta.Numerics. License: Microsoft Public License MS-PL. URL: http://www.meta-numerics.net/Pages/License.aspx
+- System.Text.Encoding.CodePages. Licence: MIT. URL: https://github.com/dotnet/runtime. Copyright (c) .NET Foundation and Contributors.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 Apache License: 
@@ -1233,7 +1239,7 @@ System.DirectoryServices.Protocols, System.Reflection.DispatchProxy, System.Refl
 System.Reflection.Emit, System.Reflection.TypeExtensions, System.Security.AccessControl, System.Security.Permissions, System.Security.Principal.Windows, 
 System.ServiceModel.Duplex, System.ServiceModel.Http, System.ServiceModel.NetTcp, System.ServiceModel.Primitives, System.ServiceModel.Security, 
 System.ServiceProcess.ServiceController, System.Threading.Tasks.Dataflow, System.ValueTuple,
-Tlite.css, Octokit
+Tlite.css, Octokit, System.Text.Encoding.CodePages.
 
 				The MIT License (MIT)
 
