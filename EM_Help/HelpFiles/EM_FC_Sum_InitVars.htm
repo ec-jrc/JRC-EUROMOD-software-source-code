@@ -4,41 +4,37 @@
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
 <link rel="stylesheet" href="files/style.css" />
-<title>Summary of parameters for function ChangeSwitch</title>
+<title>Summary of parameters for function InitVars</title>
 </head>
 
 <body>
 
-<h1>Summary of parameters for function ChangeSwitch</h1>
-<p>Allows for changing the switches of policies or functions.</p>
-<p class="EM3only">This function is only available with EM3.</p>
+<h1>Summary of parameters for function InitVars</h1>
+<p>Allows for initialising variables.</p>
 
 <h4>Function Specific Parameters</h4>
+
 <table class="info">
 	<tr>
 		<th>Name</th>
 		<th>Type</th>
-		<th>Group</th>
 		<th>Compulsory</th>
 		<th>Unique</th>
 		<th>Description</th>
 	</tr>
 	<tr>
-		<td>PolFun</td>
-		<td>text</td>
-		<td>POL_FUN</td>
-		<td>within group</td>
-		<td>within group</td>
-		<td>The name or identifier of the policy respectively the identifier or symbolic-identifier (add-ons) of the function.<br>
-		(See 'EUROMOD Functions - Identifiers and the placeholders =cc= and =sys=' for information on identifiers.)</td>
+		<td>[Placeholder]</td>
+		<td>policy column: variable<br>system column: <a href="EM_FC_Formula.htm">formula</a></td>
+		<td>no</td>
+		<td>no</td>
+		<td>[Placeholder] stands for the name of a variable, defined in the policy column, whose initial value is specified in the respective system column.</td>
 	</tr>
 	<tr>
-		<td>SwitchNewVal</td>
-		<td>text</td>
-		<td>POL_FUN</td>
-		<td>within group</td>
-		<td>within group</td>
-		<td>New switch of the policy/function.</td>
+		<td>InitOnce</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Only relevant if used in loops or in reference policies.<br>If set to 'yes', initialisation only takes place once, e.g. in the first iteration of a loop.<br>Default is 'no', meaning that initialisation takes place whenever the run hits the function (e.g. in each iteration of a loop).</td>
 	</tr>
 </table>
 
@@ -57,13 +53,6 @@
 		<td>no</td>
 		<td>yes</td>
 		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
-	</tr>
-		<tr>
-		<td>#_DataBasename</td>
-		<td>text</td>
-		<td>no</td>
-		<td>no (but group must differ)</td>
-		<td>Parameter of query IsUsedDatabase.</td>
 	</tr>
 </table>
 </body>

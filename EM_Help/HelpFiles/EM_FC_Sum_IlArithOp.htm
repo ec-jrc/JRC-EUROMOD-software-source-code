@@ -38,7 +38,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<th>Group</th>
 		<th>Compulsory</th>
 		<th>Unique</th>
-		<th>Mutually exclusive with</th>
+		<th>Default</th>
 		<th>Description</th>
 	</tr>
 	<tr>
@@ -56,7 +56,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<td></td>
 		<td>yes (if Base_Postfix is not defined)</td>
 		<td>yes</td>
-		<td>Base_Postfix</td>
+		<td></td>
 		<td>All variables in (decomposed) incomelist 'Base_ILName' must start with this prefix.</td>
 	</tr>
 	<tr>
@@ -65,7 +65,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<td></td>
 		<td>yes (if Base_Prefix is not defined)</td>
 		<td>yes</td>
-		<td>Base_Prefix</td>
+		<td></td>
 		<td>All variables in (decomposed) incomelist 'Base_ILName' must end with this postfix.</td>
 	</tr>
 	<tr>
@@ -83,7 +83,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<td>IL</td>
 		<td>within group (if Postfix is not defined)</td>
 		<td>within group</td>
-		<td>Postfix</td>
+		<td></td>
 		<td>All variables in (decomposed) incomelist 'ILName' with same group must start with this prefix.</td>
 	</tr>
 	<tr>
@@ -92,12 +92,12 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<td>IL</td>
 		<td>within group (if Prefix is not defined)</td>
 		<td>within group</td>
-		<td>Prefix</td>
+		<td></td>
 		<td>All variables in (decomposed) incomelist 'ILName' with same group must end with this postfix.</td>
 	</tr>
 	<tr>
 		<td>Formula</td>
-		<td>formula</td>
+		<td><a href="EM_FC_Formula.htm">formula</a></td>
 		<td></td>
 		<td>yes</td>
 		<td>yes</td>
@@ -119,7 +119,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<td></td>
 		<td>yes (if Out_Postfix is not defined)</td>
 		<td>yes</td>
-		<td>Out_Postfix</td>
+		<td></td>
 		<td>All variables in incomelist 'Out_ILName' must start with this prefix, if the incomelist exists; if not they will be created with this prefix.</td>
 	</tr>
 	<tr>
@@ -128,8 +128,17 @@ If it does not exist, it is generated. The content is formed by the, also genera
 		<td></td>
 		<td>yes (if Out_Prefix is not defined)</td>
 		<td>yes</td>
-		<td>Out_Prefix</td>
+		<td></td>
 		<td>All variables in incomelist 'Out_ILName' must end with this postfix, if the incomelist exists; if not they will be created with this postfix.</td>
+	</tr>
+	<tr>
+		<td>WarnIfDuplicateDefinition</td>
+		<td>bool</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>This will suppress all warnings due to duplicate definition of variables within this incomelist.</td>
 	</tr>
 </table>
 
@@ -146,7 +155,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 	</tr>
 	<tr>
 		<td>Run_Cond</td>
-		<td>condition</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
 		<td></td>
 		<td>no</td>
 		<td>yes</td>
@@ -155,7 +164,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 	</tr>
 	<tr>
 		<td>#_LowLim</td>
-		<td>formula</td>
+		<td><a href="EM_FC_Formula.htm">formula</a></td>
 		<td></td>
 		<td>no</td>
 		<td>no (but group must differ)</td>
@@ -164,7 +173,7 @@ If it does not exist, it is generated. The content is formed by the, also genera
 	</tr>
 	<tr>
 		<td>#_UpLim</td>
-		<td>formula</td>
+		<td><a href="EM_FC_Formula.htm">formula</a></td>
 		<td></td>
 		<td>no</td>
 		<td>no (but group must differ)</td>

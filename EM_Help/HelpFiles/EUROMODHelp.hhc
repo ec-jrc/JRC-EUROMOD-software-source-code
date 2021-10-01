@@ -463,6 +463,10 @@
 		<param name="Local" value="EM_FC_DefVar_DefConst.htm">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The system function InitVars">
+		<param name="Local" value="EM_FC_InitVars.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="The special functions Loop and UnitLoop">
 		<param name="Local" value="EM_FC_Loop_UnitLoop.htm">
 		</OBJECT>
@@ -477,6 +481,10 @@
 	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="The special function ChangeSwitch">
 		<param name="Local" value="EM_FC_ChangeSwitch.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The special function CumulativeSum">
+		<param name="Local" value="EM_FC_CumulativeSum.htm">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="The special function Totals">
@@ -589,6 +597,10 @@
 		<param name="Local" value="EM_FC_Sum_DefConst.htm">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function InitVars">
+		<param name="Local" value="EM_FC_Sum_InitVars.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="Summary of parameters for function Loop">
 		<param name="Local" value="EM_FC_Sum_Loop.htm">
 		</OBJECT>
@@ -611,6 +623,10 @@
 	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="Summary of parameters for function ChangeSwitch">
 		<param name="Local" value="EM_FC_Sum_ChangeSwitch.htm">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="Summary of parameters for function CumulativeSum">
+		<param name="Local" value="EM_FC_Sum_CumulativeSum.htm">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="Summary of parameters for function Totals">
@@ -677,6 +693,10 @@
 		<param name="Local" value="EM_FC_Sum_AddOn_ExtensionSwitch.htm">
 		</OBJECT>
 </UL>		
+	<LI> <OBJECT type="text/sitemap">	
+		<param name="Name" value="The formula/condition syntax">
+		<param name="Local" value="EM_FC_Formula.htm">
+		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">	
 		<param name="Name" value="Queries">
 		<param name="Local" value="EM_FC_Queries.htm">

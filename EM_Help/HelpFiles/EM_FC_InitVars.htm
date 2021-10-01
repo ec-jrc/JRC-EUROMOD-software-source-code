@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The system function SetDefault</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The system function InitVars</h1>
+
+<p>The function InitVars allows for initialising variables.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>InitVars</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>sin01_s</td>
+		<td>0</td>
+		<td>initialise simulated variable with zero</td>
+	</tr>
+	<tr>
+		<td>yse</td>
+		<td>0</td>
+		<td>overwrite data variable with zero</td>
+	</tr>
+	<tr>
+		<td>sin02_s</td>
+		<td>yem + poa</td>
+		<td>initialise simulated variable with the sum of employment- and pension-income</td>
+	</tr>
+	<tr>
+		<td>bchbals</td>
+		<td>0</td>
+		<td>will lead to a warning, if the variable bchbals does not exist in dataset, as it is not a simulated variable (not ending with _s) and therefore tried to be read</td>
+	</tr>
+	<tr>
+		<td>sin03_s</td>
+		<td>sin12_s</td>
+		<td>will lead to a warning, if sin12_s is not set at this point in spine</td>
+	</tr>
+	<tr>
+		<td>sin04_s</td>
+		<td>sin01_s</td>
+		<td>will still lead to a warning, as sin01_s is only initialised in the same function</td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>InitVars</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td>GetSystemYear = 2019</td>
+		<td>only carried out for systems with year 2019</td>
+	</tr>
+	<tr>
+		<td>sin01_s</td>
+		<td>2019 + 3</td>
+		<td></td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>LoopPolicy_sl</td>
+		<td class="on">on</td>
+		<td>this policy does the follwing: set sin01_s to 0; 10 times: add 1 to sin01_s; result: 10 (without setting parameter InitOnce: result would be 1)</td>
+	</tr>
+	<tr class="function">
+		<td>Loop</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Loop_Id</td>
+		<td>AddUpLoop</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Num_Iterations</td>
+		<td>10</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>First_Pol</td>
+		<td>LoopPolicy_sl</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Last_Pol</td>
+		<td>LoopPolicy_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>InitVars</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>InitOnce</td>
+		<td>yes</td>
+		<td>setting this parameter effects that sin01_s is initialised only once, i.e. here in the first iteration of AddUpLoop, if not set or set to no, sin01_s would be initialised in each iteration</td>
+	</tr>
+	<tr>
+		<td>sin01_s</td>
+		<td>0</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_add_var</td>
+		<td>sin01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Please consider the comments column to understand the behaviour of the function for various conditions.</p>
+<p>Note that the function does not have a TAX_UNIT. That means all formulas are interpreted on the individual level.</p>
+
+</div>
+
+</body>
+
+</html>

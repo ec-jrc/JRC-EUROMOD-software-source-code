@@ -1,6 +1,6 @@
 [Options]
 Compatibility = 1.1 Or later
-Compiled file=H:\work\EM_DEVELOPMENT\EM_PRIVATE\EM_UI\bin\Help\EUROMODHelp.chm
+Compiled file=C:\Users\Dev\EUROMODJRC\EM_UI\bin\Help\EUROMODHelp.chm
 Contents file = EUROMODHelp.hhc
 Display compile progress=No
 Full-text search=Yes
@@ -117,10 +117,12 @@ EM_FC_DefIL.htm
 EM_FC_DefTU_UpdateTU.htm
 EM_FC_DefOutput.htm
 EM_FC_DefVar_DefConst.htm
+EM_FC_InitVars.htm
 EM_FC_Loop_UnitLoop.htm
 EM_FC_Store_Restore.htm
 EM_FC_ChangeParam.htm
 EM_FC_ChangeSwitch.htm
+EM_FC_CumulativeSum.htm
 EM_FC_Totals.htm
 EM_FC_DropUnit_KeepUnit.htm
 EM_FC_IlArithOp.htm
@@ -149,12 +151,14 @@ EM_FC_Sum_UpdateTU.htm
 EM_FC_Sum_DefOutput.htm
 EM_FC_Sum_DefVar.htm
 EM_FC_Sum_DefConst.htm
+EM_FC_Sum_InitVars.htm
 EM_FC_Sum_Loop.htm
 EM_FC_Sum_UnitLoop.htm
 EM_FC_Sum_Store.htm
 EM_FC_Sum_Restore.htm
 EM_FC_Sum_ChangeParam.htm
 EM_FC_Sum_ChangeSwitch.htm
+EM_FC_Sum_CumulativeSum.htm
 EM_FC_Sum_Totals.htm
 EM_FC_Sum_DropUnit.htm
 EM_FC_Sum_KeepUnit.htm
@@ -171,6 +175,7 @@ EM_FC_Sum_AddOn_Pol.htm
 EM_FC_Sum_AddOn_Func.htm
 EM_FC_Sum_AddOn_Par.htm
 EM_FC_Sum_AddOn_ExtensionSwitch.htm
+EM_FC_Formula.htm
 EM_FC_Queries.htm
 EM_FC_ChangeLog.htm
 EM_FS_HeaderPage.htm

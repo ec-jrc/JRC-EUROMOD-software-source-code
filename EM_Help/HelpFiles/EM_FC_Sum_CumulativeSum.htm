@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function CumulativeSum</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function CumulativeSum</h1>
+<p>A calculator for cumulative sums.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>SortingVar</td>
+		<td>variable or incomelist</td>
+		<td>at least one</td>
+		<td>no</td>
+		<td></td>
+		<td>Variable or Incomelist based on which to sort observations.</td>
+	</tr>
+	<tr>
+		<td>SortingAsc</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Whether sorting on this variable should be ascending or not.</td>
+	</tr>
+	<tr>
+		<td>SummingVar</td>
+		<td>variable or incomelist</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>The Variable or Incomelist to sum.</td>
+	</tr>
+	<tr>
+		<td>SummingWeighted</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>no</td>
+		<td>Whether the sum should be weighted or not.</td>
+	</tr>
+	<tr>
+		<td>SummingAbsolute</td>
+		<td>yes/no</td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>Whether the summing should be absolute or relative.</td>
+	</tr>
+	<tr>
+		<td>OutputVar</td>
+		<td>variable</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td>The output variable that will hold the cumulative sum.</td>
+	</tr>
+</table>
+
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Mutually exclusive with</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>taxunit</td>
+		<td></td>
+		<td>yes</td>
+		<td>yes</td>
+		<td></td>
+		<td></td>
+		<td>Assessment unit for function's calculations.</td>
+	</tr>
+</table>
+</body>
+</html>

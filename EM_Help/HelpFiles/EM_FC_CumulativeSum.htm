@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special function CumulativeSum</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special function CumulativeSum</h1>
+
+<p>The function CumulativeSum calculates the cumulative sum of a given variable over all observations. It can do so in different specifications:</p>
+<ul>
+<li>You can sum any existing variable or incomelist.</li>
+<li>You can chose to separate, sort and base calculations on individuals, households or any defined tax unit.</li>
+<li>Sorting allows for unlimited nested variables or incomelists (using group order).</li>
+<li>The calculated sum can be weighted or unweighted, and absolute or relative, with any combination of the two pairs.</li>
+</ul>
+
+<p>Following is a simple example of how to sort according to disposable income and sum the relative weights as a percentage. Households are first ordered by disposable income and then get a value from 0 to 1 (the last gets 1).</p>
+
+<table class="spine">
+	<caption>Example1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefVar</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>cumRelWt</td>
+		<td></td>
+		<td>0</td>
+		<td>define the output variable</td>
+	</tr>
+	<tr class="function">
+		<td>CumulativeSum</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>SortingVar</td>
+		<td>1</td>
+		<td>ils_dispy</td>
+		<td>sort households according to disposable income</td>
+	</tr>
+	<tr>
+		<td>SummingVar</td>
+		<td></td>
+		<td>dwt</td>
+		<td>cumulatively sum the weight</td>
+	</tr>
+	<tr>
+		<td>SummingAbsolute</td>
+		<td></td>
+		<td>no</td>
+		<td>sum the relative weight</td>
+	</tr>
+	<tr>
+		<td>OutputVar</td>
+		<td></td>
+		<td>cumRelWt</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>A more complex example is seen below. In this one, we try to combine multiple functions to calculate the Gini coefficient.</p>
+
+<table class="spine">
+	<caption>Example2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Totals</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Varname_Sum</td>
+		<td></td>
+		<td>$sum</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Agg</td>
+		<td></td>
+		<td>dwt</td>
+		<td>calculate the total weight ($sum_dwt)</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>DefVar</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>cumRelWt</td>
+		<td></td>
+		<td>0</td>
+		<td>the cumulative relative weight</td>
+	</tr>
+	<tr>
+		<td>cumRelInc</td>
+		<td></td>
+		<td>0</td>
+		<td>the cumulative relative equivalised disposable income</td>
+	</tr>
+	<tr>
+		<td>gini</td>
+		<td></td>
+		<td>0</td>
+		<td>the gini part that corresponds to this household</td>
+	</tr>
+	<tr class="function">
+		<td>CumulativeSum</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>SortingVar</td>
+		<td>1</td>
+		<td>eq_dispy</td>
+		<td>sort households according to equivalised disposable income</td>
+	</tr>
+	<tr>
+		<td>SummingVar</td>
+		<td></td>
+		<td>dwt</td>
+		<td>cumulatively sum the weight</td>
+	</tr>
+	<tr>
+		<td>SummingAbsolute</td>
+		<td></td>
+		<td>no</td>
+		<td>as a relative value</td>
+	</tr>
+	<tr>
+		<td>OutputVar</td>
+		<td></td>
+		<td>cumRelWt</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>CumulativeSum</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>SortingVar</td>
+		<td>1</td>
+		<td>eq_dispy</td>
+		<td>sort households according to equivalised disposable income</td>
+	</tr>
+	<tr>
+		<td>SummingVar</td>
+		<td></td>
+		<td>eq_dispy</td>
+		<td>cumulatively sum the equivalised disposable income</td>
+	</tr>
+	<tr>
+		<td>SummingAbsolute</td>
+		<td></td>
+		<td>no</td>
+		<td>as a relative value</td>
+	</tr>
+	<tr>
+		<td>SummingWeighted</td>
+		<td></td>
+		<td>yes</td>
+		<td>weighted</td>
+	</tr>
+	<tr>
+		<td>OutputVar</td>
+		<td></td>
+		<td>cumRelInc</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Formula</td>
+		<td></td>
+		<td>(dwt/$sum_dwt) * (cumRelWt - cumRelInc) * 2</td>
+		<td>the gini formula calculation</td>
+	</tr>
+	<tr>
+		<td>Output_Var</td>
+		<td></td>
+		<td>gini</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>Totals</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Varname_Sum</td>
+		<td></td>
+		<td>$sum</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Agg</td>
+		<td></td>
+		<td>gini</td>
+		<td>calculate the total gini ($sum_gini)</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

@@ -29,37 +29,6 @@ Subsequent functions use this information, together with the setting of the
 parameter who_must_be_elig, to determine whether
 their calculations should be carried out for a certain assessment unit or not.</p>
 
-<h4>Syntax of the eligibility condition</h4>
-
-<p>Similar to the parameter formula of <a href="EM_FC_ArithOp.htm"><i>ArithOp</i></a>,
-the parameter elig_cond of Elig
-takes a &quot;formula&quot; to calculate the function's result, however, the
-result is restricted to the values false (zero) and true (non zero). As the
-parameter formula, the parameter elig_cond requires a certain syntax, it consists of:</p>
-<ul>
-	<li>conditions which must be fulfilled, e.g. {dag&lt;19}</li>
-	<li>conditions which must not be fulfilled, e.g. !{ils_dispy&gt;500#m}<a href="#_ftn1" name="_ftnref1" title="">[1]</a></li>
-	<li>combined by the logical operators &amp; (and) and | (or), e.g. {dag&lt;19} &amp; !{ils_dispy&gt;500#m}</li>
-</ul>
-
-<p>Parentheses can be used to group conditions.</p>
-
-<p>A single condition {...} has</p>
-<ul>
-	<li>either one component, usually a yes/no query, e.g. {IsUnemployed} (see <a href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a>)</li>
-	<li>or two components separated by a comparison operator &gt;, &lt;, &gt;=, &lt;=, = or !=, e.g. {poa=0}</li>
-</ul>
-
-<p>The operands left and right from the comparison operator are (the same as for parameter formula of <a href="EM_FC_ArithOp.htm"><i>ArithOp</i></a>):</p>
-<ul>
-	<li>numeric values, e.g. 10, 0.3, (-25), note that negative values must be bracketed</li>
-	<li>numeric values with a period, e.g. 12000#m, 1000#y (see <a href="EM_FC_ParameterTypes.htm">EUROMOD Functions - Types of parameter values</a>)</li>
-	<li>amount#i as place holders for numeric values specified by footnote parameters (see <a href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for the further specification of operands</a>)</li>
-	<li>variables, e.g. yem (see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>)</li>
-	<li>incomelists, e.g. ils_dispy (see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>)</li>
-	<li>queries, e.g. IsUnemployed (see <a href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a>)</li>
-</ul>
-
 <h4>Interpreting conditions with respect to the assessment unit</h4>
 
 <p>As briefly

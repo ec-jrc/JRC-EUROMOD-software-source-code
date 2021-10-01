@@ -24,31 +24,10 @@ allows for determining the liability for paying taxes, as well as evaluating oth
 	</tr>
 	<tr>
 		<td>Elig_Cond</td>
-		<td>condition</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
 		<td>yes</td>
 		<td>yes</td>
-		<td>A combination of conditions: output variable is set to 1 if they are fulfilled, else to 0.<br><br>
-		The comibation consists of:<br>
-		- conditions which must be fulfilled, e.g. {dag&lt;19},<br>
-		- conditions which must not be fulfilled, e.g. !{IsMarried},<br>
-		- combined by the logical operators &amp; (and) and | (or), e.g. {dag&lt;19}
-		&amp; !{IsMarried},<br>
-		- (possibly) grouped by parentheses, e.g. {dag&lt;15} | ({dag&lt;19} &amp; !{IsMarried}).<br>
-		<br>
-		A single condition has<br>
-		- either 1 component, usually a yes-no-query, e.g. {IsUnemployed}<br>
-		- or 2 components separated by a comparison operator
-		&gt;,&lt;,&gt;=,&lt;=,=,!=, e.g. {poa=0}.<br>
-		<br>
-		The operands left and right from the comparison operator are:<br>
-		- numeric values, e.g. 10, 0.3, (-25), note that negative values must be
-		bracketed<br>
-		- numeric values with a period, e.g. 12000#m, 1000#y<br>
-		- amount#i as place holders for numeric values
-		specified by footnote parameters<br>
-		- variables, e.g. yem<br>
-		- incomelists, e.g. ils_dispy<br>
-		- queries, e.g. IsUnemployed</td>
+		<td>A combination of conditions: output variable is set to 1 if they are fulfilled, else to 0.</td>
 	</tr>
 </table>
 
@@ -119,7 +98,7 @@ allows for determining the liability for paying taxes, as well as evaluating oth
 	</tr>
 	<tr>
 		<td>Run_Cond</td>
-		<td>condition</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
 		<td></td>
 		<td>no</td>
 		<td>yes</td>
@@ -129,7 +108,7 @@ allows for determining the liability for paying taxes, as well as evaluating oth
 	</tr>
 	<tr>
 		<td>#_LowLim</td>
-		<td>formula</td>
+		<td><a href="EM_FC_Formula.htm">formula</a></td>
 		<td></td>
 		<td>no</td>
 		<td>no (but group must differ)</td>
@@ -139,7 +118,7 @@ allows for determining the liability for paying taxes, as well as evaluating oth
 	</tr>
 	<tr>
 		<td>#_UpLim</td>
-		<td>formula</td>
+		<td><a href="EM_FC_Formula.htm">formula</a></td>
 		<td></td>
 		<td>no</td>
 		<td>no (but group must differ)</td>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The formula/condition syntax</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>The formula/condition syntax</h1>
+
+<p>Formula here refers to any parameter of type "formula" or indeed "condition" in any EUROMOD function, such as 
+"Formula" in ArithOp, "Elig_Cond" in Elig, "Base" or "Comp_perTU" in BenCalc etc. The only difference between a 
+formula and a condition is that the formula will return the calculated value, while the condition will 
+return false if the value is 0 and true for all other values.</p>
+
+<p>&nbsp;</p>
+
+<p>The formula or condition allows for the following operations:</p>
+<ul>
+	<li>addition: operator +</li>
+	<li>subtraction: operator -</li>
+	<li>multiplication: operator *</li>
+	<li>division: operator /</li>
+	<li>remainder of division: operator \, e.g. 22\5 (result: 2)</li>
+	<li>raising to a power: operator ^, e.g. 2 ^ 3 (result: 8)</li>
+	<li>percentage: operator %, e.g. yem*3% (result: yem*(3/100))</li>
+	<li>minimum and maximum: operators &lt;min&gt; and &lt;max&gt;, e.g. 10 &lt;min&gt; 15 (result: 10) <i style="color:Red;">(deprecated in EM3)</i></li>
+	<li>absolute value: operator &lt;abs&gt;(), e.g. &lt;abs&gt;(-22) (result: 22), &lt;abs&gt;(50-70) (result: 20) <i style="color:Red;">(deprecated in EM3)</i></li>
+	<li>negation: operator !, e.g. !IsMarried, !(17) (result: 0), !(0) (result: 1)</li>
+	<li>logical operators: operators &amp; and |, e.g. IsMarried & IsUnemployed | IsDisabled</li>
+	<li>comparison operators: operators &lt;, &gt;, =, &lt;=, &gt;=, !=, e.g. dag >= 18 (true translates to 1 and false to 0)</li>
+</ul>
+
+<p>and the following inline functions: </p>
+<ul>
+	<li>ABS(1): Absolute value, e.g. abs(-22) (result: 22), abs(50-70) (result: 20) <i class="EM3only">(only available in EM3)</i></li>
+	<li>MIN(2): Minimum value, e.g. min(10, 15) (result: 10) <i class="EM3only">(only available in EM3)</i></li>
+	<li>MAX(2): Maximum value, e.g. max(10, 15) (result: 15) <i class="EM3only">(only available in EM3)</i></li>
+	<li>LN(1): Natural logarithm, e.g. ln(10) (result: 2.30258509299) <i class="EM3only">(only available in EM3)</i></li>
+	<li>LOG(1-2): Logarithm, e.g. log(10, 3) (result: 1.01283722471), log(10) (result: 1) <i class="EM3only">(only available in EM3)</i></li>
+	<li>LOG10(1): Logarithm base 10, e.g. LOG10(10) (result: 1) <i class="EM3only">(only available in EM3)</i></li>
+	<li>EXP(1): Exponential, e.g. exp(3.14) (result: 23.1038668587 <i class="EM3only">(only available in EM3)</i></li>
+	<li>SQRT(1): Square root, e.g. sqrt(4) (result: 2) <i class="EM3only">(only available in EM3)</i></li>
+	<li>CEILING(1): Ceiling value, e.g. ceiling(3.1) (result: 4), ceiling(3.9) (result: 4) <i class="EM3only">(only available in EM3)</i></li>
+	<li>FLOOR(1):Floor value, e.g. floor(3.1) (result: 3), floor(3.9) (result: 3) <i class="EM3only">(only available in EM3)</i>)</li>
+	<li>ROUND(1-2):Round value, e.g. round(3.1) (result: 3), round(3.9) (result: 4), round(3.375, 2) (result: 3.38) <i class="EM3only">(only available in EM3)</i></li>
+	<li>POWER(2): Raising to a power, e.g. power(2, 3) (result: 8) <i class="EM3only">(only available in EM3)</i></li>
+	<li>IF(3): Performs a conditional calculation in the format of &quot;if(&lt;condition&gt;,&lt;value if true&gt;,&lt;value if false&gt;)&quot;, e.g. if(b=0, 0, a/b) (result: avoid getting a "division by zero" warning if b=0) <i class="EM3only">(only available in EM3)</i></li>
+</ul>
+
+<p>to be used with the following operands:</p>
+<ul>
+	<li>numeric values, e.g. 10, 0.3, -25</li>
+	<li>numeric values with a period, e.g. 12000#m, 1000#y (see <a href="EM_FC_ParameterTypes.htm">EUROMOD Functions - Types of parameter values</a>)</li>
+	<li>amount#i as place holders for numeric values specified by footnote parameters (see <a href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for the further specification of operands</a>)</li>
+	<li>variables, e.g. yem (see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>)</li>
+	<li>incomelists, e.g. ils_dispy (see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>)</li>
+	<li>queries, e.g. IsUnemployed (see <a href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a>)</li>
+	<li>random numbers, i.e. rand (see <a href="EM_FC_RandSeed.htm">EUROMOD Functions - The special function RandSeed</a>)</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p>The order of operation rules are: </p>
+<ul>
+	<li>variables, literals, percentage %</li>
+	<li>before parenthesis (), inline functions</li>
+	<li>before &lt;min&gt;, &lt;max&gt;, &lt;abs&gt;, !</li>
+	<li>before power ^</li>
+	<li>before multiplicative operations *, /, \</li>
+	<li>before additive operations +, -</li>
+	<li>before comparison operations &lt;, &gt;, =, &lt;=, &gt;=, !=</li>
+	<li>before logical and &amp;</li>
+	<li>before logical or |</li>
+</ul>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
