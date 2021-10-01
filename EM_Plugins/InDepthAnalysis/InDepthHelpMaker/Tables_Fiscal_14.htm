@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Fiscal Tables</h1>
+
+    <h4>1.4. Disaggregated concepts, number of units</h4>
+    <h6>Description</h6>
+    <p>
+        The Table shows total numbers (using weights) of units that fulfil a condition with respect to a specific variable.<br />
+        By default the condition requests that the variable has a value different from zero.<br />
+        The respective variables and conditions are defined in a specific table in the <a href="Settings_Fiscal.htm">Fiscal settings dialogue</a>.<br />
+    </p>
+
+    <h6>Arguments</h6>
+    <ul style="margin-bottom:0; margin-top:0">
+        <li><b>Concept:</b> a name for the variable that will be displayed in the header column of the Table.</li>
+        <li>
+            <b>Variable/Formula:</b> a variable or formula on <span style="color:darksalmon">individual level</span>
+            (see description of <a href="Tables_Fiscal_13.htm">Table 1.3.</a> for examples)<br />
+        </li>
+        <li>
+            <b>Formula filter:</b> a condition on <span style="color:darksalmon">individual level</span>
+            (see description of <a href="Tables_Fiscal_13.htm">Table 1.3.</a> for examples)<br />
+        </li>
+        <li>
+            <b>Level of analysis:</b> the level on which the <i>Payers/Receivers</i> condition (see below) is evaluated.<br />
+            Possible values are: <i>Household</i> or <i>Individual</i> or <i>Individuals in household</i>
+            (also see <a href="Tables.htm">General arguments / Level of analysis</a>).
+        </li>
+        <li>
+            <b>Payers/Receivers:</b> a condition, on <i>Level of analysis</i> (see above), defining whether a unit is counted
+            (also see <a href="Tables.htm">General arguments / &lsquo;Count unit&rsquo; conditions</a>).<br />
+            <span style="color:darksalmon">Default: !=0</span><br />
+            Other Examples:<br />
+            <ul style="margin-bottom:0; margin-top:0">
+                <li>&gt;500</li>
+                <li>&lt;0</li>
+                <li>
+                    &gt; yem*0.01
+                    <i style="color:darkcyan">this means that, if &lsquo;Level of analysis&rsquo; is &lsquo;Household&rsquo; or &lsquo;Individuals in household&rsquo;,
+                    the unit is counted if the <b>household</b> value of &lsquo;Variable/Formula&rsquo; is above 1% of <b>household</b> employment income.</i>
+                </li>
+                <li>
+                    !=0 &amp;&amp; ils_dispy&gt;0 <i style="color:darkcyan">in addition to only counting units with non-zero variable value,
+                    the tool does not count units with zero or negative disposable income.</i>
+                </li>
+                <li>
+                    !=0 &amp;&amp; dag&gt;70 <i style="color:darkcyan">in addition to only counting units with non-zero variable value,
+                    the tool does not count units, where the first person (in data) is 70 or younger.</i>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</body>
+</html>

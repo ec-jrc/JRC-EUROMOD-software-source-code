@@ -62,6 +62,7 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="DevExpress.Data.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -242,7 +243,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VariableDataSet.xsd</DependentUpon>
     </Compile>
-<Compile Include="..\..\GlobalSuppressions.cs" />
+    <Compile Include="..\..\GlobalSuppressions.cs" />
     <Compile Include="WorktimeRangeAdmin.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -376,8 +377,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="data\ReferenceTables.xml" />
-    <None Include="data\VariableSettings.xml" />
-    <Content Include="data\HouseholdData.xml" />
+    <None Include="data\VariableSettings.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="data\HouseholdData.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Icons\household_add.png" />
     <Content Include="Icons\household_remove.png" />
     <Content Include="Icons\people_add.png" />

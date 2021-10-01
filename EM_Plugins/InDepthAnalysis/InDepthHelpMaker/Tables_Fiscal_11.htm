@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Fiscal Tables</h1>
+
+    <h4>1.1. Revenue-expenditure</h4>
+    <h6>Description</h6>
+    <p>
+        The Table shows, on an annual base, aggregate original income, government revenue and government expenditure.<br />
+        In addition the last row displays the net budgetary effect, i.e. the change of a scenario's government budget (revenue minus expenditure)
+        with respect to the reference scenario.
+    </p>
+
+    <p>
+        The following aggregates are displayed:
+        <ol type="a">
+            <li>Total earnings (ils_earns)</li>
+            <li>Other original income (ils_origy - ils_earns)</li>
+            <li>Total taxes (ils_tax)</li>
+            <li>Total SIC (ils_sicdy + ils_sicer)</li>
+            <li>Total pensions (ils_pen)</li>
+            <li>Total means tested benefits (ils_benmt)</li>
+            <li>Total non-means tested benefits (ils_bennt)</li>
+            <li>Net budgetary effect (taxes + SSC - pensions - benefits)</li>
+        </ol>
+    </p>
+
+    <p>
+        The values are assessed as a weighted sum of the EUROMOD income list variables (indicated in brackets) in the respective baseline/reform output file.<br />
+        Moreover, each aggregate, except from b and h, is decomposed into the single variables that build the respective income lists.<br />
+    </p>
+
+    <p>
+        Some facts upon assessing the required information may be helpful to understand the table.
+    </p>
+    <ul style="margin-bottom:0; margin-top:0">
+        <li>
+            The information upon EUROMOD income lists is taken from the EUROMOD project indicated in the field <i>EUROMOD project folder</i> in the
+            <a href="Settings_Main.htm">main settings dialogue</a>.
+        </li>
+        <li>
+            The decomposition is omitted if no such information is available (e.g. if the country or system could not be identified in the EUROMOD project).<br />
+            The tool uses the EUROMOD log file, supposed to be found at the same path as the output file, to identify the system.
+            If no log file is available, the tool tries to extract the system name from the output file name.
+        </li>
+        <li>
+            No decomposition is displayed, if more than one country is analysed.
+        </li>
+        <li>
+            In interpreting EUROMOD income lists, the tool accounts for EUROMOD extensions.
+            The EUROMOD log file is used to assess the extension settings applied to generate the respective output file.
+            If no log file is available, default extension settings are assumed.
+        </li>
+        <li>
+            The tool does not take into account whether the output was generated with add-ons or not.
+        </li>
+        <li>
+            The tool assumes &lsquo;simple&rsquo; income list definition, i.e. that variables are either added (+) or subtracted (-). 
+            That means, that factors like +0.5 or -2 are ignored and just considered as added or subtracted, respectively.
+        </li>
+        <li>
+            Note that the sum of components and the value of the displayed sum (assessed via income list variables) will rarely be exactly equal.
+            This is due to multiplying numbers in the output files, which by default have two decimal precission, with (possibly large) weights.
+            Consequently, the preciseness of the match will increase with the number of decimals used for generating the output files.<br />
+            Nevertheless, as there are likely cases, where the sum of components and the total may not match due to reasons other than rounding 
+			(e.g. if no log file is available to assess extension settings),
+            the tool performs a respective check and issues a warning if the percentage difference ((reform-base)/base) is larger than 0.00005.
+        </li>
+        <li>
+            A last note, summarising the advantages of the availability of a log file:
+            <ul style="margin-bottom:0; margin-top:0">
+                <li>The output file can be renamed, as the log file works with file-codes instead of file names.</li>
+                <li>Finding the system name is not dependent on the output file having a standard name (i.e. cc_yyyy_std.txt).</li>
+                <li>Extension settings of the concrete run are taken into account.</li>
+            </ul>
+        </li>
+    </ul>
+
+</body>
+</html>

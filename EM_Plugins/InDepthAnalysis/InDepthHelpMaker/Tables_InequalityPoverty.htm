@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Inequality and poverty Tables</h1>
+
+    <h4>General arguments</h4>
+
+    <h6>Poverty lines</h6>
+    <p>
+        For Tables <a href="Tables_InequalityPoverty_33.htm">3.3. AROP rates</a>, <a href="Tables_InequalityPoverty_34.htm">3.4. AROP gap</a>,
+        <a href="Tables_InequalityPoverty_35.htm">3.5. AROP rates by type</a> and <a href="Tables_InequalityPoverty_36.htm">3.6. AROP gap by type</a>
+        users can define poverty lines by specifying two attributes:
+        <ul style="margin-top:0">
+            <li><b>type</b> and</li>
+            <li>depending on type, either <b>percentage</b> or <b>monthly amount</b></li>
+        </ul>
+        Users can select one of 3 <b>types</b>:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>
+                <b>relative anchored:</b>
+                poverty line is calculated as a percentage (e.g. 60%) of the individual median of equivalised income in the <b>baseline scenario</b>
+            </li>
+            <li>
+                <b>relative floating:</b>
+                poverty line is calculated as a percentage (e.g. 60%) of the individual median of equivalised income in the <b>respective scenario</b>
+            </li>
+            <li>
+                <b>absolute (monthly):</b>
+                poverty line is indicated as a monthly amount
+            </li>
+        </ul>
+        Income is defined in the respective application and equivalised using the modified OECD equivalence scale.
+    </p>
+
+    <h6>Household type breakdown</h6>
+    <p>
+        For Tables <a href="Tables_InequalityPoverty_35.htm">3.5. AROP rates by type</a> and <a href="Tables_InequalityPoverty_36.htm">3.6. AROP gap by type</a>
+        users can define the household type over which the Tables are broken down.<br />
+        For this purpose they must indicate a variable that exists in the baseline output file and provides a restricted number of values.<br />
+        For example, the variable:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>
+                <i>dlg</i> (large family) will generate one row for households considered as large families (dlg=1) and one for the other households (dlg=0)
+            </li>
+            <li>
+                <i>dms</i> (martial status) will generate one row for each type of martial status (single, married, divorced, ...) of
+                <b><span style="color:darksalmon">the first person in household</span></b> (in the output file)
+            </li>
+        </ul>
+        Note that the variable <b><span style="color:darksalmon">must not be monetary</span></b>, because monetary variables are summed over household members.
+    </p>
+    <p>
+        By default a special template generated variable, <span style="color:darksalmon">Standard_HH_Categories</span>,
+        is used for the breakdown. This variable splits households into the following groups:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>One adult &lt;65, no children</li>
+            <li>One adult &ge;65, no children</li>
+            <li>One adult with children</li>
+            <li>Two adults, &lt;65, no children</li>
+            <li>Two adults, at least one &ge;65, no children</li>
+            <li>Two adults with one child</li>
+            <li>Two adults with two children</li>
+            <li>Two adults with three or more children</li>
+            <li>Three or more adults, no children</li>
+            <li>Three or more adults with children</li>
+            <li>No adults (only persons &lt;18)</li>
+        </ul>
+    </p>
+
+    <h6>Income definitions</h6>
+    <p>
+        For Tables <a href="Tables_InequalityPoverty_31.htm">3.1. Inequality</a>, <a href="Tables_InequalityPoverty_33.htm">3.3. AROP rates</a> and
+        <a href="Tables_InequalityPoverty_34.htm">3.4. AROP gap</a> users can define income definitions, which reflect the path from original income to disposable income.
+        For this purpose, they define:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>a variable or formula for original income</li>
+            <li>
+                a list of variables or formulas which define &lsquo;<i>add to previous</i>&rsquo; values,<br />
+                where the first is &lsquo;added&rsquo; to original income, the second is &lsquo;added&rsquo; to this first, etc.<br />
+                In the end original income plus all &lsquo;<i>add to previous</i>&rsquo; should yield disposable income.<br />
+                &lsquo;Add to previous&rsquo; is in quotation marks because, in fact, users must define whether the value is added or subtracted by starting
+                the formula with <b><span style="color:darksalmon">+</span></b> respectively <b><span style="color:darksalmon">-</span></b>.
+            </li>
+        </ul>
+        In addition, users can define captions for original income, for each of the originating intermediate incomes and for disposable income.
+    </p>
+
+    <p>
+        By default the following list is displayed:
+        <table>
+            <tr>
+                <td><b>caption</b></td>
+                <td><b>variable/formula</b></td>
+            </tr>
+            <tr>
+                <td>A = original income</td>
+                <td>ils_origy</td>
+            </tr>
+            <tr>
+                <td>B = A - taxes and social insurance contributions (EQ_INC23)</td>
+                <td>- ils_tax - ils_sicdy</td>
+            </tr>
+            <tr>
+                <td>C = B + pensions (EQ_INC22)</td>
+                <td>+ ils_pen</td>
+            </tr>
+            <tr>
+                <td>D = C + other benefits (disposable income, EQ_INC20)</td>
+                <td>+ ils_benmt + ils_bennt</td>
+            </tr>
+        </table>
+    </p>
+
+</body>
+</html>

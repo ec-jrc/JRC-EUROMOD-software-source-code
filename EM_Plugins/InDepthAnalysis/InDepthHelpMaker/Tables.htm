@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Tables</h1>
+    <h4>General arguments</h4>
+
+    <h6>Formulas</h6>
+    <p>
+        Supported operations for formulas are:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>sum <span style="color:darksalmon">+</span></li>
+            <li>subtraction <span style="color:darksalmon">-</span></li>
+            <li>product <span style="color:darksalmon">*</span></li>
+            <li>division <span style="color:darksalmon">/</span></li>
+        </ul>
+        Supported operators are:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>numbers</li>
+            <li>variables that exist in the EUROMOD output files used for the analysis</li>
+            <li>variables with the postfix <span style="color:darksalmon">_base</span>, which allows for addressing the baseline scenario, e.g. <i>ils_dispy_base</i></li>
+        </ul>
+        Moreover formulas allow for grouping by:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>parentheses <span style="color:darksalmon">()</span></li>
+        </ul>
+    </p>
+
+    <p>
+        <u>Examples:</u>
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>yem</li>
+            <li>ils_dispy * 0.1</li>
+            <li>(ils_earns - ils_earns_base) / ils_earns_base</li>
+        </ul>
+    </p>
+
+    <h6>Conditions</h6>
+    <p>
+        Supported comparison operations for conditions are:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>equal <span style="color:darksalmon">==</span></li>
+            <li>not equal <span style="color:darksalmon">!=</span></li>
+            <li>greater or equal <span style="color:darksalmon">&gt;=</span></li>
+            <li>less or equal <span style="color:darksalmon">&lt;=</span></li>
+            <li>greater <span style="color:darksalmon">&gt;</span></li>
+            <li>less <span style="color:darksalmon">&lt;</span></li>
+        </ul>
+        Supported combination operators are:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>and <span style="color:darksalmon">&amp;&amp;</span></li>
+            <li>or <span style="color:darksalmon">||</span></li>
+        </ul>
+        Moreover, conditions allow for the operator:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>not <span style="color:darksalmon">!</span></li>
+        </ul>
+        Finally, conditions allow for:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>operators and operands as described for formulas</li>
+        </ul>
+    </p>
+    <p>
+        Note that two-character operators are expected for <i>equal</i> (==), <i>and</i> (&amp;&amp;) and <i>or</i> (||).<br />
+        (The tool tries to correct for usage of single character operators (= &amp |) if the intention seems obvious).
+    </p>
+    <p>
+        For conditions on household level:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li><span style="color:darksalmon">monetary variables</span> are calculated as the sum of this variable over the household members</li>
+            <li><span style="color:darksalmon">non-monetary variables</span> are taken from the first person in household (in the output file)</li>
+        </ul>
+    </p>
+    <p>
+        <u>Examples:</u>
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>ils_dispy &lt; 1000</li>
+            <li>(dag &lt;= 25 || dag &gt;= 65) &amp;&amp; yem &gt; 0</li>
+            <li>ils_earns &lt; ils_earns_base</li>
+        </ul>
+    </p>
+
+    <h6>&lsquo;Count unit&rsquo; conditions</h6>
+    <p>
+        There are special conditions which usually define the units (i.e. individuals or households) to be counted.
+        The most common default value for such a condition is <span style="color:darksalmon">!=0</span>,
+        meaning that units with a non-zero value should be counted (as e.g. receivers of benefits).<br />
+        Such conditions must start with a comparison operator. Internally the tool prefixes the condition with the variable (or formula) in consideration, yielding e.g.
+        <span style="color:darksalmon">ils_ben!=0</span>.
+    </p>
+    <p>
+        <u>Examples:</u>
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>&lt; 1500</li>
+            <li>&gt; ils_dispy * 0.1</li>
+            <li>&lt; 100 &amp;&amp; ils_origy &gt; 0</li>
+        </ul>
+    </p>
+
+    <h6>Level of analysis</h6>
+    <p>
+        Several Tables allow for selecting <span style="color:darksalmon">Household</span> or <span style="color:darksalmon">Individual</span> as the level of analysis.
+        In addition, Tables where units are counted (e.g. number of taxpayers or beneficiaries), allow for
+        <span style="color:darksalmon">Individuals in household</span>.<br />
+        This is interpreted as follows:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>
+                <span style="color:darksalmon">Household</span><br />
+                Conditions are interpreted on household level - see <i>conditions on household level</i> above.<br />
+                The counting unit is household.
+            </li>
+            <li>
+                <span style="color:darksalmon">Individual</span><br />
+                Conditions are interpreted on individual level.<br />
+                The counting unit is individual.
+            </li>
+            <li>
+                <span style="color:darksalmon">Individuals in household</span><br />
+                Conditions are interpreted on household level.<br />
+                The counting unit is individual. That means:
+                <ul style="margin-bottom:0; margin-top:0">
+                    <li>if there is a condition (e.g. target population): all individuals living in a household that fulfil the condition are counted</li>
+                    <li>if there is no condition: yields the same result as <span style="color:darksalmon">Individual</span></li>
+                </ul>
+            </li>
+        </ul>
+    </p>
+
+</body>
+</html>

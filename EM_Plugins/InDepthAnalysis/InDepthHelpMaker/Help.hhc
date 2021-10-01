@@ -1,0 +1,120 @@
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+  <param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+  <LI> <OBJECT type="text/sitemap">
+    <param name="Name" value="Main settings">
+    <param name="Local" value="Settings_Main.htm">
+    </OBJECT>
+  <LI> <OBJECT type="text/sitemap">
+    <param name="Name" value="Fiscal settings">
+    <param name="Local" value="Settings_Fiscal.htm">
+    </OBJECT>
+  <LI> <OBJECT type="text/sitemap">
+    <param name="Name" value="Distributional settings">
+    <param name="Local" value="Settings_Distributional.htm">
+    </OBJECT>
+  <LI> <OBJECT type="text/sitemap">
+    <param name="Name" value="Inequality and poverty settings">
+    <param name="Local" value="Settings_InequalityPoverty.htm">
+    </OBJECT>
+  <LI> <OBJECT type="text/sitemap">
+    <param name="Name" value="Tables">
+    <param name="Local" value="Tables.htm">
+    </OBJECT>
+    <UL>
+      <LI> <OBJECT type="text/sitemap">
+        <param name="Name" value="Fiscal Tables">
+        <param name="Local" value="Tables_Fiscal.htm">
+        </OBJECT>
+        <UL>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="1.1. Revenue-expenditure">
+            <param name="Local" value="Tables_Fiscal_11.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="1.2. Number of taxpayers/beneficiaries">
+            <param name="Local" value="Tables_Fiscal_12.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="1.3. Disaggregated concepts">
+            <param name="Local" value="Tables_Fiscal_13.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="1.4. Disaggregated concepts, number of units">
+            <param name="Local" value="Tables_Fiscal_14.htm">
+            </OBJECT>
+        </UL>
+    </UL>
+    <UL>
+      <LI> <OBJECT type="text/sitemap">
+        <param name="Name" value="Distributional Tables">
+        <param name="Local" value="Tables_Distributional.htm">
+        </OBJECT>
+        <UL>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.1. Taxpayers-beneficiaries">
+            <param name="Local" value="Tables_Distributional_21.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.2. Total tax or benefit">
+            <param name="Local" value="Tables_Distributional_22.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.3. Mean tax or benefit">
+            <param name="Local" value="Tables_Distributional_23.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.4. Average tax burden">
+            <param name="Local" value="Tables_Distributional_24.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.5. Mean disposable income">
+            <param name="Local" value="Tables_Distributional_25.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.6. Mean equivalised disposable income">
+            <param name="Local" value="Tables_Distributional_26.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="2.7. Winners / 2.8. Losers">
+            <param name="Local" value="Tables_Distributional_278.htm">
+            </OBJECT>
+        </UL>
+    </UL>
+    <UL>
+      <LI> <OBJECT type="text/sitemap">
+        <param name="Name" value="Inequality and poverty Tables">
+        <param name="Local" value="Tables_InequalityPoverty.htm">
+        </OBJECT>
+        <UL>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="3.1. Inequality">
+            <param name="Local" value="Tables_InequalityPoverty_31.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="3.2. Progressivity">
+            <param name="Local" value="Tables_InequalityPoverty_32.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="3.3. AROP rates">
+            <param name="Local" value="Tables_InequalityPoverty_33.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="3.4. AROP gap">
+            <param name="Local" value="Tables_InequalityPoverty_34.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="3.5. AROP rates by type">
+            <param name="Local" value="Tables_InequalityPoverty_35.htm">
+            </OBJECT>
+          <LI> <OBJECT type="text/sitemap">
+            <param name="Name" value="3.6. AROP gap by type">
+            <param name="Local" value="Tables_InequalityPoverty_36.htm">
+            </OBJECT>
+        </UL>
+    </UL>
+</UL>
+</BODY>
+</HTML>

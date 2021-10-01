@@ -12,10 +12,10 @@ namespace StatisticsPresenter
     public partial class SelectBaseAltsForm : Form
     {
         internal Template.TemplateInfo templateInfo = null;
-        internal List<FilePackageContent> filePackages = null;
+        public List<FilePackageContent> filePackages = null;
         List<int> selectedIndices = new List<int>();    // store the order of selection for Alts
 
-        public SelectBaseAltsForm(Template.TemplateInfo templateInfo)
+        public SelectBaseAltsForm(Template.TemplateInfo templateInfo, string outputFolder = null)
         {
             InitializeComponent();
 
@@ -24,10 +24,14 @@ namespace StatisticsPresenter
             labCaption.Text = templateInfo.name;
 
             // try to retieve selected paths from UI-user-settings, if not successful set to UI-output-folder
-            string storedBaseOutputFolder = UISessionInfo.GetRetainedUserSetting(StatisticsPresenter.USER_SETTINGS_ID, StatisticsPresenter.BASE_OUTPUT_FOLDER);
-            textBasePath.Text = string.IsNullOrEmpty(storedBaseOutputFolder) ? UISessionInfo.GetOutputFolder() : storedBaseOutputFolder;
-            string storedAltOutputFolder = UISessionInfo.GetRetainedUserSetting(StatisticsPresenter.USER_SETTINGS_ID, StatisticsPresenter.REFORM_OUTPUT_FOLDER);
-            textAltPath.Text = string.IsNullOrEmpty(storedAltOutputFolder) ? textBasePath.Text : storedAltOutputFolder;
+            if (outputFolder == null)
+            {
+                string storedBaseOutputFolder = UISessionInfo.GetRetainedUserSetting(StatisticsPresenter.USER_SETTINGS_ID, StatisticsPresenter.BASE_OUTPUT_FOLDER);
+                textBasePath.Text = string.IsNullOrEmpty(storedBaseOutputFolder) ? UISessionInfo.GetOutputFolder() : storedBaseOutputFolder;
+                string storedAltOutputFolder = UISessionInfo.GetRetainedUserSetting(StatisticsPresenter.USER_SETTINGS_ID, StatisticsPresenter.REFORM_OUTPUT_FOLDER);
+                textAltPath.Text = string.IsNullOrEmpty(storedAltOutputFolder) ? textBasePath.Text : storedAltOutputFolder;
+            }
+            else textBasePath.Text = textAltPath.Text = outputFolder;
 
             //template.FilePackageDefinition.GetMinMaxNumberOfAlternatives(out minAlts, out maxAlts, template.TemplateType);
             if (templateInfo.maxFiles == 1)

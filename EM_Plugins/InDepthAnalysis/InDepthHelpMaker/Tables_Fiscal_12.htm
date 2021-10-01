@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Fiscal Tables</h1>
+
+    <h4>1.2. Number of taxpayers/beneficiaries</h4>
+    <h6>Description</h6>
+    <p>
+        The Table shows the total number (using weights) of units receiving/paying incomes, benefits or taxes.<br />
+        The default unit is the household, but this can be changed: see <i>Arguments</i>.<br />
+        The displayed incomes, benefits and taxes correspond to the items of <a href="Tables_Fiscal_11.htm">Table 1.1.</a>,
+        apart from Net budgetary effect, which is not displayed for Table 1.2.<br />
+        Whether a unit is considered as a recipient/payer is by default determined by the respective income/benefit/tax taking a non-zero value for the unit.
+        Again, this can be changed: see <i>Arguments</i>.
+    </p>
+
+    <h6>Arguments</h6>
+    <p>
+        The following arguments can be changed by the <a href="Settings_Fiscal.htm">Fiscal settings dialogue</a>:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>
+                <b>Level of analysis:</b> the unit to be counted for calculating the total number of units<br />
+                The amount of the income/benefit/tax,
+                which defines whether the unit is a receiver/payer, is calculated as the sum over the members of this unit.<br />
+                Possible values are: <i>Household</i> or <i>Individual</i> or <i>Individuals in household</i>
+                (also see <a href="Tables.htm">General arguments / Level of analysis</a>).<br />
+                <span style="color:darksalmon">Default: Household</span><br />
+            </li>
+            <li>
+                <b>Benefit/Pension receivers:</b> a condition, on unit level, defining whether a unit is considered to be a benefit/pension receiving unit
+                (also see <a href="Tables.htm">General arguments / &lsquo;Count unit&rsquo; conditions</a>).<br />
+                The condition is applied on:
+                <ul style="margin-bottom:0; margin-top:0">
+                    <li>Total pensions</li>
+                    <li>Total means tested benefits</li>
+                    <li>Total non-means tested benefits</li>
+                </ul>
+                and their components.<br />
+                <span style="color:darksalmon">Default: !=0</span><br />
+                Other Examples: >0; >ils_dispy*0.01
+            </li>
+            <li>
+                <b>Other payers/receivers:</b> a condition, on unit level, defining whether a unit is considered to be a taxpaying unit
+                (also see <a href="Tables.htm">General arguments / &lsquo;Count unit&rsquo; conditions</a>).<br />
+                The condition is applied on:
+                <ul style="margin-bottom:0; margin-top:0">
+                    <li>Total earnings</li>
+                    <li>Other original income</li>
+                    <li>Total taxes</li>
+                    <li>Total SIC</li>
+                </ul>
+                and their components.<br />
+                <span style="color:darksalmon">Default: !=0</span><br />
+                Other Examples: >0; >ils_origy*0.01
+            </li>
+        </ul>
+    </p>
+
+</body>
+</html>

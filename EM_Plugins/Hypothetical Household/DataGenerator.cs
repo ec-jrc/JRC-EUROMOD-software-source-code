@@ -357,7 +357,6 @@ namespace HypotheticalHousehold
                 line.Add("idhh");       // household id
                 line.Add("idperson");   // person id
                 line.Add("dwt");        // weight
-                line.Add("dhr");        // household responsible
                 foreach (string v in fileDetails.allVars.Keys) line.Add(v);
                 sw.WriteLine(String.Join("\t", line));
                 long famId = 0;
@@ -365,7 +364,6 @@ namespace HypotheticalHousehold
                 Regex matchTextStar = new Regex(@"(?<start>[a-z]+)\*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
                 Regex matchTextStarText = new Regex(@"(?<start>[a-z]+)\*(?<end>[a-z]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-                List<string> incomeVars = new List<string>(new string[] { "yem", "yse", "poa" });
                 foreach (TreeListNode fam in inputForm.treeHouseholds.Nodes)
                 {
                     if (fam.Checked)
@@ -401,63 +399,6 @@ namespace HypotheticalHousehold
                             }
                             perId = 0;
 
-                            // try to mark the proper head for each household instance based on income when there is an income range (i.e. head may change with a range value)
-                            TreeListNode hr = null;
-                            double maxIncome = 0;
-                            foreach (TreeListNode p in fam.Nodes)
-                            {
-                                if (p.Checked)
-                                {
-                                    string pName = p.GetValue("HouseholdName").ToString();
-                                    Dictionary<string, Dictionary<string, double>> pNumeric = fileDetails.numericVarValues[famName][pName];
-                                    Dictionary<string, Dictionary<string, List<double>>> pRanged = fileDetails.rangeVarValues[famName][pName];
-                                    DataRow row = tbl.Rows.Find(p.GetValue("dataId"));
-                                    if (hr == null)
-                                    {
-                                        hr = p;
-                                        double total = 0;
-                                        foreach (string v in incomeVars)
-                                        {
-                                            if (pRanged.ContainsKey(v))
-                                                total += pRanged[v][year][curValue[famName + "_" + pName + "_" + v]];
-                                            else if (pNumeric.ContainsKey(v))
-                                                total += pNumeric[v][year];
-                                            else
-                                                total += row[v] == DBNull.Value ? 0 : double.Parse(row[v].ToString());
-                                        }
-                                        maxIncome = total;
-                                    }
-                                    else
-                                    {
-                                        double total = 0;
-                                        foreach (string v in incomeVars)
-                                        {
-                                            if (pRanged.ContainsKey(v))
-                                                total += pRanged[v][year][curValue[famName + "_" + pName + "_" + v]];
-                                            else if (pNumeric.ContainsKey(v))
-                                                total += pNumeric[v][year];
-                                            else
-                                                total += row[v] == DBNull.Value ? 0 : double.Parse(row[v].ToString());
-                                        }
-                                        if (total > maxIncome)
-                                        {
-                                            hr = p;
-                                            maxIncome = total;
-                                        }
-                                        else if (total == maxIncome)
-                                        {
-                                            string pname2 = hr.GetValue("HouseholdName").ToString();
-                                            double age1 = 0, age2 = 0;
-                                            if (pRanged.ContainsKey("dag")) age1 = pRanged["dag"][year][curValue[famName + "_" + pName + "_dag"]];
-                                            else if (pNumeric.ContainsKey("dag")) age1 = pNumeric["dag"][year];
-                                            if (fileDetails.rangeVarValues[famName][pname2].ContainsKey("dag")) age2 = fileDetails.rangeVarValues[famName][pname2]["dag"][year][curValue[famName + "_" + pname2 + "_dag"]];
-                                            else if (fileDetails.numericVarValues[famName][pname2].ContainsKey("dag")) age2 = fileDetails.numericVarValues[famName][pname2]["dag"][year];
-
-                                            if (age1 > age2) hr = p;
-                                        }
-                                    }
-                                }
-                            }
 
                             foreach (TreeListNode p in fam.Nodes)
                             {
@@ -474,7 +415,6 @@ namespace HypotheticalHousehold
                                     line.Add(famId.ToString());
                                     line.Add(pids[p.GetValue("dataId").ToString()]);
                                     line.Add("1");  // add "dwt"
-                                    line.Add(p == hr ? "1" : "0");  // add "dhr"
                                     DataRow row = tbl.Rows.Find(p.GetValue("dataId"));  // "row" holds the actual grid data (all variable values) for this individual
                                     foreach (string var in fileDetails.allVars.Values)
                                     {

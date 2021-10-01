@@ -43,8 +43,8 @@ namespace StatisticsPresenter
             {
                 // Try reading only the brand templates
                 string[] allTemplates = Directory.GetFiles(EnvironmentInfo.GetUserSelectableTemplateFolder(), DefGeneral.BRAND_NAME + "*.xml");
-                // If no brand-specific template is found, load all available templates
-                if (allTemplates.Length == 0) allTemplates = Directory.GetFiles(EnvironmentInfo.GetUserSelectableTemplateFolder(), "*.xml");
+                // If no brand-specific template is found, load the default EUROMOD templates
+                if (allTemplates.Length == 0) allTemplates = Directory.GetFiles(EnvironmentInfo.GetUserSelectableTemplateFolder(), DefGeneral.BRAND_NAME_DEFAULT + "*.xml");
 
                 // try to retieve last selected template from session info
                 TSDictionary pluginSessionInfo = UISessionInfo.GetSessionUserSettings(StatisticsPresenter.USER_SETTINGS_ID);

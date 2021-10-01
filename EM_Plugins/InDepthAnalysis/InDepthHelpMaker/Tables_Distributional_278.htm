@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Distributional Tables</h1>
+    <h4>2.7. Winners &amp; 2.8. Losers</h4>
+
+    <h6>Description</h6>
+    <p>
+        The Tables show number and share of units (e.g. households, see <i>Level of analysis</i>) that fulfil the &lsquo;winner/loser condition&rsquo;.<br />
+        A unit is considered <span style="color:darksalmon">winning</span>, if the <span style="color:darksalmon">positive</span> difference between
+        its equivalised disposable income in the respective scenario and its equivalised disposable income in the reference scenario
+        is <span style="color:darksalmon">higher</span> than the <i>Sensitivity</i> threshold (see below).<br />
+        Vice versa, a unit is considered <span style="color:darksalmon">losing</span>, if the <span style="color:darksalmon">negative</span> difference between
+        its equivalised disposable income in the respective scenario and its equivalised disposable income in the reference scenario
+        is <span style="color:darksalmon">lower</span> than the <i>Sensitivity</i> threshold (see below).<br />
+        Disposable income is defined by the income list ils_dispy and is equivalised using the modified OECD equivalence scale.<br />
+        The reference scenario is defined by the option <i>Compare with baseline / previous scenario</i> in the <a href="Settings_Main.htm">main settings dialogue</a>.
+        <ul style="margin-bottom:0; margin-top:0">
+            <li><b>Number:</b> total winning/losing units, using weights</li>
+            <li><b>Share:</b> percentage of winning/losing units with respect to all units (of the group), using weights</li>
+        </ul>
+        Numbers and shares are shown for the whole population, as well as broken down over a breakdown variable (e.g. income deciles, see <i>Breakdown</i>).<br />
+        Results can be restricted to a specific population group (see <i>Target population</i>).
+    </p>
+
+    <h6>Arguments</h6>
+    <ul style="margin-bottom:0; margin-top:0">
+        <li>
+            <b>Breakdown:</b><br />
+            <span style="color:darksalmon">Default: deciles of individual equivalised disposable income</span><br />
+            For details with respect to definition see <a href="Tables_Distributional.htm">Distributional Tables / General argmuments / Breakdown</a>
+        </li>
+        <li>
+            <b>Sensitivity:</b><br />
+            <span style="color:darksalmon">Default: 0</span><br />
+            For details with respect to definition see <a href="Tables.htm">General arguments / Formulas</a><br />
+            Examples: 100; ils_dispy*0.01
+        </li>
+        <li>
+            <b>Level of analysis:</b><br />
+            <span style="color:darksalmon">Default: Household</span><br />
+            For details with respect to definition see <a href="Tables.htm">General arguments / Level of analysis</a>
+        </li>
+        <li>
+            <b>Target population:</b><br />
+            <span style="color:darksalmon">Default: empty, i.e. whole population</span><br />
+            For details with respect to definition see <a href="Tables_Distributional.htm">Distributional Tables / General argmuments / Target population</a>
+        </li>
+    </ul>
+
+</body>
+</html>

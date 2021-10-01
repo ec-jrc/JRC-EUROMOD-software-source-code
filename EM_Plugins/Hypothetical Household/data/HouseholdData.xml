@@ -115,18 +115,7 @@
                 <xs:element name="bdicc" type="xs:string" minOccurs="0" />
                 <xs:element name="bdict" type="xs:string" minOccurs="0" />
                 <xs:element name="bdict01" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0109" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0110" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0111" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0112" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0113" type="xs:string" minOccurs="0" />
                 <xs:element name="bdict02" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0209" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0210" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0211" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0212" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0213" type="xs:string" minOccurs="0" />
-                <xs:element name="bdict0214" type="xs:string" minOccurs="0" />
                 <xs:element name="bdictiv01" type="xs:string" minOccurs="0" />
                 <xs:element name="bdimb" type="xs:string" minOccurs="0" />
                 <xs:element name="bdimy" type="xs:string" minOccurs="0" />
@@ -402,9 +391,6 @@
                 <xs:element name="amrtp" type="xs:string" minOccurs="0" />
                 <xs:element name="bcctuyn" type="xs:string" minOccurs="0" />
                 <xs:element name="bchdiyn" type="xs:string" minOccurs="0" />
-                <xs:element name="bhoen1130" type="xs:string" minOccurs="0" />
-                <xs:element name="bhoen30" type="xs:string" minOccurs="0" />
-                <xs:element name="bhoen50" type="xs:string" minOccurs="0" />
                 <xs:element name="bunctmt" type="xs:string" minOccurs="0" />
                 <xs:element name="bunncmt" type="xs:string" minOccurs="0" />
                 <xs:element name="bunncmy" type="xs:string" minOccurs="0" />
@@ -518,16 +504,60 @@
                 <xs:element name="bsa00_SK" type="xs:string" minOccurs="0" />
                 <xs:element name="lct_CY" type="xs:string" minOccurs="0" />
                 <xs:element name="lct_DK" type="xs:string" minOccurs="0" />
-                <xs:element name="bccot_AT" type="xs:string" minOccurs="0" />
+                <xs:element name="twl" type="xs:string" minOccurs="0" />
+                <xs:element name="bunpvyn" type="xs:string" minOccurs="0" />
+                <xs:element name="yseny" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn1_PT" type="xs:string" minOccurs="0" />
+                <xs:element name="drgn2_PT" type="xs:string" minOccurs="0" />
                 <xs:element name="bcbplcs_DK" type="xs:string" minOccurs="0" />
                 <xs:element name="pdica_DE" type="xs:string" minOccurs="0" />
+                <xs:element name="pdica_FI" type="xs:string" minOccurs="0" />
                 <xs:element name="dcc_DE" type="xs:string" minOccurs="0" />
-                <xs:element name="twl" type="xs:string" minOccurs="0" />
                 <xs:element name="bcbma01_NL" type="xs:string" minOccurs="0" />
                 <xs:element name="bcbma02_NL" type="xs:string" minOccurs="0" />
                 <xs:element name="yseub_IT" type="xs:string" minOccurs="0" />
                 <xs:element name="yseib_IT" type="xs:string" minOccurs="0" />
-                <xs:element name="pdica_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_SI" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_RO" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_AT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_EL" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_CZ" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_PT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_DE" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_UK" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh24_h_IT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh12_h_SE" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh12_h_AT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh12_h_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh12_h_EL" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh12_h_IE" type="xs:string" minOccurs="0" />
+                <xs:element name="lim_h_SE" type="xs:string" minOccurs="0" />
+                <xs:element name="lim_h_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh18_h_PL" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh18_h_BG" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh16_h_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh36_h_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh36_h_HU" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh36_h_EE" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh36_h_SK" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh36_h_DK" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh72_h_ES" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh28_h_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh28_h_FR" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh09_h_NL" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwhnd_h_NL" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh14_h_EL" type="xs:string" minOccurs="0" />
+                <xs:element name="bunct01yn_h_IT" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh21_h_BE" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh33_h_BE" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh42_h_BE" type="xs:string" minOccurs="0" />
+                <xs:element name="lhwpv_h_ES" type="xs:string" minOccurs="0" />
+                <xs:element name="liwwh30_h_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="lpm_SK" type="xs:string" minOccurs="0" />
+                <xs:element name="bccdu_AT" type="xs:string" minOccurs="0" />
+                <xs:element name="bht_EL" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -547,7 +577,7 @@
     <ID>143230940</ID>
     <ParentID>-1</ParentID>
     <isChecked>true</isChecked>
-    <isExpanded>true</isExpanded>
+    <isExpanded>false</isExpanded>
     <HouseholdName>Example Household</HouseholdName>
     <orderId>0</orderId>
     <dataId>143230940</dataId>
@@ -557,7 +587,7 @@
     <ParentID>143230940</ParentID>
     <isChecked>true</isChecked>
     <isExpanded>false</isExpanded>
-    <HouseholdName>Adult1</HouseholdName>
+    <HouseholdName>Father</HouseholdName>
     <orderId>0</orderId>
     <dataId>1729580931</dataId>
   </HouseholdStructure>
@@ -566,7 +596,7 @@
     <ParentID>143230940</ParentID>
     <isChecked>true</isChecked>
     <isExpanded>false</isExpanded>
-    <HouseholdName>Adult2</HouseholdName>
+    <HouseholdName>Mother</HouseholdName>
     <orderId>1</orderId>
     <dataId>1537426458</dataId>
   </HouseholdStructure>
@@ -575,7 +605,7 @@
     <ParentID>143230940</ParentID>
     <isChecked>true</isChecked>
     <isExpanded>false</isExpanded>
-    <HouseholdName>Child1</HouseholdName>
+    <HouseholdName>Kid</HouseholdName>
     <orderId>2</orderId>
     <dataId>1894605218</dataId>
   </HouseholdStructure>
@@ -584,13 +614,13 @@
     <ParentID>143230940</ParentID>
     <isChecked>true</isChecked>
     <isExpanded>false</isExpanded>
-    <HouseholdName>Child2</HouseholdName>
+    <HouseholdName>kid2</HouseholdName>
     <orderId>3</orderId>
     <dataId>1408796238</dataId>
   </HouseholdStructure>
   <Example_x0020_Household>
     <dataId>1729580931</dataId>
-    <PersonName>Adult1</PersonName>
+    <PersonName>Father</PersonName>
     <checked>true</checked>
     <orderId>0</orderId>
     <dag>Value|RefTable_1927503380|40|False|50|1</dag>
@@ -683,18 +713,7 @@
     <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
     <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
     <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
-    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
-    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
-    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
-    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
-    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
     <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
-    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
-    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
-    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
-    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
-    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
-    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
     <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
     <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
     <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
@@ -970,9 +989,6 @@
     <amrtp>2</amrtp>
     <bcctuyn>0</bcctuyn>
     <bchdiyn>0</bchdiyn>
-    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
-    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
-    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
     <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
     <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
     <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
@@ -1079,20 +1095,64 @@
     <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
     <lct_CY>1</lct_CY>
     <lct_DK>1</lct_DK>
-    <bccot_AT>0</bccot_AT>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bunpvyn>0</bunpvyn>
+    <yseny>Value|RefTable_1837444076|1|False|0|0</yseny>
+    <drgn1_PT>1</drgn1_PT>
+    <drgn2_PT>17</drgn2_PT>
     <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
     <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
     <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
-    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
     <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
     <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
     <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
     <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
-    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+    <liwwh24_h_SI>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_SI>
+    <liwwh24_h_RO>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_RO>
+    <liwwh24_h_AT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_AT>
+    <liwwh24_h_EL>Value|RefTable_1837444076|7|False|0|0</liwwh24_h_EL>
+    <liwwh24_h_CZ>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_CZ>
+    <liwwh24_h_PT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_PT>
+    <liwwh24_h_HR>Value|RefTable_1837444076|9|False|0|0</liwwh24_h_HR>
+    <liwwh24_h_DE>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_DE>
+    <liwwh24_h_MT>Value|RefTable_1837444076|20|False|0|0</liwwh24_h_MT>
+    <liwwh24_h_UK>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_UK>
+    <liwwh24_h_IT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_IT>
+    <liwwh12_h_SE>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_SE>
+    <liwwh12_h_AT>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_AT>
+    <liwwh12_h_LU>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_LU>
+    <liwwh12_h_EL>Value|RefTable_1837444076|4|False|0|0</liwwh12_h_EL>
+    <liwwh12_h_IE>Value|RefTable_1837444076|9|False|0|0</liwwh12_h_IE>
+    <lim_h_SE>Value|RefTable_1837444076|1|False|0|0</lim_h_SE>
+    <lim_h_FI>Value|RefTable_1837444076|1|False|0|0</lim_h_FI>
+    <liwwh18_h_PL>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_PL>
+    <liwwh18_h_BG>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_BG>
+    <liwwh16_h_LV>Value|RefTable_1837444076|13|False|0|0</liwwh16_h_LV>
+    <liwwh36_h_LT>Value|RefTable_1837444076|18|False|0|0</liwwh36_h_LT>
+    <liwwh36_h_HU>Value|RefTable_1837444076|15|False|0|0</liwwh36_h_HU>
+    <liwwh36_h_EE>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_EE>
+    <liwwh36_h_SK>Value|RefTable_1837444076|24|False|0|0</liwwh36_h_SK>
+    <liwwh36_h_DK>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_DK>
+    <liwwh72_h_ES>Value|RefTable_1837444076|36|False|0|0</liwwh72_h_ES>
+    <liwwh28_h_FI>Value|RefTable_1837444076|12|False|0|0</liwwh28_h_FI>
+    <liwwh28_h_FR>Value|RefTable_1837444076|4|False|0|0</liwwh28_h_FR>
+    <liwwh09_h_NL>Value|RefTable_1837444076|7|False|0|0</liwwh09_h_NL>
+    <liwwhnd_h_NL>Value|RefTable_1837444076|42|False|0|0</liwwhnd_h_NL>
+    <liwwh14_h_EL>Value|RefTable_1837444076|14|False|0|0</liwwh14_h_EL>
+    <bunct01yn_h_IT>0</bunct01yn_h_IT>
+    <liwwh21_h_BE>Value|RefTable_1837444076|12|False|0|0</liwwh21_h_BE>
+    <liwwh33_h_BE>Value|RefTable_1837444076|18|False|0|0</liwwh33_h_BE>
+    <liwwh42_h_BE>Value|RefTable_1837444076|24|False|0|0</liwwh42_h_BE>
+    <lhwpv_h_ES>Value|RefTable_1837444076|40|False|0|0</lhwpv_h_ES>
+    <liwwh30_h_LT>Value|RefTable_1837444076|12|False|0|0</liwwh30_h_LT>
+    <lpm_SK>0</lpm_SK>
+    <bccdu_AT>0</bccdu_AT>
+    <bht_EL>Value|RefTable_1837444076|0|False|0|0</bht_EL>
   </Example_x0020_Household>
   <Example_x0020_Household>
     <dataId>1537426458</dataId>
-    <PersonName>Adult2</PersonName>
+    <PersonName>Mother</PersonName>
     <checked>true</checked>
     <orderId>1</orderId>
     <dag>Value|RefTable_1927503380|30|False|50|1</dag>
@@ -1185,18 +1245,7 @@
     <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
     <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
     <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
-    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
-    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
-    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
-    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
-    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
     <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
-    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
-    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
-    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
-    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
-    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
-    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
     <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
     <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
     <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
@@ -1472,9 +1521,6 @@
     <amrtp>2</amrtp>
     <bcctuyn>0</bcctuyn>
     <bchdiyn>0</bchdiyn>
-    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
-    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
-    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
     <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
     <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
     <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
@@ -1581,20 +1627,64 @@
     <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
     <lct_CY>1</lct_CY>
     <lct_DK>1</lct_DK>
-    <bccot_AT>0</bccot_AT>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bunpvyn>0</bunpvyn>
+    <yseny>Value|RefTable_1837444076|1|False|0|0</yseny>
+    <drgn1_PT>1</drgn1_PT>
+    <drgn2_PT>17</drgn2_PT>
     <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
     <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
     <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
-    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
     <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
     <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
     <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
     <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
-    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+    <liwwh24_h_SI>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_SI>
+    <liwwh24_h_RO>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_RO>
+    <liwwh24_h_AT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_AT>
+    <liwwh24_h_EL>Value|RefTable_1837444076|7|False|0|0</liwwh24_h_EL>
+    <liwwh24_h_CZ>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_CZ>
+    <liwwh24_h_PT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_PT>
+    <liwwh24_h_HR>Value|RefTable_1837444076|9|False|0|0</liwwh24_h_HR>
+    <liwwh24_h_DE>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_DE>
+    <liwwh24_h_MT>Value|RefTable_1837444076|20|False|0|0</liwwh24_h_MT>
+    <liwwh24_h_UK>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_UK>
+    <liwwh24_h_IT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_IT>
+    <liwwh12_h_SE>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_SE>
+    <liwwh12_h_AT>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_AT>
+    <liwwh12_h_LU>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_LU>
+    <liwwh12_h_EL>Value|RefTable_1837444076|4|False|0|0</liwwh12_h_EL>
+    <liwwh12_h_IE>Value|RefTable_1837444076|9|False|0|0</liwwh12_h_IE>
+    <lim_h_SE>Value|RefTable_1837444076|1|False|0|0</lim_h_SE>
+    <lim_h_FI>Value|RefTable_1837444076|1|False|0|0</lim_h_FI>
+    <liwwh18_h_PL>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_PL>
+    <liwwh18_h_BG>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_BG>
+    <liwwh16_h_LV>Value|RefTable_1837444076|13|False|0|0</liwwh16_h_LV>
+    <liwwh36_h_LT>Value|RefTable_1837444076|18|False|0|0</liwwh36_h_LT>
+    <liwwh36_h_HU>Value|RefTable_1837444076|15|False|0|0</liwwh36_h_HU>
+    <liwwh36_h_EE>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_EE>
+    <liwwh36_h_SK>Value|RefTable_1837444076|24|False|0|0</liwwh36_h_SK>
+    <liwwh36_h_DK>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_DK>
+    <liwwh72_h_ES>Value|RefTable_1837444076|36|False|0|0</liwwh72_h_ES>
+    <liwwh28_h_FI>Value|RefTable_1837444076|12|False|0|0</liwwh28_h_FI>
+    <liwwh28_h_FR>Value|RefTable_1837444076|4|False|0|0</liwwh28_h_FR>
+    <liwwh09_h_NL>Value|RefTable_1837444076|7|False|0|0</liwwh09_h_NL>
+    <liwwhnd_h_NL>Value|RefTable_1837444076|42|False|0|0</liwwhnd_h_NL>
+    <liwwh14_h_EL>Value|RefTable_1837444076|14|False|0|0</liwwh14_h_EL>
+    <bunct01yn_h_IT>0</bunct01yn_h_IT>
+    <liwwh21_h_BE>Value|RefTable_1837444076|12|False|0|0</liwwh21_h_BE>
+    <liwwh33_h_BE>Value|RefTable_1837444076|18|False|0|0</liwwh33_h_BE>
+    <liwwh42_h_BE>Value|RefTable_1837444076|24|False|0|0</liwwh42_h_BE>
+    <lhwpv_h_ES>Value|RefTable_1837444076|40|False|0|0</lhwpv_h_ES>
+    <liwwh30_h_LT>Value|RefTable_1837444076|12|False|0|0</liwwh30_h_LT>
+    <lpm_SK>0</lpm_SK>
+    <bccdu_AT>0</bccdu_AT>
+    <bht_EL>Value|RefTable_1837444076|0|False|0|0</bht_EL>
   </Example_x0020_Household>
   <Example_x0020_Household>
     <dataId>1894605218</dataId>
-    <PersonName>Child1</PersonName>
+    <PersonName>Kid</PersonName>
     <checked>true</checked>
     <orderId>2</orderId>
     <dag>Value|RefTable_1927503380|14|False|0|0</dag>
@@ -1687,18 +1777,7 @@
     <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
     <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
     <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
-    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
-    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
-    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
-    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
-    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
     <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
-    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
-    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
-    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
-    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
-    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
-    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
     <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
     <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
     <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
@@ -1974,9 +2053,6 @@
     <amrtp>2</amrtp>
     <bcctuyn>0</bcctuyn>
     <bchdiyn>0</bchdiyn>
-    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
-    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
-    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
     <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
     <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
     <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
@@ -2083,20 +2159,64 @@
     <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
     <lct_CY>1</lct_CY>
     <lct_DK>1</lct_DK>
-    <bccot_AT>0</bccot_AT>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bunpvyn>0</bunpvyn>
+    <yseny>Value|RefTable_1837444076|1|False|0|0</yseny>
+    <drgn1_PT>1</drgn1_PT>
+    <drgn2_PT>17</drgn2_PT>
     <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
     <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
     <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
-    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
     <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
     <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
     <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
     <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
-    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+    <liwwh24_h_SI>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_SI>
+    <liwwh24_h_RO>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_RO>
+    <liwwh24_h_AT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_AT>
+    <liwwh24_h_EL>Value|RefTable_1837444076|7|False|0|0</liwwh24_h_EL>
+    <liwwh24_h_CZ>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_CZ>
+    <liwwh24_h_PT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_PT>
+    <liwwh24_h_HR>Value|RefTable_1837444076|9|False|0|0</liwwh24_h_HR>
+    <liwwh24_h_DE>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_DE>
+    <liwwh24_h_MT>Value|RefTable_1837444076|20|False|0|0</liwwh24_h_MT>
+    <liwwh24_h_UK>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_UK>
+    <liwwh24_h_IT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_IT>
+    <liwwh12_h_SE>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_SE>
+    <liwwh12_h_AT>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_AT>
+    <liwwh12_h_LU>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_LU>
+    <liwwh12_h_EL>Value|RefTable_1837444076|4|False|0|0</liwwh12_h_EL>
+    <liwwh12_h_IE>Value|RefTable_1837444076|9|False|0|0</liwwh12_h_IE>
+    <lim_h_SE>Value|RefTable_1837444076|1|False|0|0</lim_h_SE>
+    <lim_h_FI>Value|RefTable_1837444076|1|False|0|0</lim_h_FI>
+    <liwwh18_h_PL>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_PL>
+    <liwwh18_h_BG>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_BG>
+    <liwwh16_h_LV>Value|RefTable_1837444076|13|False|0|0</liwwh16_h_LV>
+    <liwwh36_h_LT>Value|RefTable_1837444076|18|False|0|0</liwwh36_h_LT>
+    <liwwh36_h_HU>Value|RefTable_1837444076|15|False|0|0</liwwh36_h_HU>
+    <liwwh36_h_EE>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_EE>
+    <liwwh36_h_SK>Value|RefTable_1837444076|24|False|0|0</liwwh36_h_SK>
+    <liwwh36_h_DK>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_DK>
+    <liwwh72_h_ES>Value|RefTable_1837444076|36|False|0|0</liwwh72_h_ES>
+    <liwwh28_h_FI>Value|RefTable_1837444076|12|False|0|0</liwwh28_h_FI>
+    <liwwh28_h_FR>Value|RefTable_1837444076|4|False|0|0</liwwh28_h_FR>
+    <liwwh09_h_NL>Value|RefTable_1837444076|7|False|0|0</liwwh09_h_NL>
+    <liwwhnd_h_NL>Value|RefTable_1837444076|42|False|0|0</liwwhnd_h_NL>
+    <liwwh14_h_EL>Value|RefTable_1837444076|14|False|0|0</liwwh14_h_EL>
+    <bunct01yn_h_IT>0</bunct01yn_h_IT>
+    <liwwh21_h_BE>Value|RefTable_1837444076|12|False|0|0</liwwh21_h_BE>
+    <liwwh33_h_BE>Value|RefTable_1837444076|18|False|0|0</liwwh33_h_BE>
+    <liwwh42_h_BE>Value|RefTable_1837444076|24|False|0|0</liwwh42_h_BE>
+    <lhwpv_h_ES>Value|RefTable_1837444076|40|False|0|0</lhwpv_h_ES>
+    <liwwh30_h_LT>Value|RefTable_1837444076|12|False|0|0</liwwh30_h_LT>
+    <lpm_SK>0</lpm_SK>
+    <bccdu_AT>0</bccdu_AT>
+    <bht_EL>Value|RefTable_1837444076|0|False|0|0</bht_EL>
   </Example_x0020_Household>
   <Example_x0020_Household>
     <dataId>1408796238</dataId>
-    <PersonName>Child2</PersonName>
+    <PersonName>kid2</PersonName>
     <checked>true</checked>
     <orderId>3</orderId>
     <dag>Value|RefTable_1927503380|7|False|0|0</dag>
@@ -2189,18 +2309,7 @@
     <bdicc>Value|RefTable_1188845774|0|False|0|0</bdicc>
     <bdict>Value|RefTable_1188845774|0|False|0|0</bdict>
     <bdict01>Value|RefTable_1188845774|0|False|0|0</bdict01>
-    <bdict0109>Value|RefTable_1188845774|0|False|0|0</bdict0109>
-    <bdict0110>Value|RefTable_1188845774|0|False|0|0</bdict0110>
-    <bdict0111>Value|RefTable_1188845774|0|False|0|0</bdict0111>
-    <bdict0112>Value|RefTable_1188845774|0|False|0|0</bdict0112>
-    <bdict0113>Value|RefTable_1188845774|0|False|0|0</bdict0113>
     <bdict02>Value|RefTable_1188845774|0|False|0|0</bdict02>
-    <bdict0209>Value|RefTable_1188845774|0|False|0|0</bdict0209>
-    <bdict0210>Value|RefTable_1188845774|0|False|0|0</bdict0210>
-    <bdict0211>Value|RefTable_1188845774|0|False|0|0</bdict0211>
-    <bdict0212>Value|RefTable_1188845774|0|False|0|0</bdict0212>
-    <bdict0213>Value|RefTable_1188845774|0|False|0|0</bdict0213>
-    <bdict0214>Value|RefTable_1188845774|0|False|0|0</bdict0214>
     <bdictiv01>Value|RefTable_1188845774|0|False|0|0</bdictiv01>
     <bdimb>Value|RefTable_1188845774|0|False|0|0</bdimb>
     <bdimy>Value|RefTable_1927503380|0|False|0|0</bdimy>
@@ -2476,9 +2585,6 @@
     <amrtp>2</amrtp>
     <bcctuyn>0</bcctuyn>
     <bchdiyn>0</bchdiyn>
-    <bhoen1130>Value|RefTable_1188845774|515.09|False|0|0</bhoen1130>
-    <bhoen30>Value|RefTable_1188845774|515.09|False|0|0</bhoen30>
-    <bhoen50>Value|RefTable_1188845774|463.58|False|0|0</bhoen50>
     <bunctmt>Value|RefTable_1188845774|0|False|0|0</bunctmt>
     <bunncmt>Value|RefTable_1188845774|0|False|0|0</bunncmt>
     <bunncmy>Value|RefTable_1927503380|0|False|0|0</bunncmy>
@@ -2585,15 +2691,59 @@
     <bsa00_SK>Value|RefTable_1837444076|0|False|0|0</bsa00_SK>
     <lct_CY>1</lct_CY>
     <lct_DK>1</lct_DK>
-    <bccot_AT>0</bccot_AT>
+    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
+    <bunpvyn>0</bunpvyn>
+    <yseny>Value|RefTable_1837444076|1|False|0|0</yseny>
+    <drgn1_PT>1</drgn1_PT>
+    <drgn2_PT>17</drgn2_PT>
     <bcbplcs_DK>Value|RefTable_1837444076|0|False|0|0</bcbplcs_DK>
     <pdica_DE>Value|RefTable_1837444076|0|False|0|0</pdica_DE>
+    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
     <dcc_DE>Value|RefTable_1837444076|0|False|0|0</dcc_DE>
-    <twl>Value|RefTable_1837444076|0|False|0|0</twl>
     <bcbma01_NL>Value|RefTable_1837444076|0|False|0|0</bcbma01_NL>
     <bcbma02_NL>Value|RefTable_1837444076|0|False|0|0</bcbma02_NL>
     <yseub_IT>Value|RefTable_1837444076|0|False|0|0</yseub_IT>
     <yseib_IT>Value|RefTable_1837444076|0|False|0|0</yseib_IT>
-    <pdica_FI>Value|RefTable_1837444076|0|False|0|0</pdica_FI>
+    <liwwh24_h_SI>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_SI>
+    <liwwh24_h_RO>Value|RefTable_1837444076|15|False|0|0</liwwh24_h_RO>
+    <liwwh24_h_AT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_AT>
+    <liwwh24_h_EL>Value|RefTable_1837444076|7|False|0|0</liwwh24_h_EL>
+    <liwwh24_h_CZ>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_CZ>
+    <liwwh24_h_PT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_PT>
+    <liwwh24_h_HR>Value|RefTable_1837444076|9|False|0|0</liwwh24_h_HR>
+    <liwwh24_h_DE>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_DE>
+    <liwwh24_h_MT>Value|RefTable_1837444076|20|False|0|0</liwwh24_h_MT>
+    <liwwh24_h_UK>Value|RefTable_1837444076|24|False|0|0</liwwh24_h_UK>
+    <liwwh24_h_IT>Value|RefTable_1837444076|12|False|0|0</liwwh24_h_IT>
+    <liwwh12_h_SE>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_SE>
+    <liwwh12_h_AT>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_AT>
+    <liwwh12_h_LU>Value|RefTable_1837444076|6|False|0|0</liwwh12_h_LU>
+    <liwwh12_h_EL>Value|RefTable_1837444076|4|False|0|0</liwwh12_h_EL>
+    <liwwh12_h_IE>Value|RefTable_1837444076|9|False|0|0</liwwh12_h_IE>
+    <lim_h_SE>Value|RefTable_1837444076|1|False|0|0</lim_h_SE>
+    <lim_h_FI>Value|RefTable_1837444076|1|False|0|0</lim_h_FI>
+    <liwwh18_h_PL>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_PL>
+    <liwwh18_h_BG>Value|RefTable_1837444076|12|False|0|0</liwwh18_h_BG>
+    <liwwh16_h_LV>Value|RefTable_1837444076|13|False|0|0</liwwh16_h_LV>
+    <liwwh36_h_LT>Value|RefTable_1837444076|18|False|0|0</liwwh36_h_LT>
+    <liwwh36_h_HU>Value|RefTable_1837444076|15|False|0|0</liwwh36_h_HU>
+    <liwwh36_h_EE>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_EE>
+    <liwwh36_h_SK>Value|RefTable_1837444076|24|False|0|0</liwwh36_h_SK>
+    <liwwh36_h_DK>Value|RefTable_1837444076|12|False|0|0</liwwh36_h_DK>
+    <liwwh72_h_ES>Value|RefTable_1837444076|36|False|0|0</liwwh72_h_ES>
+    <liwwh28_h_FI>Value|RefTable_1837444076|12|False|0|0</liwwh28_h_FI>
+    <liwwh28_h_FR>Value|RefTable_1837444076|4|False|0|0</liwwh28_h_FR>
+    <liwwh09_h_NL>Value|RefTable_1837444076|7|False|0|0</liwwh09_h_NL>
+    <liwwhnd_h_NL>Value|RefTable_1837444076|42|False|0|0</liwwhnd_h_NL>
+    <liwwh14_h_EL>Value|RefTable_1837444076|14|False|0|0</liwwh14_h_EL>
+    <bunct01yn_h_IT>0</bunct01yn_h_IT>
+    <liwwh21_h_BE>Value|RefTable_1837444076|12|False|0|0</liwwh21_h_BE>
+    <liwwh33_h_BE>Value|RefTable_1837444076|18|False|0|0</liwwh33_h_BE>
+    <liwwh42_h_BE>Value|RefTable_1837444076|24|False|0|0</liwwh42_h_BE>
+    <lhwpv_h_ES>Value|RefTable_1837444076|40|False|0|0</lhwpv_h_ES>
+    <liwwh30_h_LT>Value|RefTable_1837444076|12|False|0|0</liwwh30_h_LT>
+    <lpm_SK>0</lpm_SK>
+    <bccdu_AT>0</bccdu_AT>
+    <bht_EL>Value|RefTable_1837444076|0|False|0|0</bht_EL>
   </Example_x0020_Household>
 </HouseholdSettings>

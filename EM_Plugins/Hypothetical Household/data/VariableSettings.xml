@@ -1386,130 +1386,9 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>bdict0109</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 09</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0110</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 10</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0111</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 11</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0112</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 12</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0113</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 13</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
     <VariableName>bdict02</VariableName>
     <Category>BENEFIT/PENSION</Category>
     <Description>disability : contributory : 02</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0209</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 09</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0210</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 10</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0211</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 11</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0212</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 12</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0213</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 13</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bdict0214</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 14</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
     <ValueRange />
@@ -2101,39 +1980,6 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>bhoen1130</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>housing : entitlement : 11 : 30</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|515.09|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bhoen30</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>housing : entitlement : 30</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|515.09|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
-    <VariableName>bhoen50</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>housing : entitlement : 50</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|463.58|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
     <VariableName>bhoht</VariableName>
     <Category>BENEFIT/PENSION</Category>
     <Description>housing : heating</Description>
@@ -2633,7 +2479,7 @@
     <Category>BENEFIT/PENSION</Category>
     <Description>social assistance : temporary : probability of receiving</Description>
     <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
+    <DefaultValue>Value|RefTable_1188845774|1|False|0|0</DefaultValue>
     <ValueRange />
     <TextRange />
     <Countries>PL</Countries>
@@ -3230,7 +3076,7 @@
     <DefaultValue>Value|RefTable_1927503380|15|False|0|0</DefaultValue>
     <ValueRange />
     <TextRange />
-    <Countries>BE, FR, IT</Countries>
+    <Countries>BE, ES, FR, IT, SI</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
@@ -3307,7 +3153,7 @@
     <DefaultValue>4</DefaultValue>
     <ValueRange>1#2#3#4#5#6#7#8#9#10#11#12#0</ValueRange>
     <TextRange>Agriculture and Fishing#Mining, Manufacturing and Utilities#Construction#Wholesale and retail trade#Hotels and restaurants#Transport and communication#Financial intermediation#Real estate and business activities#Public administration and defence#Education#Health and social work#Other#Not applicable</TextRange>
-    <Countries>DE, ES, FI, FR, HR, IT, LT, PT</Countries>
+    <Countries>BG, DE, ES, FI, FR, HR, IT, LT, PT, SI, SK</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
@@ -3516,7 +3362,7 @@
     <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
     <ValueRange />
     <TextRange />
-    <Countries>DE</Countries>
+    <Countries>DE, ES</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
@@ -5197,7 +5043,7 @@
     <Description>month of birth</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1927503380|5|False|0|0</DefaultValue>
-    <Countries>HR</Countries>
+    <Countries>BG, HR, SI</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
@@ -5262,7 +5108,29 @@
     <Description>wealth tax</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1837444076|0|False|0|0</DefaultValue>
-    <Countries>FR</Countries>
+    <Countries>ES, FR</Countries>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedVariables>
+  <Cur_AdvancedVariables>
+    <VariableName>bunpvyn</VariableName>
+    <Category>BENEFIT/PENSION</Category>
+    <Description>unemployment benefit received in the past</Description>
+    <VariableType>Categorical</VariableType>
+    <DefaultValue>0</DefaultValue>
+    <ValueRange>0#1</ValueRange>
+    <TextRange>No#Yes</TextRange>
+    <Countries>AT, EL</Countries>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedVariables>
+  <Cur_AdvancedVariables>
+    <VariableName>yseny</VariableName>
+    <Category>INCOME</Category>
+    <Description>years in current self-employmnet</Description>
+    <VariableType>Numeric</VariableType>
+    <DefaultValue>Value|RefTable_1837444076|1|False|0|0</DefaultValue>
+    <Countries>UK</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
     <Private>false</Private>
   </Cur_AdvancedVariables>
@@ -5337,14 +5205,6 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedCountrySpecificVariables>
   <Cur_AdvancedCountrySpecificVariables>
-    <VariableName>bccot</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>child care benefit type</Description>
-    <VariableType>Categorical</VariableType>
-    <IsHouseholdVar>false</IsHouseholdVar>
-    <Private>false</Private>
-  </Cur_AdvancedCountrySpecificVariables>
-  <Cur_AdvancedCountrySpecificVariables>
     <VariableName>bcbplcs</VariableName>
     <Category>BENEFIT/PENSION</Category>
     <Description>parental leave pay for civil servants</Description>
@@ -5396,6 +5256,158 @@
     <VariableName>yseib</VariableName>
     <Category>INCOME</Category>
     <Description>Self employment incorporated business income</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh24_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 24 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh12_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 12 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>true</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>lim_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>part of unemployment fund</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh18_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 18 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh16_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 16 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh36_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 36 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh72_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 72 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh28_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 28 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh09_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 9 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwhnd_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>average number of days worked in previous years</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh14_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 14 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>bunct01yn_h</VariableName>
+    <Category>BENEFIT/PENSION</Category>
+    <Description>eligible for wage supplementation scheme</Description>
+    <VariableType>Categorical</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh21_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 21 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh33_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 33 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh42_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 42 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>lhwpv_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>average weekly working hours in previous job</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>liwwh30_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>months worked in the last 30 months</Description>
+    <VariableType>Numeric</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>bccdu</VariableName>
+    <Category>BENEFIT/PENSION</Category>
+    <Description>child care benefit type</Description>
+    <VariableType>Categorical</VariableType>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>bht</VariableName>
+    <Category>BENEFIT/PENSION</Category>
+    <Description>heating benefit</Description>
     <VariableType>Numeric</VariableType>
     <IsHouseholdVar>false</IsHouseholdVar>
     <Private>false</Private>
@@ -5626,7 +5638,7 @@
   </Cur_AdvancedCountrySpecificDetail>
   <Cur_AdvancedCountrySpecificDetail>
     <VariableName>amrar</VariableName>
-    <DefaultValue>Value|RefTable_1927503380|90|False|0|0</DefaultValue>
+    <DefaultValue>Value|RefTable_1927503380|75|False|0|0</DefaultValue>
     <Country>EL</Country>
   </Cur_AdvancedCountrySpecificDetail>
   <Cur_AdvancedCountrySpecificDetail>
@@ -5775,13 +5787,6 @@
     <Country>FI</Country>
   </Cur_AdvancedCountrySpecificDetail>
   <Cur_AdvancedCountrySpecificDetail>
-    <VariableName>bccot</VariableName>
-    <DefaultValue>0</DefaultValue>
-    <ValueRange>0#1#2#3#4#5</ValueRange>
-    <TextRange>no benefit # 30 months # 20 months # 15 months # 12 months # income dependent</TextRange>
-    <Country>AT</Country>
-  </Cur_AdvancedCountrySpecificDetail>
-  <Cur_AdvancedCountrySpecificDetail>
     <VariableName>bcbplcs</VariableName>
     <DefaultValue>Value|RefTable_1837444076|0|False|0|0</DefaultValue>
     <Country>DK</Country>
@@ -5821,6 +5826,231 @@
     <DefaultValue>Value|RefTable_1837444076|0|False|0|0</DefaultValue>
     <Country>FI</Country>
   </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|15|False|0|0</DefaultValue>
+    <Country>SI</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|15|False|0|0</DefaultValue>
+    <Country>RO</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>AT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|7|False|0|0</DefaultValue>
+    <Country>EL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>CZ</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>PT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|9|False|0|0</DefaultValue>
+    <Country>HR</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|24|False|0|0</DefaultValue>
+    <Country>DE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|20|False|0|0</DefaultValue>
+    <Country>MT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|24|False|0|0</DefaultValue>
+    <Country>UK</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh24_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>IT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh12_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|6|False|0|0</DefaultValue>
+    <Country>SE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh12_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|6|False|0|0</DefaultValue>
+    <Country>AT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh12_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|6|False|0|0</DefaultValue>
+    <Country>LU</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh12_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|4|False|0|0</DefaultValue>
+    <Country>EL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh12_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|9|False|0|0</DefaultValue>
+    <Country>IE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>lim_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|1|False|0|0</DefaultValue>
+    <Country>SE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>lim_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|1|False|0|0</DefaultValue>
+    <Country>FI</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh18_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>PL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh18_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>BG</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh16_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|13|False|0|0</DefaultValue>
+    <Country>LV</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh36_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|18|False|0|0</DefaultValue>
+    <Country>LT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh36_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|15|False|0|0</DefaultValue>
+    <Country>HU</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh36_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>EE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh36_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|24|False|0|0</DefaultValue>
+    <Country>SK</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh36_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>DK</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh72_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|36|False|0|0</DefaultValue>
+    <Country>ES</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh28_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>FI</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh28_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|4|False|0|0</DefaultValue>
+    <Country>FR</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh09_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|7|False|0|0</DefaultValue>
+    <Country>NL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwhnd_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|42|False|0|0</DefaultValue>
+    <Country>NL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh14_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|14|False|0|0</DefaultValue>
+    <Country>EL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>bunct01yn_h</VariableName>
+    <DefaultValue>0</DefaultValue>
+    <ValueRange>0#1</ValueRange>
+    <TextRange>not eligible#eligible</TextRange>
+    <Country>IT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh21_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>BE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh33_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|18|False|0|0</DefaultValue>
+    <Country>BE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh42_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|24|False|0|0</DefaultValue>
+    <Country>BE</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>lhwpv_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|40|False|0|0</DefaultValue>
+    <Country>ES</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>liwwh30_h</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|12|False|0|0</DefaultValue>
+    <Country>LT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>drgn1</VariableName>
+    <DefaultValue>1</DefaultValue>
+    <ValueRange>1#2#3</ValueRange>
+    <TextRange>Portugal Continental#Regiao Autónoma dos Açores# Regiao Autónoma da Madeira</TextRange>
+    <Country>PT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>drgn2</VariableName>
+    <DefaultValue>17</DefaultValue>
+    <ValueRange>11#15#16#17#18#20#30</ValueRange>
+    <TextRange>Nortel#Algarve#Centro#Área Metropolitana de Lisboa#Alentejo#Região Autónoma dos Açores#Região Autónoma da Madeira</TextRange>
+    <Country>PT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>lpm</VariableName>
+    <DefaultValue>0</DefaultValue>
+    <ValueRange>0#1</ValueRange>
+    <TextRange>no#yes</TextRange>
+    <Country>SK</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>bccdu</VariableName>
+    <DefaultValue>0</DefaultValue>
+    <ValueRange>0#1#2#3#4#5</ValueRange>
+    <TextRange>no benefit # 30 months # 20 months # 15 months # 12 months # income dependent</TextRange>
+    <Country>AT</Country>
+  </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>bht</VariableName>
+    <DefaultValue>Value|RefTable_1837444076|0|False|0|0</DefaultValue>
+    <Country>EL</Country>
+  </Cur_AdvancedCountrySpecificDetail>
   <Cur_Years>
     <Year>2009</Year>
   </Cur_Years>
@@ -5854,6 +6084,12 @@
   <Cur_Years>
     <Year>2019</Year>
   </Cur_Years>
+  <Cur_Years>
+    <Year>2020</Year>
+  </Cur_Years>
+  <Cur_Years>
+    <Year>2021</Year>
+  </Cur_Years>
   <Cur_DerivedVariables>
     <VariableName>bun</VariableName>
     <Category>BENEFIT/PENSION</Category>
@@ -5872,7 +6108,7 @@
     <VariableName>bunct</VariableName>
     <Category>BENEFIT/PENSION</Category>
     <Description>unemployment : contributory</Description>
-    <Countries>AT, BG, CY, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, LT, NL, PT, SI, SK, UK</Countries>
+    <Countries>AT, BG, CY, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, LT, NL, PT, SE, SI, SK, UK</Countries>
     <DefaultValue>0</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -5977,7 +6213,7 @@
     <VariableName>liwmy</VariableName>
     <Category>LABOUR MARKET</Category>
     <Description>in work : months per year</Description>
-    <Countries>AT, BE, BG, CZ, DE, DK, EE, EL, ES, FI, FR, HU, IE, LT, LU, LV, NL, PL, PT, RO, SI, SK</Countries>
+    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, IE, LT, LU, LV, NL, PL, PT, RO, SI, SK</Countries>
     <DefaultValue>0</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -6020,13 +6256,6 @@
     <Category>LABOUR MARKET</Category>
     <Description>self employed : registered</Description>
     <Countries>EE</Countries>
-    <DefaultValue>0</DefaultValue>
-  </Cur_DerivedVariables>
-  <Cur_DerivedVariables>
-    <VariableName>lunmy</VariableName>
-    <Category>LABOUR MARKET</Category>
-    <Description>unemployed : months per year</Description>
-    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, LT, LU, LV, MT, NL, PL, PT, RO, SI, SK</Countries>
     <DefaultValue>0</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -6201,7 +6430,7 @@
     <VariableName>ysemy</VariableName>
     <Category>INCOME</Category>
     <Description>self employment : months per year</Description>
-    <Countries>AT, BG, CY, CZ, DE, DK, ES, FR, LT, LU, LV, PT, RO, SK</Countries>
+    <Countries>AT, BG, CY, CZ, DE, DK, EL, ES, FR, LT, LU, LV, PT, RO, SK</Countries>
     <DefaultValue>0</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -6483,6 +6712,37 @@
     <DefaultValue>0</DefaultValue>
     <Private>false</Private>
   </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>lunmy</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>unemployed : months per year</Description>
+    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, IT, LT, LU, LV, MT, NL, PL, PT, RO, SE, SI, SK, UK</Countries>
+    <DefaultValue>0</DefaultValue>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>liwwhny10_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>number of months worked in last 10 years</Description>
+    <Countries>AT</Countries>
+    <DefaultValue>0</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>liwwhny15_h</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>number of months worked in last 15 years</Description>
+    <Countries>AT</Countries>
+    <DefaultValue>0</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>afciv</VariableName>
+    <Category>ASSETS</Category>
+    <Description>Financial capital</Description>
+    <Countries>IT</Countries>
+    <DefaultValue>afc</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
   <Cur_DerivedVariablesDetail>
     <VariableName>bun</VariableName>
     <Condition>les = 5</Condition>
@@ -6574,11 +6834,6 @@
     <DerivedValue>2</DerivedValue>
   </Cur_DerivedVariablesDetail>
   <Cur_DerivedVariablesDetail>
-    <VariableName>lunmy</VariableName>
-    <Condition>les = 5</Condition>
-    <DerivedValue>12</DerivedValue>
-  </Cur_DerivedVariablesDetail>
-  <Cur_DerivedVariablesDetail>
     <VariableName>poamy</VariableName>
     <Condition>les = 4</Condition>
     <DerivedValue>12</DerivedValue>
@@ -6652,6 +6907,21 @@
     <VariableName>lemhw00</VariableName>
     <Condition>les = 3</Condition>
     <DerivedValue>40</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>lunmy</VariableName>
+    <Condition>les = 5</Condition>
+    <DerivedValue>12</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>liwwhny10_h</VariableName>
+    <Condition>dag &gt;= 40</Condition>
+    <DerivedValue>72</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>liwwhny15_h</VariableName>
+    <Condition>dag &gt;= 50</Condition>
+    <DerivedValue>108</DerivedValue>
   </Cur_DerivedVariablesDetail>
   <Def_BasicCountrySpecificDetail>
     <VariableName>yem</VariableName>
@@ -7726,130 +7996,9 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Def_AdvancedVariables>
   <Def_AdvancedVariables>
-    <VariableName>bdict0109</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 09</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0110</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 10</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0111</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 11</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0112</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 12</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0113</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 01 : 13</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
     <VariableName>bdict02</VariableName>
     <Category>BENEFIT/PENSION</Category>
     <Description>disability : contributory : 02</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0209</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 09</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0210</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 10</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0211</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 11</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0212</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 12</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0213</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 13</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bdict0214</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>disability : contributory : 02 : 14</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
     <ValueRange />
@@ -8438,39 +8587,6 @@
     <ValueRange />
     <TextRange />
     <Countries>DK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bhoen1130</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>housing : entitlement : 11 : 30</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|542|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bhoen30</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>housing : entitlement : 30</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|538|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Def_AdvancedVariables>
-  <Def_AdvancedVariables>
-    <VariableName>bhoen50</VariableName>
-    <Category>BENEFIT/PENSION</Category>
-    <Description>housing : entitlement : 50</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|587|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>UK</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Def_AdvancedVariables>
   <Def_AdvancedVariables>
@@ -12023,7 +12139,7 @@
     <VariableName>bunct</VariableName>
     <Category>BENEFIT/PENSION</Category>
     <Description>unemployment : contributory</Description>
-    <Countries>AT, BG, CY, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, LT, NL, PT, SI, SK, UK</Countries>
+    <Countries>AT, BG, CY, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, LT, NL, PT, SE, SI, SK, UK</Countries>
     <DefaultValue>0</DefaultValue>
   </Def_DerivedVariables>
   <Def_DerivedVariables>

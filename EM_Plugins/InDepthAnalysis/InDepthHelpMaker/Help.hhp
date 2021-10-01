@@ -1,0 +1,38 @@
+[Options]
+Compatibility = 1.1 Or later
+Compiled file = ..\..\InDepthAnalysis\Help.chm
+Contents file = Help.hhc
+Display compile progress=No
+Full-text search=Yes
+Language=0x809 Englisch (Groﬂbritannien)
+Title=Help
+
+[FILES]
+Settings_Main.htm
+Settings_Fiscal.htm
+Settings_Distributional.htm
+Settings_InequalityPoverty.htm
+Settings_BaselinesReforms.htm
+Tables.htm
+Tables_Fiscal.htm
+Tables_Fiscal_11.htm
+Tables_Fiscal_12.htm
+Tables_Fiscal_13.htm
+Tables_Fiscal_14.htm
+Tables_Distributional.htm
+Tables_Distributional_21.htm
+Tables_Distributional_22.htm
+Tables_Distributional_23.htm
+Tables_Distributional_24.htm
+Tables_Distributional_25.htm
+Tables_Distributional_26.htm
+Tables_Distributional_278.htm
+Tables_InequalityPoverty.htm
+Tables_InequalityPoverty_31.htm
+Tables_InequalityPoverty_32.htm
+Tables_InequalityPoverty_33.htm
+Tables_InequalityPoverty_34.htm
+Tables_InequalityPoverty_35.htm
+Tables_InequalityPoverty_36.htm
+
+[INFOTYPES]

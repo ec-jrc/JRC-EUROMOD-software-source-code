@@ -18,6 +18,8 @@ namespace StatisticsPresenter
         public PresenterForm(Template template, List<FilePackageContent> filePackages, List<Template.TemplateInfo.UserVariable> userInput)
         {
             InitializeComponent();
+            if (!string.IsNullOrEmpty(template?.info?.name)) Text = template.info.name;
+
             try
             {
                 try

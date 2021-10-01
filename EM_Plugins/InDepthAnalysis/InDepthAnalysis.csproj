@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5FC7B122-C93E-4613-9635-8D6714E9CAB1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InDepthAnalysis</RootNamespace>
+    <AssemblyName>InDepthAnalysis</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>InDepthAnalysis.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaselineReform\BaselineReformPackage.cs" />
+    <Compile Include="BaselineReform\SelectBaselinesReforms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaselineReform\SelectBaselinesReforms.Designer.cs">
+      <DependentUpon>SelectBaselinesReforms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CategoryDescriptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helpers\CategoryDescriptionsForm.Designer.cs">
+      <DependentUpon>CategoryDescriptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\EMVarInfo.cs" />
+    <Compile Include="BaselineReform\SystemInfo.cs" />
+    <Compile Include="Helpers\FormulaEditor.cs" />
+    <Compile Include="Helpers\MergedDatasetWriter.cs" />
+    <Compile Include="InDepthAnalysis.cs" />
+    <Compile Include="InDepthAnalysisForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysisForm.Designer.cs">
+      <DependentUpon>InDepthAnalysisForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ISettings.cs" />
+    <Compile Include="Settings\SettingsDistributional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings\SettingsDistributional.Designer.cs">
+      <DependentUpon>SettingsDistributional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\SettingsInequalityAndPoverty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings\SettingsInequalityAndPoverty.Designer.cs">
+      <DependentUpon>SettingsInequalityAndPoverty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\SettingsFiscal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings\SettingsFiscal.Designer.cs">
+      <DependentUpon>SettingsFiscal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EM_Executable\EM_Transformer\EM_Transformer.csproj">
+      <Project>{3f552049-a3a8-4afc-aa44-ccb648ff76a1}</Project>
+      <Name>EM_Transformer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EM_Libraries\EM_CommonMSWin\EM_Common_Win.csproj">
+      <Project>{9cfaccaa-f897-480f-b05f-c6087c3ef15f}</Project>
+      <Name>EM_Common_Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EM_Libraries\EM_Common\EM_Common.csproj">
+      <Project>{E2C621C4-310A-4804-B6C7-570C5FA2F5D6}</Project>
+      <Name>EM_Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EM_Libraries\EM_Statistics\EM_Statistics.csproj">
+      <Project>{99f3f2d4-97ea-4c33-920e-4b1bf967b84c}</Project>
+      <Name>EM_Statistics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EM_Libraries\EM_XmlHandler\EM_XmlHandler.csproj">
+      <Project>{f6689be6-849b-428d-819f-a4bc88d30a3c}</Project>
+      <Name>EM_XmlHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatisticsPresenter\StatisticsPresenter.csproj">
+      <Project>{ad2118d1-21fa-4a08-bc61-faaffa92f40f}</Project>
+      <Name>StatisticsPresenter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="InDepthAnalysis.ico" />
+    <None Include="app.config" />
+    <None Include="Help.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\missing.png" />
+    <None Include="Resources\existing.png" />
+    <None Include="Resources\InDepthAnalysis.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BaselineReform\SelectBaselinesReforms.resx">
+      <DependentUpon>SelectBaselinesReforms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helpers\CategoryDescriptionsForm.resx">
+      <DependentUpon>CategoryDescriptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InDepthAnalysisForm.resx">
+      <DependentUpon>InDepthAnalysisForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\SettingsDistributional.resx">
+      <DependentUpon>SettingsDistributional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\SettingsInequalityAndPoverty.resx">
+      <DependentUpon>SettingsInequalityAndPoverty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings\SettingsFiscal.resx">
+      <DependentUpon>SettingsFiscal.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

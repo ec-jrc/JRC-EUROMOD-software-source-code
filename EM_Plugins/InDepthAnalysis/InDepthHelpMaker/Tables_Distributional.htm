@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Distributional Tables</h1>
+
+    <h4>General arguments</h4>
+
+    <h6>Breakdown</h6>
+    <p>
+        All Distributional Tables show results for the whole population, as well as broken down over an &lsquo;argument&rsquo; splitting the population into groups.<br />
+        There are two ways to define this argument:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>
+                by a variable with a restricted number of values<br />
+                For example:
+                <ol type="a">
+                    <li>the variable <i>dgn</i> (gender) will generate two rows, one with results for men and the other with results for women</li>
+                    <li>the variable <i>drgn1</i> (region nuts level 1) will generate one row with results for each region</li>
+                </ol>
+            </li>
+            <li>
+                by quantiles of a variable<br />
+                For, example:
+                <ol type="A">
+                    <li>
+                        the variable <i>ils_dispy</i> (disposable income) together with the option <i>quantiles</i> set to 5 and
+                        the option <i>equivalised</i> to yes, will generate five rows, one with results for each quintile of equivalised individual disposable income
+                    </li>
+                    <li>
+                        the variable <i>yem</i> (employment income) together with the option <i>quantiles</i> set to 2 and
+                        the option <i>equivalised</i> to no, will generate two rows, one with results for the units with employment income below the median
+                        and the other with results for the units with employment income above the median
+                    </li>
+                </ol>
+            </li>
+        </ul>
+    </p>
+    <p>
+        Examples (a) and (b) require further explanation, if the level of analysis is the Household.<br />
+        In example (a) the gender variable is taken from the first person in the household (in the output file).
+        That means the population is split into a group of households with the first person being a man and a group with the first person being a woman.<br />
+        For the interpretation of example (b), note that <b><span style="color:darksalmon">quantiles are, independent of any level of analysis setting, always build on
+        individual level</span></b>, i.e. n groups of individuals are built (opposed to n groups of households).
+        As for example (a), the resulting quantile-variable is taken from the first person in the household.<br />
+        Thus, for both examples, analysis on household level delivers rather questionable results.
+        Moreover, in example (b), with any level of analysis, the target population should probably be restricted to units with non-zero employment income.
+    </p>
+    <p>
+        Note that the <b><span style="color:darksalmon">breakdown always refers to variables of the baseline</span></b>.
+    </p>
+    <p>
+        Also note that, if there are no units taking a certain value of a variable, no row is displayed for this value.
+        If, for example, decile 6, does not have any members in the selected population, the row for decile 6 is omitted.
+    </p>
+    <p>
+        See <a href="Settings_Distributional.htm">Distributional settings / Changing population breakdown</a> for instructions on how to
+        define breakdowns in the settings dialogue.
+    </p>
+
+    <h6>Target population</h6>
+    <p>
+        For all Distributional Tables the respective results can be restricted to a specific target population (separately for each Table).<br />
+        For a description and examples on how to define the respective condition see
+        <a href="Tables.htm">General arguments / Conditions</a>.<br />
+        Note that the condition is evaluated at the <i>Level of analysis</i> selected for the Table.
+    </p>
+
+</body>
+</html>
