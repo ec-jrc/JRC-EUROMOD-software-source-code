@@ -23,8 +23,9 @@ namespace EM_UI.DataSets
             try
             {
                 _switchablePolicyConfig = new SwitchablePolicyConfig();
-                using (StreamReader streamReader = new StreamReader(_pathSwitchablePolicyConfig, DefGeneral.DEFAULT_ENCODING))
-                    _switchablePolicyConfig.ReadXml(streamReader);
+                if (File.Exists(_pathSwitchablePolicyConfig))
+                    using (StreamReader streamReader = new StreamReader(_pathSwitchablePolicyConfig, DefGeneral.DEFAULT_ENCODING))
+                        _switchablePolicyConfig.ReadXml(streamReader);
                 AcceptChanges();
                 return true;
             }

@@ -45,23 +45,28 @@ namespace EM_UI.VersionControl.Merging
             //apply locally rejected or remotely accepted changes of variables (e.g. monetary-state)
             ApplyChanges(_mcVariables, _vcLocal.Variable, _vcLocal.Variable.IDColumn.ColumnName, true);
             ApplyChanges(_mcVariables, _vcLocal.Variable, _vcLocal.Variable.IDColumn.ColumnName, false);
+            
 
             //remove locally added and rejected or remotely removed and accepted variables
             ApplyRemovals(_mcVariables, _vcLocal.Variable, _vcLocal.Variable.IDColumn.ColumnName, true);
             ApplyRemovals(_mcVariables, _vcLocal.Variable, _vcLocal.Variable.IDColumn.ColumnName, false);
+           
 
             //add locally removed and rejected or remotely added and accepted variables
             AddVariables(true); AddVariables(false);
+            
 
             //apply locally rejected or remotely accepted changes of country-specific descriptions
             ApplyChanges(_mcCountryLabels, _vcLocal.CountryLabel, _vcLocal.CountryLabel.IDColumn.ColumnName, true);
             ApplyChanges(_mcCountryLabels, _vcLocal.CountryLabel, _vcLocal.CountryLabel.IDColumn.ColumnName, false);
             
+
             //add locally removed and rejected or remotely added and accepted labels of a whole country
             AddLabelsWholeCountry(true); AddLabelsWholeCountry(false);
 
             //remove locally added and rejected or remotely removed and accepted labels of a whole country
             RemoveLabelsWholeCountry(true); RemoveLabelsWholeCountry(false);
+           
 
             //apply locally rejected or remotely accepted changes of switchable policies
             //ApplyChanges(_mcSwitchablePolicies, _vcLocal.SwitchablePolicy, _vcLocal.SwitchablePolicy.IDColumn.ColumnName, true);
@@ -76,12 +81,15 @@ namespace EM_UI.VersionControl.Merging
 
             //apply locally rejected or remotely accepted changes of acronyms  (-types, -levels and categories)
             ChangeAcros(true); ChangeAcros(false);
+           
 
             //remove locally added and rejected or remotely removed and accepted acronyms (-types, -levels and categories)
             RemoveAcros(true); RemoveAcros(false);
+           
 
             //add locally removed and rejected or remotely added and accepted acronyms (-types, -levels and categories)
             AddAcros(true); AddAcros(false);
+            
         }
 
         List<string> GetRelevantIDs(MergeControl mergeControl, bool local, bool add)

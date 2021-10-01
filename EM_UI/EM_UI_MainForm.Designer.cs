@@ -176,6 +176,7 @@
             this.btnVCMergeVariableOnlineBundle = new DevExpress.XtraBars.BarButtonItem();
             this.btnVCMergeVariablesOnlineBundle = new DevExpress.XtraBars.BarButtonItem();
             this.btnVCNewBundleLocalVersion = new DevExpress.XtraBars.BarButtonItem();
+            this.btnLicence = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageEuromod = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.CountriesRun = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupLoadedCountry = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -391,9 +392,10 @@
             this.btnVCMergeCountryOnlineBundle,
             this.btnVCMergeVariableOnlineBundle,
             this.btnVCMergeVariablesOnlineBundle,
-            this.btnVCNewBundleLocalVersion});
+            this.btnVCNewBundleLocalVersion,
+            this.btnLicence});
             this.EM_MainRibbon.Location = new System.Drawing.Point(0, 0);
-            this.EM_MainRibbon.MaxItemId = 299;
+            this.EM_MainRibbon.MaxItemId = 302;
             this.EM_MainRibbon.Name = "EM_MainRibbon";
             this.EM_MainRibbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageEuromod,
@@ -1595,6 +1597,14 @@
             this.btnVCNewBundleLocalVersion.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
             this.btnVCNewBundleLocalVersion.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnVCNewBundleLocalVersion_ItemClick);
             // 
+            // btnLicence
+            // 
+            this.btnLicence.Caption = "Licence";
+            this.btnLicence.Id = 301;
+            this.btnLicence.LargeGlyph = global::EM_UI.Properties.Resources.licence;
+            this.btnLicence.Name = "btnLicence";
+            this.btnLicence.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLicence_ItemClick);
+            // 
             // ribbonPageEuromod
             // 
             this.ribbonPageEuromod.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -1730,7 +1740,7 @@
             this.ribbonPageGroupThisAndThat.ItemLinks.Add(this.btnMergeCountry);
             this.ribbonPageGroupThisAndThat.Name = "ribbonPageGroupThisAndThat";
             this.ribbonPageGroupThisAndThat.ShowCaptionButton = false;
-            this.ribbonPageGroupThisAndThat.Text = "Restore, etc.";
+            this.ribbonPageGroupThisAndThat.Text = "Tools";
             // 
             // ribbonPageGroupExtensions
             // 
@@ -1933,6 +1943,7 @@
             // 
             this.ribbonPageGroupHelp.ItemLinks.Add(this.btnHelp);
             this.ribbonPageGroupHelp.ItemLinks.Add(this.btnVersion);
+            this.ribbonPageGroupHelp.ItemLinks.Add(this.btnLicence);
             this.ribbonPageGroupHelp.Name = "ribbonPageGroupHelp";
             this.ribbonPageGroupHelp.ShowCaptionButton = false;
             // 
@@ -1992,7 +2003,8 @@
             this.treeList.Appearance.SelectedRow.ForeColor = System.Drawing.Color.Black;
             this.treeList.Appearance.SelectedRow.Options.UseBackColor = true;
             this.treeList.Appearance.SelectedRow.Options.UseForeColor = true;
-            this.treeList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.treeList.BackgroundImage = global::EM_UI.Properties.Resources.brand_background_EUROMOD;
+            this.treeList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.treeList.BestFitVisibleOnly = true;
             this.treeList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.Policy,
@@ -2185,6 +2197,8 @@
             this.intelliImages.Images.SetKeyName(0, "variables-arrow.png");
             this.intelliImages.Images.SetKeyName(1, "release-validation-32.png");
             this.intelliImages.Images.SetKeyName(2, "settings-32.png");
+            this.intelliImages.Images.SetKeyName(3, "intelli-image-3.png");
+            this.intelliImages.Images.SetKeyName(4, "intelli-image-4.png");
             // 
             // helpProvider
             // 
@@ -2252,6 +2266,7 @@
             this.Controls.Add(this.treeList);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.EM_MainRibbon);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EM_UI_MainForm";
             this.Ribbon = this.EM_MainRibbon;
             this.StatusBar = this.ribbonStatusBar1;
@@ -2474,6 +2489,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.BarButtonItem btnVCMergeVariablesOnlineBundle;
         private DevExpress.XtraBars.BarButtonItem btnVCNewBundleLocalVersion;
+        private DevExpress.XtraBars.BarButtonItem btnLicence;
     }
 }
 

@@ -164,7 +164,8 @@ namespace EM_UI.DeveloperInfo.ReleaseValidation
                     double factor = strVal.StartsWith("-") ? -1.0 : 1.0;
                     strVal = strVal.Replace("+", "").Replace("-", "");
                     if (strVal != string.Empty) { double f; if (double.TryParse(strVal, out f)) factor *= f; };
-                    content.Add(varILName, factor);
+                    if (!content.ContainsKey(varILName)) content.Add(varILName, factor);
+                    else content[varILName] += factor;  // if variable already exists in the IL, add the new factor!
                 }
                 else // if the component is an incomelist: recursive call to add the whole content
                     MergeDics(ref content, ResolveIL(ilInfos, varILName, sysName));

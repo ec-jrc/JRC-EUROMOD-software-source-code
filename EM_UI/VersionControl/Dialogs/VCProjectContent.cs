@@ -7,6 +7,7 @@ namespace EM_UI.VersionControl.Dialogs
 {
     internal partial class VCProjectContent : Form
     {
+
         internal VCProjectContent(VCNewProject.ProjectContent projectContent)
         {
             InitializeComponent();
@@ -16,8 +17,10 @@ namespace EM_UI.VersionControl.Dialogs
                 item.Checked = i < projectContent.selections.Count ? projectContent.selections[i] : false;
                 item.Tag = projectContent.projectUnits[i];
             }
+
             foreach (string year in projectContent.selectedYears) listYears.Items.Add(year);
             checkAllYears.Checked = listYears.Items.Count == 0;
+
         }
 
         void VCProjectContent_Load(object sender, EventArgs e)

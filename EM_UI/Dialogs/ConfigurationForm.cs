@@ -1,4 +1,5 @@
 ﻿using EM_Common;
+using EM_Crypt;
 using EM_UI.Tools;
 using EM_UI.TreeListManagement;
 using System;
@@ -12,6 +13,29 @@ namespace EM_UI.Dialogs
         void ConfigurationForm_Load(object sender, EventArgs e)
         {
             string helpPath; EM_AppContext.Instance.GetHelpPath(out helpPath); helpProvider.HelpNamespace = helpPath;
+            SetSecureState();
+        }
+
+        private void SetSecureState()
+        {
+            if (!SecureInfo.IsSecure) return;
+            if (SecureInfo.LockProject)
+            {
+                txtOutputFolder.Visible = false;
+                txtInputFolder.Visible = false;
+                btnSelectInputFolder.Visible = false;
+                btnSelectOutputFolder.Visible = false;
+                btnSetStandardPaths.Visible = false;
+                tbcCofiguration.TabPages.Remove(tabVersionControl);
+                lblInputFolder.Visible = false;
+                lblOutputFolder.Visible = false;
+
+                chkStoreViewSettings.Location = chkAutosave.Location;
+                chkStoreViewSettings.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                chkCloseWithLastCountry.Top = chkStoreViewSettings.Bottom + 20;
+                chkCloseWithLastCountry.Left = chkStoreViewSettings.Left;
+                chkCloseWithLastCountry.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            }
         }
 
         internal ConfigurationForm()

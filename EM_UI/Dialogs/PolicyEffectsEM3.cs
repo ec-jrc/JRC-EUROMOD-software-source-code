@@ -1,4 +1,5 @@
 ﻿using EM_Common;
+using EM_Crypt;
 using EM_Transformer;
 using EM_UI.CountryAdministration;
 using EM_UI.DataSets;
@@ -59,6 +60,11 @@ namespace EM_UI.Dialogs
         {
             sbw.em3_RunInfo = new RunLogger.RunInfo(); DateTime startTime = DateTime.Now;
 
+            // If working in a secure environment, make sure the executable knows about this! ;)
+            if (SecureInfo.IsSecure && !string.IsNullOrEmpty(SecureInfo.DataPassword))
+            {
+                sbw.config.AddOrReplace(EM_XmlHandler.TAGS.CONFIG_DATA_PASSWORD, SecureInfo.DataPassword);
+            }
             bool success = new EM_Executable.Control().Run(sbw.config,
                 progressInfo =>
                 {

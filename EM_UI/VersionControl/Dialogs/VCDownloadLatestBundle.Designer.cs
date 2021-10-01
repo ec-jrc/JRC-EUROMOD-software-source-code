@@ -71,14 +71,14 @@
             this.txtDestinationFolder.Location = new System.Drawing.Point(11, 89);
             this.txtDestinationFolder.Margin = new System.Windows.Forms.Padding(2);
             this.txtDestinationFolder.Name = "txtDestinationFolder";
-            this.txtDestinationFolder.Size = new System.Drawing.Size(517, 20);
+            this.txtDestinationFolder.Size = new System.Drawing.Size(647, 20);
             this.txtDestinationFolder.TabIndex = 24;
             this.txtDestinationFolder.TextChanged += new System.EventHandler(this.txtDestinationFolder_TextChanged);
             // 
             // btnSelectFolder
             // 
             this.btnSelectFolder.Image = ((System.Drawing.Image)(resources.GetObject("btnSelectFolder.Image")));
-            this.btnSelectFolder.Location = new System.Drawing.Point(536, 78);
+            this.btnSelectFolder.Location = new System.Drawing.Point(663, 78);
             this.btnSelectFolder.Name = "btnSelectFolder";
             this.btnSelectFolder.Size = new System.Drawing.Size(40, 40);
             this.btnSelectFolder.TabIndex = 25;
@@ -91,7 +91,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::EM_UI.Properties.Resources.delete16;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(295, 467);
+            this.btnCancel.Location = new System.Drawing.Point(358, 467);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 35);
             this.btnCancel.TabIndex = 27;
@@ -103,7 +103,7 @@
             this.btnDownload.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnDownload.Image = ((System.Drawing.Image)(resources.GetObject("btnDownload.Image")));
             this.btnDownload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDownload.Location = new System.Drawing.Point(210, 467);
+            this.btnDownload.Location = new System.Drawing.Point(273, 467);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(80, 35);
             this.btnDownload.TabIndex = 26;
@@ -128,7 +128,7 @@
             this.textProject.Margin = new System.Windows.Forms.Padding(2);
             this.textProject.Name = "textProject";
             this.textProject.ReadOnly = true;
-            this.textProject.Size = new System.Drawing.Size(518, 20);
+            this.textProject.Size = new System.Drawing.Size(645, 20);
             this.textProject.TabIndex = 29;
             // 
             // txtBundle
@@ -137,7 +137,7 @@
             this.txtBundle.Margin = new System.Windows.Forms.Padding(2);
             this.txtBundle.Name = "txtBundle";
             this.txtBundle.ReadOnly = true;
-            this.txtBundle.Size = new System.Drawing.Size(518, 20);
+            this.txtBundle.Size = new System.Drawing.Size(645, 20);
             this.txtBundle.TabIndex = 30;
             // 
             // listUnits
@@ -147,12 +147,13 @@
             this.listUnits.Location = new System.Drawing.Point(11, 175);
             this.listUnits.Margin = new System.Windows.Forms.Padding(2);
             this.listUnits.Name = "listUnits";
-            this.listUnits.Size = new System.Drawing.Size(565, 233);
+            this.listUnits.Size = new System.Drawing.Size(693, 233);
             this.listUnits.TabIndex = 31;
             this.listUnits.UseCompatibleStateImageBehavior = false;
             this.listUnits.View = System.Windows.Forms.View.List;
+            this.listUnits.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listUnits_ItemChecked);
             // 
-            // label4
+            // label
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(11, 158);
@@ -199,14 +200,14 @@
             this.txtBundlePath.Margin = new System.Windows.Forms.Padding(2);
             this.txtBundlePath.Name = "txtBundlePath";
             this.txtBundlePath.ReadOnly = true;
-            this.txtBundlePath.Size = new System.Drawing.Size(565, 20);
+            this.txtBundlePath.Size = new System.Drawing.Size(693, 20);
             this.txtBundlePath.TabIndex = 36;
             // 
             // VCDownloadLatestBundle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(588, 510);
+            this.ClientSize = new System.Drawing.Size(715, 510);
             this.Controls.Add(this.txtBundlePath);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btnUnsel);

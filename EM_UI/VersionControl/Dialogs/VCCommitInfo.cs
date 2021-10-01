@@ -19,7 +19,7 @@ namespace EM_UI.VersionControl.Dialogs
 
             txtAuthor.Text = info.Author;
             txtDate.Text = info.Date.ToString();
-            txtInfo.Text = info.Message;
+            txtId.Text = info.Message;
         }
 
         void VCCommitInfo_Load(object sender, EventArgs e)

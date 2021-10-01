@@ -713,6 +713,13 @@ namespace EM_UI.DataSets
             return null;
         }
 
+        internal List<CountryConfig.ParameterRow> GetParameterRowsByName(string functionID, string parameterName)
+        {
+            return (from parameter in _countryConfig.Parameter
+                    where parameter.FunctionID == functionID && parameter.Name.ToLower() == parameterName.ToLower()
+                    select parameter).ToList();
+        } 
+
         internal CountryConfig.ParameterRow GetParameterRowByID(string parameterID)
         {
             List<CountryConfig.ParameterRow> parameterRows = (from parameter in _countryConfig.Parameter

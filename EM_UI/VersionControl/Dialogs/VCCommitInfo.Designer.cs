@@ -35,7 +35,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtAuthor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtInfo = new System.Windows.Forms.TextBox();
             this.txtId = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -49,7 +48,7 @@
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnOK.Image = global::EM_UI.Properties.Resources.apply16;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(176, 216);
+            this.btnOK.Location = new System.Drawing.Point(338, 49);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(70, 23);
             this.btnOK.TabIndex = 3;
@@ -107,21 +106,6 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Version";
             // 
-            // txtInfo
-            // 
-            this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInfo.Location = new System.Drawing.Point(11, 32);
-            this.txtInfo.Margin = new System.Windows.Forms.Padding(2);
-            this.txtInfo.Multiline = true;
-            this.txtInfo.Name = "txtInfo";
-            this.txtInfo.ReadOnly = true;
-            this.txtInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInfo.Size = new System.Drawing.Size(398, 179);
-            this.txtInfo.TabIndex = 14;
-            this.txtInfo.TabStop = false;
-            // 
             // txtId
             // 
             this.txtId.Location = new System.Drawing.Point(370, 10);
@@ -138,9 +122,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(418, 249);
+            this.ClientSize = new System.Drawing.Size(424, 82);
             this.Controls.Add(this.txtId);
-            this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtAuthor);
             this.Controls.Add(this.label2);
@@ -153,7 +136,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(434, 287);
+            this.MinimumSize = new System.Drawing.Size(440, 120);
             this.Name = "VCCommitInfo";
             this.helpProvider.SetShowHelp(this, true);
             this.ShowIcon = false;
@@ -174,7 +157,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtInfo;
         private System.Windows.Forms.TextBox txtId;
     }
 }

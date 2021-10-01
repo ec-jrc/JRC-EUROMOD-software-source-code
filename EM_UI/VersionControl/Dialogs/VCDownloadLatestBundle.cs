@@ -1,4 +1,5 @@
-﻿using EM_UI.Tools;
+﻿using EM_Common;
+using EM_UI.Tools;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,11 +66,18 @@ namespace EM_UI.VersionControl.Dialogs
                     foreach (VersionControlUnitInfo unit in units)
                     {
                         ListViewItem item = listUnits.Items.Add(string.Format("{0} ({1})", unit.Name, VCContentControl.UnitTypeToString(unit.UnitType)));
+                        item.ToolTipText = unit.Name;
                         item.Checked = true;
-                        item.Tag = unit;
+                        item.Tag = unit;                     
+                        if(unit.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG)
+                            {
+                            item.ForeColor = SystemColors.GrayText;
+                            item.BackColor = SystemColors.InactiveBorder;
+                        }
                     }
-
                 }
+
+                
 
             }
 
@@ -77,11 +85,18 @@ namespace EM_UI.VersionControl.Dialogs
         }
 
 
+
+
         private void btnDownload_Click(object sender, EventArgs e)
         {
             
             if (txtDestinationFolder.Text.Equals(String.Empty)){ UserInfoHandler.ShowInfo("Please indicate a valid 'Project Path' for dowloading the latest online bundle."); return; }
             else if (!Directory.Exists(txtDestinationFolder.Text)){ UserInfoHandler.ShowInfo("Please indicate an existing 'Project Path' for storing the latest online bundle."); return; }
+
+            string newEuromodFolder = EMPath.AddSlash(txtDestinationFolder.Text) + textProject.Text + "_" + _bundleName;
+            if (Directory.Exists(newEuromodFolder) && (Directory.GetFiles(newEuromodFolder).Count() > 0 || Directory.GetDirectories(newEuromodFolder).Count() > 0))
+            { UserInfoHandler.ShowError(string.Format("Folder '{0}' exists and is not empty.\n\nThe file structure for the new project requires an empty base-folder.", newEuromodFolder)); return; }
+
             _projectContent.selections = GetChoices();
             DialogResult = System.Windows.Forms.DialogResult.OK;
 
@@ -138,7 +153,25 @@ namespace EM_UI.VersionControl.Dialogs
         }
 
 
-        void btnSel_Click(bool sel) { foreach (ListViewItem item in listUnits.Items) item.Checked = sel; }
+        void btnSel_Click(bool sel) {
+            foreach (ListViewItem item in listUnits.Items)
+            {
+                if (!sel)
+                {
+                    VersionControlUnitInfo checkedUnit = (VersionControlUnitInfo)item.Tag;
+
+                    if (checkedUnit.UnitType != VCAPI.VC_FOLDER_TYPE.CONFIG)
+                    {
+                        item.Checked = sel;
+                    }
+                }
+                else
+                {
+                    item.Checked = sel;
+                }
+                
+            }
+        }
 
         private void btnSel_Click(object sender, EventArgs e)
         {
@@ -161,5 +194,28 @@ namespace EM_UI.VersionControl.Dialogs
                 txtBundlePath.Text = "";
             }
         }
+
+        private void listUnits_ItemChecked(object sender, System.Windows.Forms.ItemCheckedEventArgs e)
+        {
+            ListViewItem item = e.Item;
+            if (item != null && !item.Checked && item.ToolTipText == string.Empty)
+            {
+                    VersionControlUnitInfo checkedUnit = (VersionControlUnitInfo)item.Tag;
+
+                    if (checkedUnit.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG)
+                    {
+                        item.Checked = true;
+                        UserInfoHandler.ShowInfo("Configuration units are needed for the model to work properly. They" +
+                            " cannot be unticked.");
+                    }
+
+            }
+            else
+            {
+                item.ToolTipText = string.Empty;
+            }
+
+        }
+
     }
 }

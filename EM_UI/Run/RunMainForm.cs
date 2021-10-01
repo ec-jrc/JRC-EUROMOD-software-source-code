@@ -284,7 +284,7 @@ namespace EM_UI.Run
                 bool activeFilter = (txtFilterDatasets.EditValue != null && txtFilterDatasets.EditValue.ToString() != string.Empty) ||
                                     (txtFilterSystems.EditValue != null && txtFilterSystems.EditValue.ToString() != string.Empty) ||
                                     _isBestMatchOnlyChecked;
-                rpView.Image = activeFilter ? global::EM_UI.Properties.Resources.filter1 : null;
+                rpView.Image = activeFilter ? global::EM_UI.Properties.Resources.filter_16 : null;
                 rpView.Category.Color = activeFilter ? System.Drawing.Color.Tomato : System.Drawing.Color.Transparent;
 
                 //restore the selection and settings stored above
@@ -1083,7 +1083,7 @@ namespace EM_UI.Run
             string country = dgvRun.Rows[e.RowIndex].Cells[colCountry.Name].Value.ToString();
             string system = dgvRun.Rows[e.RowIndex].Cells[colSystem.Name].Value.ToString();
             CountryConfigFacade countryConfigFacade = CountryAdministrator.GetCountryConfigFacade(country); //always demand data configuration from country-admin to get an update version
-            if (countryConfigFacade.GetSystemRowByName(system).Private == "yes") e.CellStyle.ForeColor = Color.Red;
+            if (countryConfigFacade != null && countryConfigFacade.GetSystemRowByName(system) != null && countryConfigFacade.GetSystemRowByName(system).Private == "yes") e.CellStyle.ForeColor = Color.Red;
         }
 
         internal bool GetNumberOfHHToRun(out string sHH)

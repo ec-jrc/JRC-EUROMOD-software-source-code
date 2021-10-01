@@ -79,7 +79,7 @@ namespace EM_UI.Actions
                 _countryConfigFacade.CopySystemFormatting(toCopySystemRow, newSystemRow);
                 
                 //rename output filename of default outputs
-                RenameOutputFiles(_countryConfigFacade, newSystemRow, toCopySystemRow.Name);
+                RenameInputOutputFiles(_countryConfigFacade, newSystemRow, toCopySystemRow.Name);
 
                 //adapt exchange-rate in global table
                 //note that the exchange-rate-config is not included in the undo-procedure, thus this will not be undone
@@ -103,7 +103,7 @@ namespace EM_UI.Actions
             if (found) excf.WriteXML();
         }
 
-        internal static void RenameOutputFiles(CountryConfigFacade countryConfigFacade, CountryConfig.SystemRow systemRow, string oldSystemName, bool request = false)
+        internal static void RenameInputOutputFiles(CountryConfigFacade countryConfigFacade, CountryConfig.SystemRow systemRow, string oldSystemName, bool request = false, bool renameOutput = true, bool renameInput = true)
         {
             //search policies Output_Std_cc and Output_Std_HH_cc
             //CountryConfig.PolicyRow policyRow = countryConfigFacade.GetPolicyRowByName(systemRow.ID, standardOutputPolicyName);
@@ -111,27 +111,29 @@ namespace EM_UI.Actions
             //within these policies search for function(s) DefOutput
             //List<CountryConfig.FunctionRow> defOutputFunctionRows = countryConfigFacade.GetFunctionRowsByPolicyIDAndFunctionName(policyRow.ID, DefFun.DefOutput);
 
-            var defOutputFunctionRows = from f in countryConfigFacade.GetCountryConfig().Function
-                                        where f.PolicyRow.SystemID == systemRow.ID && f.Name.ToLower() == DefFun.DefOutput.ToLower()
+            var functionRows = from f in countryConfigFacade.GetCountryConfig().Function
+                                        where f.PolicyRow.SystemID == systemRow.ID && ((renameOutput &&  f.Name.ToLower() == DefFun.DefOutput.ToLower()) || (renameInput &&  f.Name.ToLower() == DefFun.DefInput.ToLower()))
                                         select f;
-            foreach (CountryConfig.FunctionRow defOutputFunctionRow in defOutputFunctionRows)
+            foreach (CountryConfig.FunctionRow functionRow in functionRows)
             {
                 //within these functions search for parameter File
-                CountryConfig.ParameterRow parameterRow = countryConfigFacade.GetParameterRowByName(defOutputFunctionRow.ID, DefPar.DefOutput.File);
-                if (parameterRow == null) continue;
+                List<CountryConfig.ParameterRow> parameterRows = countryConfigFacade.GetParameterRowsByName(functionRow.ID, DefPar.DefOutput.File);
 
-                //if parameter file found replace system name (e.g. rename UK_2009_std to UK_2009_reform_std)
-                int index = parameterRow.Value.ToLower().IndexOf(oldSystemName.ToLower());
-                if (index < 0) continue;
-                string newOutputName = parameterRow.Value.Substring(0, index) + systemRow.Name + parameterRow.Value.Substring(index + oldSystemName.Length);
-                if (request)
+                foreach (CountryConfig.ParameterRow parameterRow in parameterRows)
                 {
-                    if (UserInfoHandler.GetInfo("Do you want to adapt the names of output-files to the new system name?" + Environment.NewLine +
-                        string.Format("(e.g. '{0}' to '{1}')", parameterRow.Value, newOutputName), MessageBoxButtons.YesNo) == DialogResult.Yes)
-                        request = false; // do not ask again for any other output-policy
-                    else return; // do not rename
+                    //if parameter file found replace system name (e.g. rename UK_2009_std to UK_2009_reform_std)
+                    int index = parameterRow.Value.ToLower().IndexOf(oldSystemName.ToLower());
+                    if (index < 0) continue;
+                    string newOutputName = parameterRow.Value.Substring(0, index) + systemRow.Name + parameterRow.Value.Substring(index + oldSystemName.Length);
+                    if (request)
+                    {
+                        if (UserInfoHandler.GetInfo("Do you want to adapt the filenames in DefInput/DefOutput functions according to the new system name?" + Environment.NewLine +
+                            string.Format("(e.g. '{0}' to '{1}')", parameterRow.Value, newOutputName), MessageBoxButtons.YesNo) == DialogResult.Yes)
+                            request = false; // do not ask again for any other output-policy
+                        else return; // do not rename
+                    }
+                    parameterRow.Value = newOutputName;
                 }
-                parameterRow.Value = newOutputName;                    
             }
         }
     }

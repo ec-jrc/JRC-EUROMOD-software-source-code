@@ -140,6 +140,7 @@ namespace EM_UI.VersionControl.Dialogs
 
         void btnAddUsers_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
             List<UserInfo> potUserInfos = new List<UserInfo>();
             List<string> potUserNames = new List<string>();
             List<long> inProUserIds = new List<long>();
@@ -160,6 +161,7 @@ namespace EM_UI.VersionControl.Dialogs
                     potUserNames.Add(string.Format(VCAPI.GetPrettyUserName(userInfo)));
                 }
 
+            Cursor = Cursors.Default;
             VCUsersAdd vcUsersAdd = new VCUsersAdd(potUserNames);
             if (vcUsersAdd.ShowDialog() == System.Windows.Forms.DialogResult.Cancel) return;
 

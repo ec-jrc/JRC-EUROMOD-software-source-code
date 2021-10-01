@@ -27,7 +27,6 @@ namespace EM_UI.TreeListManagement
     {
         CountryConfigFacade _countryConfigFacade = null;
         EM_UI_MainForm _mainForm = null;
-        ComponentUseForm _componentUseForm = null;
         const string _descriptionHelpFileName = "EM_FC_FunctionName.htm";
         const string _summaryHelpFileName = "EM_FC_Sum_FunctionName.htm";
 
@@ -859,13 +858,6 @@ namespace EM_UI.TreeListManagement
                 return;
 
             FocusSpecifiedNode(componentSearchForm.GetIdentifier());
-        }
-
-        internal void ShowComponentUseForm()
-        {
-            if (_componentUseForm == null)
-                _componentUseForm = new ComponentUseForm(_mainForm);
-            _componentUseForm.ShowDialog();
         }
 
         static Dictionary<string, string> GetFunctionsExistingFootnoteParameters(TreeListNode functionNode, string systemName, bool getAmountParameters)

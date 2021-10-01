@@ -402,8 +402,10 @@ namespace EM_UI.VersionControl.Merging
                 }
                 ShowSwitchablePolicyConfigMergeDialog();
             }
-            else ShowMergeDialog();
+            else {
+                ShowMergeDialog();
 
+            }
         }
 
         bool AreLocalFilesUpToDate()
@@ -659,7 +661,7 @@ namespace EM_UI.VersionControl.Merging
 
             pathRemoteVersion = EMPath.AddSlash(pathRemoteVersion);
 
-            if (useLocalAsParent) { pathParentVersion = pathLocalVersion; fileNameParentVersion = fileNameRemoteVersion; }
+            if (useLocalAsParent) { pathParentVersion = pathLocalVersion; fileNameParentVersion = _configFileName; }
             else if (useRemoteAsParent) { pathParentVersion = pathRemoteVersion; fileNameParentVersion = fileNameRemoteVersion; }
             else if (!updateLocalFiles) pathParentVersion = EMPath.AddSlash(pathParentVersion);
 
@@ -788,13 +790,13 @@ namespace EM_UI.VersionControl.Merging
 
                 _variablesMergeForm = new VariablesMergeForm(this);
 
-                
                 //fill merge-controls
                 FillMergeControl(!mergeInfoAvailabe, VariablesMergeForm.VARIABLES);
+
                 FillMergeControl(!mergeInfoAvailabe, VariablesMergeForm.ACRONYMS, new List<string>() { "Type", "Level", "Acronym", "Category" });
+
                 FillMergeControl(!mergeInfoAvailabe, VariablesMergeForm.COUNTRY_LABELS);
-                //FillMergeControl(!mergeInfoAvailabe, VariablesMergeForm.SWITCHABLE_POLICIES);
-                //FillMergeControl(!mergeInfoAvailabe, VariablesMergeForm.HICPCONFIG)
+
 
                 if (_variablesMergeForm.HasDifferences())
                     _variablesMergeForm.ShowDialog();
@@ -824,9 +826,10 @@ namespace EM_UI.VersionControl.Merging
 
                 _hicpConfigMergeForm = new HICPConfigMergeForm(this);
 
-
                 //fill merge-controls
                 FillMergeControl(!mergeInfoAvailabe, HICPConfigMergeForm.HICPCONFIG);
+
+                //progressBar.Stop();
 
                 if (_hicpConfigMergeForm.HasDifferences())
                     _hicpConfigMergeForm.ShowDialog();
@@ -855,9 +858,10 @@ namespace EM_UI.VersionControl.Merging
 
                 _exchangeRatesConfigMergeForm = new ExchangeRatesConfigMergeForm(this);
 
-
                 //fill merge-controls
                 FillMergeControl(!mergeInfoAvailabe, ExchangeRatesConfigMergeForm.EXCHANGERATESCONFIG);
+
+                //progressBar.Stop();
 
                 if (_exchangeRatesConfigMergeForm.HasDifferences())
                     _exchangeRatesConfigMergeForm.ShowDialog();
@@ -886,7 +890,6 @@ namespace EM_UI.VersionControl.Merging
                 if (!mergeInfoAvailabe) ReadXmlVariables();
 
                 _switchablePolicyConfigMergeForm = new SwitchablePolicyConfigMergeForm(this);
-
 
                 //fill merge-controls
                 FillMergeControl(!mergeInfoAvailabe, SwitchablePolicyConfigMergeForm.SWITCHABLEPOLICYCONFIG);
@@ -929,18 +932,28 @@ namespace EM_UI.VersionControl.Merging
                 else
                     GetInfoCountryFromXml();
 
+
                 //fill merge-controls
                 FillMergeControl(!mergeInfoAvailabe, MergeForm.SYSTEMS);
+
                 if (!_isAddOn) FillMergeControl(!mergeInfoAvailabe, MergeForm.DATASETS, new List<string>() { "Dataset", "Data-System-Combination", "Policy Switch" });
+
                 FillMergeControl(!mergeInfoAvailabe, MergeForm.SPINE, new List<string>() { "Policy", "Function", "Parameter" }, true);
+
                 FillMergeControl(!mergeInfoAvailabe, MergeForm.CONDITIONAL_FORMATTING);
+
                 FillMergeControl(!mergeInfoAvailabe, MergeForm.UPRATING_INDICES);
+
                 if (!_isAddOn)
                 {
                     FillMergeControl(!mergeInfoAvailabe, MergeForm.EXTENSIONS);
+
                     FillMergeControl(!mergeInfoAvailabe, MergeForm.EXT_SWITCHES);
+
                     FillMergeControl(!mergeInfoAvailabe, MergeForm.LOOK_GROUPS);
+
                 }
+
                 if (_mergeForm.HasDifferences())
                     _mergeForm.ShowDialog();
                 else
@@ -1154,8 +1167,8 @@ namespace EM_UI.VersionControl.Merging
             { 
                 case 0: return; //do not check
                 case 1: break; //check
-                default: if (UserInfoHandler.GetInfo("Should the (time-consuming) check for differences in country specific descriptions be skipped?",
-                             MessageBoxButtons.YesNo) == DialogResult.Yes) return; break;
+                default: if (MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), "Should the (time-consuming) check for differences in country specific descriptions be skipped?",
+                    $"{DefGeneral.BRAND_TITLE} - Request", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly) == DialogResult.Yes) return; break;
             }
 
             //BUILD TREE-COLUMNS
@@ -1862,6 +1875,7 @@ namespace EM_UI.VersionControl.Merging
         internal const string MERGEINFO_POLID = "POL|";
         internal const string MERGEINFO_FUNID = "FUN|";
         internal const string MERGEINFO_PARID = "PAR|";
+        internal const string MERGEINFO_EXTID = "EXT|";
         void GetInfoExtensionsFromXml(out List<MergeControl.ColumnInfo> columInfo,
                                       out List<MergeControl.NodeInfo> nodeInfoLocal, out List<MergeControl.NodeInfo> nodeInfoRemote)
         {
@@ -1944,26 +1958,31 @@ namespace EM_UI.VersionControl.Merging
                     {
                         CountryConfig.PolicyRow polRow = dt.Value.GetPolicyRowByID(polInfo.Key); if (orders.Contains(polRow.Order)) continue;
                         DataRow row = dt.Key.NewRow();
-                        row[0] = MERGEINFO_POLID + polRow.ID; row[1] = polRow.Name; row[2] = polInfo.Value; row[3] = string.Empty;
+                        row[0] =  MERGEINFO_POLID + polRow.ID + MERGEINFO_EXTID + extID; row[1] = polRow.Name; row[2] = polInfo.Value; row[3] = string.Empty;
                         dt.Key.Rows.Add(row); orders.Add(polRow.Order);
                     }
                     foreach (var funInfo in funInfos)
                     {
                         CountryConfig.FunctionRow funRow = dt.Value.GetFunctionRowByID(funInfo.Key); if (orders.Contains(funRow.PolicyRow.Order + "/" + funRow.Order)) continue;
                         DataRow row = dt.Key.NewRow();
-                        row[0] = MERGEINFO_FUNID + funRow.ID; row[1] = funRow.PolicyRow.Name + "/" + funRow.Name; row[2] = funInfo.Value; row[3] = string.Empty;
+                        row[0] = MERGEINFO_FUNID + funRow.ID + MERGEINFO_EXTID + extID; row[1] = funRow.PolicyRow.Name + "/" + funRow.Name; row[2] = funInfo.Value; row[3] = string.Empty;
                         dt.Key.Rows.Add(row); orders.Add(funRow.PolicyRow.Order + "/" + funRow.Order);
                     }
                     foreach (var parInfo in parInfos)
                     {
                         CountryConfig.ParameterRow parRow = dt.Value.GetParameterRowByID(parInfo.Key); if (orders.Contains(parRow.FunctionRow.PolicyRow.Order + "/" + parRow.FunctionRow.Order + "/" + parRow.Order)) continue;
                         DataRow row = dt.Key.NewRow();
-                        row[0] = MERGEINFO_PARID + parRow.ID; row[1] = parRow.FunctionRow.PolicyRow.Name + "/" + parRow.FunctionRow.Name + "/" + parRow.Name; row[2] = parInfo.Value; row[3] = string.Empty;
+                        row[0] =  MERGEINFO_PARID + parRow.ID + MERGEINFO_EXTID + extID; row[1] = parRow.FunctionRow.PolicyRow.Name + "/" + parRow.FunctionRow.Name + "/" + parRow.Name; row[2] = parInfo.Value; row[3] = string.Empty;
                         dt.Key.Rows.Add(row); orders.Add(parRow.FunctionRow.PolicyRow.Order + "/" + parRow.FunctionRow.Order + "/" + parRow.Order);
                     }
                 }
+
+                bool jointNodeID = false;
+                List<MergeControl.ChangeType> ignoredChangeTypes = null;
+                List<String> ignoreColumns = new List<String>();
+                ignoreColumns.Add(MERGECOL_EXT_NAME);
                 localAndRemoteIDs = BuildNodeInfo_List(localContent, remoteContent, parentContent, MERGECOL_EXT_ID, MERGECOL_EXT_NAME, extID,
-                                                       nodeInfoLocal, nodeInfoRemote, settingColumns);
+                                                       nodeInfoLocal, nodeInfoRemote, settingColumns, jointNodeID, ignoredChangeTypes, ignoreColumns);
             }
         }
 
@@ -1974,6 +1993,7 @@ namespace EM_UI.VersionControl.Merging
         internal const string MERGEINFO_GROUP_POLID = "POL|";
         internal const string MERGEINFO_GROUP_FUNID = "FUN|";
         internal const string MERGEINFO_GROUP_PARID = "PAR|";
+        internal const string MERGEINFO_GROUPID = "GRP|";
         void GetInfoGroupsFromXml(out List<MergeControl.ColumnInfo> columInfo,
                               out List<MergeControl.NodeInfo> nodeInfoLocal, out List<MergeControl.NodeInfo> nodeInfoRemote)
         {
@@ -2024,21 +2044,21 @@ namespace EM_UI.VersionControl.Merging
                     {
                         CountryConfig.PolicyRow polRow = dt.Value.GetPolicyRowByID(polInfoId); if (orders.Contains(polRow.Order)) continue;
                         DataRow row = dt.Key.NewRow();
-                        row[0] = MERGEINFO_POLID + polRow.ID; row[1] = polRow.Name; row[2] = String.Empty;
+                        row[0] = MERGEINFO_POLID + polRow.ID + MERGEINFO_GROUPID + groupID; row[1] = polRow.Name; row[2] = String.Empty;
                         dt.Key.Rows.Add(row); orders.Add(polRow.Order);
                     }
                     foreach (var funInfoId in funInfos)
                     {
                         CountryConfig.FunctionRow funRow = dt.Value.GetFunctionRowByID(funInfoId); if (orders.Contains(funRow.PolicyRow.Order + "/" + funRow.Order)) continue;
                         DataRow row = dt.Key.NewRow();
-                        row[0] = MERGEINFO_FUNID + funRow.ID; row[1] = funRow.PolicyRow.Name + "/" + funRow.Name; row[2] = string.Empty; 
+                        row[0] = MERGEINFO_FUNID + funRow.ID + MERGEINFO_GROUPID + groupID; row[1] = funRow.PolicyRow.Name + "/" + funRow.Name; row[2] = string.Empty;
                         dt.Key.Rows.Add(row); orders.Add(funRow.PolicyRow.Order + "/" + funRow.Order);
                     }
                     foreach (var parInfoId in parInfos)
                     {
                         CountryConfig.ParameterRow parRow = dt.Value.GetParameterRowByID(parInfoId); if (orders.Contains(parRow.FunctionRow.PolicyRow.Order + "/" + parRow.FunctionRow.Order + "/" + parRow.Order)) continue;
                         DataRow row = dt.Key.NewRow();
-                        row[0] = MERGEINFO_PARID + parRow.ID; row[1] = parRow.FunctionRow.PolicyRow.Name + "/" + parRow.FunctionRow.Name + "/" + parRow.Name; row[2] = string.Empty; 
+                        row[0] = MERGEINFO_PARID + parRow.ID + MERGEINFO_GROUPID + groupID; row[1] = parRow.FunctionRow.PolicyRow.Name + "/" + parRow.FunctionRow.Name + "/" + parRow.Name; row[2] = string.Empty; 
                         dt.Key.Rows.Add(row); orders.Add(parRow.FunctionRow.PolicyRow.Order + "/" + parRow.FunctionRow.Order + "/" + parRow.Order);
                     }
                 }
@@ -2170,6 +2190,20 @@ namespace EM_UI.VersionControl.Merging
             {
                 DataRow[] selection = table.Select(whereClause, orderClause);
                 subTable = selection.Count() == 0 ? table.Clone() : selection.CopyToDataTable();
+
+                //The table is sorted. If, for any reasons, it cannot be sorted
+                //It will continue without sorting the table
+                try
+                {
+                    string orderColumn = orderClause.ToLower().Replace(" asc", "").Replace(" desc", "");
+                    string orderDirection = orderClause.ToLower().Replace(orderColumn + " ", "");
+                    subTable.Columns.Add("orderInt", typeof(int), orderColumn);
+                    subTable.DefaultView.Sort = "orderInt " + orderDirection;
+                    subTable = subTable.DefaultView.ToTable();
+                }catch(Exception e) { 
+                    string msg = e.Message; 
+                }
+                
             }
             else
                 subTable = table.Copy(); //use the whole table, but make a copy to not destroy the original one (function is just called for renaming columns)
@@ -2177,6 +2211,7 @@ namespace EM_UI.VersionControl.Merging
             if (columnAliases != null) //rename e.g. table AcronyType's 'ShortName' to 'Name' to view it in the same column as Acronym's 'Name'
                 foreach (string column in columnAliases.Keys)
                     subTable.Columns[column].ColumnName = columnAliases[column];
+
             
             return subTable;
         }
@@ -2424,28 +2459,38 @@ namespace EM_UI.VersionControl.Merging
                 if(_configFileName == EMPath.EM2_FILE_VARS)
                 {
                     _variablesMergeForm.Cursor = Cursors.WaitCursor;
+
                     GetOrReadXmlVariables(); //apply needs the data as stored in .../Merge/ (which is already read, unless a stored merge-info was used)
                                              //that means it works on the files in the Merge-folder, which do not necessarily correspond to the current variables-file, i.e. .../Config/VarConfig.xml
 
                     (new VariablesApplyAdministrator(this, _variablesMergeForm, _vcFacLocal, _vcFacRemote)).Apply();
+
                 }
                 else if(_configFileName == EMPath.EM2_FILE_HICP)
                 {
                     _hicpConfigMergeForm.Cursor = Cursors.WaitCursor;
+
                     GetOrReadXmlVariables(); //apply needs the data as stored in .../Merge/ (which is already read, unless a stored merge-info was used)
                                              //that means it works on the files in the Merge-folder, which do not necessarily correspond to the current variables-file, i.e. .../Config/VarConfig.xml
 
                     (new HICPConfigApplyAdministrator(this, _hicpConfigMergeForm, _vcFacHICPLocal, _vcFacHICPRemote)).Apply();
-                }else if(_configFileName == EMPath.EM2_FILE_EXRATES)
+
+                }
+                else if(_configFileName == EMPath.EM2_FILE_EXRATES)
                 {
                     _exchangeRatesConfigMergeForm.Cursor = Cursors.WaitCursor;
+
                     GetOrReadXmlVariables(); //apply needs the data as stored in .../Merge/ (which is already read, unless a stored merge-info was used)
                                              //that means it works on the files in the Merge-folder, which do not necessarily correspond to the current variables-file, i.e. .../Config/VarConfig.xml
 
                     (new ExchangeRatesConfigApplyAdministrator(this, _exchangeRatesConfigMergeForm, _vcFacExchangeRatesLocal, _vcFacExchangeRatesRemote)).Apply();
-                }else if (_configFileName == EMPath.EM2_FILE_EXTENSIONS)
+
+
+                }
+                else if (_configFileName == EMPath.EM2_FILE_EXTENSIONS)
                 {
                     _switchablePolicyConfigMergeForm.Cursor = Cursors.WaitCursor;
+
                     GetOrReadXmlVariables(); //apply needs the data as stored in .../Merge/ (which is already read, unless a stored merge-info was used)
                                              //that means it works on the files in the Merge-folder, which do not necessarily correspond to the current variables-file, i.e. .../Config/VarConfig.xml
 
@@ -2538,6 +2583,7 @@ namespace EM_UI.VersionControl.Merging
 
                 GetOrReadXml(); //apply needs the data as stored in .../cc/Merge/ (which is already read, unless a stored merge-info was used)
                                 //that means it works on the files in the Merge-folder, including cc_Local, which do not necessarily correspond to the current country-files in .../cc/
+
                 (new ApplyAdministrator(this, _mergeForm, _ccFacLocal, _isAddOn ? null : _dcFacLocal, _ccFacRemote, _isAddOn ? null : _dcFacRemote, _vcFacSwitchablePolicyLocal, _vcFacSwitchablePolicyRemote)).Apply();
 
                 //store the result in the country folder (and not in the merge-folder, were it is produced)
@@ -2675,22 +2721,23 @@ namespace EM_UI.VersionControl.Merging
         void UpdateNodesInfo(List<MergeControl.NodeInfo> nodeInfoLocal, List<MergeControl.NodeInfo> nodeInfoRemote, Dictionary<string, Dictionary<string, double>> yearValuesDictLocal, Dictionary<string, Dictionary<string, double>> yearValuesDictRemote, Dictionary<string, Dictionary<string, double>> yearValuesDictParent, List<string> ids)
         {
             //We need to get the HICP node in order to remove it
-            MergeControl.NodeInfo hicpNodeLocal = null;
-            MergeControl.NodeInfo hicpNodeRemote = null;
 
+            List<MergeControl.NodeInfo> hicpNodeLocal = new List<MergeControl.NodeInfo>();
+            List<MergeControl.NodeInfo> hicpNodeRemote = new List<MergeControl.NodeInfo>();
             foreach (MergeControl.NodeInfo node in nodeInfoLocal)
             {
                 foreach (MergeControl.CellInfo cell in node.cellInfo)
                 {
                     if (cell.columnID.ToLower().Equals("reference") && cell.text.ToLower().Equals("$hicp"))
                     {
-                        hicpNodeLocal = node;
+                        hicpNodeLocal.Add(node);
+                        
                         break;
                     }
                 }
             }
 
-            nodeInfoLocal.Remove(hicpNodeLocal);
+            
 
             foreach (MergeControl.NodeInfo node in nodeInfoRemote)
             {
@@ -2698,13 +2745,97 @@ namespace EM_UI.VersionControl.Merging
                 {
                     if (cell.columnID.ToLower().Equals("reference") && cell.text.ToLower().Equals("$hicp"))
                     {
-                        hicpNodeRemote = node;
+                        hicpNodeRemote.Add(node);
+
                         break;
                     }
                 }
             }
 
-            nodeInfoRemote.Remove(hicpNodeRemote);
+
+            //HICP nodes are removed
+            //There may be more than one if they have different ids in remote and local
+
+            //We search first the ones in local
+            foreach (MergeControl.NodeInfo nodeRemote in hicpNodeRemote)
+            {
+                string id = "";
+                bool foundLocal = false;
+                MergeControl.NodeInfo foundNodeLocal = null;
+                id = nodeRemote.ID;
+
+                foreach (MergeControl.NodeInfo nodeLocal in hicpNodeLocal)
+                {
+                    if (nodeLocal.ID.Equals(id))
+                    {
+                        foundLocal = true;
+                        break;
+                    }
+                }
+
+                if (!foundLocal)
+                {
+                    foreach (MergeControl.NodeInfo node in nodeInfoLocal)
+                    {
+                        if (node.ID.Equals(id))
+                        {
+                            foundLocal = true;
+                            foundNodeLocal = node;
+                            break;
+                        }
+                    }
+                }
+
+                if (foundLocal && foundNodeLocal != null)
+                {
+                    nodeInfoLocal.Remove(foundNodeLocal);
+                }
+            }
+
+            //Now we search in the remote
+            foreach (MergeControl.NodeInfo nodeLocal in hicpNodeLocal)
+            {
+                string id = nodeLocal.ID;
+                bool foundRemote = false;
+                MergeControl.NodeInfo foundNodeRemote = null;
+
+                foreach (MergeControl.NodeInfo nodeRemote in hicpNodeRemote)
+                {
+                    if (nodeRemote.ID.Equals(id)){
+                        foundRemote = true;
+                        break;
+                    }
+                }
+
+                if (!foundRemote)
+                {
+                    foreach (MergeControl.NodeInfo node in nodeInfoRemote)
+                    {
+                        if (node.ID.Equals(id)){
+                            foundRemote = true;
+                            foundNodeRemote = node;
+                            break;
+                        }
+                    }
+                }
+
+                if (foundRemote && foundNodeRemote != null)
+                {
+                    nodeInfoRemote.Remove(foundNodeRemote);
+                }
+            }
+
+            //Now, the already found ones are removed
+            foreach (MergeControl.NodeInfo nodeRemote in hicpNodeRemote)
+            {
+                nodeInfoRemote.Remove(nodeRemote);
+            }
+            foreach (MergeControl.NodeInfo nodeLocal in hicpNodeLocal)
+            {
+                nodeInfoLocal.Remove(nodeLocal);
+            }
+
+
 
             //First, we fill in the nodeInfoLocal
             foreach (MergeControl.NodeInfo node in nodeInfoLocal)

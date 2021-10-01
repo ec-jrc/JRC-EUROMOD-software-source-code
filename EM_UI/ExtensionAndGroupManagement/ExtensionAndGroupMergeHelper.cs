@@ -1,4 +1,5 @@
 ﻿using EM_UI.DataSets;
+using EM_UI.VersionControl.Merging;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,9 +29,17 @@ namespace EM_UI.ExtensionAndGroupManagement
                 if (pe.ExtensionID == extensionID) parameterInfo.Add(pe.ParameterID, pe.BaseOff);
         }
 
-        internal static void CopyGlobalExtensionFromAnotherConfig(SwitchablePolicyConfig switchablePolicyConfig, GlobLocExtensionRow origExtensionRow)
+        internal static void CopyGlobalExtensionFromAnotherConfig(SwitchablePolicyConfig switchablePolicyConfig, GlobLocExtensionRow origExtensionRow, MergeControl.NodeInfo node = null)
         {
-            switchablePolicyConfig.SwitchablePolicy.AddSwitchablePolicyRow(origExtensionRow.ID, origExtensionRow.ShortName, origExtensionRow.Name, origExtensionRow.Look);
+            if(origExtensionRow != null)
+            {
+                switchablePolicyConfig.SwitchablePolicy.AddSwitchablePolicyRow(origExtensionRow.ID, origExtensionRow.ShortName, origExtensionRow.Name, origExtensionRow.Look);
+
+            }
+            else
+            {
+                switchablePolicyConfig.SwitchablePolicy.AddSwitchablePolicyRow(node.ID, node.cellInfo[0].text, node.cellInfo[1].text, node.cellInfo[2].text);
+            }
         }
 
         internal static List<DataConfig.ExtensionRow> GetLocalExtensions(DataConfigFacade dataConfigFacade)

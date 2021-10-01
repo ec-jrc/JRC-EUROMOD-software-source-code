@@ -56,7 +56,7 @@ namespace EM_UI.Actions
             if (_dataConfigFacade != null)
             {
                 // rename standard-output-files (last parameter (request): ask user if she actually wants this to happen)
-                CopySystemAction.RenameOutputFiles(_countryConfigFacade, systemRow, oldSystemName, true);
+                CopySystemAction.RenameInputOutputFiles(_countryConfigFacade, systemRow, oldSystemName, true);
                 // change name in global exchange rate file
                 ChangeNameInExchangeRatesConfig(systemRow, oldSystemName);
                 // warn about not-adaptation of AddOn_Applic-policy

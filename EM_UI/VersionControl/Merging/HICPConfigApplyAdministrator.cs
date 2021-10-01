@@ -34,6 +34,7 @@ namespace EM_UI.VersionControl.Merging
 
         internal void Apply()
         {
+
             //apply locally rejected or remotely accepted changes of variables (e.g. monetary-state)
             ApplyChanges(_mcHICPConfig, _vcLocal.HICP, _vcLocal.HICP.CountryColumn.ColumnName, _vcLocal.HICP.YearColumn.ColumnName, true);
             ApplyChanges(_mcHICPConfig, _vcLocal.HICP, _vcLocal.HICP.CountryColumn.ColumnName, _vcLocal.HICP.YearColumn.ColumnName, false);

@@ -16,8 +16,10 @@ namespace EM_UI.VersionControl.Merging
         {
             try
             {
+                string logPath = new EMPath(EM_AppContext.FolderEuromodFiles).GetEmLogFilePath();
+                if (!File.Exists(logPath)) return new List<string>();
                 SpreadsheetControl emLog = new SpreadsheetControl();
-                if (!emLog.LoadDocument(new EMPath(EM_AppContext.FolderEuromodFiles).GetEmLogFilePath())) return new List<string>();
+                if (!emLog.LoadDocument(logPath)) return new List<string>();
                
                 // find the relevant worksheet
                 Worksheet log = null;

@@ -12,27 +12,38 @@ namespace EM_UI.Tools
     internal class BrandHandler
     {
         private const string BRAND_ELEMENT_PROJECT_NAME = "ProjectName";
-        private const string BRAND_BACKGROUND_IMAGE_PREFIX = "brand_background_";
-        private const string BRAND_ICON_PREFIX = "brand_icon_";
+        private const string BRAND_ELEMENT_PROJECT_TITLE = "Title";
+        private const string BRAND_ELEMENT_BACKGROUND_IMAGE_PATH = "BackgroundImage";
+        private const string BRAND_ELEMENT_BACKGROUND_IMAGE_LAYOUT = "BackgroundImageLayout";
+        private const string BRAND_ELEMENT_ICON_PATH = "Icon";
+
+        private static string brandName;
+        private static string brandTitle;
+        private static string brandBackgroundImagePath;
+        private static string brandBackgroundImageLayout;
+        private static string brandIconPath;
 
         internal static void PrepareBrand(EM_UI_MainForm emptyForm)
         {
             try
             {
-                string brandName = GetProjectNameOrDefault();
-                string brandTitle = Properties.Resources.ResourceManager.GetString("brand_title_" + brandName);
+                GetProjectBrandInfo();
 
-                if (String.IsNullOrEmpty(brandTitle))
+                if (String.IsNullOrEmpty(brandName)) 
                 {
-                    brandTitle = brandName = "EUROMOD";
+                    brandTitle = brandName = DefGeneral.BRAND_NAME_DEFAULT;
                     // For now, completely go silent if the brand is wrong. To warn, uncomment the line below:
                     //UserInfoHandler.ShowError($"File '{projectSettingsFullPath}' does not contain a valid Project Name.{Environment.NewLine}Alternative brand is ignored.");
                 }
-
-                DefGeneral.BRAND_TITLE = brandTitle;
-                DefGeneral.BRAND_NAME = brandName;
-                SetBackgroundImage(emptyForm);
-                SetIcon(emptyForm);
+                else
+                {
+                    if (String.IsNullOrEmpty(brandTitle)) brandTitle = brandName;
+                    DefGeneral.BRAND_NAME = brandName;
+                    DefGeneral.BRAND_TITLE = brandTitle;
+                    SetBackgroundImage(emptyForm);
+                    SetBackgroundImageLayout(emptyForm);
+                    SetIcon(emptyForm);
+                }
                 emptyForm.btnRun.Caption = $"Run{Environment.NewLine}{DefGeneral.BRAND_TITLE}";
                 emptyForm.barText_PoweredBy.Caption = DefGeneral.IsAlternativeBrand() ? GetPoweredByText() : string.Empty;
             }
@@ -43,16 +54,17 @@ namespace EM_UI.Tools
         }
 
         // this reads the ProjectSettings.xml if it exists and returns the ProjectName field if it exists, or null otherwise
-        private static string GetProjectNameOrDefault()
+        private static void GetProjectBrandInfo()
         {
-            string brandName = null;
-            string projectSettingsFullPath = new EMPath(EM_AppContext.FolderEuromodFiles).GetProjectSettingsPath(true);
+            string projectSettingsFullPath = new EMPath(EM_AppContext.FolderEuromodFiles).GetProjectSettingsFilePath(true);
+            brandName = brandTitle = brandBackgroundImagePath = brandBackgroundImageLayout = brandIconPath = string.Empty;   // first remove any existing brand!
             if (File.Exists(projectSettingsFullPath))
             {
                 try
                 {
                     using (XmlReader xmlReader = XmlReader.Create(projectSettingsFullPath, new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
                     {
+                        string brandFilesFullPath = Path.Combine(Path.GetDirectoryName(projectSettingsFullPath), "BrandFiles");
                         xmlReader.Read();
                         while (xmlReader.NodeType != XmlNodeType.None && (xmlReader.NodeType != XmlNodeType.Element || xmlReader.Name != "ProjectSettings")) xmlReader.Read();
                         if (xmlReader.NodeType == XmlNodeType.None)
@@ -63,7 +75,11 @@ namespace EM_UI.Tools
                             if (xe.Value == null) continue;
                             switch (GetXEleName(xe))
                             {
+                                case BRAND_ELEMENT_BACKGROUND_IMAGE_PATH: brandBackgroundImagePath = Path.Combine(brandFilesFullPath, xe.Value); break;
+                                case BRAND_ELEMENT_BACKGROUND_IMAGE_LAYOUT: brandBackgroundImageLayout = xe.Value; break;
+                                case BRAND_ELEMENT_ICON_PATH: brandIconPath = Path.Combine(brandFilesFullPath, xe.Value); break;
                                 case BRAND_ELEMENT_PROJECT_NAME: brandName = xe.Value; break;
+                                case BRAND_ELEMENT_PROJECT_TITLE: brandTitle = xe.Value; break;
                                 default: break; // unknown tags are simply ignored for now
                             }
                         };
@@ -71,7 +87,7 @@ namespace EM_UI.Tools
                 }
                 catch { }
             }
-            return String.IsNullOrEmpty(brandName) ? "EUROMOD" : brandName;  // return the brand or 
+            if (String.IsNullOrEmpty(brandName)) brandName = DefGeneral.BRAND_NAME_DEFAULT;  
         }
 
         private static string GetXEleName(XElement xe) { return xe.Name == null ? string.Empty : xe.Name.ToString(); }
@@ -80,21 +96,46 @@ namespace EM_UI.Tools
 
         private static void SetBackgroundImage(EM_UI_MainForm emptyForm)
         {
+            if (!DefGeneral.IsAlternativeBrand()) return;
             // if a brand logo exists, use it
-            object obj = Properties.Resources.ResourceManager.GetObject(BRAND_BACKGROUND_IMAGE_PREFIX + DefGeneral.BRAND_NAME);
-            if (obj != null && obj is Image)
+            if (!string.IsNullOrEmpty(brandBackgroundImagePath) && File.Exists(brandBackgroundImagePath))
             {
-                emptyForm.treeList.BackgroundImage = (Image)obj;
+                try
+                {
+                    emptyForm.treeList.BackgroundImage = Image.FromFile(brandBackgroundImagePath);
+                } catch { }
+            }
+        }
+        private static void SetBackgroundImageLayout(EM_UI_MainForm emptyForm)
+        {
+            if (!DefGeneral.IsAlternativeBrand()) return;
+            if (!string.IsNullOrEmpty(brandBackgroundImageLayout))
+            {
+                switch (brandBackgroundImageLayout.ToLower())
+                {
+                    case "stretch": emptyForm.treeList.BackgroundImageLayout = ImageLayout.Stretch; break;
+                    case "center": emptyForm.treeList.BackgroundImageLayout = ImageLayout.Center; break;
+                    case "tile": emptyForm.treeList.BackgroundImageLayout = ImageLayout.Tile; break;
+                    case "zoom": emptyForm.treeList.BackgroundImageLayout = ImageLayout.Zoom; break;
+                    case "none": emptyForm.treeList.BackgroundImageLayout = ImageLayout.None; break;
+                }
             }
         }
 
         private static void SetIcon(EM_UI_MainForm emptyForm)
         {
+            if (!DefGeneral.IsAlternativeBrand()) return;
             // if a brand icon exists, use it
-            object obj = Properties.Resources.ResourceManager.GetObject(BRAND_ICON_PREFIX + DefGeneral.BRAND_NAME);
-            if (obj != null && obj is Icon)
+            if (!string.IsNullOrEmpty(brandBackgroundImagePath) && File.Exists(brandIconPath))
             {
-                emptyForm.Icon = (Icon)obj;
+                try
+                {
+                    if (brandIconPath.EndsWith(".ico"))
+                        emptyForm.Icon = Icon.ExtractAssociatedIcon(brandIconPath);
+                    else
+                        emptyForm.Icon = EM_UI.Tools.IconConverter.MakeIcon(Image.FromFile(brandIconPath));
+                }
+                catch { }
             }
         }
     }

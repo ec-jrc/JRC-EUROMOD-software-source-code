@@ -123,7 +123,11 @@ namespace EM_UI.DataSets
             if (useDefaultOutputFolder) settings.Settings.First().OutputFolder = projectPath + "output";
             if (useDefaultInputFolder) settings.Settings.First().InputFolder = projectPath + "input";
 
+            //ViewSettings is not copied from one project to the following
+            settings.Settings.First().ViewSettings = string.Empty;
+
             string settingsPath = GetAnySettingsFullName();
+            
             //MessageBox.Show(settingsPath);
             SaveSettings(settings, settingsPath); //store as GuidUserSetting.txt
             return settingsPath;

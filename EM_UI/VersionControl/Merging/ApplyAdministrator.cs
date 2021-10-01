@@ -162,6 +162,7 @@ namespace EM_UI.VersionControl.Merging
 
         internal void Apply()
         {
+
             //apply locally rejected or remotely accepted pure value changes, i.e. parameter-values and policy/function-switches (elements available in both, local and remote)
             ChangeValues(true); ChangeValues(false);
 
@@ -176,19 +177,21 @@ namespace EM_UI.VersionControl.Merging
 
             //apply locally rejected or remotely accepted changes in system settings (currency, exchange-rate, etc.)
             ChangeSystemSettings(true); ChangeSystemSettings(false);
-            
+
             //add locally removed and rejected or remotely added and accepted policies, functions and parameters
             AddComponents(true); AddComponents(false);
-           
+
             _spineSequencer.PerformSequencing();    //note that it is necessary to do the re-ordering here and below again
             _policySequencer.PerformSequencing();   //because here it is based on the remote original-order and below on the local original-order
             _functionSequencer.PerformSequencing(); //for the Sequencer it is necessary to work on one original-order
                                                     //also note that the Sequencer deletes its info (given via TakeComponent) after having performed (i.e. after PerformSequencing)
+
             //apply locally rejected or remotely accepted changes concerning all systems (name, comment, etc.)
             ChangeSettings(true); ChangeSettings(false);
 
+
             //adapt sequence if locally rejected and reorder all components which need reordering
-           AdaptSequence();
+            AdaptSequence();
             _spineSequencer.PerformSequencing();
             _policySequencer.PerformSequencing();
             _functionSequencer.PerformSequencing();
@@ -1058,7 +1061,8 @@ namespace EM_UI.VersionControl.Merging
             {
                 string extID = addContent.Key, polFunPar = addContent.Value;
                 string preFix = polFunPar.Substring(0, MergeAdministrator.MERGEINFO_POLID.Length);
-                string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_POLID.Length);
+                string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_POLID.Length, polFunPar.LastIndexOf(MergeAdministrator.MERGEINFO_EXTID) - MergeAdministrator.MERGEINFO_EXTID.Length);
+
                 switch (preFix)
                 {
                     case MergeAdministrator.MERGEINFO_POLID:
@@ -1191,7 +1195,8 @@ namespace EM_UI.VersionControl.Merging
         { // as we stored only the ID of one pol/fun/par (i.e. of an arbitrary system), we need to find all Extension_XXXRows of all systems
             List<DataRow> twinRows = new List<DataRow>();
             string preFix = polFunPar.Substring(0, MergeAdministrator.MERGEINFO_GROUP_POLID.Length);
-            string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_GROUP_POLID.Length);
+            string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_GROUP_POLID.Length, polFunPar.LastIndexOf(MergeAdministrator.MERGEINFO_GROUPID) - MergeAdministrator.MERGEINFO_GROUPID.Length);
+
             switch (preFix)
             {
                 case MergeAdministrator.MERGEINFO_POLID:
@@ -1251,7 +1256,8 @@ namespace EM_UI.VersionControl.Merging
             {
                 string lookGroupsID = addContent.Key, polFunPar = addContent.Value;
                 string preFix = polFunPar.Substring(0, MergeAdministrator.MERGEINFO_GROUP_POLID.Length);
-                string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_GROUP_POLID.Length);
+                string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_GROUP_POLID.Length, polFunPar.LastIndexOf(MergeAdministrator.MERGEINFO_GROUPID) - MergeAdministrator.MERGEINFO_GROUPID.Length);
+
                 CountryConfig.LookGroupRow groupRow = _ccFacLocal.GetCountryConfig().LookGroup.FindByID(lookGroupsID);
                 switch (preFix)
                 {
@@ -1315,7 +1321,9 @@ namespace EM_UI.VersionControl.Merging
         { // as we stored only the ID of one pol/fun/par (i.e. of an arbitrary system), we need to find all Extension_XXXRows of all systems
             List<DataRow> twinRows = new List<DataRow>();
             string preFix = polFunPar.Substring(0, MergeAdministrator.MERGEINFO_POLID.Length);
-            string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_POLID.Length);
+            //int polFunParIDLen = polFunPar.LastIndexOf(MergeAdministrator.MERGEINFO_EXTID);
+            string polFunParID = polFunPar.Substring(MergeAdministrator.MERGEINFO_POLID.Length, polFunPar.LastIndexOf(MergeAdministrator.MERGEINFO_EXTID) - MergeAdministrator.MERGEINFO_EXTID.Length);
+
             switch (preFix)
             {
                 case MergeAdministrator.MERGEINFO_POLID:

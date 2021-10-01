@@ -223,11 +223,20 @@ namespace EM_UI.VersionControl
                         {
                             mergingInfo = Environment.NewLine + Environment.NewLine + "Note: Could not receive Merging info for this project.";
                         }
-                        _vcAPI.checkExistAnyBundle();
 
-                        UserInfoHandler.ShowSuccess(string.Format("Successfully connected local project to version control (project {0} {1}). {2}",
-                                                                    selectProject.GetSelectedProject().Id, selectProject.GetSelectedProject().Name, mergingInfo));
+                        string errorExistBundle = string.Empty;
+                        _vcAPI.checkExistAnyBundle(out errorExistBundle);
 
+                        if (!String.IsNullOrEmpty(errorExistBundle))
+                        {
+                            UserInfoHandler.ShowError(errorExistBundle);
+                        }
+
+                        else
+                        {
+                            UserInfoHandler.ShowSuccess(string.Format("Successfully connected local project to version control (project {0} {1}). {2}",
+                                                                        selectProject.GetSelectedProject().Id, selectProject.GetSelectedProject().Name, mergingInfo));
+                        }
 
                         if (_vcAPI.GetMergingUser(out mergingInfo))
                         {
@@ -302,13 +311,44 @@ namespace EM_UI.VersionControl
             List<VersionControlUnitInfo> unitInfos = _vcAPI.GetReleaseUnitsInfo(projectId, releaseName);
             if (unitInfos == null) { e.Cancel = true; return; }
             int done = 0;
-            foreach(VersionControlUnitInfo unitInfo in unitInfos)
+
+            SortedDictionary<string, VersionControlUnitInfo> countries = new SortedDictionary<string, VersionControlUnitInfo>();
+            SortedDictionary<string, VersionControlUnitInfo> addons = new SortedDictionary<string, VersionControlUnitInfo>();
+            SortedDictionary<string, VersionControlUnitInfo> configs = new SortedDictionary<string, VersionControlUnitInfo>();
+            SortedDictionary<string, VersionControlUnitInfo> other = new SortedDictionary<string, VersionControlUnitInfo>();
+            var unitTypes = new[] { countries, addons, configs, other };
+
+            foreach (VersionControlUnitInfo unitInfo in unitInfos)
             {
-                outUnits.Add(unitInfo);
-                done++;
-                double progressDouble = (done + 1.0) / (unitInfos.Count * 1.0) * 100.0;
-                int progress = (int)progressDouble;
-                backgroundWorker.ReportProgress(progress);
+                switch (unitInfo.UnitType)
+                {
+                    case VCAPI.VC_FOLDER_TYPE.COUNTRY:
+                        countries.Add(unitInfo.Name, unitInfo);
+                        break;
+                    case VCAPI.VC_FOLDER_TYPE.ADDON:
+                        addons.Add(unitInfo.Name, unitInfo);
+                        break;
+                    case VCAPI.VC_FOLDER_TYPE.CONFIG:
+                        configs.Add(unitInfo.Name, unitInfo);
+                        break;
+                    default:
+                        other.Add(unitInfo.Name, unitInfo);
+                        break;
+
+                }
+            }
+
+            for (int j = 0; j < unitTypes.Length; j++)
+            {
+                foreach (KeyValuePair<string, VersionControlUnitInfo> entry in unitTypes[j])
+                {
+                    VersionControlUnitInfo unitInfo = entry.Value;
+                    outUnits.Add(unitInfo);
+                    done++;
+                    double progressDouble = (done + 1.0) / (unitInfos.Count * 1.0) * 100.0;
+                    int progress = (int)progressDouble;
+                    backgroundWorker.ReportProgress(progress);
+                }
             }
 
             e.Result = new Tuple<List<VersionControlUnitInfo>>(outUnits);
@@ -930,7 +970,15 @@ namespace EM_UI.VersionControl
                     removeBundle.ShowDialog();
                 }
 
-                _vcAPI.checkExistAnyBundle();
+                String errorExistBundle = string.Empty;
+                _vcAPI.checkExistAnyBundle(out errorExistBundle);
+
+                if (!String.IsNullOrEmpty(errorExistBundle))
+                {
+                    UserInfoHandler.ShowError(errorExistBundle);
+                }
+
+
                 EM_AppContext.Instance.AllCountryMainForm_SetSetVCButtonsGreyState();
             }catch(Exception ex){
                 EM_AppContext.Instance.GetActiveCountryMainForm().Cursor = Cursors.Default;
@@ -1099,14 +1147,17 @@ namespace EM_UI.VersionControl
                                 _vcAPI.setLocalBundlePath(String.Empty);
                                 _vcAPI.setIsThisLatestBundle(false);
 
+                                string newFolderFinalName = string.Empty;
                                 string newFolderName = _vcAPI.vc_projectInfo.ProjectName + "_" + releaseVersion;
+                                bool requestRenameFolder = _vcAPI.buildPath(newFolderName, out newFolderFinalName);
+
                                 string newProjectPath = string.Empty;
-                                if (MessageBox.Show(null, "Would you like to rename your project's folder to " + newFolderName + "?", "Rename current project folder", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                if (requestRenameFolder && MessageBox.Show(null, "Would you like to rename your project's folder to " + newFolderFinalName + "?", "Rename current project folder", MessageBoxButtons.YesNo) == DialogResult.Yes)
                                 {
                                     if (CloseIfAnythingOpen("Renaming the project's folder"))
                                     {
                                         EM_AppContext.Instance.GetActiveCountryMainForm().Cursor = Cursors.WaitCursor;
-                                        if (_vcAPI.RenameProjectFolder(newFolderName, out newProjectPath) && !string.IsNullOrEmpty(newProjectPath))
+                                        if (_vcAPI.RenameProjectFolder(newFolderFinalName, out newProjectPath) && !string.IsNullOrEmpty(newProjectPath))
                                         {
                                             string pathUserSettings = UserSettingsAdministrator.GenerateProjectSettings(EMPath.AddSlash(newProjectPath).ToLower());
 
@@ -1140,7 +1191,8 @@ namespace EM_UI.VersionControl
                         EM_AppContext.Instance.GetActiveCountryMainForm().Cursor = Cursors.Default;
                     }
 
-                    _vcAPI.checkExistAnyBundle();
+                    String errorExistBundle = string.Empty;
+                    _vcAPI.checkExistAnyBundle(out errorExistBundle);
                     EM_AppContext.Instance.AllCountryMainForm_SetSetVCButtonsGreyState();
                 }
             }catch(Exception ex)
@@ -1175,7 +1227,14 @@ namespace EM_UI.VersionControl
 
             }
 
-            _vcAPI.checkExistAnyBundle();
+            String errorExistBundle = string.Empty;
+            _vcAPI.checkExistAnyBundle(out errorExistBundle);
+
+            if (!String.IsNullOrEmpty(errorExistBundle))
+            {
+                UserInfoHandler.ShowError(errorExistBundle);
+            }
+
             EM_AppContext.Instance.AllCountryMainForm_SetSetVCButtonsGreyState();
             return true;
         }
@@ -1247,7 +1306,14 @@ namespace EM_UI.VersionControl
                     {
                         MessageBox.Show("Could not abort creation of a new online bundle: " + Environment.NewLine + _vcAPI.GetErrorMessage());
                     }
-                    _vcAPI.checkExistAnyBundle();
+
+                    String errorExistBundle = string.Empty;
+                    _vcAPI.checkExistAnyBundle(out errorExistBundle);
+
+                    if (!String.IsNullOrEmpty(errorExistBundle))
+                    {
+                        UserInfoHandler.ShowError(errorExistBundle);
+                    }
 
                     EM_AppContext.Instance.AllCountryMainForm_SetSetVCButtonsGreyState();
                 }
@@ -1378,6 +1444,8 @@ namespace EM_UI.VersionControl
 
                 if (failure.Count == 0) UserInfoHandler.ShowSuccess($"Successfully generate the new project at '{euromodFolder}'.");
                 else ReportSuccessFailure("Generating new project", success, failure);
+
+                EM_AppContext.Instance.InitViewKeeper();
 
                 caller.Cursor = Cursors.Default;
 
@@ -1523,8 +1591,6 @@ namespace EM_UI.VersionControl
             }
         }
 
-        bool GenerateMergeEnvironement(VersionControlUnitInfo unitInfo, string conflictedCommitId, string commonParentCommitId)
-        { string dummy; return GenerateMergeEnvironement(unitInfo, conflictedCommitId, commonParentCommitId, false, out dummy); }
         bool GenerateMergeEnvironement(VersionControlUnitInfo unitInfo, string mergeCommitId, string commonParentCommitId, bool forDownloadRelease, out string errMessage)
         {
             const string tempConflict = "tempConflict"; errMessage = string.Empty;
@@ -1543,7 +1609,7 @@ namespace EM_UI.VersionControl
                 ? new MergeAdministrator(unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG, unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.ADDON, unitInfo.Name, unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG ? unitInfo.Name + ".xml" : "")
                 : new MergeAdministrator(EM_AppContext.Instance.GetActiveCountryMainForm(), unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG, unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG ? unitInfo.Name + ".xml" : "");
             if (!mergeAdministrator.GenerateMergeFileStructure(path, tempConflict + (unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG ? ".xml" : string.Empty),
-                                                               path, tempConflict + (unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG ? "Parent.xml" : "Parent"), false, false))
+                                                               path, tempConflict + (unitInfo.UnitType == VCAPI.VC_FOLDER_TYPE.CONFIG ? "Parent.xml" : "Parent"), true, false))
                 return false;
 
             foreach (FileInfo f in new DirectoryInfo(path).GetFiles(tempConflict + "*")) f.Delete();
@@ -1574,7 +1640,23 @@ namespace EM_UI.VersionControl
         {
             string message = string.Empty;
             if (success != string.Empty)
+            {
+                if(success.Length > 200)
+                {
+                    string successSubstring = success.Substring(0, 150);
+                    int indexEmptyCharacter = successSubstring.LastIndexOf(' ');
+                    string newSuccess = success.Substring(0, indexEmptyCharacter) + Environment.NewLine; 
+                    
+                    if(success.Length > indexEmptyCharacter)
+                    {
+                        newSuccess = newSuccess + success.Substring(indexEmptyCharacter + 1);
+                    }
+                    
+                    success = newSuccess;
+                }
                 message += string.Format("{0} succeeded for {1}.", vcAction, success);
+            }
+                
             if (failure.Count != 0)
             {
                 if (message != string.Empty) message += Environment.NewLine + Environment.NewLine;
@@ -1625,6 +1707,7 @@ namespace EM_UI.VersionControl
             string folderAddOns = EMPath.Folder_AddOns(EM_AppContext.FolderEuromodFiles);
             string fileVarConfig = emPath.GetVarFilePath(true);
             string fileHICPConfig = emPath.GetHICPFilePath(true);
+            string fileProjectSettingsConfig = emPath.GetProjectSettingsFilePath(true);
             string fileExchangeRatesConfig = emPath.GetExRatesFilePath(true);
             string fileSwitchablePolicyConfig = emPath.GetExtensionsFilePath(true);
             string fileLog = emPath.GetEmLogFilePath();
@@ -1636,6 +1719,7 @@ namespace EM_UI.VersionControl
                 folderAddOns = emPath.Folder_AtAlternativeEMPath(folderAddOns, projectPath);
                 fileVarConfig = emPath.File_AtAlternativeEMPath(fileVarConfig, projectPath);
                 fileHICPConfig = emPath.File_AtAlternativeEMPath(fileHICPConfig, projectPath);
+                fileProjectSettingsConfig = emPath.File_AtAlternativeEMPath(fileProjectSettingsConfig, projectPath);
                 fileExchangeRatesConfig = emPath.File_AtAlternativeEMPath(fileExchangeRatesConfig, projectPath);
                 fileSwitchablePolicyConfig = emPath.File_AtAlternativeEMPath(fileSwitchablePolicyConfig, projectPath);
                 fileLog = emPath.File_AtAlternativeEMPath(fileLog, projectPath);
@@ -1679,6 +1763,13 @@ namespace EM_UI.VersionControl
                 {
                     UnitId = tempUnitId++,
                     Name = Path.GetFileNameWithoutExtension(EMPath.EM2_FILE_HICP),
+                    UnitType = VCAPI.VC_FOLDER_TYPE.CONFIG
+                });
+            if (File.Exists(fileProjectSettingsConfig))
+                units.Add(new VersionControlUnitInfo
+                {
+                    UnitId = tempUnitId++,
+                    Name = Path.GetFileNameWithoutExtension(EMPath.EM2_FILE_PROJECT_SETTINGS),
                     UnitType = VCAPI.VC_FOLDER_TYPE.CONFIG
                 });
             if (File.Exists(fileExchangeRatesConfig))

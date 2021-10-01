@@ -24,15 +24,16 @@
         /// </summary>
         internal void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VariablesForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
-            this.applicationMenu = new DevExpress.XtraBars.Ribbon.ApplicationMenu();
+            this.applicationMenu = new DevExpress.XtraBars.Ribbon.ApplicationMenu(this.components);
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
             this.btnImportVariables = new DevExpress.XtraBars.BarButtonItem();
             this.btnCleanVariables = new DevExpress.XtraBars.BarButtonItem();
             this.btnClose = new DevExpress.XtraBars.BarButtonItem();
-            this.barAndDockingController = new DevExpress.XtraBars.BarAndDockingController();
+            this.barAndDockingController = new DevExpress.XtraBars.BarAndDockingController(this.components);
             this.btnUndo = new DevExpress.XtraBars.BarButtonItem();
             this.btnRedo = new DevExpress.XtraBars.BarButtonItem();
             this.btnAddVariable = new DevExpress.XtraBars.BarButtonItem();
@@ -114,7 +115,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tipVariablesForm = new System.Windows.Forms.ToolTip();
+            this.tipVariablesForm = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
@@ -1041,7 +1042,7 @@
             // 
             // colVariableName
             // 
-            this.colVariableName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colVariableName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.colVariableName.HeaderText = "Name";
             this.colVariableName.Name = "colVariableName";
             this.colVariableName.Width = 59;

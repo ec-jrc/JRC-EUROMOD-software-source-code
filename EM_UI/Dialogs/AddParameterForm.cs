@@ -248,6 +248,7 @@ namespace EM_UI.Dialogs
                 {
                     string parName = apt._parName; DefinitionAdmin.Par parDef = apt._parDef;
                     string groupName = apt._parGroup == null ? string.Empty : apt._parGroup.groupName;
+                    string defValue = apt._parDef.defaultValue == null ? "" : apt._parDef.defaultValue.ToString();
                     bool isGroup = apt._parGroup != null; //parameter belongs/doesn't belong to a group; does: comp_Cond, comp_perTU
                     bool isSingle = parDef.maxCount == 1; //parameter can/cannot be used more than once; can: DefOuput/Var, cannot: TAX_UNIT
                     bool isFootnote = parDef.isFootnote; //parameter is/isn't a footnote parameter; is: #_UpLim, #_Amount
@@ -310,7 +311,7 @@ namespace EM_UI.Dialogs
                         }
                     }
 
-                    int index = dgvParameter.Rows.Add(false, parName, subsitude, groupOrNo, count, parDef.description);
+                    int index = dgvParameter.Rows.Add(false, parName, subsitude, groupOrNo, count, defValue, parDef.description);
                     dgvParameter.Rows[index].Tag = apt;
                 }
 

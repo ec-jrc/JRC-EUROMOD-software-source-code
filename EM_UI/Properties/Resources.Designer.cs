@@ -101,38 +101,22 @@ namespace EM_UI.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to EUROMOD.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static string brand_title_EUROMOD {
+        internal static System.Drawing.Bitmap brand_background_EUROMOD {
             get {
-                return ResourceManager.GetString("brand_title_EUROMOD", resourceCulture);
+                object obj = ResourceManager.GetObject("brand_background_EUROMOD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SOUTHMOD.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static string brand_title_SOUTHMOD {
+        internal static System.Drawing.Icon brand_icon_EUROMOD {
             get {
-                return ResourceManager.GetString("brand_title_SOUTHMOD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SWITCH.
-        /// </summary>
-        internal static string brand_title_SWITCH {
-            get {
-                return ResourceManager.GetString("brand_title_SWITCH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UKMOD.
-        /// </summary>
-        internal static string brand_title_UKMOD {
-            get {
-                return ResourceManager.GetString("brand_title_UKMOD", resourceCulture);
+                object obj = ResourceManager.GetObject("brand_icon_EUROMOD", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -219,9 +203,29 @@ namespace EM_UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EuromodVersion {
+            get {
+                object obj = ResourceManager.GetObject("EuromodVersion", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Filter {
             get {
                 object obj = ResourceManager.GetObject("Filter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap filter_16 {
+            get {
+                object obj = ResourceManager.GetObject("filter_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -312,6 +316,16 @@ namespace EM_UI.Properties {
         internal static System.Drawing.Bitmap import {
             get {
                 object obj = ResourceManager.GetObject("import", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap licence {
+            get {
+                object obj = ResourceManager.GetObject("licence", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -4,6 +4,7 @@ using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
 using DevExpress.XtraTreeList.Nodes;
 using EM_Common;
+using EM_Crypt;
 using EM_UI.Actions;
 using EM_UI.ContextMenu;
 using EM_UI.CountryAdministration;
@@ -46,6 +47,7 @@ namespace EM_UI
 
         TreeListBuilder _treeListBuilder = null;
         TreeListManager _treeListManager = null;
+        ComponentUseForm _componentUseForm = null;
 
         ADOUndoManager _undoManager = null;
         FormulaEditorManager _formulaEditorManager = null;
@@ -181,6 +183,7 @@ namespace EM_UI
                 e.Cancel = true;
                 return;
             }
+            if (_componentUseForm != null) _componentUseForm.Close();
             EM_AppContext.Instance.RemoveCountryMainForm(this);
             isClosing = true;
 
@@ -222,6 +225,7 @@ namespace EM_UI
                 txtInStatusBar.Caption = "Autosaving..."; txtInStatusBar.Refresh();
 
                 PerformAction(new SaveAction(_countryShortName, EMPath.Folder_Temp(EM_AppContext.FolderEuromodFiles), _autoSaveFilePrefix + _countryShortName), false, false);
+                ViewKeeper.StoreSettings(this); EM_AppContext.Instance.StoreViewSettings();
             }
             catch (Exception exception)
             {//do nothing
@@ -548,6 +552,41 @@ namespace EM_UI
             ribbonPageGroupPublicVersion.Visible = EnvironmentInfo.ShowComponent(EnvironmentInfo.Display.PR_producer);
             btnIndirectTaxes.Visibility = EnvironmentInfo.ShowComponent(EnvironmentInfo.Display.IndirectTaxes_debug) ? BarItemVisibility.Always : BarItemVisibility.Never;
             UpdateMainFormCaption();
+
+            // This should always go last to overwrite everything else! 
+            SetSecureButtonsGreyState();
+        }
+
+        private void SetSecureButtonsGreyState()
+        {
+            if (!SecureInfo.IsSecure) return;
+
+            // if required, lock to the current project only
+            if (SecureInfo.LockProject)
+            {
+                // Main menu
+                btnOpen.Visibility = BarItemVisibility.Never;
+                btnNew.Visibility = BarItemVisibility.Never;
+                btnSave_As.Visibility = BarItemVisibility.Never;
+                btnNewProject.Visibility = BarItemVisibility.Never;
+                // Country tools
+                btnImportSystems.Visibility = BarItemVisibility.Never;
+                btnExportSystems.Visibility = BarItemVisibility.Never;
+                btnImportAddOn.Visibility = BarItemVisibility.Never;
+                btnExportAddOn.Visibility = BarItemVisibility.Never;
+                btnMergeCountry.Visibility = BarItemVisibility.Never;
+                btnRestore.Visibility = BarItemVisibility.Never;
+                ribbonPageGroupCompareVersions.Visible = false;
+                // Admin
+                ribbonPageGroupCountry.Visible = false;
+                btnVariablesMerge.Visibility = BarItemVisibility.Never;
+                ribbonPageGroupDeveloperInfo.Visible = false;
+                ribbonPageGroupPublicVersion.Visible = false;
+                ribbonPageGroupExtract.Visible = false;
+                // rest
+                ribbonVersionControl.Visible = false;
+                ribbonPageGroupOpenOutputFile.Visible = false;
+            }
         }
 
         internal void SetVCButtonsGreyState()
@@ -575,7 +614,7 @@ namespace EM_UI
             SetState_btnVCDisConnect(vcControlled);
             btnVCAdministrateContent.Enabled = loggedIn && vcControlled && !isSomeoneCurrentlyMerging && isAdminUser;
             btnVCAdministrateUsers.Enabled = loggedIn && vcControlled && isAdminUser;
-            btnVCNewProject.Enabled = loggedIn;
+            btnVCNewProject.Enabled = true;
             btnVCRemoveBundle.Enabled = loggedIn && vcControlled && hasWritingPermissions;
 
             btnVCDownloadBundle.Enabled = loggedIn;
@@ -1082,14 +1121,14 @@ namespace EM_UI
         void btnExit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { EM_AppContext.Instance.CloseAllMainForms(true); }
         void btnOpen_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { (new ConfigurePathsForm()).ShowDialog(); }
         void btnConfig_ItemClick(object sender, ItemClickEventArgs e) { ConfigurationForm configurationForm = new ConfigurationForm(); configurationForm.ShowDialog(); }
-        void btnSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { treeList.CloseEditor(); WriteXml(); SetButtonGreyState(); }
+        void btnSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { treeList.CloseEditor(); WriteXml(); ViewKeeper.StoreSettings(this); EM_AppContext.Instance.StoreViewSettings(); SetButtonGreyState(); }
         void btnSearchPolFuncPar_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { _treeListManager.ShowComponentSearchForm(); }
         void btnUndo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { PerformAction(new UndoAction(this._undoManager), true, true); }
         void btnRedo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { PerformAction(new RedoAction(this._undoManager), true, true); }
         void btnConfigSystems_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { PerformAction(new ConfigSystemsAction(_countryShortName, _countryConfigFacade.GetSystemDataTable()), false, false); }
         void btnConfigCountry_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { PerformAction(new ConfigCountryAction(_countryShortName, _countryConfigFacade.GetCountryRow()), false, false); }
         void btnSearchReplace_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { EM_AppContext.Instance.GetFindReplaceForm().Show(false); }
-        void btnComponentUse_ItemClick(object sender, ItemClickEventArgs e) { _treeListManager.ShowComponentUseForm(); }
+        void btnComponentUse_ItemClick(object sender, ItemClickEventArgs e) { ShowComponentUseForm(); }
         void btnExpandPrivate_ItemClick(object sender, ItemClickEventArgs e) { _treeListManager.HandleExpandPrivate(); ; }
         void btnConditionalFormatting_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { _treeListManager.HandleConditionalFormatting(); }
         void btnAddSystem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { _treeListManager.AddSystem(); }
@@ -1122,6 +1161,9 @@ namespace EM_UI
 
         void btnHelp_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { string helpPath; EM_AppContext.Instance.GetHelpPath(out helpPath); Help.ShowHelp(this, helpPath); }
         void btnVersion_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { Tools.UserInfoHandler.ShowInfo(DefGeneral.UI_VERSION); }
+        private void btnLicence_ItemClick(object sender, ItemClickEventArgs e){ try { ShowLicenceForm licenceForm = new ShowLicenceForm(); licenceForm.Show(); } catch(Exception){ MessageBox.Show("The licence file cannot be displayed."); }
+        
+        }
 
         void btnConfigData_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
@@ -1252,6 +1294,13 @@ namespace EM_UI
                 //do nothing: not important enough to risk an error
                 UserInfoHandler.RecordIgnoredException("EM_UI_MainForm.Gallery_CustomDrawItemImage", exception);
             }
+        }
+
+        internal void ShowComponentUseForm()
+        {
+            if (_componentUseForm == null)
+                _componentUseForm = new ComponentUseForm(this);
+            if (!_componentUseForm.Visible) _componentUseForm.Show();
         }
 
         void OpenOutputFile()
@@ -1465,6 +1514,7 @@ namespace EM_UI
         }
 
         #endregion plugins
+
     }  
         
  }

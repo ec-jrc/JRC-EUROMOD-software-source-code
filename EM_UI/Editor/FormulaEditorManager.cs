@@ -122,7 +122,7 @@ namespace EM_UI.Editor
 
         List<IntelliItem> GetIntelliItems()
         {
-            List<IntelliItem> intelliItems = new List<IntelliItem>();
+           List<IntelliItem> intelliItems = new List<IntelliItem>();
             intelliItems.Clear();
 
             try
@@ -389,13 +389,14 @@ namespace EM_UI.Editor
             _treeList.ShowEditor();  // switch Editor on again
 
             string lastWord = string.Empty;
+
             if (_treeList.ActiveEditor != null)
             {
                 int countReplaceChars = 0;
                 if (selectedIntelliItem != string.Empty)
                 {
                     lastWord = GetLastWord(_treeList.ActiveEditor.Text.Substring(0, _activeSelectionStart));
-                    if (isFootnote)
+                    if (isFootnote && !lastWord.StartsWith("#"))
                     {
                         countReplaceChars = 0;
                         if (EndsWithFootnote(lastWord)) // replace only the footnode, not the whole word
@@ -627,7 +628,7 @@ namespace EM_UI.Editor
             catch { }
         }
 
-        Dictionary<string, string> GetFootnoteParametersForIntelli(int count = 3)
+        Dictionary<string, string> GetFootnoteParametersForIntelli()
         {
             Dictionary<string, string> footnoteParameters = new Dictionary<string, string>();
 
@@ -637,18 +638,17 @@ namespace EM_UI.Editor
             foreach (string footnoteParameterName in dummyFun.GetParList().Keys)
             {
                 string description = "";
-                for (int i = 1; i <= count; ++i) //offer 3 (resp. 'count') of each type, e.g. Amount#1, Amount#2, Amount#3
+
+                string name = footnoteParameterName;
+                if (footnoteParameterName.ToLower() == DefPar.Footnote.Amount.ToLower())
+                    name = DefPar.Value.AMOUNT + DefQuery.HAS_PAR_MARKER; //#_Amount -> Amount#xi
+                else
                 {
-                    string name = footnoteParameterName;
-                    if (footnoteParameterName.ToLower() == DefPar.Footnote.Amount.ToLower())
-                        name = DefPar.Value.AMOUNT + DefQuery.HAS_PAR_MARKER + i.ToString(); //#_Amount -> Amount#xi
-                    else
-                    {
-                        name = name.Replace("#_", DefQuery.HAS_PAR_MARKER + i.ToString() + "[_"); //e.g. #_LowLim -> #xi[_LowLim]
-                        name += "]";
-                    }
-                    footnoteParameters.Add(name, "(new) " + description); //"(new)" in contrast to "(value)" of an existing footnote-parameter
+                    name = name.Replace("#_", DefQuery.HAS_PAR_MARKER + "[_"); //e.g. #_LowLim -> #xi[_LowLim]
+                    name += "]";
                 }
+                footnoteParameters.Add(name, "(new) " + description); //"(new)" in contrast to "(value)" of an existing footnote-parameter
+
             }
             return footnoteParameters;
         }

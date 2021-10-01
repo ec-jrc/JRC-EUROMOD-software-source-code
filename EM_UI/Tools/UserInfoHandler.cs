@@ -13,6 +13,8 @@ namespace EM_UI.Tools
 {
     class UserInfoHandler
     {
+        readonly static int MAX_MESSAGE_LENGTH = 10000;
+
         internal static bool GetPolicyName(ref string policyName, string countryShortName, TreeList countryTreeList, string currentName = "")
         {
             for (;;)
@@ -48,11 +50,21 @@ namespace EM_UI.Tools
             return assignSystemsForm.GetSystemAssignment();
         }
 
+        private static string LimitMessageSize(string msg)
+        {
+            // avoid too large error messages as they are anyway not visible in the screen and could end up crashing the MessageBox!
+            // but try to keep the last line, as this is usually the question asked to the user...
+            if (msg.Length < MAX_MESSAGE_LENGTH) return msg;
+            int lastLinePos = msg.LastIndexOf(Environment.NewLine);
+            string lastLine = lastLinePos > -1 ? msg.Substring(lastLinePos) : "";
+            msg = msg.Substring(0, MAX_MESSAGE_LENGTH) + Environment.NewLine + "..." + lastLine;
+            return msg;
+        }
 
         //the following functions centralise user information and can be extended at a later stage, if necessary
         internal static void ShowError(string errorMessage)
         {
-            MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), errorMessage, $"{DefGeneral.BRAND_TITLE} - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), LimitMessageSize(errorMessage), $"{DefGeneral.BRAND_TITLE} - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         internal static void ShowException(Exception exception, string additionalInfo = "", bool showInfoAfterException = true)
@@ -69,12 +81,11 @@ namespace EM_UI.Tools
                 else
                     ShowError(additionalInfo + Environment.NewLine + Environment.NewLine + exception.Message);
             }
-            
         }
 
         internal static void ShowInfo(string info)
         {
-            MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), info, $"{DefGeneral.BRAND_TITLE} - Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), LimitMessageSize(info), $"{DefGeneral.BRAND_TITLE} - Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         internal static void ShowSuccess(string info)
@@ -84,7 +95,7 @@ namespace EM_UI.Tools
 
         internal static DialogResult GetInfo(string request, MessageBoxButtons buttons)
         {
-            return MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), request, $"{DefGeneral.BRAND_TITLE} - Request", buttons);
+            return MessageBox.Show(EM_AppContext.Instance.GetTopMostWindow(), LimitMessageSize(request), $"{DefGeneral.BRAND_TITLE} - Request", buttons);
         }
 
         static System.IO.StreamWriter _streamWriterIgnoredExceptions = null;

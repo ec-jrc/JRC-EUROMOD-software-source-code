@@ -718,7 +718,7 @@ namespace EM_UI.CountryAdministration
             {
                 if (Directory.Exists(newEuromodFolder) && (Directory.GetFiles(newEuromodFolder).Count() > 0 || Directory.GetDirectories(newEuromodFolder).Count() > 0))
                 {
-                    UserInfoHandler.ShowError(string.Format("Folder '{0}' exits and is not empty.\n\nThe file structure for the new project requires an empty base-folder.", newEuromodFolder));
+                    UserInfoHandler.ShowError(string.Format("Folder '{0}' exists and is not empty.\n\nThe file structure for the new project requires an empty base-folder.", newEuromodFolder));
                     return string.Empty;
                 }
                 if (!(Directory.Exists(newEuromodFolder))) Directory.CreateDirectory(newEuromodFolder);
@@ -737,11 +737,11 @@ namespace EM_UI.CountryAdministration
                     Directory.CreateDirectory(emPath.Folder_AtAlternativeEMPath(EMPath.Folder_Countries(EM_AppContext.FolderEuromodFiles), newEuromodFolder));
                 if (!(Directory.Exists(emPath.Folder_AtAlternativeEMPath(EMPath.Folder_Temp(EM_AppContext.FolderEuromodFiles), newEuromodFolder))))
                     Directory.CreateDirectory(emPath.Folder_AtAlternativeEMPath(EMPath.Folder_Temp(EM_AppContext.FolderEuromodFiles), newEuromodFolder));
-                string newImageFolder = emPath.Folder_AtAlternativeEMPath(new EMPath(EM_AppContext.FolderEuromodFiles).GetFolderImages(), newEuromodFolder);
+                /*string newImageFolder = emPath.Folder_AtAlternativeEMPath(new EMPath(EM_AppContext.FolderEuromodFiles).GetFolderImages(), newEuromodFolder);
                 if (!(Directory.Exists(newImageFolder))) Directory.CreateDirectory(newImageFolder);
                 if (Directory.Exists(new EMPath(EM_AppContext.FolderEuromodFiles).GetFolderImages()))
                     foreach (string imageFile in Directory.GetFiles(new EMPath(EM_AppContext.FolderEuromodFiles).GetFolderImages()))
-                        File.Copy(imageFile, newImageFolder + new FileInfo(imageFile).Name);
+                        File.Copy(imageFile, newImageFolder + new FileInfo(imageFile).Name);*/
                 return newEuromodFolder;
             }
             catch (Exception exception)

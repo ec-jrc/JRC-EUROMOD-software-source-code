@@ -21,7 +21,7 @@ namespace EM_UI.VariablesAdministration.VariablesManagement
 
         const string AUTOMATICLABEL_SIMULATED = "simulated";
         const string AUTOMATICLABEL_SEPARATOR = " : ";
-        internal const string IDENTIFIER_TYPE = "I";
+        internal const string IDENTIFIER_TYPE = "ID";
 
         void treeAcronyms_DrawHandler(object sender, GetCustomNodeCellStyleEventArgs e)
         {
@@ -265,9 +265,9 @@ namespace EM_UI.VariablesAdministration.VariablesManagement
 
         internal string GetAutomaticLabel(string variableName, string currentLabel = "")
         {
-            string variableType = VariablesManager.GetVariableType(variableName);
-            if (variableType.ToLower() == IDENTIFIER_TYPE.ToLower())
+            if (variableName.ToLower().StartsWith(IDENTIFIER_TYPE.ToLower()))
                 return currentLabel; //id's (e.g. idhh, idperson) do not follow the rules, therefore don't change
+            string variableType = VariablesManager.GetVariableType(variableName);
             string AutomaticLabel = _varConfigFacade.GetTypeDescription(variableType);
             foreach (string acronym in GetAcronymsUsedByVariable(variableName))
                 AutomaticLabel += AUTOMATICLABEL_SEPARATOR + _varConfigFacade.GetAcronymDescription(variableType, acronym);

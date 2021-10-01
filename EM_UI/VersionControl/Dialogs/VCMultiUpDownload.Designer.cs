@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VCMultiUpDownload));
             this.helpProvider = new System.Windows.Forms.HelpProvider();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnIncludeAll = new System.Windows.Forms.Button();
@@ -35,8 +36,7 @@
             this.btnUpDownload = new System.Windows.Forms.Button();
             this.chkVersion = new System.Windows.Forms.CheckBox();
             this.txtVersion = new System.Windows.Forms.TextBox();
-            this.vcContent = new VCContentControl();
-            this.SuspendLayout();
+			this.vcContent = new VCContentControl();            this.SuspendLayout();
             // 
             // helpProvider
             // 
@@ -50,9 +50,10 @@
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancel.Location = new System.Drawing.Point(341, 480);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(70, 35);
+            this.btnCancel.Size = new System.Drawing.Size(65, 35);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "   Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnIncludeAll
@@ -84,12 +85,14 @@
             // btnUpDownload
             // 
             this.btnUpDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpDownload.Image = ((System.Drawing.Image)(resources.GetObject("btnUpDownload.Image")));
             this.btnUpDownload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnUpDownload.Location = new System.Drawing.Point(341, 439);
             this.btnUpDownload.Name = "btnUpDownload";
-            this.btnUpDownload.Size = new System.Drawing.Size(70, 35);
+            this.btnUpDownload.Size = new System.Drawing.Size(65, 35);
             this.btnUpDownload.TabIndex = 4;
             this.btnUpDownload.Text = "Upload";
+            this.btnUpDownload.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnUpDownload.UseVisualStyleBackColor = true;
             this.btnUpDownload.Click += new System.EventHandler(this.btnUpDownload_Click);
             // 
@@ -113,7 +116,7 @@
             this.txtVersion.Size = new System.Drawing.Size(70, 20);
             this.txtVersion.TabIndex = 29;
             // 
-            // vcContent
+			// vcContent
             // 
             this.vcContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -123,8 +126,16 @@
             this.vcContent.Name = "vcContent";
             this.vcContent.Size = new System.Drawing.Size(325, 505);
             this.vcContent.TabIndex = 8;
-            // 
-            // VCMultiUpDownload
+            // 			// 
+            this.vcContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.vcContent.Location = new System.Drawing.Point(9, 10);
+            this.vcContent.Margin = new System.Windows.Forms.Padding(2);
+            this.vcContent.Name = "vcContent";
+            this.vcContent.Size = new System.Drawing.Size(325, 505);
+            this.vcContent.TabIndex = 8;
+            //             // VCMultiUpDownload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -135,8 +146,7 @@
             this.Controls.Add(this.btnUpDownload);
             this.Controls.Add(this.btnClearInclude);
             this.Controls.Add(this.btnIncludeAll);
-            this.Controls.Add(this.vcContent);
-            this.Controls.Add(this.btnCancel);
+			this.Controls.Add(this.vcContent);            this.Controls.Add(this.btnCancel);
             this.helpProvider.SetHelpKeyword(this, "EM_VC_AdminContent.htm");
             this.helpProvider.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.Topic);
             this.helpProvider.SetHelpString(this, "");

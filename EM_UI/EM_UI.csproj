@@ -19,6 +19,8 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>E:\christine\Euromod_Store\EMProgrammeFiles\UserInterface\Beta3\Setup_EMUI_Beta3\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -39,8 +41,6 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>53C7C14BDE5E18C47F5F6D8389DF93C40E723B66</ManifestCertificateThumbprint>
@@ -55,8 +55,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\brand_icon_EUROMOD.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -264,6 +263,12 @@
     </Compile>
     <Compile Include="Dialogs\AddCountry_SaveAs_AdaptForm.Designer.cs">
       <DependentUpon>AddCountry_SaveAs_AdaptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ShowLicenceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ShowLicenceForm.Designer.cs">
+      <DependentUpon>ShowLicenceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionAdminCtryAction.cs" />
     <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionSetPrivateAction.cs" />
@@ -792,12 +797,6 @@
     <Compile Include="VersionControl\Dialogs\VCProxy.Designer.cs">
       <DependentUpon>VCProxy.cs</DependentUpon>
     </Compile>
-    <Compile Include="VersionControl\Dialogs\VCChangePassword.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VersionControl\Dialogs\VCChangePassword.Designer.cs">
-      <DependentUpon>VCChangePassword.cs</DependentUpon>
-    </Compile>
     <Compile Include="VersionControl\Dialogs\VCRemoveBundle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1085,6 +1084,9 @@
     <EmbeddedResource Include="Dialogs\AddCountry_SaveAs_AdaptForm.resx">
       <DependentUpon>AddCountry_SaveAs_AdaptForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ShowLicenceForm.resx">
+      <DependentUpon>ShowLicenceForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExtensionAndGroupManagement\Dialogs\AdminExtensionsOrGroups.resx">
       <DependentUpon>AdminExtensionsOrGroups.cs</DependentUpon>
     </EmbeddedResource>
@@ -1204,9 +1206,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VersionControl\Dialogs\VCProxy.resx">
       <DependentUpon>VCProxy.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VersionControl\Dialogs\VCChangePassword.resx">
-      <DependentUpon>VCChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VersionControl\Dialogs\VCSettings.resx">
       <DependentUpon>VCSettings.cs</DependentUpon>
@@ -1378,6 +1377,8 @@
     <None Include="Resources\ReleaseInfo.xlsx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="euromod-app-icon.ico" />
+    <None Include="Icons\licence.png" />
     <None Include="Icons\ReleaseInfo.png" />
     <None Include="Icons\TipNotAllCountriesVisible.png" />
     <None Include="Icons\add.png" />
@@ -1487,6 +1488,10 @@
     <ProjectReference Include="..\EM_Libraries\EM_Common\EM_Common.csproj">
       <Project>{e2c621c4-310a-4804-b6c7-570c5fa2f5d6}</Project>
       <Name>EM_Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_Libraries\EM_Crypt\EM_Crypt.csproj">
+      <Project>{a9d06cc2-8c4b-4ef8-be54-95b1ba58f189}</Project>
+      <Name>EM_Crypt</Name>
     </ProjectReference>
     <ProjectReference Include="..\EM_Libraries\EM_Statistics\EM_Statistics.csproj">
       <Project>{99f3f2d4-97ea-4c33-920e-4b1bf967b84c}</Project>

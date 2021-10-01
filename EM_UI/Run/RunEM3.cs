@@ -1,4 +1,5 @@
 ﻿using EM_Common;
+using EM_Crypt;
 using EM_Transformer;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace EM_UI.Run
 
         private void RunEM3(string configurationFile)
         {
-            if (EM_AppContext.Instance._runExeViaLib) RunEM3_Lib(configurationFile);
+            if (EM_AppContext.Instance._runExeViaLib) RunEM3_Lib(configurationFile);    // this should always be true, as _runExeViaLib is readonly
             else RunEM3_Exe(configurationFile);
         }
 
@@ -24,6 +25,12 @@ namespace EM_UI.Run
             if (!TransformEMConfig.Transform(configurationFile, out Dictionary<string, string> em3Config,
                                              new Action<string>(err => { ErrorLogHandler(err); }))) return;
 
+            // If working in a secure environment, make sure the executable knows about this! ;)
+            if (SecureInfo.IsSecure && !string.IsNullOrEmpty(SecureInfo.DataPassword))
+            {
+                em3Config.AddOrReplace(EM_XmlHandler.TAGS.CONFIG_DATA_PASSWORD, SecureInfo.DataPassword);
+            }
+                
             bool success = new EM_Executable.Control().Run(em3Config,
                 progressInfo =>
                 {

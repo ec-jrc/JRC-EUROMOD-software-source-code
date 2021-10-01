@@ -38,6 +38,7 @@
             this.colReplaces = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colGroupNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDefault = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkShowCommonParameters = new System.Windows.Forms.CheckBox();
             this.chkShowFootnoteParameters = new System.Windows.Forms.CheckBox();
@@ -80,6 +81,7 @@
             this.colReplaces,
             this.colGroupNo,
             this.colCount,
+            this.colDefault,
             this.colDescription});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
@@ -139,6 +141,15 @@
             this.colCount.Name = "colCount";
             this.colCount.ToolTipText = "Number of parameters to add";
             this.colCount.Width = 60;
+            // 
+            // colDefault
+            // 
+            this.colDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.colDefault.HeaderText = "Default";
+            this.colDefault.Name = "colDefault";
+            this.colDefault.ReadOnly = true;
+            this.colDefault.ToolTipText = "The default value if parameter is not used";
+            this.colDefault.Width = 66;
             // 
             // colDescription
             // 
@@ -211,11 +222,12 @@
             this.btnHelpDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnHelpDescription.Image = ((System.Drawing.Image)(resources.GetObject("btnHelpDescription.Image")));
             this.btnHelpDescription.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHelpDescription.Location = new System.Drawing.Point(281, 515);
+            this.btnHelpDescription.Location = new System.Drawing.Point(293, 515);
             this.btnHelpDescription.Name = "btnHelpDescription";
-            this.btnHelpDescription.Size = new System.Drawing.Size(115, 35);
+            this.btnHelpDescription.Size = new System.Drawing.Size(103, 35);
             this.btnHelpDescription.TabIndex = 13;
             this.btnHelpDescription.Text = "Description (F5)";
+            this.btnHelpDescription.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnHelpDescription.UseVisualStyleBackColor = true;
             this.btnHelpDescription.Click += new System.EventHandler(this.btnHelpDescription_Click);
             // 
@@ -226,7 +238,7 @@
             this.btnHelpSummary.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHelpSummary.Location = new System.Drawing.Point(402, 515);
             this.btnHelpSummary.Name = "btnHelpSummary";
-            this.btnHelpSummary.Size = new System.Drawing.Size(115, 35);
+            this.btnHelpSummary.Size = new System.Drawing.Size(107, 35);
             this.btnHelpSummary.TabIndex = 14;
             this.btnHelpSummary.Text = "Summary (F6)";
             this.btnHelpSummary.UseVisualStyleBackColor = true;
@@ -280,6 +292,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colReplaces;
         private System.Windows.Forms.DataGridViewTextBoxColumn colGroupNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDefault;
         private System.Windows.Forms.DataGridViewTextBoxColumn colDescription;
     }
 }

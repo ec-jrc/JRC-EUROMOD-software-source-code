@@ -97,7 +97,7 @@
             this.groupBox1.Controls.Add(this.chkCountrySpecific);
             this.groupBox1.Controls.Add(this.chkAllVariables);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(808, 12);
+            this.groupBox1.Location = new System.Drawing.Point(796, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(223, 480);
             this.groupBox1.TabIndex = 4;
@@ -108,7 +108,7 @@
             // 
             this.btnNoSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNoSystem.Location = new System.Drawing.Point(41, 458);
-            this.btnNoSystem.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNoSystem.Margin = new System.Windows.Forms.Padding(2);
             this.btnNoSystem.Name = "btnNoSystem";
             this.btnNoSystem.Size = new System.Drawing.Size(30, 19);
             this.btnNoSystem.TabIndex = 15;
@@ -120,7 +120,7 @@
             // 
             this.btnAllSystems.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAllSystems.Location = new System.Drawing.Point(8, 458);
-            this.btnAllSystems.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAllSystems.Margin = new System.Windows.Forms.Padding(2);
             this.btnAllSystems.Name = "btnAllSystems";
             this.btnAllSystems.Size = new System.Drawing.Size(30, 19);
             this.btnAllSystems.TabIndex = 14;
@@ -158,7 +158,7 @@
             this.chkNonSimulated.AutoSize = true;
             this.chkNonSimulated.Enabled = false;
             this.chkNonSimulated.Location = new System.Drawing.Point(105, 101);
-            this.chkNonSimulated.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkNonSimulated.Margin = new System.Windows.Forms.Padding(2);
             this.chkNonSimulated.Name = "chkNonSimulated";
             this.chkNonSimulated.Size = new System.Drawing.Size(103, 17);
             this.chkNonSimulated.TabIndex = 11;
@@ -171,7 +171,7 @@
             this.chkSimulated.AutoSize = true;
             this.chkSimulated.Enabled = false;
             this.chkSimulated.Location = new System.Drawing.Point(24, 101);
-            this.chkSimulated.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkSimulated.Margin = new System.Windows.Forms.Padding(2);
             this.chkSimulated.Name = "chkSimulated";
             this.chkSimulated.Size = new System.Drawing.Size(82, 17);
             this.chkSimulated.TabIndex = 10;
@@ -185,7 +185,7 @@
             this.chkNonMonetary.AutoSize = true;
             this.chkNonMonetary.Enabled = false;
             this.chkNonMonetary.Location = new System.Drawing.Point(105, 79);
-            this.chkNonMonetary.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkNonMonetary.Margin = new System.Windows.Forms.Padding(2);
             this.chkNonMonetary.Name = "chkNonMonetary";
             this.chkNonMonetary.Size = new System.Drawing.Size(102, 17);
             this.chkNonMonetary.TabIndex = 9;
@@ -199,7 +199,7 @@
             this.chkMonetary.AutoSize = true;
             this.chkMonetary.Enabled = false;
             this.chkMonetary.Location = new System.Drawing.Point(22, 79);
-            this.chkMonetary.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkMonetary.Margin = new System.Windows.Forms.Padding(2);
             this.chkMonetary.Name = "chkMonetary";
             this.chkMonetary.Size = new System.Drawing.Size(81, 17);
             this.chkMonetary.TabIndex = 8;
@@ -307,10 +307,11 @@
             this.lvComponents.Location = new System.Drawing.Point(12, 12);
             this.lvComponents.MultiSelect = false;
             this.lvComponents.Name = "lvComponents";
-            this.lvComponents.Size = new System.Drawing.Size(779, 543);
+            this.lvComponents.Size = new System.Drawing.Size(764, 543);
             this.lvComponents.TabIndex = 3;
             this.lvComponents.UseCompatibleStateImageBehavior = false;
             this.lvComponents.View = System.Windows.Forms.View.Details;
+            this.lvComponents.DoubleClick += new System.EventHandler(this.lvComponents_DoubleClick);
             // 
             // colComponent
             // 
@@ -357,7 +358,7 @@
             this.btnGoTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGoTo.Image = ((System.Drawing.Image)(resources.GetObject("btnGoTo.Image")));
             this.btnGoTo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGoTo.Location = new System.Drawing.Point(808, 509);
+            this.btnGoTo.Location = new System.Drawing.Point(796, 509);
             this.btnGoTo.Name = "btnGoTo";
             this.btnGoTo.Size = new System.Drawing.Size(43, 46);
             this.btnGoTo.TabIndex = 6;
@@ -375,7 +376,7 @@
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCancel.Location = new System.Drawing.Point(988, 509);
+            this.btnCancel.Location = new System.Drawing.Point(976, 509);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(43, 46);
             this.btnCancel.TabIndex = 2;
@@ -389,7 +390,7 @@
             this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRun.Image = ((System.Drawing.Image)(resources.GetObject("btnRun.Image")));
             this.btnRun.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnRun.Location = new System.Drawing.Point(939, 509);
+            this.btnRun.Location = new System.Drawing.Point(927, 509);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(43, 46);
             this.btnRun.TabIndex = 1;
@@ -408,7 +409,7 @@
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExport.Image = ((System.Drawing.Image)(resources.GetObject("btnExport.Image")));
             this.btnExport.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnExport.Location = new System.Drawing.Point(856, 509);
+            this.btnExport.Location = new System.Drawing.Point(844, 509);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(43, 46);
             this.btnExport.TabIndex = 7;
@@ -423,7 +424,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(1020, 567);
+            this.ClientSize = new System.Drawing.Size(1031, 567);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnRun);
@@ -439,9 +440,10 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "Component Use";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ComponentUseForm_FormClosing);
-            this.Shown += new System.EventHandler(this.ComponentUseForm_Shown);
             this.Load += new System.EventHandler(this.ComponentUseForm_Load);
+            this.Shown += new System.EventHandler(this.ComponentUseForm_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

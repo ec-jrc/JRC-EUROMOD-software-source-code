@@ -70,6 +70,10 @@ namespace EM_UI.VersionControl.Dialogs
             if (txtProjectName.Text == string.Empty)
             { UserInfoHandler.ShowInfo("Please indicate a 'Project Name'."); return; }
 
+            string newEuromodFolder = EMPath.AddSlash(txtProjectPath.Text) + txtProjectName.Text;
+            if (Directory.Exists(newEuromodFolder) && (Directory.GetFiles(newEuromodFolder).Count() > 0 || Directory.GetDirectories(newEuromodFolder).Count() > 0))
+            {UserInfoHandler.ShowError(string.Format("Folder '{0}' exists and is not empty.\n\nThe file structure for the new project requires an empty base-folder.", newEuromodFolder)); return; }
+
             if (chkProjectOnDisk.Checked && !CountryAdministrator.ContainsEuromodFileStructure(txtBasePath.Text))
             { UserInfoHandler.ShowInfo($"Please indicate a folder containting the {DefGeneral.BRAND_TITLE} file structure as 'Project on Disk' (or check 'No Base Project')."); return; }
 

@@ -48,9 +48,24 @@ namespace EM_UI.VersionControl.Merging
             if (!chkUseLocal.Checked && !chkUseRemote.Checked && txtParentVersion.Text == string.Empty) { UserInfoHandler.ShowError("Please select a Parent Version or check one of the 'Use ...' boxes."); return; }
 
             //Since users can also paste a path, the paths need to be validated and the remote and parent variables need to be populated
-  
-            if (!validateInsertedFields(txtRemoteVersion.Text, true)) { return; }
-            if (txtParentVersion.Text != string.Empty && !validateInsertedFields(txtParentVersion.Text, false)) { return; }
+            try
+            {
+                if (!validateInsertedFields(txtRemoteVersion.Text, true)) { return; }
+            }
+            catch (Exception ex1)
+            {
+                UserInfoHandler.ShowError("Error in the inserted path: " + txtRemoteVersion.Text + ". Error: " + ex1.Message.ToString());
+                return;
+            }
+            try
+            {
+                if (txtParentVersion.Text != string.Empty && !validateInsertedFields(txtParentVersion.Text, false)) { return; }
+            }
+            catch (Exception ex2)
+            {
+                UserInfoHandler.ShowError("Error in the inserted path: " + txtParentVersion.Text + ". Error: " + ex2.Message.ToString());
+                return;
+            }
 
             DialogResult = DialogResult.OK;
             Close();
@@ -75,6 +90,7 @@ namespace EM_UI.VersionControl.Merging
                 }
                 if (_getVariablesChoices)
                 {
+                        
                     FileInfo fileInfo = new FileInfo(insertedPath);
                     fileName = fileInfo.Name;
                     if (!fileName.ToLower().Equals(EMPath.EM2_FILE_VARS.ToLower()) && !fileName.ToLower().Equals(EMPath.EM2_FILE_EXRATES.ToLower()) && !fileName.ToLower().Equals(EMPath.EM2_FILE_EXTENSIONS.ToLower()) && !fileName.ToLower().Equals(EMPath.EM2_FILE_HICP.ToLower()))
@@ -82,7 +98,6 @@ namespace EM_UI.VersionControl.Merging
                         UserInfoHandler.ShowError("Only VARCONFIG.xml, HICPCONFIG.xml, EXCHANGERATESCONFIG.xml and SWITCHABLEPOLICYCONFIG.xml can be compared.");
                         return false;
                     }
-                        
                 }
 
                 if (!File.Exists(insertedPath))
@@ -121,7 +136,11 @@ namespace EM_UI.VersionControl.Merging
                 int indexCountryFolder = insertedPath.LastIndexOfAny(new char[] { '\\', '/' });
 
                 if (indexCountryFolder < 0)
+                {
+                    UserInfoHandler.ShowError("The inserted path is not valid: "+ insertedPath);
                     return false; //unlikely, therefore dispense with error message
+                }
+                    
 
                 countryShortName = insertedPath.Substring(indexCountryFolder + 1);
 

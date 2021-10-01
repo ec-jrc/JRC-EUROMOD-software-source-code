@@ -38,7 +38,6 @@ namespace EM_UI.VersionControl.Merging
             ApplyChanges(_mcExchangeRatesConfig, _vcLocal.ExchangeRates, _vcLocal.ExchangeRates.CountryColumn.ColumnName, _vcLocal.ExchangeRates.ValidForColumn.ColumnName, true);
             ApplyChanges(_mcExchangeRatesConfig, _vcLocal.ExchangeRates, _vcLocal.ExchangeRates.CountryColumn.ColumnName, _vcLocal.ExchangeRates.ValidForColumn.ColumnName, false);
 
-
             //remove locally added and rejected or remotely removed and accepted variables
             ApplyRemovals(_mcExchangeRatesConfig, _vcLocal.ExchangeRates, _vcLocal.ExchangeRates.CountryColumn.ColumnName, _vcLocal.ExchangeRates.ValidForColumn.ColumnName, true);
             ApplyRemovals(_mcExchangeRatesConfig, _vcLocal.ExchangeRates, _vcLocal.ExchangeRates.CountryColumn.ColumnName, _vcLocal.ExchangeRates.ValidForColumn.ColumnName, false);

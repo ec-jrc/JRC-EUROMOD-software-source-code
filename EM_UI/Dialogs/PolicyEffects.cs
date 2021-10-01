@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using EM_Common;
+using EM_Crypt;
 using EM_UI.CountryAdministration;
 using EM_UI.DataSets;
 using EM_UI.ImportExport;
@@ -607,9 +608,11 @@ namespace EM_UI.Dialogs
                 btnRunPolicyEffects.Visible = false;
                 btnRunOnly.Visible = false;
 
-                chkEM2.Enabled = false;
-                textRunFirstNHH.Enabled = false;
+                chkEM2.Visible = false;
+                labelRunFirstNHH.Visible = false;
+                textRunFirstNHH.Visible = false;
 
+                
                 lblInfo.Visible = true;
                 lblInfo.Text = "Preparing...";
                 lblInfo.Refresh();
@@ -1351,6 +1354,10 @@ namespace EM_UI.Dialogs
                 if (res == System.Windows.Forms.DialogResult.Cancel) Close();
                 showFull =  res == System.Windows.Forms.DialogResult.Yes;
             }
+
+            // Hide EM2 if encryption is applied
+            if (SecureInfo.IsSecure && !string.IsNullOrEmpty(SecureInfo.DataPassword))
+                chkEM2.Visible = false;
 
             // show/hide extra controls
             checkBoxAlphaMII.Visible = showFull;

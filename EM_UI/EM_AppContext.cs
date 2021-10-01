@@ -1,4 +1,5 @@
 ﻿using EM_Common;
+using EM_Crypt;
 using EM_UI.Actions;
 using EM_UI.DataSets;
 using EM_UI.Dialogs;
@@ -41,7 +42,7 @@ namespace EM_UI
 
         internal bool _showFunctionSpecifiers = false;
 
-        internal bool _runExeViaLib = true; // if true, executable runs by using the library-function, if false, by starting the compiled executable
+        internal readonly bool _runExeViaLib = true; // if true, executable runs by using the library-function, if false, by starting the compiled executable
 
         static EM_AppContext singleton = null;
 
@@ -52,11 +53,16 @@ namespace EM_UI
             singleton = new EM_AppContext(countryMainForm);
             _emptyForm = countryMainForm;
 
+            SecureInfo.ReadSecureInfo();    // look in the user settings for secure settings
+
             //show the dialog where the user can set the default pathes, if the folder to the country-xml-files does not exist
             if (!Directory.Exists(EMPath.Folder_Countries(EM_AppContext.FolderEuromodFiles)))
             {
-                ConfigurePathsForm configurePathsForm = new ConfigurePathsForm();
-                configurePathsForm.ShowDialog();
+                if (!(SecureInfo.IsSecure && SecureInfo.LockProject))
+                {
+                    ConfigurePathsForm configurePathsForm = new ConfigurePathsForm();
+                    configurePathsForm.ShowDialog();
+                }
             }
             singleton.SetBrand(); // allow UI to show another look, i.e. present a brand alternative to EUROMOD
 
@@ -367,6 +373,7 @@ namespace EM_UI
                     ShowEmptyForm(true);
                 else
                 {
+                    ViewKeeper.StoreSettings(countryMainForm);
                     StoreViewSettings();
                     _emptyForm.Close(); //this is the last form open (currently hidden, as a country was open), the means the application will close as well
                 }
@@ -406,6 +413,8 @@ namespace EM_UI
                 countryMainForm.Close();
 
             if (closeVariablesForm) CloseVariablesForm();
+
+            
 
             //restore the setting as actually choosen by the user
             _userSettingsAdministrator.Get().CloseInterfaceWithLastMainform = bkupCloseInterfaceSetting;
@@ -494,6 +503,7 @@ namespace EM_UI
 
         internal bool GetHelpPath(out string helpPath) { return GetInstalledFilePath(out helpPath, "HELP\\EUROMODHelp.chm"); }
         internal bool GetFuncConfigPath(out string funcConfigPath) { return GetInstalledFilePath(out funcConfigPath, "Configuration\\FuncConfig.xml"); }
+        internal bool GetLicencePath(out string licencePath) { return GetInstalledFilePath(out licencePath, "EUROMOD Licence Agreement\\EUROMOD Licence Agreement.rtf"); }
         internal bool GetInstalledFilePath(out string installedFilePath, string localPath, string oldPath = "")
         {
             // NOTE: This function should only ever be used by the two functions above to retrieve the help & funcConfig paths

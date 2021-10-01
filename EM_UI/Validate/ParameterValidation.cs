@@ -228,8 +228,9 @@ namespace EM_UI.Validate
             {
                 int iStart = formulaText.Substring(0, indexPlaceholder).LastIndexOf("#x");
                 int iEnd = formulaText.Substring(indexPlaceholder).IndexOf("]") + indexPlaceholder;
-                if (iStart >= 0 && iEnd >= 0 &&
-                    EM_Helpers.IsNonNegInteger(SubstringFromTo(formulaText, iStart + 2, indexPlaceholder - 1)))
+                /*if (iStart >= 0 && iEnd >= 0 &&
+                    EM_Helpers.IsNonNegInteger(SubstringFromTo(formulaText, iStart + 2, indexPlaceholder - 1)))*/
+                if (iStart >= 0 && iEnd >= 0)
                 {
                     string parameterName = "#" + SubstringFromTo(formulaText, indexPlaceholder + 1, iEnd - 1); //#_yyy (e.g. #_Level)
                     DefinitionAdmin.Fun funDef = DefinitionAdmin.GetFunDefinition(functionName, false); // check if function allows for this footnote

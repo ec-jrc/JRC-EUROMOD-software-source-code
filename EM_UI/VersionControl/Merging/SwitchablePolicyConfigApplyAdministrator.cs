@@ -36,7 +36,6 @@ namespace EM_UI.VersionControl.Merging
             ApplyChanges(_mcSwitchablePolicyConfig, _vcLocal.SwitchablePolicy, _vcLocal.SwitchablePolicy.IDColumn.ColumnName, true);
             ApplyChanges(_mcSwitchablePolicyConfig, _vcLocal.SwitchablePolicy, _vcLocal.SwitchablePolicy.IDColumn.ColumnName, false);
 
-
             //remove locally added and rejected or remotely removed and accepted variables
             ApplyRemovals(_mcSwitchablePolicyConfig, _vcLocal.SwitchablePolicy, _vcLocal.SwitchablePolicy.IDColumn.ColumnName, true);
             ApplyRemovals(_mcSwitchablePolicyConfig, _vcLocal.SwitchablePolicy, _vcLocal.SwitchablePolicy.IDColumn.ColumnName, false);
@@ -84,11 +83,38 @@ namespace EM_UI.VersionControl.Merging
 
         void AddSwitchablePolicyConfig(bool local)
         {
-            foreach (string ID in GetRelevantIDs(_mcSwitchablePolicyConfig, local, true))
-                ExtensionAndGroupMergeHelper.CopyGlobalExtensionFromAnotherConfig(_vcLocal, ExtensionAndGroupManager.GetGlobalExtension(ID));
+            List<MergeControl.NodeInfo> relevantRows = null;
+            MergeControl.NodeInfo currentRelevantNode = null;
+            if (!local)
+            {
+                relevantRows = new List<MergeControl.NodeInfo>();
+            }
+
+            foreach (string ID in GetRelevantIDs(_mcSwitchablePolicyConfig, local, true, relevantRows))
+            {
+                currentRelevantNode = null;
+                GlobLocExtensionRow origExtensionRow = ExtensionAndGroupManager.GetGlobalExtension(ID);
+                if(origExtensionRow == null && relevantRows != null)
+                {
+
+                    foreach(MergeControl.NodeInfo currentRelevantRow in relevantRows)
+                    {
+                        if (currentRelevantRow.ID.Equals(ID))
+                        {
+                            currentRelevantNode = currentRelevantRow;
+                            break;
+                        }
+                    }
+                }
+
+                ExtensionAndGroupMergeHelper.CopyGlobalExtensionFromAnotherConfig(_vcLocal, origExtensionRow, currentRelevantNode);
+            }
+                
+
+                
         }
 
-        List<string> GetRelevantIDs(MergeControl mergeControl, bool local, bool add)
+        List<string> GetRelevantIDs(MergeControl mergeControl, bool local, bool add, List<MergeControl.NodeInfo>  relevantRows = null)
         {
             List<string> relevantIDs = new List<string>();
             foreach (MergeControl.NodeInfo nodeInfo in local ? mergeControl.GetNodeInfoLocal() : mergeControl.GetNodeInfoRemote())
@@ -98,6 +124,12 @@ namespace EM_UI.VersionControl.Merging
                     nodeInfo.changeHandling != (local ? MergeControl.ChangeHandling.reject : MergeControl.ChangeHandling.accept))
                     continue; //not relevant, because not a rejected local-remove nor an accepted remote-add
                 relevantIDs.Add(nodeInfo.ID);
+
+                if (!local && relevantRows != null)
+                {
+                    relevantRows.Add(nodeInfo);
+
+                }
             }
             return relevantIDs;
         }

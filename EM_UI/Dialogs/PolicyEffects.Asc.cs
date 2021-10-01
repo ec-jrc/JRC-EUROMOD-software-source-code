@@ -37,7 +37,7 @@ namespace EM_UI.Dialogs
                         {
                             FilePackageContent filePackage = new FilePackageContent();
                             filePackage.PathBase = textBoxOutputPath.Text + data.sysPrim + "_std.txt";
-                            int indexAlt = 0;
+                            int indexAlt = -1;
                             string dataName = policyDataTable.Select("Country='" + countryName + "'").First().Field<string>("Data" + data.index); // used for table-caption
                             if (checkBoxAlphaFIX.Checked)
                             {
@@ -134,7 +134,7 @@ namespace EM_UI.Dialogs
                 formulaConstants.Add(new Template.TemplateInfo.UserVariable()
                 {
                     packageKey = filePackageKey,
-                    reformNumber = indexAlt,
+                    refNo = indexAlt,
                     name = uv.name,
                     description = uv.description,
                     value = uv.value,

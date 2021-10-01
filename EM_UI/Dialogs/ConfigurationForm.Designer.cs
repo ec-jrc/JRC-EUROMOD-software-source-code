@@ -98,6 +98,7 @@
             // 
             // chkStoreViewSettings
             // 
+            this.chkStoreViewSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkStoreViewSettings.AutoSize = true;
             this.chkStoreViewSettings.Location = new System.Drawing.Point(8, 205);
             this.chkStoreViewSettings.Margin = new System.Windows.Forms.Padding(2);
@@ -180,6 +181,7 @@
             // 
             // chkCloseWithLastCountry
             // 
+            this.chkCloseWithLastCountry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkCloseWithLastCountry.AutoSize = true;
             this.chkCloseWithLastCountry.Location = new System.Drawing.Point(208, 205);
             this.chkCloseWithLastCountry.Name = "chkCloseWithLastCountry";

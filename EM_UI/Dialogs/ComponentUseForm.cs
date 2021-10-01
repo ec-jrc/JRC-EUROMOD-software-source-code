@@ -157,8 +157,6 @@ namespace EM_UI.Dialogs
                     node.Expanded = true;
                     node = node.ParentNode;
                 } while (node != null);
-
-                Hide();
             }
             catch { UserInfoHandler.ShowError("GoTo failed!"); }
         }
@@ -321,5 +319,10 @@ namespace EM_UI.Dialogs
 
         void btnAllSystems_Click(object sender, EventArgs e) { for (int i = 0; i < lstSystems.Items.Count; ++i) lstSystems.SetItemChecked(i, true); }
         void btnNoSystem_Click(object sender, EventArgs e) { for (int i = 0; i < lstSystems.Items.Count; ++i) lstSystems.SetItemChecked(i, false); }
+
+        private void lvComponents_DoubleClick(object sender, EventArgs e)
+        {
+            btnGoTo_Click(null, null);
+        }
     }
 }
