@@ -115,26 +115,26 @@
     </UserVariables>
   </TemplateInfo>
   <Globals>
-		<Actions>
-			<Action>
+    <Actions>
+      <Action>
         <CalculationType>CreateOECDScale</CalculationType>
-				<OutputVar>OECDscale</OutputVar>
+        <OutputVar>OECDscale</OutputVar>
         <Reform>false</Reform>
       </Action>
-			<Action>
+      <Action>
         <CalculationType>CreateEquivalized</CalculationType>
-				<OutputVar>eqDispy</OutputVar>
-				<Parameters>
-					<Parameter>
+        <OutputVar>eqDispy</OutputVar>
+        <Parameters>
+          <Parameter>
             <VarName>ilsDispy</VarName>
-					</Parameter>
-					<Parameter>
+          </Parameter>
+          <Parameter>
             <Reform>false</Reform>
-						<Name>EquivalenceScale</Name>
+            <Name>EquivalenceScale</Name>
             <VarName>OECDscale</VarName>
-					</Parameter>
-				</Parameters>
-			</Action>
+          </Parameter>
+        </Parameters>
+      </Action>
       <Action>
         <CalculationType>CreateDeciles</CalculationType>
         <OutputVar>deciles_eqDispy</OutputVar>
@@ -260,14 +260,8 @@
       </Action>
       <Action>
         <CalculationType>CalculateWeightedAverage</CalculationType>
-        <FormulaString><![CDATA[OP_VAR[@AverageVar]]]></FormulaString>
+        <FormulaString><![CDATA[DATA_VAR[@eqDispy]]]></FormulaString>
         <OutputVar>averageDispy</OutputVar>
-        <Parameters>
-          <Parameter>
-            <Name>AverageVar</Name>
-            <VarName>eqDispy</VarName>
-          </Parameter>
-        </Parameters>
       </Action>
       <Action>
         <CalculationType>CalculateArithmetic</CalculationType>
@@ -280,31 +274,19 @@
         <FormulaString><![CDATA[1.0]]></FormulaString>
       </Action>
     </Actions>
-	</Globals>
-	<Pages>
-		<Page>
+  </Globals>
+  <Pages>
+    <Page>
       <Name>PolicyEffects</Name>
       <Title><![CDATA[Results for [baseCountry] with alpha: [@TableCaption]]]></Title>
       <Button>[@TopButtonCaption]</Button>
       <PerReform>true</PerReform>
       <Tables>
-				<Table>
-          <Action>
+        <Table>
+          <CellAction>
             <CalculationType>CalculateWeightedAverage</CalculationType>
-            <FormulaString><![CDATA[SAVED_VAR[@MySign] * ((USR_VAR[@Const1] * (USR_VAR[@Const2] * OP_VAR[@MyCounter] - OP_VAR[@MyBase]) * USR_VAR[@Const3]) / OP_VAR[@BDPI] * 100)]]></FormulaString>
+            <FormulaString><![CDATA[SAVED_VAR[@MySign] * ((USR_VAR[@Const1] * (USR_VAR[@Const2] * DATA_VAR[@MyCounter] - DATA_VAR[@MyBase]) * USR_VAR[@Const3]) / DATA_VAR[@BDPI] * 100)]]></FormulaString>
             <Parameters>
-              <Parameter>
-                <Name>Const1</Name>
-                <VarName>Const1</VarName>
-              </Parameter>
-              <Parameter>
-                <Name>Const2</Name>
-                <VarName>Const2</VarName>
-              </Parameter>
-              <Parameter>
-                <Name>Const3</Name>
-                <VarName>Const3</VarName>
-              </Parameter>
               <Parameter>
                 <Name>BDPI</Name>
                 <VarName>eqDispy</VarName>
@@ -316,6 +298,7 @@
               </Parameter>
             </Parameters>
             <Filter>
+              <FormulaString>true</FormulaString>
               <Parameters>
                 <Parameter>
                   <Name>Dec</Name>
@@ -324,13 +307,13 @@
                 </Parameter>
               </Parameters>
             </Filter>
-          </Action>
+          </CellAction>
           <Columns></Columns>
           <ReformColumns>
             <ReformColumn>
-							<Name>Original income</Name>
+              <Name>Original income</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MyBase</Name>
@@ -342,12 +325,12 @@
                     <VarName>eqOrigy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
-						</ReformColumn>
+              </CellAction>
+            </ReformColumn>
             <ReformColumn>
               <Name>Public pensions</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MyBase</Name>
@@ -359,12 +342,12 @@
                     <VarName>eqPen</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Means-tested benefits</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MyBase</Name>
@@ -376,12 +359,12 @@
                     <VarName>eqBenMt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Non means- tested benefits</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MyBase</Name>
@@ -393,12 +376,12 @@
                     <VarName>eqBenNt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Employee SIC</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MySign</Name>
@@ -414,17 +397,17 @@
                     <VarName>eqSicEe</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Self-employed SIC</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
-                    <Parameter>
-                      <Name>MySign</Name>
-                      <VarName>negative</VarName>
-                    </Parameter>
+                  <Parameter>
+                    <Name>MySign</Name>
+                    <VarName>negative</VarName>
+                  </Parameter>
                   <Parameter>
                     <Name>MyBase</Name>
                     <VarName>eqSicSe</VarName>
@@ -435,12 +418,12 @@
                     <VarName>eqSicSe</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Other SIC</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MySign</Name>
@@ -456,12 +439,12 @@
                     <VarName>eqSicOt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Direct taxes</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MySign</Name>
@@ -477,12 +460,12 @@
                     <VarName>eqTax</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name>Disposable income</Name>
               <StringFormat>0.00</StringFormat>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>MyBase</Name>
@@ -494,97 +477,97 @@
                     <VarName>eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </ReformColumn>
           </ReformColumns>
-					<Rows>
+          <Rows>
             <Row>
               <Name>Decile 1</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 1]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 1]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 2</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 2]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 2]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 3</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 3]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 3]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 4</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 4]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 4]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 5</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 5]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 5]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 6</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 6]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 6]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 7</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 7]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 7]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 8</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 8]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 8]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 9</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 9]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 9]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Decile 10</Name>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Dec] == 10]]></FormulaString>
+                  <FormulaString><![CDATA[DATA_VAR[@Dec] == 10]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Total</Name>
               <Strong>true</Strong>
             </Row>
           </Rows>
-				</Table>
-			</Tables>
-		</Page>
-	</Pages>
+        </Table>
+      </Tables>
+    </Page>
+  </Pages>
 </Template>

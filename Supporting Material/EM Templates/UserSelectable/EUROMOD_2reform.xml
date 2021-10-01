@@ -1,4 +1,4 @@
-<Template>
+﻿<Template>
   <TemplateInfo>
     <Name>Summary Statistics - Baseline/Reform</Name>
     <Title>Summary Statistics - Baseline vs Reforms</Title>
@@ -134,12 +134,16 @@ aged 65 or older</p>]]></GeneralDescription>
         <ReadVar>ils_bensim</ReadVar>
       </RequiredVariable>
       <RequiredVariable>
+        <Name>ilsDispy</Name>
+        <ReadVar>ils_dispy</ReadVar>
+      </RequiredVariable>
+      <RequiredVariable>
         <Name>ilsEarns</Name>
         <ReadVar>ils_earns</ReadVar>
       </RequiredVariable>
       <RequiredVariable>
-        <Name>ilsDispy</Name>
-        <ReadVar>ils_dispy</ReadVar>
+        <Name>ilsSicdy</Name>
+        <ReadVar>ils_sicdy</ReadVar>
       </RequiredVariable>
       <RequiredVariable>
         <Name>ilsOrigy</Name>
@@ -164,10 +168,6 @@ aged 65 or older</p>]]></GeneralDescription>
       <RequiredVariable>
         <Name>ilsPen</Name>
         <ReadVar>ils_pen</ReadVar>
-      </RequiredVariable>
-       <RequiredVariable>
-        <Name>ilsSicdy</Name>
-        <ReadVar>ils_sicdy</ReadVar>
       </RequiredVariable>
     </RequiredVariables>
     <OptionalVariables>
@@ -195,6 +195,11 @@ aged 65 or older</p>]]></GeneralDescription>
         <Name>ilsB2PenHl</Name>
         <ReadVar>ils_b2_penhl</ReadVar>
       </OptionalVariable>
+      <OptionalVariable>
+        <Name>ilSF</Name>
+        <ReadVar>il_sf</ReadVar>
+        <DefaultValue>0</DefaultValue>
+      </OptionalVariable>
     </OptionalVariables>
   </TemplateInfo>
   <Globals>
@@ -207,54 +212,22 @@ aged 65 or older</p>]]></GeneralDescription>
       <Filter>
         <Reform>false</Reform>
         <Name>FilterChildren</Name>
-        <FormulaString><![CDATA[OBS_VAR[@age] < 18]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>age</Name>
-            <VarName>age</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@age] < 18]]></FormulaString>
       </Filter>
       <Filter>
         <Reform>false</Reform>
         <Name>FilterElderly</Name>
-        <FormulaString><![CDATA[OBS_VAR[@age] >= 65]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>age</Name>
-            <VarName>age</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@age] >= 65]]></FormulaString>
       </Filter>
       <Filter>
         <Reform>false</Reform>
         <Name>FilterWorkingAge</Name>
-        <FormulaString><![CDATA[OBS_VAR[@age] >= 18 && OBS_VAR[@age] < 65]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>age</Name>
-            <VarName>age</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@age] >= 18 && DATA_VAR[@age] < 65]]></FormulaString>
       </Filter>
       <Filter>
         <Reform>false</Reform>
         <Name>FilterWorkingAgeActive</Name>
-        <FormulaString><![CDATA[OBS_VAR[@age] >= 18 && OBS_VAR[@age] < 65 && (OBS_VAR[@yem] + OBS_VAR[@yse]) > 0]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>age</Name>
-            <VarName>age</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>yem</Name>
-            <VarName>yem</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>yse</Name>
-            <VarName>yse</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@age] >= 18 && DATA_VAR[@age] < 65 && (DATA_VAR[@yem] + DATA_VAR[@yse]) > 0]]></FormulaString>
       </Filter>
     </Filters>
     <Actions>
@@ -279,59 +252,18 @@ aged 65 or older</p>]]></GeneralDescription>
       </Action>
       <Action>
         <CalculationType>CreateArithmetic</CalculationType>
-				<OutputVar>Earns</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@IlsEarns]]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>IlsEarns</Name>
-            <VarName>ilsEarns</VarName>
-          </Parameter>
-         </Parameters>
-      </Action>
-      <Action>
-        <CalculationType>CreateArithmetic</CalculationType>
         <OutputVar>OtherMarketIncome</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@ilsOrigy] - OBS_VAR[@Earns]]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>ilsOrigy</Name>
-            <VarName>ilsOrigy</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>Earns</Name>
-            <VarName>Earns</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@ilsOrigy] - DATA_VAR[@ilsEarns]]]></FormulaString>
       </Action>
       <Action>
         <CalculationType>CreateArithmetic</CalculationType>
         <OutputVar>Sic</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@ilsSicdy]]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>ilsSicdy</Name>
-            <VarName>ilsSicdy</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@ilsSicdy]]]></FormulaString>
       </Action>
       <Action>
         <CalculationType>CreateArithmetic</CalculationType>
         <OutputVar>GovRevenue</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@ilsTax] + OBS_VAR[@Sic] + OBS_VAR[@ilsSicEr]]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>ilsTax</Name>
-            <VarName>ilsTax</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>Sic</Name>
-            <VarName>Sic</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>ilsSicEr</Name>
-            <VarName>ilsSicEr</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@ilsTax] + DATA_VAR[@Sic] + DATA_VAR[@ilsSicEr]]]></FormulaString>
       </Action>
       <Action>
         <CalculationType>CreateDeciles</CalculationType>
@@ -380,12 +312,8 @@ aged 65 or older</p>]]></GeneralDescription>
         <OutputVar>IsPoor</OutputVar>
         <Filter>
           <Name>FilterPoor</Name>
-          <FormulaString><![CDATA[OBS_VAR[@eqDispy] <= SAVED_VAR[@povLine]]]></FormulaString>
+          <FormulaString><![CDATA[DATA_VAR[@eqDispy] <= SAVED_VAR[@povLine]]]></FormulaString>
           <Parameters>
-            <Parameter>
-              <Name>eqDispy</Name>
-              <VarName>eqDispy</VarName>
-            </Parameter>
             <Parameter>
               <Reform>false</Reform>
               <Name>povLine</Name>
@@ -397,36 +325,12 @@ aged 65 or older</p>]]></GeneralDescription>
       <Action>
         <CalculationType>CreateArithmetic</CalculationType>
         <OutputVar>incomeAT</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@ilsOrigy] - (OBS_VAR[@ilsTax] + OBS_VAR[@Sic])]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>ilsOrigy</Name>
-            <VarName>ilsOrigy</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>ilsTax</Name>
-            <VarName>ilsTax</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>Sic</Name>
-            <VarName>Sic</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@ilsOrigy] - (DATA_VAR[@ilsTax] + DATA_VAR[@Sic])]]></FormulaString>
       </Action>
       <Action>
         <CalculationType>CreateArithmetic</CalculationType>
         <OutputVar>incomeATPP</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@incomeAT] + OBS_VAR[@ilsPen]]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>incomeAT</Name>
-            <VarName>incomeAT</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>ilsPen</Name>
-            <VarName>ilsPen</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@incomeAT] + DATA_VAR[@ilsPen]]]></FormulaString>
       </Action>
       <Action>
         <CalculationType>CreateEquivalized</CalculationType>
@@ -471,40 +375,9 @@ aged 65 or older</p>]]></GeneralDescription>
         </Parameters>
       </Action>
       <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ilsDispy</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ilsOrigy</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>Earns</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ilsBen</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ilsTax</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>Sic</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ilsBenSim</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ilsTaxSim</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>IsPoor</OutputVar>
+        <CalculationType>CreateArithmetic</CalculationType>
+        <OutputVar>ilsBenilSF</OutputVar>
+        <FormulaString><![CDATA[DATA_VAR[@ilsBen] + DATA_VAR[@ilSF]]]></FormulaString>
       </Action>
     </Actions>
   </Globals>
@@ -559,29 +432,31 @@ contributions” in all EM versions released before 2018.</p>
           <StringFormat>#,0.00</StringFormat>
           <Columns>
             <Column>
-              <Name>[baseSys] (base)</Name>
-              <Action>
+              <Name>baseSys</Name>
+              <Title>[baseSys] (base)</Title>
+              <CellAction>
                 <CalculationType>CalculateSumWeighted</CalculationType>
-                <FormulaString><![CDATA[OP_VAR[@BasePar] * 12 / 1000000]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[DATA_VAR[@BasePar] * 12 / 1000000]]></FormulaString>
+              </CellAction>
             </Column>
           </Columns>
           <ReformColumns>
             <ReformColumn>
-              <Name>[refSys]</Name>
-              <Action>
+              <Name>refSys</Name>
+              <Title>[refSys]</Title>
+              <CellAction>
                 <CalculationType>CalculateSumWeighted</CalculationType>
-                <FormulaString><![CDATA[OP_VAR[@RefPar] * 12 / 1000000]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[DATA_VAR[@RefPar] * 12 / 1000000]]></FormulaString>
+              </CellAction>
               <HasSeparatorBefore>true</HasSeparatorBefore>
               <StringFormat>#,0.00</StringFormat>
             </ReformColumn>
             <ReformColumn>
               <Name><![CDATA[Difference <br />to base]]></Name>
-              <Action>
+              <CellAction>
                 <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[REF_COL[0] - (BASE_COL[0])]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[REF_COL[refSys] - BASE_COL[baseSys]]]></FormulaString>
+              </CellAction>
               <StringFormat>#,0.00</StringFormat>
             </ReformColumn>
           </ReformColumns>
@@ -590,7 +465,7 @@ contributions” in all EM versions released before 2018.</p>
               <Name>Total market incomes</Name>
               <HasSeparatorAfter>true</HasSeparatorAfter>
               <Strong>true</Strong>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -602,27 +477,27 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsOrigy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... income from (self) employment</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
-                    <VarName>Earns</VarName>
+                    <VarName>ilsEarns</VarName>
                     <Reform>false</Reform>
                   </Parameter>
                   <Parameter>
                     <Name>RefPar</Name>
-                    <VarName>Earns</VarName>
+                    <VarName>ilsEarns</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... other sources</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -634,14 +509,14 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>OtherMarketIncome</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Government revenue through taxes and social insurance contributions</Name>
               <Strong>true</Strong>
               <HasSeparatorBefore>true</HasSeparatorBefore>
               <HasSeparatorAfter>true</HasSeparatorAfter>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -653,11 +528,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>GovRevenue</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... direct taxes</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -669,11 +544,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsTax</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... employee social insurance contributions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -685,11 +560,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsSicEe</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... self-employed social insurance contributions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -701,11 +576,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsSicSe</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... other social insurance contributions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -717,11 +592,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsSicOt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... employer social insurance contributions (not part of disposable income)</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -733,13 +608,13 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsSicEr</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Credited social insurance contributions (not part of disposable income)</Name>
               <HasSeparatorBefore>true</HasSeparatorBefore>
               <Strong>true</Strong>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -751,36 +626,36 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsSicCt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Government expenditure on social transfers</Name>
               <HasSeparatorBefore>true</HasSeparatorBefore>
               <HasSeparatorAfter>true</HasSeparatorAfter>
               <Strong>true</Strong>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
-                    <VarName>ilsBen</VarName>
+                    <VarName>ilsBenilSF</VarName>
                     <Reform>false</Reform>
                   </Parameter>
                   <Parameter>
                     <Name>RefPar</Name>
-                    <VarName>ilsBen</VarName>
+                    <VarName>ilsBenilSF</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>by target group</Name>
-              <Action>
+              <CellAction>
                 <CalculationType>Empty</CalculationType>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... unemployment benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -792,11 +667,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsB1Bun</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... family and education benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -808,11 +683,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsB2BfaEd</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... social assistance and housing benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -824,11 +699,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsB2BsaHo</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... pensions, health and disability benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -840,17 +715,33 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsB2PenHl</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
+            </Row>
+	    <Row>
+              <Name>... firms</Name>
+              <CellAction>
+                <Parameters>
+                  <Parameter>
+                    <Name>BasePar</Name>
+                    <VarName>ilSF</VarName>
+                    <Reform>false</Reform>
+                  </Parameter>
+                  <Parameter>
+                    <Name>RefPar</Name>
+                    <VarName>ilSF</VarName>
+                  </Parameter>
+                </Parameters>
+              </CellAction>
             </Row>
             <Row>
               <Name>by benefit design</Name>
-              <Action>
+              <CellAction>
                 <CalculationType>Empty</CalculationType>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... means-tested non-pension benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -862,11 +753,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsBenMt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... non-means-tested non-pension benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -878,11 +769,11 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsBenNt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>... pensions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>BasePar</Name>
@@ -894,7 +785,23 @@ contributions” in all EM versions released before 2018.</p>
                     <VarName>ilsPen</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>... firms subsidies</Name>
+              <CellAction>
+                <Parameters>
+                  <Parameter>
+                    <Name>BasePar</Name>
+                    <VarName>ilSF</VarName>
+                    <Reform>false</Reform>
+                  </Parameter>
+                  <Parameter>
+                    <Name>RefPar</Name>
+                    <VarName>ilSF</VarName>
+                  </Parameter>
+                </Parameters>
+              </CellAction>
             </Row>
           </Rows>
         </Table>
@@ -914,7 +821,7 @@ population and different sub-population groups</u>.</span></p>
 reform results.</span></p>]]></Description>
       <Tables>
         <Table>
-          <Action>
+          <CellAction>
             <CalculationType>CalculatePopulationCount</CalculationType>
             <Parameters>
               <Parameter>
@@ -927,33 +834,36 @@ reform results.</span></p>]]></Description>
                 <VarName>IsPoor</VarName>
               </Parameter>
             </Parameters>
-          </Action>
+          </CellAction>
           <Columns>
             <Column>
-              <Name><![CDATA[Poverty Risk for <br />[baseSys] (base)]]></Name>
-              <Action>
-                <FormulaString><![CDATA[OP_VAR[@BaseVar]]]></FormulaString>
-              </Action>
+              <Title><![CDATA[Poverty Risk for <br />[baseSys] (base)]]></Title>
+              <Name>Poverty Risk for baseSys</Name>
+              <CellAction>
+                <FormulaString><![CDATA[DATA_VAR[@BaseVar]]]></FormulaString>
+              </CellAction>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
               <StringFormat>P2</StringFormat>
             </Column>
           </Columns>
           <ReformColumns>
             <ReformColumn>
-              <Name><![CDATA[Poverty Risk for <br />[refSys]]]></Name>
+              <Name>Poverty Risk for refSys</Name>
+              <Title><![CDATA[Poverty Risk for <br />[refSys]]]></Title>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
-                <FormulaString><![CDATA[OP_VAR[@RefVar]]]></FormulaString>
-              </Action>
+              <CellAction>
+                <FormulaString><![CDATA[DATA_VAR[@RefVar]]]></FormulaString>
+              </CellAction>
               <StringFormat>P2</StringFormat>
               <HasSeparatorBefore>true</HasSeparatorBefore>
             </ReformColumn>
             <ReformColumn>
-              <Name><![CDATA[Difference <br />to base]]></Name>
-              <Action>
+              <Name>Difference to base</Name>
+              <Title><![CDATA[Difference <br />to base]]></Title>
+              <CellAction>
                 <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[(REF_COL[0] - (BASE_COL[0])) * 100]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[(REF_COL[Poverty Risk for refSys] - BASE_COL[Poverty Risk for baseSys]) * 100]]></FormulaString>
+              </CellAction>
               <StringFormat>0.00pp</StringFormat>
             </ReformColumn>
           </ReformColumns>
@@ -965,43 +875,43 @@ reform results.</span></p>]]></Description>
             <Row>
               <Name>Children</Name>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
+              <CellAction>
                 <Filter>
                   <Name>FilterChildren</Name>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Working Age</Name>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
+              <CellAction>
                 <Filter>
                   <Name>FilterWorkingAge</Name>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name><![CDATA[	  Working Age Economically Active]]></Name>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
+              <CellAction>
                 <Filter>
                   <Name>FilterWorkingAgeActive</Name>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Elderly</Name>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
+              <CellAction>
                 <Filter>
                   <Name>FilterElderly</Name>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Fixed Poverty Line</Name>
               <Tooltip>60% of the country specific median equivalised disposable household income.</Tooltip>
-              <Action>
+              <CellAction>
                 <BlendParameters>false</BlendParameters>
                 <CalculationType>CalculateArithmetic</CalculationType>
                 <FormulaString><![CDATA[SAVED_VAR[@povLine]]]></FormulaString>
@@ -1012,54 +922,25 @@ reform results.</span></p>]]></Description>
                     <VarName>povLine</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <HasSeparatorBefore>true</HasSeparatorBefore>
               <StringFormat>#,0.00</StringFormat>
             </Row>
-            <!--<Row>
-              <Name>Poverty Gap</Name>
-              <Tooltip>Difference between the median equivalised disposable income of people at-risk-of-poverty and poverty line, as a percentage of poverty line.</Tooltip>
-              <Action>
-                <BlendParameters>false</BlendParameters>
-                <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[SAVED_VAR[@povGap]]]></FormulaString>
-                <Parameters>
-                  <Parameter>
-                    <Name>povGap</Name>
-                    <VarName>povGap</VarName>
-                  </Parameter>
-                </Parameters>
-              </Action>
-            </Row>-->
           </Rows>
           <ReformCells>
-            <!--<ReformCell>
-              <Action>
+            <ReformCell>
+              <CellAction>
                 <CalculationType>Empty</CalculationType>
-              </Action>
-              <RowNum>6</RowNum>
-              <ColNum>0</ColNum>
+              </CellAction>
+              <RowName>Fixed Poverty Line</RowName>
+              <ColName>Poverty Risk for refSys</ColName>
             </ReformCell>
             <ReformCell>
-              <Action>
+              <CellAction>
                 <CalculationType>Empty</CalculationType>
-              </Action>
-              <RowNum>6</RowNum>
-              <ColNum>1</ColNum>
-            </ReformCell>-->
-            <ReformCell>
-              <Action>
-                <CalculationType>Empty</CalculationType>
-              </Action>
-              <RowNum>5</RowNum>
-              <ColNum>0</ColNum>
-            </ReformCell>
-            <ReformCell>
-              <Action>
-                <CalculationType>Empty</CalculationType>
-              </Action>
-              <RowNum>5</RowNum>
-              <ColNum>1</ColNum>
+              </CellAction>
+              <RowName>Fixed Poverty Line</RowName>
+              <ColName>Difference to base</ColName>
             </ReformCell>
           </ReformCells>
         </Table>
@@ -1104,8 +985,9 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
           <StringFormat>0.0000</StringFormat>
           <Columns>
             <Column>
-              <Name><![CDATA[Gini <br />[baseSys]]]></Name>
-              <Action>
+              <Name>Gini baseSys</Name>
+              <Title><![CDATA[Gini <br />[baseSys]]]></Title>
+              <CellAction>
                 <CalculationType>CalculateGini</CalculationType>
                 <Parameters>
                   <Parameter>
@@ -1113,13 +995,14 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>idhh</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Measures the distribution of income within a country where 0 means perfect income equality and 1 means perfect income inequality.</Tooltip>
             </Column>
             <Column>
-              <Name><![CDATA[S80/S20 <br />[baseSys]]]></Name>
-			  <HasSeparatorAfter>true</HasSeparatorAfter>
-              <Action>
+              <Name>S80/S20 baseSys</Name>
+              <Title><![CDATA[S80/S20 <br />[baseSys]]]></Title>
+              <HasSeparatorAfter>true</HasSeparatorAfter>
+              <CellAction>
                 <CalculationType>CalculateS8020</CalculationType>
                 <Parameters>
                   <Parameter>
@@ -1127,15 +1010,16 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>deciles_eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Ratio of total income received top quintile to that received by bottom quintile.</Tooltip>
             </Column>
           </Columns>
           <ReformColumns>
             <ReformColumn>
-              <Name><![CDATA[Gini <br />[refSys]]]></Name>
-              <TiesWith>1</TiesWith>
-              <Action>
+              <Name>Gini refSys</Name>
+              <Title><![CDATA[Gini <br />[refSys]]]></Title>
+              <TiesWith>S80/S20 baseSys</TiesWith> <!-- note: to tie with base-S80/20 instead of base-Gini is a kind of trick: see below -->
+              <CellAction>
                 <CalculationType>CalculateGini</CalculationType>
                 <Parameters>
                   <Parameter>
@@ -1143,13 +1027,14 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>idhh</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Measures the distribution of income within a country where 0 means perfect income equality and 1 means perfect income inequality.</Tooltip>
             </ReformColumn>
             <ReformColumn>
-              <Name><![CDATA[S80/S20 <br />[refSys]]]></Name>
-              <TiesWith>2</TiesWith>
-              <Action>
+              <Name>S80/S20 refSys</Name>
+              <Title><![CDATA[S80/S20 <br />[refSys]]]></Title>
+              <!--<TiesWith></TiesWith> continue note above: thus we have base-systems | reform-systems tied to (i.e. after) base-S8020, i.e. reform-Gini | loose reform-systems, i.e. reform S8020 -->
+              <CellAction>
                 <CalculationType>CalculateS8020</CalculationType>
                 <Parameters>
                   <Parameter>
@@ -1157,32 +1042,32 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>deciles_eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Ratio of total income received top quintile to that received by bottom quintile.</Tooltip>
             </ReformColumn>
             <ReformColumn>
               <Name><![CDATA[Diff. Gini <br />[refSys]/[baseSys]]]></Name>
               <HasSeparatorAfter>true</HasSeparatorAfter>
-              <TiesWith>1</TiesWith>
-              <Action>
+              <TiesWith>S80/S20 baseSys</TiesWith> <!-- see notes above -->
+              <CellAction>
                 <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[REF_COL[0] - (BASE_COL[0])]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[REF_COL[Gini refSys] - BASE_COL[Gini baseSys]]]></FormulaString>
+              </CellAction>
             </ReformColumn>
             <ReformColumn>
               <Name><![CDATA[Diff. S80/S20 <br />[refSys]/[baseSys]]]></Name>
               <HasSeparatorAfter>true</HasSeparatorAfter>
-              <TiesWith>2</TiesWith>
-              <Action>
+              <!--<TiesWith></TiesWith> see notes above -->
+              <CellAction>
                 <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[REF_COL[1] - (BASE_COL[1])]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[REF_COL[S80/S20 refSys] - BASE_COL[S80/S20 baseSys]]]></FormulaString>
+              </CellAction>
             </ReformColumn>
           </ReformColumns>
           <Rows>
             <Row>
               <Name>Original Income</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>RecodeNegatives</Name>
@@ -1197,12 +1082,12 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>eqOrigy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Earnings from employment and self-employment plus other market incomes (from investment, property, private pensions, private transfers, children younger than 16) minus private transfers paid to other households.</Tooltip>
             </Row>
             <Row>
               <Name>Original Income after Taxes/SIC</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>RecodeNegatives</Name>
@@ -1217,12 +1102,12 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>eqIncomeAT</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Original income – Taxes – Social Insurance Contributions.</Tooltip>
             </Row>
             <Row>
               <Name>Original Income incl. Public Pensions after Taxes/SIC</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>RecodeNegatives</Name>
@@ -1237,12 +1122,12 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>eqIncomeATPP</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Original income + Public Pensions – Taxes – Social Insurance Contributions.</Tooltip>
             </Row>
             <Row>
               <Name>Disposable Income</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>RecodeNegatives</Name>
@@ -1257,7 +1142,7 @@ top and bottom 20% is always based on disposable income.</span></p>]]></Descript
                     <VarName>eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <Tooltip>Original income + Benefits (incl. Public Pensions) – Taxes – Social Insurance Contributions.</Tooltip>
             </Row>
           </Rows>
@@ -1282,44 +1167,46 @@ income changes within each group (people are not moving from one group to the
 other).</span></p>]]></Description>
       <Tables>
         <Table>
-          <Action>
+          <CellAction>
             <CalculationType>CalculateWeightedAverage</CalculationType>
-            <FormulaString><![CDATA[OP_VAR[@AverageVar]]]></FormulaString>
+            <FormulaString><![CDATA[DATA_VAR[@AverageVar]]]></FormulaString>
             <CalculationLevel>Household</CalculationLevel>
-          </Action>
+          </CellAction>
           <StringFormat>#,0.00</StringFormat>
           <Columns>
             <Column>
-              <Name>[baseSys] (base)</Name>
-              <Action>
+              <Name>baseSys</Name>
+              <Title>[baseSys] (base)</Title>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>AverageVar</Name>
                     <VarName>ilsDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Column>
           </Columns>
           <ReformColumns>
             <ReformColumn>
-              <Name>[refSys]</Name>
-              <Action>
+              <Name>refSys</Name>
+              <Title>[refSys]</Title>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>AverageVar</Name>
                     <VarName>ilsDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <HasSeparatorBefore>true</HasSeparatorBefore>
             </ReformColumn>
             <ReformColumn>
               <Name><![CDATA[Difference <br />to base]]></Name>
-              <Action>
+              <CellAction>
                 <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[REF_COL[0] - (BASE_COL[0])]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[REF_COL[refSys] - BASE_COL[baseSys]]]></FormulaString>
+              </CellAction>
             </ReformColumn>
           </ReformColumns>
           <Rows>
@@ -1335,17 +1222,11 @@ other).</span></p>]]></Description>
             <Row>
               <Name>Poor</Name>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Poor] > 0]]></FormulaString>
-                  <Parameters>
-                    <Parameter>
-                      <Name>Poor</Name>
-                      <VarName>IsPoor</VarName>
-                    </Parameter>
-                  </Parameters>
+                  <FormulaString><![CDATA[DATA_VAR[@IsPoor] > 0]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
           </Rows>
         </Table>
@@ -1369,43 +1250,45 @@ are not moving from one group to the other).</span></p>
 ]]></Description>
       <Tables>
         <Table>
-          <Action>
+          <CellAction>
             <CalculationType>CalculateWeightedAverage</CalculationType>
-            <FormulaString><![CDATA[OP_VAR[@AverageVar]]]></FormulaString>
-          </Action>
+            <FormulaString><![CDATA[DATA_VAR[@AverageVar]]]></FormulaString>
+          </CellAction>
           <StringFormat>#,0.00</StringFormat>
           <Columns>
             <Column>
-              <Name>[baseSys] (base)</Name>
-              <Action>
+              <Name>baseSys</Name>
+              <Title>[baseSys] (base)</Title>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>AverageVar</Name>
                     <VarName>eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Column>
           </Columns>
           <ReformColumns>
             <ReformColumn>
-              <Name>[refSys]</Name>
-              <Action>
+              <Name>refSys</Name>
+              <Title>[refSys]</Title>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>AverageVar</Name>
                     <VarName>eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
               <HasSeparatorBefore>true</HasSeparatorBefore>
             </ReformColumn>
             <ReformColumn>
               <Name><![CDATA[Difference <br />to base]]></Name>
-              <Action>
+              <CellAction>
                 <CalculationType>CalculateArithmetic</CalculationType>
-                <FormulaString><![CDATA[REF_COL[0] - (BASE_COL[0])]]></FormulaString>
-              </Action>
+                <FormulaString><![CDATA[REF_COL[refSys] - BASE_COL[baseSys]]]></FormulaString>
+              </CellAction>
             </ReformColumn>
           </ReformColumns>
           <Rows>
@@ -1421,19 +1304,171 @@ are not moving from one group to the other).</span></p>
             <Row>
               <Name>Poor</Name>
               <Tooltip>Equivalised disposable household income lower than 60% of the country specific median income.</Tooltip>
-              <Action>
+              <CellAction>
                 <Filter>
-                  <FormulaString><![CDATA[OBS_VAR[@Poor] > 0]]></FormulaString>
-                  <Parameters>
-                    <Parameter>
-                      <Name>Poor</Name>
-                      <VarName>IsPoor</VarName>
-                    </Parameter>
-                  </Parameters>
+                  <FormulaString><![CDATA[DATA_VAR[@IsPoor] > 0]]></FormulaString>
                 </Filter>
-              </Action>
+              </CellAction>
             </Row>
           </Rows>
+        </Table>
+      </Tables>
+    </Page>
+    <Page>
+      <Name>Metadata</Name>
+      <Title>Metadata</Title>
+      <Button>
+        <Title>Metadata</Title>
+		<BackgroundColour>#f0e68c</BackgroundColour>
+	  </Button>
+      <Description>
+        <![CDATA[<p style='line-height:1.5'>The table shows information on the execution: run system, dataset, output file name, add-ons and extensions selected, execution start time, execution end time and execution duration.</p>]]>
+      </Description>
+      <Tables>
+        <Table>
+          <Columns>
+            <Column>
+              <Name>baseSys</Name>
+              <Title>[baseSys] (base)</Title>
+              <CellAction>
+		        <CalculationType>Info</CalculationType>
+              </CellAction>
+            </Column>
+          </Columns>
+          <ReformColumns>
+            <ReformColumn>
+              <Name>refSys</Name>
+              <Title>[refSys]</Title>
+              <CellAction>
+		        <CalculationType>Info</CalculationType>
+              </CellAction>
+              <HasSeparatorBefore>true</HasSeparatorBefore>
+            </ReformColumn>
+          </ReformColumns>
+          <Rows>
+            <Row>
+              <Name>System name</Name>
+  	          <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseSysPretty]</FormulaString>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>Dataset</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseDataset]</FormulaString>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>Output file name</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseFileName]</FormulaString>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>Extensions</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseRunExtensionSwitches]</FormulaString>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>Add-ons</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseRunAddons]</FormulaString>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>Start time</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseRunStartTime]</FormulaString>
+              </CellAction>
+            </Row>
+	        <Row>
+              <Name>End time</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseRunEndTime]</FormulaString>
+              </CellAction>
+            </Row>
+            <Row>
+              <Name>Duration</Name>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[baseRunDuration]</FormulaString>
+              </CellAction>
+            </Row>
+          </Rows>
+          <ReformCells>
+            <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refSysPretty]</FormulaString>
+              </CellAction>
+              <RowName>System name</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+	        <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refDataset]</FormulaString>
+              </CellAction>
+              <RowName>Dataset</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+	        <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refFileName]</FormulaString>
+              </CellAction>
+              <RowName>Output file name</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>  
+            <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refRunExtensionSwitches]</FormulaString>
+              </CellAction>
+              <RowName>Extensions</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+            <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refRunAddons]</FormulaString>
+              </CellAction>
+              <RowName>Add-ons</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+            <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refRunStartTime]</FormulaString>
+              </CellAction>
+              <RowName>Start time</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+            <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refRunEndTime]</FormulaString>
+              </CellAction>
+              <RowName>End time</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+            <ReformCell>
+              <CellAction>
+                <CalculationType>Info</CalculationType>
+                <FormulaString>[refRunDuration]</FormulaString>
+              </CellAction>
+              <RowName>Duration</RowName>
+              <ColName>refSys</ColName>
+            </ReformCell>
+          </ReformCells>
         </Table>
       </Tables>
     </Page>

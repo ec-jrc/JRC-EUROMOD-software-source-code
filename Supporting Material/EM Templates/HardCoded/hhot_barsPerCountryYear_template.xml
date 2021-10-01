@@ -100,46 +100,6 @@
         </Parameters>
       </Action>
       <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>origy</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>dispy</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ben</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>tax</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>sicee</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>sicse</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>sicot</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>bennt</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>benmt</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>pen</OutputVar>
-      </Action>
-      <Action>
         <CalculationType>CreateFlag</CalculationType>
         <Filter>
           <FormulaString><![CDATA[true]]></FormulaString>
@@ -147,28 +107,10 @@
         <OutputVar>persCount</OutputVar>
       </Action>
       <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>persCount</OutputVar>
-      </Action>
-      <Action>
-        <CalculationType>CreateHHValue</CalculationType>
-        <OutputVar>ind_hhtype</OutputVar>
-      </Action>
-      <Action>
         <CalculationType>CreateArithmetic</CalculationType>
         <CalculationLevel>Household</CalculationLevel>
         <OutputVar>hhtype</OutputVar>
-        <FormulaString><![CDATA[OBS_VAR[@hhtype] / OBS_VAR[@persCount]]]></FormulaString>
-        <Parameters>
-          <Parameter>
-            <Name>hhtype</Name>
-            <VarName>ind_hhtype</VarName>
-          </Parameter>
-          <Parameter>
-            <Name>persCount</Name>
-            <VarName>persCount</VarName>
-          </Parameter>
-        </Parameters>
+        <FormulaString><![CDATA[DATA_VAR[@ind_hhtype] / DATA_VAR[@persCount]]]></FormulaString>
       </Action>
       <Action>
         <CalculationType>CalculateArithmetic</CalculationType>
@@ -184,8 +126,8 @@
       </Action>
     </Actions>
   </Globals>
-	<Pages>
-		<Page>
+  <Pages>
+    <Page>
       <Name>BreakdownCountryYear</Name>
       <Title>Budget Breakdown per Country/System</Title>
       <Subtitle>[@hhtype_selected]</Subtitle>
@@ -263,10 +205,10 @@
               </Serie>
             </Series>
           </Graph>
-          <Action>
+          <CellAction>
             <CalculationLevel>Household</CalculationLevel>
             <CalculationType>CalculateWeightedAverage</CalculationType>
-            <FormulaString><![CDATA[SAVED_VAR[@PosNeg] * OP_VAR[@Var]]]></FormulaString>
+            <FormulaString><![CDATA[SAVED_VAR[@PosNeg] * DATA_VAR[@Var]]]></FormulaString>
             <Parameters>
               <Parameter>
                 <Name>PosNeg</Name>
@@ -274,7 +216,7 @@
               </Parameter>
             </Parameters>
             <Filter>
-              <FormulaString><![CDATA[OBS_VAR[@hhtype] == USR_VAR[@hhtype_selected]]]></FormulaString>
+              <FormulaString><![CDATA[DATA_VAR[@hhtype] == USR_VAR[@hhtype_selected]]]></FormulaString>
               <Parameters>
                 <Parameter>
                   <Name>hhtype</Name>
@@ -286,55 +228,55 @@
                 </Parameter>
               </Parameters>
             </Filter>
-          </Action>
+          </CellAction>
           <Rows>
             <Row>
               <Name>Original income</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
                     <VarName>origy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Means-tested non-pension benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
                     <VarName>benmt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Non-means-tested non-pension benefits</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
                     <VarName>bennt</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Pensions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
                     <VarName>pen</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Direct taxes</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
@@ -345,11 +287,11 @@
                     <VarName>neg</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Employee social insurance contributions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
@@ -360,11 +302,11 @@
                     <VarName>neg</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Self-employed social insurance contributions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
@@ -375,11 +317,11 @@
                     <VarName>neg</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Other social insurance contributions</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
@@ -390,40 +332,40 @@
                     <VarName>neg</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Disposable income</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
                     <VarName>dispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
             <Row>
               <Name>Equivalised disposable income</Name>
-              <Action>
+              <CellAction>
                 <Parameters>
                   <Parameter>
                     <Name>Var</Name>
                     <VarName>eqDispy</VarName>
                   </Parameter>
                 </Parameters>
-              </Action>
+              </CellAction>
             </Row>
           </Rows>
           <Columns>
             <Column>
               <Name>[baseSys]</Name>
-              <Action>
-              </Action>
+              <CellAction>
+              </CellAction>
             </Column>
           </Columns>
         </Table>
-			</Tables>
-		</Page>
-	</Pages>
+      </Tables>
+    </Page>
+  </Pages>
 </Template>
