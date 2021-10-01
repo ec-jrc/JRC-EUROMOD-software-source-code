@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EM_Common\EM_Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>packages\bouncycastle.netcore\1.8.6\lib\netstandard2.0\BouncyCastle.Crypto.dll</HintPath>
     </Reference>

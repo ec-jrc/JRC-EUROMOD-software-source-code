@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -26,12 +27,14 @@ namespace EM_Statistics
             catch (Exception exception) { errorCollector.AddError(exception.Message); return false; }
         }
 
-        public static bool ParseTemplate(string path, out Template template, out ErrorCollector errorCollector)
+        public static bool ParseTemplate(string pathOrInputString, out Template template, out ErrorCollector errorCollector, bool readFromString = false)
         {
             errorCollector = new ErrorCollector(); template = new Template();
             try
             {
-                using (XmlReader xmlReader = XmlReader.Create(path, new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
+                XmlReaderSettings settings = new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment };
+                using (XmlReader xmlReader = readFromString ? XmlReader.Create(new StringReader(pathOrInputString), settings) 
+                                                            : XmlReader.Create(pathOrInputString, settings))
                 {
                     xmlReader.Read();
                     while (xmlReader.NodeType != XmlNodeType.None && (xmlReader.NodeType != XmlNodeType.Element || xmlReader.Name != "Template")) xmlReader.Read();
@@ -46,55 +49,22 @@ namespace EM_Statistics
                     if (globalElement == null || globalElement.Name != "Globals") { errorCollector.AddError("<Globals>: invalid Xml-structure!"); return false; }
                     foreach (XElement ele in globalElement.Elements())
                     {
-                        if (ele.Name == "Filters") template.globalFilters = ReadElementGroup(ele, ReadFilter, errorCollector);
-                        else if (ele.Name == "Actions") template.globalActions = ReadElementGroup(ele, ReadAction, errorCollector);
+                        if (ele.Name == "Filters") template.globalFilters = ReadElementGroup(ele, ReadFilter, null, errorCollector);
+                        else if (ele.Name == "Actions") template.globalActions = ReadElementGroup(ele, ReadAction, null, errorCollector);
                         else errorCollector.AddXmlUnkownEleError(ele, globalElement);
                     }
 
                     if (!xmlReader.ReadToNextSibling("Pages")) { errorCollector.AddError("<Pages> not found!"); return false; }
-                    template.pages = GetElementGroupList(StreamChildElements(xmlReader), "Page", ReadPage, errorCollector);
-
-                    ReplaceNamedSdcMinObsAlternatives(template.pages, template.info.sdcMinObsAlternatives, errorCollector);
+                    template.pages = GetElementGroupList(StreamChildElements(xmlReader), "Page", ReadPage, null, errorCollector);
                 }
                 return !errorCollector.HasErrors();
             }
             catch (Exception exception) { errorCollector.AddError(exception.Message); return false; }
         }
 
-        private static void ReplaceNamedSdcMinObsAlternatives(List<Template.Page> pages, Dictionary<string, int> sdcMinObsAlternatives, ErrorCollector errorCollector)
+        private static Template.Page ReadPage(XElement xePage, LocalMap localMap, ErrorCollector errorCollector)
         {
-            foreach (Template.Page page in pages)
-                foreach (Template.Page.Table table in page.tables)
-                {
-
-                    if (table.sdcDefinition.minObsAlternative == null && table.sdcDefinition.minObsAlternativeName != null)
-                    {
-                        Replace (ref table.sdcDefinition);
-                        foreach (Template.Page.Table.Row row in table.rows) Replace(ref row.sdcDefinition);
-                        foreach (Template.Page.Table.Column column in table.columns) Replace(ref column.sdcDefinition);
-                        foreach (Template.Page.Table.Column column in table.reformColumns) Replace(ref column.sdcDefinition);
-                        foreach (Template.Page.Table.Cell cell in table.cells) Replace(ref cell.sdcDefinition);
-                        foreach (Template.Page.Table.Cell cell in table.reformCells) Replace(ref cell.sdcDefinition);
-                    }
-                }
-
-            void Replace(ref Template.Page.Table.SDCDefinition sdcDefinition)
-            {
-                if (sdcDefinition.minObsAlternativeName == null) return;
-                if (int.TryParse(sdcDefinition.minObsAlternativeName, out int i))
-                    sdcDefinition.minObsAlternative = i;
-                else
-                {
-                    if (sdcMinObsAlternatives.ContainsKey(sdcDefinition.minObsAlternativeName))
-                        sdcDefinition.minObsAlternative = sdcMinObsAlternatives[sdcDefinition.minObsAlternativeName];
-                    else errorCollector.AddDebugOnlyError($"Unknown SdcMinObsAlternative '{sdcDefinition.minObsAlternativeName}'.");
-                }
-            }
-        }
-
-        private static Template.Page ReadPage(XElement xePage, ErrorCollector errorCollector)
-        {
-            Template.Page page = new Template.Page();
+            Template.Page page = new Template.Page(LocalMap.NewPageLocalMap());
             foreach (XElement xe in xePage.Elements())
             {
                 if (xe.Value == null) continue;
@@ -104,20 +74,45 @@ namespace EM_Statistics
                     case "Title": page.title = xe.Value; break;
                     case "Subtitle": page.subtitle = xe.Value; break;
                     case "Description": page.description = xe.Value; break;
-                    case "Button": page.button = xe.Value; break;
+                    case "Button": page.button = ReadPageButton(xe, errorCollector); break;
+                    case "Html": page.html = xe.Value; break;
                     case "Visible": page.visible = errorCollector.XEleGetBool(xe, xePage, page.name); break;
+                    case "Active": page.active = errorCollector.XEleGetBool(xe, xePage, page.name); break;
                     case "PerReform": page.perReform = errorCollector.XEleGetBool(xe, xePage, page.name); break;
-                    case "Actions": page.actions = ReadElementGroup(xe, ReadAction, errorCollector); break;
-                    case "Tables": page.tables = ReadElementGroup(xe, ReadTable, errorCollector); break;
+                    case "Actions": page.actions = ReadElementGroup(xe, ReadAction, page.localMap, errorCollector); break;
+                    case "Filters": page.filters = ReadElementGroup(xe, ReadFilter, page.localMap, errorCollector); break;
+                    case "Tables": page.tables = ReadElementGroup(xe, ReadTable, page.localMap, errorCollector); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xePage, page.name); break;
                 }
             }
             return page;
         }
 
-        private static Template.Page.Table ReadTable(XElement xeTable, ErrorCollector errorCollector)
+        private static Template.Page.VisualElement ReadPageButton(XElement xeButton, ErrorCollector errorCollector)
         {
-            Template.Page.Table table = new Template.Page.Table();
+            Template.Page.VisualElement pageButton = new Template.Page.VisualElement();
+            if (xeButton.HasElements)
+            {
+                foreach (XElement xe in xeButton.Elements())
+                {
+                    if (xe.Value == null) continue;
+                    switch (GetXEleName(xe))
+                    {
+                        case var cvf when commonVisualFields.Contains(cvf): ReadCommonVisualField(xe, pageButton, errorCollector, xeButton); break;
+                        default: errorCollector.AddXmlUnkownEleError(xe, xeButton, pageButton.name); break;
+                    }
+                }
+            }
+            else    // support old templates where button was a simple string
+            {
+                pageButton.name = pageButton.title = xeButton.Value ?? "";
+            }
+            return pageButton;
+        }
+
+        private static Template.Page.Table ReadTable(XElement xeTable, LocalMap pageLocalMap, ErrorCollector errorCollector)
+        {
+            Template.Page.Table table = new Template.Page.Table(LocalMap.NewTableLocalMap(pageLocalMap));
             foreach (XElement xe in xeTable.Elements())
             {
                 if (xe.Value == null) continue;
@@ -129,14 +124,17 @@ namespace EM_Statistics
                     case "Description": table.description = xe.Value; break;
                     case "StringFormat": table.stringFormat = xe.Value; break;
                     case "ColumnGrouping": table.columnGrouping = errorCollector.XEleGetEnum<HardDefinitions.ColumnGrouping>(xe, xeTable, table.name); break;
-                    case "Visible": table.visible = errorCollector.XEleGetBool(xe, xeTable, table.name); break;
-                    case "Action": table.action = ReadAction(xe, errorCollector); break;
+                    case "Active": table.active = errorCollector.XEleGetBool(xe, xeTable, table.name); break;
+                    case "PerReform": table.perReform = errorCollector.XEleGetBool(xe, xeTable, table.name); break;
+                    case "CellAction": table.cellAction = ReadAction(xe, table.localMap, errorCollector); break;
                     case "Graph": table.graph = ReadGraph(xe, errorCollector); break;
-                    case "Rows": table.rows = ReadElementGroup(xe, ReadRow, errorCollector); break;
-                    case "Columns": table.columns = ReadElementGroup(xe, ReadColumn, errorCollector); break;
-                    case "ReformColumns": table.reformColumns = ReadElementGroup(xe, ReadColumn, errorCollector); break;
-                    case "Cells": table.cells = ReadElementGroup(xe, ReadCell, errorCollector); break;
-                    case "ReformCells": table.reformCells = ReadElementGroup(xe, ReadCell, errorCollector); break;
+                    case "Rows": table.rows = ReadElementGroup(xe, ReadRow, table.localMap, errorCollector); break;
+                    case "Columns": table.columns = ReadElementGroup(xe, ReadColumn, table.localMap, errorCollector); break;
+                    case "ReformColumns": table.reformColumns = ReadElementGroup(xe, ReadColumn, table.localMap, errorCollector); break;
+                    case "Cells": table.cells = ReadElementGroup(xe, ReadCell, table.localMap, errorCollector); break;
+                    case "ReformCells": table.reformCells = ReadElementGroup(xe, ReadCell, table.localMap, errorCollector); break;
+                    case "Actions": table.actions = ReadElementGroup(xe, ReadAction, table.localMap, errorCollector); break;
+                    case "Filters": table.filters = ReadElementGroup(xe, ReadFilter, table.localMap, errorCollector); break;
                     case "SDCDefinition": table.sdcDefinition = ReadTableSDCDefinition(errorCollector, xe); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeTable, table.name); break;
                 }
@@ -144,7 +142,7 @@ namespace EM_Statistics
             return table;
         }
 
-        private static Template.Page.Table.Row ReadRow(XElement xeRow, ErrorCollector errorCollector)
+        private static Template.Page.Table.Row ReadRow(XElement xeRow, LocalMap tableLocalMap, ErrorCollector errorCollector)
         {
             Template.Page.Table.Row row = new Template.Page.Table.Row();
             foreach (XElement xe in xeRow.Elements())
@@ -152,20 +150,44 @@ namespace EM_Statistics
                 if (xe.Value == null) continue;
                 switch (GetXEleName(xe))
                 {
-                    case "Name": row.name = xe.Value; break;
-                    case "IsVisible": row.isVisible = errorCollector.XEleGetBool(xe, xeRow, row.name); break;
-                    case "HasSeparatorBefore": row.hasSeparatorBefore = errorCollector.XEleGetBool(xe, xeRow, row.name); break;
-                    case "HasSeparatorAfter": row.hasSeparatorAfter = errorCollector.XEleGetBool(xe, xeRow, row.name); break;
-                    case "ForEachDataRow": row.forEachDataRow = errorCollector.XEleGetBool(xe, xeRow, row.name); break;
+                    case "IsVisible": row.isVisible = errorCollector.XEleGetBool(xe, xeRow, row.title); break;
+                    case "HasSeparatorBefore": row.hasSeparatorBefore = errorCollector.XEleGetBool(xe, xeRow, row.title); break;
+                    case "HasSeparatorAfter": row.hasSeparatorAfter = errorCollector.XEleGetBool(xe, xeRow, row.title); break;
+                    case "ForEachDataRow": row.forEachDataRow = errorCollector.XEleGetBool(xe, xeRow, row.title); break;
                     case "ForEachValueOf": row.forEachValueOf = xe.Value; break;
-                    case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, row, errorCollector, xeRow, row.name); break;
-                    default: errorCollector.AddXmlUnkownEleError(xe, xeRow, row.name); break;
+                    case "ForEachValueMaxCount": row.forEachValueMaxCount = errorCollector.XEleGetInt(xe, xeRow, row.title); break;
+                    case "ForEachValueDescriptions": row.forEachValueDescriptions = ReadRowForEachValueDescriptions(xe, errorCollector); break;
+                    case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, row, tableLocalMap, errorCollector, xeRow, row.title); break;
+                    default: errorCollector.AddXmlUnkownEleError(xe, xeRow, row.title); break;
                 }
             }
             return row;
         }
 
-        private static Template.Page.Table.Column ReadColumn(XElement xeCol, ErrorCollector errorCollector)
+        private static Dictionary<double, string> ReadRowForEachValueDescriptions(XElement xeDescs, ErrorCollector errorCollector)
+        {
+            Dictionary<double, string> vevds = new Dictionary<double, string>();
+            foreach (XElement xeDesc in xeDescs.Elements())
+            {
+                if (xeDesc.Value == null) continue;
+                if (GetXEleName(xeDesc) != "ForEachValueDescription") { errorCollector.AddXmlUnkownEleError(xeDesc, xeDescs); continue; }
+                double value = double.PositiveInfinity; string description = string.Empty;
+                foreach (XElement xe in xeDesc.Elements())
+                {
+                    if (xe.Value == null) continue;
+                    switch (GetXEleName(xe))
+                    {
+                        case "Value": value = errorCollector.XEleGetDouble(xe, xeDesc); break;
+                        case "Description": description = xe.Value; break;
+                        default: errorCollector.AddXmlUnkownEleError(xe, xeDesc); break;
+                    }
+                }
+                if (value != double.PositiveInfinity) vevds.Add(value, description);
+            }
+            return vevds;
+        }
+
+        private static Template.Page.Table.Column ReadColumn(XElement xeCol, LocalMap tableLocalMap, ErrorCollector errorCollector)
         {
             Template.Page.Table.Column col = new Template.Page.Table.Column();
             foreach (XElement xe in xeCol.Elements())
@@ -173,19 +195,18 @@ namespace EM_Statistics
                 if (xe.Value == null) continue;
                 switch (GetXEleName(xe))
                 {
-                    case "Name": col.name = xe.Value; break;
-                    case "IsVisible": col.isVisible = errorCollector.XEleGetBool(xe, xeCol, col.name); break;
-                    case "HasSeparatorBefore": col.hasSeparatorBefore = errorCollector.XEleGetBool(xe, xeCol, col.name); break;
-                    case "HasSeparatorAfter": col.hasSeparatorAfter = errorCollector.XEleGetBool(xe, xeCol, col.name); break;
-                    case "TiesWith": col.tiesWith = errorCollector.XEleGetDouble(xe, xeCol, col.name); break;
-                    case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, col, errorCollector, xeCol, col.name); break;
-                    default: errorCollector.AddXmlUnkownEleError(xe, xeCol, col.name); break;
+                    case "IsVisible": col.isVisible = errorCollector.XEleGetBool(xe, xeCol, col.title); break;
+                    case "HasSeparatorBefore": col.hasSeparatorBefore = errorCollector.XEleGetBool(xe, xeCol, col.title); break;
+                    case "HasSeparatorAfter": col.hasSeparatorAfter = errorCollector.XEleGetBool(xe, xeCol, col.title); break;
+                    case "TiesWith": col.tiesWith = xe.Value; break;
+                    case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, col, tableLocalMap, errorCollector, xeCol, col.title); break;
+                    default: errorCollector.AddXmlUnkownEleError(xe, xeCol, col.title); break;
                 }
             }
             return col;
         }
 
-        private static Template.Page.Table.Cell ReadCell(XElement xeCell, ErrorCollector errorCollector)
+        private static Template.Page.Table.Cell ReadCell(XElement xeCell, LocalMap tableLocalMap, ErrorCollector errorCollector)
         {
             Template.Page.Table.Cell cell = new Template.Page.Table.Cell();
             foreach (XElement xe in xeCell.Elements())
@@ -193,31 +214,45 @@ namespace EM_Statistics
                 if (xe.Value == null) continue;
                 switch (GetXEleName(xe))
                 {
-                    case "ColNum": cell.colNum = errorCollector.XEleGetInt(xe, xeCell); break;
-                    case "RowNum": cell.rowNum = errorCollector.XEleGetInt(xe, xeCell); break;
-                    case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, cell, errorCollector, xeCell); break;
+                    case "ColName": cell.colName = xe.Value; break;
+                    case "RowName": cell.rowName = xe.Value; break;
+                    case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, cell, tableLocalMap, errorCollector, xeCell); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeCell); break;
                 }
             }
             return cell;
         }
 
-        private static List<string> commonTableFields = new List<string>() {
-            "Action", "Tooltip", "SDCDefinition",
-            "StringFormat", "Strong", "ForegroundColour", "BackgroundColour" };
+        private static List<string> commonVisualFields = new List<string>() {
+            "Tooltip", "Strong", "ForegroundColour", "BackgroundColour", "Title", "Name", "TextAlign" };
 
-        private static void ReadCommonTableField(XElement xeCommon, Template.Page.Table.TableElement tableElement,
+        private static List<string> commonTableFields = new List<string>(commonVisualFields) {
+            "StringFormat", "CellAction", "SDCDefinition"};
+
+        private static void ReadCommonVisualField(XElement xeCommon, Template.Page.VisualElement visualElement, 
                                                  ErrorCollector errorCollector, XElement xeParent, string nameParent = null)
         {
             switch (GetXEleName(xeCommon))
             {
-                case "Strong": tableElement.strong = errorCollector.XEleGetBool(xeCommon, xeParent, nameParent); break;
-                case "ForegroundColour": tableElement.foregroundColour = xeCommon.Value; break;
-                case "BackgroundColour": tableElement.backgroundColour = xeCommon.Value; break;
+                case "Strong": visualElement.strong = errorCollector.XEleGetBool(xeCommon, xeParent, nameParent); break;
+                case "ForegroundColour": visualElement.foregroundColour = xeCommon.Value; break;
+                case "BackgroundColour": visualElement.backgroundColour = xeCommon.Value; break;
+                case "TextAlign": visualElement.textAlign = xeCommon.Value; break;
+                case "Tooltip": visualElement.tooltip = xeCommon.Value; break;
+                case "Title": visualElement.title = xeCommon.Value; break;
+                case "Name": visualElement.name = xeCommon.Value; break;
+            }
+        }
+
+        private static void ReadCommonTableField(XElement xeCommon, Template.Page.Table.TableElement tableElement, LocalMap tableLocalMap,
+                                                 ErrorCollector errorCollector, XElement xeParent, string nameParent = null)
+        {
+            switch (GetXEleName(xeCommon))
+            {
                 case "StringFormat": tableElement.stringFormat = xeCommon.Value; break;
-                case "Tooltip": tableElement.tooltip = xeCommon.Value; break;
-                case "Action": tableElement.action = ReadAction(xeCommon, errorCollector); break;
+                case "CellAction": tableElement.cellAction = ReadAction(xeCommon, tableLocalMap, errorCollector); break;
                 case "SDCDefinition": tableElement.sdcDefinition = ReadTableSDCDefinition(errorCollector, xeCommon); break;
+                case var cvf when commonVisualFields.Contains(cvf): ReadCommonVisualField(xeCommon, tableElement, errorCollector, xeParent, tableElement.title); break;
             }
         }
 
@@ -257,30 +292,31 @@ namespace EM_Statistics
             return secGroups;
         }
 
-        private static Template.Action ReadAction(XElement xeAction, ErrorCollector errorCollector)
+        private static Template.Action ReadAction(XElement xeAction, LocalMap localMap, ErrorCollector errorCollector)
         {
-            Template.Action action = new Template.Action();
+            Template.Action action = new Template.Action(localMap);
             foreach (XElement xe in xeAction.Elements())
             {
                 if (xe.Value == null) continue;
                 switch (GetXEleName(xe))
                 {
+                    case "Name": action.name = xe.Value; break;
                     case "CalculationLevel": action._calculationLevel = xe.Value; break;
                     case "CalculationType": action.calculationType = errorCollector.XEleGetEnum<HardDefinitions.CalculationType>(xe, xeAction); break;
                     case "OutputVar": action.outputVar = xe.Value; break;
                     case "FormulaString": action.formulaString = xe.Value; break;
-                    case "Filter": action.filter = ReadFilter(xe, errorCollector); break;
+                    case "Filter": action.filter = ReadFilter(xe, localMap, errorCollector); break;
                     case "Reform": action._reform = errorCollector.XEleGetBool(xe, xeAction); break;
                     case "SaveResults": action._saveResult = errorCollector.XEleGetBool(xe, xeAction); break;
                     case "BlendParameters": action._blendParameters = errorCollector.XEleGetBool(xe, xeAction); break;
-                    case "Parameters": action.parameters = ReadElementGroup(xe, ReadParameter, errorCollector); break;
+                    case "Parameters": action.parameters = ReadElementGroup(xe, ReadParameter, localMap, errorCollector); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeAction); break;
                 }
             }
             return action;
         }
 
-        private static Template.Parameter ReadParameter(XElement xePar, ErrorCollector errorCollector)
+        private static Template.Parameter ReadParameter(XElement xePar, LocalMap localMap, ErrorCollector errorCollector)
         {
             Template.Parameter par = new Template.Parameter();
             foreach (XElement xe in xePar.Elements())
@@ -292,16 +328,18 @@ namespace EM_Statistics
                     case "VarName": par.variableName = xe.Value; break;
                     case "BoolValue": par.boolValue = errorCollector.XEleGetBool(xe, xePar, par.name); break;
                     case "NumericValue": par.numericValue = errorCollector.XEleGetDouble(xe, xePar, par.name); break;
-                    case "Reform": par._reform = errorCollector.XEleGetBool(xe, xePar, par.name); break;
+                    case "StringValue": par.stringValue = xe.Value; break;
+                    case "Source": par._source = errorCollector.XEleGetEnum<Template.Parameter.Source>(xe, xePar, par.name); break;
+                    case "Reform": if (!errorCollector.XEleGetBool(xe, xePar, par.name)) par._source = Template.Parameter.Source.BASELINE; break; // old-style, replaced by Source
                     default: errorCollector.AddXmlUnkownEleError(xe, xePar, par.name); break;
                 }
             }
             return par;
         }
 
-        private static Template.Filter ReadFilter(XElement xeFilter, ErrorCollector errorCollector)
+        private static Template.Filter ReadFilter(XElement xeFilter, LocalMap localMap, ErrorCollector errorCollector)
         {
-            Template.Filter filter = new Template.Filter();
+            Template.Filter filter = new Template.Filter(localMap);
             foreach (XElement xe in xeFilter.Elements())
             {
                 if (xe.Value == null) continue;
@@ -310,7 +348,7 @@ namespace EM_Statistics
                     case "Name": filter.name = xe.Value; break;
                     case "FormulaString": filter.formulaString = xe.Value; break;
                     case "Reform": filter.reform = errorCollector.XEleGetBool(xe, xeFilter, filter.name); break;
-                    case "Parameters": filter.parameters = ReadElementGroup(xe, ReadParameter, errorCollector); break;
+                    case "Parameters": filter.parameters = ReadElementGroup(xe, ReadParameter, localMap, errorCollector); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeFilter, filter.name); break; ;
                 }
             }
@@ -338,10 +376,10 @@ namespace EM_Statistics
                     case "MaxFiles": info.maxFiles = errorCollector.XEleGetInt(xe, xeInfo); break;
                     case "HideMainSelectorForSingleFilePackage": info.HideMainSelectorForSingleFilePackage = errorCollector.XEleGetBool(xe, xeInfo); break;
                     case "TemplateType": info.templateType = errorCollector.XEleGetEnum<HardDefinitions.TemplateType>(xe, xeInfo); break;
-                    case "AdditionalCalculationLevels": info.calculationLevels = ReadElementGroup(xe, ReadCalculationLevel, errorCollector); break;
-                    case "RequiredVariables": info.requiredVariables = ReadElementGroup(xe, ReadRequiredVariable, errorCollector); break;
-                    case "OptionalVariables": info.optionalVariables = ReadElementGroup(xe, ReadOptionalVariable, errorCollector); break;
-                    case "UserVariables": info.userVariables = ReadElementGroup(xe, ReadUserVariable, errorCollector); break;
+                    case "AdditionalCalculationLevels": info.calculationLevels = ReadElementGroup(xe, ReadCalculationLevel, null, errorCollector); break;
+                    case "RequiredVariables": info.requiredVariables = ReadElementGroup(xe, ReadRequiredVariable, null, errorCollector); break;
+                    case "OptionalVariables": info.optionalVariables = ReadElementGroup(xe, ReadOptionalVariable, null, errorCollector); break;
+                    case "UserVariables": info.userVariables = ReadElementGroup(xe, ReadUserVariable, null, errorCollector); break;
                     case "SDCDefinition": ReadTemplateInfoSDCDefinition(errorCollector, info, xe); break;
                     case "ExportDescriptionMode": info.exportDescriptionMode = errorCollector.XEleGetEnum<HardDefinitions.ExportDescriptionMode>(xe, xeInfo); break;
                     case "DebugMode": break;
@@ -360,23 +398,15 @@ namespace EM_Statistics
                 {
                     case "HideZeroObs": info.sdcHideZeroObs = errorCollector.XEleGetBool(xeg, xe); break;
                     case "MinObsDefault": info.sdcMinObsDefault = errorCollector.XEleGetInt(xeg, xe); break;
-                    case "MinObsAlternatives":
-                        info.sdcMinObsAlternatives = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-                        foreach (var ele in ReadElementGroup(xeg, ReadSdcMinObsAlternative, errorCollector))
-                        {
-                            if (ele.Key == null) continue;
-                            if (info.sdcMinObsAlternatives.ContainsKey(ele.Key)) errorCollector.AddDebugOnlyError($"Double definition of SdcMinObsAlternative '{ele.Key}'.");
-                            else info.sdcMinObsAlternatives.Add(ele.Key, ele.Value);
-                        }
-                        break;
+                    case "MinObsAlternatives": info.sdcMinObsAlternatives = ReadElementGroup(xeg, ReadSdcMinObsAlternative, null, errorCollector); break;
                     default: errorCollector.AddXmlUnkownEleError(xeg, xe); break;
                 }
             }
         }
 
-        private static KeyValuePair<string, int> ReadSdcMinObsAlternative(XElement xeAlt, ErrorCollector errorCollector)
+        private static KeyValuePair<string, int> ReadSdcMinObsAlternative(XElement xeAlt, LocalMap localMap, ErrorCollector errorCollector)
         {
-            string name = null; int minObs = int.MinValue;
+            string name = string.Empty; int minObs = int.MinValue;
             foreach (XElement xe in xeAlt.Elements())
             {
                 if (xe.Value == null) continue;
@@ -387,13 +417,10 @@ namespace EM_Statistics
                     default: errorCollector.AddXmlUnkownEleError(xe, xeAlt); break;
                 }
             }
-            if (minObs == int.MinValue || name == null) errorCollector.AddDebugOnlyError("Incomplete definition of SdcMinObsAlternative" +
-                                                                                         (name == null ? ": missing 'Name'" : $" '{name}': ") +
-                                                                                         (minObs == int.MinValue ? "missing 'MinObs'" : string.Empty));
             return new KeyValuePair<string, int>(name, minObs);
         }
 
-        private static Template.TemplateInfo.CalculationLevel ReadCalculationLevel(XElement xeCL, ErrorCollector errorCollector)
+        private static Template.TemplateInfo.CalculationLevel ReadCalculationLevel(XElement xeCL, LocalMap localMap, ErrorCollector errorCollector)
         {
             Template.TemplateInfo.CalculationLevel cl = new Template.TemplateInfo.CalculationLevel();
             foreach (XElement xe in xeCL.Elements())
@@ -409,7 +436,7 @@ namespace EM_Statistics
             return cl;
         }
 
-        private static Template.TemplateInfo.RequiredVariable ReadRequiredVariable(XElement xeRV, ErrorCollector errorCollector)
+        private static Template.TemplateInfo.RequiredVariable ReadRequiredVariable(XElement xeRV, LocalMap localMap, ErrorCollector errorCollector)
         {
             Template.TemplateInfo.RequiredVariable rv = new Template.TemplateInfo.RequiredVariable();
             foreach (XElement xe in xeRV.Elements())
@@ -419,13 +446,14 @@ namespace EM_Statistics
                 {
                     case "Name": rv.name = xe.Value; break;
                     case "ReadVar": rv.readVar = xe.Value; break;
+                    case "Monetary": rv.monetary = errorCollector.XEleGetBool(xe, xeRV); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeRV, rv.name); break;
                 }
             }
             return rv;
         }
 
-        private static Template.TemplateInfo.OptionalVariable ReadOptionalVariable(XElement xeOV, ErrorCollector errorCollector)
+        private static Template.TemplateInfo.OptionalVariable ReadOptionalVariable(XElement xeOV, LocalMap localMap, ErrorCollector errorCollector)
         {
             Template.TemplateInfo.OptionalVariable ov = new Template.TemplateInfo.OptionalVariable();
             foreach (XElement xe in xeOV.Elements())
@@ -436,6 +464,7 @@ namespace EM_Statistics
                     case "Name": ov.name = xe.Value; break;
                     case "ReadVar": ov.readVar = xe.Value; break;
                     case "DefaultValue": ov.defaultValue = errorCollector.XEleGetDouble(xe, xeOV, ov.name); break;
+                    case "Monetary": ov.monetary = errorCollector.XEleGetBool(xe, xeOV); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeOV, ov.name); break;
                 }
             }
@@ -452,8 +481,9 @@ namespace EM_Statistics
                 {
                     case "ShowTable": graph.showTable = errorCollector.XEleGetBool(xe, xeGraph); break;
                     case "SeriesInRows": graph.seriesInRows = errorCollector.XEleGetBool(xe, xeGraph); break;
-                    case "Series": graph.allSeries = ReadElementGroup(xe, ReadGraphSerie, errorCollector); break;
+                    case "Series": graph.allSeries = ReadElementGroup(xe, ReadGraphSerie, null, errorCollector); break;
                     case "Title": graph.title = xe.Value; break;
+                    case "Round": graph.round = errorCollector.XEleGetInt(xe, xeGraph); break;
                     case "Legend": graph.legend = ReadLegend(xe, errorCollector); break;
                     case "AxisX": graph.axisX = ReadAxis(xe, errorCollector); break;
                     case "AxisY": graph.axisY = ReadAxis(xe, errorCollector); break;
@@ -464,7 +494,7 @@ namespace EM_Statistics
             return graph;
         }
 
-        private static DisplayResults.DisplayPage.DisplayTable.DisplayGraph.Series ReadGraphSerie(XElement xeSerie, ErrorCollector errorCollector)
+        private static DisplayResults.DisplayPage.DisplayTable.DisplayGraph.Series ReadGraphSerie(XElement xeSerie, LocalMap localMap, ErrorCollector errorCollector)
         {
             DisplayResults.DisplayPage.DisplayTable.DisplayGraph.Series serie = new DisplayResults.DisplayPage.DisplayTable.DisplayGraph.Series();
             foreach (XElement xe in xeSerie.Elements())
@@ -520,7 +550,7 @@ namespace EM_Statistics
             return legend;
         }
         
-        private static Template.TemplateInfo.UserVariable ReadUserVariable(XElement xeUV, ErrorCollector errorCollector)
+        private static Template.TemplateInfo.UserVariable ReadUserVariable(XElement xeUV, LocalMap localMap, ErrorCollector errorCollector)
         {
             Template.TemplateInfo.UserVariable uv = new Template.TemplateInfo.UserVariable();
             foreach (XElement xe in xeUV.Elements())
@@ -530,18 +560,19 @@ namespace EM_Statistics
                 {
                     case "UserInputType": uv.inputType = errorCollector.XEleGetEnum<HardDefinitions.UserInputType>(xe, xeUV, uv.name); break;
                     case "Name": uv.name = xe.Value; break;
+                    case "Monetary": uv.monetary = errorCollector.XEleGetBool(xe, xeUV); break;
                     case "Description": uv.description = xe.Value; break;
                     case "Title": uv.title = xe.Value; break;
                     case "DefaultValue": uv.defaultValue = xe.Value; break;
                     case "DisplayDescription": uv.displayDescription = errorCollector.XEleGetBool(xe, xeUV, uv.name); break;
-                    case "ComboItems": uv.comboItems = ReadElementGroup(xe, ReadComboItem, errorCollector); break;
+                    case "ComboItems": uv.comboItems = ReadElementGroup(xe, ReadComboItem, null, errorCollector); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeUV, uv.name); break;
                 }
             }
             return uv;
         }
 
-        private static Template.TemplateInfo.ComboItem ReadComboItem(XElement xeCI, ErrorCollector errorCollector)
+        private static Template.TemplateInfo.ComboItem ReadComboItem(XElement xeCI, LocalMap localMap, ErrorCollector errorCollector)
         {
             Template.TemplateInfo.ComboItem ci = new Template.TemplateInfo.ComboItem();
             foreach (XElement xe in xeCI.Elements())
@@ -557,15 +588,15 @@ namespace EM_Statistics
             return ci;
         }
 
-        private static List<T> ReadElementGroup<T>(XElement xeGroup, Func<XElement, ErrorCollector, T> readFunc, ErrorCollector errorCollector)
+        private static List<T> ReadElementGroup<T>(XElement xeGroup, Func<XElement, LocalMap, ErrorCollector, T> readFunc, LocalMap localMap, ErrorCollector errorCollector)
         {
             return GetElementGroupList(xeGroup.Elements(), // e.g. all elements of <Actions>
                                        GetXEleName(xeGroup).Substring(0, GetXEleName(xeGroup).Length - 1), // e.g. Actions -> Action
-                                       readFunc, errorCollector);
+                                       readFunc, localMap, errorCollector);
         }
 
-        private static List<T> GetElementGroupList<T>(IEnumerable<XElement> xes, string nameChildXE, Func<XElement, ErrorCollector, T> readFunc,
-                                                      ErrorCollector errorCollector)
+        private static List<T> GetElementGroupList<T>(IEnumerable<XElement> xes, string nameChildXE, Func<XElement, LocalMap, ErrorCollector, T> readFunc,
+                                                      LocalMap localMap, ErrorCollector errorCollector)
         {
             List<T> list = new List<T>(); // e.g. List<Template.Action>
             foreach (XElement xe in xes)
@@ -574,7 +605,7 @@ namespace EM_Statistics
                     errorCollector.AddXmlUnkownEleError(xe, new XElement(nameChildXE + "s"));
                 else
                 {
-                    T ele = readFunc(xe, errorCollector); // call e.g. ReadAction ...
+                    T ele = readFunc(xe, localMap, errorCollector); // call e.g. ReadAction ...
                     list.Add(ele); // ... and add the result to the List<Template.Action>
                 }
             }

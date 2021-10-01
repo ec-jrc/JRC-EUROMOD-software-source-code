@@ -13,16 +13,28 @@ namespace EM_Statistics
         internal string packageKey;
         internal List<List<double>> data = new List<List<double>>();
         private readonly Dictionary<double, int> ObservationIndex = new Dictionary<double, int>();
-        private readonly Dictionary<string, int> VariableIndex = new Dictionary<string, int>();
-        private readonly Dictionary<string, SavedNumber> SavedNumbers = new Dictionary<string, SavedNumber>();
+        private readonly List<Variable> VariableIndex = new List<Variable>();
+        private readonly List<SavedNumber> SavedNumbers = new List<SavedNumber>();
         internal Dictionary<string, Func<List<double>, bool>> filters = new Dictionary<string, Func<List<double>, bool>>();
+
+        internal class Variable
+        {
+            internal readonly string name;
+            internal readonly LocalMap localMap = null;
+            internal readonly int index;
+            internal readonly bool monetary = true;
+
+            internal Variable(string _name, LocalMap _localMap, int _index, bool _monetary) { name = _name; localMap = _localMap; index = _index; monetary = _monetary; }
+        }
 
         internal class SavedNumber
         {
+            internal readonly string name;
+            internal readonly LocalMap localMap = null;
             internal readonly double number;
             internal readonly int sdcObsNo;
-            
-            internal SavedNumber(double _number, int _sdcObsNo) { number = _number; sdcObsNo = _sdcObsNo; }
+
+            internal SavedNumber(string _name, LocalMap _localMap, double _number, int _sdcObsNo) { name = _name; localMap = _localMap; number = _number; sdcObsNo = _sdcObsNo; }
         }
 
         public DataStatsHolder(string _keyVar, int _dataNo, string _level, string _packageKey)
@@ -35,11 +47,6 @@ namespace EM_Statistics
 
         internal int GetKeyIndex() { return keyIndex; }
         internal string GetKeyName() { return keyName; }
-
-        internal void AddVar(string varName)
-        {
-            if (!VariableIndex.ContainsKey(varName)) VariableIndex.Add(varName, VariableIndex.Count);
-        }
 
         internal void AddObs(List<double> list)
         {
@@ -62,36 +69,57 @@ namespace EM_Statistics
             return func == null ? data : data.Where(func).ToList();
         }
 
+        private Variable GetVariable(string varName, LocalMap localMapRequestor)
+        {
+            if (string.IsNullOrEmpty(varName)) return null;
+            return (from v in VariableIndex
+                    where v.name.ToLower() == varName.ToLower() && LocalMap.AllowsFor(v.localMap, localMapRequestor)
+                    select v).FirstOrDefault();
+        }
+
+        internal bool HasVariable(string varName, LocalMap localMapRequestor)
+        {
+            return GetVariable(varName, localMapRequestor) != null;
+        }
+
+        internal int GetVarIndex(string varName, LocalMap localMapRequestor)
+        {
+            Variable v = GetVariable(varName, localMapRequestor); return v == null ? -1 : v.index;
+        }
+
         internal void ConfirmKey()
         {
-            keyIndex = VariableIndex[keyName];
+            keyIndex = GetVarIndex(keyName, null);
         }
 
-        internal int GetVarIndex(string varName)
+        internal void AddVar(string varName, bool monetary, LocalMap localMap)
         {
-            return string.IsNullOrEmpty(varName) || !VariableIndex.ContainsKey(varName) ? -1 : VariableIndex[varName];
+            if (!HasVariable(varName, localMap)) VariableIndex.Add(new Variable(varName, localMap, VariableIndex.Count, monetary));
         }
 
-        internal bool HasVariable(string varName)
+        internal bool IsVarMonetary(string varName, LocalMap localMapRequestor)
         {
-            return !string.IsNullOrEmpty(varName) && VariableIndex.ContainsKey(varName);
+            Variable v = GetVariable(varName, localMapRequestor); return v == null ? true : v.monetary;
         }
 
-        internal SavedNumber GetSavedNumber(string varName)
+        internal SavedNumber GetSavedNumber(string varName, LocalMap localMapRequestor)
         {
-            return SavedNumbers[varName];
+            if (string.IsNullOrEmpty(varName)) return null;
+            return (from sn in SavedNumbers
+                    where sn.name.ToLower() == varName.ToLower() && LocalMap.AllowsFor(sn.localMap, localMapRequestor)
+                    select sn).FirstOrDefault();
         }
 
-        internal bool HasSavedNumber(string varName)
+        internal bool HasSavedNumber(string varName, LocalMap localMapRequestor)
         {
-            return !string.IsNullOrEmpty(varName) && SavedNumbers.ContainsKey(varName);
+            return GetSavedNumber(varName, localMapRequestor) != null;
         }
 
-        internal void SetSavedNumber(string varName, SavedNumber savedNumber)
+        internal void SetSavedNumber(SavedNumber savedNumber)
         {
-            if (string.IsNullOrEmpty(varName)) return;
-            if (SavedNumbers.ContainsKey(varName)) { SavedNumbers[varName] = savedNumber; }
-            else SavedNumbers.Add(varName, savedNumber);
+            SavedNumber sn = GetSavedNumber(savedNumber.name, savedNumber.localMap);
+            if (sn != null) SavedNumbers.Remove(sn);
+            SavedNumbers.Add(savedNumber);
         }
     }
 }

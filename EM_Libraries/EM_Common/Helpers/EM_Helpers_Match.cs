@@ -12,7 +12,7 @@ namespace EM_Common
             else pattern = pattern.Replace("$", "\\$");  // for regular expressions, escape "$" so that it can be used as a litteral character
             if (matchWord) pattern = "^(.*[^a-z_$A-Z0-9]+)?" + pattern + "([^a-z_$A-Z0-9]+.*)?$";
             else pattern = "^" + pattern + "$";
-            Regex regEx = new Regex(pattern);
+            Regex regEx = new Regex(pattern, RegexOptions.Multiline);   // there shouldn't really be line breaks in any cells, but if there are, they should be still searchable...
             return regEx.IsMatch(value);
         }
     }

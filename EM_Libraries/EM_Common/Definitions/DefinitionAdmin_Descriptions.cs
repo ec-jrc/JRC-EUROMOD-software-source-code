@@ -75,7 +75,7 @@ namespace EM_Common
             { DefFun.Uprate+"|"+DefPar.Uprate.AggVar_Name, "Name of an aggregate variable (e.g. yse)." },
             { DefFun.Uprate+"|"+DefPar.Uprate.AggVar_Part, "Name of a component variable of the aggregate variable defined by AggVar_Name (e.g. ysebs)." },
             { DefFun.Uprate+"|"+DefPar.Uprate.AggVar_Tolerance, "If the value of the variable specified by parameter AggVar_Name differs from the sum of its components defined by parameters AggVar_Part, an error message is issued, but only if the absolute difference is higher than aggvarX_tolerance." },
-            { DefFun.Uprate+"|"+DefPar.Uprate.WarnIfNoFactor, "If set to yes an warning is issues for any monetary dataset variable without an explicitly defined uprating factor." },
+            { DefFun.Uprate+"|"+DefPar.Uprate.WarnIfNoFactor, "If set to yes an warning is issued for any monetary dataset variable without an explicitly defined uprating factor." },
             { DefFun.Uprate+"|"+DefPar.Uprate.RegExp_Def, "Pattern (regular expression) defining the group of variables to be uprated by RegExp_Factor, e.g. x[0-9]+." },
             { DefFun.Uprate+"|"+DefPar.Uprate.RegExp_Factor, "Factor by which the variables defined by RegExp_Def are uprated." },
             { DefFun.Uprate+"|"+DefPar.Uprate.WarnIfNonMonetary, "If set to yes, a warning is issues for uprating non-monetary variables." },

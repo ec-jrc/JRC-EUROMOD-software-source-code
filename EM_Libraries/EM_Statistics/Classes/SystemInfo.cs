@@ -1,4 +1,5 @@
 ﻿using EM_Common;
+using EM_Crypt;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,8 +22,25 @@ namespace EM_Statistics
 
         internal List<string> GetDataRows()
         {
-            var dataRows = memoryData == null ? File.ReadLines(fullFileName)
-                                              : memoryData.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            IEnumerable<string> dataRows;
+            // if reading from disk
+            if (memoryData == null)
+            {
+                // if encrypted, decrypt the data
+                if (!string.IsNullOrEmpty(SecureInfo.DataPassword))
+                {
+                    byte[] content = File.ReadAllBytes(fullFileName);
+                    // if encrypted, then decrypt it
+                    if (SimpleCrypt.IsEncrypted(content, out int nonSecretLength))
+                        content = SimpleCrypt.SimpleDecryptWithPassword(content, SecureInfo.DataPassword, nonSecretLength);
+                    // if decoding failed (e.g. wrong password) read the file as is, else use decrypted data
+                    dataRows = content == null ? File.ReadLines(fullFileName) : Encoding.UTF8.GetString(content).Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+                }
+                else    // not encrypted
+                    dataRows = File.ReadLines(fullFileName);
+            }
+            else    // if getting from memory
+                dataRows = memoryData.ToString().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
             return (from dr in dataRows where !string.IsNullOrEmpty(dr.Trim()) select dr).ToList(); // remove (last) empty line which may exist in StringBuilder
         }
 

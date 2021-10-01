@@ -24,12 +24,15 @@ namespace EM_BackEnd
         public static Dictionary<string, EM_BackEndResponder> backEndResponders = new Dictionary<string, EM_BackEndResponder>();
 
         /// <summary> Starts or restarts the EM_BackEnd host server </summary>
-        public void Start(Dictionary<string, EM_BackEndResponder> _backEndResponders = null, string wwwrootPath = null, int startingPort = STARTING_PORT)
+        public void Start(Dictionary<string, EM_BackEndResponder> _backEndResponders = null, string wwwrootPath = null, bool selfHost = true, int startingPort = STARTING_PORT)
         {
-            if (isRunning) Stop();
-            host = null; port = GetAvailablePort(startingPort); if (port == 0) return;
-            var builder = CreateWebHostBuilder(wwwrootPath);
-            host = builder.Build(); host.StartAsync(); isRunning = true;
+            if (selfHost)
+            {
+                if (isRunning) Stop();
+                host = null; port = GetAvailablePort(startingPort); if (port == 0) return;
+                var builder = CreateWebHostBuilder(wwwrootPath);
+                host = builder.Build(); host.StartAsync(); isRunning = true;
+            }
             if (_backEndResponders != null)
                 foreach (var ber in _backEndResponders) AddResponder(ber.Key, ber.Value);
         }
@@ -53,6 +56,11 @@ namespace EM_BackEnd
             foreach (string key in keys) backEndResponders.Remove(key);
         }
 
+        public bool ContainsResponderKey(string key)
+        {
+            return backEndResponders.ContainsKey(key);
+        }
+
         public class ResponseError { public string errorMessage = string.Empty; }
         public static void WriteResponseError(HttpContext context, string error)
         {
@@ -65,6 +73,7 @@ namespace EM_BackEnd
         /// <returns>The host builder.</returns>
         private IWebHostBuilder CreateWebHostBuilder(string wwwrootPath)
         {
+            if (port == 0) return null;
             WebHostBuilder webHostBuilder = new WebHostBuilder();
             webHostBuilder.UseKestrel()
                           .CaptureStartupErrors(true)

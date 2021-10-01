@@ -59,15 +59,16 @@ namespace EM_Statistics
 
                 if (template.info.templateType != HardDefinitions.TemplateType.Multi)
                 {
-                    if (filePackage.MicroDataBase != null) { filenames.Add(string.Empty); microData.Add(filePackage.MicroDataBase); }
-                    else { filenames.Add(filePackage.PathBase); microData.Add(null); }
+                    filenames.Add(filePackage.PathBase); 
+                    microData.Add(null);
                 }
+
                 for (int f = 0; f < Math.Max(filePackage.PathsAlt.Count, filePackage.MicroDataAlt.Count); ++f)
                 {
                     filenames.Add(f < filePackage.PathsAlt.Count ? filePackage.PathsAlt[f] : string.Empty);
                     microData.Add(f < filePackage.MicroDataAlt.Count ? filePackage.MicroDataAlt[f] : null);
                 }
-                if (filePackage.MicroDataBase == null && filePackage.MicroDataAlt.Count == 0) microData = null;
+                if (filePackage.MicroDataAlt.Count == 0) microData = null;
 
                 // Prepare the resultsPackage
                 ResultsPackage resultsPackage = new ResultsPackage();
@@ -173,13 +174,16 @@ namespace EM_Statistics
             {
                 context.Response.ContentType = "text/html";
                 bool showButtons = !template.info.HideMainSelectorForSingleFilePackage || filePackages.Count > 1;
+                string path = context.Request.Path.ToUriComponent();
+                path = path.Substring(0, path.LastIndexOf("/"));
                 string html = Resources.statistics_html
                     .Replace(BackEndResourceProvider.MESSAGEBOX_HTML, BackEndResourceProvider.Get_MessageBox_html())
                     .Replace(BackEndResourceProvider.STRINGINPUTBOX_HTML, BackEndResourceProvider.Get_StringInputBox_html())
                     .Replace("PLACEHOLDER_RESPONDER_KEY", beResponder.responderKey)
                     .Replace("PLACEHOLDER_SHOW_BUTTONS", showButtons ? "initial" : "none")
-                    .Replace("PLACEHOLDER_SHOW_BACK", urlBack != null ? "initial" : "none")
-                    .Replace("PLACEHOLDER_URL_BACK", urlBack != null ? urlBack : string.Empty);
+                    .Replace("PLACEHOLDER_SHOW_BACK", urlBack != null ? "inline-block" : "none")
+                    .Replace("PLACEHOLDER_URL_BACK", urlBack != null ? path + urlBack : string.Empty);
+                
 
                 string contents = string.Empty;
                 foreach (ResultsPackage resultsPackage in resultsPackages)
@@ -257,7 +261,7 @@ namespace EM_Statistics
                     }
                     else
                     {
-                        context.Response.Headers.Append("Content-Disposition", $"attachment; filename=EM_Statistics_export.xlsx");
+                        context.Response.Headers.Append("Content-Disposition", $"attachment; filename={template?.info?.name ?? "EM_Statistics_export"}.xlsx");
                         List<DisplayResults> allDisplayResults = new List<DisplayResults>();
                         foreach (ResultsPackage resultsPackage in allResults)
                             allDisplayResults.Add(resultsPackage.displayResults);

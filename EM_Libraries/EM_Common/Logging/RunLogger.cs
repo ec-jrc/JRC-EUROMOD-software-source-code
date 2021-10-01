@@ -20,10 +20,13 @@ namespace EM_Common
 
         private static string EMLOG_FILENAME { get { return $"{DefGeneral.BRAND_TITLE}_Log.txt"; } }
         private static string PETLOG_FILENAME { get { return $"{DefGeneral.BRAND_TITLE}_PolicyEffects_Log.txt"; } }
-        private string GetLogFileNameWithTimeStamp(bool petLog = false) { return $"{timeStamp}_" + (petLog ? PETLOG_FILENAME : EMLOG_FILENAME); }
+        private string GetLogFileNameWithTimeStamp(bool petLog = false) { return $"{timeStamp}_" + $"{randomString}_" + (petLog ? PETLOG_FILENAME : EMLOG_FILENAME); }
 
-        private string timeStamp { get { if (_timeStamp == null) _timeStamp = string.Format("{0:yyyyMMddHHmm}", DateTime.Now); return _timeStamp; } }
+        private string timeStamp { get { if (_timeStamp == null) _timeStamp = string.Format("{0:yyyyMMddHHmmss}", DateTime.Now); return _timeStamp; } }
         private string _timeStamp = null;
+
+        private string randomString { get {  if(_randomString == null) _randomString = Guid.NewGuid().ToString("N");  return _randomString; } }
+        private string _randomString = null;
 
         private GeneralInfo generalInfo = new GeneralInfo();
         private List<RunInfo> runInfoList = null;

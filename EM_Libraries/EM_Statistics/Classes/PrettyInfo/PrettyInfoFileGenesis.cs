@@ -2,7 +2,7 @@
 
 namespace EM_Statistics
 {
-    internal static partial class PrettyInfoProvider
+    public static partial class PrettyInfoProvider
     {
         private static class PrettyInfoFileGenesis
         {
@@ -26,6 +26,34 @@ namespace EM_Statistics
                        $"Exchange-rate: {fileGenesis.runInfo.exchangeRate}" +
                        (!fileGenesis.runInfo.errorInfo.Any() ? string.Empty : $"<br>Run produced {fileGenesis.runInfo.errorInfo.Count} warning{(fileGenesis.runInfo.errorInfo.Count > 1 ? "s" : string.Empty)}");
             }
+
+            internal static string GetPrettyRunExtensionSwitches(SystemInfo.FileGenesis fileGenesis)
+            {
+                return $"{string.Join(" ", from es in fileGenesis.runInfo.extensionSwitches select $"{es.Key}={es.Value}")}";
+            }
+
+            internal static string GetPrettyRunAddons(SystemInfo.FileGenesis fileGenesis)
+            {
+                return (!fileGenesis.runInfo.addOnSystemNames.Any() ? string.Empty : $"{string.Join(" ", fileGenesis.runInfo.addOnSystemNames)}");
+
+            }
+
+            internal static string GetPrettyRunDuration(SystemInfo.FileGenesis fileGenesis)
+            {
+                return $"{fileGenesis.runInfo.duration.GetDuration()}";
+            }
+
+            internal static string GetPrettyRunStartTime(SystemInfo.FileGenesis fileGenesis)
+            {
+                return $"{fileGenesis.runInfo.duration.GetStartTime_s()}";
+
+            }
+
+            internal static string GetPrettyRunEndTime(SystemInfo.FileGenesis fileGenesis)
+            {
+                return $"{fileGenesis.runInfo.duration.GetEndTime_s()}";
+            }
+
 
             internal static string GetPrettyErrLog(SystemInfo.FileGenesis fileGenesis)
             {

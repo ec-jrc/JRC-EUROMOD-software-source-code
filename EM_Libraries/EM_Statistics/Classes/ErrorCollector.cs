@@ -29,6 +29,8 @@ namespace EM_Statistics
                 Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine + Environment.NewLine, errors);
         }
 
+        public void Clear() { errors.Clear(); }
+
         internal bool XEleGetBool(XElement xe, XElement xeParent, string nameParent = null)
         {
             if (bool.TryParse(xe.Value, out bool b)) return b; AddXmlTryParseError(xe, xeParent, nameParent); return false;
@@ -64,6 +66,38 @@ namespace EM_Statistics
             string err = $"<{xeParent.Name}>{(string.IsNullOrEmpty(nameParent) ? string.Empty : $" '{nameParent}'")}: {error}.";
             if (!debugOnly) AddError(err); // note: Xml-errors are always critical
             else AddDebugOnlyError(err);
+        }
+
+        internal void AddXmlMissingPropError(string tag, string ident, string parentTag) { AddXmlMissingPropError(tag, string.IsNullOrEmpty(ident) ? null : new List<string> { ident }, string.IsNullOrEmpty(parentTag) ? null : new List<string> { parentTag }); }
+        internal void AddXmlMissingPropError(string tag, List<string> idents, string parentTag) { AddXmlMissingPropError(tag, idents, string.IsNullOrEmpty(parentTag) ? null : new List<string> { parentTag }); }
+        internal void AddXmlMissingPropError(string tag, string ident, List<string> parentTags) { AddXmlMissingPropError(tag, string.IsNullOrEmpty(ident) ? null : new List<string> { ident }, parentTags); }
+        internal void AddXmlMissingPropError(string tag, List<string> idents, List<string> parentTags)
+        {
+            AddError($"{ComposeErrorHeader(idents, parentTags)}Missing property <{tag}>.");
+        }
+
+        internal void CheckXmlDoubleDefError(IEnumerable<string> defs, string tag, string ident, string parentTag) { CheckXmlDoubleDefError(defs, tag, string.IsNullOrEmpty(ident) ? null : new List<string> { ident }, string.IsNullOrEmpty(parentTag) ? null : new List<string> { parentTag }); }
+        internal void CheckXmlDoubleDefError(IEnumerable<string> defs, string tag, List<string> idents, string parentTag) { CheckXmlDoubleDefError(defs, tag, idents, string.IsNullOrEmpty(parentTag) ? null : new List<string> { parentTag }); }
+        internal void CheckXmlDoubleDefError(IEnumerable<string> defs, string tag, string ident, List<string> parentTags) { CheckXmlDoubleDefError(defs, tag, string.IsNullOrEmpty(ident) ? null : new List<string> { ident }, parentTags); }
+        internal void CheckXmlDoubleDefError(IEnumerable<string> defs, string tag, List<string> idents, List<string> parentTags)
+        {
+            foreach (string def in defs.Distinct())
+                if (!string.IsNullOrEmpty(def) && (from d in defs where d.ToLower() == def.ToLower() select d).Count() > 1)
+                    AddError($"{ComposeErrorHeader(idents, parentTags)}Multiple usage of <{tag}> '{def}'.");
+        }
+
+        private string ComposeErrorHeader(List<string> idents, List<string> parentTags)
+        {
+            string spts = string.Empty, sids = string.Empty;
+            if (parentTags != null && parentTags.Any())
+                foreach (string p in parentTags) if (!string.IsNullOrEmpty(p)) spts += $"<{p}>";
+            if (idents != null && idents.Any())
+            {
+                sids = string.Join("|", from i in idents where !string.IsNullOrEmpty(i) select i);
+                if (sids != string.Empty) sids = $"'{sids}'";
+            }
+            string error = spts + (spts == string.Empty ? string.Empty : " ") + sids;
+            return error == string.Empty ? string.Empty : error += ":" + Environment.NewLine;
         }
     }
 }

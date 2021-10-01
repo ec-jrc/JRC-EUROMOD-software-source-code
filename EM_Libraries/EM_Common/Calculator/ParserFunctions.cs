@@ -20,6 +20,7 @@ namespace EM_Common
             fp.RegisterFunction("FLOOR", 1, Floor);
             fp.RegisterFunction("ROUND", 1, 2, Round);
             fp.RegisterFunction("POWER", 2, Power);
+            fp.RegisterFunction("IF", 3, If);
             /*
             fp.RegisterFunction("ACOS", 1, Acos);
             fp.RegisterFunction("ASIN", 1, Asin);
@@ -102,6 +103,11 @@ namespace EM_Common
         static object Power(List<Calculator_Expression> p, Dictionary<string, double> operands)
         {
             return Math.Pow(p[0].toDouble(operands), p[1].toDouble(operands));
+        }
+
+        static object If(List<Calculator_Expression> p, Dictionary<string, double> operands)
+        {
+            return p[0].toBool(operands) ? p[1].toDouble(operands) : p[2].toDouble(operands);
         }
 
         /*

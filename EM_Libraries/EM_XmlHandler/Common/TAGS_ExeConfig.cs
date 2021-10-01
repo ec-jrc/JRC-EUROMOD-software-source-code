@@ -27,7 +27,7 @@
         public const string CONFIG_EXTENSION_SWITCH = "EXTENSION_SWITCH";
         public const string CONFIG_MAX_RUNTIME_ERRORS = "MAX_RUNTIME_ERRORS";
         public const string CONFIG_WARN_ABOUT_USELESS_GROUPS = "WARN_ABOUT_USELESS_GROUPS";
-        public const string CONFIG_INPUT_PASSWORD = "INPUT_PASSWORD";
+        public const string CONFIG_DATA_PASSWORD = "DATA_PASSWORD";
 
         // CONFIGURATION FILE TAGS - INFO FOR OUTPUT
         public const string CONFIG_DATE_OUTFILE = "DATE_OUTFILE";

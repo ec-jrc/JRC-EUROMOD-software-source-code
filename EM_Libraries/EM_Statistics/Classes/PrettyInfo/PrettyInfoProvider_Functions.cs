@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EM_Statistics
 {
-    internal static partial class PrettyInfoProvider
+    public static partial class PrettyInfoProvider
     {
         internal static string GetPrettyText(Template.TemplateInfo templateInfo, string origText,
                                              SystemInfo baseSystem, List<SystemInfo> reformSystems = null,

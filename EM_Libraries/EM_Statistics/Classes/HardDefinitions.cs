@@ -6,18 +6,18 @@ namespace EM_Statistics
 {
     public static class HardDefinitions
     {
-        internal class FormulaParameter
+        public class FormulaParameter
         {
-            internal const string OPENING_TOKEN = "[";
-            internal const string CLOSING_TOKEN = "]";
-            internal const string SAVED_VAR = "SAVED_VAR" + OPENING_TOKEN;
-            internal const string USR_VAR = "USR_VAR" + OPENING_TOKEN;
-            internal const string OP_VAR = "OP_VAR" + OPENING_TOKEN;
-            internal const string OBS_VAR = "OBS_VAR" + OPENING_TOKEN;
-            internal const string TEMP_VAR = "TEMP_VAR" + OPENING_TOKEN;
-            internal const string BASE_COL = "BASE_COL" + OPENING_TOKEN;
-            internal const string REF_COL = "REF_COL" + OPENING_TOKEN;
-            internal const string NumberFormat = "0.###############";
+            public const string OPENING_TOKEN = "[";
+            public const string CLOSING_TOKEN = "]";
+            public const string SAVED_VAR = "SAVED_VAR" + OPENING_TOKEN;
+            public const string USR_VAR = "USR_VAR" + OPENING_TOKEN;
+            public const string DATA_VAR = "DATA_VAR" + OPENING_TOKEN;
+            public const string TEMP_VAR = "TEMP_VAR" + OPENING_TOKEN;
+            public const string BASE_COL = "BASE_COL" + OPENING_TOKEN;
+            public const string REF_COL = "REF_COL" + OPENING_TOKEN;
+            public const string REF_COL_PRE  = "REF_COL_PRE" + OPENING_TOKEN;
+            public const string NumberFormat = "0.###############";
         }
 
         public static class DefaultCalculationLevels
@@ -31,13 +31,12 @@ namespace EM_Statistics
         internal const string Base = "~base~";
         internal const string Separator = "~";
         internal const string NumberOfIndividuals = "~indno~";
-        internal const string SavedTotal = "~total~";
 
         // Default (always required) variables
-        internal const string idPerson = "idperson";
-        internal const string idHH = "idhh";
-        internal const string weight = "weight";
-        internal const string age = "age";
+        public const string idPerson = "idperson";
+        public const string idHH = "idhh";
+        public const string weight = "weight";
+        public const string age = "age";
         internal static Dictionary<string, string> alwaysRequiredVariables = new Dictionary<string, string>()
         {
             { idPerson, idPerson }, { idHH, idHH }, { weight, "dwt" }, { age, "dag" }
@@ -58,11 +57,11 @@ namespace EM_Statistics
 
         public enum UserInputType { Null, VariableName, Numeric, Categorical_VariableName, Categorical_Numeric, PageSelection, ForEachValueDescription };
 
-        internal enum ColumnGrouping { SystemFirst, ColumnFirst };
+        public enum ColumnGrouping { SystemFirst, ColumnFirst };
 
-        internal enum CalculationType { NA, CreateArithmetic, CreateEquivalized, CreateOECDScale, CreateEquivalenceScale, CalculateGini, CalculateMedian, CalculateS8020, CreateDeciles, CreateGroupValue, CreateHHValue, CalculateArithmetic, CalculateSumWeighted, CalculateWeightedAverage, CalculatePovertyGap, CreateFlag, CalculatePopulationCount, Empty, Info };
+        public enum CalculationType { NA, CreateArithmetic, CreateEquivalized, CreateOECDScale, CreateEquivalenceScale, CalculateGini, CalculateMedian, CalculateS8020, CalculateMeanLogDeviation, CalculateAtkinson, CreateDeciles, CreateGroupValue, CreateHHValue, CalculateArithmetic, CalculateSumWeighted, CalculateWeightedAverage, CalculatePovertyGap, CreateFlag, CalculatePopulationCount, Empty, Info, Message };
 
-        internal enum ParameterType { NA, VariableName, SavedNumber, UserVariable, NumericValue, BooleanValue, Action };
+        public enum ParameterType { NA, VariableName, SavedNumber, UserVariable, NumericValue, BooleanValue, Action };
 
         public enum ExportDescriptionMode { No, InSheets, SeparateSheet }
     }

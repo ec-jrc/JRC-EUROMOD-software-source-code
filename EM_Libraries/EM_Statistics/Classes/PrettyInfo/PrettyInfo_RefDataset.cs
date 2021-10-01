@@ -2,7 +2,7 @@
 
 namespace EM_Statistics
 {
-    internal static partial class PrettyInfoProvider
+    public static partial class PrettyInfoProvider
     {
         private class PrettyInfo_RefDataset : PrettyInfo
         {

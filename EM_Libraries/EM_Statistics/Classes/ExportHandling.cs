@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using EM_Common;
 using System.Text.RegularExpressions;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
+using System.Globalization;
 
 namespace EM_Statistics
 {
@@ -16,9 +18,11 @@ namespace EM_Statistics
         private class ExportPage
         {
             internal string PageName { get; set; }
+            internal Color TabColor { get; set; }
             internal string Caption { get; set; }
             internal string SubCaption { get; set; }
             internal string description { get; set; }
+            internal string html { get; set; }
             internal List<ExportTable> Tables =  new List<ExportTable>();
         }
 
@@ -39,6 +43,7 @@ namespace EM_Statistics
         private class SheetContent
         {
             internal string SheetName { get; set; }
+            internal Color TabColor { get; set; }
             internal string Caption { get; set; }
             internal string SubCaption { get; set; }
             internal List<ExportPage> Pages { get; set; }
@@ -98,6 +103,7 @@ namespace EM_Statistics
                         SheetContent sheetContent = new SheetContent
                         {
                             SheetName = expPage.PageName,
+                            TabColor = expPage.TabColor,
                             Caption = displayResults.info.title,
                             SubCaption = displayResults.info.subtitle,
                             Pages = new List<ExportPage>() { expPage }
@@ -112,6 +118,7 @@ namespace EM_Statistics
                 {
                     string sheetName = VerifyUniqueSheetName(excel.Workbook.Worksheets, sheetContent.SheetName);
                     var workSheet = excel.Workbook.Worksheets.Add(sheetName);
+                    if (!sheetContent.TabColor.Equals(Color.Empty)) workSheet.TabColor = sheetContent.TabColor;
                     int chartCount = 0;
 
                     int rPos = 1;
@@ -135,6 +142,17 @@ namespace EM_Statistics
                             workSheet.Cells[rPos, 1].Style.Font.Size = 14;
                             workSheet.Cells[rPos++, 1].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportPage.Caption));
                             ++rPos;
+                        }
+                        if (!string.IsNullOrEmpty(exportPage.SubCaption))
+                        {
+                            workSheet.Cells[rPos, 1].Style.Font.Bold = true;
+                            workSheet.Cells[rPos, 1].Style.Font.Size = 13;
+                            workSheet.Cells[rPos++, 1].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportPage.SubCaption));
+                            ++rPos;
+                        }
+                        if (!string.IsNullOrEmpty(exportPage.html))
+                        {
+                            workSheet.Cells[rPos++, 1].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportPage.html));
                         }
                         foreach (ExportTable exportTable in exportPage.Tables)
                         {
@@ -243,6 +261,7 @@ namespace EM_Statistics
 
                 // todo: not yet clear whether the file-selection should be in the presenter or the library
                 excelStream = new MemoryStream();
+                System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
                 excel.SaveAs(excelStream);
                 excel.Dispose();
                 return true;
@@ -270,6 +289,7 @@ namespace EM_Statistics
 
                 string sheetName = VerifyUniqueSheetName(excel.Workbook.Worksheets, "Descriptions");
                 var workSheet = excel.Workbook.Worksheets.Add(sheetName);
+                excel.Workbook.Worksheets.MoveToStart(workSheet.Name);
 
                 int rPos = 1;
                 workSheet.Cells[rPos, 1].Style.Font.Bold = true;
@@ -390,7 +410,7 @@ namespace EM_Statistics
                 exportPages.Add(GetPageContent(dp, dp.name));
             return exportPages;
         }
-
+        
         private static ExportPage GetPageContent(DisplayResults.DisplayPage displayPage, string tableName)
         {
             ExportPage exportPage = new ExportPage();
@@ -398,12 +418,32 @@ namespace EM_Statistics
             exportPage.Caption = displayPage.title;
             exportPage.SubCaption = displayPage.subtitle;
             exportPage.description = displayPage.description;
-            exportPage.PageName = displayPage.name;
+            exportPage.PageName = displayPage.button.title;
+            exportPage.TabColor = ParseColor(displayPage.button.backgroundColour);
 
             foreach (DisplayResults.DisplayPage.DisplayTable displayTable in displayPage.displayTables)
                 exportPage.Tables.Add(GetTableContent(displayTable, tableName));
 
             return exportPage;
+        }
+
+        private static Color ParseColor(string color)
+        {
+            if (String.IsNullOrEmpty(color)) return Color.Empty;
+            Color c = Color.Empty;
+            if (color.StartsWith("#") && color.Length == 7)
+            {
+                int red, green, blue;
+                if (int.TryParse(color.Substring(1, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out red) 
+                    && int.TryParse(color.Substring(3, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out green) 
+                    && int.TryParse(color.Substring(5, 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out blue))
+                    c = Color.FromArgb(red, green, blue);
+            }
+            else
+            {
+                c = Color.FromName(color);
+            }
+            return c;
         }
 
         private static ExportTable GetTableContent(DisplayResults.DisplayPage.DisplayTable displayTable, string tableName)

@@ -12,7 +12,6 @@ namespace EM_Common
         private static List<string> showComponents = null;
 
         public static string GetUserSettingsFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EUROMOD"); }
-        public static string GetBrandingFolder() { return Path.Combine(GetUserSettingsFolder(), "Branding"); }
         public static string GetPluginFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "EUROMOD", "PlugIns"); }
         public static string GetUserSelectableTemplateFolder() { return Path.Combine(GetPluginFolder(), "StatisticsPresenter", "UserSelectableTemplates"); }
         public static string GetSystemTemplateFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "EUROMOD", "SystemTemplates"); }

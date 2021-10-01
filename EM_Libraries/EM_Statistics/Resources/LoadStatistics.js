@@ -103,8 +103,12 @@ function emsta_MakeStatisticsUI(statistics) {
     // Generate the Content Tabs
     for (var currentPage = 0; currentPage < statistics.results.displayPages.length; currentPage++) {
         var pageJSON = statistics.results.displayPages[currentPage];  // get the JSON object for each page
+
         var pageElement = emsta_MakeNewPage(currentPage, pageJSON, key);    // make a page and advance the id counter
 
+        if (pageJSON.html) {
+            emsta_AddHtml(pageElement, pageJSON.html);
+        }
         if (pageJSON.displayTables === null) continue;  // why would that happen? 
         for (var table = 0; table < pageJSON.displayTables.length; table++) {
             var tableJSON = pageJSON.displayTables[table];	// get the JSON object for each table
@@ -214,8 +218,12 @@ function emsta_MakeNewPage(tabId, pageJSON, key) {
     var newPageTab = document.createElement("button");
     //newPageTab.id = CONTAINER_HEAD_ID_PREFIX + tabId;
     newPageTab.onclick = function () { emsta_TabButton_Click(tabId); };
-    newPageTab.innerHTML = emsta_SafeText(pageJSON.button);
     newPageTab.className = "w3-bar-item w3-button emsta-page-tab emsta-page-tab-" + tabId;
+    newPageTab.innerHTML = emsta_SafeText(pageJSON.button.strong ? emsta_MakeStrong(pageJSON.button.title) : pageJSON.button.title);
+    if (pageJSON.button.backgroundColour) newPageTab.style.backgroundColor = pageJSON.button.backgroundColour;
+    if (pageJSON.button.foregroundColour) newPageTab.style.color = pageJSON.button.foregroundColour;
+    if (pageJSON.button.textAlign) newPageTab.style.textAlign = pageJSON.button.textAlign;
+    if (pageJSON.button.tooltip) newPageTab.title = pageJSON.button.tooltip;
     tabContainer.appendChild(newPageTab);
 
     var emstaContents = document.getElementsByClassName("emsta-package-page-contents");
@@ -226,7 +234,7 @@ function emsta_MakeNewPage(tabId, pageJSON, key) {
     var content = document.getElementById("emsta-package-page-contents-" + key);
 
     var newPageBody = document.createElement("div");
-    newPageBody.className = "emsta-page-body w3-auto " + CONTAINER_BODY_ID_PREFIX + tabId;
+    newPageBody.className = "emsta-page-body w3-left " + CONTAINER_BODY_ID_PREFIX + tabId;
     newPageBody.style.display = "none";
     content.appendChild(newPageBody);
 
@@ -235,26 +243,36 @@ function emsta_MakeNewPage(tabId, pageJSON, key) {
     newPageHead.style.position = "relative";
     newPageBody.appendChild(newPageHead);
 
-    // Add page help, title & subtitle
-    if (pageJSON.description && pageJSON.description.trim() != "") {
-        var helpButton = document.createElement("button");
-        helpButton.className = "w3-display-right w3-button w3-button-20 w3-round-xlarge";
-        helpButton.innerHTML = "<img src=\"help.png\"/>";
-        helpButton.style.zIndex = 10;
-        helpButton.style.display = "inline-block";
-        helpButton.style.backgroundColor = "transparent";
-        helpButton.onclick = function () { embe_MessageBox(pageJSON.description); };
-        newPageHead.appendChild(helpButton);
-    }
+    // Add page title, subtitle & help
     var title = document.createElement("h3");
     title.className = "w3-display-container";
     title.innerHTML = emsta_SafeText(pageJSON.title);
     newPageHead.appendChild(title);
+    if (pageJSON.description && pageJSON.description.trim() != "") {
+        var helpButton = document.createElement("button");
+        helpButton.className = "w3-button w3-button-20 w3-round-xlarge";
+        helpButton.innerHTML = "<img src=\"help.png\"/>";
+        helpButton.style.zIndex = 10;
+        helpButton.style.display = "inline-flex";
+        helpButton.style.position = "relative";
+        helpButton.style.backgroundColor = "transparent";
+        helpButton.onclick = function () { embe_MessageBox(pageJSON.description); };
+        title.appendChild(helpButton);
+    }
     var newSubTitle = document.createElement("h5");
     newSubTitle.innerHTML = emsta_SafeText(pageJSON.subtitle);
     newPageHead.appendChild(newSubTitle);
 
     return newPageBody;
+}
+
+// This function adds a new html element in an element 
+function emsta_AddHtml(element, html) {
+    var newHtml = document.createElement("div");
+    newHtml.className = "emsta-html";
+    newHtml.style.position = "relative";
+    newHtml.innerHTML = html;
+    element.appendChild(newHtml);
 }
 
 // This function adds a new Table in a tab body
@@ -265,20 +283,21 @@ function emsta_AddNewTable(page, tableJSON) {
     page.appendChild(newTableHead);
 
     // Add table title, subtitle & help
-    if (tableJSON.description && tableJSON.description.trim() != "") {
-        var helpButton = document.createElement("button");
-        helpButton.className = "w3-display-right w3-button w3-button-20 w3-round-xlarge";
-        helpButton.innerHTML = "<img src=\"help.png\"/>";
-        helpButton.style.zIndex = 10;
-        helpButton.style.display = "inline-block";
-        helpButton.style.backgroundColor = "transparent";
-        helpButton.onclick = function () { embe_MessageBox(tableJSON.description); };
-        newTableHead.appendChild(helpButton);
-    }
     var title = document.createElement("h4");
     title.innerHTML = emsta_SafeText(tableJSON.title);
     title.className = "w3-display-container";
     newTableHead.appendChild(title);
+    if (tableJSON.description && tableJSON.description.trim() != "") {
+        var helpButton = document.createElement("button");
+        helpButton.className = "w3-button w3-button-20 w3-round-xlarge";
+        helpButton.innerHTML = "<img src=\"help.png\"/>";
+        helpButton.style.zIndex = 10;
+        helpButton.style.display = "inline-flex";
+        helpButton.style.position = "relative";
+        helpButton.style.backgroundColor = "transparent";
+        helpButton.onclick = function () { embe_MessageBox(tableJSON.description); };
+        title.appendChild(helpButton);
+    }
     var newSubTitle = document.createElement("h6");
     newSubTitle.innerHTML = emsta_SafeText(tableJSON.subtitle);
     newTableHead.appendChild(newSubTitle);
@@ -300,11 +319,12 @@ function emsta_AddNewTable(page, tableJSON) {
 
         for (var h = 0; h < tableJSON.columns.length; h++) {
             var header = document.createElement("th");
-            header.style.textAlign = "center";
+            header.style.textAlign = "right";
             header.innerHTML = emsta_SafeText(tableJSON.columns[h].title);
             emsta_AddTooltip(header, tableJSON.columns[h].tooltip);
             emsta_AddSeparators(header, tableJSON.columns[h], null);
-            emsta_SetColours(row, tableJSON.columns[h], null, null);
+            emsta_SetColours(header, tableJSON.columns[h], null, null);
+            emsta_SetTextAlign(header, tableJSON.columns[h], null, null);
             headerRow.appendChild(header);
         }
         for (var r = 0; r < tableJSON.rows.length; r++) {
@@ -314,21 +334,23 @@ function emsta_AddNewTable(page, tableJSON) {
             if (r == tableJSON.rows.length - 1) emsta_AddSeparators(row, null, { hasSeparatorAfter: true });
             var rowheader = document.createElement("td");
             rowheader.style.whiteSpace = "nowrap";
-            rowheader.style.textAlign = "center";
+            rowheader.style.textAlign = "left";
             var rowStrong = tableJSON.rows[r].strong;
             rowheader.innerHTML = emsta_SafeText(rowStrong ? emsta_MakeStrong(tableJSON.rows[r].title) : tableJSON.rows[r].title);
             emsta_AddTooltip(rowheader, tableJSON.rows[r].tooltip)
             emsta_AddSeparators(rowheader, { hasSeparatorAfter: true }, tableJSON.rows[r]);
+            emsta_SetTextAlign(rowheader, tableJSON.columns[h], tableJSON.rows[r], null);
             row.appendChild(rowheader);
 
             for (var c = 0; c < tableJSON.columns.length; c++) {
                 var cell = document.createElement("td");
                 cell.style.whiteSpace = "nowrap";
-                cell.style.textAlign = "center";
+                cell.style.textAlign = "right";
                 cell.innerHTML = (rowStrong ? emsta_MakeStrong(tableJSON.cells[r][c].displayValue) : tableJSON.cells[r][c].displayValue);
                 emsta_AddTooltip(cell, tableJSON.cells[r][c].tooltip)
                 emsta_AddSeparators(cell, tableJSON.columns[c], tableJSON.rows[r]);
                 emsta_SetColours(cell, tableJSON.columns[c], tableJSON.rows[r], tableJSON.cells[r][c]);
+                emsta_SetTextAlign(cell, tableJSON.columns[c], tableJSON.rows[r], tableJSON.cells[r][c]);
                 row.appendChild(cell);
             }
 
@@ -364,6 +386,13 @@ function emsta_AddNewTable(page, tableJSON) {
                 legend: {
                     display: tableJSON.graph.legend.visible,
                     position: getLegendDocking(tableJSON.graph.legend)
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            return tableJSON.graph.round > -1 ? tooltipItem.yLabel.toFixed(tableJSON.graph.round) : tooltipItem.yLabel;
+                        }
+                    }
                 },
                 onResize: handleChartResize
             }
@@ -424,7 +453,7 @@ function emsta_AddNewTable(page, tableJSON) {
 
 function emsta_AddTooltip(cell, tooltip) {
     if (tooltip) {
-        cell.className = "tooltip-nw";
+        cell.className += "tooltip-nw";
         cell.style.position = "relative";
         cell.setAttribute("data-tlite", emsta_SafeText(tooltip));
     }
@@ -467,6 +496,12 @@ function emsta_SetColours(cell, column, row, cells) {
     if (cells && cells.backgroundColour) cell.style.backgroundColor = cells.backgroundColour;
     else if (row && row.backgroundColour) cell.style.backgroundColor = row.backgroundColour;
     else if (column && column.backgroundColour) cell.style.backgroundColor = column.backgroundColour;
+}
+
+function emsta_SetTextAlign(cell, column, row, cells) {
+    if (cells && cells.textAlign) cell.style.textAlign = cells.textAlign;
+    else if (row && row.textAlign) cell.style.textAlign = row.textAlign;
+    else if (column && column.textAlign) cell.style.textAlign = column.textAlign;
 }
 
 function emsta_GetChartData(tableJSON) {

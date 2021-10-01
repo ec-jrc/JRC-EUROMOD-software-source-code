@@ -29,7 +29,7 @@ namespace EM_Common
                 fun.par.Add(File, new DefinitionAdmin.Par()
                 {
                     valueType = PAR_TYPE.TEXT,
-                    minCount = 1, maxCount = 1,
+                    minCount = 1, maxCount = DefinitionAdmin.MANY,
                     description = "Name of text file to write the output to (the extension .txt can be omitted)."
                 });
                 fun.par.Add(Var, new DefinitionAdmin.Par()

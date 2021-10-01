@@ -11,13 +11,13 @@ namespace EM_Statistics
 {
     public partial class EM_TemplateCalculator
     {
-        private readonly List<SystemInfo> baselineSystemInfos = new List<SystemInfo>(); // base-only, base-reform: info about base-system, i.e. count = 1)
-                                                                                        // multi: info about all systems
+        private readonly List<SystemInfo> baselineSystemInfos = new List<SystemInfo>(); // base-only, base-reform: info about base-system (i.e. List-count = 1)
+                                                                                        // multi: info about each system (i.e. List-Count = number of systems)
         private readonly List<SystemInfo> reformSystemInfos = new List<SystemInfo>();   // base-reform: info about reform-systems, empty else
 
-        private readonly List<Dictionary<string, DataStatsHolder>> allData = // base-only, base-reform: 'the' data and statistics, i.e. count = 1
-                     new List<Dictionary<string, DataStatsHolder>>();        // multi: data and statistics of all datasets
-                                                                             // dictionary: d&s per calculation-level (ind, hh, ...), key: level
+        private readonly List<Dictionary<string, DataStatsHolder>> dataAndStats = // base-only, base-reform: 'the' data and statistics (i.e. List-count = 1)
+                     new List<Dictionary<string, DataStatsHolder>>();             // multi: data and statistics for each system (i.e. List-Count = number of systems)
+                                                                                  // dictionary: d&s per calculation-level (ind, hh, ...), key: level
         private readonly DisplayResults displayResults = new DisplayResults();
 
         private readonly Template template;
@@ -44,14 +44,16 @@ namespace EM_Statistics
 
         private static double WarmUpThread()
         {
-            ParameterExpression[] OP_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "OP_VAR") };
-            Func<List<double>, double> func = (Func<List<double>, double>)DynamicExpressionParser.ParseLambda(OP_VAR, typeof(double), "3.0 / 2.0", Array.Empty<object>()).Compile();
+            ParameterExpression[] DATA_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "DATA_VAR") };
+            Func<List<double>, double> func = (Func<List<double>, double>)DynamicExpressionParser.ParseLambda(DATA_VAR, typeof(double), "3.0 / 2.0", Array.Empty<object>()).Compile();
             return func(null);
         }
 
-        public EM_TemplateCalculator(Template _template = null, string _packageKey = null) {
+        public EM_TemplateCalculator(Template _template = null, string _packageKey = null)
+        {
             // If template exists, clone it to avoid affecting the original (e.g. due to saving compiled filters), 
             // else make a new one (this is for programmatic calls to statistical function directly from other plug-ins, e.g. OC_Runner.cs)
+
             template = _template == null ? new Template(true) : _template.Clone();
             packageKey = _packageKey;
         }
@@ -61,14 +63,14 @@ namespace EM_Statistics
         /// </summary>
         /// <param name="allFilenames">The output filenames</param>
         /// <param name="_errorCollector">A collector of all errors</param>
-        /// <param name="allMicroData">The microdata in memory</param>
         /// <returns>True if the statistics were build successfuly, false if there was an exception</returns>
-        public bool Prepare(List<string> allFilenames, out ErrorCollector _errorCollector, List<StringBuilder> allMicroData = null, bool calculateResults = false)
+        public bool Prepare(List<string> allFilenames, out ErrorCollector _errorCollector)
         {
             errorCollector = new ErrorCollector(); _errorCollector = errorCollector;
 
-            if (template == null)
-            { errorCollector.AddError("No template available."); return false; }
+            if (template == null) { errorCollector.AddError("No template available."); return false; }
+            template.CheckConsistency(errorCollector); template.ReplaceNamedSdcMinObsAlternatives(errorCollector);
+
             if (allFilenames == null || allFilenames.Count < 1 || (template.info.templateType == HardDefinitions.TemplateType.BaselineReform && allFilenames.Count < 2))
             { errorCollector.AddError("Insufficient number of files."); return false; };
 
@@ -79,7 +81,7 @@ namespace EM_Statistics
                     break;
 
                 case HardDefinitions.TemplateType.Multi:
-                    for (int dataNo = 0; dataNo < allFilenames.Count; dataNo++) baselineSystemInfos.Add(new SystemInfo(allFilenames[dataNo]));
+                    for (int dasNo = 0; dasNo < allFilenames.Count; dasNo++) baselineSystemInfos.Add(new SystemInfo(allFilenames[dasNo]));
                     break;
                 case HardDefinitions.TemplateType.BaselineReform:
                     baselineSystemInfos.Add(new SystemInfo(allFilenames[0]));
@@ -95,23 +97,17 @@ namespace EM_Statistics
 
             displayResults.prepared = true;
 
-            return calculateResults ? CalculateStatistics(allMicroData) : true;
+            return true;
         }
 
         /// <summary>
         /// Calculates all statistics using output in files or memory
         /// </summary>
-        /// <param name="allFilenames">The output filenames</param>
-        /// <param name="_errorCollector">A collector of all errors</param>
         /// <param name="allMemoryData">The microdata in memory</param>
-        /// <returns>True if the statistics were build successfuly, false if there was an exception</returns>
+        /// <returns>True if the statistics were built successfuly, false if there was an exception</returns>
         public bool CalculateStatistics(List<StringBuilder> allMemoryData = null)
         {
-            try
-            {
-                if (!Instantiate(allMemoryData)) return false;
-                return CompileTemplate();
-            }
+            try { return Instantiate(allMemoryData) && CompileTemplate(); }
             catch (Exception exception) { errorCollector.AddError(exception.Message); return false; }
         }
 
@@ -129,16 +125,16 @@ namespace EM_Statistics
                     if (allMemoryData != null && allMemoryData.Any()) baselineSystemInfos[0].SetMemoryData(allMemoryData[0]);
                     if (!ReadData(out Dictionary<string, DataStatsHolder> defData, errorCollector,
                         template.info, packageKey, baselineSystemInfos.First())) return false;
-                    allData.Add(defData);
+                    dataAndStats.Add(defData);
                     break;
 
                 case HardDefinitions.TemplateType.Multi:
-                    for (int dataNo = 0; dataNo < baselineSystemInfos.Count; dataNo++)
+                    for (int dasNo = 0; dasNo < baselineSystemInfos.Count; dasNo++)
                     {
-                        if (allMemoryData != null && allMemoryData.Count() > dataNo) baselineSystemInfos[dataNo].SetMemoryData(allMemoryData[dataNo]);
+                        if (allMemoryData != null && allMemoryData.Count() > dasNo) baselineSystemInfos[dasNo].SetMemoryData(allMemoryData[dasNo]);
                         if (!ReadData(out Dictionary<string, DataStatsHolder> mulData, errorCollector,
-                            template.info, packageKey, baselineSystemInfos[dataNo], null, dataNo)) return false;
-                        allData.Add(mulData);
+                            template.info, packageKey, baselineSystemInfos[dasNo], null, dasNo)) return false;
+                        dataAndStats.Add(mulData);
                     }
                     break;
 
@@ -146,64 +142,62 @@ namespace EM_Statistics
                     if (allMemoryData != null)
                     {
                         if (allMemoryData.Any()) baselineSystemInfos[0].SetMemoryData(allMemoryData[0]);
-                        for (int r = 0; r < reformSystemInfos.Count; ++r) if (allMemoryData.Count > r + 1) reformSystemInfos[r].SetMemoryData(allMemoryData[r + 1]);
+                        for (int refNo = 0; refNo < reformSystemInfos.Count; ++refNo)
+                            if (allMemoryData.Count > refNo + 1) // note: allMemoryData[0] is reserved for baseline-data
+                                reformSystemInfos[refNo].SetMemoryData(allMemoryData[refNo + 1]);
                     }
-                    if (!ReadData(out Dictionary<string, DataStatsHolder> basData, errorCollector,
+                    if (!ReadData(out Dictionary<string, DataStatsHolder> baseRefData, errorCollector,
                         template.info, packageKey, baselineSystemInfos[0], reformSystemInfos)) return false;
-                    allData.Add(basData);
-
-                    // Multiply template filters & actions for each reform (unless marked otherwise in XML)
-                    List<Template.Filter> newFilters = new List<Template.Filter>();
-                    foreach (Template.Filter filter in template.globalFilters)
-                    {
-                        if (!filter.reform) continue;
-                        for (int c = 1; c <= ReformNumber(); c++)
-                        {
-                            Template.Filter newFilter = ReformFilter(filter, c);
-                            newFilters.Add(newFilter);
-                        }
-                    }
-                    template.globalFilters.AddRange(newFilters);
-
-                    List<Template.Action> reformActions = new List<Template.Action>();
-                    foreach (Template.Action action in template.globalActions)
-                    {
-                        if (!action.Reform) continue;
-                        for (int c = 1; c <= ReformNumber(); c++)
-                        {
-                            Template.Action newAction = ReformAction(action, c);
-                            reformActions.Add(newAction);
-                        }
-                    }
-                    template.globalActions.AddRange(reformActions);
-
+                    dataAndStats.Add(baseRefData);
                     break;
             }
 
-            // Finally prepare each filter for each data
-            foreach (Dictionary<string, DataStatsHolder> data in allData)
-                foreach (Template.Filter filter in template.globalFilters)
-                    PrepareFilter(data[IND], filter, template); // maybe not necessary, just prepare on usage
-            // and prepare & handle all actions for each dataset
-            foreach (Template.Action action in template.globalActions)
-                HandleGlobalAction(action);
+            // Finally prepare & handle all global filters and actions
+            PrepareActionsAndFilters(template.globalActions, template.globalFilters);
 
             return true;
         }
 
-        private bool ReadData(out Dictionary<string, DataStatsHolder> allData, ErrorCollector errorCollector,
+        private void PrepareActionsAndFilters(List<Template.Action> actions, List<Template.Filter> filters)
+        {
+            if (template.info.templateType == HardDefinitions.TemplateType.BaselineReform)
+            {
+                // Multiply template filters & actions for each reform (unless marked otherwise in XML)
+                List<Template.Action> reformActions = new List<Template.Action>();
+                foreach (Template.Action action in actions)
+                    if (action.Reform)
+                        for (int refNo = 0; refNo < reformSystemInfos.Count; refNo++)
+                            reformActions.Add(new Template.Action(action, refNo));
+                actions.AddRange(reformActions);
+
+                List<Template.Filter> reformFilters = new List<Template.Filter>();
+                foreach (Template.Filter filter in filters)
+                    if (filter.reform)
+                        for (int refNo = 0; refNo < reformSystemInfos.Count; refNo++)
+                            reformFilters.Add(new Template.Filter(filter, refNo));
+                filters.AddRange(reformFilters);
+            }
+
+            // Prepare & handle actions
+            foreach (Template.Action action in actions)
+                for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
+                    HandleAction(dataAndStats[dasNo], action, new Template.Page.Table.SDCDefinition(), out _);
+        }
+
+        private bool ReadData(out Dictionary<string, DataStatsHolder> _dataAndStats, ErrorCollector errorCollector,
                               Template.TemplateInfo templateInfo, string packageKey,
                               SystemInfo baseSystemInfo, List<SystemInfo> reformSystemInfos = null,
-                              int dataNo = 0)
+                              int dasNo = 0)
         {
-            allData = new Dictionary<string, DataStatsHolder>();
+            _dataAndStats = new Dictionary<string, DataStatsHolder>();
             if (templateInfo == null) return false;
             foreach (Template.TemplateInfo.CalculationLevel cl in template.info.calculationLevels)
             {
-                allData.Add(cl.name, new DataStatsHolder(cl.groupingVar, dataNo, cl.name, packageKey));
+                _dataAndStats.Add(cl.name, new DataStatsHolder(cl.groupingVar, dasNo, cl.name, packageKey));
                 if (!templateInfo.requiredVariables.Any(x => x.name == cl.groupingVar))
                 {
-                    errorCollector.AddError($"Template Error: Calculation level '{cl.groupingVar}' should be defined as a required variable.");
+                    if (!string.IsNullOrEmpty(cl.groupingVar)) // if groupingVar is not even defined, the consistency-check will report
+                        errorCollector.AddError($"<AdditionalCalculationLevel><GroupingVar> '{cl.groupingVar}' should be defined as a required variable.");
                     return false;
                 }
             }
@@ -213,41 +207,51 @@ namespace EM_Statistics
 
             // always include idperson, idhh, dwt and dag in the required variables
             foreach (var arv in HardDefinitions.alwaysRequiredVariables)
-            if (!(from r in templateInfo.requiredVariables select r.name).Contains(arv.Key))
+                if (!(from r in templateInfo.requiredVariables select r.name).Contains(arv.Key))
                     templateInfo.requiredVariables.Add(new Template.TemplateInfo.RequiredVariable() { name = arv.Key, readVar = arv.Value });
 
             // first read header line to get the column-indices of the variables to read
             List<string> headers = dataRows.First().ToLower().Split('\t').ToList();
             Dictionary<string, int> varColumnIndices = new Dictionary<string, int>();
+            List<string> missingVars = new List<string>();
             foreach (Template.TemplateInfo.RequiredVariable v in templateInfo.requiredVariables)
             {
-                if (allData[IND].HasVariable(v.name)) continue;
-                allData[IND].AddVar(v.name);
+                if (_dataAndStats[IND].HasVariable(v.name, null)) continue;
+                _dataAndStats[IND].AddVar(v.name, v.monetary, null);
                 int index = headers.IndexOf(v.readVar.ToLower());
-                if (index < 0) 
-                    errorCollector.AddError($"File {baseSystemInfo.GetFileName()} does not contain required variable '{v.readVar}'.");
+                if (index < 0) missingVars.Add($"'{v.readVar}'");
                 varColumnIndices.Add(v.name, index);
             }
-            if (errorCollector.HasErrors()) return false;   // if CalculationLevel or required variables are missing, it is too dangerous to continue!
+            if (missingVars.Any())
+            {
+                errorCollector.AddError($"File {baseSystemInfo.GetFileName()} does not contain required variable(s) {string.Join(", ", missingVars)}.");
+                return false;
+            }
 
             if (templateInfo.optionalVariables != null)
                 foreach (Template.TemplateInfo.OptionalVariable v in templateInfo.optionalVariables)
                 {
-                    if (allData[IND].HasVariable(v.name)) continue;
-                    allData[IND].AddVar(v.name); varColumnIndices.Add(v.name, headers.IndexOf(v.readVar.ToLower()));
+                    if (_dataAndStats[IND].HasVariable(v.name, null)) continue;
+                    _dataAndStats[IND].AddVar(v.name, v.monetary, null); varColumnIndices.Add(v.name, headers.IndexOf(v.readVar.ToLower()));
                 }
             if (templateInfo.userVariables != null)
                 foreach (Template.TemplateInfo.UserVariable v in templateInfo.userVariables.Where(x => x.inputType == HardDefinitions.UserInputType.VariableName))
                 {
-                    if (allData[IND].HasVariable(v.value)) continue;
-                    allData[IND].AddVar(v.value); varColumnIndices.Add(v.value, headers.IndexOf(v.value));
+                    if (_dataAndStats[IND].HasVariable(v.value, null)) continue;
+                    _dataAndStats[IND].AddVar(v.value, v.monetary, null); varColumnIndices.Add(v.value, headers.IndexOf(v.value));
                 }
-            allData[IND].ConfirmKey();
+            _dataAndStats[IND].ConfirmKey();
 
             // now read the data-lines, but only add the necessary variables
             foreach (string inputLine in dataRows.Skip(1))
             {
                 string[] splitInputLine = inputLine.Replace(',', '.').Split('\t');
+                if (splitInputLine.Length != headers.Count)
+                {
+                    errorCollector.AddError($"Mismatch between headers and data columns {baseSystemInfo.GetFileName()}."); 
+                    return false;
+                }
+
                 List<double> onePersonsVariablesDouble = new List<double>();
                 foreach (var varColumnIndex in varColumnIndices)
                 {
@@ -257,14 +261,14 @@ namespace EM_Statistics
                         if (templateInfo.optionalVariables.Exists(x => x.name == varColumnIndex.Key))
                             onePersonsVariablesDouble.Add(templateInfo.optionalVariables.Find(x => x.name == varColumnIndex.Key).defaultValue);
                         // else the variable should be there! 
-                        else 
+                        else
                         {
                             errorCollector.AddError($"Variable {varColumnIndex.Key} not found in base file {baseSystemInfo.GetFileName()}."); return false;
                         }
                     }
                     else onePersonsVariablesDouble.Add(double.Parse(splitInputLine.ElementAt(varColumnIndex.Value), CultureInfo.InvariantCulture));
                 }
-                allData[IND].AddObs(onePersonsVariablesDouble);
+                _dataAndStats[IND].AddObs(onePersonsVariablesDouble);
             }
 
             // also create the HH level and other grouping tables with only their key, weight & number of individuals to start with
@@ -272,23 +276,23 @@ namespace EM_Statistics
             {
                 if (cl.name == IND) continue;
 
-                allData[cl.name].AddVar(cl.groupingVar);
-                allData[cl.name].AddVar(HardDefinitions.weight);
-                allData[cl.name].AddVar(HardDefinitions.NumberOfIndividuals);
-                allData[IND].AddVar(cl.groupingVar + HardDefinitions.NumberOfIndividuals);
-                int keyIndex = allData[IND].GetVarIndex(cl.groupingVar);
-                int weightIndex = allData[IND].GetVarIndex(HardDefinitions.weight);
+                _dataAndStats[cl.name].AddVar(cl.groupingVar, false, null);
+                _dataAndStats[cl.name].AddVar(HardDefinitions.weight, false, null);
+                _dataAndStats[cl.name].AddVar(HardDefinitions.NumberOfIndividuals, false, null);
+                _dataAndStats[IND].AddVar(cl.groupingVar + HardDefinitions.NumberOfIndividuals, false, null);
+                int keyIndex = _dataAndStats[IND].GetVarIndex(cl.groupingVar, null);
+                int weightIndex = _dataAndStats[IND].GetVarIndex(HardDefinitions.weight, null);
 
-                allData[cl.name].ConfirmKey();
-                var tmpGroup = from person in allData[IND].GetData()
-                            group person by person[keyIndex] into HH
-                            select HH;
+                _dataAndStats[cl.name].ConfirmKey();
+                var tmpGroup = from person in _dataAndStats[IND].GetData()
+                               group person by person[keyIndex] into HH
+                               select HH;
                 foreach (var gp in tmpGroup)
                 {
                     double key = gp.ElementAt(0)[keyIndex];
                     double weightGroup = gp.ElementAt(0)[weightIndex];
                     double indNo = gp.Count();
-                    allData[cl.name].AddObs(new List<double>() { key, weightGroup, indNo });
+                    _dataAndStats[cl.name].AddObs(new List<double>() { key, weightGroup, indNo });
                     foreach (List<double> i in gp)
                         i.Add(indNo);
                 }
@@ -296,11 +300,11 @@ namespace EM_Statistics
 
             if (reformSystemInfos == null) return true;
 
-            // redo the process omiting/matching base vars, for the reforms
-            int reformNumber = 0;
+            // redo the process omitting/matching base vars, for the reforms
+            int refNo = -1;
             foreach (SystemInfo reformSystemInfo in reformSystemInfos)
             {
-                dataRows = reformSystemInfo.GetDataRows(); ++reformNumber;
+                dataRows = reformSystemInfo.GetDataRows(); ++refNo;
                 if (dataRows.Count() != baselineRowsCount) { errorCollector.AddError(
                     $"Reform file {reformSystemInfo.GetFileName()} has a different number of observation than base file {baseSystemInfo.GetFileName()}."); return false; }
 
@@ -309,9 +313,9 @@ namespace EM_Statistics
                 varColumnIndices = new Dictionary<string, int>();
                 foreach (Template.TemplateInfo.RequiredVariable v in templateInfo.requiredVariables)
                 {
-                    string refVar = v.name + HardDefinitions.Reform + reformNumber;
-                    if (allData[IND].HasVariable(refVar)) continue;
-                    allData[IND].AddVar(refVar);
+                    string refVar = v.name + HardDefinitions.Reform + refNo;
+                    if (_dataAndStats[IND].HasVariable(refVar, null)) continue;
+                    _dataAndStats[IND].AddVar(refVar, v.monetary, null);
                     int index = headers.IndexOf(v.readVar.ToLower());
                     if (index < 0)
                     {
@@ -322,18 +326,18 @@ namespace EM_Statistics
                 }
                 foreach (Template.TemplateInfo.OptionalVariable v in templateInfo.optionalVariables)
                 {
-                    string refVar = v.name + HardDefinitions.Reform + reformNumber;
-                    if (allData[IND].HasVariable(refVar)) continue;
-                    allData[IND].AddVar(refVar); varColumnIndices.Add(refVar, headers.IndexOf(v.readVar.ToLower()));
+                    string refVar = v.name + HardDefinitions.Reform + refNo;
+                    if (_dataAndStats[IND].HasVariable(refVar, null)) continue;
+                    _dataAndStats[IND].AddVar(refVar, v.monetary, null); varColumnIndices.Add(refVar, headers.IndexOf(v.readVar.ToLower()));
                 }
                 foreach (Template.TemplateInfo.UserVariable v in templateInfo.userVariables.Where(x => x.inputType == HardDefinitions.UserInputType.VariableName))
                 {
-                    string refVar = v.value + HardDefinitions.Reform + reformNumber;
-                    if (allData[IND].HasVariable(refVar)) continue;
-                    allData[IND].AddVar(refVar); varColumnIndices.Add(refVar, headers.IndexOf(v.value));
+                    string refVar = v.value + HardDefinitions.Reform + refNo;
+                    if (_dataAndStats[IND].HasVariable(refVar, null)) continue;
+                    _dataAndStats[IND].AddVar(refVar, v.monetary, null); varColumnIndices.Add(refVar, headers.IndexOf(v.value));
                 }
                 // now read the data-lines, but only add the necessary variables
-                int idPersonIndex = allData[IND].GetVarIndex(HardDefinitions.idPerson);
+                int idPersonIndex = _dataAndStats[IND].GetVarIndex(HardDefinitions.idPerson, null);
                 foreach (string inputLine in dataRows.Skip(1))
                 {
                     string[] splitInputLine = inputLine.Replace(',', '.').Split('\t');
@@ -343,23 +347,23 @@ namespace EM_Statistics
                         if (varColumnIndex.Value < 0)
                         {
                             // if it is a missing Optional Variable, then use its default value
-                            if (templateInfo.optionalVariables.Exists(x => x.name == GetBaseVarName(varColumnIndex.Key, reformNumber)))
-                                onePersonsVariablesDouble.Add(templateInfo.optionalVariables.Find(x => x.name == GetBaseVarName(varColumnIndex.Key, reformNumber)).defaultValue);
+                            if (templateInfo.optionalVariables.Exists(x => x.name == GetBaseVarName(varColumnIndex.Key, refNo)))
+                                onePersonsVariablesDouble.Add(templateInfo.optionalVariables.Find(x => x.name == GetBaseVarName(varColumnIndex.Key, refNo)).defaultValue);
                             // else the variable should be there! 
                             else
                             {
-                                errorCollector.AddError($"Variable {GetBaseVarName(varColumnIndex.Key, reformNumber)} not found in reform file {reformSystemInfo.GetFileName()}."); return false;
+                                errorCollector.AddError($"Variable {GetBaseVarName(varColumnIndex.Key, refNo)} not found in reform file {reformSystemInfo.GetFileName()}."); return false;
                             }
                         }
                         else onePersonsVariablesDouble.Add(double.Parse(splitInputLine.ElementAt(varColumnIndex.Value), CultureInfo.InvariantCulture));
                     }
-                    if (!allData[IND].HasObs(onePersonsVariablesDouble[idPersonIndex]))
+                    if (!_dataAndStats[IND].HasObs(onePersonsVariablesDouble[idPersonIndex]))
                     {
                         errorCollector.AddError($"Mismatch in {HardDefinitions.idPerson} between reform file {reformSystemInfo.GetFileName()} and base file {baseSystemInfo.GetFileName()}." + Environment.NewLine +
                             $"Base file does not contain {HardDefinitions.idPerson} {onePersonsVariablesDouble[idPersonIndex]}.");
                         return false;
                     }
-                    allData[IND].GetObs(onePersonsVariablesDouble[idPersonIndex]).AddRange(onePersonsVariablesDouble);
+                    _dataAndStats[IND].GetObs(onePersonsVariablesDouble[idPersonIndex]).AddRange(onePersonsVariablesDouble);
                 }
             }
 
@@ -371,36 +375,32 @@ namespace EM_Statistics
             return errorCollector.GetErrorMessage();
         }
 
-        private void HandleGlobalAction(Template.Action action)
-        {
-            for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                HandleAction(allData[dataNo], action, new Template.Page.Table.SDCDefinition(), out int dummy);
-        }
-
         private double HandleAction(Dictionary<string, DataStatsHolder> data, Template.Action action,
                                     Template.Page.Table.SDCDefinition sdcDefinition, out int sdcObsNo,
-                                    List<DisplayResults.DisplayPage.DisplayTable.DisplayCell> baseRowCells = null,
-                                    Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell> reformRowCells = null)
+                                    List<CellUnderConstruction> rowUnderConstruction = null, int refNo = -1)
         {
             sdcObsNo = int.MaxValue;
             try
             {
-                if (action.calculationType == HardDefinitions.CalculationType.NA) return ActionError(action, "CalculationType not defined.");
                 if (action.calculationType == HardDefinitions.CalculationType.Empty) return double.NaN;
+                if (!data.ContainsKey(action.CalculationLevel)) return ActionError(action, $"unknown CalculationLevel {action.CalculationLevel}");
 
                 action = FixActionUserVariables(action, template);
-                PrepareFilter(data[action.CalculationLevel], action.filter, template);
+                PrepareFilter(data, action.CalculationLevel, action.localMap, action.filter, template);
+                if (action.filter != null && action.filter.func == null)
+                    ActionError(action, $"Preparing Filter {(string.IsNullOrEmpty(action.filter.name) ? string.Empty : $" '{action.filter.name}'")} failed");
 
-                if (action.calculationType == HardDefinitions.CalculationType.CreateArithmetic)
+                if (action.calculationType == HardDefinitions.CalculationType.Message) IssueMessage(data, action);
+                else if (action.calculationType == HardDefinitions.CalculationType.CreateArithmetic)
                 {
                     // createArithmetic requires a formula and will use it at the "inner" level
                     if (string.IsNullOrEmpty(action.formulaString)) return ActionError(action, $"{action.calculationType} requires a <FormulaString>");
-                    if (!PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, action.formulaString, data[action.CalculationLevel], action.parameters, out string error, true)) return ActionError(action, error);
-                    ParameterExpression[] OBS_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "OBS_VAR") };
-                    action.func = ParseFormula(OBS_VAR, formula);
+                    if (!PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, action.formulaString, data, action.CalculationLevel, action.localMap, action.parameters, out string error)) return ActionError(action, error);
+                    ParameterExpression[] DATA_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "DATA_VAR") };
+                    action.func = ParseFormula(DATA_VAR, formula);
                     action.result = CreateArithmeticColumn(data, action) ? 0 : double.NaN;
                 }
-                else if (HardDefinitions.InEnumList(action.calculationType, new HardDefinitions.CalculationType[] { HardDefinitions.CalculationType.CreateEquivalized, HardDefinitions.CalculationType.CreateOECDScale, HardDefinitions.CalculationType.CreateEquivalenceScale, HardDefinitions.CalculationType.CalculateGini, HardDefinitions.CalculationType.CalculateS8020, HardDefinitions.CalculationType.CreateDeciles, HardDefinitions.CalculationType.CalculateMedian, HardDefinitions.CalculationType.CreateGroupValue, HardDefinitions.CalculationType.CreateHHValue, HardDefinitions.CalculationType.CalculatePovertyGap, HardDefinitions.CalculationType.CreateFlag }))
+                else if (HardDefinitions.InEnumList(action.calculationType, new HardDefinitions.CalculationType[] { HardDefinitions.CalculationType.CreateEquivalized, HardDefinitions.CalculationType.CreateOECDScale, HardDefinitions.CalculationType.CreateEquivalenceScale, HardDefinitions.CalculationType.CalculateGini, HardDefinitions.CalculationType.CalculateS8020, HardDefinitions.CalculationType.CalculateMeanLogDeviation, HardDefinitions.CalculationType.CalculateAtkinson, HardDefinitions.CalculationType.CreateDeciles, HardDefinitions.CalculationType.CalculateMedian, HardDefinitions.CalculationType.CreateGroupValue, HardDefinitions.CalculationType.CreateHHValue, HardDefinitions.CalculationType.CalculatePovertyGap, HardDefinitions.CalculationType.CreateFlag }))
                 {
                     // these actions ignore the formula attribute
                     if (!string.IsNullOrEmpty(action.formulaString)) // do not break - just ignore formula
@@ -419,6 +419,12 @@ namespace EM_Statistics
                         case HardDefinitions.CalculationType.CalculateMedian:
                             action.result = CalculateMedian(data, action, sdcDefinition, out sdcObsNo);
                             break;
+                        case HardDefinitions.CalculationType.CalculateMeanLogDeviation:
+                            action.result = CalculateMeanLogDeviation(data, action, sdcDefinition, out sdcObsNo);
+                            break;
+                        case HardDefinitions.CalculationType.CalculateAtkinson:
+                            action.result = CalculateAtkinson(data, action, sdcDefinition, out sdcObsNo);
+                            break;
                         case HardDefinitions.CalculationType.CreateDeciles:
                             action.result = CreateDeciles(data, action) ? 0 : double.NaN;
                             break;
@@ -426,10 +432,6 @@ namespace EM_Statistics
                             action.result = CreateEquivalized(data, action) ? 0 : double.NaN;
                             break;
                         case HardDefinitions.CalculationType.CreateGroupValue:
-                            action.result = CreateGroupValue(data, action) ? 0 : double.NaN;
-                            break;
-                        case HardDefinitions.CalculationType.CreateHHValue:  // this is here for support of older templates
-                            action._calculationLevel = HH;
                             action.result = CreateGroupValue(data, action) ? 0 : double.NaN;
                             break;
                         case HardDefinitions.CalculationType.CreateOECDScale:
@@ -448,13 +450,13 @@ namespace EM_Statistics
                 {
                     // these actions treat the formula attribute at the "outer" level
                     if (string.IsNullOrEmpty(action.formulaString)) return ActionError(action, $"{action.calculationType} requires a <FormulaString>");
-                    if (!PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, action.formulaString, data[action.CalculationLevel], action.parameters, out string error)) return ActionError(action, error);
+                    if (!PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, action.formulaString, data, action.CalculationLevel, action.localMap, action.parameters, out string error)) return ActionError(action, error);
 
                     if (action.calculationType == HardDefinitions.CalculationType.CalculateArithmetic)
                     {
                         // The CalculateArithmetic is the only type allowed to use column values
-                        if (!PrepareFormulaColumns(ref formula, out error, baseRowCells, reformRowCells)) return ActionError(action, error);
-                        if (formula.Contains("OP_VAR") || formula.Contains("OBS_VAR")) return ActionError(action, $"{action.calculationType} does not allow for OP_VAR[] or OBS_VAR[]");
+                        if (!PrepareFormulaColumns(ref formula, out error, rowUnderConstruction, refNo)) return ActionError(action, error);
+                        if (formula.Contains("DATA_VAR")) return ActionError(action, $"{action.calculationType} does not allow for DATA_VAR[]");
                         ParameterExpression[] NO_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "NO_VAR") };
                         action.func = ParseFormula(NO_VAR, constMakeDouble + formula);
                         action.result = CalculateArithmeticAction(data, action, sdcDefinition, out sdcObsNo);
@@ -463,12 +465,12 @@ namespace EM_Statistics
                     else
                     {
                         // Handle all Operation variables
-                        int pos = formula.IndexOf(HardDefinitions.FormulaParameter.OP_VAR);
+                        int pos = formula.IndexOf(HardDefinitions.FormulaParameter.DATA_VAR);
                         List<double> opvars = new List<double>();
                         sdcObsNo = sdcObsNo_SavedNumbers;
                         while (pos > -1)
                         {
-                            int startpos = pos + HardDefinitions.FormulaParameter.OP_VAR.Length;
+                            int startpos = pos + HardDefinitions.FormulaParameter.DATA_VAR.Length;
                             int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
                             if (startpos > formula.Length || endpos < startpos) return ActionError(action, "Invalid FormulaString");
                             if (!int.TryParse(formula.Substring(startpos, endpos - startpos), out int varIndex)) return ActionError(action, "Invalid FormulaString");
@@ -489,15 +491,15 @@ namespace EM_Statistics
                             string cnt = opvars.Count.ToString();
                             opvars.Add(varResult);
                             formula = formula.Substring(0, startpos) + cnt + formula.Substring(endpos);
-                            pos = formula.IndexOf(HardDefinitions.FormulaParameter.OP_VAR, startpos + cnt.Length);
+                            pos = formula.IndexOf(HardDefinitions.FormulaParameter.DATA_VAR, startpos + cnt.Length);
                         }
 
-                        ParameterExpression[] OP_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "OP_VAR") };
-                        action.func = ParseFormula(OP_VAR, constMakeDouble + formula);
+                        ParameterExpression[] DATA_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "DATA_VAR") };
+                        action.func = ParseFormula(DATA_VAR, constMakeDouble + formula);
                         action.result = action.func(opvars);
 
                         if (!string.IsNullOrEmpty(action.outputVar))
-                            data[action.CalculationLevel].SetSavedNumber(action.outputVar, new DataStatsHolder.SavedNumber(action.result, sdcObsNo));
+                            data[action.CalculationLevel].SetSavedNumber(new DataStatsHolder.SavedNumber(action.outputVar, action.localMap, action.result, sdcObsNo));
                     }
                 }
 
@@ -517,17 +519,20 @@ namespace EM_Statistics
         /**
          * This function parses a filter and its parameters from string, and compiles it so that it can be used as a function
          */
-        private void PrepareFilter(DataStatsHolder data, Template.Filter filter, Template template)
+        private void PrepareFilter(Dictionary<string, DataStatsHolder> dataAllLevels, string level, LocalMap localMap, Template.Filter filter, Template template)
         {
-            foreach(Template.TemplateInfo.CalculationLevel cl in template.info.calculationLevels)
-            if (filter == null || filter.HasFunc(data)) return; // if filter is null, or it already exists (check for IND should be enough), return
-            if (!string.IsNullOrEmpty(filter.name) && template.globalFilters.Count(y => y.name == filter.name) == 1)
+            DataStatsHolder data = dataAllLevels[level];
+
+            foreach (Template.TemplateInfo.CalculationLevel cl in template.info.calculationLevels)
+            if (filter == null || filter.HasFunc(data)) return;
+
+            // if named filters on any higher level exist, combine missing properties
+            foreach (Template.Filter namedFilter in LocalMap.GetNamedFilters(template, filter.name, localMap))
             {
-                // If a named filter already excists in the globals, combine missing properties
-                Template.Filter namedFilter = template.globalFilters.First(y => y.name == filter.name);
-                if (string.IsNullOrEmpty(filter.formulaString) && namedFilter.formulaString != null) filter.formulaString = namedFilter.formulaString;
-                if (filter.parameters.Count == 0 && namedFilter.parameters.Count > 0)
-                    foreach (Template.Parameter par in namedFilter.parameters)
+                if (string.IsNullOrEmpty(filter.formulaString) && !string.IsNullOrEmpty(namedFilter.formulaString))
+                    filter.formulaString = namedFilter.formulaString; // i.e. take lowest local level of Table/Page/Global 
+                foreach (Template.Parameter par in namedFilter.parameters)
+                    if (!(from p in filter.parameters where p.name.ToLower() == par.name.ToLower() select p).Any()) // i.e. do not overwrite (or duplicate) lower level parameters
                         filter.parameters.Add(par);
             }
             if (string.IsNullOrEmpty(filter.formulaString)) return;
@@ -536,11 +541,11 @@ namespace EM_Statistics
             Func<List<double>, bool> func = funcHandingNaN;
             try
             {
-                if (PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, filter.formulaString, data, filter.parameters, out string error, true))
+                if (PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, filter.formulaString, dataAllLevels, level, localMap, filter.parameters, out string error))
                 {
-                    ParameterExpression[] OBS_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "OBS_VAR") };
+                    ParameterExpression[] DATA_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "DATA_VAR") };
                     if (!formula.Contains(double.NaN.ToString()))
-                        func = (Func<List<double>, bool>)DynamicExpressionParser.ParseLambda(OBS_VAR, null, formula, Array.Empty<object>()).Compile();
+                        func = (Func<List<double>, bool>)DynamicExpressionParser.ParseLambda(DATA_VAR, null, formula, Array.Empty<object>()).Compile();
                 }
                 else FilterError(error);
             }
@@ -553,8 +558,8 @@ namespace EM_Statistics
 
             void FilterError(string msg)
             {
-                string ident = string.IsNullOrEmpty(filter.name) ? string.Empty : filter.name;
-                if (string.IsNullOrEmpty(ident))
+                string ident = string.IsNullOrEmpty(filter.name) ? string.Empty : $"'{filter.name}'";
+                if (string.IsNullOrEmpty(ident) && !string.IsNullOrEmpty(filter.formulaString))
                 {
                     string fs = filter.formulaString.Length < 20 ? filter.formulaString : filter.formulaString.Substring(0, 20);
                     ident += $"FormulaString={fs}{(fs.Length == filter.formulaString.Length ? string.Empty : " ...")}";
@@ -565,124 +570,157 @@ namespace EM_Statistics
             bool funcHandingNaN(List<double> d) { return false; }
         }
 
-        private bool PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, string origFormula, DataStatsHolder data, List<Template.Parameter> parameters, 
-                                    out string error, bool isOBS_VAR = false)
+        private bool PrepareFormula(out string formula, out int sdcObsNo_SavedNumbers, string origFormula,
+                                    Dictionary<string, DataStatsHolder> dataAllLevels,
+                                    string calculationLevel, LocalMap localMap,
+                                    List<Template.Parameter> parameters, out string error)
         {
             // the library can generate formulas with direct indexes - see Gini
             // for user generated, parameter names need to start with "@"
 
             // in all our replacements, we add (" + doubleMultiplier + " ... ) to make sure that all our parameters are considered doubles! otherwise, you may get an integer division or even integer result which would cause a crash!
 
+            DataStatsHolder data = dataAllLevels[calculationLevel];
             formula = origFormula; error = null; sdcObsNo_SavedNumbers = int.MaxValue;
             // Handle all Saved Variables
-            int pos = formula.IndexOf(HardDefinitions.FormulaParameter.SAVED_VAR + "@");
+            int pos = -1; if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.SAVED_VAR)) return false;
             while (pos > -1)
             {
                 int startpos = pos + HardDefinitions.FormulaParameter.SAVED_VAR.Length + 1; // +1 to take "@" into account
                 int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
                 if (startpos > formula.Length || endpos < startpos) return PrepareFormulaError("invalid saved variable in formula", ref error);
-                string par_name = formula.Substring(startpos, endpos - startpos);
-                Template.Parameter saved_name = parameters.FirstOrDefault(x => x.name == par_name);
-                if (saved_name == null) return PrepareFormulaError($"Parameter {par_name} not found", ref error);
-                if (string.IsNullOrEmpty(saved_name.variableName)) return PrepareFormulaError($"Parameter {par_name}: <VarName> not defined", ref error);
-                if (!data.HasSavedNumber(saved_name.variableName)) return PrepareFormulaError($"saved variable {saved_name.name} (variable {saved_name.variableName}) not found", ref error);
-                DataStatsHolder.SavedNumber savedNumber = data.GetSavedNumber(saved_name.variableName);
+                string svParName = formula.Substring(startpos, endpos - startpos);
+                string svName = null;
+                Template.Parameter svPar = parameters.FirstOrDefault(x => x.name == svParName);
+                if (svPar != null)
+                {
+                    if (string.IsNullOrEmpty(svPar.variableName)) return PrepareFormulaError($"Parameter '{svParName}': <VarName> not defined", ref error);
+                    svName = svPar.variableName;
+                }
+                else // a "short-cut-reference", e.g. USR_VAR[@MySavedVar] without providing a parameter { Name="MySavedVar", VarName="MySavedVar" }
+                    svName = svParName;
+                if (!data.HasSavedNumber(svName, localMap))
+                    return PrepareFormulaError($"SAVED_VAR '{svName}' not found{(svName == svParName ? string.Empty : $" (parameter '{svParName}')")}", ref error);
+                DataStatsHolder.SavedNumber savedNumber = data.GetSavedNumber(svName, localMap);
                 sdcObsNo_SavedNumbers = Math.Min(savedNumber.sdcObsNo, sdcObsNo_SavedNumbers);
                 string snStr = "(" + constMakeDouble + savedNumber.number.ToString(HardDefinitions.FormulaParameter.NumberFormat, CultureInfo.InvariantCulture) + ")";
                 formula = formula.Substring(0, pos) + snStr + formula.Substring(endpos + 1);
-                pos = formula.IndexOf(HardDefinitions.FormulaParameter.SAVED_VAR, pos + snStr.Length);
+                if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.SAVED_VAR, pos + snStr.Length)) return false;
             }
 
             // Handle all User Variables
-            pos = formula.IndexOf(HardDefinitions.FormulaParameter.USR_VAR + "@");
+            if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.USR_VAR)) return false;
             while (pos > -1)
             {
                 int startpos = pos + HardDefinitions.FormulaParameter.USR_VAR.Length + 1; // +1 to take "@" into account
                 int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
                 if (startpos > formula.Length || endpos < startpos) return PrepareFormulaError("invalid user variable in formula", ref error);
-                string par_name = formula.Substring(startpos, endpos - startpos);
-                Template.Parameter user_var_name = parameters.FirstOrDefault(x => x.name == par_name);
-                if (user_var_name == null) return PrepareFormulaError($"Parameter {par_name} not found", ref error);
-                if (string.IsNullOrEmpty(user_var_name.variableName)) return PrepareFormulaError($"Parameter {par_name}: <VarName> not defined", ref error);
-
-                int refNo = -1; string uvName = user_var_name.variableName;
-                if (user_var_name.variableName.Contains(HardDefinitions.Reform)) // one could pass the reform-number through per parameter
-                {                                                                // but it is less change-effort to extract it from the variable-name
-                    string rn = uvName.Substring(uvName.IndexOf(HardDefinitions.Reform) + HardDefinitions.Reform.Length); // extract e.g. "2" from "Const1~ref~2"
-                    if (int.TryParse(rn, out refNo)) uvName = uvName.Substring(0, uvName.IndexOf(HardDefinitions.Reform));
+                string uvParName = formula.Substring(startpos, endpos - startpos);
+                string uvName = null;
+                Template.Parameter uvPar = parameters.FirstOrDefault(x => x.name == uvParName);
+                if (uvPar != null)
+                {
+                    if (string.IsNullOrEmpty(uvPar.variableName)) return PrepareFormulaError($"Parameter '{uvParName}': <VarName> not defined", ref error);
+                    uvName = uvPar.variableName;
                 }
-                Template.TemplateInfo.UserVariable uservar = template.info.GetUserVariable(uvName, packageKey, refNo);
-                if (uservar == null || string.IsNullOrEmpty(uservar.value)) return PrepareFormulaError($"user variable {user_var_name.name} not found", ref error);
-
+                else // a "short-cut-reference", e.g. USR_VAR[@MyUserVar] without providing a parameter { Name="MyUserVar", VarName="MyUserVar" }
+                    uvName = uvParName;
+                int uvRefNo = ExtractRefFromVarName(uvName, out uvName); // todo: consider whether refNo can be made useable for this (currently it is not reliable, as for non-CellActions (i.e. Global/Page/Table-Actions) it is always -1 (should it?)
+                Template.TemplateInfo.UserVariable uservar = template.info.GetUserVariable(uvName, packageKey, uvRefNo);
+                if (uservar == null || string.IsNullOrEmpty(uservar.value))
+                    return PrepareFormulaError($"USR_VAR '{uvName}' not found{(uvName == uvParName ? string.Empty : $" (parameter '{uvParName}')")}", ref error);
                 string value = "";
                 if (uservar.inputType == HardDefinitions.UserInputType.Numeric || uservar.inputType == HardDefinitions.UserInputType.Categorical_Numeric)
-                {
                     value = "(" + constMakeDouble + uservar.value + ")";
-                }
                 else if (uservar.inputType == HardDefinitions.UserInputType.VariableName || uservar.inputType == HardDefinitions.UserInputType.Categorical_VariableName)
                 {
-                    int varIndex = data.GetVarIndex(uservar.value);
-                    if (varIndex < 0) return PrepareFormulaError($"user variable {uservar.name} (variable {uservar.value}) not found", ref error);
-                    value = "(" + constMakeDouble + (isOBS_VAR ? HardDefinitions.FormulaParameter.OBS_VAR : HardDefinitions.FormulaParameter.OP_VAR) + varIndex.ToString() + HardDefinitions.FormulaParameter.CLOSING_TOKEN + ")";
+                    int varIndex = GetVarIndex_AutoGrossUp(uservar.value);
+                    if (varIndex < 0) return PrepareFormulaError($"user variable {uservar.name} (variable '{uservar.value}') not found", ref error);
+                    value = "(" + constMakeDouble + HardDefinitions.FormulaParameter.DATA_VAR + varIndex.ToString() + HardDefinitions.FormulaParameter.CLOSING_TOKEN + ")";
                 }
                 formula = formula.Substring(0, pos) + value + formula.Substring(endpos + 1);
-                pos = formula.IndexOf(HardDefinitions.FormulaParameter.USR_VAR, pos + value.Length);
+                if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.USR_VAR, pos + value.Length)) return false;
             }
 
             // Handle all Operation variables
-            pos = formula.IndexOf(HardDefinitions.FormulaParameter.OP_VAR + "@");
+            if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.DATA_VAR)) return false;
             while (pos > -1)
             {
-                int startpos = pos + HardDefinitions.FormulaParameter.OP_VAR.Length + 1; // +1 to take "@" into account
+                int startpos = pos + HardDefinitions.FormulaParameter.DATA_VAR.Length + 1; // +1 to take "@" into account
                 int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
                 if (startpos > formula.Length || endpos < startpos) return PrepareFormulaError("invalid variable in formula", ref error);
-                string par_name = formula.Substring(startpos, endpos - startpos);
-                Template.Parameter var_name = parameters.FirstOrDefault(x => x.name == par_name);
-                if (var_name == null) return PrepareFormulaError($"Parameter {par_name} not found", ref error);
-                if (string.IsNullOrEmpty(var_name.variableName)) return PrepareFormulaError($"Parameter {par_name}: <VarName> not defined", ref error);
-                string varIndex = data.GetVarIndex(var_name.variableName).ToString();
-                if (varIndex == "-1") return PrepareFormulaError($"variable {var_name.variableName} not found", ref error);
-                varIndex = "(" + constMakeDouble + HardDefinitions.FormulaParameter.OP_VAR + varIndex + HardDefinitions.FormulaParameter.CLOSING_TOKEN + ")";
+                string dvParName = formula.Substring(startpos, endpos - startpos);
+                string dvName = null;
+                Template.Parameter dvPar = parameters.FirstOrDefault(x => x.name == dvParName);
+                if (dvPar != null)
+                {
+                    if (string.IsNullOrEmpty(dvPar.variableName)) return PrepareFormulaError($"Parameter '{dvParName}': <VarName> not defined", ref error);
+                    dvName = dvPar.variableName;
+                }
+                else // a "short-cut-reference", e.g. DATA_VAR[@yem] without providing a parameter { Name="yem", VarName="yem" }
+                    dvName = dvParName;
+                string varIndex = GetVarIndex_AutoGrossUp(dvName).ToString();
+                if (varIndex == "-1")
+                    return PrepareFormulaError($"variable '{dvName}' not found{(dvName == dvParName ? string.Empty : $" (parameter '{dvParName}')")}", ref error);
+                varIndex = "(" + constMakeDouble + HardDefinitions.FormulaParameter.DATA_VAR + varIndex + HardDefinitions.FormulaParameter.CLOSING_TOKEN + ")";
                 formula = formula.Substring(0, pos) + varIndex + formula.Substring(endpos + 1);
-                pos = formula.IndexOf(HardDefinitions.FormulaParameter.OP_VAR, pos + varIndex.Length);
+                if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.DATA_VAR, pos + varIndex.Length)) return false;
             }
 
-            // Handle all Observation variables
-            pos = formula.IndexOf(HardDefinitions.FormulaParameter.OBS_VAR + "@");
-            while (pos > -1)
-            {
-                int startpos = pos + HardDefinitions.FormulaParameter.OBS_VAR.Length + 1; // +1 to take "@" into account
-                int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
-                if (startpos > formula.Length || endpos < startpos) return PrepareFormulaError("invalid variable in formula", ref error);
-                string par_name = formula.Substring(startpos, endpos - startpos);
-                Template.Parameter var_name = parameters.FirstOrDefault(x => x.name == par_name);
-                if (var_name == null) return PrepareFormulaError($"Parameter {par_name} not found", ref error);
-                if (string.IsNullOrEmpty(var_name.variableName)) return PrepareFormulaError($"Parameter {par_name}: <VarName> not defined", ref error);
-                string varIndex = data.GetVarIndex(var_name.variableName).ToString();
-                if (varIndex == "-1") return PrepareFormulaError($"variable {var_name.variableName} not found", ref error);
-                varIndex = "(" + constMakeDouble + HardDefinitions.FormulaParameter.OBS_VAR + varIndex + HardDefinitions.FormulaParameter.CLOSING_TOKEN + ")";
-                formula = formula.Substring(0, pos) + varIndex + formula.Substring(endpos + 1);
-                pos = formula.IndexOf(HardDefinitions.FormulaParameter.OBS_VAR, pos + varIndex.Length);
-            }
-            pos = formula.IndexOf(HardDefinitions.FormulaParameter.TEMP_VAR + "@");
+            if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.TEMP_VAR)) return false;
             while (pos > -1)
             {
                 int startpos = pos + HardDefinitions.FormulaParameter.TEMP_VAR.Length + 1; // +1 to take "@" into account
                 int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
                 if (startpos > formula.Length || endpos < startpos) return PrepareFormulaError("invalid template variable in formula", ref error);
-                string par_name = formula.Substring(startpos, endpos - startpos);
-                Template.Parameter var_name = parameters.FirstOrDefault(x => x.name == par_name);
-                if (var_name == null) return PrepareFormulaError($"Parameter {par_name} not found", ref error);
-                string varValue = "(" + constMakeDouble + var_name.numericValue.ToString() + ")";
+                string tvParName = formula.Substring(startpos, endpos - startpos);
+                Template.Parameter tvPar = parameters.FirstOrDefault(x => x.name == tvParName);
+                if (tvPar == null) return PrepareFormulaError($"Parameter '{tvParName}' not found", ref error);
+                else if (double.IsNaN(tvPar.numericValue)) return PrepareFormulaError($"Parameter '{tvParName}': <NumericValue> not defined", ref error);
+                string varValue = "(" + constMakeDouble + tvPar.numericValue + ")";
                 formula = formula.Substring(0, pos) + varValue + formula.Substring(endpos + 1);
-                pos = formula.IndexOf(HardDefinitions.FormulaParameter.TEMP_VAR, pos + varValue.Length);
+                if (!NextPos(ref pos, ref error, formula, HardDefinitions.FormulaParameter.TEMP_VAR, pos + varValue.Length)) return false;
             }
             return true;
 
+            // returns the index of a variable on the respective level of calculation (individual, household, family, ...)
+            // if the index does not exist on a higher than individual level, it tries to find the variable on individual level and, if available, "grosses it up"
+            int GetVarIndex_AutoGrossUp(string varName)
+            {
+                int varIndex = dataAllLevels[calculationLevel].GetVarIndex(varName, localMap);
+                if (varIndex != -1) return varIndex;
+
+                int indVarIndex = calculationLevel == IND ? -1 : dataAllLevels[IND].GetVarIndex(varName, localMap);
+                if (indVarIndex == -1) return -1; // does not exist on individual level either (or request for index was on individual level)
+
+                CreateGroupValue(dataAllLevels, calculationLevel, varName);
+                return dataAllLevels[calculationLevel].GetVarIndex(varName, localMap);
+            }
+            
             bool PrepareFormulaError(string msg, ref string err) { err = $"Faulty <FormulaString>: {msg}"; return false; }
+
+            bool NextPos(ref int np, ref string err, string f, string marker, int startIndex = 0)
+            {
+                for (np = f.IndexOf(marker, startIndex);
+                     np != -1 && np + marker.Length < f.Length && EM_Helpers.IsDigit(f[np + marker.Length]);
+                     np = f.IndexOf(marker, np + marker.Length)) ;
+                return (np == -1 || (np + marker.Length < f.Length && f[np + marker.Length] == '@')) ? true
+                   : PrepareFormulaError($"'{marker}' should be followed by '@'", ref err);
+            }
         }
 
-        private static bool PrepareFormulaColumns(ref string formula, out string error, List<DisplayResults.DisplayPage.DisplayTable.DisplayCell> baseRowCells, Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell> reformRowCells)
+        private static int ExtractRefFromVarName(string origVarName, out string cleanedVarName)
+        {
+            int refNo = -1; cleanedVarName = origVarName;
+            if (cleanedVarName != null && cleanedVarName.Contains(HardDefinitions.Reform))
+            {
+                string rn = cleanedVarName.Substring(cleanedVarName.IndexOf(HardDefinitions.Reform) + HardDefinitions.Reform.Length); // extract e.g. "2" from "Const1~ref~2"
+                if (int.TryParse(rn, out refNo)) cleanedVarName = cleanedVarName.Substring(0, cleanedVarName.IndexOf(HardDefinitions.Reform));
+            }
+            return refNo;
+        }
+
+        private static bool PrepareFormulaColumns(ref string formula, out string error, List<CellUnderConstruction> rowUnderConstruction, int refNo)
         {
             // Handle all Base Columns
             error = null;
@@ -692,12 +730,15 @@ namespace EM_Statistics
             {
                 int startpos = pos + HardDefinitions.FormulaParameter.BASE_COL.Length;
                 int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
-                if (startpos > formula.Length || endpos < startpos) { error = "Invalid base column in formula"; return false; }
+                if (startpos > formula.Length || endpos < startpos) { error = $"Invalid use of {HardDefinitions.FormulaParameter.BASE_COL} in formula"; return false; }
 
-                string colNumber = formula.Substring(startpos, endpos - startpos);
-                if (!int.TryParse(colNumber, out int colNo) || baseRowCells.Count <= colNo) { error = "Invalid base column number in formula"; return false; }
-                string colValue = "(" + constMakeDouble + baseRowCells[colNo].value.ToString(HardDefinitions.FormulaParameter.NumberFormat, CultureInfo.InvariantCulture) + ")"; // TODO - what kind of string to preserve best accuracy?
-                formula = formula.Substring(0, pos) + colValue + formula.Substring(endpos+1);
+                string colName = formula.Substring(startpos, endpos - startpos);
+                DisplayResults.DisplayPage.DisplayTable.DisplayCell referredCell = (from ruc in rowUnderConstruction
+                                                                                    where ruc.refNo == -1 && ruc.colName.ToLower() == colName.ToLower()
+                                                                                    select ruc.displayCell).FirstOrDefault();
+                if (referredCell == null) { error = $"{HardDefinitions.FormulaParameter.BASE_COL}{colName}]: Column not found"; return false; }
+                string colValue = "(" + constMakeDouble + referredCell.value.ToString(HardDefinitions.FormulaParameter.NumberFormat, CultureInfo.InvariantCulture) + ")"; // TODO - what kind of string to preserve best accuracy?
+                formula = formula.Substring(0, pos) + colValue + formula.Substring(endpos + 1);
                 pos = formula.IndexOf(HardDefinitions.FormulaParameter.BASE_COL, pos + colValue.Length);
             }
 
@@ -707,136 +748,190 @@ namespace EM_Statistics
             {
                 int startpos = pos + HardDefinitions.FormulaParameter.REF_COL.Length;
                 int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
-                if (startpos > formula.Length || endpos < startpos) { error = "Invalid reformAction column in formula"; return false; }
-                string colNumber = formula.Substring(startpos, endpos - startpos);
-                if (!int.TryParse(colNumber, out int colNo) || reformRowCells.Count <= colNo) { error = "Invalid reform column number in formula"; return false; }
-                string colValue = "(" + constMakeDouble + reformRowCells[colNo].value.ToString(HardDefinitions.FormulaParameter.NumberFormat, CultureInfo.InvariantCulture) + ")"; // TODO - what kind of string to preserve best accuracy?
-                formula = formula.Substring(0, pos) + colValue + formula.Substring(endpos+1);
+                if (startpos > formula.Length || endpos < startpos) { error = $"Invalid use of {HardDefinitions.FormulaParameter.REF_COL} in formula"; return false; }
+                string colName = formula.Substring(startpos, endpos - startpos);
+                DisplayResults.DisplayPage.DisplayTable.DisplayCell referredCell = (from ruc in rowUnderConstruction
+                                                                                    where ruc.refNo == refNo && ruc.colName.ToLower() == colName.ToLower()
+                                                                                    select ruc.displayCell).FirstOrDefault();
+                if (referredCell == null) { error = $"{HardDefinitions.FormulaParameter.REF_COL}{colName}]: ReformColumn not found"; return false; }
+                string colValue = "(" + constMakeDouble + referredCell.value.ToString(HardDefinitions.FormulaParameter.NumberFormat, CultureInfo.InvariantCulture) + ")"; // TODO - what kind of string to preserve best accuracy?
+                formula = formula.Substring(0, pos) + colValue + formula.Substring(endpos + 1);
                 pos = formula.IndexOf(HardDefinitions.FormulaParameter.REF_COL, pos + colValue.Length);
+            }
+
+            pos = formula.IndexOf(HardDefinitions.FormulaParameter.REF_COL_PRE);
+            while (pos > -1)
+            {
+                int startpos = pos + HardDefinitions.FormulaParameter.REF_COL_PRE.Length;
+                int endpos = formula.IndexOf(HardDefinitions.FormulaParameter.CLOSING_TOKEN, pos);
+                if (startpos > formula.Length || endpos < startpos) { error = $"Invalid use of {HardDefinitions.FormulaParameter.REF_COL_PRE} in formula"; return false; }
+                string []baseRefNames = formula.Substring(startpos, endpos - startpos).Split(HardDefinitions.Separator[0]);
+                if (baseRefNames.Length < 1) { error = $"Invalid use of {HardDefinitions.FormulaParameter.REF_COL_PRE} in formula"; return false; }
+                string refColName = baseRefNames[0], baseColName = baseRefNames.Length < 2 ? null : baseRefNames[1];
+
+                DisplayResults.DisplayPage.DisplayTable.DisplayCell referredCell = null;
+                if (refNo == 0) // first reform
+                {
+                    referredCell = (from ruc in rowUnderConstruction
+                                    where ruc.refNo == -1 && // if no name for base is provided, try if there is a base-col-definition with the same name as ref-col-definition
+                                          ruc.colName.ToLower() == (baseColName  == null ? refColName.ToLower() : baseColName.ToLower())
+                                    select ruc.displayCell).FirstOrDefault();
+                    if (referredCell == null && baseColName != null) { error = $"Column {baseColName} not found"; return false; }
+                }
+                if (referredCell == null) // second+ reform or first reform if finding base-col failed (as well with explicitly defined name as with name equal to ref-col-name)
+                {
+                    referredCell = (from ruc in rowUnderConstruction // for first reform just use first reform instead of (non existent) previous (very likely you get sth. like col[0] - col[0], i.e. result 0)
+                                    where ruc.refNo == Math.Max(refNo - 1, 0) &&
+                                          ruc.colName.ToLower() == refColName.ToLower()
+                                    select ruc.displayCell).FirstOrDefault();
+                    if (referredCell == null) { error = $"ReformColumn {refColName} not found"; return false; }
+                }
+
+                string colValue = "(" + constMakeDouble + referredCell.value.ToString(HardDefinitions.FormulaParameter.NumberFormat, CultureInfo.InvariantCulture) + ")"; // TODO - what kind of string to preserve best accuracy?
+                formula = formula.Substring(0, pos) + colValue + formula.Substring(endpos + 1);
+                pos = formula.IndexOf(HardDefinitions.FormulaParameter.REF_COL_PRE, pos + colValue.Length);
             }
 
             return true;
         }
 
+        // this structure is only necessary for formula-components BASE_COL[] and REF_COL[] (see PrepareFormulaColumns)
+        private class CellUnderConstruction
+        {
+            internal DisplayResults.DisplayPage.DisplayTable.DisplayCell displayCell = null;
+            internal int refNo = -1; internal string colName = null;
+        }
+
         /**
          * This function is used to create a display table to be displayed in the Statistics Presenter
          */
-        internal bool CreateDisplayTable(out DisplayResults.DisplayPage.DisplayTable displayTable, Template.Page.Table table, int perReformNumber = -1)
+        internal bool CreateDisplayTable(out DisplayResults.DisplayPage.DisplayTable displayTable, Template.Page.Table table, int refNo_PerReform = -1)
         {
             displayTable = null;
 
             // Handle the case that a row does not describe a single row in the display table, but leads to generation of several rows
             // keep a copy of the original rows to set back at the end of function, in order to not destroy the original template, in case of further packages
-            if (!HandleForEachRow(table.action.CalculationLevel, table, out List<Template.Page.Table.Row> origRows)) return false;
+            if (!HandleForEachRow(table.cellAction.CalculationLevel, table, out List<Template.Page.Table.Row> origRows)) return false;
 
             // First prepare a display table that will be passed back to the Presenter, based on the template table
-            // Copy all rows, columns, cells, and prepare filters and formulas
-            displayTable = PrepareDisplayTable(table, perReformNumber);
+            displayTable = PrepareDisplayTable(table, refNo_PerReform); // Prepare Table itself
+            displayTable.rows.AddRange(PrepareDisplayRows(table));   // Prepare Table Rows
+            // Preparing Table Columns is done together with preparing cells, to avoid redundant code for columns-sorting
 
             // The "cells" is a table of each actual cell to be displayed in the end
             displayTable.cells = new List<List<DisplayResults.DisplayPage.DisplayTable.DisplayCell>>();
 
             // Build the actual display table
-            for (int r = 0; r < table.rows.Count; r++)
+            for (int rowNo = 0; rowNo < table.rows.Count; rowNo++)
             {
-                // Create a new row of cells 
-                List<DisplayResults.DisplayPage.DisplayTable.DisplayCell> rowCells = new List<DisplayResults.DisplayPage.DisplayTable.DisplayCell>();
-                List<DisplayResults.DisplayPage.DisplayTable.DisplayCell> baseRowCells = new List<DisplayResults.DisplayPage.DisplayTable.DisplayCell>();
-                Dictionary<int, Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell>> reformRowCells = new Dictionary<int, Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell>>();
+                // Create a new row of cells (the other components of CellUnderConstruction are only necessary for formula-components BASE_COL[] and REF_COL[] - see PrepareFormulaColumns)
+                List<CellUnderConstruction> rowUnderConstruction = new List<CellUnderConstruction>();
 
-                if (table.columnGrouping == HardDefinitions.ColumnGrouping.SystemFirst)
+                switch (template.info.templateType)
                 {
-                    // Grouping Columns based on System
+                    case HardDefinitions.TemplateType.Default:
+                        for (int colNo = 0; colNo < table.columns.Count; colNo++)
+                            CreateBaseColAndCell(displayTable, colNo);
+                        break;
 
-                    // For each baseline column
-                    for (int c = 0; c < table.columns.Count; c++)
-                    {
-                        // create the cell of each baseline
-                        for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
+                    case HardDefinitions.TemplateType.Multi:
+                        if (table.columnGrouping == HardDefinitions.ColumnGrouping.SystemFirst) // Col1/Sys1 .. ColX/Sys1 .... Col1/SysY .. ColX/SysY
                         {
-                            // Get the right dataset for this baseline-reform set
-                            DisplayResults.DisplayPage.DisplayTable.DisplayCell displayCell = CalculateCellValue(allData[dataNo], table, c, r, baseRowCells, null, 0, perReformNumber);
-                            rowCells.Add(displayCell);
-                            baseRowCells.Add(displayCell);
+                            for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
+                                for (int colNo = 0; colNo < table.columns.Count; colNo++)
+                                    CreateBaseColAndCell(displayTable, colNo, dasNo);
+                        }
+                        else if (table.columnGrouping == HardDefinitions.ColumnGrouping.ColumnFirst) // Col1/Sys1 .. Col1/SysY .... ColX/Sys1 .. ColX/SysY
+                        {
+                            for (int c = 0; c < table.columns.Count; c++)
+                                for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
+                                    CreateBaseColAndCell(displayTable, c, dasNo);
+                        }
+                        break;
 
-                            // followed by the cells of each reform column for each reform system // that ties with this baseline column
-                            for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
+                    case HardDefinitions.TemplateType.BaselineReform:
+                        if (table.columnGrouping == HardDefinitions.ColumnGrouping.SystemFirst)
+                        {
+                            for (int baseColNo = 0; baseColNo < table.columns.Count; baseColNo++)
                             {
-                                for (int rc = 0; rc < table.reformColumns.Count; rc++)
+                                // create the column and cell of each baseline ...
+                                CreateBaseColAndCell(displayTable, baseColNo);
+
+                                // ... followed by the columns and cells of each reform column that ties with this baseline column ...
+                                for (int refNo = (refNo_PerReform == -1 ? 0 : refNo_PerReform); refNo < (refNo_PerReform == -1 ? reformSystemInfos.Count : refNo_PerReform + 1); refNo++)
+                                    for (int refColNo = 0; refColNo < table.reformColumns.Count; refColNo++)
+                                    {
+                                        if (string.IsNullOrEmpty(table.reformColumns[refColNo].tiesWith) ||
+                                            table.reformColumns[refColNo].tiesWith.ToLower() != table.columns[baseColNo].name.ToLower()) continue;
+                                        CreateReformColAndCell(displayTable, refColNo, refNo);
+                                    }
+                            }
+                            // ... followed by do the "loose" (i.e. not tied) reform columns
+                            for (int refNo = (refNo_PerReform == -1 ? 0 : refNo_PerReform); refNo < (refNo_PerReform == -1 ? reformSystemInfos.Count : refNo_PerReform + 1); refNo++)
+                                for (int refColNo = 0; refColNo < table.reformColumns.Count; refColNo++)
                                 {
-                                    if (table.reformColumns[rc].tiesWith != c) continue;
-                                    if (!reformRowCells.ContainsKey(refNo)) reformRowCells.Add(refNo, new Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell>());
-                                    DisplayResults.DisplayPage.DisplayTable.DisplayCell reformDisplayCell = CalculateCellValue(allData[dataNo], table, rc, r, baseRowCells, reformRowCells[refNo], refNo);
-                                    rowCells.Add(reformDisplayCell);
-                                    reformRowCells[refNo].Add(rc, reformDisplayCell);
+                                    if (!string.IsNullOrEmpty(table.reformColumns[refColNo].tiesWith)) continue; // already done above
+                                    CreateReformColAndCell(displayTable, refColNo, refNo);
+                                }
+                        }
+
+                        else if (table.columnGrouping == HardDefinitions.ColumnGrouping.ColumnFirst)
+                        {
+                            for (int baseColNo = 0; baseColNo < table.columns.Count; baseColNo++)
+                            {
+                                // create the column and cell of each baseline ...
+                                CreateBaseColAndCell(displayTable, baseColNo);
+
+                                // ... followed by the columns and cells of each reform column that ties with this baseline column ...
+                                for (int refColNo = 0; refColNo < table.reformColumns.Count; refColNo++)
+                                {
+                                    if (string.IsNullOrEmpty(table.reformColumns[refColNo].tiesWith) ||
+                                        table.reformColumns[refColNo].tiesWith.ToLower() != table.columns[baseColNo].name.ToLower()) continue;
+                                    for (int refNo = (refNo_PerReform == -1 ? 0 : refNo_PerReform); refNo < (refNo_PerReform == -1 ? reformSystemInfos.Count : refNo_PerReform + 1); refNo++)
+                                        CreateReformColAndCell(displayTable, refColNo, refNo);
                                 }
                             }
-                        }
-                    }
-                    for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                    {
-                        for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                        {
-                            // then do the extra reform columns 
-                            for (int rc = 0; rc < table.reformColumns.Count; rc++)
+                            // ... followed by do the "loose" (i.e. not tied) reform columns
+                            for (int refColNo = 0; refColNo < table.reformColumns.Count; refColNo++)
                             {
-                                if (!double.IsNaN(table.reformColumns[rc].tiesWith) && table.reformColumns[rc].tiesWith >= 0 && table.reformColumns[rc].tiesWith < table.columns.Count) continue;
-                                if (!reformRowCells.ContainsKey(refNo)) reformRowCells.Add(refNo, new Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell>());
-                                DisplayResults.DisplayPage.DisplayTable.DisplayCell reformDisplayCell = CalculateCellValue(allData[dataNo], table, rc, r, baseRowCells, reformRowCells[refNo], refNo);
-                                rowCells.Add(reformDisplayCell);
-                                reformRowCells[refNo].Add(rc, reformDisplayCell);
+                                if (!string.IsNullOrEmpty(table.reformColumns[refColNo].tiesWith)) continue; // already done above
+                                for (int refNo = (refNo_PerReform == -1 ? 0 : refNo_PerReform); refNo < (refNo_PerReform == -1 ? reformSystemInfos.Count : refNo_PerReform + 1); refNo++)
+                                    CreateReformColAndCell(displayTable, refColNo, refNo);
                             }
                         }
-                    }
+                        break;
                 }
-                else if (table.columnGrouping == HardDefinitions.ColumnGrouping.ColumnFirst)
+
+                void CreateBaseColAndCell(DisplayResults.DisplayPage.DisplayTable _displayTable, int baseColNo, int dasNo = 0)
                 {
-                    // Grouping Columns based on Column
+                    // Create the display column, if it not already exists
+                    if (rowNo == 0) _displayTable.columns.Add(PrepareDisplayColumn(table.columns[baseColNo], -1, dasNo, table.columnGrouping, false));
+                    // Create the diplay cell for this row and column
+                    DisplayResults.DisplayPage.DisplayTable.DisplayCell baseDisplayCell =
+                        CalculateCellValue(dataAndStats[dasNo], table, baseColNo, rowNo, rowUnderConstruction, -1, refNo_PerReform); // refNo_PerReform is provided for SDC only
+                    rowUnderConstruction.Add(new CellUnderConstruction() { displayCell = baseDisplayCell, colName = table.columns[baseColNo].name });
+                }
 
-                    // For each baseline column
-                    for (int c = 0; c < table.columns.Count; c++)
-                    {
-                        // create the cell of each baseline
-                        for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                        {
-                            DisplayResults.DisplayPage.DisplayTable.DisplayCell displayCell = CalculateCellValue(allData[dataNo], table, c, r, baseRowCells, null, 0, perReformNumber);
-                            rowCells.Add(displayCell);
-                            baseRowCells.Add(displayCell);
-
-                            // followed by the cells of each reform column that ties with this baseline column
-                            for (int rc = 0; rc < table.reformColumns.Count; rc++)
-                            {
-                                if (table.reformColumns[rc].tiesWith != c) continue; //if (table.reformColumns[rc].tiesWith != (c+1)) continue;
-                                // for each reform system
-                                for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                                {
-                                    if (!reformRowCells.ContainsKey(refNo)) reformRowCells.Add(refNo, new Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell>());
-                                    DisplayResults.DisplayPage.DisplayTable.DisplayCell reformDisplayCell = CalculateCellValue(allData[dataNo], table, rc, r, baseRowCells, reformRowCells[refNo], refNo);
-                                    rowCells.Add(reformDisplayCell);
-                                    reformRowCells[refNo].Add(rc, reformDisplayCell);
-                                }
-                            }
-                        }
-                    }
-                    // then do the extra reform columns 
-                    for (int rc = 0; rc < table.reformColumns.Count; rc++)
-                    {
-                        if (!double.IsNaN(table.reformColumns[rc].tiesWith) && table.reformColumns[rc].tiesWith >= 0) continue; //if (!double.IsNaN(table.reformColumns[rc].tiesWith) && table.reformColumns[rc].tiesWith > 0) continue; // handled above
-                        for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                        {
-                            for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                            {
-                                if (!reformRowCells.ContainsKey(refNo)) reformRowCells.Add(refNo, new Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell>());
-                                DisplayResults.DisplayPage.DisplayTable.DisplayCell reformDisplayCell = CalculateCellValue(allData[dataNo], table, rc, r, baseRowCells, reformRowCells[refNo], refNo);
-                                rowCells.Add(reformDisplayCell);
-                                reformRowCells[refNo].Add(rc, reformDisplayCell);
-                            }
-                        }
-                    }
+                void CreateReformColAndCell(DisplayResults.DisplayPage.DisplayTable _displayTable, int refColNo, int refNo)
+                {
+                    // Create the display column, if it not already exists
+                    if (rowNo == 0) _displayTable.columns.Add(PrepareDisplayColumn(table.reformColumns[refColNo], refNo, 0, table.columnGrouping, refNo_PerReform != -1));
+                    // Create the diplay cell for this row and column
+                    DisplayResults.DisplayPage.DisplayTable.DisplayCell reformDisplayCell =
+                        CalculateCellValue(dataAndStats[0], // note: for baseline-reform there is only one dataAndStats
+                                           table, refColNo, rowNo, rowUnderConstruction, refNo);
+                    rowUnderConstruction.Add(new CellUnderConstruction() { displayCell = reformDisplayCell, refNo = refNo, colName = table.reformColumns[refColNo].name });
                 }
 
                 // add the new row to the display table
-                displayTable.cells.Add(rowCells);
+                displayTable.cells.Add((from ruc in rowUnderConstruction select ruc.displayCell).ToList());
+            }
+
+            // make sure that there are no double-borders in the beginning or end of the table
+            if (displayTable.columns.Any())
+            {
+                displayTable.columns[0].hasSeparatorBefore = false;
+                displayTable.columns[displayTable.columns.Count - 1].hasSeparatorAfter = false;
             }
 
             table.rows = origRows; // undo any changes to original template-rows, see above
@@ -854,23 +949,24 @@ namespace EM_Statistics
             {
                 if (!origRow.forEachDataRow && string.IsNullOrEmpty(origRow.forEachValueOf)) { adaptedRows.Add(origRow); continue; }
 
-                if (!HandleForEachRow_ErrorCheck(calculationLevel, origRow)) return false;
+                if (!HandleForEachRow_ErrorCheck(calculationLevel, table.localMap, origRow)) return false;
 
                 // row will be replaced by as many rows as necessary, each with an appropriate filter:
                 // ForEachDataRow: as many rows as data-rows (taking original row-filter into account) with filter: pid=x (or hhid=x)
                 // ForEachValueOf: as many rows as there are distinct values of this variable with filter: var=oneval (e.g. decile=1 ... decile=10)
                 foreach (Template.Filter filter in origRow.forEachDataRow
-                                         ? HandleForEachRow_GetFiltersDataRow(calculationLevel, origRow)
-                                         : HandleForEachRow_GetFiltersValueOf(calculationLevel, origRow, origRow.forEachValueOf))
+                                         ? HandleForEachRow_GetFiltersDataRow(calculationLevel, table.localMap, origRow)
+                                         : HandleForEachRow_GetFiltersValueOf(calculationLevel, table.localMap, table, origRow))
                 {
                     // note that HandleForEachRow_GetFiltersValueOf stores the new name for the rows temporarily in filter.name
-                    string rowName = !string.IsNullOrEmpty(filter.name) ? filter.name : origRow.name; filter.name = string.Empty;
+                    string rowTitle = !string.IsNullOrEmpty(filter.name) ? filter.name : origRow.title; filter.name = string.Empty;
+                    Template.Action cellAction = origRow.cellAction == null ? new Template.Action(table.localMap) : origRow.cellAction.Clone();
+                    cellAction.filter = filter;
                     adaptedRows.Add(new Template.Page.Table.Row()
                     {
-                        name = rowName,
-                        action = new Template.Action() { filter = filter, outputVar = "", formulaString = "", parameters = new List<Template.Parameter>() },
+                        name = origRow.name, title = rowTitle, cellAction = cellAction,
                         isVisible = origRow.isVisible, stringFormat = origRow.stringFormat, strong = origRow.strong, tooltip = origRow.tooltip,
-                        foregroundColour = origRow.foregroundColour, backgroundColour = origRow.backgroundColour
+                        foregroundColour = origRow.foregroundColour, backgroundColour = origRow.backgroundColour, textAlign = origRow.textAlign
                     });
                 }
             }
@@ -878,74 +974,97 @@ namespace EM_Statistics
             return true;
         }
 
-        private List<Template.Filter> HandleForEachRow_GetFiltersDataRow(string calculationLevel, Template.Page.Table.Row origRow)
+        private List<Template.Filter> HandleForEachRow_GetFiltersDataRow(string calculationLevel, LocalMap localMap, Template.Page.Table.Row origRow)
         {
-            DataStatsHolder data = allData[0][calculationLevel]; // data 0 is ok as the filter refers to pid or hhid, which need to be equal in base/reform (and multi is not allowed for this option)
+            DataStatsHolder data = dataAndStats[0][calculationLevel]; // data 0 is ok as the filter refers to pid or hhid, which need to be equal in base/reform (and multi is not allowed for this option)
             Func<List<double>, bool> func = null; // first apply the original filter on the data
-            if (origRow.action != null && origRow.action.filter != null)
+            if (origRow.cellAction != null && origRow.cellAction.filter != null)
             {
-                PrepareFilter(data, origRow.action.filter, template);
-                func = origRow.action.filter.GetFunc(data);
+                PrepareFilter(dataAndStats[0], calculationLevel, localMap, origRow.cellAction.filter, template);
+                func = origRow.cellAction.filter.GetFunc(data);
             }
 
             List<Template.Filter> listFilters = new List<Template.Filter>();
-            data.GetData(func).ForEach(x => listFilters.Add(new Template.Filter()
+            data.GetData(func).ForEach(x => listFilters.Add(new Template.Filter(localMap)
             {
-                formulaString = string.Format("OBS_VAR[@key_id] == {0}", x[data.GetKeyIndex()]),
+                formulaString = string.Format("DATA_VAR[@key_id] == {0}", x[data.GetKeyIndex()]),
                 parameters = new List<Template.Parameter>() { new Template.Parameter() { name = "key_id", variableName = data.GetKeyName() } }
             }));
             return listFilters;
         }
 
-        private List<Template.Filter> HandleForEachRow_GetFiltersValueOf(string calculationLevel, Template.Page.Table.Row origRow, string valofVar)
+        private List<Template.Filter> HandleForEachRow_GetFiltersValueOf(string calculationLevel, LocalMap localMap, Template.Page.Table table, Template.Page.Table.Row origRow)
         {
+            Template.Filter origFilter = origRow.cellAction?.filter ?? table.cellAction?.filter;
+            string valofVar = origRow.forEachValueOf;
+
             List<double> valofValues = new List<double>();
-            for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++) // for multi, to be precise, one needs to assess the values from all datasets
+            for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++) // for multi, to be precise, one needs to assess the values from all datasets
             {
-                DataStatsHolder data = allData[dataNo][calculationLevel];
+                DataStatsHolder data = dataAndStats[dasNo][calculationLevel];
                 Func<List<double>, bool> func = null; // only take the values which are covered when applying the original filter
-                //List<double> vals = data.GetData(null).Select(x => x[36]).ToList();
-                if (origRow.action != null && origRow.action.filter != null)
+                if (origFilter != null)
                 {
-                    PrepareFilter(data, origRow.action.filter, template);
-                    func = origRow.action.filter.GetFunc(data);
+                    PrepareFilter(dataAndStats[dasNo], calculationLevel, localMap, origFilter, template);
+                    func = origFilter.GetFunc(data);
                 }
-                foreach (double v in data.GetData(func).Select(x => x[data.GetVarIndex(valofVar)]).Distinct())
+                foreach (double v in data.GetData(func).Select(x => x[data.GetVarIndex(valofVar, localMap)]).Distinct())
                     if (!valofValues.Contains(v)) valofValues.Add(v);
+            }
+
+            if (valofValues.Count() > origRow.forEachValueMaxCount)
+            {
+                errorCollector.AddError($"Break down variable has too many distinct values ({valofValues.Count}). Only {origRow.forEachValueMaxCount} will be displayed, the rest are ignored.");
+                for (int i = valofValues.Count - 1; i >= origRow.forEachValueMaxCount; --i) valofValues.RemoveAt(i);
             }
 
             valofValues.Sort();
             List<Template.Filter> listFilters = new List<Template.Filter>();
-            // the row-name in template could be e.g. "Decile [value]" or "[value]. Decile"
-            string rowName = origRow.name.Contains("[value]") ? origRow.name : origRow.name + " [value]";
+            // the row-name in template could be e.g. "Decile [value]" or "[value]. Decile" or "Category [value~MyDescriptions]"
+            string rowTitle = origRow.title.Contains("[value") ? origRow.title : $" {origRow.title} [value]";
             foreach (double valofValue in valofValues)
             {
-                listFilters.Add(new Template.Filter()
+                listFilters.Add(new Template.Filter(localMap)
                 {
-                    formulaString = string.Format("OBS_VAR[@valof_var] == {0}", valofValue),
-                    name = ReplaceValuePlaceholder(rowName, valofValue), // (mis)use the name to transfer the new name of the row
+                    formulaString = $"{(origFilter == null ? string.Empty : $"({origFilter.formulaString}) && ")}DATA_VAR[@valof_var] == {valofValue}",
+                    name = ReplaceValuePlaceholder(rowTitle, valofValue), // (mis)use the name to transfer the new title of the row
                     parameters = new List<Template.Parameter>()
-                    { // one could consider making _reform a user-option
-                        new Template.Parameter() { name = "valof_var", variableName = valofVar, _reform = false }
+                    {
+                        new Template.Parameter() { name = "valof_var", variableName = valofVar, _source = Template.Parameter.Source.BASELINE }
                     }
-                });   
+                });
             }
             return listFilters;
 
-            // the placeholder [value] is usually replaced by the respective value, but the template may contain a UserVariable with
-            // type ForEachValueDescription, containing a Dictionary(value, description)
-            // this can obviously only be used by a programme (see HHot)
+            // the placeholder [value] is at run-time replaced by the respective value or description if provided
             string ReplaceValuePlaceholder(string name, double val)
             {
+                int iOpening = name.IndexOf("[value"); if (iOpening < 0) return name;
+                int iClosing = name.IndexOf(']', iOpening); if (iClosing < 0) return name;
+                string placeholder = name.Substring(iOpening, iClosing - iOpening + 1);
+
+                if (origRow.forEachValueDescriptions != null && origRow.forEachValueDescriptions.ContainsKey(val))
+                    return name.Replace(placeholder, origRow.forEachValueDescriptions[val]);
+
+                // the following code is still used by HHot, but should be removed and replaced by using the template-api (to modify row.forEachValueDescriptions)
+                // if a UserVariable with UserInputType = ForEachValueDescription exists in the template,
+                // and the actual user variable is provided by a programme as Dictionary(value, description), these descriptions are used instead (see HHot)
+                string[] pHuV = placeholder.Split(HardDefinitions.Separator[0]);
+                string userVarName = pHuV.Length <= 1 ? null : pHuV[1].TrimEnd(new char[] { ']' });
                 string replacement = val.ToString(CultureInfo.InvariantCulture);
-                var desc = from uv in template.info.userVariables where uv.inputType == HardDefinitions.UserInputType.ForEachValueDescription select uv;
-                if (desc.Any() && desc.First().forEachValueDescription != null && desc.First().forEachValueDescription.ContainsKey(val.ToString(CultureInfo.InvariantCulture)))
+                var desc = from uv in template.info.userVariables
+                           where uv.inputType == HardDefinitions.UserInputType.ForEachValueDescription &&
+                                 uv.forEachValueDescription != null &&
+                                 (string.IsNullOrEmpty(userVarName) || uv.name == userVarName) &&
+                                 uv.forEachValueDescription.ContainsKey(val.ToString(CultureInfo.InvariantCulture))
+                           select uv;
+                if (desc.Any() && (string.IsNullOrEmpty(userVarName) || desc.First().name == userVarName))
                     replacement = desc.First().forEachValueDescription[val.ToString(CultureInfo.InvariantCulture)];
-                return name.Replace("[value]", replacement);
+                return name.Replace(placeholder, replacement);
             }
         }
 
-        private bool HandleForEachRow_ErrorCheck(string calculationLevel, Template.Page.Table.Row origRow)
+        private bool HandleForEachRow_ErrorCheck(string calculationLevel, LocalMap localMap, Template.Page.Table.Row origRow)
         {
             string error = string.Empty;
             if (origRow.forEachDataRow && !string.IsNullOrEmpty(origRow.forEachValueOf))
@@ -953,12 +1072,12 @@ namespace EM_Statistics
             if (origRow.forEachDataRow && template.info.templateType == HardDefinitions.TemplateType.Multi)
                 error += "ForEachDataRow=true is not possible with TemplateType=Multi (as number of rows is likely to be different for scenarios)";
             if (!string.IsNullOrEmpty(origRow.forEachValueOf))
-                for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                    if (allData[dataNo][calculationLevel].GetVarIndex(origRow.forEachValueOf) < 0)
+                for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
+                    if (dataAndStats[dasNo][calculationLevel].GetVarIndex(origRow.forEachValueOf, localMap) < 0)
                         error += "ForEachValueOf: variable " + origRow.forEachValueOf + " not found";
-            if (origRow.action != null)
+            if (origRow.cellAction != null)
             {
-                if (!string.IsNullOrEmpty(origRow.action.formulaString) || origRow.action.calculationType != HardDefinitions.CalculationType.NA)
+                if (!string.IsNullOrEmpty(origRow.cellAction.formulaString) || origRow.cellAction.calculationType != HardDefinitions.CalculationType.NA)
                     error += "ForEachDataRow=true does not allow for content definition on Row level (use Column or Table definition instead)";
                 // for completeness one would need to warn about filters on table-, column- or cell-level, as inhertience is broken
             }
@@ -970,49 +1089,44 @@ namespace EM_Statistics
          * This function is used to create a single display cell for a display table, by merging the attributes of the corresponding table, column, row & custom cell
          */
         private DisplayResults.DisplayPage.DisplayTable.DisplayCell CalculateCellValue(
-                                           Dictionary<string, DataStatsHolder> data, Template.Page.Table table, int c, int r,
-                                           List<DisplayResults.DisplayPage.DisplayTable.DisplayCell> baseRowCells,
-                                           Dictionary<int, DisplayResults.DisplayPage.DisplayTable.DisplayCell> reformRowCells, int refNo,
-                                           int sdcRefNoForBaseCellOfPagePerReform = -1) // this is only required for SDC (for the secondary SDC groups, see CalculateSDCProperties)
+                                           Dictionary<string, DataStatsHolder> data, Template.Page.Table table, int colNo, int rowNo,
+                                           List<CellUnderConstruction> rowUnderConstruction = null, int refNo = -1,
+                                           int refNo_SdcPerReform = -1) // this is only required for SDC (for the secondary SDC groups, see CalculateSDCProperties)
         {
-            // Create a new display cell
-            DisplayResults.DisplayPage.DisplayTable.DisplayCell displayCell = new DisplayResults.DisplayPage.DisplayTable.DisplayCell();
-
             // Get the corresponding row & column, and create a new cell
-            Template.Page.Table.Row row = table.rows[r];
-            Template.Page.Table.Column column = refNo > 0 ? table.reformColumns[c] : table.columns[c];
-            Template.Page.Table.Cell cell = null;
+            Template.Page.Table.Row row = table.rows[rowNo];
+            Template.Page.Table.Column column = refNo != -1 ? table.reformColumns[colNo] : table.columns[colNo];
 
             // Start the new cell based on the corresponding custom cell, if one exists
-            List<Template.Page.Table.Cell> customCells = refNo > 0 ? table.reformCells : table.cells;
-            if (customCells.Any(x => x.rowNum == r && x.colNum == c))
-            {
-                cell = customCells.FirstOrDefault(x => x.rowNum == r && x.colNum == c);
-                displayCell = new DisplayResults.DisplayPage.DisplayTable.DisplayCell()
-                {
-                    stringFormat = cell.stringFormat,
-                    tooltip = cell.tooltip,
-                    strong = cell.strong ?? false,
-                    foregroundColour = cell.foregroundColour,
-                    backgroundColour = cell.backgroundColour
-                };
-            }
+            List<Template.Page.Table.Cell> customCells = refNo != -1 ? table.reformCells : table.cells;
+            Template.Page.Table.Cell cell = customCells.FirstOrDefault(
+                x => x.rowName != null && x.rowName.ToLower() == row.name.ToLower() && x.colName != null && x.colName.ToLower() == column.name.ToLower());
+            DisplayResults.DisplayPage.DisplayTable.DisplayCell displayCell =
+                cell == null ? new DisplayResults.DisplayPage.DisplayTable.DisplayCell()
+                             : new DisplayResults.DisplayPage.DisplayTable.DisplayCell()
+                               {
+                                   stringFormat = cell.stringFormat,
+                                   tooltip = cell.tooltip,
+                                   strong = cell.strong ?? false,
+                                   foregroundColour = cell.foregroundColour,
+                                   backgroundColour = cell.backgroundColour,
+                                   textAlign = cell.textAlign
+                               };
 
             // Merge the properties of the corresponding table, column, row & custom cell into a single cell, considering reforms
-            if (cell == null || cell.action == null || cell.action.calculationType != HardDefinitions.CalculationType.Empty)
-                cell = CalculateProperties(cell, column, row, table, refNo, sdcRefNoForBaseCellOfPagePerReform);
+            if (cell == null || cell.cellAction == null || cell.cellAction.calculationType != HardDefinitions.CalculationType.Empty)
+                cell = CalculateProperties(cell, column, row, table, refNo, refNo_SdcPerReform);
 
-            if (cell.action.calculationType == HardDefinitions.CalculationType.Empty)
+            if (cell.cellAction.calculationType == HardDefinitions.CalculationType.Empty)
             {
                 displayCell.displayValue = string.Empty;
                 displayCell.isStringValue = true;
             }
-            else if (cell.action.calculationType == HardDefinitions.CalculationType.Info)
+            else if (cell.cellAction.calculationType == HardDefinitions.CalculationType.Info)
             {
-                int dataNo = template.info.templateType == HardDefinitions.TemplateType.Multi ? allData.IndexOf(data) : 0;
-                int captionRefNo = refNo - 1; // GetCaptionText requires 0-based reference-number
-                displayCell.displayValue = PrettyInfoProvider.GetPrettyText(template.info, cell.action.formulaString,
-                                           baselineSystemInfos[dataNo], reformSystemInfos, packageKey, captionRefNo);
+                int dasNo = template.info.templateType == HardDefinitions.TemplateType.Multi ? dataAndStats.IndexOf(data) : 0;
+                displayCell.displayValue = PrettyInfoProvider.GetPrettyText(template.info, cell.cellAction.formulaString,
+                                           baselineSystemInfos[dasNo], reformSystemInfos, packageKey, refNo);
                 displayCell.isStringValue = true;
             }
             else
@@ -1021,7 +1135,7 @@ namespace EM_Statistics
                 if (double.IsNaN(displayCell.value)) displayCell.displayValue = "NaN";
                 else
                 {
-                    displayCell.value = HandleAction(data, cell.action, cell.sdcDefinition, out displayCell.sdcObsNo, baseRowCells, reformRowCells);
+                    displayCell.value = HandleAction(data, cell.cellAction, cell.sdcDefinition, out displayCell.sdcObsNo, rowUnderConstruction, refNo);
 
                     // some info-transfers from cell to displayCell, because still required outside this function (when cell is lost) ...
                     displayCell.stringFormat = cell.stringFormat; // ... though applied here, required for exporting to Excel
@@ -1058,234 +1172,109 @@ namespace EM_Statistics
             //displayCell.displayValue += $" (obs: {displayCell.sdcObsNo})";
         }
 
-        private DisplayResults.DisplayPage PrepareDisplayPage(Template.Page page, int refNo = -1)
+        private DisplayResults.DisplayPage PrepareDisplayPage(Template.Page page, int refNo_PerReform = -1)
         {
             // Create a new DisplayTemplate.DisplayPage and copy the main attributes
-            if (refNo != -1) --refNo; // GetCaptionText requires 0-based reference-number
             DisplayResults.DisplayPage displayPage = new DisplayResults.DisplayPage()
             {
                 name = page.name,
-                title = PrettyInfoProvider.GetPrettyText(template.info, page.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo),
-                subtitle = PrettyInfoProvider.GetPrettyText(template.info, page.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo),
-                button = PrettyInfoProvider.GetPrettyText(template.info, page.button, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo),
+                title = PrettyInfoProvider.GetPrettyText(template.info, page.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
+                subtitle = PrettyInfoProvider.GetPrettyText(template.info, page.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
+                button = new DisplayResults.DisplayPage.VisualDisplayElement()
+                {
+                    backgroundColour = page.button.backgroundColour,
+                    foregroundColour = page.button.foregroundColour,
+                    textAlign = page.button.textAlign,
+                    strong = page.button.strong ?? false,
+                    tooltip = page.button.tooltip,
+                    title = PrettyInfoProvider.GetPrettyText(template.info, page.button.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform)
+                },
+                html = page.html,
                 description = page.description,
-                visible = page.visible,
                 displayTables = new List<DisplayResults.DisplayPage.DisplayTable>()
             };
             return displayPage;
         }
 
-        /**
-         * This function will create a base DisplayTable based on a template table
-         */
-        private DisplayResults.DisplayPage.DisplayTable PrepareDisplayTable(Template.Page.Table table, int perReformNumber = -1)
+        private DisplayResults.DisplayPage.DisplayTable PrepareDisplayTable(Template.Page.Table table, int refNo_PerReform = -1)
         {
             // Create a new DisplayTable, copy the title, create new column and row lists
-            int captionRefNo = perReformNumber == -1 ? -1 : perReformNumber - 1; // GetCaptionText requires 0-based reference-number
-            DisplayResults.DisplayPage.DisplayTable displayTable = new DisplayResults.DisplayPage.DisplayTable()
+            return new DisplayResults.DisplayPage.DisplayTable()
             {
                 name = table.name,
-                title = PrettyInfoProvider.GetPrettyText(template.info, table.title, baselineSystemInfos[0], reformSystemInfos, packageKey, captionRefNo),
-                subtitle = PrettyInfoProvider.GetPrettyText(template.info, table.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey, captionRefNo),
+                title = PrettyInfoProvider.GetPrettyText(template.info, table.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
+                subtitle = PrettyInfoProvider.GetPrettyText(template.info, table.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
                 //button = SystemInfo.GetCaptionText(template.info, table.button, baselineSystem[0], reformSystems), // table does not have a button
                 description = table.description,
-                visible = table.visible,
                 stringFormat = table.stringFormat,
                 columns = new List<DisplayResults.DisplayPage.DisplayTable.DisplayColumn>(),
                 rows = new List<DisplayResults.DisplayPage.DisplayTable.DisplayRow>(),
                 graph = table.graph
             };
+        }
 
-            Template.Page.Table.Column column;
-            DisplayResults.DisplayPage.DisplayTable.DisplayColumn displayColumn;
-
-            // Read & prepare all Columns
-            if (table.columnGrouping == HardDefinitions.ColumnGrouping.SystemFirst)
-            {
-                // Grouping Columns based on System
-
-
-                // For each baseline column
-                for (int c = 0; c < table.columns.Count; c++)
-                {
-                    // create the cell of each baseline
-                    for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                    {
-                        column = table.columns[c];
-                        displayColumn = new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
-                        {
-                            title = PrettyInfoProvider.GetPrettyText(template.info, column.name, baselineSystemInfos[dataNo], null, packageKey, captionRefNo),
-                            stringFormat = column.stringFormat,
-                            tooltip = column.tooltip,
-                            hasSeparatorAfter = column.hasSeparatorAfter,
-                            hasSeparatorBefore = column.hasSeparatorBefore,
-                            strong = column.strong ?? false,
-                            foregroundColour = column.foregroundColour,
-                            backgroundColour = column.backgroundColour
-                        };
-                        displayTable.columns.Add(displayColumn);
-
-                        for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                        {
-                            // followed by the cells of each reform column that ties with this baseline column
-                            for (int rc = 0; rc < table.reformColumns.Count; rc++)
-                            {
-                                if (table.reformColumns[rc].tiesWith != c) continue; //if (table.reformColumns[rc].tiesWith != (c + 1)) continue;
-                                // for each reform system
-                                column = table.reformColumns[rc];
-                                displayColumn = new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
-                                {
-                                    title = PrettyInfoProvider.GetPrettyText(template.info, column.name, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo - 1),
-                                    stringFormat = column.stringFormat,
-                                    tooltip = column.tooltip,
-                                    hasSeparatorAfter = column.hasSeparatorAfter,
-                                    hasSeparatorBefore = column.hasSeparatorBefore,
-                                    strong = column.strong ?? false,
-                                    foregroundColour = column.foregroundColour,
-                                    backgroundColour = column.backgroundColour
-                                };
-                                displayTable.columns.Add(displayColumn);
-                            }
-                        }
-                    }
-                }
-                // then do the extra reform columns 
-                for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                {
-                    // Get the right dataset for this baseline-reform set
-                    for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                    {
-                        for (int rc = 0; rc < table.reformColumns.Count; rc++)
-                        {
-                            if (!double.IsNaN(table.reformColumns[rc].tiesWith) && table.reformColumns[rc].tiesWith >= 0 && table.reformColumns[rc].tiesWith < table.columns.Count) continue;
-                            column = table.reformColumns[rc];
-                            displayColumn = new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
-                            {
-                                title = PrettyInfoProvider.GetPrettyText(template.info, column.name, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo - 1),
-                                stringFormat = column.stringFormat,
-                                tooltip = column.tooltip,
-                                hasSeparatorAfter = column.hasSeparatorAfter,
-                                hasSeparatorBefore = column.hasSeparatorBefore,
-                                strong = column.strong ?? false,
-                                foregroundColour = column.foregroundColour,
-                                backgroundColour = column.backgroundColour
-                            };
-                            displayTable.columns.Add(displayColumn);
-                        }
-                    }
-                }
-            }
-            else if (table.columnGrouping == HardDefinitions.ColumnGrouping.ColumnFirst)
-            {
-                // Grouping Columns based on Column
-
-                // For each baseline column
-                for (int c = 0; c < table.columns.Count; c++)
-                {
-                    // create the cell of each baseline
-                    for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                    {
-                        column = table.columns[c];
-                        displayColumn = new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
-                        {
-                            title = PrettyInfoProvider.GetPrettyText(template.info, column.name, baselineSystemInfos[dataNo], null, packageKey, captionRefNo),
-                            stringFormat = column.stringFormat,
-                            tooltip = column.tooltip,
-                            hasSeparatorAfter = column.hasSeparatorAfter,
-                            hasSeparatorBefore = column.hasSeparatorBefore,
-                            strong = column.strong ?? false,
-                            foregroundColour = column.foregroundColour,
-                            backgroundColour = column.backgroundColour
-                        };
-                        displayTable.columns.Add(displayColumn);
-
-                        // followed by the cells of each reform column that ties with this baseline column
-                        for (int rc = 0; rc < table.reformColumns.Count; rc++)
-                        {
-                            if (table.reformColumns[rc].tiesWith != c) continue; //if (table.reformColumns[rc].tiesWith != (c + 1)) continue;
-                            // for each reform system
-                            for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                            {
-                                column = table.reformColumns[rc];
-                                displayColumn = new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
-                                {
-                                    title = PrettyInfoProvider.GetPrettyText(template.info, column.name, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo - 1),
-                                    stringFormat = column.stringFormat,
-                                    tooltip = column.tooltip,
-                                    hasSeparatorAfter = column.hasSeparatorAfter,
-                                    hasSeparatorBefore = column.hasSeparatorBefore,
-                                    strong = column.strong ?? false,
-                                    foregroundColour = column.foregroundColour,
-                                    backgroundColour = column.backgroundColour
-                                };
-                                displayTable.columns.Add(displayColumn);
-                            }
-                        }
-                    }
-                }
-                // then do the extra reform columns 
-                for (int rc = 0; rc < table.reformColumns.Count; rc++)
-                {
-                    if (!double.IsNaN(table.reformColumns[rc].tiesWith) && table.reformColumns[rc].tiesWith >= 0) continue; //if (!double.IsNaN(table.reformColumns[rc].tiesWith) && table.reformColumns[rc].tiesWith > 0) continue; // handled above
-                    for (int dataNo = 0; dataNo < DatasetNumber(); dataNo++)
-                    {
-                        // Get the right dataset for this baseline-reform set
-                        for (int refNo = perReformNumber == -1 ? 1 : perReformNumber; refNo <= (perReformNumber == -1 ? ReformNumber() : perReformNumber); refNo++)
-                        {
-                            column = table.reformColumns[rc];
-                            displayColumn = new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
-                            {
-                                title = PrettyInfoProvider.GetPrettyText(template.info, column.name, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo - 1),
-                                stringFormat = column.stringFormat,
-                                tooltip = column.tooltip,
-                                hasSeparatorAfter = column.hasSeparatorAfter,
-                                hasSeparatorBefore = column.hasSeparatorBefore,
-                                strong = column.strong ?? false,
-                                foregroundColour = column.foregroundColour,
-                                backgroundColour = column.backgroundColour
-                            };
-                            displayTable.columns.Add(displayColumn);
-                        }
-                    }
-                }
-            }
-
-            // Read & prepare all Rows
+        private List<DisplayResults.DisplayPage.DisplayTable.DisplayRow> PrepareDisplayRows(Template.Page.Table table)
+        {
+            List<DisplayResults.DisplayPage.DisplayTable.DisplayRow> displayRows = new List<DisplayResults.DisplayPage.DisplayTable.DisplayRow>();
             for (int r = 0; r < table.rows.Count; r++)
             {
                 Template.Page.Table.Row row = table.rows[r];
                 DisplayResults.DisplayPage.DisplayTable.DisplayRow displayRow = new DisplayResults.DisplayPage.DisplayTable.DisplayRow()
-                { 
-                    title = row.name, 
+                {
+                    title = row.title,
                     stringFormat = row.stringFormat,
                     tooltip = row.tooltip,
                     hasSeparatorAfter = row.hasSeparatorAfter,
                     hasSeparatorBefore = row.hasSeparatorBefore,
                     strong = row.strong ?? false,
                     foregroundColour = row.foregroundColour,
-                    backgroundColour = row.backgroundColour
+                    backgroundColour = row.backgroundColour,
+                    isVisible = row.isVisible,
+                    textAlign = row.textAlign
                 };
-                displayTable.rows.Add(displayRow);
+                displayRows.Add(displayRow);
             }
+            return displayRows;
+        }
 
-            // Custom cell display properties need to be handled at the point of cell calculation!
-
-            // make sure that there are no double-borders in the beginning or end of the table
-            displayTable.columns[0].hasSeparatorBefore = false;
-            displayTable.columns[displayTable.columns.Count - 1].hasSeparatorAfter = false;
-
-            return displayTable;
+        private DisplayResults.DisplayPage.DisplayTable.DisplayColumn PrepareDisplayColumn(Template.Page.Table.Column column, int refNo, int dasNo,
+                                                                                           HardDefinitions.ColumnGrouping columnGrouping, bool perReform)
+        {
+            bool isLastSys = true, isFirstSys = true;
+            if (template.info.templateType == HardDefinitions.TemplateType.Multi)
+            {
+                if (dasNo > 0) isFirstSys = false;
+                if (dasNo < baselineSystemInfos.Count - 1) isLastSys = false;
+            }
+            if (template.info.templateType == HardDefinitions.TemplateType.BaselineReform && refNo != -1 && !perReform)
+            {
+                if (refNo > 0) isFirstSys = false;
+                if (refNo < reformSystemInfos.Count - 1) isLastSys = false;
+            }
+            return new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
+            {
+                title = PrettyInfoProvider.GetPrettyText(template.info, column.title, baselineSystemInfos[dasNo], reformSystemInfos, packageKey, refNo),
+                stringFormat = column.stringFormat,
+                tooltip = column.tooltip,
+                hasSeparatorAfter = column.hasSeparatorAfter && (columnGrouping != HardDefinitions.ColumnGrouping.ColumnFirst || isLastSys),
+                hasSeparatorBefore = column.hasSeparatorBefore && (columnGrouping != HardDefinitions.ColumnGrouping.ColumnFirst || isFirstSys),
+                strong = column.strong ?? false,
+                foregroundColour = column.foregroundColour,
+                backgroundColour = column.backgroundColour,
+                isVisible = column.isVisible,
+                textAlign = column.textAlign
+            };
         }
 
         /**
          * This function will accept a table, row, column and custom cell, and merge their properties into a single template cell
          */
-        private Template.Page.Table.Cell CalculateProperties(Template.Page.Table.Cell cell,
-                                                             Template.Page.Table.Column column, Template.Page.Table.Row row, Template.Page.Table table,
-                                                             int refNo, int sdcRefNoForBaseCellOfPagePerReform)
+        private Template.Page.Table.Cell CalculateProperties(Template.Page.Table.Cell cell, Template.Page.Table.Column column,
+                                                             Template.Page.Table.Row row, Template.Page.Table table,
+                                                             int refNo, int refNo_SdcPerReform)
         {
             // Create the new cell
-            Template.Page.Table.Cell newCell = new Template.Page.Table.Cell() { action = new Template.Action() { parameters = new List<Template.Parameter>() } };
+            Template.Page.Table.Cell newCell = new Template.Page.Table.Cell() { cellAction = new Template.Action(table.localMap) };
 
             // Decide on whether this cell should be printed as strong (this should be moved into an inner "display class" eventually, that will hold the format and other related values)
             if (cell != null && cell.strong != null)
@@ -1311,6 +1300,14 @@ namespace EM_Statistics
             else if (column.backgroundColour != null)
                 newCell.backgroundColour = column.backgroundColour;
 
+            // Decide on the textAlign to be used
+            if (cell != null && cell.textAlign != null)
+                newCell.textAlign = cell.textAlign;
+            else if (row.textAlign != null)
+                newCell.textAlign = row.textAlign;
+            else if (column.textAlign != null)
+                newCell.textAlign = column.textAlign;
+
             // Decide on the string format to be used
             if (cell != null && cell.stringFormat != null)
                 newCell.stringFormat = cell.stringFormat;
@@ -1321,29 +1318,35 @@ namespace EM_Statistics
             else if (table.stringFormat != null)
                 newCell.stringFormat = table.stringFormat;
 
-            if (cell != null && cell.action != null) BlendAction(newCell.action, cell.action);
-            if (newCell.action.BlendParameters && newCell.action.calculationType != HardDefinitions.CalculationType.Empty && row.action != null) BlendAction(newCell.action, row.action);
-            if (newCell.action.BlendParameters && newCell.action.calculationType != HardDefinitions.CalculationType.Empty && column.action != null) BlendAction(newCell.action, column.action);
-            if (newCell.action.BlendParameters && newCell.action.calculationType != HardDefinitions.CalculationType.Empty && table.action != null) BlendAction(newCell.action, table.action);
+            if (cell != null && cell.cellAction != null) BlendAction(newCell.cellAction, cell.cellAction);
+            if (newCell.cellAction.BlendParameters && newCell.cellAction.calculationType != HardDefinitions.CalculationType.Empty && row.cellAction != null) BlendAction(newCell.cellAction, row.cellAction);
+            if (newCell.cellAction.BlendParameters && newCell.cellAction.calculationType != HardDefinitions.CalculationType.Empty && column.cellAction != null) BlendAction(newCell.cellAction, column.cellAction);
+            if (newCell.cellAction.BlendParameters && newCell.cellAction.calculationType != HardDefinitions.CalculationType.Empty && table.cellAction != null) BlendAction(newCell.cellAction, table.cellAction);
             
             // Merge the properties for SDC
-            CalculateSDCProperties(newCell, cell, column, row, table, refNo, sdcRefNoForBaseCellOfPagePerReform);
+            CalculateSDCProperties(newCell, cell, column, row, table, refNo, refNo_SdcPerReform);
 
             // Reform the variable names where appropriate
-            if (refNo > 0)
+            if (refNo != -1)
             {
-                foreach (Template.Parameter par in newCell.action.parameters)
-                    if (par.Reform) par.variableName += HardDefinitions.Reform + refNo;
-                if (newCell.action.filter != null)
-                    foreach (Template.Parameter par in newCell.action.filter.parameters)
-                        if (par.Reform) par.variableName += HardDefinitions.Reform + refNo;
+                // if for DATA_VAR[@yem] no parameter { Name=yem, VarName=yem } is provided, PrepareFormula is able to handle that,
+                // but it would not work properly for reform-variables, therefore add a respective parameter here (to finally get yem~ref~refno)
+                newCell.cellAction.parameters.AddRange(Template.GetDirectRefParameters(newCell.cellAction.formulaString, newCell.cellAction.parameters));
+                foreach (Template.Parameter par in newCell.cellAction.parameters)
+                    par.SourceAdaptVariableName(refNo);
+                if (newCell.cellAction.filter != null)
+                {
+                    newCell.cellAction.filter.parameters.AddRange(Template.GetDirectRefParameters(newCell.cellAction.filter.formulaString, newCell.cellAction.filter.parameters)); // see comment above
+                    foreach (Template.Parameter par in newCell.cellAction.filter.parameters)
+                        par.SourceAdaptVariableName(refNo);
+                }
             }
             return newCell;
         }
 
         private void CalculateSDCProperties(Template.Page.Table.Cell newCell, Template.Page.Table.Cell cell,
                                             Template.Page.Table.Column column, Template.Page.Table.Row row, Template.Page.Table table,
-                                            int refNo, int sdcRefNoForBaseCellOfPagePerReform)
+                                            int refNo, int refNo_SdcPerReform)
         {
             newCell.sdcDefinition = new Template.Page.Table.SDCDefinition();
 
@@ -1371,10 +1374,10 @@ namespace EM_Statistics
                 {
                     string secondarySdcGroupName = sdcG;
                     // secondary SDC-check must be per reform: thus add ~ref~X to distinguish (analog) cells of different reforms
-                    if (refNo > 0) secondarySdcGroupName += HardDefinitions.Reform + refNo;
+                    if (refNo != -1) secondarySdcGroupName += HardDefinitions.Reform + refNo;
                     // base cells within a per-reform-page must also be distinguished from (analog) base cells of another reform: thus add ~base~X
                     // note: this approach is a problem if the group contains cells outside the page, but as this is not overly likely ...
-                    if (sdcRefNoForBaseCellOfPagePerReform != -1) secondarySdcGroupName += HardDefinitions.Base + sdcRefNoForBaseCellOfPagePerReform;
+                    if (refNo_SdcPerReform != -1) secondarySdcGroupName += HardDefinitions.Base + refNo_SdcPerReform;
                     newCell.secondarySdcGroups.Add(secondarySdcGroupName);
                 }
             }
@@ -1392,7 +1395,7 @@ namespace EM_Statistics
 
             if (oldAction.filter != null)
             {
-                if (newAction.filter == null) newAction.filter = new Template.Filter();
+                if (newAction.filter == null) newAction.filter = new Template.Filter(newAction.localMap);
                 BlendFilter(newAction.filter, oldAction.filter);
             }
 
@@ -1426,7 +1429,7 @@ namespace EM_Statistics
                         // if a named parameter exists, try to blend it
                         Template.Parameter par = newPars.First(x => x.name == oldPar.name);
                         // blend the parameter type
-                        if (par._reform == null) par._reform = oldPar._reform;
+                        if (par._source == null) par._source = oldPar._source;
                     }
                     else
                     {
@@ -1442,62 +1445,41 @@ namespace EM_Statistics
             }
         }
 
-        /**
-         * This function creates a duplicate of a Filter for given reform
-         */
-        private static Template.Filter ReformFilter(Template.Filter filter, int refNo)
-        {
-            // not implemented yet
-            Template.Filter newFilter = new Template.Filter(filter, refNo);
-            return newFilter;
-
-        }
-
-        /**
-         * This function creates a duplicate of an Action for given reform
-         */
-        private static Template.Action ReformAction(Template.Action action, int refNo)
-        {
-            Template.Action newAction = new Template.Action(action, refNo);
-            return newAction;
-        }
-
         private bool CompileTemplate()
         {
-            // then prepare the display pages
+            // Prepare the display pages
             foreach (Template.Page page in template.pages)
             {
-                if (template.info.templateType == HardDefinitions.TemplateType.BaselineReform)
-                {
-                    List<Template.Action> newActions = new List<Template.Action>();
-                    foreach (Template.Action action in page.actions)
-                    {
-                        if (!action.Reform) continue;
-                        for (int c = 1; c <= ReformNumber(); c++)
-                        {
-                            Template.Action newAction = ReformAction(action, c);
-                            newActions.Add(newAction);
-                        }
-                    }
-                    page.actions.AddRange(newActions);
-                }
+                if (!page.active) continue;
+                PrepareActionsAndFilters(page.actions, page.filters);
 
-                foreach (Template.Action action in page.actions)
-                    HandleGlobalAction(action);
+                if (page.perReform) // special case for template-type baseline-reform: create a page for each reform, instead of one page with a column for each reform
+                    for (int refNo = 0; refNo < reformSystemInfos.Count; refNo++) _CreateDisplayPage(refNo);
+                else _CreateDisplayPage(); // the usual case
 
-                for (int refNo = page.perReform ? 1 : -1; refNo <= (page.perReform ? ReformNumber() : -1); refNo++)
+                void _CreateDisplayPage(int refNo_PagePerReform = -1)
                 {
-                    DisplayResults.DisplayPage displayPage = PrepareDisplayPage(page, refNo);
+                    DisplayResults.DisplayPage displayPage = PrepareDisplayPage(page, refNo_PagePerReform);
                     foreach (Template.Page.Table table in page.tables)
                     {
-                        if (CreateDisplayTable(out DisplayResults.DisplayPage.DisplayTable displayTable, table, refNo))
-                            displayPage.displayTables.Add(displayTable);
+                        if (!table.active) continue;
+                        PrepareActionsAndFilters(table.actions, table.filters);
+
+                        if (table.perReform && !page.perReform) // special case for template-type baseline-reform: create a table for each reform, instead of one table with a column for each reform (ignore table per Reform, if already the page is per Reform)
+                            for (int refNo = 0; refNo < reformSystemInfos.Count; refNo++) _CreateDisplayTable(refNo);
+                        else _CreateDisplayTable(refNo_PagePerReform); // the usual case
+
+                        void _CreateDisplayTable(int refNo_PerReform)
+                        {
+                            if (CreateDisplayTable(out DisplayResults.DisplayPage.DisplayTable displayTable, table, refNo_PerReform))
+                                displayPage.displayTables.Add(displayTable);
+                        }
                     }
                     displayResults.displayPages.Add(displayPage);
                 }
             }
 
-            // check for secondary SDC-cells, i.e. cells that need to be hidden to prevent deducting primary SDC-cells (cells which are hidden because they are based on too few observations)
+            // Check for secondary SDC-cells, i.e. cells that need to be hidden to prevent deducting primary SDC-cells (cells which are hidden because they are based on too few observations)
             SecondarySDCCheck();
 
             displayResults.calculated = true;
@@ -1558,35 +1540,26 @@ namespace EM_Statistics
         /// <returns>Returns a list of DisplayTemplate.DisplayPage elements.</returns>
         public DisplayResults GetDisplayResults()
         {
+            foreach (DisplayResults.DisplayPage page in displayResults.displayPages)
+                foreach (DisplayResults.DisplayPage.DisplayTable table in page.displayTables)
+                {
+                    for (int r = table.rows.Count - 1; r >= 0; --r)
+                        if (!table.rows[r].isVisible)
+                        {
+                            table.rows.RemoveAt(r);
+                            if (table.cells.Count > r) // just for safety
+                                table.cells.RemoveAt(r);
+                        }
+                    for (int c = table.columns.Count - 1; c >= 0; --c)
+                        if (!table.columns[c].isVisible)
+                        {
+                            table.columns.RemoveAt(c);
+                            for (int r = 0; r < table.rows.Count; ++r)
+                                if (table.cells.Count > r && table.cells[r].Count > c) // just for safety
+                                    table.cells[r].RemoveAt(c);
+                        }
+                }
             return displayResults;
-        }
-
-        /// <summary>
-        /// This function returns all the compiled display pages.
-        /// </summary>
-        /// <returns>Returns a list of DisplayTemplate.DisplayPage elements.</returns>
-        public List<DisplayResults.DisplayPage> GetDisplayPages()
-        {
-            return displayResults.displayPages;
-        }
-
-        /// <summary>
-        /// This function returns a specific compiled display page based on its key.
-        /// </summary>
-        /// <returns>Returns a list of DisplayTemplate.DisplayPage elements.</returns>
-        public DisplayResults.DisplayPage GetDisplayPage(string key)
-        {
-            return displayResults.displayPages.FirstOrDefault(x => x.key == key);
-        }
-
-        private int ReformNumber()
-        {
-            return reformSystemInfos.Count;
-        }
-
-        private int DatasetNumber()
-        {
-            return allData.Count;
         }
     }
 }

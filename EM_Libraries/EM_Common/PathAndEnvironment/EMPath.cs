@@ -25,6 +25,7 @@ namespace EM_Common
         public const string EM2_FILE_VARS = "VarConfig.xml";
         public const string EM2_FILE_EXRATES = "ExchangeRatesConfig.xml";
         public const string EM2_FILE_HICP = "HICPConfig.xml";
+        public const string EM2_FILE_PROJECT_SETTINGS = "ProjectSettings.xml";
         public const string EM2_FILE_EXTENSIONS = "SwitchablePolicyConfig.xml";
         public const string FILE_EMLOG = "em_log.xlsx";
 
@@ -59,7 +60,7 @@ namespace EM_Common
         public static string GetAddOnFileName(string addOn) { return addOn + ".xml"; }
         public string GetAddOnFilePath(string addOn, bool em2 = false) { return Path.Combine(GetAddOnFolderPath(addOn, em2), GetAddOnFileName(addOn)); }
         public string GetVarFilePath(bool em2 = false) { return Path.Combine(GetFolderConfig(em2), em2 ? EM2_FILE_VARS : FILE_VARS); }
-        public string GetProjectSettingsPath(bool em2 = false) { return Path.Combine(GetFolderConfig(em2), PROJECT_SETTINGS); }
+        public string GetProjectSettingsFilePath(bool em2 = false) { return Path.Combine(GetFolderConfig(em2), PROJECT_SETTINGS); }
 
         public string GetAnyConfigFilePath(string fileName, bool em2 = false) { return Path.Combine(GetFolderConfig(em2), fileName); }
         public string FormatAnyConfigFileName(string fileName)

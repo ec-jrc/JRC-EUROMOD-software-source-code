@@ -40,6 +40,7 @@ namespace EM_Common
             queryDefs.Add(DefQuery.IsNtoMchild, new Query() { par = DefQuery.GetNMPar(optional: false) });
             queryDefs.Add(DefQuery.HasMaxValInTu, new Query() { par = DefQuery.GetHasMinMaxPar(optional: false), aliases = new List<string>() { "IsRichestInTu" } });
             queryDefs.Add(DefQuery.IsUsedDatabase, new Query() { par = DefQuery.GetDBNamePar(optional: false), isGlobal = true });
+            queryDefs.Add(DefQuery.IsDataVariable, new Query() { par = DefQuery.GetVariableNamePar(optional: false), isGlobal = true });
             queryDefs.Add(DefQuery.HasMinValInTu, new Query() { par = DefQuery.GetHasMinMaxPar(optional: false) });
             queryDefs.Add(DefQuery.rand, new Query());
 

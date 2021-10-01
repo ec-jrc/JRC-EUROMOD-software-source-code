@@ -12,6 +12,8 @@ namespace EM_Common
             try
             {
                 runInfo = null; runLogger = null;
+                if (string.IsNullOrEmpty(outputFilePath) || !File.Exists(outputFilePath)) return false;
+
                 string outputFileHash = EM_Helpers.GetFileMD5Hash(outputFilePath);
                 DateTime outputFileSaveTime = File.GetLastWriteTime(outputFilePath);
 

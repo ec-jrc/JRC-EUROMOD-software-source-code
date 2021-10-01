@@ -33,12 +33,14 @@
         public const string Scale = "Scale"; /* new */
         public const string AddHHMembers = "AddHHMembers"; /* new */
         public const string Break = "Break"; /* new */
+        public const string InitVars = "InitVars"; /* new */
         public const string AddOn_Applic = "AddOn_Applic";
         public const string AddOn_Pol = "AddOn_Pol";
         public const string AddOn_Func = "AddOn_Func";
         public const string AddOn_Par = "AddOn_Par";
         public const string AddOn_ExtensionSwitch = "AddOn_ExtensionSwitch";
         public const string IlArithOp = "IlArithOp";
+        public const string CumulativeSum = "CumulativeSum";
 
         /// <summary>
         /// defines the default run-behaviour

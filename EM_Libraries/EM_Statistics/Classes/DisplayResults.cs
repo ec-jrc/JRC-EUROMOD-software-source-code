@@ -17,7 +17,7 @@ namespace EM_Statistics
             public string subtitle = string.Empty;
             public string button = string.Empty;
             public string description = string.Empty;
-            internal HardDefinitions.ExportDescriptionMode exportDescriptionMode = HardDefinitions.ExportDescriptionMode.No;
+            internal HardDefinitions.ExportDescriptionMode exportDescriptionMode = HardDefinitions.ExportDescriptionMode.InSheets;
         }
 
         public class DisplayPage
@@ -25,18 +25,28 @@ namespace EM_Statistics
             public string name = string.Empty;
             public string title = string.Empty;
             public string subtitle = string.Empty;
-            public string button = string.Empty;
+            public VisualDisplayElement button = new VisualDisplayElement();
+            public string html = string.Empty;
             public string description = string.Empty;
             public bool visible;
             public readonly string key = Guid.NewGuid().ToString();
             public List<DisplayTable> displayTables = null;
+
+            public class VisualDisplayElement
+            {
+                public bool strong = false;
+                public string title = string.Empty;
+                public string tooltip = string.Empty;
+                public string foregroundColour = string.Empty;
+                public string backgroundColour = string.Empty;
+                public string textAlign = string.Empty;
+            }
 
             public class DisplayTable
             {
                 public string name = string.Empty;
                 public string title = string.Empty;
                 public string subtitle = string.Empty;
-                public string button = string.Empty;
                 public string stringFormat = string.Empty;
                 public string description = string.Empty;
                 public bool visible;
@@ -63,19 +73,23 @@ namespace EM_Statistics
                     }
                     return txtTable.ToString();
                 }
+                public class DisplayTableElement : VisualDisplayElement
+                {
+                    public string stringFormat = string.Empty;
+                }
 
                 public class DisplayColumn : DisplayTableElement
                 {
-                    public string title = string.Empty;
                     public bool hasSeparatorBefore = false;
                     public bool hasSeparatorAfter = false;
+                    internal bool isVisible = true;
                 }
 
                 public class DisplayRow : DisplayTableElement
                 {
-                    public string title = string.Empty;
                     public bool hasSeparatorBefore = false;
                     public bool hasSeparatorAfter = false;
+                    internal bool isVisible = true;
                 }
 
                 public class DisplayCell : DisplayTableElement
@@ -90,15 +104,6 @@ namespace EM_Statistics
                     internal bool isStringValue = false; // for exporting: if true, show displayValue instead of value in Excel-table
                 }
 
-                public class DisplayTableElement
-                {
-                    public bool strong = false;
-                    public string stringFormat = string.Empty;
-                    public string tooltip = string.Empty;
-                    public string foregroundColour = string.Empty;
-                    public string backgroundColour = string.Empty;
-                }
-
                 public class DisplayGraph
                 {
                     public string title = "Graph Title";
@@ -107,6 +112,7 @@ namespace EM_Statistics
                     public Axis axisX = null;
                     public Axis axisY = null;
                     public Legend legend = null;
+                    public int round = -1;
                     public List<Series> allSeries = new List<Series>();
 
                     public class Series

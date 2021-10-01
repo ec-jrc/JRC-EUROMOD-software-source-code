@@ -16,6 +16,7 @@ namespace EM_Common
             public const string Out_ILName = "Out_ILName";
             public const string Out_Prefix = "Out_Prefix";
             public const string Out_Postfix = "Out_Postfix";
+            public const string WarnIfDuplicateDefinition = "WarnIfDuplicateDefinition";
 
             public const string BASE_IL_COMPONENT = "BASE_IL_COMPONENT";
             public const string IL_COMPONENT = "IL_COMPONENT";
@@ -82,6 +83,11 @@ namespace EM_Common
                 {
                     valueType = PAR_TYPE.TEXT, minCount = 0, maxCount = 1,
                     description = $"All variables in incomelist '{Out_ILName}' must end with this postfix, if the incomelist exists; if not they will be created with this postfix."
+                });
+                fun.par.Add(WarnIfDuplicateDefinition, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.BOOLEAN, minCount = 0, maxCount = 1, defaultValue = true,
+                    description = $"Warn if function produces duplicate definitions for income lists."
                 });
             }
         }

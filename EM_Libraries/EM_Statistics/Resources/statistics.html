@@ -25,7 +25,7 @@
         <div class="w3-container w3-margin" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; overflow: hidden;">
             <div id="AllHeaders">
                 <div id="MenuBar" class="w3-container w3-display-container w3-padding">
-                    <a style="display:PLACEHOLDER_SHOW_BACK" href="PLACEHOLDER_URL_BACK" class="w3-orange w3-round-large w3-padding-small w3-button w3-button-32"><img src="home.png" />Back</a>
+                    <a style="display:PLACEHOLDER_SHOW_BACK" data-url="PLACEHOLDER_URL_BACK" class="w3-orange w3-round-large w3-padding-small w3-button w3-button-32" onclick="window.location = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + this.getAttribute('data-url');"><img src="home.png" />Back</a>
                 </div>
 
                 <div id="StatisticsHeader" class="w3-container w3-light-grey w3-padding-large w3-display-container">
@@ -37,18 +37,18 @@
                 <p></p>
 
                 <div id="TabHeaders" class="w3-bar w3-light-grey">
-                    <!-- Tab Headers will be generated here -->
+                <!-- Tab Headers will be generated here -->
                 </div>
             </div>
-            <div id="TabContent" class="w3-container w3-cell-middle w3-margin-right" style="position:absolute; left:0; right:0; overflow:auto;">
-                <!-- Tab Bodies will be generated here -->
+        <div id="TabContent" class="w3-container w3-cell-middle w3-margin-right" style="position:absolute; left:0; right:0; overflow:auto;">
+            <!-- Tab Bodies will be generated here -->
                 <div id="emsta-package-page-contents-loader" class="emsta-package-page-contents-loader w3-container w3-cell-middle" style="display:block; height: 100%"><h3>LOADING...</h3></div>
                 PLACEHOLDER_CONTENTS
             </div>
             <br />
         </div>
         <div id="PackageButtons" class="w3-bar w3-border w3-light-grey" style="display:PLACEHOLDER_SHOW_BUTTONS; position: absolute; bottom: 0;">
-            PLACEHOLDER_BUTTONS
+         PLACEHOLDER_BUTTONS
         </div>
         PLACEHOLDER_MessageBox_html
         PLACEHOLDER_StringInputBox_html

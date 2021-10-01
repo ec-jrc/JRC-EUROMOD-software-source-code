@@ -4,7 +4,7 @@ namespace EM_Common
 {
     public static class DefGeneral
     {
-        public const string UI_VERSION = "3.2.12";
+        public const string UI_VERSION = "3.4.6";
         public const string UI_VERSION_FOR_ASSEMBLY = UI_VERSION + ".0";
 
         public static Encoding DEFAULT_ENCODING = Encoding.UTF8; // this Encoding allows displaying country specific characters, while the originally used Encoding.Default did not
@@ -20,7 +20,8 @@ namespace EM_Common
 
         public static string BRAND_TITLE = "EUROMOD";
         public static string BRAND_NAME = "EUROMOD";
+        public static readonly string BRAND_NAME_DEFAULT = "EUROMOD";
 
-        public static bool IsAlternativeBrand() { return BRAND_NAME != "EUROMOD"; }
+        public static bool IsAlternativeBrand() { return BRAND_NAME != BRAND_NAME_DEFAULT || BRAND_TITLE != BRAND_NAME_DEFAULT; }
     }
 }

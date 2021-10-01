@@ -29,7 +29,7 @@ namespace EM_Common
                 {"MK", "Macedonia, the Former Yugoslav Republic of"},  {"MG", "Madagascar"}, {"MW", "Malawi"}, {"MY", "Malaysia"}, {"MV", "Maldives"}, {"ML", "Mali"}, {"MT", "Malta"}, {"MH", "Marshall Islands"},
                 {"MQ", "Martinique"}, {"MR", "Mauritania"}, {"MU", "Mauritius"}, {"MX", "Mexico"}, {"FM", "Micronesia, Federated States of"}, {"MD", "Moldova, Republic of"}, {"MC", "Monaco"}, {"GW", "Guinea-Bissau"},
                 {"MN", "Mongolia"}, {"ME", "Montenegro"}, {"MS", "Montserrat"}, {"MA", "Morocco"}, {"MZ", "Mozambique"}, {"MM", "Myanmar"}, {"NA", "Namibia"}, {"NR", "Nauru"}, {"NP", "Nepal"}, {"NL", "Netherlands"},
-                {"NC", "New Caledonia"}, {"NZ", "New Zealand"}, {"NI", "Nicaragua"}, {"NE", "Niger"}, {"NG", "Nigeria"}, {"NU", "Niue"}, {"NF", "Norfolk Island"}, {"MP", "Northern Mariana Islands"}, {"NO", "Norway"},
+                {"NC", "New Caledonia"}, {"NZ", "New Zealand"}, {"NE", "Niger"}, {"NG", "Nigeria"}, {"NU", "Niue"}, {"NF", "Norfolk Island"}, {"MP", "Northern Mariana Islands"}, {"NO", "Norway"},
                 {"OM", "Oman"}, {"PK", "Pakistan"}, {"PW", "Palau"}, {"PS", "Palestine, State of"}, {"PA", "Panama"}, {"PG", "Papua New Guinea"}, {"PY", "Paraguay"}, {"PH", "Philippines"}, {"US", "United States"},
                 {"PN", "Pitcairn"}, {"PL", "Poland"}, {"PT", "Portugal"}, {"PR", "Puerto Rico"}, {"QA", "Qatar"}, {"RO", "Romania"}, {"RU", "Russian Federation"}, {"RW", "Rwanda"}, {"RE", "Reunion"}, {"GA", "Gabon"},
                 {"BL", "Saint Barthelemy"}, {"SH", "Saint Helena"}, {"KN", "Saint Kitts and Nevis"}, {"LC", "Saint Lucia"}, {"MF", "Saint Martin (French part)"}, {"PM", "Saint Pierre and Miquelon"}, {"PE", "Peru"},
@@ -40,14 +40,16 @@ namespace EM_Common
                 {"TT", "Trinidad and Tobago"}, {"TN", "Tunisia"}, {"TR", "Turkey"}, {"TM", "Turkmenistan"}, {"TC", "Turks and Caicos Islands"}, {"TV", "Tuvalu"}, {"UG", "Uganda"}, {"UA", "Ukraine"}, {"VU", "Vanuatu"},
                 {"AE", "United Arab Emirates"}, {"UM", "United States Minor Outlying Islands"}, {"UY", "Uruguay"}, {"UZ", "Uzbekistan"}, {"VE", "Venezuela"}, {"VN", "Viet Nam"}, {"VG", "British Virgin Islands"}, 
                 // conflicting & extras
-                {"SCT", "Scotland"}, {"SC", "Scotland"}, {"SA", "South Africa"}, {"SL", "SimpleLand"}, {"WL", "Wales" }
-                //{"SL", "Sierra Leone"}, {"SA", "Saudi Arabia"}, {"SC", "Seychelles"},
+                {"SA", "South Africa"}, {"SL", "SimpleLand"},
+                {"SCT", "Scotland"}, {"SC", "Scotland"}, {"NI", "Northern Ireland"}, {"EN", "England" }, {"WL", "Wales" },
+                {"LG", "Liguria" }, {"LO", "Lombardia" }, {"PI", "Piemonte" }
+                //{"SL", "Sierra Leone"}, {"SA", "Saudi Arabia"}, {"SC", "Seychelles"}, {"NI", "Nicaragua"}, 
             };
 
             if (allCountries.ContainsKey(c.ToUpper())) fullCountry = allCountries[c.ToUpper()];
 
             return fullCountry;
-        }
+        }   
 
         public static string OutputNameToPretty(string filename)
         {
@@ -63,6 +65,23 @@ namespace EM_Common
                 return nice;
             }
             else return "";
+        }
+
+        public static string OutputNameToTaxPretty(string filename)
+        {
+            // first get rid of the known extras
+            filename = filename.Replace(".txt", "").Replace("_std", "");
+            List<string> bits = filename.Split('_').ToList();
+            foreach (string x in bits)
+            {
+                switch (x.ToLower())
+                {
+                    case "cse": case "ces": return "Constant expenditure shares";
+                    case "cq": return "Constant quantities";
+                    case "csy": case "cys": case "cis": return "Constant income shares";
+                }
+            }
+            return "";
         }
 
         public static Color GetColourFromString(string colourNameOrCode)

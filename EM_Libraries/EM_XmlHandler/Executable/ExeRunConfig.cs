@@ -1,7 +1,6 @@
 ﻿using EM_Common;
 using System;
 using System.Collections.Generic;
-using EM_Crypt;
 
 namespace EM_XmlHandler
 {
@@ -32,7 +31,7 @@ namespace EM_XmlHandler
         public string pathParModifications = string.Empty;
         public string stringParModifications = string.Empty;
         public bool returnOutputInMemory = false;
-        public string inputPassword = string.Empty;
+        public string dataPassword = string.Empty;
         public bool warnAboutUselessGroups = false;
 
         public Dictionary<string, string> origSettings = new Dictionary<string, string>();
@@ -78,7 +77,7 @@ namespace EM_XmlHandler
                     case TAGS.CONFIG_STRING_PAR_MODIFICATIONS: stringParModifications = setting.Value; break;
                     case TAGS.CONFIG_USE_FINAL_EM3_PATHS: useFinalEM3Paths = EM_Helpers.GetBool(setting.Value) == true; break;
                     case TAGS.CONFIG_RETURN_OUTPUT_IN_MEMORY: returnOutputInMemory = EM_Helpers.GetBool(setting.Value) == true; break;
-                    case TAGS.CONFIG_INPUT_PASSWORD: inputPassword = setting.Value; break;
+                    case TAGS.CONFIG_DATA_PASSWORD: dataPassword = setting.Value; break;
                     case TAGS.CONFIG_WARN_ABOUT_USELESS_GROUPS: warnAboutUselessGroups = EM_Helpers.GetBool(setting.Value) == true; break;
                     default: communicator.ReportError(new Communicator.ErrorInfo() { isWarning = true,
                         message = $"Unknown configuration setting: {setting.Key} = {setting.Value}" }); break;

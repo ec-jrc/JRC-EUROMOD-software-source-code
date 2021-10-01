@@ -36,15 +36,15 @@ namespace EM_Common
             funDefs.Add(DefFun.Max, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for the definition of intermediate variables." };
-            DefPar.DefVar.Add(fun); DefPar.Footnote.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.DefVar.Add(fun); DefPar.Footnote.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.DefVar, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for the definition of constants." };
-            DefPar.DefConst.Add(fun); DefPar.Footnote.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.DefConst.Add(fun); DefPar.Footnote.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.DefConst, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.NOT_APPLICABLE, kind = Fun.KIND.SYSTEM, description = "allows for the definition of incomelists." };
-            DefPar.DefIl.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.DefIl.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.DefIl, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.NOT_APPLICABLE, kind = Fun.KIND.SYSTEM, description = "allows for the definition of assessment units.\nNote that parameters may use variables with the prefixes 'head:' or 'partner:'. These prefixes can be used with variables only, not with incomelists or queries.\nAlso note that '{Default}' can be used to further define any default condition (as indicated in Default Value).\n" };
@@ -52,33 +52,33 @@ namespace EM_Common
             funDefs.Add(DefFun.DefTu, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for the re-assessment of assessment units." };
-            DefPar.UpdateTu.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.UpdateTu.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.UpdateTu, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for the uprating of monetary dataset variables." };
-            DefPar.Uprate.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.Uprate.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.Uprate, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.OUTSIDE_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for the definition of model output." };
             DefPar.DefOutput.Add(fun);
             DefPar.Common.Add(fun: fun, outvarMode: DefPar.Common.OUTVAR_ADD_MODE.NOT, addResultVar: false, addLimits: false, addRound: false);
-            DefQuery.AddDBNamePar(fun); // do not add all footnote parameters, but only the one that can be used in RunCond
+            DefQuery.AddGlobalQueryParams(fun); // do not add all footnote parameters, but only the one that can be used in RunCond
             funDefs.Add(DefFun.DefOutput, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.NOT_APPLICABLE, kind = Fun.KIND.SPECIAL, description = "allows for repeating a part (or all) of the tax-benefit calculations." };
-            DefPar.Loop.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.Loop.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.Loop, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.NOT_APPLICABLE, kind = Fun.KIND.SPECIAL, description = "allows for repeating part (or all) of the tax-benefit calculation." };
-            DefPar.UnitLoop.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun); DefPar.Footnote.Add(fun);
+            DefPar.UnitLoop.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun); DefPar.Footnote.Add(fun);
             funDefs.Add(DefFun.UnitLoop, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SPECIAL, description = "provides a 'save as' functionality for variables, incomelists and components of incomelists." };
-            DefPar.Store.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.Store.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.Store, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SPECIAL, description = "sets variables back to some previous value (stored by function Store)." };
-            DefPar.Restore.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.Restore.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.Restore, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for operations on the content (i.e. the variables) of an incomelist." };
@@ -88,7 +88,7 @@ namespace EM_Common
             funDefs.Add(DefFun.IlVarOp, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.OUTSIDE_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for the calculation of aggregates of variables or incomelists over the whole population or a selected subgroup." };
-            DefPar.Totals.Add(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.Totals.Add(fun); DefQuery.AddGlobalQueryParams(fun);
             DefPar.Common.Add(fun: fun, outvarMode: DefPar.Common.OUTVAR_ADD_MODE.NOT, addResultVar: false, addElig: false,
                               addLimits: false, addRound: false); // that is: only TAX_UNIT and Run_Cond
             funDefs.Add(DefFun.Totals, fun);
@@ -99,23 +99,27 @@ namespace EM_Common
             funDefs.Add(DefFun.Allocate, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SPECIAL, description = "sets the starting point for generating a series of pseudorandom numbers." }; 
-            DefPar.RandSeed.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.RandSeed.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.RandSeed, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for the setting of default values for not existent dataset variables." };
-            DefPar.SetDefault.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.SetDefault.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.SetDefault, fun);
 
+            fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SYSTEM, description = "allows for initialising variables." };
+            DefPar.InitVars.Add(fun); DefPar.Common.AddRunCond(fun);
+            funDefs.Add(DefFun.InitVars, fun);
+
             fun = new Fun() { runMode = DefFun.RUN_MODE.OUTSIDE_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for calling an external application.\nNote that the function is only available under Windows as it uses platform specific code." };
-            DefPar.CallProgramme.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.CallProgramme.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.CallProgramme, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.OUTSIDE_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for reading values for one or more EUROMOD variables from a text file." };
-            DefPar.DefInput.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.DefInput.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.DefInput, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for scaling monetary variables and monetary parameters." };
-            DefPar.Scale.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.Scale.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.Scale, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.OUTSIDE_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for dropping individuals, families or households with special characteristics from the calculations." };
@@ -142,6 +146,11 @@ namespace EM_Common
             fun = new Fun() { runMode = DefFun.RUN_MODE.IN_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for an arithmetic operation on the variables of one or more incomelists." };
             DefPar.IlArithOp.Add(fun); DefPar.Footnote.Add(fun); DefQuery.AddAllPar(fun); DefPar.Common.AddRunCond(fun);
             funDefs.Add(DefFun.IlArithOp, fun);
+
+            fun = new Fun() { runMode = DefFun.RUN_MODE.OUTSIDE_SPINE, kind = Fun.KIND.SPECIAL, description = "allows for generating the cumulative sum of a variable among observations." };
+            DefPar.CumulativeSum.Add(fun); DefPar.Common.Add(fun: fun, addElig: false, addLimits: false, addRound: false, 
+                outvarMode: DefPar.Common.OUTVAR_ADD_MODE.NOT, addResultVar: false ); // that is: only Run_Cond & TU
+            funDefs.Add(DefFun.CumulativeSum, fun);
 
             // the following functions are "special", in the sense that they are not requested by Control.CheckAndPrepare
             // they are however necessary for the UI and possible future uses
@@ -171,7 +180,7 @@ namespace EM_Common
             funDefs.Add(DefFun.ChangeParam, fun);
 
             fun = new Fun() { runMode = DefFun.RUN_MODE.NOT_APPLICABLE, kind = Fun.KIND.SPECIAL };
-            DefPar.ChangeSwitch.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddDBNamePar(fun);
+            DefPar.ChangeSwitch.Add(fun); DefPar.Common.AddRunCond(fun); DefQuery.AddGlobalQueryParams(fun);
             funDefs.Add(DefFun.ChangeSwitch, fun);
 
             foreach (var f in funDefs)

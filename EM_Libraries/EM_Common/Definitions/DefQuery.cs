@@ -46,8 +46,10 @@ namespace EM_Common
         public const string GetDataIncomeYear = "GetDataIncomeYear";
         public const string IsOutputCurrencyEuro = "IsOutputCurrencyEuro";
         public const string IsParamCurrencyEuro = "IsParamCurrencyEuro";
+        public const string IsDataVariable = "IsDataVariable";
         public const string GetExchangeRate = "GetExchangeRate";
         public const string rand = "rand";
+
 
         public const string HAS_PAR_MARKER = "#x"; // added in formula to link query to its parameters (e.g. in formula: IsNtoMChild#3, paramters with group 3: #_N, #_M)
 
@@ -63,6 +65,7 @@ namespace EM_Common
             public const string Val = "#_Val";
             public const string Adults_Only = "#_Adults_Only";
             public const string Unique = "#_Unique";
+            public const string VariableName = "#_VariableName";
         }
 
         public static void AddAllPar(DefinitionAdmin.Fun fun)
@@ -72,6 +75,7 @@ namespace EM_Common
             fun.par.AddRange(GetIncomePar(optional: true));
             fun.par.AddRange(GetHasMinMaxPar(optional: true));
             fun.par.AddRange(GetDBNamePar(optional: true));
+            fun.par.AddRange(GetVariableNamePar(optional: true));
         }
 
         internal static Dictionary<string, DefinitionAdmin.Par> GetAgePar()
@@ -142,11 +146,25 @@ namespace EM_Common
             };
         }
 
-        // DatabaseName is actually the only global query-parameter, and thus if functions only allow for RunCond
-        // (and not for other common parameters) they usually will allow only for this query-parameter
-        internal static void AddDBNamePar(DefinitionAdmin.Fun fun)
+        internal static Dictionary<string, DefinitionAdmin.Par> GetVariableNamePar(bool optional)
+        {
+            return new Dictionary<string, DefinitionAdmin.Par>()
+            {
+                { Par.VariableName, new DefinitionAdmin.Par() {
+                    valueType = DefPar.PAR_TYPE.TEXT,
+                    minCount = optional ? 0 : 1, maxCount = 1,
+                    isFootnote = true,
+                    description = "Parameter of query IsDataVariable."
+                } }
+            };
+        }
+
+        // DatabaseName & VariableName are actually the only global query-parameters, and thus if functions only allow for RunCond
+        // (and not for other common parameters) they usually will allow only for these query-parameters
+        internal static void AddGlobalQueryParams(DefinitionAdmin.Fun fun)
         {
             fun.par.AddRange(GetDBNamePar(optional: true));
+            fun.par.AddRange(GetVariableNamePar(optional: true));
         }
 
         internal static Dictionary<string, DefinitionAdmin.Par> GetHasMinMaxPar(bool optional)

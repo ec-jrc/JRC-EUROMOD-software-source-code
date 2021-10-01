@@ -16,19 +16,26 @@ namespace EM_BackEnd
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "home.html" } });
             app.UseStaticFiles();
             app.Run(async (context) =>
             {
                 countRequests++;
 
                 string request = context.Request.Path.Value.Substring(1); // remove leading slash
+                if (BuildResponse_FromResource(context, request)) return;
                 foreach (var backEndResponder in BackEnd.backEndResponders)
                     foreach (var response in backEndResponder.Value.responses)
                         if ($"{backEndResponder.Key}_{response.Key}" == request)
                         { response.Value(context, backEndResponder.Value); return; }
-                if (BuildResponse_FromResource(context, request)) return;
-                BuildResponse_Default(context, app.ServerFeatures.Get<IServerAddressesFeature>());
+                // If nothing else matched, produce an error message
+                BuildResponse_Error(context, request);
             });
+        }
+
+        private void BuildResponse_Error(HttpContext context, string r)
+        {
+            context.Response.WriteAsync("{\"errorMessage\":\"Invalid Request: "+ context.Request.GetDisplayUrl() +"\"}");
         }
 
         private bool BuildResponse_FromResource(HttpContext context, string r)
