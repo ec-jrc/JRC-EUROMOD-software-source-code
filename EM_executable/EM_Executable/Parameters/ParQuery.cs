@@ -33,6 +33,7 @@ namespace EM_Executable
                 case DefQuery.IsCohabiting: query = new QueryIsCohabiting(infoStore); break;
                 case DefQuery.IsWithPartner: query = new QueryIsWithPartner(infoStore); break;
                 case DefQuery.IsUsedDatabase: query = new QueryIsUsedDatabase(infoStore); break;
+                case DefQuery.IsDataVariable: query = new QueryIsDataVariable(infoStore); break;
                 case DefQuery.IsNtoMchild: query = new QueryIsNtoMChild(infoStore); break;
                 case DefQuery.IsParent: query = new QueryIsParent(infoStore); break;
                 case DefQuery.IsParentOfDepChild: query = new QueryIsParentOfDepChild(infoStore); break;

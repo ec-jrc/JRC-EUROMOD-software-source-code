@@ -38,7 +38,6 @@ namespace EM_Executable
                 if (noChange) continue;
                 if (dropWholeHH) { hhToRemove.Add(hh); continue; }
 
-                infoStore.hhAdmin.UpdateAllTUs(hh); // if the composition of the HH was changed, the taxunits are no longer valid
                 for (int i = hh.GetPersonCount() - 1; i >= 0; --i)
                 {
                     bool dk = dropKeep.Contains(Convert.ToByte(i));
@@ -48,6 +47,7 @@ namespace EM_Executable
                         hh.personStringVarList.RemoveAt(i);
                     }
                 }
+                infoStore.hhAdmin.UpdateAllTUs(hh); // if the composition of the HH was changed, the taxunits are no longer valid
             }
             foreach (HH hh in hhToRemove) infoStore.hhAdmin.hhs.Remove(hh);
         }

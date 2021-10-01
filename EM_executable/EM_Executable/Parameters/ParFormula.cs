@@ -90,7 +90,7 @@ namespace EM_Executable
         internal double GetValue(HH hh, List<Person> tu, Person person = null)
         {
             Dictionary<string, double> ops = AssessOperands(hh, tu, person);
-            return GetValue(ops);
+            return GetValue(ops, hh);
         }
 
         private Dictionary<string, double> AssessOperands(HH hh, List<Person> tu, Person person)
@@ -103,7 +103,8 @@ namespace EM_Executable
         // this is either called internally (see GetValue above) or by ParCond which does the operand assessment differently
         // (in essence it needs to know whether the condition is fulfilled for each person in the TU, thus individual operands
         // are assessed on individual level for the very person, other operands as usual)
-        internal double GetValue(Dictionary<string, double> ops)
+        // HH is only passed to improve the error message
+        internal double GetValue(Dictionary<string, double> ops, HH hh)
         {
             double x = 0;
             try {
@@ -111,7 +112,7 @@ namespace EM_Executable
                 if (double.IsNaN(x))
                 {
                     infoStore.communicator.ReportError(new Communicator.ErrorInfo()
-                    { isWarning = true, message = $"{description.Get()}: Invalid formula: division by zero ('{xmlValue}'), setting result to zero", runTimeErrorId = description.parID });
+                    { isWarning = true, message = $"{description.Get()}: Invalid formula: division by zero ('{xmlValue}'{(hh.personVarList.Count>0?(" in hh '" + infoStore.GetIDHH(hh).ToString() + "'"):"")}), setting result to zero", runTimeErrorId = description.parID });
                     x = 0;
                 }
             }

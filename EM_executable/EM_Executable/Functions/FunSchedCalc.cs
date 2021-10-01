@@ -61,11 +61,7 @@ namespace EM_Executable
                 // Prepare the Band Rate/Amount
                 band.pRate = GetUniqueGroupPar<ParFormula>(DefPar.SchedCalc.Band_Rate, bandParList.Value);
                 band.pAmount = GetUniqueGroupPar<ParFormula>(DefPar.SchedCalc.Band_Amount, bandParList.Value);
-                if (band.pRate != null && band.pAmount != null) // Rate and Amount cannot co-exist
-                {
-                    infoStore.communicator.ReportError(new Communicator.ErrorInfo()
-                    { isWarning = false, message = $"{description.Get()}: Rate and Amount cannot co-exist in group {band.band}" });
-                }
+
                 if (band.pRate == null && band.pAmount == null) // Rate and Amount cannot both be missing 
                 {
                     infoStore.communicator.ReportError(new Communicator.ErrorInfo()
@@ -169,7 +165,7 @@ namespace EM_Executable
                 foreach (Band band in rtBands)
                 {
                     if (band.pRate != null) band.rate = band.pRate.GetValue(hh, tu);
-                    else if (band.pAmount != null) band.amount = band.pAmount.GetValue(hh, tu);
+                    if (band.pAmount != null) band.amount = band.pAmount.GetValue(hh, tu);
                 }
             }
 
@@ -204,7 +200,7 @@ namespace EM_Executable
                 {
                     if (prevLim > baseVal) break;
                     if (!double.IsNaN(b.rate)) tax += (Math.Max(Math.Min(baseVal, b.upLim) - prevLim, 0)) * b.rate;
-                    else tax += b.amount;
+                    if (!double.IsNaN(b.amount)) tax += b.amount;
                     prevLim = b.upLim;
                 }
             }

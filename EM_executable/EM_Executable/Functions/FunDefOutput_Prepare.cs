@@ -11,9 +11,14 @@ namespace EM_Executable
         string formatDecimals = "";
         protected override void PrepareNonCommonPar()
         {
-            ParBase parFileName = GetUniquePar<ParBase>(DefPar.DefOutput.File);
-            if (parFileName != null) // if null the programme is stopped after reading parameters (missing compulsory parameter)
+            List<ParBase> parFileNames = GetNonUniquePar<ParBase>(DefPar.DefOutput.File);
+
+            if (parFileNames != null && parFileNames.Count > 0) // if null the programme is stopped after reading parameters (missing compulsory parameter)
             {
+                ParBase parFileName = parFileNames.Last();
+                if (parFileNames.Count > 1)
+                    infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+                    { isWarning = true, message = $"{description.Get()}: multiple output filenames found! Only the last one ('{parFileName.xmlValue}') will be used." });
                 fileName = Path.Combine(infoStore.runConfig.pathOutput, parFileName.xmlValue);
                 if (!fileName.ToLower().EndsWith(".txt")) fileName += ".txt";
 

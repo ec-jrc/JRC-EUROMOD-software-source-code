@@ -120,8 +120,12 @@ namespace EM_Executable
             SwitchOffUprateSetDefault();
 
             // IF APPROPRIATE, handle break function
-            if (!HandleBreak()) return false; // stop if the break is misdefined
-
+            if (!HandleBreak())
+            {
+                infoStore.communicator.ReportProgress(new Communicator.ProgressInfo() { id = Communicator.EXEPROG_ADDON_READ,
+                                        message = $"Break improperly defined" });
+                return false; // stop if the break is misdefined
+            }
             // DROP EVERYTHING THAT IS OFF OR N/A (with the intention to enhance run-time-speed by not having to ask for it)
             DropOff();
 
@@ -184,9 +188,15 @@ namespace EM_Executable
             }
 
             // ERROR-ASSESSMENT
+            int maxHHsize = infoStore.hhAdmin.hhs.Max(x => x.GetPersonCount());
+            double largestHHid = infoStore.GetIDHH(infoStore.hhAdmin.hhs.Find(x => x.GetPersonCount() == maxHHsize));
+            if (maxHHsize > 50)
+                infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = false, message = $"Household with idhh '{largestHHid:N0}' had {maxHHsize:N0} members (no more than 50 members are allowed)." });
+
             if (infoStore.communicator.errorCount > 0) return false;
+
             if (!infoStore.communicator.ReportProgress(new Communicator.ProgressInfo() { id = Communicator.EXEPROG_HH_READ,
-                message = $"{infoStore.country.data.Name}: {infoStore.hhAdmin.hhs[0].personVarList[0].Count:N0} variables for {infoStore.hhAdmin.hhs.Count:N0} households ({infoStore.hhAdmin.hhs.Sum(x => x.GetPersonCount()):N0} individuals) read - largest household had {infoStore.hhAdmin.hhs.Max(x => x.GetPersonCount()):N0} members" })) return false;
+                message = $"{infoStore.country.data.Name}: {infoStore.hhAdmin.hhs[0].personVarList[0].Count:N0} variables for {infoStore.hhAdmin.hhs.Count:N0} households ({infoStore.hhAdmin.hhs.Sum(x => x.GetPersonCount()):N0} individuals) read - largest household (idhh '{largestHHid:N0}') had {maxHHsize:N0} members" })) return false;
 
             // PREPARE THE SPINE (what to run before/after/in spine and, if necessary, looping)
             SpineAdmin spineManager = new SpineAdmin(infoStore);

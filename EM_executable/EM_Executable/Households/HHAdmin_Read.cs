@@ -23,20 +23,28 @@ namespace EM_Executable
             try // note: maybe the extra try/catch is disputable (i.e. one could rely on general try/catch as all other functions instead)
             {   // but IO-problems seem more likely and serious and this may help to better locate the error
                 IEnumerable<string> inputLines = null;
-                if (!string.IsNullOrEmpty(infoStore.runConfig.inputPassword))
+                if (infoStore.hasData())
                 {
-                    byte[] allBytes = File.ReadAllBytes(path);
-                    allBytes = EM_Crypt.EM_Crypt.SimpleDecryptWithPassword(allBytes, infoStore.runConfig.inputPassword);
-                    if (allBytes == null)
-                    {  
-                        infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = false, message = $"Wrong decryption password!" });
-                        return;
-                    }
-                    inputLines = System.Text.Encoding.Default.GetString(allBytes).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    inputLines = infoStore.inputData.Skip(1);
                 }
                 else
                 {
-                    inputLines = File.ReadLines(path);
+                    if (!string.IsNullOrEmpty(infoStore.runConfig.dataPassword))
+                    {
+                        byte[] allBytes = File.ReadAllBytes(path);
+                        if (SimpleCrypt.IsEncrypted(allBytes))
+                            allBytes = SimpleCrypt.SimpleDecryptWithPassword(allBytes, infoStore.runConfig.dataPassword, SimpleCrypt.EUROMOD_ENCRYPTED_STRING.Length);
+                        if (allBytes == null)
+                        {
+                            infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = false, message = $"Wrong decryption password!" });
+                            return;
+                        }
+                        inputLines = System.Text.Encoding.Default.GetString(allBytes).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    }
+                    else
+                    {
+                        inputLines = File.ReadLines(path);
+                    }
                 }
 
                 // first split header line to get the column-indices of the variables to read
@@ -91,13 +99,20 @@ namespace EM_Executable
 
                 // generate the (complete) variables-list for each person in each HH
                 hhs = new List<HH>(); Dictionary<string, HH> indexReadHH = new Dictionary<string, HH>();
+                double biggestIDHH = double.MinValue; // use to check for idhh ordering in dataset
                 foreach (string inputLine in inputLines.Skip(1))
                 {
                     if (inputLine == string.Empty) continue;
                     string[] splitInputLine = inputLine.Split('\t');
+                    // check if dataset is ordered by idhh
+                    if (double.Parse(splitInputLine[indexIDHH]) < biggestIDHH)
+                        infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = false,
+                            message = $"{path}: dataset is not sorted by household!" });
+
                     HH currentHH;
                     if (!indexReadHH.ContainsKey(splitInputLine[indexIDHH]))
                     {
+                        biggestIDHH = double.Parse(splitInputLine[indexIDHH]); // get the latest idhh
                         currentHH = new HH(infoStore);
 
                         if (firstHH != null && double.TryParse(splitInputLine[indexIDHH], out double fhhid) && fhhid < firstHH) continue;
@@ -164,22 +179,31 @@ namespace EM_Executable
             try
             {
                 string firstLine = null;
-                path = GetDataPath(infoStore);
 
-                if (!string.IsNullOrEmpty(infoStore.runConfig.inputPassword))
+                if (infoStore.hasData())
                 {
-                    byte[] allBytes = File.ReadAllBytes(path);
-                    allBytes = EM_Crypt.EM_Crypt.SimpleDecryptWithPassword(allBytes, infoStore.runConfig.inputPassword);
-                    if (allBytes == null)
-                    {
-                        infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = false, message = $"Wrong decryption password!" });
-                        return;
-                    }
-                    firstLine = System.Text.Encoding.Default.GetString(allBytes).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).First();
+                    firstLine = infoStore.inputData.First();
                 }
                 else
                 {
-                    firstLine = File.ReadLines(path).First();
+                    path = GetDataPath(infoStore);
+
+                    if (!string.IsNullOrEmpty(infoStore.runConfig.dataPassword))
+                    {
+                        byte[] allBytes = File.ReadAllBytes(path);
+                        if (SimpleCrypt.IsEncrypted(allBytes))
+                            allBytes = SimpleCrypt.SimpleDecryptWithPassword(allBytes, infoStore.runConfig.dataPassword, SimpleCrypt.EUROMOD_ENCRYPTED_STRING.Length);
+                        if (allBytes == null)
+                        {
+                            infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = false, message = $"Wrong decryption password!" });
+                            return;
+                        }
+                        firstLine = System.Text.Encoding.Default.GetString(allBytes).Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries).First();
+                    }
+                    else
+                    {
+                        firstLine = File.ReadLines(path).First();
+                    }
                 }
 
                 // a very basic check ...

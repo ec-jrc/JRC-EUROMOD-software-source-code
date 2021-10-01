@@ -10,17 +10,17 @@ namespace EM_Executable
         /// but it is also used to add variables produced by functions Loop, Store, Totals and DefInput
         /// </summary>
         internal void RegisterVar(string name, string creatorFun, Description description,
-                                  bool isMonetary, bool isGlobal, bool isWriteable, bool setInitialised, bool readFromFile = false)
+                                  bool isMonetary, bool isGlobal, bool isWriteable, bool setInitialised, bool readFromFile = false, bool warnForDuplicates = true)
         {
             bool addToHHPersonList = true;
             RegisterOperand(name, description,
                 new Operand(DefPar.PAR_TYPE.VAR, creatorFun, isMonetary, isGlobal, isWriteable,
-                            readFromFile, addToHHPersonList, setInitialised));
+                            readFromFile, addToHHPersonList, setInitialised), warnForDuplicates);
         }
 
         /// <summary> adds an incomelist (defined by DefIL- or Store-function) to the operand-index </summary>
         internal void RegisterIL(string name, string creatorFun, Description description,
-                                 Dictionary<string, double> content, bool warnIfNonMon)
+                                 Dictionary<string, double> content, bool warnIfNonMon, bool warnForDuplicates = true)
         {
             RegisterOperand(name, description,
                 new Operand(_parType: DefPar.PAR_TYPE.IL,
@@ -31,7 +31,7 @@ namespace EM_Executable
                             _readFromFile: false,
                             _addToHHPersonList: false,
                             _isInitialised: true)
-                { content = content, warnIfNonMon = warnIfNonMon });
+                { content = content, warnIfNonMon = warnIfNonMon }, warnForDuplicates);
         }
 
         internal void AddRegExVarToILContent(string ilName, Dictionary<string, double> regExVar) { Get(ilName, true).content.AddRange(regExVar); }
@@ -72,6 +72,9 @@ namespace EM_Executable
                 }
             }
 
+            //Final check in case the variable has been included in indexOperands
+            isNotInitialisedOutputAddVar = isOutVar && warnIfNotInit && !indexOperands.ContainsKey(name);
+
             // finally check correct use
             if ((warnIfNotInit && !indexOperands[name].isInitialised) || isNotInitialisedOutputAddVar) infoStore.communicator.ReportError(new Communicator.ErrorInfo()
             { isWarning = true, message = $"{description.Get()}: use of not initialised variable {name}" });
@@ -79,10 +82,10 @@ namespace EM_Executable
             { isWarning = false, message = $"{description.Get()}: {name} is not a valid output variable" });
         }
 
-        private void RegisterOperand(string name, Description description, Operand operand)
+        private void RegisterOperand(string name, Description description, Operand operand, bool warnForDuplicates = true)
         {
             if (!indexOperands.ContainsKey(name)) indexOperands.Add(name, operand);
-            else infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+            else if (warnForDuplicates) infoStore.communicator.ReportError(new Communicator.ErrorInfo()
             { isWarning = true, message = $"{description.Get()}: double definition of {name}" });
         }
 

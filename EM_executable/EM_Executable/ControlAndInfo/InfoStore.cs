@@ -3,6 +3,7 @@ using EM_XmlHandler;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System;
 
 namespace EM_Executable
 {
@@ -30,6 +31,7 @@ namespace EM_Executable
         internal HHAdmin hhAdmin = null;                 // contains and administrates the variables (of persons in households)
                                                          // (simply stated: the programme's data)
         internal double parScaleFactor = 1.0;            // set by FunScale for parameter-scaling (used in ParBase.GetPeriodFactor)
+        internal IEnumerable<string> inputData = null;   // stores input data passed directly through memory
         internal Dictionary<string, FunDefTU> indexTUs = // the tax-unit definitions
              new Dictionary<string, FunDefTU>();
         internal Dictionary<string, StringBuilder> output = null;  // to be used only if runConfig.returnOutputInMemory is true, to store the output in memory instead of files
@@ -85,6 +87,16 @@ namespace EM_Executable
             foreach (FunStore funStore in from f in spine.Values where f is FunStore select f)
                 if (funStore.IsProspectiveLoopOperand(operand)) return true;
             return false;
+        }
+
+        internal void setData(IEnumerable<string> _inputData)
+        {
+            inputData = _inputData;
+        }
+
+        internal bool hasData()
+        {
+            return inputData != null && inputData.Count() > 1;
         }
     }
 }

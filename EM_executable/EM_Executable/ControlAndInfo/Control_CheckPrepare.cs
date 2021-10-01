@@ -48,6 +48,8 @@ namespace EM_Executable
                     else if (funName == DefFun.KeepUnit.ToLower()) infoStore.spine.Add(order, new FunDropKeepUnit(infoStore, true));
                     else if (funName == DefFun.AddHHMembers.ToLower()) infoStore.spine.Add(order, new FunAddHHMembers(infoStore));
                     else if (funName == DefFun.IlArithOp.ToLower()) infoStore.spine.Add(order, new FunIlArithOp(infoStore));
+                    else if (funName == DefFun.InitVars.ToLower()) infoStore.spine.Add(order, new FunInitVars(infoStore));
+                    else if (funName == DefFun.CumulativeSum.ToLower()) infoStore.spine.Add(order, new FunCumulativeSum(infoStore));
                     else
                     {
                         infoStore.communicator.ReportError(new Communicator.ErrorInfo()

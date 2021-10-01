@@ -13,15 +13,17 @@ namespace EM_Executable
         /// <param name="configSettings"> settings defining the programme run </param>
         /// <param name="progressAction"> optional, an action, defined by the caller, which handles progress-reporting </param>
         /// <param name="errorAction"> optional, an action, defined by the caller, which handles error-reporting </param>
+        /// <param name="inputData"> optional, the input data, passed directly by the caller </param>
         public bool Run(Dictionary<string, string> configSettings,
                         Func<Communicator.ProgressInfo, bool> progressAction = null,
-                        Action<Communicator.ErrorInfo> errorAction = null)
+                        Action<Communicator.ErrorInfo> errorAction = null, IEnumerable<string> inputData = null)
         {
             try
             {
                 infoStore.runConfig.TakeSettings(configSettings, infoStore.communicator); // note: throws exception on failure
                 infoStore.communicator.progressAction = progressAction; // prepare the progress- and error-reporting
                 infoStore.communicator.errorAction = errorAction;
+                infoStore.setData(inputData);   // set data (can be null!)
                 return Run(); // call the common run-function for "exe"-call and "lib"-call
             }
             catch (Exception exception)
@@ -38,14 +40,15 @@ namespace EM_Executable
         /// <param name="output"> the output microdata </param>
         /// <param name="progressAction"> optional, an action, defined by the caller, which handles progress-reporting </param>
         /// <param name="errorAction"> optional, an action, defined by the caller, which handles error-reporting </param>
+        /// <param name="inputData"> optional, the input data, passed directly by the caller </param>
         public bool RunInMemory(Dictionary<string, string> configSettings, 
                         out Dictionary<string, StringBuilder> output,
                         Func<Communicator.ProgressInfo, bool> progressAction = null,
-                        Action<Communicator.ErrorInfo> errorAction = null)
+                        Action<Communicator.ErrorInfo> errorAction = null, IEnumerable<string> inputData = null)
         {
             output = null;
             configSettings.AddOrReplace(TAGS.CONFIG_RETURN_OUTPUT_IN_MEMORY, DefPar.Value.YES);
-            bool succeeded = Run(configSettings, progressAction, errorAction);
+            bool succeeded = Run(configSettings, progressAction, errorAction, inputData);
             if (succeeded) output = infoStore.output;
             return succeeded;
         }

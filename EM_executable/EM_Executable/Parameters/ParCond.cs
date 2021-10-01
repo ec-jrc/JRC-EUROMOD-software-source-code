@@ -65,7 +65,7 @@ namespace EM_Executable
                     }
                 }
                 // evaluate the formula (using the operand-values assessed above)
-                values.Add(person.indexInHH, parFormula.GetValue(operands) != 0);
+                values.Add(person.indexInHH, parFormula.GetValue(operands, hh) != 0);
                 doTU = false;
             }
             return values;

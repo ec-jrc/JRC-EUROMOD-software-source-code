@@ -23,13 +23,13 @@ namespace EM_ExecutableCaller
         private const string ARG_ADDON = "-addOn";
         private const string ARG_EXTENSION_SWITCH = "-extSwitch";
         private const string ARG_PATH_PAR_MODIFICATIONS = "-pathParModifications";
-        private const string ARG_INPUT_PASSWORD = "-inputPassword";
+        private const string ARG_DATA_PASSWORD = "-dataPassword";
 
         internal static int Go(string[] args)
         {
             try
             {
-                args = Test.TPlay();
+                //args = Test.TPlay();
 
                 if (args.Length == 0) return WrongUseError();
 
@@ -85,8 +85,8 @@ namespace EM_ExecutableCaller
                     }
                     else if (optArg.Key.ToLower() == ARG_PATH_PAR_MODIFICATIONS.ToLower())
                         em3Config.AddOrReplace(TAGS.CONFIG_PATH_PAR_MODIFICATIONS, optArg.Value);
-                    else if (optArg.Key.ToLower() == ARG_INPUT_PASSWORD.ToLower())
-                        em3Config.AddOrReplace(TAGS.CONFIG_INPUT_PASSWORD, optArg.Value);
+                    else if (optArg.Key.ToLower() == ARG_DATA_PASSWORD.ToLower())
+                        em3Config.AddOrReplace(TAGS.CONFIG_DATA_PASSWORD, optArg.Value);
                     // more to come ...
                 }
 
@@ -282,7 +282,7 @@ namespace EM_ExecutableCaller
             error += $"{ARG_EXTENSION_SWITCH}: extension-name=switch (e.g. {ARG_EXTENSION_SWITCH} BTA_??=off), multiple use possible" + Environment.NewLine;
             error += $"{ARG_SEQUENTIAL_RUN}: force sequential run (use a single core to run)" + Environment.NewLine;
             error += $"{ARG_SEQUENTIAL_OUTPUT}: force sequential calculation of the output (slower, but uses less memory)" + Environment.NewLine;
-            error += $"{ARG_INPUT_PASSWORD}: use with an encrypted input file (e.g. {ARG_INPUT_PASSWORD} my$tr0ngPass)" + Environment.NewLine;
+            error += $"{ARG_DATA_PASSWORD}: enables using encrypted data (e.g. {ARG_DATA_PASSWORD} my$tr0ngPass)" + Environment.NewLine;
             // more options to come ...
 
             Console.Error.WriteLine(error);

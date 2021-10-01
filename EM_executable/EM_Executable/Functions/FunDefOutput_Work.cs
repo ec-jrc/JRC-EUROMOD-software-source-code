@@ -1,5 +1,6 @@
 ﻿using System;
 using EM_Common;
+using EM_Crypt;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -11,8 +12,8 @@ namespace EM_Executable
 {
     internal partial class FunDefOutput : FunOutOfSpineBase
     {
-        protected override void DoFunWork() 
-        {                                   
+        protected override void DoFunWork()
+        {
             if (!IsRunCondMet()) return;
 
             // assess currency conversion factor
@@ -27,86 +28,82 @@ namespace EM_Executable
             // only apply conversion factor if it is not = 1 (to increase speed)
             doExchangeConversion = convFactor != 1;
 
-            if (infoStore.runConfig.returnOutputInMemory)   // if returning the output in memory, put it in a big StringBuilder
+            try
             {
-                try
-                {
-                    infoStore.output.Add(fileName, new StringBuilder());
-                    // write header row
-                    if (!append) infoStore.output[fileName].AppendLine(ProcessHeaders());
+                if (infoStore.output == null) infoStore.output = new Dictionary<string, System.Text.StringBuilder>();
+                if (infoStore.output.ContainsKey(fileName)) infoStore.output[fileName] = new StringBuilder();
+                else infoStore.output.Add(fileName, new StringBuilder());
+                string headerLine = ProcessHeaders();  // keep this line: we will need to add it again if the output is encrypted
+                // write header row
+                if (!append) infoStore.output[fileName].AppendLine(headerLine);
 
-                    // if ForceSequentialRun or ForceSequentialOutput, write each household in order to save on memory usage
-                    if (infoStore.runConfig.forceSequentialRun || infoStore.runConfig.forceSequentialOutput)
+                // if ForceSequentialRun or ForceSequentialOutput, write each household in order to save on memory usage
+                if (infoStore.runConfig.forceSequentialRun || infoStore.runConfig.forceSequentialOutput)
+                {
+                    foreach (HH hh in infoStore.hhAdmin.hhs)
                     {
-                        foreach (HH hh in infoStore.hhAdmin.hhs)
+                        StringBuilder hhOutput = ProcessHHoutput(hh, convFactor);
+                        if (hhOutput.Length > 0) infoStore.output[fileName].Append(hhOutput);
+                    }
+                }
+                else
+                {
+                    // else first prepare all HH in parallel
+                    ConcurrentDictionary<HH, StringBuilder> allOutput = new ConcurrentDictionary<HH, StringBuilder>();
+                    Parallel.ForEach<HH>(infoStore.hhAdmin.hhs, hh =>
+                    {
+                        StringBuilder hhOutput = ProcessHHoutput(hh, convFactor);
+                        if (hhOutput.Length == 0) return;
+                        if (!allOutput.TryAdd(hh, hhOutput))
+                            throw new Exception($"Error preparing multi-threaded output!"); // this should never happen! (unless a HH is duplicate, which is impossible)
+                    });
+                    // and then write them to file in sequence
+                    foreach (HH hh in infoStore.hhAdmin.hhs)
+                        if (allOutput.ContainsKey(hh)) infoStore.output[fileName].Append(allOutput[hh]);
+                }
+
+
+                if (!infoStore.runConfig.returnOutputInMemory)   // if not returning the output in memory, write it on disk
+                {
+                    if (!string.IsNullOrEmpty(infoStore.runConfig.dataPassword))    // if required, encrypt before writting to disk
+                    {
+                        // if we need to append, then we need to read & decrypt the existing file first!
+                        string existingContent = string.Empty;
+                        if (append)
                         {
-                            StringBuilder hhOutput = ProcessHHoutput(hh, convFactor);
-                            if (hhOutput.Length > 0) infoStore.output[fileName].Append(hhOutput);
+                            if (File.Exists(fileName))
+                            {
+                                byte[] content = File.ReadAllBytes(fileName);
+                                if (SimpleCrypt.IsEncrypted(content))
+                                    content = SimpleCrypt.SimpleDecryptWithPassword(content, fileName, SimpleCrypt.EUROMOD_ENCRYPTED_STRING.Length);
+                                if (content != null)
+                                    existingContent = Encoding.UTF8.GetString(content);
+                            }
+                        }
+
+                        // Encrypt and write the output file
+                        using (FileStream fileWriter = new FileStream(fileName, FileMode.Create))
+                        {
+                            byte[] nonSecret = Encoding.UTF8.GetBytes(headerLine + Environment.NewLine + Encoding.UTF8.GetString(SimpleCrypt.EUROMOD_ENCRYPTED_STRING));
+                            byte[] content = SimpleCrypt.SimpleEncryptWithPassword(Encoding.UTF8.GetBytes(existingContent + infoStore.output[fileName].ToString()), infoStore.runConfig.dataPassword, nonSecret);
+                            fileWriter.Write(content, 0, content.Length);
                         }
                     }
                     else
                     {
-                        // else first prepare all HH in parallel
-                        ConcurrentDictionary<HH, StringBuilder> allOutput = new ConcurrentDictionary<HH, StringBuilder>();
-                        Parallel.ForEach<HH>(infoStore.hhAdmin.hhs, hh =>
+                        // For not encrypted, simply write or append to the file
+                        using (StreamWriter streamWriter = new StreamWriter(fileName, append, new UTF8Encoding(false)))
                         {
-                            StringBuilder hhOutput = ProcessHHoutput(hh, convFactor);
-                            if (hhOutput.Length == 0) return;
-                            if (!allOutput.TryAdd(hh, hhOutput))
-                                throw new Exception($"Error preparing multi-threaded output!"); // this should never happen! (unless a HH is duplicate, which is impossible)
-                        });
-                        // and then write them to file in sequence
-                        foreach (HH hh in infoStore.hhAdmin.hhs)
-                            if (allOutput.ContainsKey(hh)) infoStore.output[fileName].Append(allOutput[hh]);
+                            streamWriter.Write(infoStore.output[fileName].ToString());
+                        }
                     }
-                }
-                catch (Exception exception)
-                {
-                    throw new Exception($"Error writing output to {fileName}.{Environment.NewLine}{exception.Message}");
                 }
             }
-            else    // else, write the output to a real file
+            catch (Exception exception)
             {
-                try // note: maybe the extra try/catch is disputable (i.e. one could rely on general try/catch as all other functions instead)
-                {   // but IO-problems seem more likely and serious and this will may help to better locate the error
-                    using (StreamWriter streamWriter = new StreamWriter(fileName, append, new UTF8Encoding(false)))
-                    {
-                        // write header row
-                        if (!append) streamWriter.WriteLine(ProcessHeaders());
-
-                        // if ForceSequentialRun or ForceSequentialOutput, write each household in order to save on memory usage
-                        if (infoStore.runConfig.forceSequentialRun || infoStore.runConfig.forceSequentialOutput)
-                        {
-                            foreach (HH hh in infoStore.hhAdmin.hhs)
-                            {
-                                StringBuilder hhOutput = ProcessHHoutput(hh, convFactor);
-                                if (hhOutput.Length > 0) streamWriter.Write(hhOutput);
-                            }
-                        }
-                        else
-                        {
-                            // else first prepare all HH in parallel
-                            ConcurrentDictionary<HH, StringBuilder> allOutput = new ConcurrentDictionary<HH, StringBuilder>();
-                            Parallel.ForEach<HH>(infoStore.hhAdmin.hhs, hh =>
-                            {
-                                StringBuilder hhOutput = ProcessHHoutput(hh, convFactor);
-                                if (hhOutput.Length == 0) return;
-                                if (!allOutput.TryAdd(hh, hhOutput))
-                                    throw new Exception($"Error preparing multi-threaded output!"); // this should never happen! (unless a HH is duplicate, which is impossible)
-                            });
-                            // and then write them to file in sequence
-                            foreach (HH hh in infoStore.hhAdmin.hhs)
-                                if (allOutput.ContainsKey(hh)) streamWriter.Write(allOutput[hh]);
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    throw new Exception($"Error writing output to {fileName}.{Environment.NewLine}{exception.Message}");
-                }
+                throw new Exception($"Error writing output to {fileName}.{Environment.NewLine}{exception.Message}");
             }
         }
-
         private string ProcessHeaders()
         {
             StringBuilder headerRow = new StringBuilder();
