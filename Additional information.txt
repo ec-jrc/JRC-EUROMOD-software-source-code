@@ -24,6 +24,12 @@ Elements included in the EUROMOD software source code:
                - VariablesChecker: The Variables Checker plugin provides methods for validating the EUROMOD variables file. 
                - Web Statistics: it generates summary tables with the baseline estimates on the distribution of different income components (from market income to disposable income) 
 		 as well as on the incidence of taxes and benefits across decile income groups. It also provides summary statistics on income inequality and poverty indicators, as well as on marginal effective tax rates.
+	       - In-depth Analysis: The In-depth Analysis plugin is an advanced Statistics presenter which provides additional indicators and allow extra flexibility in the definition of variables and population groups.
+		 The In-depth Analysis plugin was developed as a part of the project “Support for the Microsimulation Hub of the Council of Economic Advisors in Greece”,
+		 funded by the European Commission’s Structural Reform Support Programme and implemented by the Joint Research Centre
+		 through an administrative arrangement with DG REFORM. All parties agreed to incorporate the plugin to EUROMOD, which implies 
+		 the public distribution of its compiled version under the EUROMOD End-user licence agreement and its source code under the European Union 
+		 Public Licence (EUPL-1.2) or a later version of this licence.
 - EM_UI: EUROMOD user interface.
 - Executable: Source code of the EM2 executable (EUROMOD calculator engine EM2).
 - externallibs: Ionic.Zip.dll (and Readme.txt) which are used in EUROMOD.
