@@ -435,7 +435,7 @@
   </Cur_BasicCountrySpecificDetail>
   <Cur_BasicCountrySpecificDetail>
     <VariableName>yse</VariableName>
-    <CountrySpecificVariableName>ysere00</CountrySpecificVariableName>
+    <CountrySpecificVariableName>ysebsre</CountrySpecificVariableName>
     <Countries>HR</Countries>
   </Cur_BasicCountrySpecificDetail>
   <Cur_BasicCountrySpecificDetail>
@@ -2816,14 +2816,14 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>drgur</VariableName>
+    <VariableName>drgud</VariableName>
     <Category>DEMOGRAPHIC</Category>
-    <Description>region : urban</Description>
+    <Description>region : urbanization degree</Description>
     <VariableType>Categorical</VariableType>
     <DefaultValue>1</DefaultValue>
     <ValueRange>1#2#3</ValueRange>
     <TextRange>densely populated area#intermediate area#thinly populated area</TextRange>
-    <Countries>EL, ES, HR, LT, LV, RO</Countries>
+    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, IT, LT, LU, LV, MT, NL, PL, PT, RO, SE, SI, SK, UK</Countries>
     <IsHouseholdVar>true</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
@@ -3153,7 +3153,7 @@
     <DefaultValue>4</DefaultValue>
     <ValueRange>1#2#3#4#5#6#7#8#9#10#11#12#0</ValueRange>
     <TextRange>Agriculture and Fishing#Mining, Manufacturing and Utilities#Construction#Wholesale and retail trade#Hotels and restaurants#Transport and communication#Financial intermediation#Real estate and business activities#Public administration and defence#Education#Health and social work#Other#Not applicable</TextRange>
-    <Countries>BG, DE, ES, FI, FR, HR, IT, LT, PT, SI, SK</Countries>
+    <Countries>BG, DE, ES, FI, FR, HR, IT, LT, PT, RO, SI, SK</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
@@ -4983,17 +4983,6 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>ysetx</VariableName>
-    <Category>INCOME</Category>
-    <Description>self employment : taxable</Description>
-    <VariableType>Numeric</VariableType>
-    <DefaultValue>Value|RefTable_1188845774|0|False|0|0</DefaultValue>
-    <ValueRange />
-    <TextRange />
-    <Countries>BG</Countries>
-    <IsHouseholdVar>false</IsHouseholdVar>
-  </Cur_AdvancedVariables>
-  <Cur_AdvancedVariables>
     <VariableName>yst</VariableName>
     <Category>INCOME</Category>
     <Description>student</Description>
@@ -5043,11 +5032,11 @@
     <Description>month of birth</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1927503380|5|False|0|0</DefaultValue>
-    <Countries>BG, HR, SI</Countries>
+    <Countries>BG, HR, RO, SI</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>ysenr00</VariableName>
+    <VariableName>ysebsnr</VariableName>
     <Category>INCOME</Category>
     <Description>self employment : non reported : main/basic</Description>
     <VariableType>Numeric</VariableType>
@@ -5056,18 +5045,18 @@
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>ysenr01</VariableName>
+    <VariableName>ysecwnr</VariableName>
     <Category>INCOME</Category>
-    <Description>self employment : non reported: other</Description>
+    <Description>self employment : non reported: contractual work</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1927503380|0|False|0|0</DefaultValue>
     <Countries>HR</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
   </Cur_AdvancedVariables>
   <Cur_AdvancedVariables>
-    <VariableName>ysere01</VariableName>
+    <VariableName>ysecwre</VariableName>
     <Category>INCOME</Category>
-    <Description>self employment : reported income : other</Description>
+    <Description>self employment : reported income : contractual work</Description>
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1927503380|0|False|0|0</DefaultValue>
     <Countries>HR</Countries>
@@ -5131,6 +5120,18 @@
     <VariableType>Numeric</VariableType>
     <DefaultValue>Value|RefTable_1837444076|1|False|0|0</DefaultValue>
     <Countries>UK</Countries>
+    <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedVariables>
+  <Cur_AdvancedVariables>
+    <VariableName>bsael</VariableName>
+    <Category>BENEFIT/PENSION</Category>
+    <Description>social assistance: being eligible</Description>
+    <VariableType>Categorical</VariableType>
+    <DefaultValue>1</DefaultValue>
+    <ValueRange>0#1</ValueRange>
+    <TextRange>No#Yes</TextRange>
+    <Countries>IE</Countries>
     <IsHouseholdVar>false</IsHouseholdVar>
     <Private>false</Private>
   </Cur_AdvancedVariables>
@@ -5410,6 +5411,14 @@
     <Description>heating benefit</Description>
     <VariableType>Numeric</VariableType>
     <IsHouseholdVar>false</IsHouseholdVar>
+    <Private>false</Private>
+  </Cur_AdvancedCountrySpecificVariables>
+  <Cur_AdvancedCountrySpecificVariables>
+    <VariableName>aca</VariableName>
+    <Category>ASSETS</Category>
+    <Description>car ownership</Description>
+    <VariableType>Categorical</VariableType>
+    <IsHouseholdVar>true</IsHouseholdVar>
     <Private>false</Private>
   </Cur_AdvancedCountrySpecificVariables>
   <Cur_BasicVariables>
@@ -5737,7 +5746,7 @@
   </Cur_AdvancedCountrySpecificDetail>
   <Cur_AdvancedCountrySpecificDetail>
     <VariableName>bsa00</VariableName>
-    <DefaultValue>Value|RefTable_1837444076|1|False|0|0</DefaultValue>
+    <DefaultValue>Value|RefTable_1837444076|0|False|0|0</DefaultValue>
     <Country>IE</Country>
   </Cur_AdvancedCountrySpecificDetail>
   <Cur_AdvancedCountrySpecificDetail>
@@ -6051,6 +6060,13 @@
     <DefaultValue>Value|RefTable_1837444076|0|False|0|0</DefaultValue>
     <Country>EL</Country>
   </Cur_AdvancedCountrySpecificDetail>
+  <Cur_AdvancedCountrySpecificDetail>
+    <VariableName>aca</VariableName>
+    <DefaultValue>2</DefaultValue>
+    <ValueRange>1#2#3</ValueRange>
+    <TextRange>yes#no, cannot afford#no, other reason</TextRange>
+    <Country>RO</Country>
+  </Cur_AdvancedCountrySpecificDetail>
   <Cur_Years>
     <Year>2009</Year>
   </Cur_Years>
@@ -6248,7 +6264,7 @@
     <VariableName>lse</VariableName>
     <Category>LABOUR MARKET</Category>
     <Description>self employed</Description>
-    <Countries>AT, BG, DE, EE, HR, SE</Countries>
+    <Countries>AT, BG, DE, EE, HU, HR, SE</Countries>
     <DefaultValue>0</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -6388,7 +6404,7 @@
     <VariableName>yemtx</VariableName>
     <Category>INCOME</Category>
     <Description>employment : taxable</Description>
-    <Countries>BG</Countries>
+    <Countries>BG, HR</Countries>
     <DefaultValue>yem</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -6430,7 +6446,7 @@
     <VariableName>ysemy</VariableName>
     <Category>INCOME</Category>
     <Description>self employment : months per year</Description>
-    <Countries>AT, BG, CY, CZ, DE, DK, EL, ES, FR, LT, LU, LV, PT, RO, SK</Countries>
+    <Countries>AT, BG, CY, CZ, DE, DK, EL, ES, FR, HR, LT, LU, LV, PT, RO, SK</Countries>
     <DefaultValue>0</DefaultValue>
   </Cur_DerivedVariables>
   <Cur_DerivedVariables>
@@ -6743,6 +6759,54 @@
     <DefaultValue>afc</DefaultValue>
     <Private>false</Private>
   </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>ysetx</VariableName>
+    <Category>INCOME</Category>
+    <Description>self employment: taxable</Description>
+    <Countries>BG</Countries>
+    <DefaultValue>yse</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>kfbtx</VariableName>
+    <Category>INCOME</Category>
+    <Description>non-cash employee income - taxable</Description>
+    <Countries>HR</Countries>
+    <DefaultValue>kfb</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>lesse</VariableName>
+    <Category>LABOUR MARKET</Category>
+    <Description>type of self-employed person</Description>
+    <Countries>HR</Countries>
+    <DefaultValue>0</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>drgur</VariableName>
+    <Category>DEMOGRAPHIC</Category>
+    <Description>urbanization degree: high density</Description>
+    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, IT, LT, LU, LV, MT, NL, PL, PT, RO, SE, SI, SK, UK</Countries>
+    <DefaultValue>0</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>drgmd</VariableName>
+    <Category>DEMOGRAPHIC</Category>
+    <Description>urbanization degree: medium density</Description>
+    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, IT, LT, LU, LV, MT, NL, PL, PT, RO, SE, SI, SK, UK</Countries>
+    <DefaultValue>0</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
+  <Cur_DerivedVariables>
+    <VariableName>drgru</VariableName>
+    <Category>DEMOGRAPHIC</Category>
+    <Description>urbanization degree: low density</Description>
+    <Countries>AT, BE, BG, CY, CZ, DE, DK, EE, EL, ES, FI, FR, HU, HR, IE, IT, LT, LU, LV, MT, NL, PL, PT, RO, SE, SI, SK, UK</Countries>
+    <DefaultValue>0</DefaultValue>
+    <Private>false</Private>
+  </Cur_DerivedVariables>
   <Cur_DerivedVariablesDetail>
     <VariableName>bun</VariableName>
     <Condition>les = 5</Condition>
@@ -6922,6 +6986,31 @@
     <VariableName>liwwhny15_h</VariableName>
     <Condition>dag &gt;= 50</Condition>
     <DerivedValue>108</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>lserg</VariableName>
+    <Condition>les = 2</Condition>
+    <DerivedValue>1</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>lesse</VariableName>
+    <Condition>les = 2</Condition>
+    <DerivedValue>6</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>drgur</VariableName>
+    <Condition>drgud = 1</Condition>
+    <DerivedValue>1</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>drgmd</VariableName>
+    <Condition>drgud = 2</Condition>
+    <DerivedValue>1</DerivedValue>
+  </Cur_DerivedVariablesDetail>
+  <Cur_DerivedVariablesDetail>
+    <VariableName>drgru</VariableName>
+    <Condition>drgud = 3</Condition>
+    <DerivedValue>1</DerivedValue>
   </Cur_DerivedVariablesDetail>
   <Def_BasicCountrySpecificDetail>
     <VariableName>yem</VariableName>
