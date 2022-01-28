@@ -2004,7 +2004,7 @@
             this.treeList.Appearance.SelectedRow.Options.UseBackColor = true;
             this.treeList.Appearance.SelectedRow.Options.UseForeColor = true;
             this.treeList.BackgroundImage = global::EM_UI.Properties.Resources.brand_background_EUROMOD;
-            this.treeList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.treeList.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.treeList.BestFitVisibleOnly = true;
             this.treeList.Columns.AddRange(new DevExpress.XtraTreeList.Columns.TreeListColumn[] {
             this.Policy,

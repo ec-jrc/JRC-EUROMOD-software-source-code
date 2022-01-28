@@ -55,7 +55,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\brand_icon_EUROMOD.ico</ApplicationIcon>
+    <ApplicationIcon>brand_icon_EUROMOD.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -1377,7 +1377,9 @@
     <None Include="Resources\ReleaseInfo.xlsx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="brand_icon_EUROMOD.ico" />
     <Content Include="euromod-app-icon.ico" />
+    <None Include="Resources\%24this.Icon.ico" />
     <None Include="Icons\licence.png" />
     <None Include="Icons\ReleaseInfo.png" />
     <None Include="Icons\TipNotAllCountriesVisible.png" />
@@ -1388,9 +1390,7 @@
     <None Include="Resources\brand_background_EUROMOD.jpg" />
     <None Include="Resources\brand_icon_EUROMOD.ico" />
     <None Include="Resources\NoFlag.png" />
-    <None Include="Resources\Euromod_Logo_HR_CMYK.jpg" />
     <None Include="Icons\VCResolved.png" />
-    <None Include="Resources\EUROMOD.jpg" />
     <None Include="Icons\VCUpToDate.png" />
     <None Include="Icons\apply16.png" />
     <None Include="Icons\AllFilters.png" />
@@ -1404,9 +1404,13 @@
     <None Include="Icons\checkbox-checked.png" />
     <None Include="Icons\Compare.gif" />
     <None Include="Icons\delete16.png" />
+    <None Include="Icons\euromod-logo.jpg" />
+    <None Include="Icons\EuromodVersion.png" />
+    <None Include="Icons\Euromod_Logo_HR_CMYK.jpg" />
     <None Include="Icons\delete32.png" />
     <None Include="Icons\find.png" />
     <None Include="Icons\filter.png" />
+    <None Include="Icons\filter-16.png" />
     <Content Include="Icons\Folder.gif" />
     <None Include="Icons\Folder.png" />
     <None Include="Icons\globe.png" />
