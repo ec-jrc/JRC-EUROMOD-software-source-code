@@ -21,6 +21,7 @@ namespace EM_Common
             public const string Incl_Cond_Who = "Incl_Cond_Who";
             public const string Use_Weights = "Use_Weights";
             public const string Weight_Var = "Weight_Var";
+            public const string WarnIfDuplicateDefinition = "WarnIfDuplicateDefinition";
 
             internal static void Add(DefinitionAdmin.Fun fun)
             {
@@ -99,6 +100,11 @@ namespace EM_Common
                 {
                     valueType = PAR_TYPE.VAR, defaultValue = DefVarName.DWT,
                     minCount = 0, maxCount = 1
+                });
+                fun.par.Add(WarnIfDuplicateDefinition, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.BOOLEAN, minCount = 0, maxCount = 1, defaultValue = true,
+                    description = $"Warn if function produces duplicate definitions."
                 });
             }
         }

@@ -4,7 +4,7 @@ namespace EM_Common
 {
     public static class DefGeneral
     {
-        public const string UI_VERSION = "3.4.6";
+        public const string UI_VERSION = "3.4.10";
         public const string UI_VERSION_FOR_ASSEMBLY = UI_VERSION + ".0";
 
         public static Encoding DEFAULT_ENCODING = Encoding.UTF8; // this Encoding allows displaying country specific characters, while the originally used Encoding.Default did not

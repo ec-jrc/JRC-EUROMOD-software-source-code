@@ -20,6 +20,7 @@ namespace EM_Common
 
         public static string GetFileMD5Hash(string filename)
         {
+            if (!File.Exists(filename)) return string.Empty;
             using (var md5 = System.Security.Cryptography.MD5.Create())
             {
                 using (var stream = File.OpenRead(filename))

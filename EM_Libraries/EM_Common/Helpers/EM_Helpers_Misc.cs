@@ -27,6 +27,8 @@ namespace EM_Common
             if (component == string.Empty)
                 return false;
 
+            if (formula.Length < component.Length) return false;
+
             formula = formula.ToLower();
             component = component.ToLower();
 

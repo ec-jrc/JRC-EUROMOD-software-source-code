@@ -20,7 +20,7 @@ namespace EM_Common
         public static string GetEM2ExecutableFile()
         {
             string location = isCompilerEnvironment
-                        ? Path.Combine(GetAncestorFolder(Assembly.GetExecutingAssembly().Location, "EM_PRIVATE"), "EM_UI\\bin\\" + bit() + "\\")
+                        ? Path.Combine(GetAncestorFolder(Assembly.GetExecutingAssembly().Location, "EM_UI"), "bin", bit())
                         : GetApplicationFolder();
             return Path.Combine(location, "executable", "euromod.exe");
         }
@@ -35,13 +35,13 @@ namespace EM_Common
             else
             {
                 processStartInfo.FileName = "dotnet";
-                string exeCallerPath = Path.Combine(GetAncestorFolder(Assembly.GetExecutingAssembly().Location, "EM_PRIVATE"),
-                    "EM_Executable", "EM_ExecutableCaller", "bin", "Debug", "netcoreapp2.0", "EM_ExecutableCaller.dll");
+                string exeCallerPath = Path.Combine(GetAncestorFolder(Assembly.GetExecutingAssembly().Location, "EM_UI"),
+                    "..", "EM_Executable", "EM_ExecutableCaller", "bin", "Debug", "netcoreapp2.0", "EM_ExecutableCaller.dll");
                 processStartInfo.Arguments = EncloseByQuotes(exeCallerPath) + " "; // add a space for other arguments to be added
             }
         }
 
-        public static bool isCompilerEnvironment { get { return Assembly.GetExecutingAssembly().Location.ToUpper().Contains("\\EM_PRIVATE\\"); } }
+        public static bool isCompilerEnvironment { get { return Assembly.GetExecutingAssembly().Location.ToUpper().Contains("\\EM_UI\\"); } }
         public static bool isDebugEnvironment { get { return IsInDebugEnvironment(Assembly.GetExecutingAssembly().Location); } }
         public static bool isReleaseEnvironment { get { return IsInReleaseEnvironment(Assembly.GetExecutingAssembly().Location); } }
         public static bool IsInDebugEnvironment(string filePath) { return filePath.ToLower().Contains("\\bin\\" + bit() + "\\debug\\"); }

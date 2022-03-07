@@ -15,7 +15,7 @@ namespace EM_Common
             try
             {
                 string plugInFolder = EnvironmentInfo.isCompilerEnvironment
-                        ? Path.Combine(EnvironmentInfo.GetAncestorFolder(Assembly.GetExecutingAssembly().Location, "EM_PRIVATE"), "EM_PlugIns\\")
+                        ? Path.Combine(EnvironmentInfo.GetAncestorFolder(Assembly.GetExecutingAssembly().Location, "EM_UI"), "..", "EM_PlugIns")
                         : Path.Combine(EnvironmentInfo.GetPluginFolder());
 
                 // search each subfolder in the PlugIns-folder ...

@@ -456,9 +456,9 @@ namespace EM_Statistics
                     {
                         // The CalculateArithmetic is the only type allowed to use column values
                         if (!PrepareFormulaColumns(ref formula, out error, rowUnderConstruction, refNo)) return ActionError(action, error);
-                        if (formula.Contains("DATA_VAR")) return ActionError(action, $"{action.calculationType} does not allow for DATA_VAR[]");
-                        ParameterExpression[] NO_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "NO_VAR") };
-                        action.func = ParseFormula(NO_VAR, constMakeDouble + formula);
+                        //if (formula.Contains("DATA_VAR")) return ActionError(action, $"{action.calculationType} does not allow for DATA_VAR[]");
+                        ParameterExpression[] DATA_VAR = new ParameterExpression[] { Expression.Parameter(typeof(List<double>), "DATA_VAR") };
+                        action.func = ParseFormula(DATA_VAR, constMakeDouble + formula);
                         action.result = CalculateArithmeticAction(data, action, sdcDefinition, out sdcObsNo);
                         sdcObsNo = Math.Min(sdcObsNo, sdcObsNo_SavedNumbers);
                     }

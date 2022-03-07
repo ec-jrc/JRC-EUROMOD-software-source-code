@@ -57,12 +57,21 @@ function embe_GetURLParameter(param) {
     return result[param] || "";
 }
 
+function embe_GetURLCurrentFolder() {
+    var url = window.location.href;
+    var path = "";
+    if (url.lastIndexOf("/") > -1)
+        path = url.substring(0, url.lastIndexOf("/") + 1);
+    return path;
+}
+
 function embe_MessageBox(content) {
     document.getElementById("embe-id-msg-box").style.display = "block";
     document.getElementById("embe-id-msg-box-content").innerHTML = content;
 }
 
 // Helper functions for the tooltips
+if (typeof tlite !=='undefined')
 tlite(function (el) {
     var when = classWhen(el);
     return when('tooltip', { grav: 's' }) ||

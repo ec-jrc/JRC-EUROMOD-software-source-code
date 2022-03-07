@@ -10,7 +10,7 @@ namespace EM_Statistics
 
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
-                return origText.Replace(ident, EM_Helpers.OutputNameToTaxPretty(resources.baseSystem.GetSystemName()));
+                return origText.Replace(ident, EM_Helpers.OutputNameToTaxPretty(resources.baseSystem.GetFileName()));
             }
         }
     }

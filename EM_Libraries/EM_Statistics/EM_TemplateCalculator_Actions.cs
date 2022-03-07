@@ -65,7 +65,7 @@ namespace EM_Statistics
                 DataStatsHolder.SavedNumber savedNumber = data[action.CalculationLevel].GetSavedNumber(action.outputVar, action.localMap);
                 sdcObsNo = savedNumber.sdcObsNo; return savedNumber.number;
             }
-            List<double> array = new List<double>();
+            List<double> array = data[action.CalculationLevel].GetData().FirstOrDefault();  // for CreateArithmeticAction, if DATA_VAR is used, the values of the first individual of the sample are used. 
             double result = action.func(array);
             sdcObsNo = data[action.CalculationLevel].GetData().Count();
             if (action.SaveResult && !string.IsNullOrEmpty(action.outputVar))

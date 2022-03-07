@@ -17,6 +17,7 @@ namespace EM_Common
             public const string Out_Prefix = "Out_Prefix";
             public const string Out_Postfix = "Out_Postfix";
             public const string WarnIfDuplicateDefinition = "WarnIfDuplicateDefinition";
+            public const string ForceMonetaryOutput = "ForceMonetaryOutput";
 
             public const string BASE_IL_COMPONENT = "BASE_IL_COMPONENT";
             public const string IL_COMPONENT = "IL_COMPONENT";
@@ -88,6 +89,11 @@ namespace EM_Common
                 {
                     valueType = PAR_TYPE.BOOLEAN, minCount = 0, maxCount = 1, defaultValue = true,
                     description = $"Warn if function produces duplicate definitions for income lists."
+                });
+                fun.par.Add(ForceMonetaryOutput, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.BOOLEAN, minCount = 0, maxCount = 1, defaultValue = false,
+                    description = $"Force the resulting new variables to be monetary, even if the base variables were non-monetary."
                 });
             }
         }

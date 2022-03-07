@@ -34,6 +34,7 @@ namespace EM_Statistics
             internal string description { get; set; }
             internal List<string> ColHeaders { get; set; }
             internal List<string> RowHeaders { get; set; }
+            internal List<bool> RowBold { get; set; }
             internal DataTable Content { get; set; }
             internal List<List<string>> NumberFormats = new List<List<string>>();
             internal DisplayResults.DisplayPage.DisplayTable.DisplayGraph Graph { get; set; }
@@ -170,11 +171,19 @@ namespace EM_Statistics
                             for (int ch = 0; ch < exportTable.ColHeaders.Count; ++ch)
                             {
                                 workSheet.Cells[rPos, ch + 2].Style.Font.Italic = true;
+                                workSheet.Cells[rPos, ch + 2].Style.Font.Bold = true;
+                                workSheet.DefaultColWidth = 40;
                                 workSheet.Cells[rPos, ch + 2].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportTable.ColHeaders[ch]));
+
                             }
                             for (int rh = 1; rh <= exportTable.RowHeaders.Count; ++rh)
                             {
                                 workSheet.Cells[rPos + rh, 1].Style.Font.Italic = true;
+
+                                if (exportTable.RowBold[rh - 1])
+                                {
+                                    workSheet.Cells[rPos + rh, 1].Style.Font.Bold = true;
+                                }
                                 workSheet.Cells[rPos + rh, 1].Value = exportTable.RowHeaders[rh - 1];
                             }
                             ExcelRangeBase pastedTable = workSheet.Cells[++rPos, 2].LoadFromDataTable(exportTable.Content, false);
@@ -190,7 +199,13 @@ namespace EM_Statistics
                                             workSheet.Cells[r, c].Style.Numberformat.Format = nf[r - pastedTable.Start.Row];
                                         else
                                             workSheet.Cells[r, c].Value = sv[r - pastedTable.Start.Row];
+                                        if (exportTable.RowBold[r - pastedTable.Start.Row])
+                                        {
+                                            workSheet.Cells[r, c].Style.Font.Bold = true;
+                                        }
                                     }
+
+
                                 }
 
                                 if (exportTable.Graph != null && exportTable.Graph.allSeries.Count > 0)
@@ -258,6 +273,7 @@ namespace EM_Statistics
                     }
                 }
                 AddDescriptionPage(excel, allDisplayResults[0], descriptionMode);
+                
 
                 // todo: not yet clear whether the file-selection should be in the presenter or the library
                 excelStream = new MemoryStream();
@@ -460,6 +476,7 @@ namespace EM_Statistics
             exportTable.Content = new DataTable();
             exportTable.ColHeaders = new List<string>();
             exportTable.RowHeaders = new List<string>();
+            exportTable.RowBold = new List<bool>();
 
             exportTable.NumberFormats.Clear();
             exportTable.StringValues.Clear();
@@ -478,6 +495,8 @@ namespace EM_Statistics
                 DisplayResults.DisplayPage.DisplayTable.DisplayRow row = displayTable.rows[r];
                 string rowHeader = ReplaceBr(row.title);
                 exportTable.RowHeaders.Add(rowHeader);
+                exportTable.RowBold.Add(row.strong);
+
                 object[] cellValues = new object[exportTable.Content.Columns.Count]; int c = 0;
                 foreach (DisplayResults.DisplayPage.DisplayTable.DisplayCell cell in displayTable.cells[r])
                 {

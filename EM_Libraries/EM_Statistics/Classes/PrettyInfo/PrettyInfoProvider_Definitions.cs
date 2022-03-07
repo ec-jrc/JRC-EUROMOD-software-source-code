@@ -14,6 +14,7 @@ namespace EM_Statistics
 
         public const string PRETTY_INFO_BASE_COUNTRY = "[baseCountry]"; // alias of [country] for downwards-compatibility
         public const string PRETTY_INFO_BASE_TAX_SYS_PRETTY = "[baseTaxSysPretty]";
+        public const string PRETTY_INFO_REFORM_TAX_SYS_PRETTY = "[reformTaxSysPretty]";
 
         public const string PRETTY_INFO_BASE_SYS = "[baseSys]";
         public const string PRETTY_INFO_BASE_SYS_PRETTY = "[baseSysPretty]";
@@ -53,6 +54,7 @@ namespace EM_Statistics
             new PrettyInfo_BaseSysPretty(),
             new PrettyInfo_BaseSysLabel(),
             new PrettyInfo_BaseTaxSysPretty(),
+            new PrettyInfo_RefTaxSysPretty(),
             new PrettyInfo_BaseFileName(),
             new PrettyInfo_BaseDataset(),
             new PrettyInfo_BaseRunLog(),
