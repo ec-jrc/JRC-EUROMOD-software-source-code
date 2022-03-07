@@ -71,6 +71,8 @@
             this.radioCompareWithPrevious = new System.Windows.Forms.RadioButton();
             this.radioCompareWithBaseline = new System.Windows.Forms.RadioButton();
             this.helpProvider = new System.Windows.Forms.HelpProvider();
+            this.btnRstPathEuromod = new System.Windows.Forms.Button();
+            this.btnRstPathMergedDataset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridBaselines)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridReforms)).BeginInit();
             this.mainMenu.SuspendLayout();
@@ -81,7 +83,7 @@
             // 
             this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRun.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.Location = new System.Drawing.Point(603, 493);
+            this.btnRun.Location = new System.Drawing.Point(620, 493);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(91, 42);
             this.btnRun.TabIndex = 36;
@@ -118,7 +120,7 @@
             this.gridBaselines.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridBaselines.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             this.gridBaselines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridBaselines.Size = new System.Drawing.Size(316, 116);
+            this.gridBaselines.Size = new System.Drawing.Size(333, 116);
             this.gridBaselines.TabIndex = 1;
             this.gridBaselines.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridBaselines_CellValueChanged);
             // 
@@ -173,7 +175,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             this.gridReforms.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.gridReforms.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridReforms.Size = new System.Drawing.Size(316, 198);
+            this.gridReforms.Size = new System.Drawing.Size(333, 198);
             this.gridReforms.TabIndex = 2;
             this.gridReforms.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridReforms_CellValueChanged);
             // 
@@ -227,7 +229,7 @@
             this.miHelpMain});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(706, 24);
+            this.mainMenu.Size = new System.Drawing.Size(723, 24);
             this.mainMenu.TabIndex = 52;
             this.mainMenu.Text = "menuStrip1";
             // 
@@ -359,7 +361,7 @@
             this.btnSelectBaselinesAndReforms.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSelectBaselinesAndReforms.Location = new System.Drawing.Point(12, 388);
             this.btnSelectBaselinesAndReforms.Name = "btnSelectBaselinesAndReforms";
-            this.btnSelectBaselinesAndReforms.Size = new System.Drawing.Size(316, 32);
+            this.btnSelectBaselinesAndReforms.Size = new System.Drawing.Size(333, 32);
             this.btnSelectBaselinesAndReforms.TabIndex = 53;
             this.btnSelectBaselinesAndReforms.Text = "Select baselines && reforms";
             this.btnSelectBaselinesAndReforms.UseVisualStyleBackColor = true;
@@ -369,7 +371,7 @@
             // 
             this.btnSelPathEuromod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelPathEuromod.Font = new System.Drawing.Font("Wingdings", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnSelPathEuromod.Location = new System.Drawing.Point(670, 33);
+            this.btnSelPathEuromod.Location = new System.Drawing.Point(659, 33);
             this.btnSelPathEuromod.Name = "btnSelPathEuromod";
             this.btnSelPathEuromod.Size = new System.Drawing.Size(24, 24);
             this.btnSelPathEuromod.TabIndex = 55;
@@ -384,7 +386,7 @@
             this.txtPathEuromodFiles.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPathEuromodFiles.Location = new System.Drawing.Point(155, 36);
             this.txtPathEuromodFiles.Name = "txtPathEuromodFiles";
-            this.txtPathEuromodFiles.Size = new System.Drawing.Size(511, 20);
+            this.txtPathEuromodFiles.Size = new System.Drawing.Size(498, 20);
             this.txtPathEuromodFiles.TabIndex = 54;
             this.txtPathEuromodFiles.Validated += new System.EventHandler(this.txtPathEuromodFiles_Validated);
             // 
@@ -401,7 +403,7 @@
             // 
             this.btnSelPathMergedDataset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelPathMergedDataset.Font = new System.Drawing.Font("Wingdings", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.btnSelPathMergedDataset.Location = new System.Drawing.Point(527, 502);
+            this.btnSelPathMergedDataset.Location = new System.Drawing.Point(560, 502);
             this.btnSelPathMergedDataset.Name = "btnSelPathMergedDataset";
             this.btnSelPathMergedDataset.Size = new System.Drawing.Size(24, 24);
             this.btnSelPathMergedDataset.TabIndex = 59;
@@ -416,7 +418,7 @@
             this.txtPathMergedDataset.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPathMergedDataset.Location = new System.Drawing.Point(12, 504);
             this.txtPathMergedDataset.Name = "txtPathMergedDataset";
-            this.txtPathMergedDataset.Size = new System.Drawing.Size(509, 20);
+            this.txtPathMergedDataset.Size = new System.Drawing.Size(542, 20);
             this.txtPathMergedDataset.TabIndex = 58;
             this.txtPathMergedDataset.Validated += new System.EventHandler(this.txtPathMergedDataset_Validated);
             // 
@@ -440,7 +442,7 @@
             this.groupCompareWith.Controls.Add(this.radioCompareWithBaseline);
             this.groupCompareWith.Location = new System.Drawing.Point(12, 432);
             this.groupCompareWith.Name = "groupCompareWith";
-            this.groupCompareWith.Size = new System.Drawing.Size(316, 40);
+            this.groupCompareWith.Size = new System.Drawing.Size(333, 40);
             this.groupCompareWith.TabIndex = 60;
             this.groupCompareWith.TabStop = false;
             this.groupCompareWith.Text = "Compare with ...";
@@ -469,12 +471,40 @@
             this.radioCompareWithBaseline.UseVisualStyleBackColor = true;
             this.radioCompareWithBaseline.CheckedChanged += new System.EventHandler(this.radioCompareWith_CheckedChanged);
             // 
+            // btnRstPathEuromod
+            // 
+            this.btnRstPathEuromod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRstPathEuromod.Font = new System.Drawing.Font("Wingdings 3", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnRstPathEuromod.Location = new System.Drawing.Point(687, 33);
+            this.btnRstPathEuromod.Name = "btnRstPathEuromod";
+            this.btnRstPathEuromod.Size = new System.Drawing.Size(24, 24);
+            this.btnRstPathEuromod.TabIndex = 61;
+            this.btnRstPathEuromod.Text = "Q";
+            this.toolTips.SetToolTip(this.btnRstPathEuromod, "Reset to current project folder");
+            this.btnRstPathEuromod.UseVisualStyleBackColor = true;
+            this.btnRstPathEuromod.Click += new System.EventHandler(this.btnRstPathEuromod_Click);
+            // 
+            // btnRstPathMergedDataset
+            // 
+            this.btnRstPathMergedDataset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRstPathMergedDataset.Font = new System.Drawing.Font("Wingdings 3", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.btnRstPathMergedDataset.Location = new System.Drawing.Point(590, 502);
+            this.btnRstPathMergedDataset.Name = "btnRstPathMergedDataset";
+            this.btnRstPathMergedDataset.Size = new System.Drawing.Size(24, 24);
+            this.btnRstPathMergedDataset.TabIndex = 62;
+            this.btnRstPathMergedDataset.Text = "Q";
+            this.toolTips.SetToolTip(this.btnRstPathMergedDataset, "Reset to current project output folder");
+            this.btnRstPathMergedDataset.UseVisualStyleBackColor = true;
+            this.btnRstPathMergedDataset.Click += new System.EventHandler(this.btnRstPathMergedDataset_Click);
+            // 
             // InDepthAnalysisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(706, 547);
+            this.ClientSize = new System.Drawing.Size(723, 547);
+            this.Controls.Add(this.btnRstPathMergedDataset);
+            this.Controls.Add(this.btnRstPathEuromod);
             this.Controls.Add(this.groupCompareWith);
             this.Controls.Add(this.btnSelPathMergedDataset);
             this.Controls.Add(this.txtPathMergedDataset);
@@ -549,5 +579,7 @@
         private System.Windows.Forms.ToolStripMenuItem miResetSettings;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.HelpProvider helpProvider;
+        private System.Windows.Forms.Button btnRstPathEuromod;
+        private System.Windows.Forms.Button btnRstPathMergedDataset;
     }
 }

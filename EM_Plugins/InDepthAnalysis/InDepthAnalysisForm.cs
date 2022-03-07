@@ -163,7 +163,7 @@ namespace InDepthAnalysis
                     if (!mainCategory.Checked) templateApi.ModifyPage(new Template.Page() { name = mainCategory.Name, active = false });
                     else anythingChecked = true;
                 }
-                if (!anythingChecked && !currentSettings.saveMergedDataset) { MessageBox.Show("Please select at least one table."); return; }
+                if (!anythingChecked && !currentSettings.saveMergedDataset) { MessageBox.Show("Please select at least one table or tick the option \"Save merged dataset at…\""); return; }
 
                 if (anythingChecked)
                 {
@@ -414,12 +414,48 @@ namespace InDepthAnalysis
                 if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel) return;
 
                 currentSettings.pathEuromodFiles = folderBrowserDialog.SelectedPath;
+
+                //If no baselineReform packages have been selected yet, the path is also updated.
+                if (currentSettings.baselineReformPackages == null || !currentSettings.baselineReformPackages.Any())
+                {
+                    EMPath emPath = new EMPath(currentSettings.pathEuromodFiles);
+                    string newOutputFolder = emPath.GetFolderOutput();
+                    currentSettings.pathBaselineFiles = newOutputFolder;
+                    currentSettings.pathReformFiles = newOutputFolder;
+                }
+
                 if (!EMPath.IsSamePath(txtPathEuromodFiles.Text, currentSettings.pathEuromodFiles))
                 {
                     currentSettings.UpdateBaselineReformInfo(out List<string> errors);
                     if (errors.Any()) MessageBox.Show(string.Join(Environment.NewLine, errors));
                 }
                 txtPathEuromodFiles.Text = currentSettings.pathEuromodFiles;
+            }
+            catch (Exception exception) { ReportException(exception); }
+        }
+
+        private void btnRstPathEuromod_Click(object sender, EventArgs e)
+        {
+            try { 
+                currentSettings.ResetPathEuromodFilesFolder();
+
+                if (!EMPath.IsSamePath(txtPathEuromodFiles.Text, currentSettings.pathEuromodFiles))
+                {
+                    //If no baselineReform packages have been selected yet, the path is also updated.
+                    if (currentSettings.baselineReformPackages == null || !currentSettings.baselineReformPackages.Any())
+                    {
+                        EMPath emPath = new EMPath(currentSettings.pathEuromodFiles);
+                        string newOutputFolder = emPath.GetFolderOutput();
+                        currentSettings.pathBaselineFiles = newOutputFolder;
+                        currentSettings.pathReformFiles = newOutputFolder;
+                    }
+
+                    currentSettings.UpdateBaselineReformInfo(out List<string> errors);
+                    if (errors.Any()) MessageBox.Show(string.Join(Environment.NewLine, errors));
+                }
+
+                txtPathEuromodFiles.Text = currentSettings.pathEuromodFiles;
+
             }
             catch (Exception exception) { ReportException(exception); }
         }
@@ -431,6 +467,16 @@ namespace InDepthAnalysis
                 FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { SelectedPath = txtPathMergedDataset.Text };
                 if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel) return;
                 txtPathMergedDataset.Text = currentSettings.pathMergedDataset = folderBrowserDialog.SelectedPath;
+            }
+            catch (Exception exception) { ReportException(exception); }
+        }
+
+        private void btnRstPathMergedDataset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                currentSettings.ResetPathMergedDataset();
+                txtPathMergedDataset.Text = currentSettings.pathMergedDataset;
             }
             catch (Exception exception) { ReportException(exception); }
         }
@@ -494,5 +540,6 @@ namespace InDepthAnalysis
                 TextRenderer.DrawText(e.Graphics, e.Node.Text, font, e.Bounds, treeCategories.ForeColor, TextFormatFlags.GlyphOverhangPadding);
             }
         }
+
     }
 }

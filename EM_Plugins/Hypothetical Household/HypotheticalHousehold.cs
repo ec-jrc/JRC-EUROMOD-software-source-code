@@ -100,6 +100,24 @@ namespace HypotheticalHousehold
             return true;
         }
 
+        internal bool SelectPathOpenProject(out string projectPath)
+        {
+            projectPath = null;
+            try
+            {
+                OpenProjectForm openProjectForm = new OpenProjectForm();
+                if (openProjectForm.ShowDialog() == DialogResult.Cancel) return false;
+                projectPath = openProjectForm.GetProjectPath();
+               
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Opening project failed." + Environment.NewLine + exception.Message);
+                return false;
+            }
+            return true;
+        }
+
         internal bool CreateNewProject(out string projectPath)
         {
             projectPath = null;
@@ -966,6 +984,7 @@ namespace HypotheticalHousehold
             error.TrimEnd();
             return error == string.Empty;
         }
+
 
         internal void openProject(string path)
         {

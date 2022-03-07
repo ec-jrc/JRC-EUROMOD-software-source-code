@@ -253,19 +253,19 @@ namespace HypotheticalHousehold.SettingsManagement
             DataRowView r = (view.GetFocusedRow() as DataRowView);
             DataRow row = r==null?null:r.Row;
 
-            if (row == null || row.RowState == DataRowState.Deleted || Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType == null) return;
+            if (row == null || row.RowState == DataRowState.Deleted || Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType == null) return;
 
             // make sure the default value for Connection variables is always 0! 
-            if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType == Program.EDITOR_TYPE_CONNECTION)
+            if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType == Program.EDITOR_TYPE_CONNECTION)
                 row.SetField<string>("DefaultValue", "0");
 
             if (view.FocusedColumn.FieldName == "ValueRange" || view.FocusedColumn.FieldName == "TextRange")
             {
-                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType != Program.EDITOR_TYPE_COMBO) e.Cancel = true;
+                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType != Program.EDITOR_TYPE_COMBO) e.Cancel = true;
             }
             else if (view.FocusedColumn.FieldName == "DefaultValue")
             {
-                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType == Program.EDITOR_TYPE_CONNECTION) e.Cancel = true;
+                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType == Program.EDITOR_TYPE_CONNECTION) e.Cancel = true;
             }
         }
 
@@ -274,18 +274,18 @@ namespace HypotheticalHousehold.SettingsManagement
             if (e.RowHandle < 0) return;
             GridView view = sender as GridView;
             DataRow row = view.GetDataRow(e.RowHandle);
-            if (row == null || row.RowState == DataRowState.Deleted || Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType == null) return;
+            if (row == null || row.RowState == DataRowState.Deleted || Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType == null) return;
             
             if (e.Column.FieldName == "ValueRange" || e.Column.FieldName == "TextRange")
             {
-                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType != Program.EDITOR_TYPE_COMBO)
+                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType != Program.EDITOR_TYPE_COMBO)
                     e.Appearance.BackColor = Color.LightGray;
                 else
                     e.Appearance.BackColor = Color.White;
             }
             else if (e.Column.FieldName == "DefaultValue")
             {
-                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType == Program.EDITOR_TYPE_CONNECTION)
+                if (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType == Program.EDITOR_TYPE_CONNECTION)
                     e.Appearance.BackColor = Color.LightGray;
                 else
                     e.Appearance.BackColor = Color.White;
@@ -310,7 +310,7 @@ namespace HypotheticalHousehold.SettingsManagement
 
             if (e.Column.FieldName == "DefaultValue")
             {
-                switch (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => x.VariableName == row.Field<string>("VariableName")).VariableType)
+                switch (Plugin.settingsData.Cur_AdvancedCountrySpecificVariables.First(x => (x.RowState != DataRowState.Deleted && x.VariableName == row.Field<string>("VariableName"))).VariableType)
                 {
                     case Program.EDITOR_TYPE_NUMERIC:
                         e.RepositoryItem = new RepositoryItemPopupContainerEditNumericRange(Plugin);
@@ -324,6 +324,7 @@ namespace HypotheticalHousehold.SettingsManagement
                         break;
                 }
             }
+
         }
 
         private void gridView_PopupMenuShowing(object sender, PopupMenuShowingEventArgs e)

@@ -367,144 +367,182 @@ namespace Income_List_Components
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            bool error = false;
+            string errorMsg = "";
             Cursor = Cursors.WaitCursor;
             // Create the dictionaries that will hold all the required data for each Excel document
             Dictionary<string, XL_ILS_LIST> country_ils = new Dictionary<string,XL_ILS_LIST>();
             Dictionary<string, XL_ILS_LIST> year_ils = new Dictionary<string,XL_ILS_LIST>();
-            for (int r = 0; r < Plugin.chkData.Rows.Count; r++)
-            {
-                foreach (DataColumn c in Plugin.chkData.Columns)
+
+            try {
+                for (int r = 0; r < Plugin.chkData.Rows.Count; r++)
                 {
-                    if (Plugin.chkData.Rows[r].Field<bool>(c))
+                    foreach (DataColumn c in Plugin.chkData.Columns)
                     {
-                        string cn = Plugin.countries[r].name;
-                        string y = c.ColumnName;
-                        if (!country_ils.ContainsKey(cn)) country_ils.Add(cn, new XL_ILS_LIST());
-                        if (!year_ils.ContainsKey(y)) year_ils.Add(y, new XL_ILS_LIST());
-
-                        country_ils[cn].all_ils.Add(y, new Dictionary<string,EM_IncomeList>());
-                        year_ils[y].all_ils.Add(cn, new Dictionary<string,EM_IncomeList>());
-
-                        foreach (EM_IncomeList il in Plugin.countries[r].systems[c.ColumnName].incomelists.Values)
+                        if (Plugin.chkData.Rows[r].Field<bool>(c))
                         {
-                            // only take all ils from the ilsdef policy
-                            if (il.policy.ToLower() == "ilsdef_"+Plugin.countries[r].shortname.ToLower())
+                            string cn = Plugin.countries[r].name;
+                            string y = c.ColumnName;
+                            if (!country_ils.ContainsKey(cn)) country_ils.Add(cn, new XL_ILS_LIST());
+                            if (!year_ils.ContainsKey(y)) year_ils.Add(y, new XL_ILS_LIST());
+
+                            country_ils[cn].all_ils.Add(y, new Dictionary<string,EM_IncomeList>());
+                            year_ils[y].all_ils.Add(cn, new Dictionary<string,EM_IncomeList>());
+
+                            foreach (EM_IncomeList il in Plugin.countries[r].systems[c.ColumnName].incomelists.Values)
                             {
-                                if (!country_ils[cn].all_ils_components.ContainsKey(il.name)) country_ils[cn].all_ils_components.Add(il.name, new List<string>());
-                                if (!year_ils[y].all_ils_components.ContainsKey(il.name)) year_ils[y].all_ils_components.Add(il.name, new List<string>());
-                                if (!country_ils[cn].all_ils_info.ContainsKey(il.name)) country_ils[cn].all_ils_info.Add(il.name, new Dictionary<string, string>());
-                                if (!year_ils[y].all_ils_info.ContainsKey(il.name)) year_ils[y].all_ils_info.Add(il.name, new Dictionary<string, string>());
-                                
-                                country_ils[cn].all_ils[y].Add(il.name, il);
-                                year_ils[y].all_ils[cn].Add(il.name, il);
-                                foreach (EM_ILComponent comp in il.components)
+                                // only take all ils from the ilsdef policy
+                                if (il.policy.ToLower() == "ilsdef_"+Plugin.countries[r].shortname.ToLower())
                                 {
-                                    if (!country_ils[cn].all_ils_components[il.name].Contains(comp.name)) country_ils[cn].all_ils_components[il.name].Add(comp.name);
-                                    if (!year_ils[y].all_ils_components[il.name].Contains(comp.name)) year_ils[y].all_ils_components[il.name].Add(comp.name);
-                                    if (!country_ils[cn].all_ils_info[il.name].ContainsKey(comp.name)) country_ils[cn].all_ils_info[il.name].Add(comp.name, comp.description);
-                                    if (!year_ils[y].all_ils_info[il.name].ContainsKey(comp.name)) year_ils[y].all_ils_info[il.name].Add(comp.name, comp.addit ? "+" : "-");
+                                    if (!country_ils[cn].all_ils_components.ContainsKey(il.name)) country_ils[cn].all_ils_components.Add(il.name, new List<string>());
+                                    if (!year_ils[y].all_ils_components.ContainsKey(il.name)) year_ils[y].all_ils_components.Add(il.name, new List<string>());
+                                    if (!country_ils[cn].all_ils_info.ContainsKey(il.name)) country_ils[cn].all_ils_info.Add(il.name, new Dictionary<string, string>());
+                                    if (!year_ils[y].all_ils_info.ContainsKey(il.name)) year_ils[y].all_ils_info.Add(il.name, new Dictionary<string, string>());
+                                
+                                    country_ils[cn].all_ils[y].Add(il.name, il);
+                                    year_ils[y].all_ils[cn].Add(il.name, il);
+                                    foreach (EM_ILComponent comp in il.components)
+                                    {
+                                        if (!country_ils[cn].all_ils_components[il.name].Contains(comp.name)) country_ils[cn].all_ils_components[il.name].Add(comp.name);
+                                        if (!year_ils[y].all_ils_components[il.name].Contains(comp.name)) year_ils[y].all_ils_components[il.name].Add(comp.name);
+                                        if (!country_ils[cn].all_ils_info[il.name].ContainsKey(comp.name)) country_ils[cn].all_ils_info[il.name].Add(comp.name, comp.description);
+                                        if (!year_ils[y].all_ils_info[il.name].ContainsKey(comp.name)) year_ils[y].all_ils_info[il.name].Add(comp.name, comp.addit ? "+" : "-");
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
-            // Create the Excel file that has one sheet per country
-            using (ExcelPackage excelCountry = new ExcelPackage())
+            catch (Exception ex)
             {
-                foreach (string country in country_ils.Keys)
-                {
-                    ExcelWorksheet workSheet = excelCountry.Workbook.Worksheets.Add(country);
-                    int rPos = 1;
-
-                    foreach (string il in country_ils[country].all_ils_components.Keys)
-                    {
-                        // IL title
-                        SetStyle(workSheet.Cells[rPos, 1], XL_Style.Bold);
-                        workSheet.Cells[rPos++, 1].Value = il;
-                        // IL table titles
-                        int startTableRow = rPos;
-                        int cPos = 1;
-                        SetStyle(workSheet.Cells[rPos, cPos], XL_Style.Bold);
-                        workSheet.Cells[rPos, cPos++].Value = "Variable";
-                        foreach (string y in country_ils[country].all_ils.Keys)
-                        {
-                            SetStyle(workSheet.Cells[rPos, cPos], XL_Style.Bold);
-                            workSheet.Cells[rPos, cPos++].Value = y;
-                        }
-                        SetStyle(workSheet.Cells[rPos, cPos], XL_Style.Bold);
-                        workSheet.Cells[rPos++, cPos++].Value = "Description";
-                        // IL table
-                        foreach (string il_comp in country_ils[country].all_ils_components[il])
-                        {
-                            cPos = 1;
-                            workSheet.Cells[rPos, cPos++].Value = il_comp;
-
-                            // for each year
-                            foreach (string y in country_ils[country].all_ils.Keys)
-                            {
-                                EM_ILComponent comp = country_ils[country].all_ils[y].ContainsKey(il) ? country_ils[country].all_ils[y][il].components.FirstOrDefault(x => x.name == il_comp) : null;
-                                workSheet.Cells[rPos, cPos++].Value = comp == null ? "n/a" : comp.addit ? "+" : "-";
-                            }
-                            SetStyle(workSheet.Cells[rPos, 1, rPos, cPos], XL_Style.Plain);
-                            workSheet.Cells[rPos++, cPos].Value = country_ils[country].all_ils_info[il][il_comp];
-                        }
-                        // if no rows, no need to format
-                        if (rPos >= startTableRow)
-                        {
-                            SetStyle(workSheet.Cells[startTableRow, 1, rPos - 1, cPos], XL_Style.Border);
-                        }
-                    }
-                }
-                string filename = Path.Combine(Plugin.dataPath, "Output", "PerCountry.xlsx");
-                excelCountry.SaveAs(new FileInfo(filename));
+                error = true;
+                errorMsg = "There was an error when collecting the income list components. Error: " + ex.Message + ". ";
+                Cursor = Cursors.Default;
+                MessageBox.Show(errorMsg);
+                return;
             }
 
-            // Create the Excel file that has one sheet per year
-            using (ExcelPackage excelYear = new ExcelPackage())
-            {
-                foreach (string year in year_ils.Keys)
+            try { 
+            // Create the Excel file that has one sheet per country
+                using (ExcelPackage excelCountry = new ExcelPackage())
                 {
-                    ExcelWorksheet workSheet = excelYear.Workbook.Worksheets.Add(year);
-                    int rPos = 0;
-
-                    foreach (string il in year_ils[year].all_ils_components.Keys)
+                    foreach (string country in country_ils.Keys)
                     {
-                        int cPos = 1;
-                        // IL table titles
-                        workSheet.Cells[++rPos, cPos].Value = il;
-                        workSheet.Cells[rPos, ++cPos].Value = "Variable";
-                        foreach (string c in year_ils[year].all_ils.Keys)
+                        ExcelWorksheet workSheet = excelCountry.Workbook.Worksheets.Add(country);
+                        int rPos = 1;
+
+                        foreach (string il in country_ils[country].all_ils_components.Keys)
                         {
-                            workSheet.Cells[rPos, ++cPos].Value = c;
-                        }
-                        SetStyle(workSheet.Cells[rPos, 1, rPos, cPos], XL_Style.Bold);
-                        SetStyle(workSheet.Cells[rPos, 1, rPos, cPos], XL_Style.Border);
-                        // IL table
-                        int startTableRow = rPos + 1;
-                        foreach (string il_comp in year_ils[year].all_ils_components[il])
-                        {
-                            cPos = 1;
-                            workSheet.Cells[++rPos, cPos].Value = il_comp;
-                            workSheet.Cells[rPos, ++cPos].Value = year_ils[year].all_ils_info[il][il_comp];
-                            // for each year
-                            foreach (string y in year_ils[year].all_ils.Keys)
+                            // IL title
+                            SetStyle(workSheet.Cells[rPos, 1], XL_Style.Bold);
+                            workSheet.Cells[rPos++, 1].Value = il;
+                            // IL table titles
+                            int startTableRow = rPos;
+                            int cPos = 1;
+                            SetStyle(workSheet.Cells[rPos, cPos], XL_Style.Bold);
+                            workSheet.Cells[rPos, cPos++].Value = "Variable";
+                            foreach (string y in country_ils[country].all_ils.Keys)
                             {
-                                EM_ILComponent comp = year_ils[year].all_ils[y].ContainsKey(il) ? year_ils[year].all_ils[y][il].components.FirstOrDefault(x => x.name == il_comp) : null;
-                                workSheet.Cells[rPos, ++cPos].Value = comp == null ? "n/a" : comp.description;
+                                SetStyle(workSheet.Cells[rPos, cPos], XL_Style.Bold);
+                                workSheet.Cells[rPos, cPos++].Value = y;
+                            }
+                            SetStyle(workSheet.Cells[rPos, cPos], XL_Style.Bold);
+                            workSheet.Cells[rPos++, cPos++].Value = "Description";
+                            // IL table
+                            foreach (string il_comp in country_ils[country].all_ils_components[il])
+                            {
+                                cPos = 1;
+                                workSheet.Cells[rPos, cPos++].Value = il_comp;
+
+                                // for each year
+                                foreach (string y in country_ils[country].all_ils.Keys)
+                                {
+                                    EM_ILComponent comp = country_ils[country].all_ils[y].ContainsKey(il) ? country_ils[country].all_ils[y][il].components.FirstOrDefault(x => x.name == il_comp) : null;
+                                    workSheet.Cells[rPos, cPos++].Value = comp == null ? "n/a" : comp.addit ? "+" : "-";
+                                }
+                                SetStyle(workSheet.Cells[rPos, 1, rPos, cPos], XL_Style.Plain);
+                                workSheet.Cells[rPos++, cPos].Value = country_ils[country].all_ils_info[il][il_comp];
+                            }
+                            // if no rows, no need to format
+                            if (rPos >= startTableRow)
+                            {
+                                SetStyle(workSheet.Cells[startTableRow, 1, rPos - 1, cPos], XL_Style.Border);
                             }
                         }
-                        // if no rows, no need to format
-                        if (rPos >= startTableRow)
+                    }
+                    string filename = Path.Combine(Plugin.dataPath, "Output", "PerCountry.xlsx");
+                    excelCountry.SaveAs(new FileInfo(filename));
+                }
+            }catch (Exception ex)
+            {
+                error = true;
+                errorMsg = errorMsg + "There was an error when creating the excel file per country. Error: " + ex.Message + ". ";
+            }
+
+
+            try { 
+                // Create the Excel file that has one sheet per year
+                using (ExcelPackage excelYear = new ExcelPackage())
+                {
+                    foreach (string year in year_ils.Keys)
+                    {
+                        ExcelWorksheet workSheet = excelYear.Workbook.Worksheets.Add(year);
+                        int rPos = 0;
+
+                        foreach (string il in year_ils[year].all_ils_components.Keys)
                         {
-                            SetStyle(workSheet.Cells[startTableRow, 1, rPos, cPos], XL_Style.Plain);
-                            SetStyle(workSheet.Cells[startTableRow, 1, rPos, cPos], XL_Style.Border);
+                            int cPos = 1;
+                            // IL table titles
+                            workSheet.Cells[++rPos, cPos].Value = il;
+                            workSheet.Cells[rPos, ++cPos].Value = "Variable";
+                            foreach (string c in year_ils[year].all_ils.Keys)
+                            {
+                                workSheet.Cells[rPos, ++cPos].Value = c;
+                            }
+                            SetStyle(workSheet.Cells[rPos, 1, rPos, cPos], XL_Style.Bold);
+                            SetStyle(workSheet.Cells[rPos, 1, rPos, cPos], XL_Style.Border);
+                            // IL table
+                            int startTableRow = rPos + 1;
+                            foreach (string il_comp in year_ils[year].all_ils_components[il])
+                            {
+                                cPos = 1;
+                                workSheet.Cells[++rPos, cPos].Value = il_comp;
+                                workSheet.Cells[rPos, ++cPos].Value = year_ils[year].all_ils_info[il][il_comp];
+                                // for each year
+                                foreach (string y in year_ils[year].all_ils.Keys)
+                                {
+                                    EM_ILComponent comp = year_ils[year].all_ils[y].ContainsKey(il) ? year_ils[year].all_ils[y][il].components.FirstOrDefault(x => x.name == il_comp) : null;
+                                    workSheet.Cells[rPos, ++cPos].Value = comp == null ? "n/a" : comp.description;
+                                }
+                            }
+                            // if no rows, no need to format
+                            if (rPos >= startTableRow)
+                            {
+                                SetStyle(workSheet.Cells[startTableRow, 1, rPos, cPos], XL_Style.Plain);
+                                SetStyle(workSheet.Cells[startTableRow, 1, rPos, cPos], XL_Style.Border);
+                            }
                         }
                     }
+                    string filename = Path.Combine(Plugin.dataPath, "Output", "PerYear.xlsx");
+                    excelYear.SaveAs(new FileInfo(filename));
                 }
-                string filename = Path.Combine(Plugin.dataPath, "Output", "PerYear.xlsx");
-                excelYear.SaveAs(new FileInfo(filename));
+            }
+
+            catch (Exception ex)
+            {
+                error = true;
+                errorMsg = errorMsg +  "There was an error when creating the excel file per year. Error: " + ex.Message + ". ";
+            }
+
+            if (error)
+            {
+                MessageBox.Show(errorMsg);
+            }
+            else
+            {
+                string path = Path.Combine(Plugin.dataPath, "Output");
+                MessageBox.Show("The files have been successfully created in the path: " + path);
             }
 
             Cursor = Cursors.Default;

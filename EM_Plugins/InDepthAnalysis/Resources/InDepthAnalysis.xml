@@ -1256,7 +1256,7 @@
 		    <li>Atkinson inequality index </li>
 		    <li>Mean log deviation</li>
 		  </ol>
-		  <p>Note that negative incomes are recoded to zeros for the calculations of (a), (b) and (c), to keep consistency with the Statistics Presenter. The variables used to compute (a), (b) and (c) are shown in the table. The formulas used to compute those variables, along with the parameters chosen for (d), (e) and (f), can be checked in the "Parameter settings" tab.</p>]]></Description>
+		  <p>Note that negative incomes are recoded to zeros for the calculations of (a), (b) and (c), to keep consistency with the Statistics Presenter. The variables used to compute (a), (b) and (c) are shown in the table. The formulas used to compute those variables, along with the parameters chosen for (d), (e) and (f), can be checked in the "Parameter settings" tab.</p><p>Note also that all the indicators are calculated within each scenario, with no connection to the other scenarios. This means, for example, that the income quantiles of (d) are computed independently for each scenario and do not necessarily include the same observations as the baseline or other reform scenarios.</p>]]></Description>
           <ColumnGrouping>ColumnFirst</ColumnGrouping>
           <StringFormat>0.0000</StringFormat>
           <Actions>

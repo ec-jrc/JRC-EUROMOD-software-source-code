@@ -49,6 +49,16 @@ namespace InDepthAnalysis
             return filePackages.Any();
         }
 
+        internal void ResetPathEuromodFilesFolder()
+        {
+            pathEuromodFiles = UISessionInfo.GetEuromodFilesFolder(); ;
+        }
+
+        internal void ResetPathMergedDataset()
+        {
+            pathMergedDataset = UISessionInfo.GetOutputFolder();
+        }
+
         internal void UpdateBaselineReformInfo(out List<string> errors)
         {
             errors = new List<string>();

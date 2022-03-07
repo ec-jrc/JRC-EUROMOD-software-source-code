@@ -30,12 +30,11 @@ namespace StatisticsPresenter
                         string dummyHtml = Path.Combine(new EMPath(UISessionInfo.GetEuromodFilesFolder()).GetFolderTemp(), "dummy.html");
                         if (!File.Exists(dummyHtml)) File.WriteAllText(dummyHtml, Resources.dummy_html);
                         webBrowser.Url = new Uri(dummyHtml);
-                        //webBrowser.Url = new Uri(@"C:\Users\Christine\Downloads\LIGHTS\A_PUBLISH\MultiUser\View\wwwroot\login.html");
                     }
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("ojeoje: " + e.Message);
+                    MessageBox.Show("Error: " + e.Message);
                 }
 
                 EM_StatisticsBackEndResponder backEndResponder = new EM_StatisticsBackEndResponder(backEnd, template, filePackages, userInput);

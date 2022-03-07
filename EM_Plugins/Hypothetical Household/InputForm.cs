@@ -801,15 +801,11 @@ namespace HypotheticalHousehold
         {
             if (!RequestSavingHouseholdData()) return;
 
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog()
-            {
-                Description = "Please choose the HHOT project folder",
-                SelectedPath = Plugin.currentProjectPath
-            };
-            if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            string projectPath;
+            if (Plugin.SelectPathOpenProject(out projectPath))
             {
                 Cursor = Cursors.WaitCursor;
-                Plugin.openProject(folderBrowserDialog.SelectedPath);
+                Plugin.openProject(projectPath);
                 Cursor = Cursors.Default;
             }
         }
@@ -1403,6 +1399,26 @@ namespace HypotheticalHousehold
             }
         }
 
+        private void resetAllHouseholdsAdvancedVariables()
+        {
+            DialogResult res = MessageBox.Show(this, "Do you wish to reset the Advanced Variables for all members of all selected Households?", "Reset Advanced Values", MessageBoxButtons.YesNo);
+            if (res == System.Windows.Forms.DialogResult.Yes)
+            {
+                List<TreeListNode> hhNodes = treeHouseholds.Nodes.ToList();
+                foreach (TreeListNode hn in hhNodes)
+                {
+                    if (hn.Checked)
+                    {
+                        if(hn.Level == 0)
+                        {
+                            Plugin.resetHouseholdAdvancedVariables(Plugin.householdData.Tables[hn.GetValue("HouseholdName").ToString()]);
+                        }
+                    }
+                }
+                gridHousehold.Refresh();
+            }
+        }
+
         private void resetPersonAdvancedVariables()
         {
             DialogResult res = MessageBox.Show(this, "Do you wish to reset the Advanced Variables for this Person?", "Reset Advanced Values", MessageBoxButtons.YesNo);
@@ -1572,6 +1588,8 @@ namespace HypotheticalHousehold
                     curTable.Rows.Find(nodeId).SetField<bool>("Checked", chkSelectAll.Checked);
                 }
             }
+
+            
         }
 
         private void saveCurrentSettingsAsDefaultToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1603,6 +1621,16 @@ namespace HypotheticalHousehold
             StatisticsWizardForm wizard = new StatisticsWizardForm(Plugin, this);
             wizard.ShowDialog();
             wizard.StartPresenter(); // if the Presenter is started from the wizard it opens behind the HHot-window, thus start from here
+        }
+
+        private void resetAllAdvButton_Click(object sender, EventArgs e)
+        {
+            resetAllHouseholdsAdvancedVariables();
+        }
+
+        private void projectStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -51,6 +51,7 @@
             this.toolTipControllerGrid = new DevExpress.Utils.ToolTipController(this.components);
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelLeftTop = new System.Windows.Forms.Panel();
+            this.resetAllAdvButton = new System.Windows.Forms.Button();
             this.chkSelectAll = new System.Windows.Forms.CheckBox();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.projectStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -133,15 +134,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitMainInterface)).BeginInit();
             this.splitMainInterface.SuspendLayout();
             this.SuspendLayout();
+            this.barManager = new DevExpress.XtraBars.BarManager(); //Added to solve the issue of the "shaking" of the cursor when right clicking.
+            this.barManager.Form = this;
             // 
             // panelBottom
             // 
             this.panelBottom.Controls.Add(this.generateButton);
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 543);
-            this.panelBottom.Margin = new System.Windows.Forms.Padding(2);
+            this.panelBottom.Location = new System.Drawing.Point(0, 668);
+            this.panelBottom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(974, 72);
+            this.panelBottom.Size = new System.Drawing.Size(1299, 89);
             this.panelBottom.TabIndex = 4;
             // 
             // generateButton
@@ -149,10 +152,10 @@
             this.generateButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.generateButton.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.generateButton.Appearance.Options.UseFont = true;
-            this.generateButton.Location = new System.Drawing.Point(422, 9);
-            this.generateButton.Margin = new System.Windows.Forms.Padding(2, 12, 120, 2);
+            this.generateButton.Location = new System.Drawing.Point(563, 11);
+            this.generateButton.Margin = new System.Windows.Forms.Padding(3, 15, 160, 2);
             this.generateButton.Name = "generateButton";
-            this.generateButton.Size = new System.Drawing.Size(159, 53);
+            this.generateButton.Size = new System.Drawing.Size(212, 65);
             this.generateButton.TabIndex = 6;
             this.generateButton.Text = "Generate";
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
@@ -168,10 +171,10 @@
             // 
             this.btnHouseholdAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHouseholdAdd.BackgroundImage")));
             this.btnHouseholdAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnHouseholdAdd.Location = new System.Drawing.Point(11, 11);
-            this.btnHouseholdAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHouseholdAdd.Location = new System.Drawing.Point(15, 14);
+            this.btnHouseholdAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHouseholdAdd.Name = "btnHouseholdAdd";
-            this.btnHouseholdAdd.Size = new System.Drawing.Size(37, 41);
+            this.btnHouseholdAdd.Size = new System.Drawing.Size(49, 50);
             this.btnHouseholdAdd.TabIndex = 0;
             this.toolTipButtons.SetToolTip(this.btnHouseholdAdd, "Add Household");
             this.btnHouseholdAdd.UseVisualStyleBackColor = true;
@@ -181,10 +184,10 @@
             // 
             this.btnHouseholdRemove.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHouseholdRemove.BackgroundImage")));
             this.btnHouseholdRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnHouseholdRemove.Location = new System.Drawing.Point(49, 11);
-            this.btnHouseholdRemove.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHouseholdRemove.Location = new System.Drawing.Point(65, 14);
+            this.btnHouseholdRemove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnHouseholdRemove.Name = "btnHouseholdRemove";
-            this.btnHouseholdRemove.Size = new System.Drawing.Size(37, 41);
+            this.btnHouseholdRemove.Size = new System.Drawing.Size(49, 50);
             this.btnHouseholdRemove.TabIndex = 1;
             this.toolTipButtons.SetToolTip(this.btnHouseholdRemove, "Delete Household");
             this.btnHouseholdRemove.UseVisualStyleBackColor = true;
@@ -194,10 +197,10 @@
             // 
             this.btnPersonAdd.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPersonAdd.BackgroundImage")));
             this.btnPersonAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPersonAdd.Location = new System.Drawing.Point(88, 11);
-            this.btnPersonAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPersonAdd.Location = new System.Drawing.Point(117, 14);
+            this.btnPersonAdd.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPersonAdd.Name = "btnPersonAdd";
-            this.btnPersonAdd.Size = new System.Drawing.Size(37, 41);
+            this.btnPersonAdd.Size = new System.Drawing.Size(49, 50);
             this.btnPersonAdd.TabIndex = 2;
             this.toolTipButtons.SetToolTip(this.btnPersonAdd, "Add Person to Household");
             this.btnPersonAdd.UseVisualStyleBackColor = true;
@@ -207,10 +210,10 @@
             // 
             this.btnPersonRemove.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPersonRemove.BackgroundImage")));
             this.btnPersonRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnPersonRemove.Location = new System.Drawing.Point(126, 11);
-            this.btnPersonRemove.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPersonRemove.Location = new System.Drawing.Point(168, 14);
+            this.btnPersonRemove.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPersonRemove.Name = "btnPersonRemove";
-            this.btnPersonRemove.Size = new System.Drawing.Size(37, 41);
+            this.btnPersonRemove.Size = new System.Drawing.Size(49, 50);
             this.btnPersonRemove.TabIndex = 3;
             this.toolTipButtons.SetToolTip(this.btnPersonRemove, "Delete Person from Household");
             this.btnPersonRemove.UseVisualStyleBackColor = true;
@@ -223,10 +226,10 @@
             this.panelLeft.Controls.Add(this.panelLeftTop);
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
-            this.panelLeft.Margin = new System.Windows.Forms.Padding(2);
-            this.panelLeft.MinimumSize = new System.Drawing.Size(158, 2);
+            this.panelLeft.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panelLeft.MinimumSize = new System.Drawing.Size(210, 2);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(244, 512);
+            this.panelLeft.Size = new System.Drawing.Size(240, 630);
             this.panelLeft.TabIndex = 0;
             // 
             // panelLeftBottom
@@ -234,10 +237,10 @@
             this.panelLeftBottom.Controls.Add(this.treeHouseholds);
             this.panelLeftBottom.Controls.Add(this.labelControl2);
             this.panelLeftBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelLeftBottom.Location = new System.Drawing.Point(0, 78);
-            this.panelLeftBottom.Margin = new System.Windows.Forms.Padding(2);
+            this.panelLeftBottom.Location = new System.Drawing.Point(0, 162);
+            this.panelLeftBottom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelLeftBottom.Name = "panelLeftBottom";
-            this.panelLeftBottom.Size = new System.Drawing.Size(242, 432);
+            this.panelLeftBottom.Size = new System.Drawing.Size(238, 466);
             this.panelLeftBottom.TabIndex = 2;
             // 
             // treeHouseholds
@@ -248,7 +251,7 @@
             this.treeHouseholds.Appearance.FocusedRow.Options.UseFont = true;
             this.treeHouseholds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeHouseholds.Location = new System.Drawing.Point(0, 0);
-            this.treeHouseholds.Margin = new System.Windows.Forms.Padding(2);
+            this.treeHouseholds.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.treeHouseholds.Name = "treeHouseholds";
             this.treeHouseholds.OptionsBehavior.AllowCopyToClipboard = false;
             this.treeHouseholds.OptionsBehavior.DragNodes = true;
@@ -261,7 +264,7 @@
             this.treeHouseholds.OptionsView.ShowHorzLines = false;
             this.treeHouseholds.OptionsView.ShowIndicator = false;
             this.treeHouseholds.OptionsView.ShowVertLines = false;
-            this.treeHouseholds.Size = new System.Drawing.Size(242, 396);
+            this.treeHouseholds.Size = new System.Drawing.Size(238, 406);
             this.treeHouseholds.TabIndex = 2;
             this.treeHouseholds.ToolTipController = this.toolTipControllerGrid;
             this.treeHouseholds.BeforeExpand += new DevExpress.XtraTreeList.BeforeExpandEventHandler(this.treeHouseholds_BeforeExpand);
@@ -287,11 +290,11 @@
             this.labelControl2.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
             this.labelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             this.labelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.labelControl2.Location = new System.Drawing.Point(0, 396);
-            this.labelControl2.Margin = new System.Windows.Forms.Padding(2);
+            this.labelControl2.Location = new System.Drawing.Point(0, 406);
+            this.labelControl2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Padding = new System.Windows.Forms.Padding(4);
-            this.labelControl2.Size = new System.Drawing.Size(242, 36);
+            this.labelControl2.Padding = new System.Windows.Forms.Padding(5);
+            this.labelControl2.Size = new System.Drawing.Size(238, 60);
             this.labelControl2.TabIndex = 1;
             this.labelControl2.Text = "Please check the families and people that you wish to generate the Household Data" +
     " for.";
@@ -299,6 +302,7 @@
             // panelLeftTop
             // 
             this.panelLeftTop.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelLeftTop.Controls.Add(this.resetAllAdvButton);
             this.panelLeftTop.Controls.Add(this.chkSelectAll);
             this.panelLeftTop.Controls.Add(this.btnPersonRemove);
             this.panelLeftTop.Controls.Add(this.btnPersonAdd);
@@ -306,17 +310,30 @@
             this.panelLeftTop.Controls.Add(this.btnHouseholdAdd);
             this.panelLeftTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLeftTop.Location = new System.Drawing.Point(0, 0);
-            this.panelLeftTop.Margin = new System.Windows.Forms.Padding(2);
+            this.panelLeftTop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelLeftTop.Name = "panelLeftTop";
-            this.panelLeftTop.Size = new System.Drawing.Size(242, 78);
+            this.panelLeftTop.Size = new System.Drawing.Size(238, 162);
             this.panelLeftTop.TabIndex = 1;
+            // 
+            // resetAllAdvButton
+            // 
+            this.resetAllAdvButton.Font = new System.Drawing.Font("Tahoma", 7F);
+            this.resetAllAdvButton.Location = new System.Drawing.Point(15, 98);
+            this.resetAllAdvButton.Name = "resetAllAdvButton";
+            this.resetAllAdvButton.Size = new System.Drawing.Size(202, 47);
+            this.resetAllAdvButton.TabIndex = 5;
+            this.resetAllAdvButton.Text = "Reset selected Household\'s Advanced Variables";
+            this.resetAllAdvButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.resetAllAdvButton.UseVisualStyleBackColor = true;
+            this.resetAllAdvButton.Click += new System.EventHandler(this.resetAllAdvButton_Click);
             // 
             // chkSelectAll
             // 
             this.chkSelectAll.AutoSize = true;
-            this.chkSelectAll.Location = new System.Drawing.Point(11, 57);
+            this.chkSelectAll.Location = new System.Drawing.Point(15, 70);
+            this.chkSelectAll.Margin = new System.Windows.Forms.Padding(4);
             this.chkSelectAll.Name = "chkSelectAll";
-            this.chkSelectAll.Size = new System.Drawing.Size(170, 17);
+            this.chkSelectAll.Size = new System.Drawing.Size(210, 21);
             this.chkSelectAll.TabIndex = 4;
             this.chkSelectAll.Text = "Select/Unselect all households";
             this.chkSelectAll.UseVisualStyleBackColor = true;
@@ -335,8 +352,8 @@
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.mainMenuStrip.Size = new System.Drawing.Size(974, 31);
+            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1299, 38);
             this.mainMenuStrip.TabIndex = 5;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -352,20 +369,21 @@
             this.ExitToolStripMenuItem});
             this.projectStripMenuItem.Name = "projectStripMenuItem";
             this.projectStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.projectStripMenuItem.Size = new System.Drawing.Size(56, 27);
+            this.projectStripMenuItem.Size = new System.Drawing.Size(69, 34);
             this.projectStripMenuItem.Text = "Project";
+            this.projectStripMenuItem.Click += new System.EventHandler(this.projectStripMenuItem_Click);
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openProjectToolStripMenuItem
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openProjectToolStripMenuItem.Text = "Open";
             this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
             // 
@@ -373,33 +391,33 @@
             // 
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
             this.saveProjectToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveProjectToolStripMenuItem.Text = "Save";
             this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.saveProjectToolStripMenuItem_Click);
             // 
             // saveAsProjectToolStripMenuItem
             // 
             this.saveAsProjectToolStripMenuItem.Name = "saveAsProjectToolStripMenuItem";
-            this.saveAsProjectToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveAsProjectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveAsProjectToolStripMenuItem.Text = "Save As";
             this.saveAsProjectToolStripMenuItem.Click += new System.EventHandler(this.saveAsProjectToolStripMenuItem_Click);
             // 
             // SaveAsPublicToolStripMenuItem
             // 
             this.SaveAsPublicToolStripMenuItem.Name = "SaveAsPublicToolStripMenuItem";
-            this.SaveAsPublicToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.SaveAsPublicToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.SaveAsPublicToolStripMenuItem.Text = "Save As Public";
             this.SaveAsPublicToolStripMenuItem.Click += new System.EventHandler(this.SaveAsPublicToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(221, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -412,46 +430,46 @@
             this.showOnlyChangedValuesToolStripMenuItem,
             this.highlightChangedValuesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 27);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(55, 34);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // showAdvancedVariablesToolStripMenuItem
             // 
             this.showAdvancedVariablesToolStripMenuItem.Name = "showAdvancedVariablesToolStripMenuItem";
-            this.showAdvancedVariablesToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.showAdvancedVariablesToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
             this.showAdvancedVariablesToolStripMenuItem.Text = "Show Advanced Variables";
             this.showAdvancedVariablesToolStripMenuItem.Click += new System.EventHandler(this.showAdvancedVariablesToolStripMenuItem_Click);
             // 
             // showDerivedVariablesToolStripMenuItem
             // 
             this.showDerivedVariablesToolStripMenuItem.Name = "showDerivedVariablesToolStripMenuItem";
-            this.showDerivedVariablesToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.showDerivedVariablesToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
             this.showDerivedVariablesToolStripMenuItem.Text = "Show Derived Variables";
             this.showDerivedVariablesToolStripMenuItem.Click += new System.EventHandler(this.showDerivedVariablesToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(211, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(263, 6);
             // 
             // showOnlyChangedValuesToolStripMenuItem
             // 
             this.showOnlyChangedValuesToolStripMenuItem.Name = "showOnlyChangedValuesToolStripMenuItem";
-            this.showOnlyChangedValuesToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.showOnlyChangedValuesToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
             this.showOnlyChangedValuesToolStripMenuItem.Text = "Show only changed values";
             this.showOnlyChangedValuesToolStripMenuItem.Click += new System.EventHandler(this.showOnlyChangedValuesToolStripMenuItem_Click);
             // 
             // highlightChangedValuesToolStripMenuItem
             // 
             this.highlightChangedValuesToolStripMenuItem.Name = "highlightChangedValuesToolStripMenuItem";
-            this.highlightChangedValuesToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.highlightChangedValuesToolStripMenuItem.Size = new System.Drawing.Size(266, 26);
             this.highlightChangedValuesToolStripMenuItem.Text = "Highlight changed values";
             this.highlightChangedValuesToolStripMenuItem.Click += new System.EventHandler(this.highlightChangedValuesToolStripMenuItem_Click);
             // 
             // wizardToolStripMenuItem
             // 
             this.wizardToolStripMenuItem.Name = "wizardToolStripMenuItem";
-            this.wizardToolStripMenuItem.Size = new System.Drawing.Size(55, 27);
+            this.wizardToolStripMenuItem.Size = new System.Drawing.Size(70, 34);
             this.wizardToolStripMenuItem.Text = "Wizard";
             this.wizardToolStripMenuItem.Click += new System.EventHandler(this.wizardToolStripMenuItem_Click);
             // 
@@ -461,7 +479,7 @@
             this.importToolStripMenuItem,
             this.manageVariablesToolStripMenuItem});
             this.advancedOptionsToolStripMenuItem.Name = "advancedOptionsToolStripMenuItem";
-            this.advancedOptionsToolStripMenuItem.Size = new System.Drawing.Size(117, 27);
+            this.advancedOptionsToolStripMenuItem.Size = new System.Drawing.Size(145, 34);
             this.advancedOptionsToolStripMenuItem.Text = "Advanced Options";
             // 
             // importToolStripMenuItem
@@ -471,27 +489,27 @@
             this.importVariablesToolStripMenuItem,
             this.importRefTabToolStripMenuItem});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
             this.importToolStripMenuItem.Text = "Import";
             // 
             // importHHToolStripMenuItem
             // 
             this.importHHToolStripMenuItem.Name = "importHHToolStripMenuItem";
-            this.importHHToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.importHHToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.importHHToolStripMenuItem.Text = "Import Households";
             this.importHHToolStripMenuItem.Click += new System.EventHandler(this.importHHToolStripMenuItem_Click);
             // 
             // importVariablesToolStripMenuItem
             // 
             this.importVariablesToolStripMenuItem.Name = "importVariablesToolStripMenuItem";
-            this.importVariablesToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.importVariablesToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.importVariablesToolStripMenuItem.Text = "Import Variables";
             this.importVariablesToolStripMenuItem.Click += new System.EventHandler(this.importVariablesToolStripMenuItem_Click);
             // 
             // importRefTabToolStripMenuItem
             // 
             this.importRefTabToolStripMenuItem.Name = "importRefTabToolStripMenuItem";
-            this.importRefTabToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.importRefTabToolStripMenuItem.Size = new System.Drawing.Size(252, 26);
             this.importRefTabToolStripMenuItem.Text = "Import Reference Tables";
             this.importRefTabToolStripMenuItem.Click += new System.EventHandler(this.importRefTabToolStripMenuItem_Click);
             // 
@@ -510,79 +528,79 @@
             this.manageReferenceTablesToolStripMenuItem,
             this.saveCurrentSettingsAsDefaultToolStripMenuItem});
             this.manageVariablesToolStripMenuItem.Name = "manageVariablesToolStripMenuItem";
-            this.manageVariablesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.manageVariablesToolStripMenuItem.Size = new System.Drawing.Size(212, 26);
             this.manageVariablesToolStripMenuItem.Text = "Manage Settings...";
             // 
             // manageCategoriesToolStripMenuItem
             // 
             this.manageCategoriesToolStripMenuItem.Name = "manageCategoriesToolStripMenuItem";
-            this.manageCategoriesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageCategoriesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageCategoriesToolStripMenuItem.Text = "Manage Categories";
             this.manageCategoriesToolStripMenuItem.Click += new System.EventHandler(this.manageCategoriesToolStripMenuItem_Click);
             // 
             // manageCountriesToolStripMenuItem
             // 
             this.manageCountriesToolStripMenuItem.Name = "manageCountriesToolStripMenuItem";
-            this.manageCountriesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageCountriesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageCountriesToolStripMenuItem.Text = "Manage Countries";
             this.manageCountriesToolStripMenuItem.Click += new System.EventHandler(this.manageCountriesToolStripMenuItem_Click);
             // 
             // manageYearsToolStripMenuItem
             // 
             this.manageYearsToolStripMenuItem.Name = "manageYearsToolStripMenuItem";
-            this.manageYearsToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageYearsToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageYearsToolStripMenuItem.Text = "Manage Years";
             this.manageYearsToolStripMenuItem.Click += new System.EventHandler(this.manageYearsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(311, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(388, 6);
             // 
             // manageBasicVariablesToolStripMenuItem
             // 
             this.manageBasicVariablesToolStripMenuItem.Name = "manageBasicVariablesToolStripMenuItem";
-            this.manageBasicVariablesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageBasicVariablesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageBasicVariablesToolStripMenuItem.Text = "Manage Basic Variables";
             this.manageBasicVariablesToolStripMenuItem.Click += new System.EventHandler(this.manageBasicVariablesToolStripMenuItem_Click);
             // 
             // manageAdvancedVariablesToolStripMenuItem
             // 
             this.manageAdvancedVariablesToolStripMenuItem.Name = "manageAdvancedVariablesToolStripMenuItem";
-            this.manageAdvancedVariablesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageAdvancedVariablesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageAdvancedVariablesToolStripMenuItem.Text = "Manage Advanced Variables";
             this.manageAdvancedVariablesToolStripMenuItem.Click += new System.EventHandler(this.manageAdvancedVariablesToolStripMenuItem_Click);
             // 
             // manageAdvancedCountryspecificVariablesToolStripMenuItem
             // 
             this.manageAdvancedCountryspecificVariablesToolStripMenuItem.Name = "manageAdvancedCountryspecificVariablesToolStripMenuItem";
-            this.manageAdvancedCountryspecificVariablesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageAdvancedCountryspecificVariablesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageAdvancedCountryspecificVariablesToolStripMenuItem.Text = "Manage Advanced Country-specific Variables";
             this.manageAdvancedCountryspecificVariablesToolStripMenuItem.Click += new System.EventHandler(this.manageAdvancedCountryspecificVariablesToolStripMenuItem_Click);
             // 
             // manageDerivedVariablesToolStripMenuItem
             // 
             this.manageDerivedVariablesToolStripMenuItem.Name = "manageDerivedVariablesToolStripMenuItem";
-            this.manageDerivedVariablesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageDerivedVariablesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageDerivedVariablesToolStripMenuItem.Text = "Manage Derived Variables";
             this.manageDerivedVariablesToolStripMenuItem.Click += new System.EventHandler(this.manageDerivedVariablesToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(311, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(388, 6);
             // 
             // manageReferenceTablesToolStripMenuItem
             // 
             this.manageReferenceTablesToolStripMenuItem.Name = "manageReferenceTablesToolStripMenuItem";
-            this.manageReferenceTablesToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.manageReferenceTablesToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.manageReferenceTablesToolStripMenuItem.Text = "Manage Reference Tables";
             this.manageReferenceTablesToolStripMenuItem.Click += new System.EventHandler(this.manageReferenceTablesToolStripMenuItem_Click);
             // 
             // saveCurrentSettingsAsDefaultToolStripMenuItem
             // 
             this.saveCurrentSettingsAsDefaultToolStripMenuItem.Name = "saveCurrentSettingsAsDefaultToolStripMenuItem";
-            this.saveCurrentSettingsAsDefaultToolStripMenuItem.Size = new System.Drawing.Size(314, 22);
+            this.saveCurrentSettingsAsDefaultToolStripMenuItem.Size = new System.Drawing.Size(391, 26);
             this.saveCurrentSettingsAsDefaultToolStripMenuItem.Text = "Save Settings as Default";
             this.saveCurrentSettingsAsDefaultToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentSettingsAsDefaultToolStripMenuItem_Click);
             // 
@@ -593,27 +611,27 @@
             this.breakDownCountryYearToolStripMenuItem,
             this.budgetConstraintsToolStripMenuItem});
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(65, 27);
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(81, 34);
             this.statisticsToolStripMenuItem.Text = "Statistics";
             // 
             // breakDownTypesToolStripMenuItem
             // 
             this.breakDownTypesToolStripMenuItem.Name = "breakDownTypesToolStripMenuItem";
-            this.breakDownTypesToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.breakDownTypesToolStripMenuItem.Size = new System.Drawing.Size(309, 26);
             this.breakDownTypesToolStripMenuItem.Text = "Break Down per Household Type";
             this.breakDownTypesToolStripMenuItem.Click += new System.EventHandler(this.breakDownTypesToolStripMenuItem_Click);
             // 
             // breakDownCountryYearToolStripMenuItem
             // 
             this.breakDownCountryYearToolStripMenuItem.Name = "breakDownCountryYearToolStripMenuItem";
-            this.breakDownCountryYearToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.breakDownCountryYearToolStripMenuItem.Size = new System.Drawing.Size(309, 26);
             this.breakDownCountryYearToolStripMenuItem.Text = "Break Down per Country/Year";
             this.breakDownCountryYearToolStripMenuItem.Click += new System.EventHandler(this.breakDownCountryYearToolStripMenuItem_Click);
             // 
             // budgetConstraintsToolStripMenuItem
             // 
             this.budgetConstraintsToolStripMenuItem.Name = "budgetConstraintsToolStripMenuItem";
-            this.budgetConstraintsToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.budgetConstraintsToolStripMenuItem.Size = new System.Drawing.Size(309, 26);
             this.budgetConstraintsToolStripMenuItem.Text = "Budget Constraints";
             this.budgetConstraintsToolStripMenuItem.Click += new System.EventHandler(this.budgetConstraintsToolStripMenuItem_Click);
             // 
@@ -622,13 +640,13 @@
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 27);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 34);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -640,18 +658,19 @@
             this.panelRightTop.Controls.Add(this.panelCountries);
             this.panelRightTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelRightTop.Location = new System.Drawing.Point(0, 0);
-            this.panelRightTop.Margin = new System.Windows.Forms.Padding(2);
+            this.panelRightTop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelRightTop.Name = "panelRightTop";
-            this.panelRightTop.Size = new System.Drawing.Size(717, 84);
+            this.panelRightTop.Size = new System.Drawing.Size(1044, 103);
             this.panelRightTop.TabIndex = 11;
             // 
             // separatorLine
             // 
             this.separatorLine.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.separatorLine.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.separatorLine.Location = new System.Drawing.Point(0, 83);
+            this.separatorLine.Location = new System.Drawing.Point(0, 102);
+            this.separatorLine.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.separatorLine.Name = "separatorLine";
-            this.separatorLine.Size = new System.Drawing.Size(717, 1);
+            this.separatorLine.Size = new System.Drawing.Size(1044, 1);
             this.separatorLine.TabIndex = 9;
             // 
             // panelYears
@@ -659,17 +678,19 @@
             this.panelYears.Controls.Add(this.labelControl5);
             this.panelYears.Controls.Add(this.labelSelectedYears);
             this.panelYears.Controls.Add(this.yearsCheckedComboBoxEdit);
-            this.panelYears.Location = new System.Drawing.Point(357, 0);
+            this.panelYears.Location = new System.Drawing.Point(476, 0);
+            this.panelYears.Margin = new System.Windows.Forms.Padding(4);
             this.panelYears.Name = "panelYears";
-            this.panelYears.Size = new System.Drawing.Size(356, 84);
+            this.panelYears.Size = new System.Drawing.Size(475, 103);
             this.panelYears.TabIndex = 8;
             // 
             // labelControl5
             // 
             this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.labelControl5.Location = new System.Drawing.Point(12, 13);
+            this.labelControl5.Location = new System.Drawing.Point(16, 16);
+            this.labelControl5.Margin = new System.Windows.Forms.Padding(4);
             this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Size = new System.Drawing.Size(35, 13);
+            this.labelControl5.Size = new System.Drawing.Size(43, 17);
             this.labelControl5.TabIndex = 5;
             this.labelControl5.Text = "Years:";
             // 
@@ -678,22 +699,24 @@
             this.labelSelectedYears.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.labelSelectedYears.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.labelSelectedYears.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelSelectedYears.Location = new System.Drawing.Point(12, 36);
+            this.labelSelectedYears.Location = new System.Drawing.Point(16, 44);
+            this.labelSelectedYears.Margin = new System.Windows.Forms.Padding(4);
             this.labelSelectedYears.Name = "labelSelectedYears";
-            this.labelSelectedYears.Size = new System.Drawing.Size(336, 45);
+            this.labelSelectedYears.Size = new System.Drawing.Size(448, 55);
             this.labelSelectedYears.TabIndex = 6;
             this.labelSelectedYears.Text = "No years selected!";
             // 
             // yearsCheckedComboBoxEdit
             // 
-            this.yearsCheckedComboBoxEdit.Location = new System.Drawing.Point(53, 10);
+            this.yearsCheckedComboBoxEdit.Location = new System.Drawing.Point(71, 12);
+            this.yearsCheckedComboBoxEdit.Margin = new System.Windows.Forms.Padding(4);
             this.yearsCheckedComboBoxEdit.Name = "yearsCheckedComboBoxEdit";
             this.yearsCheckedComboBoxEdit.Properties.AllowMultiSelect = true;
             this.yearsCheckedComboBoxEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.yearsCheckedComboBoxEdit.Properties.DisplayMember = "Year";
             this.yearsCheckedComboBoxEdit.Properties.ValueMember = "Year";
-            this.yearsCheckedComboBoxEdit.Size = new System.Drawing.Size(113, 20);
+            this.yearsCheckedComboBoxEdit.Size = new System.Drawing.Size(151, 22);
             this.yearsCheckedComboBoxEdit.TabIndex = 4;
             this.yearsCheckedComboBoxEdit.EditValueChanged += new System.EventHandler(this.yearsCheckedComboBoxEdit_EditValueChanged);
             // 
@@ -703,29 +726,32 @@
             this.panelCountries.Controls.Add(this.countriesCheckedComboBoxEdit);
             this.panelCountries.Controls.Add(this.labelSelectedCountries);
             this.panelCountries.Location = new System.Drawing.Point(0, 0);
+            this.panelCountries.Margin = new System.Windows.Forms.Padding(4);
             this.panelCountries.Name = "panelCountries";
-            this.panelCountries.Size = new System.Drawing.Size(356, 84);
+            this.panelCountries.Size = new System.Drawing.Size(475, 103);
             this.panelCountries.TabIndex = 7;
             // 
             // labelControl1
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.labelControl1.Location = new System.Drawing.Point(14, 13);
+            this.labelControl1.Location = new System.Drawing.Point(19, 16);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(4);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(57, 13);
+            this.labelControl1.Size = new System.Drawing.Size(72, 17);
             this.labelControl1.TabIndex = 2;
             this.labelControl1.Text = "Countries:";
             // 
             // countriesCheckedComboBoxEdit
             // 
-            this.countriesCheckedComboBoxEdit.Location = new System.Drawing.Point(77, 10);
+            this.countriesCheckedComboBoxEdit.Location = new System.Drawing.Point(103, 12);
+            this.countriesCheckedComboBoxEdit.Margin = new System.Windows.Forms.Padding(4);
             this.countriesCheckedComboBoxEdit.Name = "countriesCheckedComboBoxEdit";
             this.countriesCheckedComboBoxEdit.Properties.AllowMultiSelect = true;
             this.countriesCheckedComboBoxEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.countriesCheckedComboBoxEdit.Properties.DisplayMember = "Country";
             this.countriesCheckedComboBoxEdit.Properties.ValueMember = "Country";
-            this.countriesCheckedComboBoxEdit.Size = new System.Drawing.Size(113, 20);
+            this.countriesCheckedComboBoxEdit.Size = new System.Drawing.Size(151, 22);
             this.countriesCheckedComboBoxEdit.TabIndex = 1;
             this.countriesCheckedComboBoxEdit.EditValueChanged += new System.EventHandler(this.countriesCheckedComboBoxEdit_EditValueChanged);
             // 
@@ -734,17 +760,19 @@
             this.labelSelectedCountries.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.labelSelectedCountries.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap;
             this.labelSelectedCountries.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelSelectedCountries.Location = new System.Drawing.Point(14, 36);
+            this.labelSelectedCountries.Location = new System.Drawing.Point(19, 44);
+            this.labelSelectedCountries.Margin = new System.Windows.Forms.Padding(4);
             this.labelSelectedCountries.Name = "labelSelectedCountries";
-            this.labelSelectedCountries.Size = new System.Drawing.Size(329, 45);
+            this.labelSelectedCountries.Size = new System.Drawing.Size(439, 55);
             this.labelSelectedCountries.TabIndex = 3;
             this.labelSelectedCountries.Text = "No countries selected!";
             // 
             // labelControl3
             // 
-            this.labelControl3.Location = new System.Drawing.Point(11, 10);
+            this.labelControl3.Location = new System.Drawing.Point(15, 12);
+            this.labelControl3.Margin = new System.Windows.Forms.Padding(4);
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(69, 13);
+            this.labelControl3.Size = new System.Drawing.Size(85, 16);
             this.labelControl3.TabIndex = 2;
             this.labelControl3.Text = "Variable Filter:";
             // 
@@ -752,9 +780,10 @@
             // 
             this.txtQuickFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtQuickFilter.Location = new System.Drawing.Point(86, 7);
+            this.txtQuickFilter.Location = new System.Drawing.Point(115, 9);
+            this.txtQuickFilter.Margin = new System.Windows.Forms.Padding(4);
             this.txtQuickFilter.Name = "txtQuickFilter";
-            this.txtQuickFilter.Size = new System.Drawing.Size(620, 20);
+            this.txtQuickFilter.Size = new System.Drawing.Size(915, 22);
             this.txtQuickFilter.TabIndex = 1;
             this.txtQuickFilter.EditValueChanged += new System.EventHandler(this.txtQuickFilter_EditValueChanged);
             // 
@@ -763,10 +792,10 @@
             this.panelRightBottom.Controls.Add(this.gridHousehold);
             this.panelRightBottom.Controls.Add(this.panelFilter);
             this.panelRightBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRightBottom.Location = new System.Drawing.Point(0, 84);
-            this.panelRightBottom.Margin = new System.Windows.Forms.Padding(2);
+            this.panelRightBottom.Location = new System.Drawing.Point(0, 103);
+            this.panelRightBottom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelRightBottom.Name = "panelRightBottom";
-            this.panelRightBottom.Size = new System.Drawing.Size(717, 424);
+            this.panelRightBottom.Size = new System.Drawing.Size(1044, 523);
             this.panelRightBottom.TabIndex = 10;
             // 
             // gridHousehold
@@ -821,8 +850,8 @@
             this.gridHousehold.Appearance.VertLine.Options.UseBackColor = true;
             this.gridHousehold.Appearance.VertLine.Options.UseBorderColor = true;
             this.gridHousehold.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridHousehold.Location = new System.Drawing.Point(0, 37);
-            this.gridHousehold.Margin = new System.Windows.Forms.Padding(2);
+            this.gridHousehold.Location = new System.Drawing.Point(0, 46);
+            this.gridHousehold.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gridHousehold.Name = "gridHousehold";
             this.gridHousehold.OptionsBehavior.ResizeRowHeaders = false;
             this.gridHousehold.OptionsBehavior.ShowEditorOnMouseUp = true;
@@ -832,7 +861,7 @@
             this.editorFloat,
             this.repositoryItemPopupContainerEditNumeric});
             this.gridHousehold.RowHeaderWidth = 150;
-            this.gridHousehold.Size = new System.Drawing.Size(717, 387);
+            this.gridHousehold.Size = new System.Drawing.Size(1044, 477);
             this.gridHousehold.TabIndex = 0;
             this.gridHousehold.ToolTipController = this.toolTipControllerGrid;
             this.gridHousehold.CellValueChanged += new DevExpress.XtraVerticalGrid.Events.CellValueChangedEventHandler(this.gridHousehold_CellValueChanged);
@@ -871,8 +900,9 @@
             this.panelFilter.Controls.Add(this.labelControl3);
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelFilter.Location = new System.Drawing.Point(0, 0);
+            this.panelFilter.Margin = new System.Windows.Forms.Padding(4);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(717, 37);
+            this.panelFilter.Size = new System.Drawing.Size(1044, 46);
             this.panelFilter.TabIndex = 8;
             // 
             // panelTop
@@ -880,16 +910,18 @@
             this.panelTop.Controls.Add(this.mainMenuStrip);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Margin = new System.Windows.Forms.Padding(4);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(974, 31);
+            this.panelTop.Size = new System.Drawing.Size(1299, 38);
             this.panelTop.TabIndex = 5;
             // 
             // splitMainInterface
             // 
             this.splitMainInterface.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitMainInterface.Location = new System.Drawing.Point(0, 31);
+            this.splitMainInterface.Location = new System.Drawing.Point(0, 38);
+            this.splitMainInterface.Margin = new System.Windows.Forms.Padding(4);
             this.splitMainInterface.Name = "splitMainInterface";
-            this.splitMainInterface.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.splitMainInterface.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.splitMainInterface.Panel1.Controls.Add(this.panelLeft);
             this.splitMainInterface.Panel1.MinSize = 180;
             this.splitMainInterface.Panel1.Text = "Panel1";
@@ -898,21 +930,21 @@
             this.splitMainInterface.Panel2.Controls.Add(this.panelRightTop);
             this.splitMainInterface.Panel2.MinSize = 200;
             this.splitMainInterface.Panel2.Text = "Panel2";
-            this.splitMainInterface.Size = new System.Drawing.Size(974, 512);
-            this.splitMainInterface.SplitterPosition = 244;
+            this.splitMainInterface.Size = new System.Drawing.Size(1299, 630);
+            this.splitMainInterface.SplitterPosition = 240;
             this.splitMainInterface.TabIndex = 6;
             this.splitMainInterface.SplitterMoved += new System.EventHandler(this.splitMainInterface_SplitterMoved);
             // 
             // InputForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 615);
+            this.ClientSize = new System.Drawing.Size(1299, 757);
             this.Controls.Add(this.splitMainInterface);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
-            this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(990, 346);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(1314, 415);
             this.Name = "InputForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -1027,5 +1059,7 @@
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wizardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
+        private System.Windows.Forms.Button resetAllAdvButton;
+        protected DevExpress.XtraBars.BarManager barManager;
     }
 }
