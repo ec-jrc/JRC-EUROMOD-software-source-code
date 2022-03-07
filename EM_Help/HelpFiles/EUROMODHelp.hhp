@@ -1,6 +1,6 @@
 [Options]
 Compatibility = 1.1 Or later
-Compiled file=C:\Users\Dev\EUROMODJRC\EM_UI\bin\Help\EUROMODHelp.chm
+Compiled file=H:\work\Development\EM_DEVELOPMENT_JRC\EM_Private\EM_UI\bin\Help\EUROMODHelp.chm
 Contents file = EUROMODHelp.hhc
 Display compile progress=No
 Full-text search=Yes
