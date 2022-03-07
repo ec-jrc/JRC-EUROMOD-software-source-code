@@ -977,9 +977,7 @@ comparison of the original income with the disposable income shows the extent
 of income redistribution performed by the tax-benefit systems as a whole (incl.
 social insurance contributions and benefits beyond public pensions).</span></p>
 
-<p style='line-height:1.5'><span lang=EN>The calculated
-indexes are income concept and system-specific. However, the definition of the
-top and bottom 20% is always based on disposable income.</span></p>]]></Description>
+<p style='line-height:1.5'><span lang=EN>All the indexes are calculated within each scenario, with no connection to the other scenarios. All are income-concept-specific; however, the allocation of observations of the top and bottom 20% is always based on disposable income.</span></p>]]></Description>
       <Tables>
         <Table>
           <StringFormat>0.0000</StringFormat>
