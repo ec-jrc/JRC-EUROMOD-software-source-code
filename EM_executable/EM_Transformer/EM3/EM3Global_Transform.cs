@@ -22,16 +22,34 @@ namespace EM_Transformer
             try
             {
                 DirectoryInfo di = Directory.CreateDirectory(pathHandler.GetFolderConfig());
+                bool success = true;
 
-                // read EM2-files
-                List<List<MultiProp>> exRates = EM2Global.ReadExRates(pathHandler.GetFolderConfig(em2: true), out List<string> _errors, mustExist); errors.AddRange(_errors);
-                List<List<MultiProp>> hicp = EM2Global.ReadHICP(pathHandler.GetFolderConfig(em2: true), out _errors, mustExist); errors.AddRange(_errors);
-                List<List<MultiProp>> switches = EM2Global.ReadSwitchPol(pathHandler.GetFolderConfig(em2: true), out _errors, mustExist); errors.AddRange(_errors);
+                if (!TransformerCommon.IsFileUpToDate(pathHandler.GetExRatesFilePath(em2: true), di.FullName, out string hashCodeExRates))
+                {
+                    // read EM2-files
+                    List<List<MultiProp>> exRates = EM2Global.ReadExRates(pathHandler.GetFolderConfig(em2: true), out List<string> _errors, mustExist); errors.AddRange(_errors);
+                    // transfer to EM3-structure
+                    success = WriteExRates(exRates, emPath, out _errors); errors.AddRange(_errors);
+                    if (success && errors.Count == 0) TransformerCommon.WriteUpToDate(pathHandler.GetExRatesFilePath(em2: true), di.FullName, hashCodeExRates);
+                }
 
-                // transfer to EM3-structure
-                bool success = WriteExRates(exRates, emPath, out _errors); errors.AddRange(_errors);
-                success &= WriteHICP(hicp, emPath, out _errors); errors.AddRange(_errors);
-                success &= WriteExtensions(switches, emPath, out _errors); errors.AddRange(_errors);
+                if (!TransformerCommon.IsFileUpToDate(pathHandler.GetHICPFilePath(em2: true), di.FullName, out string hashCodeHiCP)) 
+                {
+                    // read EM2-files
+                    List<List<MultiProp>> hicp = EM2Global.ReadHICP(pathHandler.GetFolderConfig(em2: true), out List<string> _errors, mustExist); errors.AddRange(_errors);
+                    // transfer to EM3-structure
+                    success &= WriteHICP(hicp, emPath, out _errors); errors.AddRange(_errors);
+                    if (success && errors.Count == 0) TransformerCommon.WriteUpToDate(pathHandler.GetHICPFilePath(em2: true), di.FullName, hashCodeHiCP);
+                }
+
+                if (!TransformerCommon.IsFileUpToDate(pathHandler.GetExtensionsFilePath(em2: true), di.FullName, out string hashCodeSwithces)) 
+                {
+                    // read EM2-files
+                    List<List<MultiProp>> switches = EM2Global.ReadSwitchPol(pathHandler.GetFolderConfig(em2: true),  out List<string> _errors, mustExist); errors.AddRange(_errors);
+                    // transfer to EM3-structure
+                    success &= WriteExtensions(switches, emPath, out _errors); errors.AddRange(_errors);
+                    if (success && errors.Count == 0) TransformerCommon.WriteUpToDate(pathHandler.GetExtensionsFilePath(em2: true), di.FullName, hashCodeSwithces);
+                }
 
                 return success;
             }

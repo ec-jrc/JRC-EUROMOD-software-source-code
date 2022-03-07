@@ -13,6 +13,7 @@ namespace EM_Executable
         List<string> actions = new List<string>();      // the actions to be executed
         private List<ParVarIL> aggs = null;             // the list of variables to execute actions on - note: two params in EM2 (Agg_IL and Agg_Var), but Transformer merges them
         private Tuple<ParCond, string> include = null;
+        private bool warnIfDuplicateDefinition = true;
         private int indexDwt = -1;
         private string dwtName;
         private bool useWeights = true;
@@ -31,6 +32,9 @@ namespace EM_Executable
                 { isWarning = false, message = $"{description.Get()}: missing required parameter AGG" });
                 return;
             }
+
+            // make sure the optional parameter warnIfDuplicateDefinition is parsed before registering operands! 
+            warnIfDuplicateDefinition = GetParBoolValueOrDefault(DefFun.Totals, DefPar.Totals.WarnIfDuplicateDefinition);
 
             foreach (string t in new List<string> { DefPar.Totals.Varname_Sum, DefPar.Totals.Varname_Mean, DefPar.Totals.Varname_Median,
             DefPar.Totals.Varname_Decile, DefPar.Totals.Varname_Quintile, DefPar.Totals.Varname_Count, DefPar.Totals.Varname_PosCount,
@@ -56,7 +60,8 @@ namespace EM_Executable
                             isMonetary: false,  // not really clear, but adding over TU does not make sense
                             isGlobal: true,     // equal for each person
                             isWriteable: false, // cannot be use as output-variable
-                            setInitialised: true);
+                            setInitialised: true,
+                            warnForDuplicates: warnIfDuplicateDefinition);
                         if (infoStore.operandAdmin.Exists(varName))
                             totals.Add(t + (n > 1 ? i.ToString() : "") + aggName, new VarSpec() { name = varName });
                     }

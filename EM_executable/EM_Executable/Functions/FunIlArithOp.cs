@@ -20,6 +20,7 @@ namespace EM_Executable
         private List<string> coreVarNames; // the names of the (common) variables in the incomelists, without pre- and postfixes
         private ILSpecification outILSpecification;
         private bool warnIfDuplicateDefinition = true;
+        private bool forceMonetaryOutput = false;
 
         internal FunIlArithOp(InfoStore infoStore) : base(infoStore) { }
 
@@ -67,8 +68,9 @@ namespace EM_Executable
                 return;
             }
 
-            // make sure the optional parameter WarnIfNoFactor is parsed before registering operands! 
+            // make sure the optional parameters warnIfDuplicateDefinition and forceMonetaryOutput are parsed before registering operands! 
             warnIfDuplicateDefinition = GetParBoolValueOrDefault(DefFun.IlArithOp, DefPar.IlArithOp.WarnIfDuplicateDefinition);
+            forceMonetaryOutput = GetParBoolValueOrDefault(DefFun.IlArithOp, DefPar.IlArithOp.ForceMonetaryOutput);
 
             if (outILExists) { if (!CheckCoreVars(outILSpecification)) return; }               
             else { if (!RegisterOperands()) return; }
@@ -95,7 +97,7 @@ namespace EM_Executable
                         name: outVarName,
                         creatorFun: DefFun.Store,
                         description: description,
-                        isMonetary: infoStore.operandAdmin.GetIsMonetary(varIL.varSpec.name),
+                        isMonetary: forceMonetaryOutput || infoStore.operandAdmin.GetIsMonetary(varIL.varSpec.name),
                         isGlobal: infoStore.operandAdmin.GetIsGlobal(varIL.varSpec.name),
                         isWriteable: false, // cannot be used as output variable
                         setInitialised: true,
