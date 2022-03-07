@@ -125,8 +125,8 @@
       <Project>{b6e0e449-682d-4e76-b41b-ce98b106fd7c}</Project>
       <Name>EM_Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EM_Libraries\EM_Crypt\EM_Crypt.csproj">
-      <Project>{a9d06cc2-8c4b-4ef8-be54-95b1ba58f189}</Project>
+    <ProjectReference Include="..\em_libraries\EM_Crypt\EM_Crypt.csproj">
+      <Project>{19495de1-ba49-480a-8e9c-520468303bbc}</Project>
       <Name>EM_Crypt</Name>
     </ProjectReference>
     <ProjectReference Include="..\em_libraries\EM_XmlHandler\EM_XmlHandler.csproj">

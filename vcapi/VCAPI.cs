@@ -13,10 +13,6 @@ using System.Threading.Tasks;
 using Octokit.Internal;
 using EM_XmlHandler.VersionControl;
 using EM_Crypt;
-using System.Text.RegularExpressions;
-using System.Globalization;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace VCUIAPI
 {
@@ -57,7 +53,7 @@ namespace VCUIAPI
 
         private const char MARKER_RELEASE_SPLIT_1 = '#';
         private const char MARKER_RELEASE_SPLIT_2 = '$';
-        private readonly string[] ALLOWED_INPUT_FILES = { "PPP.txt", "training_data.txt", "sl_demo_v4.txt" };
+        private readonly string[] ALLOWED_INPUT_FILES = { "PPP.txt", "training_data.txt", "sl_demo_v4.txt", "DRD_sl_demo_v4.xls", "DRD_training_data.xls" };
 
         private enum VC_ACTIONS { CREATE_REPOSITORY, CREATE_MERGE_FILE, DELETE_MERGE_FILE }
 
@@ -313,9 +309,10 @@ namespace VCUIAPI
         /// Checks the existence of an online bundle for the current VC project
         /// </summary>
         /// <returns></returns>
-        public bool checkExistAnyBundle()
+        public bool checkExistAnyBundle(out String errorExistBundle)
         {
             bool existAnyBundle = false;
+            errorExistBundle = string.Empty;
 
             List<ProjectNode> _projectInfos = new List<ProjectNode>();
             List<ReleaseInfo> _releaseInfos = new List<ReleaseInfo>();
@@ -335,6 +332,10 @@ namespace VCUIAPI
                                 existAnyBundle = true;
 
                             }
+                        }
+                        else
+                        {
+                            errorExistBundle = GetErrorMessage();
                         }
                     }
                 }
@@ -381,7 +382,7 @@ namespace VCUIAPI
             return errorMessage;
         }
 
-        
+
         /// <summary>
         /// Get a flat list of available online projects.
         /// </summary>
@@ -694,8 +695,8 @@ namespace VCUIAPI
 
         public bool VCLogIn(string insertedUserNameorEmail, string password, out string userName)
         {
-            
             GitHubClient client = null;
+
 
             //All parameters are prepared for the connection
             ICredentialStore anonymousCredentials = new InMemoryCredentialStore(new Credentials(insertedUserNameorEmail, password));
@@ -719,11 +720,11 @@ namespace VCUIAPI
                 anonymousCredentials,
 
                 httpClientAdapter,
-                simpleJsonSerializer); 
+                simpleJsonSerializer);
 
             //The  client is obtained
             client = new GitHubClient(connection);
- 
+
             _client = client;
 
             //The user is obtained and userinfo is populated
@@ -906,7 +907,7 @@ namespace VCUIAPI
                     _userCurrentlyMerging = currentUser.username;
                     CreateFileRequest request = new CreateFileRequest("merging", "merging");
                     RepositoryContentChangeSet mergingFile = _client.Repository.Content.CreateFile(vc_projectInfo.ProjectId, "merging_" + _userCurrentlyMerging + ".txt", request).Result;
-           
+
                 }
             }
 
@@ -964,7 +965,7 @@ namespace VCUIAPI
                             DeleteFileRequest requestDelete = new DeleteFileRequest("Deleting file", file.Sha);
 
                             _client.Repository.Content.DeleteFile(vc_projectInfo.ProjectId, "merging_" + _userCurrentlyMerging + ".txt", new DeleteFileRequest("File deletion", file.Sha)).Wait();
-                            
+
                             _userCurrentlyMerging = string.Empty;
 
                             SendProjectNotificationMail(VC_NOTIFICATION_TYPE.ABORT_MERGE, vc_projectInfo.ProjectId, currentUser.username);
@@ -1033,7 +1034,7 @@ namespace VCUIAPI
 
                                 DeleteFileRequest requestDelete = new DeleteFileRequest("Deleting file", file.Sha);
                                 _client.Repository.Content.DeleteFile(vc_projectInfo.ProjectId, "merging_" + _userCurrentlyMerging + ".txt", new DeleteFileRequest("File deletion", file.Sha)).Wait();
-                                
+
 
                                 SendProjectNotificationMail(VC_NOTIFICATION_TYPE.FINISH_MERGE, vc_projectInfo.ProjectId, _userCurrentlyMerging, version, changes);
                                 _userCurrentlyMerging = string.Empty;
@@ -1192,7 +1193,7 @@ namespace VCUIAPI
                             // Decrypt the content before using it
                             List<byte> passkey = new List<byte>();
                             foreach (char c in _encryptKey.ToCharArray()) passkey.Add((byte)c);
-                            filecontent = EM_Crypt.EM_Crypt.SimpleDecrypt(filecontent, passkey.ToArray());
+                            filecontent = SimpleCrypt.SimpleDecrypt(filecontent, passkey.ToArray());
 
                             File.WriteAllBytes(tempFilePath, filecontent);
                         }
@@ -1239,7 +1240,7 @@ namespace VCUIAPI
                             var dir = new DirectoryInfo(tempPath);
                             dir.Delete(true);
 
-                                return success;
+                            return success;
                         }
 
                     }
@@ -1411,7 +1412,7 @@ namespace VCUIAPI
                 for (int i = 0; i < 100; i++)
                 {
                     string fileExtension = "";
-                    if(i == 0)
+                    if (i == 0)
                     {
                         fileExtension = FILE_EXTENTION_ZIP;
                     }
@@ -1466,13 +1467,25 @@ namespace VCUIAPI
                 {
                     FileInfo info = new FileInfo(zipFileName);
                     long length = info.Length;
-                    int segments = (int) (length / segmentSize) +1 ;
-                    if(segments >= 95)
+                    int segments = (int)(length / segmentSize) + 1;
+                    if (segments >= 95)
                     {
-                        segmentSize = (int) (length / 95);
+                        segmentSize = (int)(length / 95);
                     }
 
-                    while(File.Exists(zipFileName))
+                    //We recalculate the segments again
+                    double initialSegments = (double)length / (double)segmentSize;
+                    segments = (int)(length / segmentSize) + 1;
+                    double tolerance = 0.1;
+                    while (Math.Abs(segments - initialSegments) <= tolerance)
+                    {
+                        segmentSize = segmentSize + 50 * 1024;
+                        initialSegments = (double)length / (double)segmentSize;
+                        segments = (int)(length / segmentSize) + 1;
+                    }
+
+
+                    while (File.Exists(zipFileName))
                     {
                         //Console.WriteLine("The testing zip is about to be removed: " + zipFileName);
                         try
@@ -1484,7 +1497,6 @@ namespace VCUIAPI
                         {
                             //Console.WriteLine("The testing zip cannot be removed: " + zipFileName);
                         }
-
 
                     }
 
@@ -1540,14 +1552,14 @@ namespace VCUIAPI
                 {
                     string extension = "";
                     //Encrypt the content before uploading it
-                    if(i == segmentsCreated)
+                    if (i == segmentsCreated)
                     {
-                        extension =  FILE_EXTENTION_ZIP;
+                        extension = FILE_EXTENTION_ZIP;
                         getFileSha = true;
                     }
-                    else if(i < 10)
+                    else if (i < 10)
                     {
-                        extension =  ".z0" + i;
+                        extension = ".z0" + i;
                     }
                     else
                     {
@@ -1562,7 +1574,7 @@ namespace VCUIAPI
 
                     List<byte> passkey = new List<byte>();
                     foreach (char c in _encryptKey.ToCharArray()) passkey.Add((byte)c);
-                    content = EM_Crypt.EM_Crypt.SimpleEncrypt(content, passkey.ToArray());
+                    content = SimpleCrypt.SimpleEncrypt(content, passkey.ToArray());
 
                     //uploading the file
                     RepositoryContentChangeSet file = null;
@@ -1607,13 +1619,13 @@ namespace VCUIAPI
                 {
                     foreach (RepositoryContent singleFile in foldersFilesAfterUploading)
                     {
-                        
+
                         //If the file exists in the list of files
-                        if (!currentVersionFiles.Contains(singleFile.Name) && (Path.GetFileNameWithoutExtension(singleFile.Name).Equals(unit.Name))){
+                        if (!currentVersionFiles.Contains(singleFile.Name) && (Path.GetFileNameWithoutExtension(singleFile.Name).Equals(unit.Name))) {
                             DeleteFileRequest request = new DeleteFileRequest(singleFile.Name + "has been deleted", singleFile.Sha);
                             _client.Repository.Content.DeleteFile(unit.ProjectId, ftype + "/" + singleFile.Name, request).Wait();
                         }
-                        
+
                     }
                 }
 
@@ -1671,23 +1683,35 @@ namespace VCUIAPI
                 {
                     foreach (Release release in releases)
                     {
+
+                        //If the user is deleted from GitHub, the author login is null
+                        string authorLogin = string.Empty;
+                        if (release.Author != null && !String.IsNullOrEmpty(release.Author.Login))
+                        {
+                            authorLogin = release.Author.Login;
+                        }
+                        else
+                        {
+                            authorLogin = "Deleted user";
+                        }
+
                         releasesOrBundles.Add(new ReleaseInfo
                         {
                             Id = release.Id,
-                            Author = release.Author.Login,
+                            Author = authorLogin,
                             Date = release.CreatedAt.DateTime,
                             Name = release.TagName,
                             Message = release.TagName,
                         });
                     }
 
-                    
+
                 }
             }
             catch (Exception ex)
             {
                 string exceptionMessage = ex.Message + ((ex.InnerException != null && ex.InnerException.Message != null) ? (" - " + ex.InnerException.Message) : "");
-                errorMessage = "Failure in assessing available releases/upload-bundles." + Environment.NewLine + exceptionMessage;
+                errorMessage = "Failure in assessing available releases." + Environment.NewLine + exceptionMessage;
                 return false;
             }
 
@@ -1704,32 +1728,37 @@ namespace VCUIAPI
         {
             latestReleaseInfo = null;
 
-            try {
-                try
-                {
-                    Octokit.Release latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
+            try 
+            {
+                // First, we try to get all releases and check if they are 0
+                IReadOnlyList<Release> releases = _client.Repository.Release.GetAll(projectId).Result;
+                // If there are not releases, it will return an empty list
+                if (releases == null || releases.Count() == 0) { return true; }
+                // Else get the latest release
+                Octokit.Release latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
 
-                    if (latestRelease != null)
+                if (latestRelease != null)
+                {
+                    //If the user is deleted from GitHub, the author login is null
+                    string authorLogin = string.Empty;
+                    if (latestRelease.Author != null && !String.IsNullOrEmpty(latestRelease.Author.Login))
                     {
-                        latestReleaseInfo = new ReleaseInfo
-                        {
-                            Id = latestRelease.Id,
-                            Author = latestRelease.Author.Login,
-                            Date = latestRelease.CreatedAt.DateTime,
-                            Name = latestRelease.TagName,
-                            Message = latestRelease.Body,
-                        };
+                        authorLogin = latestRelease.Author.Login;
+                    }
+                    else
+                    {
+                        authorLogin = "Deleted user";
                     }
 
+                    latestReleaseInfo = new ReleaseInfo
+                    {
+                        Id = latestRelease.Id,
+                        Author = authorLogin,
+                        Date = latestRelease.CreatedAt.DateTime,
+                        Name = latestRelease.TagName,
+                        Message = latestRelease.Body,
+                    };
                 }
-                catch (Exception e) //The API throws an exception if there aren't releases
-                {
-                    //First, we try to get all releases and check if they are 0
-                    IReadOnlyList<Release> releases = _client.Repository.Release.GetAll(projectId).Result;
-                    //If there are not releases, it will return an empty list
-                    if (releases == null || releases.Count() == 0) { return true; }
-                    //Otherwise it will throw another exeption when trying to get all of them
-                }            
             }
             catch (Exception ex)
             {
@@ -1759,14 +1788,68 @@ namespace VCUIAPI
 
                     foreach (ReleaseInfo releaseInfo in rbInfos)
                     {
+                        //First, we need to check if the release is the latest one
+                        Release latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
+                        long latestReleaseId = latestRelease.Id;
+                        bool isLatestRelease = false;
+
+                        if (latestReleaseId == releaseInfo.Id)
+                        {
+                            isLatestRelease = true;
+                            latestRelease = null;
+                        }
+
+                        //We remove the release
                         _client.Repository.Release.Delete(projectId, (int)releaseInfo.Id).Wait();
 
                         //The tag also needs to be deleted
                         Reference tag = _client.Git.Reference.Get(projectId, "tags/" + releaseInfo.Name).Result;
 
-                        if(tag != null)
+                        if (tag != null)
                         {
-                            _client.Git.Reference.Delete(projectId, "tags/"+releaseInfo.Name).Wait();
+                            _client.Git.Reference.Delete(projectId, "tags/" + releaseInfo.Name).Wait();
+                        }
+
+                        //If the release we are trying to remove is the last one, we also need to remove the commits from the last release
+                        if (isLatestRelease)
+                        {
+                            
+                            //The latest release now is the previous one
+                            try
+                            {
+                                latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
+                            }catch(Exception e)
+                            {
+                                latestRelease = null;
+                            }
+
+                            //If there are previous releases
+                            if(latestRelease != null)
+                            {
+                                var request = new CommitRequest { Since = latestRelease.PublishedAt };
+                                IReadOnlyList<GitHubCommit> commits = _client.Repository.Commit.GetAll(projectId, request).Result;
+                                if (commits != null)
+                                {
+                                    GitHubCommit selectedCommit = commits.Last();
+                                    _client.Git.Reference.Update(projectId, "heads/master", new ReferenceUpdate(selectedCommit.Sha, true)).Wait();
+                                }
+                            }
+                            //If there are not other previous releases
+                            else
+                            {
+                                IReadOnlyList<GitHubCommit> allCommits = _client.Repository.Commit.GetAll(projectId).Result;
+                                List<GitHubCommit> commits = new List<GitHubCommit>();
+                                foreach (GitHubCommit singleCommit in allCommits)
+                                {
+                                    string message = singleCommit.Commit.Message;
+                                    if(message.Equals("Initial upload"))
+                                    {
+                                        _client.Git.Reference.Update(projectId, "heads/master", new ReferenceUpdate(singleCommit.Sha, true)).Wait();
+                                        break;
+                                    }
+                                }
+                            }
+                           
                         }
 
                     }
@@ -1913,7 +1996,7 @@ namespace VCUIAPI
                             try
                             {
                                 _client.Repository.Content.DeleteFile(unitInfoToRemove.ProjectId, ftype + "/" + singleFile.Name, request).Wait();
-                            }catch(Exception exc)
+                            } catch (Exception exc)
                             {
                                 if (exc.InnerException != null && exc.InnerException.Message != null)
                                 {
@@ -2209,7 +2292,7 @@ namespace VCUIAPI
 
                 ReleaseInfo previousReleaseInfo = null;
                 GetLatestReleaseUnitInfo(projectId, out previousReleaseInfo);
- 
+
                 List<VersionControlUnitInfo> previousExistingReleaseUnits = null;
                 List<VersionControlUnitInfo> currentReleaseUnits = null;
 
@@ -2513,18 +2596,21 @@ namespace VCUIAPI
                 IReadOnlyList<User> orgUsers = _client.Organization.Member.GetAll(_organisationName).Result;
                 if (orgUsers != null && orgUsers.Count > 0)
                 {
+                    List<long> suspendedUserIds = GetSuspendedUsersIdList();
                     foreach (User orgUser in orgUsers)
                     {
-                        UserInfo user = new UserInfo
-                        {
-                            userId = orgUser.Id,
-                            username = orgUser.Login,
-                            firstName = orgUser.Name,
-                            lastName = orgUser.Name,
-                            email = orgUser.Email,
+                        if (!suspendedUserIds.Contains(orgUser.Id)) { 
+                            UserInfo user = new UserInfo
+                            {
+                                userId = orgUser.Id,
+                                username = orgUser.Login,
+                                firstName = orgUser.Name,
+                                lastName = orgUser.Name,
+                                email = orgUser.Email,
 
-                        };
-                        users.Add(user);
+                            };
+                            users.Add(user);
+                        }
                     }
                 }
             }
@@ -2578,28 +2664,34 @@ namespace VCUIAPI
 
                 if (collaborators == null || collaborators.Count() == 0) { return true; }//presumably there are no users yet (should not happen actually)
 
+                //Only non-suspended users have to be displayed
+                List<long> suspendedUsersId = GetSuspendedUsersIdList();
+
                 foreach (Octokit.User collaborator in collaborators)
                 {
                     long userId = collaborator.Id;
-                    UserInfo userInfo = new UserInfo();
-                    userInfo.userId = collaborator.Id;
-                    userInfo.firstName = collaborator.Name;
-                    userInfo.lastName = string.Empty;
-                    userInfo.username = collaborator.Login;
-                    userInfos.Add(userInfo);
 
-                    RepositoryPermissions repositoryPermissions = collaborator.Permissions;
+                    if (!suspendedUsersId.Contains(userId)) { 
+                        UserInfo userInfo = new UserInfo();
+                        userInfo.userId = collaborator.Id;
+                        userInfo.firstName = collaborator.Name;
+                        userInfo.lastName = string.Empty;
+                        userInfo.username = collaborator.Login;
+                        userInfos.Add(userInfo);
 
-                    bool isAdmin = repositoryPermissions.Admin;
-                    bool isPush = repositoryPermissions.Push;
-                    bool isRead = repositoryPermissions.Pull;
-                    VC_ACCESS_RIGHTS accessRights = VC_ACCESS_RIGHTS.NONE;
+                        RepositoryPermissions repositoryPermissions = collaborator.Permissions;
 
-                    if (isRead) { accessRights = VC_ACCESS_RIGHTS.DOWNLOAD; }
-                    if (isPush) { accessRights = VC_ACCESS_RIGHTS.UPLOAD; }
+                        bool isAdmin = repositoryPermissions.Admin;
+                        bool isPush = repositoryPermissions.Push;
+                        bool isRead = repositoryPermissions.Pull;
+                        VC_ACCESS_RIGHTS accessRights = VC_ACCESS_RIGHTS.NONE;
 
-                    defaultRights.Add(accessRights);
-                    adminRights.Add(isAdmin);
+                        if (isRead) { accessRights = VC_ACCESS_RIGHTS.DOWNLOAD; }
+                        if (isPush) { accessRights = VC_ACCESS_RIGHTS.UPLOAD; }
+
+                        defaultRights.Add(accessRights);
+                        adminRights.Add(isAdmin);
+                    }
                 }
 
                 return true;
@@ -2613,6 +2705,28 @@ namespace VCUIAPI
 
         }
 
+        /// <summary>
+        /// Gets list of ids of the suspended users in an organisation
+        /// </summary>
+        /// <returns>List<long> which contains the id of the suspended users</long></returns>
+        private List<long> GetSuspendedUsersIdList()
+        {
+            List<long> suspendedUsersIds = new List<long>();
+
+            IReadOnlyList<User> orgUsers = _client.Organization.Member.GetAll(_organisationName).Result;
+            if (orgUsers != null || orgUsers.Count() > 0)
+            {
+                var users = orgUsers.Select(user => _client.User.Get(user.Login));
+                var suspendedUsers = Task.WhenAll<User>(users).Result.Where<User>(user => user.Suspended).ToList();
+
+                foreach (Octokit.User suspendedUser in suspendedUsers)
+                {
+                    suspendedUsersIds.Add(suspendedUser.Id);
+                }
+            }
+
+            return suspendedUsersIds;
+        }
 
         /// <summary>
         /// Add a user to a repository (with certain rights) or update the user's rights
@@ -2801,7 +2915,7 @@ namespace VCUIAPI
         public bool RenameProjectFolder(string newFolderName, out string newProjectPath)
         {
             newProjectPath = string.Empty;
-            if (Directory.Exists(projectPath)){
+            if (Directory.Exists(projectPath)) {
                 try
                 {
                     DirectoryInfo currentDirectory = new DirectoryInfo(projectPath);
@@ -2810,7 +2924,7 @@ namespace VCUIAPI
                     Directory.Move(projectPath, newProjectPath);
                     projectPath = newProjectPath;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     newProjectPath = string.Empty;
                     return false;
@@ -2819,6 +2933,68 @@ namespace VCUIAPI
             }
             return true;
         }
+
+        /// <summary>
+        /// Builds the path to rename the current project's folder.
+        /// If it exists, it adds the date
+        /// </summary>
+        /// <param name="newFolderInitialName">Suggested name for the project's folder</param>
+        /// <param name="newFolderName">Final name for the project's folder</param>
+        /// <param name="dateString"></param>
+        /// <returns>True: if the suggested folder or suggestions folder and date can be used. False: No folder can be used.</returns>
+        public bool buildPath(string newFolderInitialName, out string newFolderName)
+        {
+            bool emptyFolder = false;
+            string newProjectPath = string.Empty;
+            string dateString = string.Empty;
+            newFolderName = string.Empty;
+            try {
+                if (Directory.Exists(projectPath))
+                {
+
+                    DirectoryInfo currentDirectory = new DirectoryInfo(projectPath);
+                    string parentPath = currentDirectory.Parent.FullName;
+                    newProjectPath = (parentPath.EndsWith("\\") ? parentPath : string.Concat(parentPath, "\\")) + newFolderInitialName;
+
+
+                    if (!Directory.Exists(newProjectPath))
+                    {
+                        newFolderName = newFolderInitialName;
+                        emptyFolder = true;
+                    }
+
+                    else
+                    {
+                        string date = DateTime.Now.ToString("ddMMMMyyyy_HHmmss");
+                        newProjectPath = (parentPath.EndsWith("\\") ? parentPath : string.Concat(parentPath, "\\")) +
+                            newFolderInitialName + "_" + date;
+                        if (!Directory.Exists(newProjectPath))
+                        {
+                            newFolderName = newFolderInitialName + "_" + date;
+                            emptyFolder = true;
+                        }
+                        else
+                        {
+                            newProjectPath = string.Empty;
+                            newFolderName = string.Empty;
+                            emptyFolder = false;
+                        }
+                    }
+
+                }
+
+                
+            }catch(Exception e){
+                newProjectPath = string.Empty;
+                newFolderName = string.Empty;
+                emptyFolder = false;
+
+                return emptyFolder;
+            }
+
+            return emptyFolder;
+        }
+
 
         #endregion helper functions
 
@@ -3014,12 +3190,12 @@ namespace VCUIAPI
 
                     if (de)
                     {
-                        encDecUserName = EM_Crypt.EM_Crypt.SimpleDecrypt(userName, passkey.ToArray());
+                        encDecUserName = SimpleCrypt.SimpleDecrypt(userName, passkey.ToArray());
 
                     }
                     else
                     {
-                        encDecUserName = EM_Crypt.EM_Crypt.SimpleEncrypt(userName, passkey.ToArray());
+                        encDecUserName = SimpleCrypt.SimpleEncrypt(userName, passkey.ToArray());
                     }
                 }
                 catch (Exception exception) { errorMessage = exception.Message; }
