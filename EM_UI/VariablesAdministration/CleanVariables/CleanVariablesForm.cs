@@ -4,6 +4,7 @@ using EM_Common;
 using EM_UI.CountryAdministration;
 using EM_UI.DataSets;
 using EM_UI.Dialogs;
+using EM_UI.Tools;
 using EM_UI.VariablesAdministration.VariablesManagement;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
 
 namespace EM_UI.VariablesAdministration.CleanVariables
 {
@@ -242,7 +244,7 @@ namespace EM_UI.VariablesAdministration.CleanVariables
 
                 TreeListNode acroNode = treeAcronyms.AppendNode(null, levelNode);
                 acroNode.SetValue(colAcronym, acroRow.Description + " (" + acroRow.Name.ToUpper() + ")");
-                acroNode.SetValue(colDeleteAcronyms, true);
+                acroNode.SetValue(colDeleteAcronyms, false);
                 acroNode.Tag = acroRow;
             }
 
@@ -263,7 +265,7 @@ namespace EM_UI.VariablesAdministration.CleanVariables
                 _variablesToDisplay = new List<VarConfig.VariableRow>();
             else
                 _variablesToDisplay.Clear();
-
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             List<VarConfig.VariableRow> variableRows = _varConfigFacade.GetVariables();
             for (int i = 0; i < variableRows.Count; ++i)
             {
@@ -277,7 +279,8 @@ namespace EM_UI.VariablesAdministration.CleanVariables
                 double progressPart = (i + 1.0) / (variableRows.Count) * progressToAchieve;
                 backgroundWorker.ReportProgress(Convert.ToInt32((progressSoFar + progressPart) * 100.0));
             }
-
+            watch.Stop();
+            MessageBox.Show(watch.ElapsedMilliseconds.ToString());
             //initialise list of variables which are marked to be deleted, to be used in function CheckForUnusedAcronyms
             _variablesToDelete = (from vR in _variablesToDisplay select vR.Name.ToLower()).ToList<string>();
 
@@ -382,6 +385,67 @@ namespace EM_UI.VariablesAdministration.CleanVariables
                         foreach (TreeListNode acroNode in levelNode.Nodes)
                             acroNode.SetValue(colDeleteAcronyms, false);
 
+        }
+
+        private void checkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            // call the respective contect menu option for the variables grid
+            hitGrid = 1;
+            if (checkAll.Checked) mniCheckAll_Click(null, null);
+            else mniUncheckAll_Click(null, null);
+        }
+
+        private void uncheckInput_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt";
+            openFileDialog.CheckPathExists = true;
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.AddExtension = true;
+            openFileDialog.Multiselect = true;
+            openFileDialog.InitialDirectory = EM_AppContext.FolderInput;
+
+            if (openFileDialog.ShowDialog() == DialogResult.Cancel || openFileDialog.FileNames.Count() == 0)
+                return;
+
+            // Read all selected input files and store all variables in a list
+            List<string> allInputVars = new List<string>();
+            foreach (string fileName in openFileDialog.FileNames)
+            {
+                if (File.Exists(fileName) && !String.IsNullOrEmpty(File.ReadLines(fileName).FirstOrDefault()))
+                {
+                    allInputVars.AddRange(File.ReadLines(fileName).FirstOrDefault().Split('\t'));
+                }
+            }
+
+            // Compile a list of input variables that exist in the grid
+            List<string> matchingInputVars = new List<string>();
+            foreach (DataGridViewRow variableRow in dgvVariables.Rows)
+            {
+                if (allInputVars.Contains(variableRow.Cells[colVariableName.Name].Value.ToString()))
+                    matchingInputVars.Add(variableRow.Cells[colVariableName.Name].Value.ToString());
+            }
+
+            // 
+            if (matchingInputVars.Count() == 0)
+            {
+                UserInfoHandler.ShowInfo("No matching variables found!");
+                return;
+            }
+
+            string msg = "";
+            foreach (string v in matchingInputVars) msg += ", " + v;
+            msg = msg.Substring(2);
+
+            DialogResult res = UserInfoHandler.GetInfo("Would you like to uncheck " + matchingInputVars.Count() + " matching variables?" + Environment.NewLine + msg, MessageBoxButtons.YesNo);
+            if (res == DialogResult.Yes)
+            {
+                foreach (DataGridViewRow variableRow in dgvVariables.Rows)
+                {
+                    if (matchingInputVars.Contains(variableRow.Cells[colVariableName.Name].Value.ToString()))
+                        variableRow.Cells[colDeleteVariables.Name].Value = false;
+                }
+            }
         }
     }
 }

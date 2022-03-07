@@ -73,7 +73,7 @@ namespace EM_UI.Run
                     string addOnToTransform = addOnSystemInfo._addOnShortName.ToLower();
                     if (!addOnsToTransform.Contains(addOnToTransform))
                     {
-                        EM_AppContext.Instance.WriteXml(addOnSystemInfo._addOnShortName, false, false); // make sure the EM2 version is saved
+                        EM_AppContext.Instance.WriteXml(addOnSystemInfo._addOnShortName, true, true); // user will be asked if the unsaved add-on needs to be saved
                         addOnsToTransform.Add(addOnToTransform);
                     }
                 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
@@ -37,7 +38,7 @@
             this.colVariableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colVariableDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDeleteVariables = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ctmCheckOptions = new System.Windows.Forms.ContextMenuStrip();
+            this.ctmCheckOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mniCheckAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mniUncheckAll = new System.Windows.Forms.ToolStripMenuItem();
             this.treeAcronyms = new DevExpress.XtraTreeList.TreeList();
@@ -48,6 +49,8 @@
             this.pgbProgress = new System.Windows.Forms.ProgressBar();
             this.lblLoading = new System.Windows.Forms.Label();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.checkAll = new System.Windows.Forms.CheckBox();
+            this.uncheckInput = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVariables)).BeginInit();
             this.ctmCheckOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.treeAcronyms)).BeginInit();
@@ -286,6 +289,27 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
+            // checkAll
+            // 
+            this.checkAll.AutoSize = true;
+            this.checkAll.Location = new System.Drawing.Point(262, 6);
+            this.checkAll.Name = "checkAll";
+            this.checkAll.Size = new System.Drawing.Size(71, 17);
+            this.checkAll.TabIndex = 23;
+            this.checkAll.Text = "Check All";
+            this.checkAll.UseVisualStyleBackColor = true;
+            this.checkAll.CheckedChanged += new System.EventHandler(this.checkAll_CheckedChanged);
+            // 
+            // uncheckInput
+            // 
+            this.uncheckInput.Location = new System.Drawing.Point(361, 2);
+            this.uncheckInput.Name = "uncheckInput";
+            this.uncheckInput.Size = new System.Drawing.Size(151, 23);
+            this.uncheckInput.TabIndex = 24;
+            this.uncheckInput.Text = "Uncheck Input Variables";
+            this.uncheckInput.UseVisualStyleBackColor = true;
+            this.uncheckInput.Click += new System.EventHandler(this.uncheckInput_Click);
+            // 
             // CleanVariablesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,6 +317,8 @@
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(1054, 466);
             this.ContextMenuStrip = this.ctmCheckOptions;
+            this.Controls.Add(this.uncheckInput);
+            this.Controls.Add(this.checkAll);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.lblLoading);
             this.Controls.Add(this.pgbProgress);
@@ -341,5 +367,7 @@
         private System.Windows.Forms.ContextMenuStrip ctmCheckOptions;
         private System.Windows.Forms.ToolStripMenuItem mniCheckAll;
         private System.Windows.Forms.ToolStripMenuItem mniUncheckAll;
+        private System.Windows.Forms.CheckBox checkAll;
+        private System.Windows.Forms.Button uncheckInput;
     }
 }

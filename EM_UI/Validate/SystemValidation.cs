@@ -41,8 +41,7 @@ namespace EM_UI.Validate
                 UserInput ui = new UserInput(items); if (ui.ShowDialog() == DialogResult.Cancel) return false;
                 systemName = ui.GetValue<string>("name");
                 if (askForYear) year = ui.GetValue<int>("year");
-                if (countryTreeList == null || 
-                    (IsValidSystemName(systemName, countryTreeList, countryConfigFacade) && CheckSysNameYearMatch(systemName, year))) break;
+                if (IsValidSystemName(systemName, countryTreeList, countryConfigFacade) && CheckSysNameYearMatch(systemName, year)) break;
                 items[0].InitialValue = systemName; if (askForYear && year > 0) items[1].InitialValue = year;
             }
             if (year > 0) systemYear = year.ToString();
@@ -58,7 +57,7 @@ namespace EM_UI.Validate
                 Environment.NewLine + "Do you want to correct?", MessageBoxButtons.YesNo) == DialogResult.No;
         }
 
-        static bool IsValidSystemName(string systemName, TreeList countryTreeList, CountryConfigFacade countryConfigFacade = null)
+        static bool IsValidSystemName(string systemName, TreeList countryTreeList = null, CountryConfigFacade countryConfigFacade = null)
         {
             string errorText = string.Empty;
             if (EM_Helpers.ContainsIllegalChar(systemName, ref errorText))

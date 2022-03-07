@@ -46,12 +46,18 @@ namespace EM_UI.ExtensionAndGroupManagement
         {
             if (CountryAdministrator.IsAddOn(cc) || node.Tag == null || node.Tag as BaseTreeListTag == null) return new List<ExtensionOrGroup>();
             BaseTreeListTag nodeTag = node.Tag as BaseTreeListTag;
-
-            List<string> lookGroupIds = (from lgPol in GetCountryConfig(cc).LookGroup_Policy where lgPol.PolicyID == nodeTag.GetDefaultPolicyRow().ID select lgPol.LookGroupID).ToList();
+            string polID = nodeTag.GetDefaultPolicyRow().ID;
+            List<string> lookGroupIds = (from lgPol in GetCountryConfig(cc).LookGroup_Policy where lgPol.PolicyID == polID select lgPol.LookGroupID).ToList();
             if (nodeTag.GetDefaultFunctionRow() != null)
-                lookGroupIds.AddRange((from lgFun in GetCountryConfig(cc).LookGroup_Function where lgFun.FunctionID == nodeTag.GetDefaultFunctionRow().ID select lgFun.LookGroupID));
+            {
+                string funID = nodeTag.GetDefaultFunctionRow().ID;
+                lookGroupIds.AddRange((from lgFun in GetCountryConfig(cc).LookGroup_Function where lgFun.FunctionID == funID select lgFun.LookGroupID));
+            }
             if (nodeTag.GetDefaultParameterRow() != null)
-                lookGroupIds.AddRange((from lgPar in GetCountryConfig(cc).LookGroup_Parameter where lgPar.ParameterID == nodeTag.GetDefaultParameterRow().ID select lgPar.LookGroupID));
+            {
+                string parID = nodeTag.GetDefaultParameterRow().ID;
+                lookGroupIds.AddRange((from lgPar in GetCountryConfig(cc).LookGroup_Parameter where lgPar.ParameterID == parID select lgPar.LookGroupID));
+            }
 
             List<ExtensionOrGroup> lookGroups = new List<ExtensionOrGroup>();
             foreach (CountryConfig.LookGroupRow lg in GetCountryConfig(cc).LookGroup)
@@ -65,21 +71,27 @@ namespace EM_UI.ExtensionAndGroupManagement
             BaseTreeListTag nodeTag = node.Tag as BaseTreeListTag;
 
             Dictionary<string, LookDef.STYLE> extIdsAndStyles = new Dictionary<string, LookDef.STYLE>();
-            foreach (CountryConfig.Extension_PolicyRow extPolRow in from ePol in GetCountryConfig(cc).Extension_Policy where ePol.PolicyID == nodeTag.GetDefaultPolicyRow().ID select ePol)
+            string polID = nodeTag.GetDefaultPolicyRow().ID;
+            foreach (CountryConfig.Extension_PolicyRow extPolRow in from ePol in GetCountryConfig(cc).Extension_Policy where ePol.PolicyID == polID select ePol)
                 extIdsAndStyles.Add(extPolRow.ExtensionID, extPolRow.BaseOff ? LookDef.STYLE.EXTENSION_OFF : LookDef.STYLE.EXTENSION_ON);
             if (nodeTag.GetDefaultFunctionRow() != null)
-                foreach (CountryConfig.Extension_FunctionRow extFunRow in from eFun in GetCountryConfig(cc).Extension_Function where eFun.FunctionID == nodeTag.GetDefaultFunctionRow().ID select eFun)
+            {
+                string funID = nodeTag.GetDefaultFunctionRow().ID;
+                foreach (CountryConfig.Extension_FunctionRow extFunRow in from eFun in GetCountryConfig(cc).Extension_Function where eFun.FunctionID == funID select eFun)
                 { // function-setting with regard to BaseOff overwrites policy-setting (in fact only BaseOff=true may overwrite BaseOff=false, but this is not the point to check for observing this rule)
                     if (extIdsAndStyles.ContainsKey(extFunRow.ExtensionID)) extIdsAndStyles[extFunRow.ExtensionID] = extFunRow.BaseOff ? LookDef.STYLE.EXTENSION_OFF : LookDef.STYLE.EXTENSION_ON;
                     else extIdsAndStyles.Add(extFunRow.ExtensionID, extFunRow.BaseOff ? LookDef.STYLE.EXTENSION_OFF : LookDef.STYLE.EXTENSION_ON);
                 }
+            }
             if (nodeTag.GetDefaultParameterRow() != null)
-                foreach (CountryConfig.Extension_ParameterRow extParRow in from ePar in GetCountryConfig(cc).Extension_Parameter where ePar.ParameterID == nodeTag.GetDefaultParameterRow().ID select ePar)
+            {
+                string parID = nodeTag.GetDefaultParameterRow().ID;
+                foreach (CountryConfig.Extension_ParameterRow extParRow in from ePar in GetCountryConfig(cc).Extension_Parameter where ePar.ParameterID == parID select ePar)
                 { // see overwriting rule above
                     if (extIdsAndStyles.ContainsKey(extParRow.ExtensionID)) extIdsAndStyles[extParRow.ExtensionID] = extParRow.BaseOff ? LookDef.STYLE.EXTENSION_OFF : LookDef.STYLE.EXTENSION_ON;
                     else extIdsAndStyles.Add(extParRow.ExtensionID, extParRow.BaseOff ? LookDef.STYLE.EXTENSION_OFF : LookDef.STYLE.EXTENSION_ON);
                 }
-            
+            }
             List<ExtensionOrGroup> extensions = new List<ExtensionOrGroup>();
             foreach (GlobLocExtensionRow e in GetExtensions(cc))
                 if (extIdsAndStyles.ContainsKey(e.ID)) extensions.Add(new ExtensionOrGroup(e, extIdsAndStyles[e.ID]));

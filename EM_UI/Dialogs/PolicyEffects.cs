@@ -961,6 +961,7 @@ namespace EM_UI.Dialogs
                     if (sr2 == null) throw new Exception("System '" + sn2 + "' does not exist!");
 
                     if (!chkEM2.Checked) EM3_Transform(countryShortName, GetCheckedAddon());
+                    em3_transformGlobals = false;
 
                     if (checkBoxAlphaMII.Checked)
                     {

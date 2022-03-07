@@ -775,6 +775,14 @@ namespace EM_UI.DataSets
 
         internal List<string> GetParameterValuesPossiblyContainingVariables()
         {
+            //variable can also be used in policy column (functions Uprate, SetDefault, DefIL, DefConst, etc.)
+            //add parameter name if a respective function is concerned
+            List<string> functionsWithEditableNameParameter = new List<string>();
+            foreach (var f in DefinitionAdmin.GetFunNamesAndDesc(DefinitionAdmin.Fun.KIND.ALL))
+                if (DefinitionAdmin.GetParDefinition(f.Key, DefinitionAdmin.ParTypeToString(DefPar.PAR_TYPE.PLACEHOLDER), false) != null
+                    || DefinitionAdmin.GetParDefinition(f.Key, DefPar.PAR_TYPE.PLACEHOLDER.ToString().ToUpper(), false) != null)
+                    functionsWithEditableNameParameter.Add(f.Key.ToLower());
+
             List<string> parameterValues = new List<string>();
             foreach (CountryConfig.ParameterRow countryConfigParameterRow in _countryConfig.Parameter)
             {
@@ -786,12 +794,6 @@ namespace EM_UI.DataSets
                     countryConfigParameterRow.ValueType.ToLower() == DefinitionAdmin.ParTypeToString(DefPar.PAR_TYPE.TEXT).ToLower())
                     parameterValues.Add(countryConfigParameterRow.Value);
 
-                //variable can also be used in policy column (functions Uprate, SetDefault, DefIL, DefConst, etc.)
-                //add parameter name if a respective function is concerned
-                List<string> functionsWithEditableNameParameter = new List<string>();
-                foreach (var f in DefinitionAdmin.GetFunNamesAndDesc(DefinitionAdmin.Fun.KIND.ALL))
-                    if (DefinitionAdmin.GetParDefinition(f.Key, DefinitionAdmin.ParTypeToString(DefPar.PAR_TYPE.PLACEHOLDER), false) != null)
-                        functionsWithEditableNameParameter.Add(f.Key.ToLower());
                 if (functionsWithEditableNameParameter.Contains(countryConfigParameterRow.FunctionRow.Name.ToLower()))
                     parameterValues.Add(countryConfigParameterRow.Name);
             }
