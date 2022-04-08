@@ -62,7 +62,6 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="DevExpress.Data.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -70,6 +69,7 @@
     <Reference Include="DevExpress.Sparkline.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Spreadsheet.v14.2.Core, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v14.2, Version=14.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -116,6 +116,12 @@
     </Compile>
     <Compile Include="Import\ImportRefTablesForm.Designer.cs">
       <DependentUpon>ImportRefTablesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenProjectForm.Designer.cs">
+      <DependentUpon>OpenProjectForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PrepareProjectForm.cs">
       <SubType>Form</SubType>
@@ -258,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Import\ImportRefTablesForm.resx">
       <DependentUpon>ImportRefTablesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenProjectForm.resx">
+      <DependentUpon>OpenProjectForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrepareProjectForm.resx">
       <DependentUpon>PrepareProjectForm.cs</DependentUpon>
