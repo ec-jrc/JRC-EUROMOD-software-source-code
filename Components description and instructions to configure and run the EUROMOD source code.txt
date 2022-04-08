@@ -35,3 +35,26 @@ Elements included in the EUROMOD software source code:
 - externallibs: Ionic.Zip.dll (and Readme.txt) which are used in EUROMOD.
 - Supporting Material: XML templates that are used by the HHoT, PET and Statistics presenter plugins.
 - vcapi: plugin which allows EUROMOD developers to connect to a dedicated version control server to manage the different versions of the model.
+
+
+Instructions on how to configure and run the source code:
+
+In order to generate the Help file, Microsoft HTML Help Workshop is needed (https://docs.microsoft.com/en-us/previous-versions/windows/desktop/htmlhelp/microsoft-html-help-downloads). 
+This software is not open source and it is not provided together with EUROMOD. 
+
+- Clone the repository.
+- Make sure a valid version of DevExpress is installed in the machine.
+- Generate the help file (otherwise EUROMOD will display an error). In order to do so:
+	1. Create a folder named "bin" in \EM_UI.
+	2. Create a folder named "help" in \EM_UI\bin\
+	3. Double click on the file \EM_HELP\HelpStructure\AutoRunHelpMaker.xlsm. This file contains a macro which will be automatically run when opening the files. Macros should be enabled. 
+	   This macro will create the EUROMOD help in the folder \EM_UI\bin\help which has been previously created.
+	   The macro will use Microsoft HTML Help Workshop and it will expect it to be installed in 
+	   C:\Program Files (x86)\HTML Help Workshop\hhc.exe. This software is property of Microsoft and it is not provided together with EUROMOD.
+	
+- Double click on the solution file EUROMOD development.sln to open the solution.
+- Build the solution by selecting the Solution Configuration Debug and EM_UI.
+- Start the solution.
+
+Note: In order to run the previous version of EUROMOD (EM2), the project under \Executable\core-executable needs to be compiled and the EUROMOD.exe
+file needs to be copied to \EM_UI\bin\x64\executable.
