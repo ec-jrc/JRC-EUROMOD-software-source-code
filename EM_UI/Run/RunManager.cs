@@ -679,8 +679,8 @@ namespace EM_UI.Run
                 contentEMConfig.Add(EM_XmlHandler.TAGS.EM2CONFIG_OUTPUTPATH, runMainForm._doNotPoolSystemsDatasets ? outputPathIfDoNotPoolSystemsDatasets : outputPath);
                 contentEMConfig.Add(EM_XmlHandler.TAGS.EM2CONFIG_DATAPATH, EM_AppContext.FolderInput);
                 string executablePath = EnvironmentInfo.GetEM2ExecutableFile();
-                if (IsFileYoungerThan(executablePath, new DateTime(2013, 6, 1))) //to avoid problems with an executable that does not allow for this new tag (should not be necessary, as UI and Exe should be boundled)
-                    contentEMConfig.Add(EM_XmlHandler.TAGS.EM2CONFIG_EMCONTENTPATH, EM_AppContext.FolderEuromodFiles);
+                //if (IsFileYoungerThan(executablePath, new DateTime(2013, 6, 1))) //to avoid problems with an executable that does not allow for this new tag (should not be necessary, as UI and Exe should be boundled)
+                contentEMConfig.Add(EM_XmlHandler.TAGS.EM2CONFIG_EMCONTENTPATH, EM_AppContext.FolderEuromodFiles);
                 contentEMConfig.Add(EM_XmlHandler.TAGS.EM2CONFIG_HEADER_DATE, dateTimePrefix);
                 if (!EM_AppContext.Instance.GetUserSettingsAdministrator().GetRunFormSettings().Contains(RunMainForm._addDateToOuputFilename))
                     contentEMConfig.Add(EM_XmlHandler.TAGS.EM2CONFIG_OUTFILE_DATE, "-");

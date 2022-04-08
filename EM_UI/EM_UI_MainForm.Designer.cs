@@ -395,7 +395,8 @@
             this.btnVCNewBundleLocalVersion,
             this.btnLicence});
             this.EM_MainRibbon.Location = new System.Drawing.Point(0, 0);
-            this.EM_MainRibbon.MaxItemId = 302;
+            this.EM_MainRibbon.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EM_MainRibbon.MaxItemId = 303;
             this.EM_MainRibbon.Name = "EM_MainRibbon";
             this.EM_MainRibbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageEuromod,
@@ -413,7 +414,7 @@
             this.EM_MainRibbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
             this.EM_MainRibbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.EM_MainRibbon.ShowToolbarCustomizeItem = false;
-            this.EM_MainRibbon.Size = new System.Drawing.Size(1366, 144);
+            this.EM_MainRibbon.Size = new System.Drawing.Size(1594, 155);
             this.EM_MainRibbon.StatusBar = this.ribbonStatusBar1;
             this.EM_MainRibbon.Toolbar.ItemLinks.Add(this.btnUndo);
             this.EM_MainRibbon.Toolbar.ItemLinks.Add(this.btnRedo);
@@ -1971,10 +1972,11 @@
             this.ribbonStatusBar1.ItemLinks.Add(this.barText_TextSize);
             this.ribbonStatusBar1.ItemLinks.Add(this.btnTextSizePlus);
             this.ribbonStatusBar1.ItemLinks.Add(this.btnTextSizeMinus);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 744);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 923);
+            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.EM_MainRibbon;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1366, 31);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1594, 31);
             // 
             // ribbonPageGroup1
             // 
@@ -2013,9 +2015,10 @@
             this.treeList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.helpProvider.SetHelpNavigator(this.treeList, System.Windows.Forms.HelpNavigator.TableOfContents);
             this.treeList.ImeMode = System.Windows.Forms.ImeMode.Katakana;
-            this.treeList.Location = new System.Drawing.Point(0, 144);
+            this.treeList.Location = new System.Drawing.Point(0, 155);
             this.treeList.LookAndFeel.SkinName = "Black";
             this.treeList.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.treeList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeList.Name = "treeList";
             this.treeList.OptionsBehavior.AllowCopyToClipboard = false;
             this.treeList.OptionsBehavior.DragNodes = true;
@@ -2030,7 +2033,7 @@
             this.YesNoEditorCombo});
             this.treeList.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.helpProvider.SetShowHelp(this.treeList, true);
-            this.treeList.Size = new System.Drawing.Size(1366, 600);
+            this.treeList.Size = new System.Drawing.Size(1594, 768);
             this.treeList.StateImageList = this.mainFormStateImageList;
             this.treeList.TabIndex = 2;
             this.treeList.ToolTipController = this.toolTipController;
@@ -2170,9 +2173,10 @@
             this.lstFormulaEditorIntelli.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
             this.lstFormulaEditorIntelli.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lstFormulaEditorIntelli.HorizontalScrollbar = true;
-            this.lstFormulaEditorIntelli.Location = new System.Drawing.Point(750, 103);
+            this.lstFormulaEditorIntelli.Location = new System.Drawing.Point(875, 127);
+            this.lstFormulaEditorIntelli.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstFormulaEditorIntelli.Name = "lstFormulaEditorIntelli";
-            this.lstFormulaEditorIntelli.Size = new System.Drawing.Size(43, 17);
+            this.lstFormulaEditorIntelli.Size = new System.Drawing.Size(49, 20);
             this.lstFormulaEditorIntelli.TabIndex = 5;
             this.lstFormulaEditorIntelli.Visible = false;
             // 
@@ -2182,10 +2186,10 @@
             this.lblComboboxEditorToolTip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
             this.lblComboboxEditorToolTip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblComboboxEditorToolTip.ForeColor = System.Drawing.Color.Black;
-            this.lblComboboxEditorToolTip.Location = new System.Drawing.Point(750, 51);
-            this.lblComboboxEditorToolTip.MaximumSize = new System.Drawing.Size(400, 300);
+            this.lblComboboxEditorToolTip.Location = new System.Drawing.Point(875, 63);
+            this.lblComboboxEditorToolTip.MaximumSize = new System.Drawing.Size(466, 369);
             this.lblComboboxEditorToolTip.Name = "lblComboboxEditorToolTip";
-            this.lblComboboxEditorToolTip.Size = new System.Drawing.Size(43, 15);
+            this.lblComboboxEditorToolTip.Size = new System.Drawing.Size(54, 19);
             this.lblComboboxEditorToolTip.TabIndex = 8;
             this.lblComboboxEditorToolTip.Text = "ToolTip";
             this.lblComboboxEditorToolTip.Visible = false;
@@ -2258,15 +2262,16 @@
             this.AllowDraggingByPageCategory = DevExpress.Utils.DefaultBoolean.False;
             this.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.Appearance.Options.UseBackColor = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1366, 775);
+            this.ClientSize = new System.Drawing.Size(1594, 954);
             this.Controls.Add(this.lblComboboxEditorToolTip);
             this.Controls.Add(this.lstFormulaEditorIntelli);
             this.Controls.Add(this.treeList);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.EM_MainRibbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "EM_UI_MainForm";
             this.Ribbon = this.EM_MainRibbon;
             this.StatusBar = this.ribbonStatusBar1;

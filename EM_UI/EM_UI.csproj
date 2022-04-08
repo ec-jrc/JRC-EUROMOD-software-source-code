@@ -1399,14 +1399,10 @@
     <None Include="Icons\clear.png" />
     <None Include="Icons\ChangeTypeChanged.png" />
     <None Include="Icons\ChangeTypeRemoved.png" />
-    <None Include="Icons\blueball_mod.png" />
     <None Include="Icons\checkbox.png" />
     <None Include="Icons\checkbox-checked.png" />
     <None Include="Icons\Compare.gif" />
     <None Include="Icons\delete16.png" />
-    <None Include="Icons\euromod-logo.jpg" />
-    <None Include="Icons\EuromodVersion.png" />
-    <None Include="Icons\Euromod_Logo_HR_CMYK.jpg" />
     <None Include="Icons\delete32.png" />
     <None Include="Icons\find.png" />
     <None Include="Icons\filter.png" />
