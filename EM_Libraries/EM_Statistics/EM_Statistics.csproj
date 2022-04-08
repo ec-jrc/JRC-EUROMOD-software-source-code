@@ -220,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\PrettyInfo\PrettyInfo_BaseSysLabel.cs" />
+    <Compile Include="Classes\PrettyInfo\PrettyInfo_RefTaxSysPretty.cs" />
     <Compile Include="Classes\PrettyInfo\PrettyInfo_RefSysLabel.cs" />
     <Compile Include="Classes\PrettyInfo\PrettyInfo_RefFileList.cs" />
     <Compile Include="Classes\TemplateApi_Merge.cs" />
