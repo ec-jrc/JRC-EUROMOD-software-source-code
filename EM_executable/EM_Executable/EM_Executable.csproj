@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>x64;x86</Platforms>
+    <Configurations>Debug;Release</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
@@ -32,7 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EM_Libraries\EM_Common\EM_Common.csproj" />
-    <ProjectReference Include="..\..\EM_Libraries\EM_Crypt\EM_Crypt.csproj" />
+    <ProjectReference Include="..\..\EM_LIBRARIES\EM_Crypt\EM_Crypt.csproj" />
     <ProjectReference Include="..\..\EM_Libraries\EM_XmlHandler\EM_XmlHandler.csproj" />
   </ItemGroup>
 
