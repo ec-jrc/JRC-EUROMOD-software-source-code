@@ -6,6 +6,8 @@
         {
             protected virtual string ident { get; }
 
+            internal virtual string getId() { return ident; }
+
             internal virtual string ReplaceText(string origText, PrettyInfoResources resources) { return origText; }
             internal virtual string ReplaceHtml(string origHtml, PrettyInfoResources resources) { return origHtml; }
 

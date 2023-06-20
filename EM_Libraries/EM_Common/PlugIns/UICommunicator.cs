@@ -9,7 +9,7 @@ namespace EM_Common
     {
         // the function CallStaticFunction (and its overload) allows for calling any public static function of the running!!! UI
         // currently the only public functions of the UI are gathered in the class EM_UI.PlugInService.UISessionInfo
-        // these functions (providing info about pathes, active countries, etc.) are replicated by EM_Common.dll for more convenient calling
+        // these functions (providing info about paths, active countries, etc.) are replicated by EM_Common.dll for more convenient calling
         // for this purpose the class EM_Common.UISessionInfo uses the function CallStaticFunction below
         // in principle plug-ins can use CallStaticFunction themselves, provided we extend the UI by public static functions
 

@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special functions Store and Restore</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special functions Store and Restore</h1>
+
+<p>Store and
+Restore are primarily, though not
+exclusively, designed to be used with the loop functions (see <a
+href="EM_FC_Loop_UnitLoop.htm">EUROMOD Functions - The special functions Loop and
+UnitLoop</a>). In this context they mainly fufill two tasks. Firstly, they
+allow to back-up variables and set them back to their initial (or some other
+previous) value after each iteration and secondly they support storing the
+results of each iteration.</p>
+
+<p>Example 1
+illustrates the back-up functionality in a stylised way. Store is used to back-up the variables yem, yse and all variables contained in the incomelist il_pensions before the loop &quot;abc&quot; starts. The very last
+function of the loop is a Restore, which sets the variables back to their value
+at storing time by simply referring to the corresponding Store (via the parameter postfix).</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Loop</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>loop_id	</td>
+		<td>abc</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>first_func</td>
+		<td>ExampleStore_loopstart</td>
+		<td>assuming that policy is called ExampleStore</td>
+	</tr>
+	<tr>
+		<td>last_func</td>
+		<td>ExampleStore_loopend</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>num_iterations</td>
+		<td>10</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>Store</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postfix</td>
+		<td>bkup</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yem</td>
+		<td>back-up variable yem</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yse</td>
+		<td>back-up variable yse</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_pensions</td>
+		<td>back-up all variables contained in incomelist il_pension</td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>do something with the stored variables</td>
+	</tr>
+	<tr class="function">
+		<td>Restore</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postfix</td>
+		<td>bkup</td>
+		<td>set the stored variables back to their initial value</td>
+	</tr>
+</table>
+
+<p>In reality loops are rarely placed in just one policy but embrace
+several policies or even the whole tax-benefit-calculations. In this case
+incomelists (parameter ilX) help to store groups of
+variables, as shown in the example.</p>
+
+<p>Variables stored by Store cannot only be restored by Restore, rather Store produces for each variable stored a back-up
+variable. This is illustrated in Example 2.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Store</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postfix</td>
+		<td>bkup</td>
+		<td>store variables poa, yem, yse</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_wkinc</td>
+		<td>il_wkinc=yem+yse</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>poa</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>do something ... possibly change poa, yem, yse</td>
+	</tr>
+	<tr class="function">
+		<td>Restore</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postfix</td>
+		<td>bkup</td>
+		<td>set variables poa, yem, yse back to their value at storing time</td>
+	</tr>
+	<tr class="function">
+		<td>DefOutput</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>file</td>
+		<td>example_out</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>poa</td>
+		<td>contains possibly changed value of poa</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>poa_bkup</td>
+		<td>contains value of poa at storing time</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yem</td>
+		<td>contains possibly changed value of yem</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yem_bkup</td>
+		<td>contains value of yem at storing time</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yse</td>
+		<td>contains possibly changed value of yse</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yse_bkup</td>
+		<td>contains value of yse at storing time</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_wkinc</td>
+		<td>=yem+yse (i.e. possibly changed value)</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_wkinc_bkup</td>
+		<td>=yem_bkup+yse_bkup (i.e. value at storing time)</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>As can be seen from the example (DefOutput), Store produces one new variable for each variable it
+stores, irrespective if this variable is indicated directly (parameter var) or contained in an incomelist
+(parameter il). These
+variables inherit the features of their source variables, i.e. if the source
+variable is for example monetary, the copy is as well. Moreover, where the
+parameter il is
+used a copy of the incomelist definition is generated. In the example this is
+the incomelist il_wkinc_bkup containing the variables yem_bkup and yse_bkup. In general the variables and
+incomelists produced by Store can be used as any normal variable or
+incomelist. There are minor differences, e.g. (for technical reasons) such
+incomelists cannot be used with the parameter DefIL of <a
+href="EM_FC_DefOutput.htm"><i>DefOutput</i></a>.</p>
+
+<p>You may have asked yourself what
+&quot;postfix&quot;
+stands for. This will be answered now (even if you have not posed yourself this
+crucial question). &quot;post&quot; means that the indicated text is added
+to the end of the source variables name in determining the storage variable’s
+name. And &quot;fix&quot;
+points to a static text, in contrast to the parameter postloop whose usage is illustrated in
+example 3.</p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Loop</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>loop_id</td>
+		<td>turn</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>first_func</td>
+		<td>ExampleStore_loopstart</td>
+		<td>assuming that policy is called ExampleStore</td>
+	</tr>
+	<tr>
+		<td>last_func</td>
+		<td>ExampleStore_loopend</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>num_iterations</td>
+		<td>3</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>do something different in each turn of the loop</td>
+	</tr>
+	<tr class="function">
+		<td>Store</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postloop</td>
+		<td>turn</td>
+		<td>store the results of each turn of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tin_s</td>
+		<td>store model-calculated income tax</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_sic</td>
+		<td>store model-calculated insurance contrib. (tscee_s+tscse_s)</td>
+	</tr>
+	<tr class="function">
+		<td>DefOutput</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>file</td>
+		<td>example_out</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tin_s_turn1</td>
+		<td>contains value of tin_s after the 1st iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tin_s_turn2</td>
+		<td>contains value of tin_s after the 2nd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tin_s_turn3</td>
+		<td>contains value of tin_s after the 3rd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tin_s_turn</td>
+		<td>contains value of tin_s after the last iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscee_s_turn1</td>
+		<td>contains value of tscee_s after the 1st iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscee_s_turn2</td>
+		<td>contains value of tscee_s after the 2nd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscee_s_turn3</td>
+		<td>contains value of tscee_s after the 3rd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscee_s_turn</td>
+		<td>contains value of tscee_s after the last iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscse_s_turn1</td>
+		<td>contains value of tscse_s after the 1st iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscse_s_turn2</td>
+		<td>contains value of tscse_s after the 2nd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscse_s_turn3</td>
+		<td>contains value of tscse_s after the 3rd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>tscse_s_turn</td>
+		<td>contains value of tscse_s after the last iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_sic_turn1</td>
+		<td>contains value of il_sic after the 1st iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_sic_turn2</td>
+		<td>contains value of il_sic after the 2nd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_sic_turn3</td>
+		<td>contains value of il_sic after the 3rd iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>il_sic_turn</td>
+		<td>contains value of il_sic after the last iteration of the loop</td>
+	</tr>
+</table>
+
+
+<p>The example shows (DefOutput) that Store produces one new variable per variable per iteration of the loop. Again,
+where the parameter il is used copies of the incomelist definition
+are generated: one per incomelist per iteration of the loop. Moreover, in each
+case one variable/incomelist without an iteration number is generated (tin_s_turn, il_sic_turn, etc.). These contain the most
+recent value of the variable/incomelist. That means that after the three
+iterations of the loop are terminated tin_s_turn has the same value as tin_s_turn3. However, if the variable is used
+by some function, say after the second iteration of the loop, it has the value
+of tin_s_turn2. As the second application is
+rarely helpful (usually one could use tin_s as well), the main purpose of these
+variables/incomelists without an iteration number is with loops, which are
+ended by a condition, i.e. the iteration number of the last turn is unknown
+after the end of the loop.</p>
+
+<p>It is possible for Restore to refer to a Store applying the parameter post_loop. This is illustrated in example 4.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Loop</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>loop_id</td>
+		<td>turn</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>first_func</td>
+		<td>ExampleStore_loopstart</td>
+		<td>assuming that policy is called ExampleStore</td>
+	</tr>
+	<tr>
+		<td>last_func</td>
+		<td>ExampleStore_loopend</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>num_iterations</td>
+		<td>3</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>Store</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>post_loop</td>
+		<td>turn</td>
+		<td>store variable yem before each iteration of the loop</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yem</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>do something with yem</td>
+	</tr>
+	<tr class="function">
+		<td>Restore</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postloop</td>
+		<td>turn</td>
+		<td>set yem back to its value before the first iteration</td>
+	</tr>
+	<tr>
+		<td>iteration</td>
+		<td>1</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>In the example Restore sets the variable yem back to the value it had when Store was carried out in the first
+iteration of the loop, i.e. in this case its original value. Actually, the example
+is quite artificial as it is not very meaningful to store yem at the beginning of the loop (yem_turn3 will finally have the value of yem <u>before</u> the 3rd iteration, i.e. the value <u>after</u>
+the 3rd iteration gets lost), but illustrates the usage of Restore with postloop in a traceable way. In fact using Restore this way is somewhat tricky and
+should be done with care. If for example Store was carried out – more meaningfully
+– at the end of the loop, setting yem back to yem_turn1 would mean to reset it to its value
+after the first iteration and not to its original value. Moreover, if the
+parameter iteration
+is omitted, variables are set back to the value they had when the corresponding
+Store was carried out most recently (i.e.
+to the current value of the variables without iteration number) – a mechanism
+usually not easily to follow.</p>
+
+<p>If Store refers to a UnitLoop the set of storage variables and
+incomelists is in principle the same, however their content needs some further
+explanation respectively is different.</p>
+
+<table class="spine">
+	<caption>Example 5:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>UnitLoop</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>loop_id</td>
+		<td>unit</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>first_pol</td>
+		<td>ExampleStoreUL</td>
+		<td>assuming that policy is called ExampleStoreUL</td>
+	</tr>
+	<tr>
+		<td>last_pol</td>
+		<td>ExampleStoreUL</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>elig_unit</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>1</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_add_var</td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>Store</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>postloop</td>
+		<td>unit</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Above example would produce the
+following output:</p>
+
+<table class="info">
+	<tr>
+		<th>idhh</th>
+		<th>idperson</th>
+		<th>stm01_s_unit1</th>
+		<th>stm01_s_unit2</th>
+		<th>stm01_s_unit3</th>
+	</tr>
+	<tr class="separate">
+		<td>1</td>
+		<td>101</td>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>1</td>
+		<td>2</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>1</td>
+		<td>2</td>
+		<td>2</td>
+	</tr>
+</table>
+
+
+<p>In principle the example simply
+counts the iterations of the loop and writes the result to the variable stm01_s (ArithOp adds 1 to stm01_s in each iteration). The number of
+iterations is determined by the number of individuals in the household
+(parameter elig_unit
+set to individual_sl), i.e. three for the first household, one for the second and two for
+the third. In the first iteration of the unit loop stm01_s takes a value of 1 for everyone,
+which is stored in stm01_s_unit1. In the second iteration stm01_s takes a value of 2 for everyone,
+except for the second household – as there is no second person there is no
+second iteration for this household, so stm01_s keeps its value of 1. This result
+is stored in stm01_s_unit2. Finally, in the third iteration stm01_s takes a value of 3 for the first
+household (which includes three individuals) and keeps its value for the other
+households (which include less than three individuals). This result is stored
+in stm01_s_unit3.</p>
+
+<p>If UnitLoop would be extended by the parameter elig_unit_cond set to {dag&lt;50} the output would be the following:</p>
+
+
+<table class="info">
+	<tr>
+		<th>idhh</th>
+		<th>idperson</th>
+		<th>dag</th>
+		<th>stm01_s_unit1</th>
+		<th>stm01_s_unit2</th>
+	</tr>
+	<tr class="separate">
+		<td>1</td>
+		<td>101</td>
+		<td>51</td>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>48</td>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>20</td>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>30</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>58</td>
+		<td>VOID</td>
+		<td>VOID</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>56</td>
+		<td>VOID</td>
+		<td>VOID</td>
+	</tr>
+</table>
+
+
+<p>The number of iterations this time
+is determined by the number of &quot;eligible&quot; individuals in the household, i.e.
+persons younger than 50. Consequently there are two iterations for the first
+household, one for the second and none for the third. Note that for the third
+household the functions embraced by the loop are not carried out, therefore stm01_s stays undefined (VOID). Also note,
+that stm01_s takes the same value for each
+individual within the household (irrespective of the persons age). This
+illustrates that UnitLoop
+does not care about who is eligible within the household, but simply carries
+the loop out as often as there are eligible units in the household and leaves
+it to the modeller to do something with the currently eligible unit.</p>
+
+<p>Actually, the output would not
+contain &quot;VOIDs&quot; but zeros and, worse, the model would issue a lot of warnings
+about outputting undefined values. As this is quite likely to happen by using Store referring to a UnitLoop, defoutput provides two useful parameters in
+this context: suppress_void_message and replace_void_by. The first parameter set to yes obviously avoids the warnings, however to not
+loose the information, it may make sense to set undefined values to something
+else than zero, which can be accomplished by the second parameter.</p>
+
+<p>It was not yet mentioned to which
+value stm01_s_unit, i.e. the variable without an iteration number, is set. This was kept
+to the end for two reasons. Firstly, handling these variables/incomelists with Loop is really completely different from
+its handling with UnitLoop.
+Secondly, it may take some effort to understand the mechanism – an effort which
+is however (hopefully) worthwhile, as it makes output more efficient and, if
+used properly, also more intuitive. The following tables show the output of the
+two above examples extended by the variable stm01_s_unit.</p>
+<table class="error">
+<tr><td>
+	<table class="info">
+		<tr>
+			<th>idhh</th>
+			<th>idperson</th>
+			<th>stm01_s_unit1</th>
+			<th>stm01_s_unit2</th>
+			<th>stm01_s_unit3</th>
+			<th class="error">stm01_s_unit</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>101</td>
+			<td class="error">1</td>
+			<td>2</td>
+			<td>3</td>
+			<td class="error">1</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>102</td>
+			<td>1</td>
+			<td class="error">2</td>
+			<td>3</td>
+			<td class="error">2</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>103</td>
+			<td>1</td>
+			<td>2</td>
+			<td class="error">3</td>
+			<td class="error">3</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>201</td>
+			<td class="error">1</td>
+			<td>1</td>
+			<td>1</td>
+			<td class="error">1</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>301</td>
+			<td class="error">1</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="error">1</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>302</td>
+			<td>1</td>
+			<td class="error">2</td>
+			<td>2</td>
+			<td class="error">2</td>
+		</tr>
+	</table>
+</td></tr>
+</table>
+
+
+<table class="error">
+<tr><td>
+	<table class="info">
+		<tr>
+			<th>idhh</th>
+			<th>idperson</th>
+			<th>dag</th>
+			<th>stm01_s_unit1</th>
+			<th>stm01_s_unit2</th>
+			<th class="error">stm01_s_unit</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>101</td>
+			<td>51</td>
+			<td>1</td>
+			<td>2</td>
+			<td>VOID</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>102</td>
+			<td>48</td>
+			<td class="error">1</td>
+			<td>2</td>
+			<td class="error">1</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>103</td>
+			<td>20</td>
+			<td>1</td>
+			<td class="error">2</td>
+			<td class="error">2</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>201</td>
+			<td>30</td>
+			<td class="error">1</td>
+			<td>1</td>
+			<td class="error">1</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>301</td>
+			<td>58</td>
+			<td>VOID</td>
+			<td>VOID</td>
+			<td class="error">VOID</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>302</td>
+			<td>56</td>
+			<td>VOID</td>
+			<td>VOID</td>
+			<td class="error">VOID</td>
+		</tr>
+	</table>
+</td></tr>
+</table>
+
+
+<p>The rule leading to these results
+is: the variable without an iteration number is set in each iteration to the
+value of the currently eligible unit <a href="#_ftn1" name="_ftnref1" title="">[1]</a>. In the first example (first above table) this means: in the first iteration persons 101, 201 and 301
+are eligible, therefore for them stm01_s_unit takes on the value of stm01_s_unit1 and stays VOID for everyone else.
+In the second iteration persons 102 and 302 are eligible, therefore for them stm01_s_unit takes on the value of stm01_s_unit2. For everyone else stm01_s_unit keeps its value where it has
+already one and stays VOID where it has not. Finally, in the third iteration
+person 103 is eligible, therefore for her/him stm01_s_unit takes on the value of stm01_s_unit3 and keeps its value for everyone
+else. The story for the second example (second of the above tables) is similar: in the first iteration
+persons 102 and 201 are eligible, therefore for them stm01_s_unit takes on the value of stm01_s_unit1 and stays VOID for everyone else.
+In the second iteration person 103 is eligible, therefore for her/him stm01_s_unit takes on the value of stm01_s_unit2. For everyone else it stays unchanged,
+which amongst others means that it stays undefined for persons 101, 301 and 302
+as they never were eligible.</p>
+
+<p>These rather technical examples help
+to understand the mechanism, but are not very conducive to see what this is
+good for. A more practical example may contribute to a better understanding.</p>
+
+<table class="spine">
+	<caption>Example 6:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>UnitLoop</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>loop_id</td>
+		<td>unit</td>
+		<td>loop over the tax-benefit calculations</td>
+	</tr>
+	<tr>
+		<td>start_after_pol</td>
+		<td>tudef_sl</td>
+		<td>as often as there are persons with</td>
+	</tr>
+	<tr>
+		<td>stop_before_pol</td>
+		<td>output_std_sl</td>
+		<td>positive employment income</td>
+	</tr>
+	<tr>
+		<td>elig_unit</td>
+		<td>individual_sl</td>
+		<td>assuming that this policy is placed at the beginning of the loop</td>
+	</tr>
+	<tr>
+		<td>elig_unit_cond</td>
+		<td>yem&gt;0</td>
+		<td>(i.e. after tudef_sl)</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>yem_bkup*(1+IsCurElig_unit*0.01)</td>
+		<td>increase employment income by 1% for each</td>
+	</tr>
+	<tr>
+		<td>output_add_var</td>
+		<td>yem</td>
+		<td>person with positive employment in turn</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td>assuming that original yem was stored in yem_bkup before the loop</td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr class="function">
+		<td>Store</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>loop_id</td>
+		<td>unit</td>
+		<td>store employment income of each iteration</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yem</td>
+		<td>assuming that this policy is placed at the end of the loop (i.e. before output_std_sl)</td>
+	</tr>
+</table>
+
+
+<p>The example produces the following output.</p>
+
+<table class="info">
+	<tr>
+		<th>idhh</th>
+		<th>idperson</th>
+		<th>yem_bkup</th>
+		<th>yem_unit1</th>
+		<th>yem_unit2</th>
+		<th class="error">yem_unit</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>101</td>
+		<td>1800</td>
+		<td class="error">1818</td>
+		<td>1800</td>
+		<td class="error">1818</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>1000</td>
+		<td>1000</td>
+		<td class="error">1010</td>
+		<td class="error">1010</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td class="error">0</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>2000</td>
+		<td class="error">2020</td>
+		<td>VOID</td>
+		<td class="error">2020</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>0</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+	</tr>
+</table>	
+
+<p>One can see, that yem_unit shows marginally increased
+employment income for each person with positive earnings from employment (VOID for
+everyone else). Note that yem_unit1 shows the situation in the first iteration of
+the loop, when yem of
+the first person in the household with positive yem is marginally increased (persons 101 and 301)
+and yem of any other person with positive yem stays unchanged (person 102). yem_unit2 shows the situation in the second
+iteration of the loop, which is only carried out for households with more than
+one person with positive yem. Now yem of the second person in the household with
+positive yem is
+marginally increased (person 102) and yem of any other person with positive yem stays unchanged (person 101).</p>
+
+<p>So far this is not a very
+interesting finding, what we actually want to know is disposable income in
+these different situations. Adding parameter il to Store and setting it to ils_dispy would produce the following output:</p>
+
+<table class="info">
+	<tr>
+		<th>idhh</th>
+		<th>idperson</th>
+		<th>yem_bkup</th>
+		<th>yem_unit1</th>
+		<th>yem_unit2</th>
+		<th class="error">yem_unit</th>
+		<th>ils_dispy_unit1</th>
+		<th>ils_dispy_unit2</th>
+		<th class="error">ils_dispy_unit</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>101</td>
+		<td>1800</td>
+		<td class="error">1818</td>
+		<td>1800</td>
+		<td class="error">1818</td>
+		<td class="error">1308</td>
+		<td>1300</td>
+		<td class="error">1308</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>1000</td>
+		<td>1000</td>
+		<td class="error">1010</td>
+		<td class="error">1010</td>
+		<td>1050</td>
+		<td class="error">1060</td>
+		<td class="error">1060</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td class="error">0</td>
+		<td>0</td>
+		<td>0</td>
+		<td class="error">VOID</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>2000</td>
+		<td class="error">2020</td>
+		<td>VOID</td>
+		<td class="error">2020</td>
+		<td class="error">1500</td>
+		<td>VOID</td>
+		<td class="error">1500</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>0</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+	</tr>
+</table>	
+
+
+<p>This result may still not be
+satisfactory, if one assumes that household disposable income is a more telling
+measure of a person’s means than individual disposable income. The parameter il_level of Store allows to change the assessment level
+respectively. (There are two further parameters in this context: var_level allows changing the assessment
+level of a specific variable and level refers to all variables and incomelists of the
+respective Store.) If
+il_level is set to household_sl the output would change as follows:</p>
+
+
+<table class="info">
+	<tr>
+		<th>idhh</th>
+		<th>idperson</th>
+		<th>yem_bkup</th>
+		<th>yem_unit1</th>
+		<th>yem_unit2</th>
+		<th>yem_unit</th>
+		<th>ils_dispy_unit1</th>
+		<th>ils_dispy_unit2</th>
+		<th class="error">ils_dispy_unit</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>101</td>
+		<td>1800</td>
+		<td>1818</td>
+		<td>1800</td>
+		<td>1818</td>
+		<td class="error">1308</td>
+		<td class="warning">1300</td>
+		<td class="error">2358</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>1000</td>
+		<td>1000</td>
+		<td>1010</td>
+		<td>1010</td>
+		<td class="warning">1050</td>
+		<td class="error">1060</td>
+		<td class="error">2360</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td class="warning">0</td>
+		<td class="warning">0</td>
+		<td class="error">VOID</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>2000</td>
+		<td>2020</td>
+		<td>VOID</td>
+		<td>2020</td>
+		<td class="error">1500</td>
+		<td>VOID</td>
+		<td class="error">1500</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>0</td>
+		<td>0</td>
+		<td>VOID</td>
+		<td>VOID</td>
+		<td class="warning">0</td>
+		<td>VOID</td>
+		<td class="error">VOID</td>
+	</tr>
+</table>
+
+<p>We have now nearly all ingredients
+to calculate marginal tax rates on individual level, based on disposable income
+on household level (yem_bkup, yem_unit, ils_dispy_unit). Still missing is standard disposable income,
+which may simply be taken from a standard run of the tax-benefit system or –
+maybe more convenient – calculated by another loop.</p>
+
+<p>The examples hopefully demonstrated
+that the storing mechanisms provided by Store allow for output that can be efficiently analysed respectively further
+processed with statistic tools. However, to properly apply them we need to
+clarify some details. The following exemplary overview of the
+variables/incomelists generated by Store on the one hand summarises what was explained
+in the text above and on the other hand allows elaborating these details.</p>
+
+<p>Variables/incomelists/constants generated by Store</p>
+
+<table class="info">
+	<tr>
+		<th rowspan="2"></th>
+		<th colspan="2">postfix=bkup</th>
+		<th colspan="2">postloop=turn<br>(Loop with 2 iterations)</th>
+		<th colspan="3">postloop=unit<br>(UnitLoop with max. 2 iterations)</th>
+	</tr>
+	<tr>
+		<th>variables</th>
+		<th>incomelists</th>
+		<th>variables</th>
+		<th>incomelists</th>
+		<th>variables</th>
+		<th>incomelists</th>
+		<th>constants</th>
+	</tr>
+	<tr class="separate">
+		<td>var=yem</td>
+		<td>yem_bkup</td>
+		<td></td>
+		<td>yem_turn1<br>yem_turn2<br>yem_turn</td>
+		<td></td>
+		<td>yem_unit1<br>yem_unit2</td>
+		<td></td>
+		<td>yem_unit</td>
+	</tr>
+	<tr>
+		<td>il=il_wkinc<sup>1</sup></td>
+		<td>yem_bkup<br>yse_bkup</td>
+		<td>il_wkinc_bkup<sup>2</sup></td>
+		<td>yem_turn1<br>yem_turn2<br>yem_turn<br>yse_turn1<br>yse_turn2<br>yse_turn</td>
+		<td>il_wkinc_turn1<sup>3</sup><br>il_wkinc_turn2<sup>3</sup><br>il_wkinc_turn<sup>3</sup></td>
+		<td>yem_unit1<br>yem_unit2<br>yse_unit1<br>yse_unit2</td>
+		<td>il_wkinc_unit1<sup>4</sup><br>il_wkinc_unit2<sup>4</sup></td>
+		<td>il_wkinc_unit</td>
+	</tr>
+</table>
+
+<p class="footnote"><sup>1</sup> il_wkinc = yem + yse</p>
+
+<p class="footnote"><sup>2</sup> il_wkinc_bkup = yem_bkup + yse_bkup</p>
+
+<p class="footnote"><sup>3</sup> il_wkinc_turn1 = yem_turn1 + yse_turn1;
+il_wkinc_turn2 = yem_turn2 + yse_turn2; il_wkinc_turn = yem_turn + yse_turn</p>
+
+<p class="footnote"><sup>4</sup> il_wkinc_unit1 = yem_unit1 + yse_unit1;
+il_wkinc_unit2 = yem_unit2 + yse_unit2</p>
+
+<p>&nbsp;</p>
+
+<p>While most of the overview should be
+self-explaining, we need to clarify why yem_unit and il_wkinc_unit are constants. To do so recall the
+construction of yem_unit
+described above and consider the fact that monetary variables (and incomelists)
+are assessed on assessment unit level. However, due to its construction yem_unit cannot be assessed on e.g.
+household level. For the first household it would than amount to 1818+1010+VOID which does not make any sense. That
+means the constant-status on the one hand tries to avoid mistakes in this
+context (but cannot rule them out) and on the other hand highlights the
+specific contruction. In principle the same is true for incomelists (il_wkinc_unit respectively ils_dispy_unit in the example above). They are
+generated following the same mechanism described above for yem_unit, i.e. set in each iteration to the
+value of the currently eligible unit. For the same reasons why yem_unit is a constant rather than a
+monetary variable il_wkinc_unit and ils_dispy_unit are constant rather than incomelists. A convenient side effect of the
+constant-status is that a level change via parameters level/var_level/il_level does not generate a (further) inconsistency.</p>
+
+<p>Finally note that Restore cannot refer to a Store applying the parameter post_loop to refer to a unit loop, as this
+would not be very helpful but potentially most confusing.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> More precisely, if the unit is
+bigger than individual, the variable is set for the currently eligible unit,
+namely to respective value for the head and to zero for non-heads (opposed to
+staying undefined for persons within not eligible units).</p>
+
+</div>
+
+</body>
+
+</html>

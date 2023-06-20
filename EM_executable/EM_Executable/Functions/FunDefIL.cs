@@ -17,6 +17,12 @@ namespace EM_Executable
             foreach (var part in GetPlaceholderPar<ParBase>())
             {
                 string varILName = part.Key;
+                if (!CheckCyclical(varILName, parName.xmlValue))
+                {
+                    infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+                    { isWarning = false, message = $"{description.Get()}: Cyclical reference found: {varILName}!" });
+                    return;
+                }
                 content.Add(varILName, GetAddMod(part.Value)); // note that vars/ILs are 'registered' (i.e.a.o. checked) in ParIL.CheckAndPrepare (i.e. on 1st use)
             }
 
@@ -68,5 +74,18 @@ namespace EM_Executable
             //
             // this differnt behaviour can be justified, because this is a different parameter, I guess ...
         }
+
+        bool CheckCyclical(string il, string parent)
+        {
+            if (il.ToLower().Equals(parent.ToLower())) return false; // found cyclical reference!
+            List<string> matchingIls = infoStore.operandAdmin.GetMatchingIL(il);
+            if (matchingIls.Count == 0) return true;
+            foreach (string ilVar in infoStore.operandAdmin.GetILContent(matchingIls[0]).Keys)
+            {
+                if (!CheckCyclical(ilVar, parent)) return false;    // check recursively
+            }
+            return true;
+        }
+
     }
 }

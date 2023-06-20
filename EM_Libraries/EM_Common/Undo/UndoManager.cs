@@ -7,7 +7,7 @@ namespace EM_Common
     public class ADOUndoManager
     {
         // !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! 
-        // !!!  Important note: DataTabels require a primary key for the UndoManager to work properly  !!!
+        // !!!  Important note: DataTables require a primary key for the UndoManager to work properly  !!!
         // !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! !!! 
 
         List<DataSet> _ministeredDataSets;

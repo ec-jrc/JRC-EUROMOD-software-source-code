@@ -74,7 +74,7 @@ namespace EM_UI.Dialogs
         //allows at least to easily look up which outdated warnings exist and check whether they can be eliminited meanwhile
         internal static void ShowOutdatedWarning(string warning)
         {
-            Tools.UserInfoHandler.ShowError(warning);
+            EM_UI.Tools.UserInfoHandler.ShowError(warning);
         }
     }
 }

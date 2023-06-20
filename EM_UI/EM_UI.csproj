@@ -148,11 +148,20 @@
     <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Connections.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Connections.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Connections.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting, Version=2.2.7.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.2.2.7\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
@@ -163,15 +172,48 @@
     <Reference Include="Microsoft.AspNetCore.Http.Features, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.3.1.2\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Server.Kestrel.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Server.Kestrel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Server.Kestrel.Core.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Server.Kestrel.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Https, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Server.Kestrel.Https.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Server.Kestrel.Https.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets, Version=2.2.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.2.2.1\lib\netstandard2.0\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.StaticFiles, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.StaticFiles.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.StaticFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.EnvironmentVariables, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.EnvironmentVariables.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.2\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
@@ -179,11 +221,23 @@
     <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.3.1.2\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.3.1.2\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Logging, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.3.1.2\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Options, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Options.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
@@ -204,9 +258,13 @@
       <HintPath>..\packages\Octokit.0.41.0\lib\net46\Octokit.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
@@ -215,6 +273,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Pipelines, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Pipelines.4.7.0\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
     </Reference>
@@ -226,16 +287,24 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Reflection.Metadata, Version=1.4.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.Metadata.1.8.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Cng, Version=4.3.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Cng.4.7.0\lib\net462\System.Security.Cryptography.Cng.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.7.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -269,6 +338,18 @@
     </Compile>
     <Compile Include="Dialogs\ShowLicenceForm.Designer.cs">
       <DependentUpon>ShowLicenceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Tools\ChooseStatistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Tools\ChooseStatistics.Designer.cs">
+      <DependentUpon>ChooseStatistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\Tools\MacrovalidationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\Tools\MacrovalidationForm.Designer.cs">
+      <DependentUpon>MacrovalidationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionAdminCtryAction.cs" />
     <Compile Include="ExtensionAndGroupManagement\Actions\ExtensionSetPrivateAction.cs" />
@@ -487,19 +568,19 @@
     <Compile Include="ExtensionAndGroupManagement\Dialogs\AdminExtensionsOrGroups.Designer.cs">
       <DependentUpon>AdminExtensionsOrGroups.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffects.Asc.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffects.Asc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffectsAlphaRange.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffectsAlphaRange.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffectsAlphaRange.Designer.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffectsAlphaRange.Designer.cs">
       <DependentUpon>PolicyEffectsAlphaRange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffectsChooseMode.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffectsChooseMode.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffectsChooseMode.Designer.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffectsChooseMode.Designer.cs">
       <DependentUpon>PolicyEffectsChooseMode.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\DeleteCountryForm.cs">
@@ -538,16 +619,16 @@
     <Compile Include="Dialogs\NumberedSearchResultsForm.Designer.cs">
       <DependentUpon>NumberedSearchResultsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffects.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffects.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffects.Designer.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffects.Designer.cs">
       <DependentUpon>PolicyEffects.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffectsEM2.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffectsEM2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\PolicyEffectsEM3.cs">
+    <Compile Include="Dialogs\Tools\PET\PolicyEffectsEM3.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\ProgressInidicator.cs">
@@ -594,6 +675,15 @@
     <Compile Include="ExtensionAndGroupManagement\ExtensionAndGroupMenuManager.cs" />
     <Compile Include="ExtensionAndGroupManagement\ExtensionAndGroupMergeHelper.cs" />
     <Compile Include="ExtensionAndGroupManagement\GlobLocExtensionRow.cs" />
+    <Compile Include="ExternalStatistics\ExternalStatisticsAction.cs" />
+    <Compile Include="ExternalStatistics\ExternalStatisticsComponent.cs" />
+    <Compile Include="ExternalStatistics\ExternalStatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExternalStatistics\ExternalStatisticsForm.Designer.cs">
+      <DependentUpon>ExternalStatisticsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExternalStatistics\ExternalStatisticUtil.cs" />
     <Compile Include="GlobalAdministration\ExchangeRate.cs" />
     <Compile Include="GlobalAdministration\ExchangeRatesForm.cs">
       <SubType>Form</SubType>
@@ -1087,13 +1177,19 @@
     <EmbeddedResource Include="Dialogs\ShowLicenceForm.resx">
       <DependentUpon>ShowLicenceForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Tools\ChooseStatistics.resx">
+      <DependentUpon>ChooseStatistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\Tools\MacrovalidationForm.resx">
+      <DependentUpon>MacrovalidationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ExtensionAndGroupManagement\Dialogs\AdminExtensionsOrGroups.resx">
       <DependentUpon>AdminExtensionsOrGroups.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\PolicyEffectsAlphaRange.resx">
+    <EmbeddedResource Include="Dialogs\Tools\PET\PolicyEffectsAlphaRange.resx">
       <DependentUpon>PolicyEffectsAlphaRange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\PolicyEffectsChooseMode.resx">
+    <EmbeddedResource Include="Dialogs\Tools\PET\PolicyEffectsChooseMode.resx">
       <DependentUpon>PolicyEffectsChooseMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DeleteCountryForm.resx">
@@ -1122,7 +1218,7 @@
       <DependentUpon>ConfigurePathsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\PolicyEffects.resx">
+    <EmbeddedResource Include="Dialogs\Tools\PET\PolicyEffects.resx">
       <DependentUpon>PolicyEffects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SelectSystemsForm.resx">
@@ -1141,6 +1237,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\UnhideRowsForm.resx">
       <DependentUpon>UnhideRowsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExternalStatistics\ExternalStatisticsForm.resx">
+      <DependentUpon>ExternalStatisticsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalAdministration\ExchangeRatesForm.resx">
@@ -1379,7 +1479,11 @@
   <ItemGroup>
     <Content Include="brand_icon_EUROMOD.ico" />
     <Content Include="euromod-app-icon.ico" />
-    <None Include="Resources\%24this.Icon.ico" />
+    <None Include="Resources\InDepthAnalysis.png" />
+    <None Include="Resources\StatisticsPresenter.png" />
+    <None Include="Resources\InDepthAnalysis.ico" />
+    <None Include="Resources\StatisticsPresenter.ico" />
+    <None Include="Resources\EUROMODStatistics.ico" />
     <None Include="Icons\licence.png" />
     <None Include="Icons\ReleaseInfo.png" />
     <None Include="Icons\TipNotAllCountriesVisible.png" />
@@ -1480,6 +1584,10 @@
     <ProjectReference Include="..\EM_Executable\EM_Transformer\EM_Transformer.csproj">
       <Project>{3f552049-a3a8-4afc-aa44-ccb648ff76a1}</Project>
       <Name>EM_Transformer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\em_libraries\EM_BackEnd\EM_BackEnd.csproj">
+      <Project>{5ef7f33a-2161-4523-9f6a-61a5d7316177}</Project>
+      <Name>EM_BackEnd</Name>
     </ProjectReference>
     <ProjectReference Include="..\EM_Libraries\EM_CommonMSWin\EM_Common_Win.csproj">
       <Project>{9cfaccaa-f897-480f-b05f-c6087c3ef15f}</Project>

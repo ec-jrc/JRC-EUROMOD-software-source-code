@@ -9,7 +9,8 @@ namespace EM_Common
     {
         public static string ShortCountryToFullCountry(string c)
         {
-            string fullCountry = "Unknown Country";
+            //If the country is not known, the short name of the country will be displayed
+            string fullCountry = c;
             Dictionary<string, string> allCountries = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
                 {"AF", "Afghanistan"}, {"AL", "Albania"}, {"DZ", "Algeria"}, {"AS", "American Samoa"}, {"AD", "Andorra"}, {"AO", "Angola"}, {"AI", "Anguilla"}, {"AQ", "Antarctica"}, {"AG", "Antigua and Barbuda"},
                 {"AR", "Argentina"}, {"AM", "Armenia"}, {"AW", "Aruba"}, {"AU", "Australia"}, {"AT", "Austria"}, {"AZ", "Azerbaijan"}, {"BS", "Bahamas"}, {"BH", "Bahrain"}, {"BD", "Bangladesh"}, {"BB", "Barbados"},

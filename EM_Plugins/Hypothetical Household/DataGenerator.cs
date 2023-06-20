@@ -92,7 +92,6 @@ namespace HypotheticalHousehold
                                 allDetails.fileDetails[country].allVars.Add(csvn, var.VariableName);
                             else
                             {
-
                                 addErrorMessage(errorVars, "Duplicate Variable '" + csvn + "' found in " + country + ".");
                             }
                         }
@@ -149,12 +148,12 @@ namespace HypotheticalHousehold
                     di.varName = var.VariableName;
                     di.defaultValue = var.DefaultValue;
                     di.conditionalValues = new Dictionary<string, string>();
-                    foreach (VariableDataSet.Cur_DerivedVariablesDetailRow dvar in plugin.settingsData.Cur_DerivedVariablesDetail.Select("VariableName = '" + var.VariableName + "'"))
+                    foreach (VariableDataSet.Cur_DerivedVariablesDetailRow dvar in plugin.settingsData.Cur_DerivedVariablesDetail.Select("VarId = '" + var.Id + "'"))
                     {
                         di.conditionalValues.Add(dvar.Condition, dvar.DerivedValue);
                     }
-                    allDetails.fileDetails[country].derivedVars.Add(var.VariableName, di);
-
+                    if (!allDetails.fileDetails[country].derivedVars.ContainsKey(var.VariableName))
+                        allDetails.fileDetails[country].derivedVars.Add(var.VariableName, di);
                 }
 
                 allDetails.fileDetails[country].numericVarValues = new Dictionary<string, Dictionary<string, Dictionary<string, Dictionary<string, double>>>>();
@@ -360,9 +359,9 @@ namespace HypotheticalHousehold
                 foreach (string v in fileDetails.allVars.Keys) line.Add(v);
                 sw.WriteLine(String.Join("\t", line));
                 long famId = 0;
-                Regex matchText = new Regex(@"([a-z]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-                Regex matchTextStar = new Regex(@"(?<start>[a-z]+)\*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-                Regex matchTextStarText = new Regex(@"(?<start>[a-z]+)\*(?<end>[a-z]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                Regex matchText = new Regex(@"([a-z][a-z0-9]*)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                Regex matchTextStar = new Regex(@"(?<start>[a-z][a-z0-9]*)\*", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                Regex matchTextStarText = new Regex(@"(?<start>[a-z][a-z0-9]*)\*(?<end>[a-z0-9]+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
                 foreach (TreeListNode fam in inputForm.treeHouseholds.Nodes)
                 {
@@ -416,24 +415,13 @@ namespace HypotheticalHousehold
                                     line.Add(pids[p.GetValue("dataId").ToString()]);
                                     line.Add("1");  // add "dwt"
                                     DataRow row = tbl.Rows.Find(p.GetValue("dataId"));  // "row" holds the actual grid data (all variable values) for this individual
-                                    foreach (string var in fileDetails.allVars.Values)
+                                    foreach (KeyValuePair<string, string> var in fileDetails.allVars)
                                     {
-                                        string v = var;
+                                        string v = var.Value;
+                                        string k = var.Key;
                                         if (!row.Table.Columns.Contains(v) && v.EndsWith("_" + country))
                                             v = v.Substring(0, v.Length - ("_" + country).Length);
-                                        if (pRanged.ContainsKey(v))     // if it is a ranged variable
-                                        {
-                                            line.Add(pRanged[v][year][curValue[famName + "_" + pName + "_" + v]].ToString());
-                                        }
-                                        else if (pNumeric.ContainsKey(v))   // if it is a numeric variable
-                                        {
-                                            line.Add(pNumeric[v][year].ToString());
-                                        }
-                                        else if (fileDetails.connectionVars.Contains(v))    // if it is a connection variable
-                                        {
-                                            line.Add(row[v] == DBNull.Value || row[v].ToString() == "" || !pids.ContainsKey(row[v].ToString()) ? "0" : pids[row[v].ToString()]);
-                                        }
-                                        else if (fileDetails.derivedVars.ContainsKey(v))    // if it is a derived variable
+                                        if (fileDetails.derivedVars.ContainsKey(k))    // first check if it is a derived variable (as it may be double-recorded as a basic variable with a different country-specific name)
                                         {
                                             // find the correct expression to calculate
                                             string expression = "";
@@ -462,6 +450,7 @@ namespace HypotheticalHousehold
                                                     double totalValue = 0;
                                                     foreach (string s in fileDetails.allVars.Keys)
                                                     {
+                                                        if (s.Equals(v)) continue; // don't add any variable with the exact same name 
                                                         if (s.StartsWith(match.Groups["start"].Value) && s.EndsWith(match.Groups["end"].Value))
                                                         {
                                                             string baseVar = fileDetails.allVars[s];
@@ -474,6 +463,7 @@ namespace HypotheticalHousehold
 
                                                     foreach (DataColumn col in row.Table.Columns)
                                                     {
+                                                        if (col.ColumnName.Equals(v)) continue; // don't add any variable with the exact same name 
                                                         if (!(pRanged.Keys.Contains(col.ColumnName) || pNumeric.Keys.Contains(col.ColumnName))
                                                             && fileDetails.allVars.ContainsKey(col.ColumnName)
                                                             && col.ColumnName.StartsWith(match.Groups["start"].Value) && col.ColumnName.EndsWith(match.Groups["end"].Value))
@@ -491,6 +481,7 @@ namespace HypotheticalHousehold
                                                     double totalValue = 0;
                                                     foreach (string s in fileDetails.allVars.Keys)  // add ALL matches
                                                     {
+                                                        if (s.Equals(v)) continue; // don't add any variable with the exact same name 
                                                         if (s.StartsWith(match.Groups["start"].Value))
                                                         {
                                                             string baseVar = fileDetails.allVars[s];
@@ -506,6 +497,7 @@ namespace HypotheticalHousehold
                                                     }
                                                     foreach (DataColumn col in row.Table.Columns)
                                                     {
+                                                        if (col.ColumnName.Equals(v)) continue; // don't add any variable with the exact same name 
                                                         if (!(pRanged.Keys.Contains(col.ColumnName) || pNumeric.Keys.Contains(col.ColumnName))
                                                             && fileDetails.allVars.ContainsKey(col.ColumnName)
                                                             && col.ColumnName.StartsWith(match.Groups["start"].Value))
@@ -543,12 +535,23 @@ namespace HypotheticalHousehold
                                                         {
                                                             realValue = row[match.Value] == DBNull.Value ? "0" : row[match.Value].ToString();
                                                         }
-                                                        else
+                                                        else if (row.Table.Columns.Contains(baseVar))
                                                         {
                                                             realValue = row[baseVar] == DBNull.Value ? "0" : row[baseVar].ToString();
                                                         }
+                                                        else
+                                                        {
+                                                            MessageBox.Show("Something went wrong! Variable '" + v + "' -> '" + match.Value + "' was not found.");
+                                                            realValue = "0";
+                                                            return "";
+                                                        }
                                                     }
-                                                    else realValue = "0";
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Something went wrong! Variable '" + v + "' -> '" + match.Value + "' was not found.");
+                                                        realValue = "0";
+                                                        return "";
+                                                    }
                                                     expression = expression.Replace(match.Value, realValue);
                                                 }
                                                 /**/
@@ -565,6 +568,18 @@ namespace HypotheticalHousehold
                                                 addErrorMessage(errorVars, v);
                                                 line.Add("0");
                                             }
+                                        }
+                                        else if (pRanged.ContainsKey(v))     // if it is a ranged variable
+                                        {
+                                            line.Add(pRanged[v][year][curValue[famName + "_" + pName + "_" + v]].ToString());
+                                        }
+                                        else if (pNumeric.ContainsKey(v))   // if it is a numeric variable
+                                        {
+                                            line.Add(pNumeric[v][year].ToString());
+                                        }
+                                        else if (fileDetails.connectionVars.Contains(v))    // if it is a connection variable
+                                        {
+                                            line.Add(row[v] == DBNull.Value || row[v].ToString() == "" || !pids.ContainsKey(row[v].ToString()) ? "0" : pids[row[v].ToString()]);
                                         }
                                         else    // else it should be a categorical variable
                                         {
@@ -656,7 +671,7 @@ namespace HypotheticalHousehold
             string comparer = cond.Substring(pos, endPos - pos);
 
             double compValue;
-            if (!double.TryParse(cond.Substring(endPos + 1).Trim(), out compValue))
+            if (!double.TryParse(cond.Substring(endPos).Trim(), out compValue))
             {
                 addErrorMessage(errorVars, "Invalid condition in derived variable condition! Variable '" + v + "' -> condition '" + cond + "' was invalid.");
                 return string.Empty;

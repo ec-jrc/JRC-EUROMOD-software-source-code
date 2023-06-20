@@ -16,6 +16,7 @@ namespace EM_Common
             public const string WarnIfNonMonetary = "WarnIfNonMonetary";
             public const string Factor_Name = "Factor_Name";
             public const string Factor_Value = "Factor_Value";
+            public const string RegExp_Condition = "RegExp_Condition";
             public const string RegExp_Def = "RegExp_Def";
             public const string RegExp_Factor = "RegExp_Factor";
             public const string DBYearVar = "DBYearVar";
@@ -112,6 +113,11 @@ namespace EM_Common
                 {
                     groupName = GROUP_REGEXP,
                     minCount = 0, maxCount = DefinitionAdmin.MANY
+                });
+                fun.parGroups.Last().par.Add(RegExp_Condition, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.CONDITION,
+                    minCount = 0, maxCount = 1
                 });
                 fun.parGroups.Last().par.Add(RegExp_Def, new DefinitionAdmin.Par()
                 {

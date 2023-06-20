@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Hiding & showing parts of the Spine</title>
+</head>
+
+<body>
+
+<h1>Hiding & showing parts of the Spine</h1>
+
+<h4>Hiding policies, functions and parameters</h4>
+
+<p>The row context menu, opened by right clicking on the row
+number, allows for hiding and unhiding (ranges of)
+policies, functions and parameters.</p>
+
+<h4>Hiding a single policy, function or parameter</h4>
+
+<p>Right click on the number of the respective row and select the
+menu item <i>Hide Row</i> from the row
+context menu. For example, click row number 3 for hiding the 3rd policy in the
+spine<i>;</i> row number 4.2.6 for hiding
+the 6th parameter of the second function of the fourth policy in the spine,
+etc. Alternatively select the row of the policy, function or parameter and
+press <i>Alt-Shift-H</i>.</p>
+
+<h4>Hiding multiple selected policies, functions or parameters</h4>
+
+<p>First select a range of cells, then right click on <i>any</i> row number and select the
+menu item <i>Hide Selected Rows</i> from the row
+context menu. This will hide all the policy, function and parameter lines
+that are currently selected. Note that if there is no current selection, then this
+menu item will appear disabled.</p>
+
+<h4>Hiding all but a single policy, function or parameter</h4>
+
+<p>Right click on the number of the respective row and select the
+menu item <i>Hide</i><i> all other Rows</i> from the row context
+menu. For example, click row number 3 for hiding all policies except the 3rd
+policy in the spine<i>;</i> row number 4.2.6
+for hiding all parameters of the second function of the fourth policy in the
+spine except the 6th, etc. Alternatively select the row of the policy, function
+or parameter and press <i>Alt-O</i>.</p>
+
+<h4>Hiding a range of policies, functions or parameters</h4>
+
+<p>Right click on the first row of the range to open the row
+context menu and move the mouse over the menu item <i>Hide Rows unto</i>. This opens a sub menu containing a combo box with a
+list of row numbers. Select the last row of the range to hide all rows within
+the range.</p>
+
+<p>Note that the listed row numbers are limited to rows, which
+firstly follow the first row of the range and secondly are on the same level as
+the first row. For example, if row number 3 is selected as the first row, i.e.
+the 3rd policy in the spine, the list of row numbers comprises 4, 5, 6, 7,
+etc., i.e. all policies after the 3rd. Selecting 6 hides policies 3, 4, 5 and 6
+and obviously also the included functions and parameters. If row number 4.2.6
+is selected as the first row, i.e. the 6th parameter of the second function of
+the fourth policy in the spine, the list of row numbers comprises 4.2.7, 4.2.8,
+4.2.9, etc., i.e. all parameters after the 6th parameter of the second function
+of the fourth policy. Selecting 4.2.8 hides parameters 4.2.6, 4.2.7 and 4.2.8.</p>
+
+<h4>Hiding policies or functions that are "n/a" in all currently visible systems</h4>
+
+<p>Right click on any row number and select the menu item <i>Hide all &quot;n/a&quot; Policy/Function rows</i>.
+This will go through the whole spine and hide all policies and functions which are
+set to "n/a" in all of the currently visible systems. Note that this only works for
+policies and functions; it will not affect parameters even if they are set to &quot;n/a&quot;
+for all visible systems.</p>
+
+<h4>Hiding selected policies or functions that are "n/a" in all currently visible systems</h4>
+
+<p>First select a range of cells, then right click on any row number and select the menu item <i>Hide selected &quot;n/a&quot; Policy/Function rows</i>.
+This will go through the selected policies and functions and hide those which are
+set to "n/a" in all of the currently visible systems. For example you may want to quickly
+hide &quot;n/a&quot; functions within a given policy. In this case you would click on that
+policy and then right click on its row number and select the <i>Hide selected &quot;n/a&quot;
+Policy/Function rows</i> item. Note that this only works for policies and functions;
+it will not affect parameters even if they are set to &quot;n/a&quot; for all visible systems.</p>
+
+<h4>Unhiding policies, functions or parameters</h4>
+
+<p>Right clicking any row and selecting the menu item <i>Unhide Rows</i> from the row context menu
+opens a dialog that lists any hidden ranges of rows. Check the box of the range
+you want to unhide and press the button <i>Unhide</i>. You can also use the "Check All" checkbox at
+the bottom to quickly check/uncheck all the available ranges.
+Note that nested hiding is not taken into account. For example, if you first
+hide functions 3.2 to 3.6 and afterwards policies 2 to 4, the dialog only lists
+policies 2 to 4 and unhides all functions and
+parameters included.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

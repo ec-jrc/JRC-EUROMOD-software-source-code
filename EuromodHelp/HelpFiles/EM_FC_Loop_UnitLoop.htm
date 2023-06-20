@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The special functions Loop and UnitLoop</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The special functions Loop and UnitLoop</h1>
+
+<p>The looping
+functions allow for repeating part (or all) of the tax-benefit calculations. As
+an example, for calculating marginal tax rates at least part of the policies
+need to be calculated twice, once for original income and once for marginally
+increased income. <i>Loop</i> allows for such a loop over a group of policies. The loop is carried out until
+the number of scheduled iterations is reached and/or the break condition is
+fulfilled. As certain calculations may depend on the current iteration a
+variable called <i>loopcount_loopid</i> is provided. If for example the identifier (parameter <i>loop_id</i>) of the loop for the marginal tax rate
+calculations is <i>mtr</i>, the
+variable <i>loopcount_mtr</i> will take a value of 1 in the first loop and 2 in the second. This
+allows for a respective condition to increase income in the second loop.
+Moreover, if certain policies within the loop should not be repeated, they can
+be switched off after the first iteration, by using <i>ChangeParam</i> with the run_cond <i>{loopcount_x&gt;1}</i>.</p>
+
+<p><i>UnitLoop</i>
+is a bit more special, it is carried out for all &quot;entitled units&quot; within the
+household. Marginal tax rate calculations again serve well to explain this.
+Households frequently do not comprise only one person with (labour)income.
+Assume that a household’s marginal tax rate should be calculated as the average
+of the tax rates realised if each of the (labour)incomes is marginally
+increased in turn. <i>UnitLoop</i> is designed to allow such computations.
+&quot;Entitled units&quot; are in this case all persons with (labour)income. As loop <i>UnitLoop</i> provides a loop count variable.
+This variable takes a value of one for the first &quot;entitled unit&quot; (i.e.
+individual with (labour)income), a value of two for the second, and so on. In
+addition a variable <i>IsCurElig_loopid</i> (e.g. <i>IsCurElig_umtr</i> if the <i>loop_id</i>
+of the unit loop is <i>umtr</i>) is provided. This variable is true for all members
+of the entitled unit currently processed and false for all members of other
+units. These variables allow for a respective condition to increase incomes in
+turn. In fact, technically <i>UnitLoop</i> itself does nothing in particular with the
+entitled unit (except setting <i>IsCurElig_x</i> true). It simply runs the household as often
+over the functions included in the loop as there are entitled small units. It
+is the developers task to implement &quot;actions&quot;, by using the variables provided
+by the loop. Despite the already mentioned there are three further variables: <i>nULElig_loopid</i> indicates the number of entitled
+small units within the household (and therewith the number of iterations for
+this household); it is set (to the same value) for all household members. <i>IsULElig_loopid</i> indicates whether a specific small
+unit within the household is entitled; it is set to one for all members of an
+entitled unit and to zero for all members of a not entitled unit. <i>IsEligInIter_loopid</i> indicates in which iteration a
+specific small unit is entitled; it is set (to the respective iteration number)
+for all members of the small unit.</p>
+
+<p>The examples below illustrate these variables:</p>
+
+<table class="info">
+	<tr>
+		<th>idhh</th>
+		<th>idperson</th>
+		<th>idpartner</th>
+		<th>yem</th>
+		<th>nULElig_unit</th>
+		<th>isULElig_unit</th>
+		<th>isEligInIter_unit</th>
+	</tr>
+	<tr class="separate">
+		<th colspan="7">loop_id=unit; elig_unit=individual, elig_unit_cond={yem>0}</th>
+	</tr>
+	<tr class="separate">
+		<td>1</td>
+		<td>101</td>
+		<td>102</td>
+		<td>1500</td>
+		<td>3</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>101</td>
+		<td>1000</td>
+		<td>3</td>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>0</td>
+		<td>500</td>
+		<td>3</td>
+		<td>1</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>104</td>
+		<td>0</td>
+		<td>0</td>
+		<td>3</td>
+		<td>0</td>
+		<td>VOID</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>VOID</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>302</td>
+		<td>2000</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>301</td>
+		<td>0</td>
+		<td>1</td>
+		<td>0</td>
+		<td>VOID</td>
+	</tr>
+	<tr class="separate">
+		<th colspan="7">loop_id=unit; elig_unit=couple, elig_unit_cond={yem>0}</th>
+	</tr>
+	<tr class="separate">
+		<td>1</td>
+		<td>101</td>
+		<td>102</td>
+		<td>1500</td>
+		<td>2</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>102</td>
+		<td>101</td>
+		<td>1000</td>
+		<td>2</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>103</td>
+		<td>0</td>
+		<td>500</td>
+		<td>2</td>
+		<td>1</td>
+		<td>2</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>104</td>
+		<td>0</td>
+		<td>0</td>
+		<td>2</td>
+		<td>0</td>
+		<td>VOID</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>201</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>VOID</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>301</td>
+		<td>302</td>
+		<td>2000</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>302</td>
+		<td>301</td>
+		<td>0</td>
+		<td>1</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+</table>
+
+
+<p>The location of the loop functions is not important as they are
+custom-treated by the model in the sense of their principle independency of the
+policy and function order.</p>
+
+<p>A final
+note on encapsulated loops: it may be reasonable that Loop encapsulates UnitLoop and both loops run over the same
+policies. In this case it is important to know how the programme identifies the
+&quot;inner&quot; and &quot;outer loop&quot;. If the first_xxx/last_xxx parameters are used, the loop which is defined
+first will be the inner loop. If the start_after_xxx/stop_before_xxx parameters are used, the loop which
+is defined first will be the outer loop <a
+href="#_ftn1" name="_ftnref1" title="">[1]</a>. To make things clearer one could also use the first_xxx/last_xxx parameters for the inner loop and
+the start_after_xxx/stop_before_xxx parameters for the outer loop
+(referring to the functions/policies preceding the first respectively following
+the last function/policy of the loop).</p>
+
+<p>Examples
+for the application of the loop functions can be found in section <a
+href="EM_FC_Store_Restore.htm">EUROMOD Functions - The special functions Store and
+Restore</a>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> This is due to the fact that loops
+are subsequently inserted using the references indicated in the <i>first_xxx</i>/<i>last_xxx start_after_xxx</i>/<i>stop_before_xxx</i> parameters, 
+i.e. ignoring any meanwhile inserted loop functions.</p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

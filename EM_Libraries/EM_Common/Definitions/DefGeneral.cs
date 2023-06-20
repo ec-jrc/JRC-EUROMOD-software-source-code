@@ -4,7 +4,7 @@ namespace EM_Common
 {
     public static class DefGeneral
     {
-        public const string UI_VERSION = "3.4.10";
+        public const string UI_VERSION = "3.6.2";
         public const string UI_VERSION_FOR_ASSEMBLY = UI_VERSION + ".0";
 
         public static Encoding DEFAULT_ENCODING = Encoding.UTF8; // this Encoding allows displaying country specific characters, while the originally used Encoding.Default did not
@@ -17,6 +17,11 @@ namespace EM_Common
         public static int IMAGE_IND_PRIV_REF = 4;
         public static int IMAGE_IND_PRIV_FUN = 5;
         public static int IMAGE_IND_PRIV_PAR = 6;
+        public static int IMAGE_IND_FUN_INCONS = 7;
+        public static int IMAGE_IND_POL_INCONS = 8;
+        public static int IMAGE_IND_PRIV_POL_INCONS = 9;
+        public static int IMAGE_IND_PRIV_FUN_INCONS = 10;
+        public static int IMAGE_IND_INCONS = 11;
 
         public static string BRAND_TITLE = "EUROMOD";
         public static string BRAND_NAME = "EUROMOD";

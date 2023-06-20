@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>BouncyCastle.NetCore</id>
+    <version>1.8.6</version>
+    <title>BouncyCastle.NetCore</title>
+    <authors>BouncyCastle</authors>
+    <owners>BouncyCastle</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/chrishaly/bc-csharp</projectUrl>
+    <description>a BouncyCastle redist package include .Net Framework and .Net Core/ Standard support</description>
+    <tags>.net framework, core, standard</tags>
+  </metadata>
+</package>

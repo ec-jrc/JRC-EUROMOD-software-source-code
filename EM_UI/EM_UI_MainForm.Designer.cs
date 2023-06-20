@@ -30,14 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EM_UI_MainForm));
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipItem toolTipItem4 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem5 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem6 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip7 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem7 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip8 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem8 = new DevExpress.Utils.ToolTipItem();
             this.EM_MainRibbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.applicationMenu = new DevExpress.XtraBars.Ribbon.ApplicationMenu(this.components);
             this.btnSave = new DevExpress.XtraBars.BarButtonItem();
@@ -177,6 +177,9 @@
             this.btnVCMergeVariablesOnlineBundle = new DevExpress.XtraBars.BarButtonItem();
             this.btnVCNewBundleLocalVersion = new DevExpress.XtraBars.BarButtonItem();
             this.btnLicence = new DevExpress.XtraBars.BarButtonItem();
+            this.btnExternalStatistics = new DevExpress.XtraBars.BarButtonItem();
+            this.btnMacroValidation = new DevExpress.XtraBars.BarButtonItem();
+            this.btnStatistics = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageEuromod = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.CountriesRun = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupLoadedCountry = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -393,10 +396,12 @@
             this.btnVCMergeVariableOnlineBundle,
             this.btnVCMergeVariablesOnlineBundle,
             this.btnVCNewBundleLocalVersion,
-            this.btnLicence});
+            this.btnLicence,
+            this.btnExternalStatistics,
+            this.btnMacroValidation,
+            this.btnStatistics});
             this.EM_MainRibbon.Location = new System.Drawing.Point(0, 0);
-            this.EM_MainRibbon.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.EM_MainRibbon.MaxItemId = 303;
+            this.EM_MainRibbon.MaxItemId = 305;
             this.EM_MainRibbon.Name = "EM_MainRibbon";
             this.EM_MainRibbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageEuromod,
@@ -414,7 +419,7 @@
             this.EM_MainRibbon.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonControlStyle.Office2010;
             this.EM_MainRibbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
             this.EM_MainRibbon.ShowToolbarCustomizeItem = false;
-            this.EM_MainRibbon.Size = new System.Drawing.Size(1594, 155);
+            this.EM_MainRibbon.Size = new System.Drawing.Size(1366, 144);
             this.EM_MainRibbon.StatusBar = this.ribbonStatusBar1;
             this.EM_MainRibbon.Toolbar.ItemLinks.Add(this.btnUndo);
             this.EM_MainRibbon.Toolbar.ItemLinks.Add(this.btnRedo);
@@ -1377,9 +1382,9 @@
             this.btnVCDisConnect.Id = 199;
             this.btnVCDisConnect.LargeGlyph = global::EM_UI.Properties.Resources.vc_connect;
             this.btnVCDisConnect.Name = "btnVCDisConnect";
-            toolTipItem1.Text = "Connect your currently open local project to a VC project/bundle.";
-            superToolTip1.Items.Add(toolTipItem1);
-            this.btnVCDisConnect.SuperTip = superToolTip1;
+            toolTipItem5.Text = "Connect your currently open local project to a VC project/bundle.";
+            superToolTip5.Items.Add(toolTipItem5);
+            this.btnVCDisConnect.SuperTip = superToolTip5;
             this.btnVCDisConnect.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnVCLinkUnLink_ItemClick);
             // 
             // btnVCRemovePrivate
@@ -1478,9 +1483,9 @@
             this.btnVCDownloadBundle.Id = 215;
             this.btnVCDownloadBundle.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnVCDownloadBundle.LargeGlyph")));
             this.btnVCDownloadBundle.Name = "btnVCDownloadBundle";
-            toolTipItem2.Text = "Update the currently open local project";
-            superToolTip2.Items.Add(toolTipItem2);
-            this.btnVCDownloadBundle.SuperTip = superToolTip2;
+            toolTipItem6.Text = "Update the currently open local project";
+            superToolTip6.Items.Add(toolTipItem6);
+            this.btnVCDownloadBundle.SuperTip = superToolTip6;
             this.btnVCDownloadBundle.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnVCDownloadBundle_ItemClick);
             // 
             // btnVCStartMerging
@@ -1491,10 +1496,10 @@
             this.btnVCStartMerging.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnVCStartMerging.LargeGlyph")));
             this.btnVCStartMerging.Name = "btnVCStartMerging";
             this.btnVCStartMerging.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
-            toolTipItem3.Text = "The online version will be locked. Users will not be allowed to change or upload " +
+            toolTipItem7.Text = "The online version will be locked. Users will not be allowed to change or upload " +
     "a bundle to this project until you finish the current merge.";
-            superToolTip3.Items.Add(toolTipItem3);
-            this.btnVCStartMerging.SuperTip = superToolTip3;
+            superToolTip7.Items.Add(toolTipItem7);
+            this.btnVCStartMerging.SuperTip = superToolTip7;
             this.btnVCStartMerging.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnVCStartMerging_ItemClick);
             // 
             // btnVCFinishMerging
@@ -1541,9 +1546,9 @@
             this.btnVCNewProject.Id = 221;
             this.btnVCNewProject.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnVCNewProject.LargeGlyph")));
             this.btnVCNewProject.Name = "btnVCNewProject";
-            toolTipItem4.Text = "Create a new local project out of a given VC project/bundle.";
-            superToolTip4.Items.Add(toolTipItem4);
-            this.btnVCNewProject.SuperTip = superToolTip4;
+            toolTipItem8.Text = "Create a new local project out of a given VC project/bundle.";
+            superToolTip8.Items.Add(toolTipItem8);
+            this.btnVCNewProject.SuperTip = superToolTip8;
             this.btnVCNewProject.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnNewProject_ItemClick);
             // 
             // btnVCSettings
@@ -1605,6 +1610,32 @@
             this.btnLicence.LargeGlyph = global::EM_UI.Properties.Resources.licence;
             this.btnLicence.Name = "btnLicence";
             this.btnLicence.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLicence_ItemClick);
+            // 
+            // btnExternalStatistics
+            // 
+            this.btnExternalStatistics.Caption = "External Statistics";
+            this.btnExternalStatistics.Glyph = global::EM_UI.Properties.Resources.ValidationInfo;
+            this.btnExternalStatistics.Id = 302;
+            this.btnExternalStatistics.Name = "btnExternalStatistics";
+            this.btnExternalStatistics.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barExternalStatistics_ItemClick);
+            // 
+            // btnMacroValidation
+            // 
+            this.btnMacroValidation.Caption = "Macrovalidation";
+            this.btnMacroValidation.Glyph = ((System.Drawing.Image)(resources.GetObject("btnMacroValidation.Glyph")));
+            this.btnMacroValidation.Id = 303;
+            this.btnMacroValidation.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("btnMacroValidation.LargeGlyph")));
+            this.btnMacroValidation.Name = "btnMacroValidation";
+            this.btnMacroValidation.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnMacroValidation_ItemClick);
+            // 
+            // btnStatistics
+            // 
+            this.btnStatistics.Caption = "EUROMOD Statistics";
+            this.btnStatistics.Glyph = global::EM_UI.Properties.Resources.EUROMODStatistics;
+            this.btnStatistics.Id = 304;
+            this.btnStatistics.LargeGlyph = global::EM_UI.Properties.Resources.EUROMODStatistics;
+            this.btnStatistics.Name = "btnStatistics";
+            this.btnStatistics.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnStatistics_ItemClick);
             // 
             // ribbonPageEuromod
             // 
@@ -1737,7 +1768,7 @@
             // 
             this.ribbonPageGroupThisAndThat.ItemLinks.Add(this.btnRestore);
             this.ribbonPageGroupThisAndThat.ItemLinks.Add(this.btnUpratingIndices);
-            this.ribbonPageGroupThisAndThat.ItemLinks.Add(this.btnIndirectTaxes);
+            this.ribbonPageGroupThisAndThat.ItemLinks.Add(this.btnExternalStatistics);
             this.ribbonPageGroupThisAndThat.ItemLinks.Add(this.btnMergeCountry);
             this.ribbonPageGroupThisAndThat.Name = "ribbonPageGroupThisAndThat";
             this.ribbonPageGroupThisAndThat.ShowCaptionButton = false;
@@ -1747,6 +1778,7 @@
             // 
             this.ribbonPageGroupExtensions.ItemLinks.Add(this.btnAdminLExtensions);
             this.ribbonPageGroupExtensions.ItemLinks.Add(this.btnSetExtensionsSwitches);
+            this.ribbonPageGroupExtensions.ItemLinks.Add(this.btnIndirectTaxes);
             this.ribbonPageGroupExtensions.ItemLinks.Add(this.btnAddToOnExtension, true);
             this.ribbonPageGroupExtensions.ItemLinks.Add(this.btnAddToOffExtension);
             this.ribbonPageGroupExtensions.ItemLinks.Add(this.btnRemoveFromExtension);
@@ -1930,6 +1962,8 @@
             // ribbonPageGroupTools
             // 
             this.ribbonPageGroupTools.ItemLinks.Add(this.btnPolicyEffects);
+            this.ribbonPageGroupTools.ItemLinks.Add(this.btnMacroValidation);
+            this.ribbonPageGroupTools.ItemLinks.Add(this.btnStatistics);
             this.ribbonPageGroupTools.Name = "ribbonPageGroupTools";
             this.ribbonPageGroupTools.Text = "Tools";
             // 
@@ -1972,11 +2006,10 @@
             this.ribbonStatusBar1.ItemLinks.Add(this.barText_TextSize);
             this.ribbonStatusBar1.ItemLinks.Add(this.btnTextSizePlus);
             this.ribbonStatusBar1.ItemLinks.Add(this.btnTextSizeMinus);
-            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 923);
-            this.ribbonStatusBar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 744);
             this.ribbonStatusBar1.Name = "ribbonStatusBar1";
             this.ribbonStatusBar1.Ribbon = this.EM_MainRibbon;
-            this.ribbonStatusBar1.Size = new System.Drawing.Size(1594, 31);
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1366, 31);
             // 
             // ribbonPageGroup1
             // 
@@ -2015,10 +2048,9 @@
             this.treeList.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.helpProvider.SetHelpNavigator(this.treeList, System.Windows.Forms.HelpNavigator.TableOfContents);
             this.treeList.ImeMode = System.Windows.Forms.ImeMode.Katakana;
-            this.treeList.Location = new System.Drawing.Point(0, 155);
+            this.treeList.Location = new System.Drawing.Point(0, 144);
             this.treeList.LookAndFeel.SkinName = "Black";
             this.treeList.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.treeList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.treeList.Name = "treeList";
             this.treeList.OptionsBehavior.AllowCopyToClipboard = false;
             this.treeList.OptionsBehavior.DragNodes = true;
@@ -2033,7 +2065,7 @@
             this.YesNoEditorCombo});
             this.treeList.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.helpProvider.SetShowHelp(this.treeList, true);
-            this.treeList.Size = new System.Drawing.Size(1594, 768);
+            this.treeList.Size = new System.Drawing.Size(1366, 600);
             this.treeList.StateImageList = this.mainFormStateImageList;
             this.treeList.TabIndex = 2;
             this.treeList.ToolTipController = this.toolTipController;
@@ -2154,6 +2186,11 @@
             this.mainFormStateImageList.Images.SetKeyName(4, "redarrow.png");
             this.mainFormStateImageList.Images.SetKeyName(5, "PrivateFunction.png");
             this.mainFormStateImageList.Images.SetKeyName(6, "PrivateParameter.png");
+            this.mainFormStateImageList.Images.SetKeyName(7, "FunctionInconsistent.png");
+            this.mainFormStateImageList.Images.SetKeyName(8, "blueballInconsistent.png");
+            this.mainFormStateImageList.Images.SetKeyName(9, "PrivateParameterInconsistent.png");
+            this.mainFormStateImageList.Images.SetKeyName(10, "PrivateFunctionInconsistent.png");
+            this.mainFormStateImageList.Images.SetKeyName(11, "warning.png");
             // 
             // toolTipController
             // 
@@ -2173,10 +2210,9 @@
             this.lstFormulaEditorIntelli.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
             this.lstFormulaEditorIntelli.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
             this.lstFormulaEditorIntelli.HorizontalScrollbar = true;
-            this.lstFormulaEditorIntelli.Location = new System.Drawing.Point(875, 127);
-            this.lstFormulaEditorIntelli.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lstFormulaEditorIntelli.Location = new System.Drawing.Point(750, 103);
             this.lstFormulaEditorIntelli.Name = "lstFormulaEditorIntelli";
-            this.lstFormulaEditorIntelli.Size = new System.Drawing.Size(49, 20);
+            this.lstFormulaEditorIntelli.Size = new System.Drawing.Size(43, 17);
             this.lstFormulaEditorIntelli.TabIndex = 5;
             this.lstFormulaEditorIntelli.Visible = false;
             // 
@@ -2186,10 +2222,10 @@
             this.lblComboboxEditorToolTip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(230)))));
             this.lblComboboxEditorToolTip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblComboboxEditorToolTip.ForeColor = System.Drawing.Color.Black;
-            this.lblComboboxEditorToolTip.Location = new System.Drawing.Point(875, 63);
-            this.lblComboboxEditorToolTip.MaximumSize = new System.Drawing.Size(466, 369);
+            this.lblComboboxEditorToolTip.Location = new System.Drawing.Point(750, 51);
+            this.lblComboboxEditorToolTip.MaximumSize = new System.Drawing.Size(400, 300);
             this.lblComboboxEditorToolTip.Name = "lblComboboxEditorToolTip";
-            this.lblComboboxEditorToolTip.Size = new System.Drawing.Size(54, 19);
+            this.lblComboboxEditorToolTip.Size = new System.Drawing.Size(43, 15);
             this.lblComboboxEditorToolTip.TabIndex = 8;
             this.lblComboboxEditorToolTip.Text = "ToolTip";
             this.lblComboboxEditorToolTip.Visible = false;
@@ -2262,16 +2298,15 @@
             this.AllowDraggingByPageCategory = DevExpress.Utils.DefaultBoolean.False;
             this.Appearance.BackColor = System.Drawing.Color.Transparent;
             this.Appearance.Options.UseBackColor = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1594, 954);
+            this.ClientSize = new System.Drawing.Size(1366, 775);
             this.Controls.Add(this.lblComboboxEditorToolTip);
             this.Controls.Add(this.lstFormulaEditorIntelli);
             this.Controls.Add(this.treeList);
             this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.EM_MainRibbon);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "EM_UI_MainForm";
             this.Ribbon = this.EM_MainRibbon;
             this.StatusBar = this.ribbonStatusBar1;
@@ -2495,6 +2530,9 @@
         private DevExpress.XtraBars.BarButtonItem btnVCMergeVariablesOnlineBundle;
         private DevExpress.XtraBars.BarButtonItem btnVCNewBundleLocalVersion;
         private DevExpress.XtraBars.BarButtonItem btnLicence;
+        private DevExpress.XtraBars.BarButtonItem btnExternalStatistics;
+        private DevExpress.XtraBars.BarButtonItem btnMacroValidation;
+        private DevExpress.XtraBars.BarButtonItem btnStatistics;
     }
 }
 

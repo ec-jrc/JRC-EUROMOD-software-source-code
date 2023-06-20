@@ -207,6 +207,8 @@ namespace EM_UI.VersionControl.Merging
                     WriteInfoToInfoFile(MergeForm.SPINE, _mergeForm.StoreMergeControl(MergeForm.SPINE));
                     WriteInfoToInfoFile(MergeForm.CONDITIONAL_FORMATTING, _mergeForm.StoreMergeControl(MergeForm.CONDITIONAL_FORMATTING));
                     WriteInfoToInfoFile(MergeForm.UPRATING_INDICES, _mergeForm.StoreMergeControl(MergeForm.UPRATING_INDICES));
+                    WriteInfoToInfoFile(MergeForm.INDIRECT_TAXES, _mergeForm.StoreMergeControl(MergeForm.INDIRECT_TAXES));
+                    WriteInfoToInfoFile(MergeForm.EXTERNAL_STATISTICS, _mergeForm.StoreMergeControl(MergeForm.EXTERNAL_STATISTICS));
                     if (!_isAddOn)
                     {
                         WriteInfoToInfoFile(MergeForm.EXTENSIONS, _mergeForm.StoreMergeControl(MergeForm.EXTENSIONS));
@@ -256,6 +258,8 @@ namespace EM_UI.VersionControl.Merging
                 case MergeForm.SPINE: GetInfoSpineFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
                 case MergeForm.CONDITIONAL_FORMATTING: GetInfoCondFormatFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
                 case MergeForm.UPRATING_INDICES: GetInfoUpratingIndicesFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
+                case MergeForm.INDIRECT_TAXES: GetInfoIndirectTaxesFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
+                case MergeForm.EXTERNAL_STATISTICS: GetInfoExternalStatisticsFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
                 case MergeForm.EXTENSIONS: GetInfoExtensionsFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
                 case MergeForm.EXT_SWITCHES: GetInfoExtSwitchesFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
                 case MergeForm.LOOK_GROUPS: GetInfoGroupsFromXml(out columInfo, out nodeInfoLocal, out nodeInfoRemote); break;
@@ -943,6 +947,10 @@ namespace EM_UI.VersionControl.Merging
                 FillMergeControl(!mergeInfoAvailabe, MergeForm.CONDITIONAL_FORMATTING);
 
                 FillMergeControl(!mergeInfoAvailabe, MergeForm.UPRATING_INDICES);
+
+                FillMergeControl(!mergeInfoAvailabe, MergeForm.INDIRECT_TAXES);
+
+                FillMergeControl(!mergeInfoAvailabe, MergeForm.EXTERNAL_STATISTICS);
 
                 if (!_isAddOn)
                 {
@@ -2173,9 +2181,72 @@ namespace EM_UI.VersionControl.Merging
                           nodeInfoLocal, nodeInfoRemote, settingColumns);
 
             //To display uprating indices nodes properly
-            UpdateNodesUpratingIndices(nodeInfoLocal, nodeInfoRemote, columInfo, _ccParent.UpratingIndex);
+            UpdateNodes(nodeInfoLocal, nodeInfoRemote, columInfo, _ccParent.UpratingIndex, UpratingIndices.UpratingIndicesForm._separator);
  
 
+        }
+
+        void GetInfoIndirectTaxesFromXml(out List<MergeControl.ColumnInfo> columInfo,
+                          out List<MergeControl.NodeInfo> nodeInfoLocal, out List<MergeControl.NodeInfo> nodeInfoRemote)
+        {
+            columInfo = new List<MergeControl.ColumnInfo>();
+            nodeInfoLocal = new List<MergeControl.NodeInfo>();
+            nodeInfoRemote = new List<MergeControl.NodeInfo>();
+
+            // BUILD TREE-COLUMNS
+            // define the settings which are to be compared
+            List<DataColumn> settingColumns = new List<DataColumn>();
+            settingColumns.Add(_ccLocal.IndirectTax.ReferenceColumn);
+            settingColumns.Add(_ccLocal.IndirectTax.YearValuesColumn);
+            settingColumns.Add(_ccLocal.IndirectTax.CommentColumn);
+
+            // add setting-columns to tree
+            foreach (DataColumn settingColumn in settingColumns)
+                columInfo.Add(new MergeControl.ColumnInfo(settingColumn.ColumnName));
+                
+
+            // BUILD TREE-NODES
+            // add a node for each indirect tax (with simingly large part to ignore)
+            List<string> localAndRemoteIDs = BuildNodeInfo_List(_ccLocal.IndirectTax, _ccRemote.IndirectTax, _ccParent.IndirectTax,
+                          _ccLocal.IndirectTax.IDColumn.ColumnName, _ccLocal.IndirectTax.ReferenceColumn.Caption, string.Empty,
+                          nodeInfoLocal, nodeInfoRemote, settingColumns);
+
+            //To display indirect taxes nodes properly
+            UpdateNodes(nodeInfoLocal, nodeInfoRemote, columInfo, _ccParent.IndirectTax, IndirectTaxes.IndirectTaxesForm.separator);
+        }
+
+        void GetInfoExternalStatisticsFromXml(out List<MergeControl.ColumnInfo> columInfo,
+                          out List<MergeControl.NodeInfo> nodeInfoLocal, out List<MergeControl.NodeInfo> nodeInfoRemote)
+        {
+            columInfo = new List<MergeControl.ColumnInfo>();
+            nodeInfoLocal = new List<MergeControl.NodeInfo>();
+            nodeInfoRemote = new List<MergeControl.NodeInfo>();
+
+            // BUILD TREE-COLUMNS
+            // define the settings which are to be compared
+            List<DataColumn> settingColumns = new List<DataColumn>();
+            settingColumns.Add(_ccLocal.ExternalStatistic.CategoryColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.ReferenceColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.DescriptionColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.YearValuesColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.CommentColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.SourceColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.TableNameColumn);
+            settingColumns.Add(_ccLocal.ExternalStatistic.DestinationColumn);
+
+            // add setting-columns to tree
+            foreach (DataColumn settingColumn in settingColumns)
+                columInfo.Add(new MergeControl.ColumnInfo(settingColumn.ColumnName));
+                
+
+            // BUILD TREE-NODES
+            // add a node for each uprating index (with simingly large part to ignore 
+            List<string> localAndRemoteIDs = BuildNodeInfo_List(_ccLocal.ExternalStatistic, _ccRemote.ExternalStatistic, _ccParent.ExternalStatistic,
+                          _ccLocal.ExternalStatistic.IDColumn.ColumnName, _ccLocal.ExternalStatistic.ReferenceColumn.Caption, string.Empty,
+                          nodeInfoLocal, nodeInfoRemote, settingColumns);
+
+            //To display external statistics nodes properly
+            UpdateNodes(nodeInfoLocal, nodeInfoRemote, columInfo, _ccParent.ExternalStatistic, InDepthDefinitions.SEPARATOR);
         }
 
         DataTable GetSubTable(DataTable table, string whereClause = "", Dictionary<string, string> columnAliases = null, string orderClause = "")
@@ -2656,31 +2727,28 @@ namespace EM_UI.VersionControl.Merging
         /// <param name="nodeInfoRemote"></param>
         /// <param name="columInfo"></param>
         /// <param name="parentTable"></param>
-        void UpdateNodesUpratingIndices(List<MergeControl.NodeInfo> nodeInfoLocal, List<MergeControl.NodeInfo> nodeInfoRemote, List<MergeControl.ColumnInfo> columInfo, DataTable parentTable)
+        void UpdateNodes(List<MergeControl.NodeInfo> nodeInfoLocal, List<MergeControl.NodeInfo> nodeInfoRemote, List<MergeControl.ColumnInfo> columInfo, DataTable parentTable, char separator)
         {
             //First we need to get all the years
             List<string> years = new List<string>();
-            years = getUpratingIndicesYears(years, nodeInfoLocal);
-            years = getUpratingIndicesYears(years, nodeInfoRemote);
+            years = getYears(years, nodeInfoLocal);
+            years = getYears(years, nodeInfoRemote);
             years.Sort();
 
             //Then, we get a dictionary with nodes, years and values for local and remote
             //We will also get a list of all nodes
             List<string> nodes = new List<String>();
-            Dictionary<string, Dictionary<string, double>> yearValuesDictLocal = GetAllUpratingIndexNodeYearsValuesDictionary(nodeInfoLocal, nodes);
-            Dictionary<string, Dictionary<string, double>> yearValuesDictRemote = GetAllUpratingIndexNodeYearsValuesDictionary(nodeInfoRemote, nodes);
+            Dictionary<string, Dictionary<string, string>> yearValuesDictLocal = GetAllNodeYearsValuesDictionary(nodeInfoLocal, nodes, separator);
+            Dictionary<string, Dictionary<string, string>> yearValuesDictRemote = GetAllNodeYearsValuesDictionary(nodeInfoRemote, nodes, separator);
 
             //Then, we also get a dictionary for the parent
-            Dictionary<string, Dictionary<string, double>> yearValuesDictParent = GetAllUpratingIndexNodeYearsValuesDictionaryForParent(nodes, parentTable);
+            Dictionary<string, Dictionary<string, string>> yearValuesDictParent = GetAllNodeYearsValuesDictionaryForParent(nodes, parentTable, separator);
 
             //We iterate through the local and remote and create the new nodes (one per year)
             UpdateNodesInfo(nodeInfoLocal, nodeInfoRemote, yearValuesDictLocal, yearValuesDictRemote, yearValuesDictParent, years);
 
-
             //Finally, we update columnInfo
             UpdateColumnInfo(columInfo, years);
-
-
         }
 
         /// <summary>
@@ -2718,7 +2786,7 @@ namespace EM_UI.VersionControl.Merging
         /// <param name="yearValuesDictRemote"></param>
         /// <param name="yearValuesDictParent"></param>
         /// <param name="ids"></param>
-        void UpdateNodesInfo(List<MergeControl.NodeInfo> nodeInfoLocal, List<MergeControl.NodeInfo> nodeInfoRemote, Dictionary<string, Dictionary<string, double>> yearValuesDictLocal, Dictionary<string, Dictionary<string, double>> yearValuesDictRemote, Dictionary<string, Dictionary<string, double>> yearValuesDictParent, List<string> ids)
+        void UpdateNodesInfo(List<MergeControl.NodeInfo> nodeInfoLocal, List<MergeControl.NodeInfo> nodeInfoRemote, Dictionary<string, Dictionary<string, string>> yearValuesDictLocal, Dictionary<string, Dictionary<string, string>> yearValuesDictRemote, Dictionary<string, Dictionary<string, string>> yearValuesDictParent, List<string> ids)
         {
             //We need to get the HICP node in order to remove it
 
@@ -2840,16 +2908,16 @@ namespace EM_UI.VersionControl.Merging
             //First, we fill in the nodeInfoLocal
             foreach (MergeControl.NodeInfo node in nodeInfoLocal)
             {
-                Dictionary<string, double> yearValuesDictLocalNode = yearValuesDictLocal[node.ID];
+                Dictionary<string, string> yearValuesDictLocalNode = yearValuesDictLocal[node.ID];
 
                 //Now we check if the component didn't exist before
                 bool existRemote = true;
                 bool existParent = true;
                 bool existLocal = true;
 
-                try { if (!(yearValuesDictRemote[node.ID].Values.LongCount() > 0)) existRemote = false; } catch (Exception e) { existRemote = false; string msg = e.Message; }
-                try { if (!(yearValuesDictParent[node.ID].Values.LongCount() > 0)) existParent = false; } catch (Exception e) { existParent = false; string msg = e.Message; }
-                try { if (!(yearValuesDictLocal[node.ID].Values.LongCount() > 0)) existLocal = false; } catch (Exception e) { existLocal = false; string msg = e.Message; }
+                try { if (!(yearValuesDictRemote.ContainsKey(node.ID) && yearValuesDictRemote[node.ID].Values.LongCount() > 0)) existRemote = false; } catch (Exception e) { existRemote = false; string msg = e.Message; }
+                try { if (!(yearValuesDictParent.ContainsKey(node.ID) && yearValuesDictParent[node.ID].Values.LongCount() > 0)) existParent = false; } catch (Exception e) { existParent = false; string msg = e.Message; }
+                try { if (!(yearValuesDictLocal.ContainsKey(node.ID) && yearValuesDictLocal[node.ID].Values.LongCount() > 0)) existLocal = false; } catch (Exception e) { existLocal = false; string msg = e.Message; }
 
                 if (!existLocal && existParent) //It does not exist in local
                 {
@@ -2867,19 +2935,19 @@ namespace EM_UI.VersionControl.Merging
                     MergeControl.CellInfo localCellInfo = new MergeControl.CellInfo(entryYear);
                     //local value
                     string localValue = "";
-                    try { localValue = yearValuesDictLocalNode[entryYear].ToString(); } catch (Exception e) { string msg = e.Message; }
+                    if (yearValuesDictLocalNode.ContainsKey(entryYear)) localValue = yearValuesDictLocalNode[entryYear];
                     localCellInfo.SetText(localValue);
 
                     //remote value
                     string remoteValue = "";
-                    try { remoteValue = yearValuesDictRemote[node.ID][entryYear].ToString(); } catch (Exception e) { string msg = e.Message; }
+                    if (yearValuesDictRemote.ContainsKey(entryYear)) remoteValue = yearValuesDictRemote[node.ID][entryYear];
 
                     if(node.changeType != MergeControl.ChangeType.added && node.changeType != MergeControl.ChangeType.removed) {
                         //If the values are the same, nothing else needs to be done
                         if (!localValue.Equals(remoteValue))
                         {
                             string parentValue = "";
-                            try { parentValue = yearValuesDictParent[node.ID][entryYear].ToString(); } catch (Exception e) { string msg = e.Message; }
+                            if (yearValuesDictParent[node.ID].ContainsKey(entryYear)) parentValue = yearValuesDictParent[node.ID][entryYear];
 
                             Boolean remoteChange = !remoteValue.Equals(parentValue);
                             Boolean localChange = !localValue.Equals(parentValue);
@@ -2895,18 +2963,15 @@ namespace EM_UI.VersionControl.Merging
                             {
                                 localCellInfo.isConflicted = true;
                             }
-                    
                         }
                     }
-                    else{
+                    else
+                    {
                         localCellInfo.isChanged = false;
                     }
 
                     node.cellInfo.Add(localCellInfo);
                 }
-
-              
-
             }
 
             foreach (MergeControl.NodeInfo node in nodeInfoLocal)
@@ -2928,11 +2993,11 @@ namespace EM_UI.VersionControl.Merging
                 bool existLocal = true;
                 bool existParent = true;
                 bool existRemote = true;
-                try { if (!(yearValuesDictRemote[node.ID].Values.LongCount() > 0)) existRemote = false; } catch (Exception e) { existRemote = false; string msg = e.Message; }
-                try { if (!(yearValuesDictLocal[node.ID].Values.LongCount() > 0)) existLocal = false; } catch (Exception e) { existLocal = false; string msg = e.Message; }
-                try { if (!(yearValuesDictParent[node.ID].Values.LongCount() > 0)) existParent = false; } catch (Exception e) { existParent = false; string msg = e.Message; }
+                try { if (!(yearValuesDictRemote.ContainsKey(node.ID) && yearValuesDictRemote[node.ID].Values.LongCount() > 0)) existRemote = false; } catch (Exception e) { existRemote = false; string msg = e.Message; }
+                try { if (!(yearValuesDictParent.ContainsKey(node.ID) && yearValuesDictParent[node.ID].Values.LongCount() > 0)) existParent = false; } catch (Exception e) { existParent = false; string msg = e.Message; }
+                try { if (!(yearValuesDictLocal.ContainsKey(node.ID) && yearValuesDictLocal[node.ID].Values.LongCount() > 0)) existLocal = false; } catch (Exception e) { existLocal = false; string msg = e.Message; }
 
-
+                
                 if (!existLocal && !existParent)
                 {
                     node.changeType = MergeControl.ChangeType.added; node.changeHandling = MergeControl.ChangeHandling.accept;
@@ -2943,26 +3008,24 @@ namespace EM_UI.VersionControl.Merging
                 }
 
                 
-               Dictionary<string, double> yearValuesDictRemoteNode = yearValuesDictRemote[node.ID];
+               Dictionary<string, string> yearValuesDictRemoteNode = yearValuesDictRemote[node.ID];
                foreach (string entryYear in ids)
-                {
+               {
                     MergeControl.CellInfo remoteCellInfo = new MergeControl.CellInfo(entryYear);
                     string remoteValue = "";
-                    try { remoteValue = yearValuesDictRemoteNode[entryYear].ToString(); } catch (Exception e) {
-                        string msg = e.Message;
-                    }
+                    if (yearValuesDictRemoteNode.ContainsKey(entryYear)) remoteValue = yearValuesDictRemoteNode[entryYear];
                     remoteCellInfo.SetText(remoteValue);
 
                     //Local value
                     string localValue = "";
-                    try { localValue = yearValuesDictLocal[node.ID][entryYear].ToString(); } catch (Exception e) { string msg = e.Message; }
+                    if (yearValuesDictLocal[node.ID].ContainsKey(entryYear)) localValue = yearValuesDictLocal[node.ID][entryYear];
 
                     if(node.changeType != MergeControl.ChangeType.removed && node.changeType != MergeControl.ChangeType.added)
                     {
                         if (!localValue.Equals(remoteValue))
                         {
                             string parentValue = "";
-                            try { parentValue = yearValuesDictParent[node.ID][entryYear].ToString(); } catch (Exception e) { string msg = e.Message; }
+                            if (yearValuesDictParent[node.ID].ContainsKey(entryYear)) parentValue = yearValuesDictParent[node.ID][entryYear];
 
                             Boolean remoteChange = !remoteValue.Equals(parentValue);
                             Boolean localChange = !localValue.Equals(parentValue);
@@ -3004,20 +3067,19 @@ namespace EM_UI.VersionControl.Merging
             }
         }
 
-
         /// <summary>
         /// Populates a dictionary which key is the nodeId and which value is another dictionary that contains the years (key) and values for the nodesIfo
         /// </summary>
         /// <param name="nodes">List of nodes that exist in the local and remote</param>
         /// <param name="nodeInfo">List of NodeInfo</param>
         /// <returns>Dictionary which key is the nodeId and which value is another dictionary that contains the years (key) and values for the nodesInfo</returns>
-        public static Dictionary<string, Dictionary<string, double>> GetAllUpratingIndexNodeYearsValuesDictionary(List<MergeControl.NodeInfo> nodeInfo, List<string> nodes)
+        public static Dictionary<string, Dictionary<string, string>> GetAllNodeYearsValuesDictionary(List<MergeControl.NodeInfo> nodeInfo, List<string> nodes, char separator)
         {
-            Dictionary<string, Dictionary<string, double>> nodeDictionary = new Dictionary<string, Dictionary<string, double>>();
+            Dictionary<string, Dictionary<string, string>> nodeDictionary = new Dictionary<string, Dictionary<string, string>>();
 
             foreach (MergeControl.NodeInfo node in nodeInfo)
             {
-                Dictionary<string, double> yearValuesDict = new Dictionary<string, double>();
+                Dictionary<string, string> yearValuesDict = new Dictionary<string, string>();
                 string yearValuesString = "";
                 foreach (MergeControl.CellInfo cell in node.cellInfo)
                 {
@@ -3025,13 +3087,11 @@ namespace EM_UI.VersionControl.Merging
                     {
                         yearValuesString = cell.text;
                     }
-
                 }
 
-                yearValuesDict = GetDictionaryUpratingIndexYearsValues(yearValuesString);
+                yearValuesDict = GetDictionaryYearsValues(yearValuesString, separator); 
                 nodeDictionary.Add(node.ID, yearValuesDict);
                 if (!nodes.Contains(node.ID)) { nodes.Add(node.ID); }
-
             }
 
             return nodeDictionary;
@@ -3043,9 +3103,9 @@ namespace EM_UI.VersionControl.Merging
         /// <param name="nodes">List of nodes that exist in the local and remote</param>
         /// <param name="parentTable">Datatable of parent values</param>
         /// <returns>Dictionary which key is the nodeId and which value is another dictionary that contains the years (key) and values for the parent table</returns>
-        public static Dictionary<string, Dictionary<string, double>> GetAllUpratingIndexNodeYearsValuesDictionaryForParent(List<string> nodes, DataTable parentTable)
+        public static Dictionary<string, Dictionary<string, string>> GetAllNodeYearsValuesDictionaryForParent(List<string> nodes, DataTable parentTable, char separator)
         {
-            Dictionary<string, Dictionary<string, double>> parentDictionary = new Dictionary<string, Dictionary<string, double>>();
+            Dictionary<string, Dictionary<string, string>> parentDictionary = new Dictionary<string, Dictionary<string, string>>();
 
             foreach (string node in nodes)
             {
@@ -3054,7 +3114,7 @@ namespace EM_UI.VersionControl.Merging
                 string parentValue = parentRow != null ? parentRow.Field<string>(MergeForm.YEAR_VALUES) : "";
                 if (!parentValue.Equals(""))
                 {
-                    Dictionary<string, double> yearValuesDict = GetDictionaryUpratingIndexYearsValues(parentValue);
+                    Dictionary<string, string> yearValuesDict = GetDictionaryYearsValues(parentValue, separator); 
                     parentDictionary.Add(node, yearValuesDict);
                 }
             }
@@ -3067,7 +3127,7 @@ namespace EM_UI.VersionControl.Merging
         /// <param name="ids"></param>
         /// <param name="nodeInfo"></param>
         /// <returns>List of the years that appear in the uprating indices YearValues string</returns>
-        List<String> getUpratingIndicesYears(List<String> ids, List<MergeControl.NodeInfo> nodeInfo)
+        List<String> getYears(List<String> ids, List<MergeControl.NodeInfo> nodeInfo)
         {
 
             foreach (MergeControl.NodeInfo node in nodeInfo)
@@ -3078,9 +3138,9 @@ namespace EM_UI.VersionControl.Merging
                     if (cell.columnID.Equals(MergeForm.YEAR_VALUES))
                     {
                         yearValuesString = cell.text;
-                        Dictionary<String, double> yearValuesDict = GetDictionaryUpratingIndexYearsValues(yearValuesString);
+                        Dictionary<String, string> yearValuesDict = GetDictionaryYearsValues(yearValuesString, InDepthDefinitions.SEPARATOR);
 
-                        foreach (KeyValuePair<string, double> entry in yearValuesDict)
+                        foreach (KeyValuePair<string, string> entry in yearValuesDict)
                         {
                             string year = entry.Key.ToString();
                             if (!ids.Contains(year))
@@ -3101,16 +3161,16 @@ namespace EM_UI.VersionControl.Merging
         /// </summary>
         /// <param name="yearValuesString">YearValues string with the uprating indices values</param>
         /// <returns>Dictionary with the year and the values for the uprating indices</returns>
-        internal static Dictionary<string, double> GetDictionaryUpratingIndexYearsValues(string yearValuesString)
+        internal static Dictionary<string, string> GetDictionaryYearsValues(string yearValuesString, char separator)
         {
-            Dictionary<string, double> yearValues = new Dictionary<string, double>();
-            foreach (string yv in yearValuesString.Split(UpratingIndices.UpratingIndicesForm._separator))
+            Dictionary<string, string> yearValues = new Dictionary<string, string>();
+            foreach (string yv in yearValuesString.Split(separator))
             {
                 if (string.IsNullOrEmpty(yv)) continue;
-                int year; double value;
-                bool valEmpty = !EM_Helpers.TryConvertToDouble(yv.Substring(5), out value);
-                if (int.TryParse(yv.Substring(0, 4), out year) && (!valEmpty))
-                    yearValues.Add(year.ToString(), valEmpty ? -1 : value);
+                int year; 
+                bool valEmpty = yv.Length<5;
+                if (int.TryParse(yv.Substring(0, 4), out year) && !valEmpty)
+                    yearValues.Add(year.ToString(), yv.Substring(5));
             }
             return yearValues;
         }

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Changing parameters</title>
+</head>
+
+<body>
+
+<h1>Changing parameters</h1>
+
+<p>In general parameter values can be changed by typing the new
+value in the respective cell. However, depending on the parameter's value type,
+the user interface provides different input assistance. The following
+concentrates on this input assistance, for detailed information on parameters'
+value types see <a href="EM_FC_ParameterTypes.htm">EUROMOD Functions - Types of
+parameter values</a>.</p>
+
+<h4>Editing categorical parameters</h4>
+
+<p>For categorical parameters,
+i.e. parameters, which take a certain limited choice of values, the user
+interface provides lists from which the required value can be selected.
+Examples are taxunit parameters (the user interface lists the available
+assessment units), yes/no parameters (the user interface lists the values <i>yes</i> and <i>no</i>), incomelist parameters (the user interface lists the available
+incomelists), the parameter<i>
+Who_Must_Be_Elig </i>(the user interface lists the values <i>nobody, one, one_adult, all, all_adults</i>), etc. Note that the lists
+always contain the value <i>n/a</i>.</p>
+
+<p>There are two ways of using these lists without applying the
+mouse. The first is to type the initial letters of the required value, which
+selects the first entry in the list that starts with these letters. For
+example, if the list contains the values <i>tu_household_sl</i>,
+<i>tu_individual_sl</i> and <i>tu_family_sl</i>, typing <i>tu_</i> (or <i>t</i> or <i>tu</i>) selects <i>tu_household_sl</i>, while typing <i>tu_i</i> selects <i>tu_individual_sl</i>. For the second way, firstly select the respective
+cell (using the <i>Up, Down, Left, Right</i>
+keys) and make it editable by pressing the <i>F2</i>
+or the <i>Enter</i> key, then press the <i>Page Down</i> key. This opens the list. Use
+the <i>Up, Down</i> keys to select a value
+and confirm with the <i>Enter</i> or <i>Tab</i> key or close the list with the <i>Escape</i> key.</p>
+
+<h4>Editing formula, condition and variable parameters</h4>
+
+<p>For formula parameters, i.e.
+parameters taking formulas like <i>yem*10%+ils_ben/2</i>,
+condition parameters, i.e. parameters taking conditions like <i>IsDependentChild &amp; dag&lt;3</i> and
+variable/incomelist parameters, i.e. parameters taking the names of variables and
+incomelists, the user interface provides assistance in the form of so called
+&quot;IntelliSense&quot;.</p>
+
+<p>This mechanism
+observes what the user types and makes &quot;suggestions&quot; within a small
+window. For example, if the user is editing a formula parameter and typing an <i>i</i>, the mechanism
+provides a list of operands, which are allowed in a formula (i.e. variables,
+incomelists, queries, etc.) and start with an <i>i</i> (e.g. <i>idhh, idperson,
+..., ils_earns, il_bsaBase, ..., IsMarried, IsParent, ...</i>). If the next
+character typed is an <i>l</i>, the list is reduced to operands starting with <i>il</i>
+and so on. Thus the user can either continue typing or accept a suggestion by
+selecting it with the mouse. Alternative to the mouse the <i>Up, Down</i> keys
+can be used for selecting and the <i>Tab</i> key for confirming the selection.
+The <i>Enter</i> key also confirms a selection but at the same time stops
+formula editing by moving the focus to the next row. Note that if the <i>Up,
+Down</i> keys are used for selection, IntelliSense displays a short description
+of the operand. Moreover, note that small icons help distinguishing the
+operands by showing different pictures for variables, incomelists, queries,
+etc.</p>
+
+<p>Note that, if one
+types the character 'q', IntelliSense lists all EUROMOD queries and thus provides an overview over all
+available queries.
+
+<h4>User interface's assistance in adding and using footnote parameters</h4>
+
+<p>Some operands of formula and condition parameters allow for
+so called footnote parameters. To learn more about this feature please consult <a
+href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for
+the further specification of operands</a> and <a
+href="EM_WW_ParameterPresentation.htm">Working with EUROMOD - Presentation of
+(normal and) special parameters</a>. This section concentrates on the user
+interface's support for generating such information.</p>
+
+<p><strong>Generating footnote parameters:</strong> To equip an operand in a
+formula with a <i>footnote</i>, type <i>#</i> after the operands name, e.g. <i>yem#</i>. Thereupon IntelliSense displays a list containing entries like <i>#x1[_LowLim],
+#x2[_LowLim], #x3[_LowLim], ..., #x1[_Level] , #x2[_Level]</i> <i>...</i>. To
+define for example a lower limit for the operand select <i>#x1[_LowLim]</i>,
+which at first results in <i>yem#x1[_LowLim]</i>. However, once you complete
+formula editing (e.g. by pressing the <i>Enter</i> key) <i>#x1[_LowLim]</i> is
+replaced by <i>#1</i>. Moreover, the footnote parameter<i> #_LowLim</i>, with <i>Grp/No</i>
+set to 1, is added. The only task left in finalising the definition of the
+operand's lower limit is setting <i>#_LowLim's</i> value to the respective
+amount.</p>
+
+<p>To be precise, the
+footnote number is not always set to 1, but to the next free number, i.e. if
+the function already has footnote parameters with the numbers 1, 2 and 3, the
+number of the new footnote parameter is set to 4.</p>
+
+<p>The purpose of <i>#x2[_LowLim],
+#x3[_LowLim]</i>, etc., as offered by IntelliSense, is to allow for generating
+different lower limits within one formula editing procedure. You may for
+example produce the following formula <i>yem#x1[_LowLim] + yse#x2[_LowLim] +
+poa#x3[_LowLim]. </i>Once you complete formula editing the formula is adapted
+to <i>yem#1 + yse#2 + poa#3</i> (provided the function did not yet contain any
+footnote parameter). Moreover, three footnote parameters<i> #_LowLim</i>, with <i>Grp/No</i>
+set to 1, 2 and 3, are added.</p>
+
+<p>Note that it is also possible to generate footnote parameters by using
+the <i>Add Parameter Form</i> (see <a
+href="EM_WW_AddingParameters.htm">Working with EUROMOD - Adding parameters</a>).</p>
+
+<p><strong>Assigning existing footnote parameters:</strong> The fact that footnote parameters can be
+assigned to more than one operand, as well as the possibility to generate footnote parameters by using
+the <i>Add Parameter Form</i>, opens the
+questions how existing footnote
+parameters can be assigned to an operand. To do so, again type <i>#</i> after the operands name, e.g. <i>yem#</i>. If there are existing footnote parameters, IntelliSense
+displays them in the form <i>#_LowLim1</i>, <i>#_Level3</i>, etc. Selecting
+e.g. <i>#_Level3</i> results in <i>yem#3</i> and thus the existing footnote parameter<i> #_</i>Level, with
+<i>Grp/No</i> set to 3, is assigned to the
+operand <i>yem</i>. Of course you can simply
+type <i>yem#3</i> with the same effect, the
+possibility of using IntelliSense for
+this purpose is more or less just a reminder, that existing footnote parameters<i>
+</i>can be reused.</p>
+
+<p><strong>Generating #_amount parameters:</strong> <i>#_amount </i>parameters are in fact just special footnote parameters, whereupon the
+speciality is based in the fact that the only operand they can be assigned to
+is the operand <i>Amount</i>. Accordingly
+they are generated as any other footnote
+parameter with the difference that, instead of <i>operand#</i>, you must type <i>a</i>
+(or <i>am</i>) to bring IntelliSense to list <i>Amount#x1</i>, <i>Amount#x2</i>
+and <i>Amount#x3</i>. The rest of the procedure is as described above.</p>
+
+<p><strong>Assigning existing #_amount parameters:</strong> Again there is no
+difference to assigning other footnote
+parameters, except that, instead of <i>operand#</i>,
+you must type <i>a</i> (or <i>am</i>) to bring IntelliSense to list <i>Amount1</i>, ..., <i>Amount4711</i> etc.</p>
+
+<h4>User interface's assistance in adding query parameters</h4>
+
+<p>Some EUROMOD queries provide (optional or compulsory) query
+parameters to specify their behaviour. These query parameters are very similar
+to footnote parameters. Just like footnote parameters, query parameters start
+with <i>#_</i> (e.g. <i>#_AgeMin</i>, <i>#_AgeMax</i>) and
+they are assigned to the respective query by <i>#number</i>. To learn more about EUROMOD <i>queries</i> please consult <a href="EM_FC_Queries.htm">EUROMOD
+Functions - Queries</a>. Again this section concentrates on the user
+interface's support for generating query parameters.</p>
+
+<p>IntelliSense lists queries with (optional or compulsory)
+query parameters followed by <i>#x</i>, e.g.
+<i>nPersInUnit#x</i>. Once formula editing
+is completed <i>#x</i> is replaced by the
+next free footnote number, e.g. <i>nPersInUnit#4</i>,
+if the function already contains three <i>footnote
+</i>or query parameters. Moreover, the respective query parameters are added, with <i>Grp/No</i> set to the free
+footnote number. In our example the query
+parameters<i> #_AgeMin</i> and <i>#_AgeMax</i> are added, with <i>Grp/No</i> set to 4 (for both).</p>
+
+<p>If you want to
+avoid the generation of query parameters, for example because the
+parameters are optional and you do not want to define them, just delete the <i>#x</i> after the name of the query. This
+informs the user interface that generating query parameters is unwanted.</p>
+
+<h4>Replacing parameter names by their
+'aliases'</h4>
+
+<p>A left-click on a parameter name (in the <i>Policy</i> column) may show a dialog that
+asks whether the parameter should be replaced by its 'alias'. The term 'alias'
+refers to parameters, which replace each other, for example <i>Comp_perTU</i> / <i>Com_perElig</i> or <i>Output_Var</i>
+/ <i>Output_Add_Var</i> (each also vice
+versa). Confirming the question with <i>OK</i>
+replaces the parameter's name respectively.</p>
+
+<h4>Changing
+the order of parameters</h4>
+
+<p>There are two ways to change the order of parameters: by
+using (a) drag and drop or (b) <i>control</i> + <i>Up/Down</i> keys. For each of them first
+select the respective parameters. A single parameter is selected by simply
+clicking it (more precisely, its name in the <i>Policy</i> column). A range of parameters is selected by selecting the
+first parameter (i.e. its name in the <i>Policy</i>
+column), then pressing and holding the <i>Shift</i>
+key while selecting the last parameter. A darker blue colour shows the selection. For a more detailed description of how to select cells see <a
+href="EM_WW_Selecting.htm">Working with EUROMOD - Selecting components and
+values</a>.</p>
+
+<p>For (a) click the respective parameters with the left mouse
+button, drag them with pressed mouse button to the new position and drop them
+there by releasing the mouse button.</p>
+
+<p>For (b) press the <i>Control</i>
+as well as the <i>Up</i> key to move the
+respective parameters up, respectively the <i>Control</i>
+as well as the <i>Down</i> key to move them
+down.</p>
+
+<p>Note that parameters can only be shifted (up or down) within
+the function they belong to. That means, this way it is not possible to move a
+parameter from one function to another.</p>
+
+<h4>Deleting
+(ranges of) parameter values</h4>
+
+<p>Note that this subsection describes how to delete parameter <i>values</i> and not how to delete parameters <i>as a whole</i>. For the latter please refer
+to <a href="EM_WW_DeletingParameters.htm">Working with EUROMOD - Deleting
+parameters</a>.</p>
+
+<p>A parameter's value is 'deleted' if the <i>Delete</i>-key is pressed while the respective cell is selected.
+'Delete' is put in quotation marks because in fact the value is not set to
+empty but to <i>n/a</i> (not available or
+not applicable). Note that this does not apply to parameter values in the
+narrow sense only, but also to the switch of a policy or function.</p>
+
+<p>It is also possible to delete (more precisely set to <i>n/a</i>) a range of parameter values by
+selecting the respective range before pressing the <i>Delete</i>-key. A range of parameter values is selected by selecting
+the first parameter value (i.e. the respective cell), then pressing and holding
+the <i>Shift</i> key while selecting the
+last parameter value. A darker blue colour shows the selection. For a more
+detailed description of how to select cells see <a href="EM_WW_Selecting.htm">Working
+with EUROMOD - Selecting components and values</a>. Note that, in order to
+delete parameter <i>values</i>, the <i>Policy</i> column must not be part of the
+selection as this instructs the interface to delete the whole parameter.</p>
+
+<h4>Automatic commenting of incomelist components</h4>
+
+<p>The context menu for a <i>DefIl</i> function shows an additional menu item: <i>Description as Comment</i>. If the user selects this item, <i>tge</i> Comments column will be automatically filled with the description of all the components of the concerned incomelist. As an example, if an income list contains variables <i>yem</i> and <i>yse</i>, the Comments column will be filled, respectively, with income: employment and self employment. Note that country specific descriptions are used where available.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

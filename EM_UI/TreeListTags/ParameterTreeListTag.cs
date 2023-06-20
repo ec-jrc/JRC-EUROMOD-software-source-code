@@ -213,6 +213,8 @@ namespace EM_UI.TreeListTags
                 specficIntelliItems.Add(FormulaEditorManager._intelliContainsDefConst);
                 specficIntelliItems.Add(FormulaEditorManager._intelliContainsDefIL);
                 specficIntelliItems.Add(FormulaEditorManager._intelliContainsUpRateFactor);
+                specficIntelliItems.Add(FormulaEditorManager._intelliContainsIndTaxFactor);
+                specficIntelliItems.Add(FormulaEditorManager._intelliContainsExternalStatistic);
             }
             if (valType == DefinitionAdmin.ParTypeToString(DefPar.PAR_TYPE.VAR).ToLower())
             {

@@ -56,6 +56,7 @@ namespace VCUIAPI
         private readonly string[] ALLOWED_INPUT_FILES = { "PPP.txt", "training_data.txt", "sl_demo_v4.txt", "DRD_sl_demo_v4.xls", "DRD_training_data.xls" };
 
         private enum VC_ACTIONS { CREATE_REPOSITORY, CREATE_MERGE_FILE, DELETE_MERGE_FILE }
+        private const long MASTER_VERSION_ID = 367;
 
 
         /***************************************\
@@ -213,6 +214,7 @@ namespace VCUIAPI
         /// <summary>
         /// Name of the organisation withing GitHub where all the projects will be stored
         /// </summary>
+        //private static string _organisationName = "EUROMOD";
         private static string _organisationName = string.Empty;
         ///<summary>
         /// Name of the author that will be sent in the .zip file
@@ -404,7 +406,9 @@ namespace VCUIAPI
                 return false;
             }
 
-            foreach (ProjectNode node in projectTree.GetFlatProjectList()) projectList.Add(node);
+            foreach (ProjectNode node in projectTree.GetFlatProjectList()) 
+                if (node.Id== MASTER_VERSION_ID) projectList.Insert(0, node);
+                else projectList.Add(node);
 
 
             return true;
@@ -695,9 +699,10 @@ namespace VCUIAPI
 
         public bool VCLogIn(string insertedUserNameorEmail, string password, out string userName)
         {
+            //Disable_CertificateValidation();
             GitHubClient client = null;
 
-
+            //UriBuilder gitHubUri = new UriBuilder("https", _gitHubURL, 443);
             //All parameters are prepared for the connection
             ICredentialStore anonymousCredentials = new InMemoryCredentialStore(new Credentials(insertedUserNameorEmail, password));
             IJsonSerializer simpleJsonSerializer = new SimpleJsonSerializer();
@@ -714,7 +719,7 @@ namespace VCUIAPI
 
             //The connection is configured
             var connection = new Connection(
-                new ProductHeaderValue(""),
+                new ProductHeaderValue("test-app"),
                 //gitHubUri.Uri,
                 new Uri(_gitHubURL),
                 anonymousCredentials,
@@ -724,7 +729,11 @@ namespace VCUIAPI
 
             //The  client is obtained
             client = new GitHubClient(connection);
+            //client = new GitHubClient(new ProductHeaderValue("test-app"), new Uri(_gitHubURL));
+            //client.Credentials = new Credentials(insertedUserNameorEmail, password);
 
+            //TODO PENDING To test the problem with the time out
+            client.SetRequestTimeout(TimeSpan.FromSeconds(300));
             _client = client;
 
             //The user is obtained and userinfo is populated
@@ -1681,7 +1690,7 @@ namespace VCUIAPI
                 if (releases == null || releases.Count == 0) return true;  //release-info does not yet exist (no releases yet)
                 else
                 {
-                    foreach (Release release in releases)
+                    foreach (Release release in releases.OrderByDescending(x => x.PublishedAt))
                     {
 
                         //If the user is deleted from GitHub, the author login is null
@@ -1735,7 +1744,7 @@ namespace VCUIAPI
                 // If there are not releases, it will return an empty list
                 if (releases == null || releases.Count() == 0) { return true; }
                 // Else get the latest release
-                Octokit.Release latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
+                Octokit.Release latestRelease = releases.OrderByDescending(x => x.PublishedAt).First();
 
                 if (latestRelease != null)
                 {
@@ -1789,7 +1798,8 @@ namespace VCUIAPI
                     foreach (ReleaseInfo releaseInfo in rbInfos)
                     {
                         //First, we need to check if the release is the latest one
-                        Release latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
+                        IReadOnlyList<Release> releases = _client.Repository.Release.GetAll(projectId).Result;
+                        Release latestRelease = releases.OrderByDescending(x => x.PublishedAt).First();
                         long latestReleaseId = latestRelease.Id;
                         bool isLatestRelease = false;
 
@@ -1817,7 +1827,8 @@ namespace VCUIAPI
                             //The latest release now is the previous one
                             try
                             {
-                                latestRelease = _client.Repository.Release.GetLatest(projectId).Result;
+                                releases = _client.Repository.Release.GetAll(projectId).Result;
+                                latestRelease = releases.OrderByDescending(x => x.PublishedAt).First();
                             }catch(Exception e)
                             {
                                 latestRelease = null;
@@ -2251,7 +2262,7 @@ namespace VCUIAPI
                 IReadOnlyList<Release> releases = _client.Repository.Release.GetAll(projectId).Result;
                 if (releases != null && releases.Count > 0)
                 {
-                    string oldVer = releases[0].TagName;
+                    string oldVer = releases.OrderByDescending(x => x.PublishedAt).First().TagName;
                     if (oldVer.LastIndexOf('.') > 0)
                     {
                         string oldMajorVer = oldVer.Substring(0, oldVer.LastIndexOf('.') + 1);

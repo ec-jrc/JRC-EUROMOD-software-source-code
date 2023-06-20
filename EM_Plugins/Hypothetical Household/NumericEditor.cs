@@ -30,6 +30,12 @@ namespace HypotheticalHousehold
             labelStep.Visible = isRange;
             Height = isRange?140:90;
             labelStart.Text = isRange ? "Starting Value:" : "Value:";
+            Enter += NumericEditor_Enter;
+        }
+
+        private void NumericEditor_Enter(object sender, EventArgs e)
+        {
+            numericUpDownStartingValue.Select(0, numericUpDownStartingValue.Value.ToString().Length);
         }
 
         public string EditValue

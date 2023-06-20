@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Searching
+and replacing</title>
+</head>
+
+<body>
+
+<h1>Searching
+and replacing</h1>
+
+<p>Selecting the ribbon <i>Country Tools</i> and pressing the button <i>Search + Replace</i> opens the <i>Search and Replace</i> dialog. The dialog can also be accessed by pressing <i>Ctrl-F</i> to open it in the search mode and by <i>Ctrl-H</i> to open it in the search and replace mode.</p>
+
+<h4>Searching</h4>
+
+<p>To search for example for the string <i>abc</i>, type <i>abc</i> into the field <i>Search</i> and press either the button <i>Search Next</i> or the button <i>Search Previous</i>. This finds the cell nearest to the currently focused cell, which contains the string <i>abc</i>. <i>Search Next</i> finds the nearest cell after and <i>Search Previous</i> finds the nearest cell before the focused cell. &quot;Finding&quot; means that the respective cell is focused (red-dotted border) and made visible by expanding the parent nodes, if necessary, and scrolling to the position of the cell.</p>
+
+<p>It is possible to use search patterns. That means <i>?</i> can be used for symbolising one arbitrary character and <i>*</i> for symbolising any number of arbitrary characters. <i>bch</i><i>??_s</i>, for example, finds <i>bch00_s</i>, <i>bch01_s</i>, <i>bchba_s</i>, ..., <i>bchyc_s</i>, while <i>bch*_s</i> finds the listed strings as well as <i>bch_s</i>, <i>bchba01_s</i>, ..., <i>bchucrg_s</i>.</p>
+
+<p>Note that any searched string or pattern is stored by the dialog, in the sense that one can pick it from the list, which is displayed by clicking the arrow button right of the <i>Search</i> field.</p>
+
+<h4>Specifying the search</h4>
+
+<p>The <i>Search and Replace</i>
+dialog offers several options to specify the search:</p>
+
+<h6>Search in ... Cells</h6>
+<ul>
+<li>As a default the search refers to all cells. Note however, that cells which are hidden due to row-hiding (see <a href="EM_WW_HidingRows.htm">Working with EUROMOD - Hiding policies, functions and parameters</a>) or because the system was moved to the <i>Hidden Systems Box</i> (see <a href="EM_WW_ColumnChooser.htm">Working with EUROMOD - The Hidden Systems Box</a>)</li>
+
+<li>Selecting the option <i>Visible Cells</i> restricts the search to cells which are visible in the sense that they are not hidden because their parent node is collapsed. Note that cells hidden due to scrolling are still found (in fact the interface scrolls to the position of the found cell).</li>
+
+<li>Selecting the option <i>Selected Cells</i> restricts the search to selected cells (see <a href="EM_WW_Selecting.htm">Working with EUROMOD - Selecting components and values</a>).</li>
+</ul>
+
+<h6>Search in ... Columns</h6>
+<ul>
+<li>As a default the search refers to all columns, except those moved to the <i>Hidden Systems Box</i> (compare above).</li>
+
+<li>When the option <i>System Columns</i> is selected, the search only takes system columns into account.</li>
+
+<li>When the option <i>Policy Columns</i> is selected, the search only takes <i>Policy columns</i> into account.</li>
+
+<li>When the option <i>Comment Columns</i> is selected, the search only takes the <i>Comment</i> column into account.</li>
+</ul>
+
+<h6>Search by ...</h6>
+<p> As a default (option <i>Search by Columns</i>) the search first finds all occurrences of the searched string or pattern in the first (affected) column, to then find all occurrences in the second column, etc. Selecting the option <i>Search by Rows</i> effects that the search first finds all occurrences in the first (affected) row, to then find all occurrences in the second row, etc.</p>
+
+<h6>Match Case</h6>
+<p>As a default the search is not case sensitive. Ticking the box <i>Match Case</i> enforces case sensitivity.</p>
+
+<h6>Match Entire Cell Content</h6>
+<p>As a default the searched string or pattern does not need to be the only content of the found cells. For example <i>yem</i> finds a cell containing <i>yem</i> as well as a cell containing <i>yem</i><i>*10%</i>. By ticking the box <i>Match Entire Cell Content</i>, the cells containing exclusively the searched string or pattern are found (i.e. the first match in the example).</p>
+
+<h6>Include Private Comments</h6>
+<p>As a default the search does not include private comments (see <a href="EM_WW_PrivateComments.htm">Working with EUROMOD - Private comments</a>). Ticking the box extends the search to jump to the respective cell in the <i>Comment</i> column, if the private comment matches the search criteria. Note that the box is not available in replace mode.</p>
+
+<h4>Replacing</h4>
+
+<p>Pressing the button <i>Replace ...</i> displays the field <i>Replace by</i> and the button <i>Replace All</i>. The field <i>Replace by</i> allows to indicate a string by which the string in the field <i>Search</i> has been replaced. To start (single) replacing, press <i>Search Next</i> to find the first match <a href="#_ftn1" name="_ftnref1" title="">[1]</a>. Then press <i>Replace</i> to replace the content in the found cell. This moves the focus automatically to the next matching cell (where <i>Replace</i> can be pressed again).</p>
+
+<p>Pressing the button <i>Replace All</i> replaces all occurrences of the string in <i>Search</i> by the string in <i>Replace by</i>, taking into account the following restrictions (which also apply to single replacement).</p>
+<ul>
+<li>Replacing does not allow for search patterns, i.e. <i>?</i> and <i>*</i> cannot be used.</li>
+
+<li>Matches in the <i>Policy</i> and <i>Grp</i><i>/No</i> columns can only be replaced if the respective cell is editable, otherwise an error message is displayed. Please refer to <a href="EM_WW_CopyingParameterValues.htm">Working with EUROMOD - Copying parameter values (and comments)</a> paragraph <i>Copying</i><i> from and to the clipboard</i> for restrictions on replacing values in the <i>Policy</i> and <i>Grp</i><i>/No</i> column.</li>
+
+<li>The search options as described above, in paragraph <i>Specifying</i><i> the search</i> are valid for replacing as well.</li>
+</ul>
+<p>The <i>Search and Replace</i> dialog does not provide a <i>Search All</i> option, however a similar functionality is provided by the <i>Component Use</i> dialog with the option <i>Component named</i> (see <a href="EM_WW_ComponentUse.htm">Working with EUROMOD - Checking component use</a>).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> Note that you need to start the replacing by focusing a cell that matches <i>Search</i> - otherwise an error message is issued.</p>
+
+</div>
+
+</body>
+
+</html>

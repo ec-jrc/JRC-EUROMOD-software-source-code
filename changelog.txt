@@ -1,0 +1,121 @@
+
+--------------------------------------------------------
+
+EUROMOD v3.6.2
+Compared to previous release v.3.5.8, this software version includes the following updates/changes:
+- Core software:
+	- Added a new table for External Statistics, which is used by the new Macrovalidation tool (see next section).
+	- Fixed a bug in the Uprating Indices form where columns without any values were ignored.
+	- Added the possibility of conditional uprating by regular expressions.
+	- Improved the help file.
+- Applications:
+	- New Macrovalidation tool to compare EUROMOD results with external statistics and SILC variables.
+	- Hypothetical Household Tool (HHoT):
+		- Updated HHoT files.
+		- Fixed a bug related to derived variables using other variables that contained numbers in their name.
+	- EUROMOD Statistics:
+		- Unified the Statistics Presenter and the In-depth Analysis tools under a single button (EUROMOD Statistics).
+		- Reorganised the Statistics Presenter templates to have tables grouped in a similar manner to In-depth Analysis.
+		- Added multiple breakdowns to both Statistics Presenter templates and In-depth Analysis.
+		- Allowed for file filtering when selecting the files for Statistics Presenter and In-depth Analysis.
+		- Improved the Excel export of all statistics (added support for borders, bold, auto-column-width etc.).
+		- Updated the UKMOD templates.
+IMPORTANT NOTE: if you are using custom templates in the Statistics Presenter, please note that the location for them has moved:
+- from c:\ProgramData\EUROMOD\Plugins\StatisticsPresenter\UserSelectableTemplates\
+- to c:\ProgramData\EUROMOD\UserSelectableTemplates\
+
+--------------------------------------------------------
+
+EUROMOD v3.5.8
+Compared to previous release v.3.5.5, this software version includes the following updates/changes:
+- Core software:
+	- Help file updated.
+	- IlArithOp modified so that the generated variables are writable.
+	- Uprating by regular expression modified to also match non-monetary variables.
+	- Store function modified to support VarGroup and ILGroup parameters.
+- Plugins:
+	- Hypothetical Household Tool (HHoT):
+		- New HHoT files (v1.2.11).
+		- Several bug fixes and improvements.
+		
+--------------------------------------------------------
+
+EUROMOD v3.5.5
+Compared to previous release v.3.5.2, this software version includes the following updates/changes:
+- Core software:
+	- Fixed a bug where distributional statistics were not properly read from the country file
+	- Made the Macrovalidation window non-modal (so you can interact with the EUROMOD UI on the back).
+	- The Macrovalidation Statistics now automatically appear on top.
+	- The Macrovalidation form remembers its settings.
+	- Made sure that ils_extstat_other is read only at first level (not recursively disentagling the component ils)
+	- Improved the combobox options in the Destination column of external statistics.
+	- ils_extstat_other row is completely hidden in the statistics if there is no component to show in the current table. 
+	- Added the "AutoRenameWhenCopying" parameter which decides whether filenames should be auto-renamed in DefInput & DefOutput functions when copying/renaming a system (required for ITT).
+	- Added support for Indirect Taxes and External Statistics in the Merge tool.
+	- Added Indirect Taxes in Intellisense.
+	- Merge Tool: Allowed setting multiple selected rows to Accept/Reject at once (select multiple rows with Shift or Ctrl).
+	- Income lists in external statistics will always match the order in the spine. 
+	- Fixed a bug in the macrovalidation statistics where some elements did not appear properly. 
+- Plugins:
+	- Fixed a bug that would crash Macrovalidation if the outputs of different systems are identical. Now it will pick always the first system found instead. 
+	
+--------------------------------------------------------
+
+EUROMOD v3.5.2
+Compared to previous release v.3.5.1, this software version includes the following updates/changes:
+- Core software:
+	- Added support for the incomelist "ils_extstat_other" which you can define in "IlsDef_cc" in order to introduce other external statistics.
+	- Added a new column in the External Statistics where you can define the "destination" of an ils component for the aggregates (not for distributional). For all default ils in the aggregates, you should see only the default destination of "None" and for the "ils_extstat_other" you should see all available destinations.
+	- The produced statistics report now includes the variables you selected. Each aggregate table will also include "ils_extstat_other" in the end, whether it shows as empty or not. Every ils that has at least one component hidden, displays a relevant warning in the ils header. 
+	- The external statistics are also available in the spine in teh form of constants. The aggregate statistics are available as "$extstat_number_*" and "$extstat_amount_*", while the distributional and poverty statistics are available as "$extstat_*".
+
+--------------------------------------------------------
+
+EUROMOD v3.5.1
+Compared to previous release v.3.4.10, this software version includes the following updates/changes:
+- Core software:
+	- Added a context menu for adding a new row in uprating factors. 
+	- Important speed improvement in scrolling the spine
+	- Improved the Variables Cleanup tool.
+	- Fixed various minor bugs.
+	- Improvements in the Statistical Templates and the Statistics Presenter.
+	- Added a parameter in IlArithOp to force generating monetary variables.
+	- Added a parameter in Totals to avoid a warning for duplicate definitions.
+	- Added a check for cyclical references in DefIl.
+- Plugins:
+	- In-depth Analysis:
+		- If a new path is selected and baseline and reform have not been selected yet, the path for baseline and reform is also updated.
+		- Added a button to quickly reset the project path.
+	- Hypothetical Household Tool (HHoT):
+		- Updated the settings to make it work with 2022 systems (introduction of 2022 data and average wages).
+		- Various bug fixes and improvements, such as allowing resetting advanced variables for all selected households and typing the path to open a project. 
+
+--------------------------------------------------------
+
+EUROMOD v3.4.10
+Compared to previous release v.3.4.7, this software version includes the following updates/changes:
+- Core software:
+	- Changes so that the version control tool allows uploading the DRD_training_data.xls and DRD_sl_demo_v4.xls files.
+	- Minor change performed so that the config files (ExchangeRates, Extensions and HICP) are only transformen once if they have not changed. And up2Date file is created. 
+	- Speed improvement in DoesFormulaContainComponent.
+	- Minor changes to UI and Libraries.
+	- Added a parameter in Totals to avoid a warning for duplicate definitions
+	- Added a parameter in IlArithOp to force generating monetary variables
+	- Improved BackEnd error handling
+	- Added a helping function to return the current URI folder
+	- Allow CalculateArithmetic to access data variables (using the values of the first individual in the dataset only).
+	- Added ReformTaxPretty method for ITT systems in reforms
+	- TaxPretty & ReformTaxPretty now check the filename and not the system name"
+	- Added help for the new "ForceMonetaryOutput" parameter in IlArithOp
+	- Added help for the new "WarnIfDuplicateDefinition" parameter in Totals
+- Plugins:
+	- Hypothetical Household Tool (HHoT):
+		- New button to reset all advanced variables from the selected households included.
+		- Added the possibility to insert the path to open a new project.
+		- Fixed various bugs.
+	- In-depth Analysis:
+		- Added button which allows resetting "EUROMOD project folder", and "merged dataset path", to the path of the project which is currently opened in EUROMOD.
+		- The format of the excel file that can be downloaded from the results area has improved.
+		- The message that appears when the user clicks on Run without selecting any table or "save merged dataset at" has been improved. 
+	- Statistics Presenter:
+		- Improvements in the export to Excel feature.

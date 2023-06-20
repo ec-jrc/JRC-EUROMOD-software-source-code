@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.helpProvider = new System.Windows.Forms.HelpProvider();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
@@ -55,6 +55,7 @@
             this.contextMenuStripRows = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnCheckUsage = new System.Windows.Forms.Button();
+            this.addRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabIndices.SuspendLayout();
             this.tabPageIndices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.updwnYearToAdd)).BeginInit();
@@ -105,7 +106,7 @@
             this.tabIndices.Controls.Add(this.tabPageIndices);
             this.tabIndices.Controls.Add(this.tabPageFactors);
             this.tabIndices.Location = new System.Drawing.Point(9, 10);
-            this.tabIndices.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabIndices.Margin = new System.Windows.Forms.Padding(2);
             this.tabIndices.Name = "tabIndices";
             this.tabIndices.SelectedIndex = 0;
             this.tabIndices.Size = new System.Drawing.Size(550, 366);
@@ -120,9 +121,9 @@
             this.tabPageIndices.Controls.Add(this.btnAddYear);
             this.tabPageIndices.Controls.Add(this.dgvIndices);
             this.tabPageIndices.Location = new System.Drawing.Point(4, 22);
-            this.tabPageIndices.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageIndices.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageIndices.Name = "tabPageIndices";
-            this.tabPageIndices.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageIndices.Padding = new System.Windows.Forms.Padding(2);
             this.tabPageIndices.Size = new System.Drawing.Size(542, 340);
             this.tabPageIndices.TabIndex = 0;
             this.tabPageIndices.Text = "Raw Indices";
@@ -132,7 +133,7 @@
             // 
             this.updwnYearToAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.updwnYearToAdd.Location = new System.Drawing.Point(373, 297);
-            this.updwnYearToAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.updwnYearToAdd.Margin = new System.Windows.Forms.Padding(2);
             this.updwnYearToAdd.Maximum = new decimal(new int[] {
             2500,
             0,
@@ -159,7 +160,7 @@
             this.cmbYearToDelete.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbYearToDelete.FormattingEnabled = true;
             this.cmbYearToDelete.Location = new System.Drawing.Point(458, 297);
-            this.cmbYearToDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbYearToDelete.Margin = new System.Windows.Forms.Padding(2);
             this.cmbYearToDelete.Name = "cmbYearToDelete";
             this.cmbYearToDelete.Size = new System.Drawing.Size(82, 21);
             this.cmbYearToDelete.TabIndex = 9;
@@ -168,7 +169,7 @@
             // 
             this.btnDeleteYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDeleteYear.Location = new System.Drawing.Point(458, 318);
-            this.btnDeleteYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDeleteYear.Margin = new System.Windows.Forms.Padding(2);
             this.btnDeleteYear.Name = "btnDeleteYear";
             this.btnDeleteYear.Size = new System.Drawing.Size(81, 20);
             this.btnDeleteYear.TabIndex = 8;
@@ -180,7 +181,7 @@
             // 
             this.btnAddYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddYear.Location = new System.Drawing.Point(372, 318);
-            this.btnAddYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAddYear.Margin = new System.Windows.Forms.Padding(2);
             this.btnAddYear.Name = "btnAddYear";
             this.btnAddYear.Size = new System.Drawing.Size(81, 20);
             this.btnAddYear.TabIndex = 5;
@@ -204,17 +205,18 @@
             this.colIndexDescription,
             this.colReference,
             this.colComment});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvIndices.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvIndices.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvIndices.Location = new System.Drawing.Point(7, 0);
-            this.dgvIndices.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvIndices.Margin = new System.Windows.Forms.Padding(2);
             this.dgvIndices.Name = "dgvIndices";
+            this.dgvIndices.RowHeadersWidth = 62;
             this.dgvIndices.RowTemplate.Height = 24;
             this.dgvIndices.ShowCellErrors = false;
             this.dgvIndices.ShowEditingIcon = false;
@@ -229,28 +231,33 @@
             // colID
             // 
             this.colID.DataPropertyName = "ID";
+            this.colID.Frozen = true;
+            this.colID.MinimumWidth = 8;
             this.colID.Name = "colID";
             this.colID.Visible = false;
-            this.colID.Frozen = true;
+            this.colID.Width = 150;
             // 
             // colIndexDescription
             // 
             this.colIndexDescription.DataPropertyName = "colIndexDescription";
             this.colIndexDescription.FillWeight = 300F;
+            this.colIndexDescription.Frozen = true;
             this.colIndexDescription.HeaderText = "Index";
+            this.colIndexDescription.MinimumWidth = 8;
             this.colIndexDescription.Name = "colIndexDescription";
             this.colIndexDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colIndexDescription.Width = 250;
-            this.colIndexDescription.Frozen = true;
             // 
             // colReference
             // 
             this.colReference.DataPropertyName = "colReference";
             this.colReference.FillWeight = 80F;
+            this.colReference.Frozen = true;
             this.colReference.HeaderText = "Reference";
+            this.colReference.MinimumWidth = 8;
             this.colReference.Name = "colReference";
             this.colReference.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colReference.Frozen = true;
+            this.colReference.Width = 150;
             // 
             // colComment
             // 
@@ -270,9 +277,9 @@
             this.tabPageFactors.Controls.Add(this.cmbDatasets);
             this.tabPageFactors.Controls.Add(this.dgvFactors);
             this.tabPageFactors.Location = new System.Drawing.Point(4, 22);
-            this.tabPageFactors.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageFactors.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageFactors.Name = "tabPageFactors";
-            this.tabPageFactors.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPageFactors.Padding = new System.Windows.Forms.Padding(2);
             this.tabPageFactors.Size = new System.Drawing.Size(542, 340);
             this.tabPageFactors.TabIndex = 1;
             this.tabPageFactors.Text = "Factors per Data and System";
@@ -281,7 +288,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Location = new System.Drawing.Point(343, 4);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(56, 20);
             this.btnUpdate.TabIndex = 5;
@@ -293,7 +300,7 @@
             // 
             this.txtIncomeYear.Enabled = false;
             this.txtIncomeYear.Location = new System.Drawing.Point(273, 6);
-            this.txtIncomeYear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtIncomeYear.Margin = new System.Windows.Forms.Padding(2);
             this.txtIncomeYear.Name = "txtIncomeYear";
             this.txtIncomeYear.Size = new System.Drawing.Size(50, 20);
             this.txtIncomeYear.TabIndex = 4;
@@ -323,7 +330,7 @@
             this.cmbDatasets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDatasets.FormattingEnabled = true;
             this.cmbDatasets.Location = new System.Drawing.Point(52, 5);
-            this.cmbDatasets.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbDatasets.Margin = new System.Windows.Forms.Padding(2);
             this.cmbDatasets.Name = "cmbDatasets";
             this.cmbDatasets.Size = new System.Drawing.Size(138, 21);
             this.cmbDatasets.TabIndex = 1;
@@ -343,9 +350,10 @@
             this.dgvFactors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colIndexName});
             this.dgvFactors.Location = new System.Drawing.Point(4, 33);
-            this.dgvFactors.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvFactors.Margin = new System.Windows.Forms.Padding(2);
             this.dgvFactors.Name = "dgvFactors";
             this.dgvFactors.RowHeadersVisible = false;
+            this.dgvFactors.RowHeadersWidth = 62;
             this.dgvFactors.ShowCellErrors = false;
             this.dgvFactors.ShowCellToolTips = false;
             this.dgvFactors.ShowEditingIcon = false;
@@ -356,22 +364,25 @@
             // colIndexName
             // 
             this.colIndexName.HeaderText = "Index";
+            this.colIndexName.MinimumWidth = 8;
             this.colIndexName.Name = "colIndexName";
             this.colIndexName.ReadOnly = true;
             this.colIndexName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colIndexName.Width = 150;
             // 
             // contextMenuStripRows
             // 
             this.contextMenuStripRows.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStripRows.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteRowToolStripMenuItem});
+            this.deleteRowToolStripMenuItem,
+            this.addRowToolStripMenuItem});
             this.contextMenuStripRows.Name = "contextMenuStripRows";
-            this.contextMenuStripRows.Size = new System.Drawing.Size(143, 26);
+            this.contextMenuStripRows.Size = new System.Drawing.Size(241, 101);
             // 
             // deleteRowToolStripMenuItem
             // 
             this.deleteRowToolStripMenuItem.Name = "deleteRowToolStripMenuItem";
-            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.deleteRowToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
             this.deleteRowToolStripMenuItem.Text = "Delete Row(s)";
             this.deleteRowToolStripMenuItem.Click += new System.EventHandler(this.deleteRowToolStripMenuItem_Click);
             // 
@@ -387,6 +398,13 @@
             this.btnCheckUsage.UseVisualStyleBackColor = true;
             this.btnCheckUsage.Click += new System.EventHandler(this.btnCheckUsage_Click);
             // 
+            // addRowToolStripMenuItem
+            // 
+            this.addRowToolStripMenuItem.Name = "addRowToolStripMenuItem";
+            this.addRowToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.addRowToolStripMenuItem.Text = "Add Row(s)";
+            this.addRowToolStripMenuItem.Click += new System.EventHandler(this.addRowToolStripMenuItem_Click);
+            // 
             // UpratingIndicesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -398,7 +416,7 @@
             this.Controls.Add(this.btnOK);
             this.helpProvider.SetHelpKeyword(this, "EM_WW_DefiningUpratingFactors.htm");
             this.helpProvider.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.Topic);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimizeBox = false;
             this.Name = "UpratingIndicesForm";
             this.helpProvider.SetShowHelp(this, true);
@@ -448,5 +466,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripRows;
         private System.Windows.Forms.ToolStripMenuItem deleteRowToolStripMenuItem;
         private System.Windows.Forms.Button btnCheckUsage;
+        private System.Windows.Forms.ToolStripMenuItem addRowToolStripMenuItem;
     }
 }

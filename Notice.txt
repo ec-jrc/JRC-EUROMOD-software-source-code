@@ -1,4 +1,4 @@
-EUROMOD version 3.4.10
+EUROMOD version 3.6.2
 
 © European Union, Institute for Social and Economic Research, University of Essex
 

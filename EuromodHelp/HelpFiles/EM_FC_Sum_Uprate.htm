@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Summary of parameters for function Uprate</title>
+</head>
+
+<body>
+
+<h1>Summary of parameters for function Uprate</h1>
+<p>Allows for the uprating of monetary dataset variables.</p>
+
+<h4>Function Specific Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Group</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Default</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Dataset</td>
+		<td>text</td>
+		<td></td>
+		<td>at least one</td>
+		<td>no</td>
+		<td></td>
+		<td>Name of a dataset(s) for which the uprating settings apply.<br>If the settings apply for several datasets, the parameter can be used more than once. Moreover, the wildcards * and ? can be used, where * stands for any character and ? stands for one arbitrary character (e.g. be_20*_v?).</td>
+	</tr>
+	<tr>
+		<td>Def_Factor</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>Factor, which is applied on all monetary variables in the dataset that do not have a particular own factor.<br>Possible values are amounts (e.g. 1.023) or factors as defined by parameters Factor_Name, Factor_Value, Factor_Condition.</td>
+	</tr>
+	<tr>
+		<td>Factor_Name</td>
+		<td>text</td>
+		<td>FACTOR_DEF</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Name of a specific uprating factor, whose value is specified by parameter Factor_Value.</td>
+	</tr>
+	<tr>
+		<td>Factor_Value</td>
+		<td>text</td>
+		<td>FACTOR_DEF</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Value of a specific uprating factor.<br>If no name is specified via Factor_Name, the factor can be addressed as factorX, where X refers to the number in the Grp/No column.</td>
+	</tr>
+	<tr>
+		<td>[Placeholder]</td>
+		<td>policy column: variable<br>system column: text</td>
+		<td>FACTOR</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>[Placeholder] stands for the name of a variable, defined in the policy column, whose uprating factors are specified in the respective system columns.<br>The uprating factors can be indicated as amounts (e.g. 1.023) or factors, as defined by parameters Factor_Name, Factor_Value, Factor_Condition.</td>
+	</tr>
+	<tr>
+		<td>Factor_Condition</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
+		<td>FACTOR</td>
+		<td>no</td>
+		<td>within group</td>
+		<td></td>
+		<td>Condition that needs to be fulfilled to apply the factor specified by parameters Factor_Value and (optionally) Factor_Name.</td>
+	</tr>
+	<tr>
+		<td>AggVar_Name</td>
+		<td>variable</td>
+		<td>AGG_VAR</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Name of an aggregate variable (e.g. yse).</td>
+	</tr>
+	<tr>
+		<td>AggVar_Part</td>
+		<td>variable</td>
+		<td>AGG_VAR</td>
+		<td>at least one</td>
+		<td>no</td>
+		<td></td>
+		<td>Name of a component variable of the aggregate variable defined by AggVar_Name (e.g. ysebs).</td>
+	</tr>
+	<tr>
+		<td>AggVar_Tolerance</td>
+		<td>amount</td>
+		<td>AGG_VAR</td>
+		<td>no</td>
+		<td>within group</td>
+		<td></td>
+		<td>If the value of the variable specified by parameter AggVar_Name differs from the sum of its components defined by parameters AggVar_Part, an error message is issued, but only if the absolute difference is higher than aggvarX_tolerance.</td>
+	</tr>
+	<tr>
+		<td>WarnIfNonMonetary</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If set to yes, a warning is issued for uprating non-monetary variables.</td>
+	</tr>	
+	<tr>
+		<td>WarnIfNoFactor</td>
+		<td>yes/no</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>yes</td>
+		<td>If set to yes a warning is issued for any monetary dataset variable without an explicitly defined uprating factor.</td>
+	</tr>
+	<tr>
+		<td>DBYearVar</td>
+		<td>text</td>
+		<td></td>
+		<td>no</td>
+		<td>yes</td>
+		<td></td>
+		<td>If your dataset contains multiple years, use this parameter to specify which variable holds the DB year in the input data.</td>
+	</tr>
+	<tr>
+		<td>RegExp_Def</td>
+		<td>text</td>
+		<td>REG_EXP</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Pattern (regular expression) defining the group of variables to be uprated by RegExp_Factor, e.g. x[0-9]+.</td>
+	</tr>
+	<tr>
+		<td>RegExp_Condition</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
+		<td>REG_EXP</td>
+		<td>no</td>
+		<td>within group</td>
+		<td></td>
+		<td>Condition that needs to be fulfilled to apply the factor specified by parameters RegExp_Def and RegExp_Factor.</td>
+	</tr>
+	<tr>
+		<td>RegExp_Factor</td>
+		<td>text</td>
+		<td>REG_EXP</td>
+		<td>within group</td>
+		<td>within group</td>
+		<td></td>
+		<td>Factor by which the variables defined by RegExp_Def are uprated.</td>
+	</tr>
+</table>
+
+<h4>Common Parameters</h4>
+<table class="info">
+	<tr>
+		<th>Name</th>
+		<th>Type</th>
+		<th>Compulsory</th>
+		<th>Unique</th>
+		<th>Description</th>
+	</tr>
+	<tr>
+		<td>Run_Cond</td>
+		<td><a href="EM_FC_Formula.htm">condition</a></td>
+		<td>no</td>
+		<td>yes</td>
+		<td>Function is only carried out if the condition is fulfilled. The parameter is intended to be a conditional switch. Thus the condition must not be individual or household based, but refer to a specific processing state or other global condition.</td>
+	</tr>
+		<tr>
+		<td>#_DataBasename</td>
+		<td>text</td>
+		<td>no</td>
+		<td>no (but group must differ)</td>
+		<td>Parameter of query IsUsedDatabase.</td>
+	</tr>
+</table>
+</body>
+</html>

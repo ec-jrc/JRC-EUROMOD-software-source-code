@@ -40,17 +40,19 @@
             // 
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 697);
+            this.panel1.Location = new System.Drawing.Point(0, 566);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1280, 59);
+            this.panel1.Size = new System.Drawing.Size(960, 48);
             this.panel1.TabIndex = 24;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(1113, 5);
+            this.button1.Location = new System.Drawing.Point(835, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(130, 44);
+            this.button1.Size = new System.Drawing.Size(98, 36);
             this.button1.TabIndex = 0;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // spreadsheetControl
             // 
-            this.spreadsheetControl.Location = new System.Drawing.Point(12, 396);
+            this.spreadsheetControl.Location = new System.Drawing.Point(9, 322);
+            this.spreadsheetControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.spreadsheetControl.Name = "spreadsheetControl";
-            this.spreadsheetControl.Size = new System.Drawing.Size(364, 268);
+            this.spreadsheetControl.Size = new System.Drawing.Size(273, 218);
             this.spreadsheetControl.TabIndex = 1;
             this.spreadsheetControl.Text = "spreadsheetControl1";
             this.spreadsheetControl.Visible = false;
@@ -72,30 +75,34 @@
             this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
             this.labelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelControl1.Location = new System.Drawing.Point(0, 0);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Padding = new System.Windows.Forms.Padding(10, 20, 10, 10);
-            this.labelControl1.Size = new System.Drawing.Size(1280, 697);
+            this.labelControl1.Padding = new System.Windows.Forms.Padding(8, 16, 8, 8);
+            this.labelControl1.Size = new System.Drawing.Size(960, 566);
             this.labelControl1.TabIndex = 26;
             this.labelControl1.Text = "The Web Statistics report has been generated!\r\n\r\nLook under \"My Documents\"...\r\n";
+
             // 
             // spreadsheetControlReader
             // 
-            this.spreadsheetControlReader.Location = new System.Drawing.Point(38, 30);
+            this.spreadsheetControlReader.Location = new System.Drawing.Point(28, 24);
+            this.spreadsheetControlReader.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.spreadsheetControlReader.Name = "spreadsheetControlReader";
-            this.spreadsheetControlReader.Size = new System.Drawing.Size(364, 268);
+            this.spreadsheetControlReader.Size = new System.Drawing.Size(273, 218);
             this.spreadsheetControlReader.TabIndex = 27;
             this.spreadsheetControlReader.Text = "spreadsheetControl1";
             this.spreadsheetControlReader.Visible = false;
             // 
             // OutputForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1280, 756);
+            this.ClientSize = new System.Drawing.Size(960, 614);
             this.Controls.Add(this.spreadsheetControlReader);
             this.Controls.Add(this.spreadsheetControl);
             this.Controls.Add(this.labelControl1);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "OutputForm";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

@@ -866,16 +866,13 @@ namespace HypotheticalHousehold
 
         private string SelectImportFolder()
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog()
-            {
-                Description = "Please choose the folder of the HHOT project which serves as import source ...",
-                SelectedPath = Plugin.currentProjectPath
-            };
-            if (folderBrowserDialog.ShowDialog() == DialogResult.Cancel) return null;
+            SelectFolderForm sff = new SelectFolderForm("HHoT plugin - Import", "Please choose the folder of the HHOT project which serves as import source ...", Plugin.currentProjectPath);
+
+            if (sff.ShowDialog() == DialogResult.Cancel) return null;
 
             string error;
-            if (Plugin.IsHHotProjectPath(folderBrowserDialog.SelectedPath, out error)) return folderBrowserDialog.SelectedPath;
-            MessageBox.Show("Folder " + folderBrowserDialog.SelectedPath + " does not contain a valid HHOT project." + Environment.NewLine + error);
+            if (Plugin.IsHHotProjectPath(sff.selectedPath, out error)) return sff.selectedPath;
+            MessageBox.Show("Folder " + sff.selectedPath + " does not contain a valid HHOT project." + Environment.NewLine + error);
             return null;
         }
 

@@ -13,7 +13,7 @@ namespace EM_Statistics
         private readonly Template template;
         private readonly ErrorCollector errorCollector;
 
-        public enum ModifyMode { AddNew, AddOrKeep, AddOrReplace, MergeKeep, MergeReplace }
+        public enum ModifyMode { AddNew, AddOrKeep, AddOrReplace, MergeKeep, MergeReplace, Delete }
         public enum AddWhere { Tail, Head, After, Before, Appropriate }
 
         public TemplateApi(Template _template, ErrorCollector _errorCollector) { template = _template; errorCollector = _errorCollector; }
@@ -234,61 +234,117 @@ namespace EM_Statistics
             catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return false; }
         }
 
-        /// <summary>
-        /// allows adding or changing an element of a list, for example an action of the global-actions-list, or a row of the rows of a certain table
-        /// </summary>
-        /// <typeparam name="T">
-        /// can be Action, Filter, Row, Column, Cell, OptionalVariable, RequiredVariable, etc.
-        /// the type must provide the field 'name' (see 'modElement' below)
-        /// the type must provide a function 'ApiMerge' (see 'funcApiMerge' and 'modifyMode' below)
-        /// </typeparam>
-        /// <param name="modElement">
-        /// the element to add, respectively the values which should be changed
-        /// if the function attempts to change an element, the field 'name' is used to identify this element
-        /// </param>
-        /// <param name="elementsList">
-        /// the list of elements, i.e. the container of the element to add or change
-        /// </param>
-        /// <param name="funcApiMerge">
-        /// a function that accomplishes the changes if 'modifyMode' is set to 'MergeKeep/Replace' (see below)
-        /// </param>
-        /// <param name="modifyMode">
-        /// AddNew: 'modElement' is added, if 'elementsList' already contains an element with the same 'name' an error is issued
-        /// AddOrKeep: 'modElement' is added, if 'elementsList' does not contain an element with the same 'name'
-        /// AddOrReplace: 'modElement' is added, if 'elementsList' does not contain an element with the same 'name',
-        ///               otherwise 'modElement' replaces the existing element
-        /// MergeKeep: 'modElement' is combined with an existing element in 'elementsList' with the same 'name'
-        ///            the merging is accomplished by function 'funcApiMerge', with parameter 'keep' set to true 
-        ///            'keep' has in priniciple has the following meaning:
-        ///            keep = true: the existing element's values are prioritised, i.e. only properties with default-values in the existing element and non-default values in 'modElement' are changed
-        ///            keep = false: 'modElements' values are prioritised
-        ///            if 'elementsList' does not contain an element with the same 'name' an error is issued
-        /// MergeReplace: same as above, but parameter 'keep' set to false
-        /// </param>
-        /// <param name="addWhere">
-        /// - adding (AddNew, AddOrKeep/Replace with not existing 'modElement'): 'modElement' is added XXX (see below)
-        /// - replacing (AddOrKeep/Replace with existing 'modElement'): 'modElement' is moved XXX (see below)
-        /// - merging (AddMergeKeep/Replace): parameter 'addWhere' is ignored
-        ///   XXX: Tail: at/to the end of 'elementList'
-        ///        Head: at/to the top of 'elementList'
-        ///        After: after the 'elementList's element with 'name'='nextToElementName' (must exist, otherwise an error is issued)
-        ///        Before: before the 'elementList's element with 'name'='nextToElementName' (must exist, otherwise an error is issued)
-        /// if set to 'Appropriate', 'addWhere' is changed to 'Tail' on adding, otherwise the parameter is ignored
-        /// </param>
-        /// <param name="nextToElementName">
-        /// used in combination with 'addWhere' set to 'After' or 'Before' (see above)
-        /// </param>
-        /// <param name="callingFun">
-        /// used internally, i.e. not provided by API-user (only relevant for error-messages)
-        /// </param>
-        /// <param name="localMap">
-        /// optional and used internally, i.e. not provided by API-user (only relevant for Actions and Filters)
-        /// </param>
-        /// <returns>
-        /// true for success
-        /// false for non-success: error is added to errorCollector
-        /// </returns>
-        private bool ModifyListElements<T>(T modElement, List<T> elementsList, Func<T, T, bool, bool> funcApiMerge, ModifyMode modifyMode, AddWhere addWhere, string nextToElementName, string callingFun, LocalMap localMap = null)
+        public Template.Page.Table.Row GetRow(string pageName, string tableName, string rowName)
+        {
+            string callingFun = "GetRow";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return null;
+                return table.rows.FirstOrDefault(r => r.name == rowName);
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return null; }
+        }
+
+        public Template.Page.Table.Column GetColumn(string pageName, string tableName, string colName)
+        {
+            string callingFun = "GetColumn";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return null;
+                return table.columns.FirstOrDefault(c => c.name == colName);
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return null; }
+        }
+
+        public Template.Page.Table.Cell GetCell(string pageName, string tableName, string cellName)
+        {
+            string callingFun = "GetCell";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return null;
+                return table.cells.FirstOrDefault(c => c.name == cellName);
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return null; }
+        }
+
+        public Template.Page.Table GetTable(string pageName, string tableName)
+        {
+            string callingFun = "GetTable";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return null;
+                return table;
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return null; }
+        }
+
+        public List<Template.Page.Table.Cell> GetCells(string pageName, string tableName, string columnName = "")
+        {
+            string callingFun = "GetCells";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return null;
+                if (string.IsNullOrEmpty(columnName)) return table.cells;
+                else return table.cells.FindAll(x => x.colName == columnName);
+
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return null; }
+        }
+            /// <summary>
+            /// allows adding or changing an element of a list, for example an action of the global-actions-list, or a row of the rows of a certain table
+            /// </summary>
+            /// <typeparam name="T">
+            /// can be Action, Filter, Row, Column, Cell, OptionalVariable, RequiredVariable, etc.
+            /// the type must provide the field 'name' (see 'modElement' below)
+            /// the type must provide a function 'ApiMerge' (see 'funcApiMerge' and 'modifyMode' below)
+            /// </typeparam>
+            /// <param name="modElement">
+            /// the element to add, respectively the values which should be changed
+            /// if the function attempts to change an element, the field 'name' is used to identify this element
+            /// </param>
+            /// <param name="elementsList">
+            /// the list of elements, i.e. the container of the element to add or change
+            /// </param>
+            /// <param name="funcApiMerge">
+            /// a function that accomplishes the changes if 'modifyMode' is set to 'MergeKeep/Replace' (see below)
+            /// </param>
+            /// <param name="modifyMode">
+            /// AddNew: 'modElement' is added, if 'elementsList' already contains an element with the same 'name' an error is issued
+            /// AddOrKeep: 'modElement' is added, if 'elementsList' does not contain an element with the same 'name'
+            /// AddOrReplace: 'modElement' is added, if 'elementsList' does not contain an element with the same 'name',
+            ///               otherwise 'modElement' replaces the existing element
+            /// MergeKeep: 'modElement' is combined with an existing element in 'elementsList' with the same 'name'
+            ///            the merging is accomplished by function 'funcApiMerge', with parameter 'keep' set to true 
+            ///            'keep' has in priniciple has the following meaning:
+            ///            keep = true: the existing element's values are prioritised, i.e. only properties with default-values in the existing element and non-default values in 'modElement' are changed
+            ///            keep = false: 'modElements' values are prioritised
+            ///            if 'elementsList' does not contain an element with the same 'name' an error is issued
+            /// MergeReplace: same as above, but parameter 'keep' set to false
+            /// </param>
+            /// <param name="addWhere">
+            /// - adding (AddNew, AddOrKeep/Replace with not existing 'modElement'): 'modElement' is added XXX (see below)
+            /// - replacing (AddOrKeep/Replace with existing 'modElement'): 'modElement' is moved XXX (see below)
+            /// - merging (AddMergeKeep/Replace): parameter 'addWhere' is ignored
+            ///   XXX: Tail: at/to the end of 'elementList'
+            ///        Head: at/to the top of 'elementList'
+            ///        After: after the 'elementList's element with 'name'='nextToElementName' (must exist, otherwise an error is issued)
+            ///        Before: before the 'elementList's element with 'name'='nextToElementName' (must exist, otherwise an error is issued)
+            /// if set to 'Appropriate', 'addWhere' is changed to 'Tail' on adding, otherwise the parameter is ignored
+            /// </param>
+            /// <param name="nextToElementName">
+            /// used in combination with 'addWhere' set to 'After' or 'Before' (see above)
+            /// </param>
+            /// <param name="callingFun">
+            /// used internally, i.e. not provided by API-user (only relevant for error-messages)
+            /// </param>
+            /// <param name="localMap">
+            /// optional and used internally, i.e. not provided by API-user (only relevant for Actions and Filters)
+            /// </param>
+            /// <returns>
+            /// true for success
+            /// false for non-success: error is added to errorCollector
+            /// </returns>
+            private bool ModifyListElements<T>(T modElement, List<T> elementsList, Func<T, T, bool, bool> funcApiMerge, ModifyMode modifyMode, AddWhere addWhere, string nextToElementName, string callingFun, LocalMap localMap = null)
         {
             if (modElement == null) { AddError("Modify element must not be null.", callingFun); return false; }
 
@@ -307,7 +363,7 @@ namespace EM_Statistics
                 AddError($"{elementType} with name '{elementName}' already exists (hint: consider using another ModifyMode).", callingFun);
                 return false;
             }
-            if (origElement == null && (modifyMode == ModifyMode.MergeKeep || modifyMode == ModifyMode.MergeReplace))
+            if (origElement == null && (modifyMode == ModifyMode.MergeKeep || modifyMode == ModifyMode.MergeReplace || modifyMode == ModifyMode.Delete))
             {
                 AddError($"No {elementType} with name '{elementName}' exists (hint: consider using another ModifyMode).", callingFun);
                 return false;
@@ -365,6 +421,8 @@ namespace EM_Statistics
                 case ModifyMode.MergeReplace:
                 case ModifyMode.MergeKeep:
                     return funcApiMerge(origElement, modElement, modifyMode == ModifyMode.MergeKeep);
+                case ModifyMode.Delete:
+                    elementsList.Remove(origElement); return true;
                 default:
                     throw new Exception($"Unhandled ModifyMode '{modifyMode}'");
             }
@@ -669,7 +727,37 @@ namespace EM_Statistics
             catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return false; }
         }
 
+        public bool CopyCell(string pageName, string tableName, string origCellName, string copyCellName, bool reform = false)
+        {
+            string callingFun = "CopyCell";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return false;
+                return CopyListElement(origCellName, copyCellName, reform ? table.reformCells : table.cells, AddWhere.After, null, o => { return o.Clone(); }, callingFun);
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return false; }
+        }
+
+        public bool CopyCell(string pageName, string tableName, Template.Page.Table.Cell origElement, string copyCellName, bool reform = false)
+        {
+            string callingFun = "CopyCell";
+            try
+            {
+                if (!GetTable(out Template.Page.Table table, pageName, tableName, callingFun)) return false;
+                return CopyListElement(origElement, copyCellName, reform ? table.reformCells : table.cells, AddWhere.After, null, o => { return o.Clone(); }, callingFun);
+            }
+            catch (Exception exception) { AddError($"Unexpected error: {exception.Message}", callingFun); return false; }
+        }
+
+        // This function finds an element by name and duplicates it
         private bool CopyListElement<T>(string origName, string copyName, List<T> elementList, AddWhere addWhere, string nextToName, Func<T, T> funcClone, string callingFun)
+        {
+            if (!GetListElement(out T origElement, origName, elementList, true, callingFun)) return false;
+            return CopyListElement(origElement, copyName, elementList, addWhere, nextToName, funcClone, callingFun);
+        }
+
+        // This function duplicates a given element
+        private bool CopyListElement<T>(T origElement, string copyName, List<T> elementList, AddWhere addWhere, string nextToName, Func<T, T> funcClone, string callingFun)
         {
             FieldInfo fieldInfoName = typeof(T).GetField("name");
             if (fieldInfoName == null)
@@ -677,8 +765,6 @@ namespace EM_Statistics
                 AddError($"Function CopyListElement works only with classes providing field 'name', which is not the case for {typeof(T).Name}.", callingFun);
                 return false;
             }
-
-            if (!GetListElement(out T origElement, origName, elementList, true, callingFun)) return false;
 
             int indexNextTo = -1;
             if (addWhere == AddWhere.After || addWhere == AddWhere.Before)

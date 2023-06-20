@@ -21,6 +21,7 @@ namespace EM_Common
             public const string Replace_Void_By = "Replace_Void_By";
             public const string Suppress_Void_Message = "Suppress_Void_Message";
             public const string MultiplyMonetaryBy = "MultiplyMonetaryBy";
+            public const string AutoRenameWhenCopying = "AutoRenameWhenCopying";
 
             public const string UnitInfo_XXX = "UnitInfo_XXX";
 
@@ -137,6 +138,14 @@ namespace EM_Common
                     valueType = PAR_TYPE.FORMULA,
                     minCount = 0, maxCount = 1,
                     description = "All monetary values are multiplied by this factor.\n(Allows e.g. for the specification of a special exchange rate)."
+                });
+                fun.par.Add(AutoRenameWhenCopying, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.BOOLEAN,
+                    minCount = 0,
+                    maxCount = 1,
+                    defaultValue = true,
+                    description = "If set to false, the filename will not be automatically renamed when copying systems."
                 });
             }
         }

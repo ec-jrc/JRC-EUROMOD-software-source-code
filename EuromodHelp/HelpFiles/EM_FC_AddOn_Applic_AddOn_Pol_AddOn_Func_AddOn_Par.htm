@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>EUROMOD add-ons and the special functions AddOn_Applic, AddOn_Pol, AddOn_Func and AddOnPar</title>
+</head>
+
+<body lang=EN-GB link=blue vlink=purple style='tab-interval:35.4pt'>
+
+<div class=WordSection1>
+
+<h1>EUROMOD add-ons and the special functions AddOn_Applic, AddOn_Pol, AddOn_Func and AddOnPar</h1>
+
+<p>Add-on features are EUROMOD extended functionalities, which
+are not part of the standard tax-benefit calculations. The main reasons for keeping
+add-ons separate from the basic model is to hold the latter as clear and
+straightforward as possible. Typical examples for add-ons are the calculation
+of marginal/average tax-rates; the calculation of disposable income by
+different labour supply options; templates for optimisation exercises, e.g.
+choices between different policy options; templates for budget neutral reforms;
+etc. While these examples are usually implemented for all or at least for a
+couple of countries, add-on features can also be used to store reform scenarios
+separately.</p>
+
+<p>Technically add-on implementations look like country
+implementations, i.e. they consist of systems, policies, functions, etc. There
+are some minor differences and particularities:</p>
+<ul>
+<li>Add-ons are loaded in the user interface via the
+ribbon Add-Ons.</li>
+
+<li>The functions AddOn_Applic, AddOn_Pol, AddOn_Func and AddOnPar can only be used with add-ons, where the existence
+of AddOn_Applic is compulsory (see below).</li>
+
+<li>Add-ons make extensive use of
+&quot;identifiers&quot; <a name="_Ref323295680"></a><a href="#_ftn1" name="_ftnref1" title="">[1]</a>: see examples below and <a href="EM_FC_Placeholders.htm">EUROMOD Functions – Identifiers and the
+placeholders =cc= and =sys=</a>.</li>
+
+<li>Add-ons make extensive use of the placeholders
+=cc= and =sys= <a href="#_ftn1" name="_ftnref1" title="">[1]</a>: see examples
+below and <a href="EM_FC_Placeholders.htm">EUROMOD Functions – Identifiers and
+the placeholders =cc= and =sys=</a>.</li>
+
+<li>Add-on parameters are freely editable. That
+means for example that, other than for countries, on the one hand any text can
+be indicated for taxunit parameters, on the other
+hand there is no support in form of offering available taxunits.
+This is based on the fact that add-ons use components (i.e., e.g. taxunits) which are not defined in the add-on itself but
+can be defined in any country. Thus the usual control and support would be
+technically too complex.</li>
+</ul>
+
+<h5>Example</h5>
+
+<p>Example 1 aims to illustrate the concept of add-ons, by
+showing a simple application.</p>
+
+<table class="spine">
+	<caption>Example 1: policy Definition_ex1</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">Ex1</td>
+		<td class="system">Ex1_MT</td>
+	</tr>
+	<tr class="function">
+		<td>AddOn_Applic</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td>Add-ons example 1</td>
+		<td class="changed">Add-ons example 1 for Malta</td>
+	</tr>
+	<tr>
+		<td>Sys</td>
+		<td>*2010*</td>
+		<td class="changed">MT_2010</td>
+	</tr>
+	<tr>
+		<td>Sys</td>
+		<td>sl_demo</td>
+		<td class="changed">n/a</td>
+	</tr>
+	<tr>
+		<td>SysNA</td>
+		<td>MT*</td>
+		<td class="changed">n/a</td> 
+	</tr>
+	<tr class="function">
+		<td>AddOn_Pol</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Pol_Name</td>
+		<td>bchot_ex1</td>
+		<td>bchot_ex1</td>
+	</tr>
+	<tr>
+		<td>Insert_Before_Pol</td>
+		<td>output_std_=cc=</td>
+		<td class="changed">output_std_mt</td>
+	</tr>
+	<tr class="function">
+		<td>AddOn_Func</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Id_Func</td>
+		<td>2b3e7a88-0081-4500-bc13-e902923af3e1</td>
+		<td class="changed">5674e105-6f33-433d-8c8b-db591b53c4f9</td>
+	</tr>
+	<tr>
+		<td>Insert_After_Func</td>
+		<td>output_std_=cc=_#1</td>
+		<td class="changed">2AB9FACE-08AD-492F-BC49-47CF3ADAB6EC</td>
+	</tr>
+	<tr class="function">
+		<td>AddOn_Par</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Insert_Func</td>
+		<td>output_std_=cc=_#1</td>
+		<td class="changed">2AB9FACE-08AD-492F-BC49-47CF3ADAB6EC</td>
+	</tr>
+	<tr>
+		<td>Var</td>
+		<td>bchot_s</td>
+		<td>bchot_s</td>
+	</tr>
+	<tr>
+		<td>IL</td>
+		<td>ils_dispy_ext</td>
+		<td>ils_dispy_ext</td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 1: policy Implementation_ex1</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">Ex1</td>
+		<td class="system">Ex1_MT</td>
+	</tr>
+	<tr class="function">
+		<td>DefOutput</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>File</td>
+		<td>bchot_=cc=.txt</td>
+		<td class="changed">bchot_MT.txt</td>
+	</tr>
+	<tr>
+		<td>Var</td>
+		<td>idhh</td>
+		<td>idhh</td>
+	</tr>
+	<tr>
+		<td>VarGroup</td>
+		<td>bchot*</td>
+		<td>bchot*</td>
+	</tr>
+	<tr>
+		<td>ILGroup</td>
+		<td>il_bchot*</td>
+		<td>il_bchot*</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_bchot</td>
+		<td>tu_bchot</td>
+	</tr>
+</table>
+
+<table class="spine">
+	<caption>Example 1: policy bchot_ex1</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">Ex1</td>
+		<td class="system">Ex1_MT</td>
+	</tr>
+	<tr class="function">
+		<td>DefVar</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>bchot_nCh_upTo6</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>bchot_nCh_6plus</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>bchot_DayCare_Fee</td>
+		<td>0#d</td>
+		<td>0#d</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr class="function">
+		<td>DefTU</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>tu_bchot</td>
+		<td>tu_bchot</td>
+	</tr>
+	<tr>
+		<td>Type</td>
+		<td>SUBGROUP</td>
+		<td>SUBGROUP</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>ils_dispy_ext</td>
+		<td>ils_dispy_ext</td>
+	</tr>
+	<tr>
+		<td>ils_dispy</td>
+		<td>+</td>
+		<td>+</td>
+	</tr>
+	<tr>
+		<td>bchot_s</td>
+		<td>+</td>
+		<td>+</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td>il_bchot_means</td>
+		<td>il_bchot_means</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td>on</td>
+		<td>on</td>
+	</tr>
+	<tr>
+		<td>who_must_be_elig</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr>
+		<td><a href="EM_FC_Formula.htm">formula</a></td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bchot_s</td>
+		<td>bchot_s</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_bchot</td>
+		<td>tu_bchot</td>
+	</tr>
+</table>
+
+<p>The example contains the
+implementation of an &quot;other child benefit&quot; (<i>bchot_s</i>), which can be added to
+any 2010 tax-benefit systems implemented in EUROMOD, as well as to Simpleland. It uses three policies for this purpose. The
+first, <i>Definition_ex1</i>, can be
+regarded as the centrepiece as it controls the rest. The second, <i>Implementation_ex1</i>, contains add-on
+specific implementations and the third, <i>bchot_ex1</i>,
+implements the &quot;other child benefit&quot;. The add-on has two systems. The
+first, <i>Ex1</i>, can be applied on all
+countries except Malta. The second, <i>Ex1_MT</i>,
+is especially designed for the Maltese 2010 system and illustrates what's different
+if one knows the country and system on which the add-on is applied. In the
+following the &quot;systems on which the add on is
+applied&quot; will be referred to as base systems for the sake of brevity.</p>
+
+<p>The policy <i>Definition_ex1</i> contains four functions. The first, <i>AddOn_Applic</i>,
+specifies on which base systems the add-on systems can be applied. The first <i>Sys</i> parameter allows for all 2010
+systems (more precise, system names containing &quot;2010&quot;), the second <i>Sys</i> parameter allows for Simpleland’s <i>sl_demo</i> system. The SysNa
+parameter (NA stands for not applicable) excludes any Maltese systems (more
+precise, system names starting with &quot;MT&quot;).</p>
+
+<p>The second function, <i>AddOn_Pol</i>,
+defines that the policy <i>bchot_ex1</i> is
+to be added to the base system, i.e. the policy implementing the &quot;other
+child benefit&quot;. This is accomplished by the parameter <i>Pol_Name</i>, while the parameter <i>Insert_Before_Pol</i>
+specifies where to integrate the policy. The child benefit inserted before
+the standard output policy, which in the Maltese system <i>Ex1_MT</i>, can be simply indicated as <i>output_std_mt</i>, while for the many
+countries systems, <i>Ex1</i>, the placeholder =cc= (which is replaced by the respective country’s acronym at
+run-time) needs to be used (see <a href="EM_FC_Placeholders.htm">EUROMOD Functions – Identifiers
+and the placeholders =cc= and =sys=</a>).</p>
+
+<p>The third function, <i>AddOn_Func</i>,
+defines that a special output function is to be added to the base system, i.e.
+the one defined in the policy <i>Implementation_ex1</i>.
+The parameter <i>Id_Func</i>
+accomplishes this task by indicating the identifier of this function (see <a
+href="EM_FC_Placeholders.htm">EUROMOD Functions – Identifiers and the
+placeholders =cc= and =sys=</a>). Note that, though seemingly identifying the
+same function, the identifier is not equal for the two systems <i>Ex1</i> and <i>Ex1_MT</i>. The reason is that identifiers are system specific and in
+the strict sense the two identifiers do not refer to the same function, as its
+implementation may be different for the two systems. The parameter <i>Insert_After_Func</i>
+specifies where to integrate the function, which is for both systems
+&quot;after the function defining standard output&quot;. However, the system <i>Ex1</i> uses a symbolic identifier for this
+purpose (see <a href="EM_FC_Placeholders.htm">EUROMOD Functions – Identifiers
+and the placeholders =cc= and =sys=</a>), which is composed of the name of the
+policy where the function is located, i.e. the standard output policy (<i>output_std</i><i>_=cc=</i>), and the order of the function,
+i.e. the function is supposed to be the first (<i>#1</i>) in this policy. This is in fact not a unique identifier and
+therefore somewhat vague, which must however be accepted if the definition
+is to be valid for several base systems. Such uncertainty can be avoided if the
+add-on system refers to a single base system,
+therefore <i>Ex1_MT</i> uses the unique
+identifier of the standard output function in the Maltese 2010 system.</p>
+
+<p>The fourth function, <i>AddOn_Par</i>, adds
+the two main outputs of the &quot;other child benefit&quot; implementation to
+standard output, i.e. the benefit itself (<i>Var</i><i> = bchot_s</i>) and an incomelist
+defining standard disposable income extended by the benefit (<i>IL = ils_dispy_ext</i>).
+Note that the parameter <i>Insert_Func</i>
+is set to the same values as the parameter <i>Insert_After_Func</i> of the function
+<i>AddOn_Func</i>.
+Note as well that it is important to insert the special output function
+after the standard output function. Using the parameter <i>Insert_Before_Func</i> instead of the
+parameter <i>Insert_After_Func</i>
+in principle would not matter, as it is not important which output comes
+first. However the insertion of the special output function would move the
+standard output function from first order to second order, thus <i>#1</i> would not work anymore. Obviously
+this only matters for the system <i>Ex1</i>,
+which uses a symbolic identifier, while the &quot;real&quot; identifier of <i>Ex1_MT</i> would still work.</p>
+
+<p>The policy <i>Implementation_ex1</i> contains only one function, namely the special
+output function referred to by the function <i>AddOn_Func</i>, outputting some
+intermediate variables and incomelists produced by
+the &quot;other child benefit&quot; policy. Note, that this policy is in fact
+dispensable, as the function could as well be defined in the policy <i>Definition_ex1</i>. In fact the policy just
+serves illustration purposes as with more complex add-ons it might be more
+transparent to separate definition from implementation. More importantly, note that there needs to be at least one policy which is not integrated into
+the base system. This policy needs to contain the <i>AddOn_X</i> functions and (usually)
+all functions integrated via <i>AddOn_Func</i>, as, if the latter were defined in an integrated
+policy, these functions would run twice (which may occasionally make sense).</p>
+
+<p>Finally the policy <i>bchot_ex1</i> contains the implementation of
+the &quot;other child benefit&quot;.</p>
+
+<h5>Generation and storage of add-ons</h5>
+
+<p>Add-ons are stored in xml files, which are named
+like the add-on’s short name. See<a href="EM_WW_CountriesNames.htm">Working
+with EUROMOD - Changing countries' names and short names</a> for more
+information on countries' and add-ons' short names and <a
+href="EM_FS_HeaderPage.htm">EUROMOD Installation and Architecture</a> for
+matters of storage.</p>
+
+<p>Add-ons can be generated by using the <i>Save As</i> functionality (see <a href="EM_WW_Saving.htm">Working with
+EUROMOD - Saving, saving as and auto-saving</a>).</p>
+
+<h5>Application of add-ons</h5>
+
+<p>For information on how to apply an add-on, i.e. merge it
+with a base system and run the result, see the paragraph <i>Running</i><i> add-on systems</i> in <a href="EM_WW_RunDialog.htm">Working with
+EUROMOD - Running EUROMOD</a>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1">[1]</a>Though identifiers and the placeholders =cc= and =sys=
+are not add-on specific. The former are also used by other functions (e.g. the
+loop functions and <i>ChangeParam</i>).
+The latter can be used universally in principle</p>
+
+</div>
+
+</body>
+
+</html>
+

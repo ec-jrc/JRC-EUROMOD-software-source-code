@@ -1,19 +1,22 @@
 ﻿using EM_UI.Actions;
+using EM_UI.DataSets;
 
 namespace EM_UI.IndirectTaxes
 {
     internal class IndirectTaxesAction : BaseAction
     {
-        IndirectTaxesForm upratingIndicesForm = null;
+        IndirectTaxesForm _indirectTaxesForm = null;
+        CountryConfigFacade _countryConfigFacade = null;
 
-        internal IndirectTaxesAction(IndirectTaxesForm _upratingIndicesForm)
+        internal IndirectTaxesAction(IndirectTaxesForm indirectTaxesForm)
         {
-            upratingIndicesForm = _upratingIndicesForm;
+            _indirectTaxesForm = indirectTaxesForm;
+            _countryConfigFacade = _indirectTaxesForm._countryConfigFacade;
         }
 
         internal override void PerformAction()
         {
-            upratingIndicesForm.SaveTable();
+            _indirectTaxesForm.SaveTable();
         }
     }
 }

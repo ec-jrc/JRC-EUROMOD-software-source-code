@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Copying parameter values (and comments)</title>
+</head>
+
+<body>
+
+<h1>Copying parameter values (and comments)</h1>
+
+<p>There are several options to copy the values of one or more
+parameters to other parameters. They are summarised below. Please note that these
+options refer to the content of the parameter tree, i.e. they do not generate
+new rows. You may want to check for options to copy whole sets of parameters in
+<a href="EM_WW_CopyingPolicies.htm">Working with EUROMOD - Copying policies</a>
+and <a href="EM_WW_CopyingFunctions.htm">Working with EUROMOD - Copying
+functions</a>.</p>
+
+<h4>Copying from and to
+the clipboard</h4>
+
+<p>This mechanism can be applied within a country and between
+countries. Moreover, information can be transferred from and to
+&quot;outside&quot;, e.g. Excel.</p>
+
+<p>Please note that the mechanism works without restrictions
+with the system columns (displaying parameter values and policy or function
+switches <a href="#_ftn1" name="_ftnref1" title="">[1]</a>)
+and the <i>Comment</i> column (displaying comments
+to policies, functions or parameters). However there are certain restrictions
+concerning the <i>Policy</i> and <i>Grp/No</i> column. While all cells of these
+two columns can be copied and their values be transferred e.g. to Excel, not
+all cells can be edited by pasting. The <i>Grp/No</i>
+column is only editable for parameters, thus pasted values assigned to policy
+or function rows are omitted. The edit ability of the <i>Policy</i> column is even more restricted, only a few specific cells
+are editable, e.g. containing the components of incomelists (function <i><a href="EM_FC_DefIL.htm">DefIL</a></i>) or
+the names of constants/variables (functions <i><a
+href="EM_FC_DefVar_DefConst.htm">DefConst</a></i> and <i><a href="EM_FC_DefVar_DefConst">DefVar</a></i>). As for the<i> Grp/No</i> column, only those editable cells
+can be changed by pasting.</p>
+<ul type=none>
+<li><strong>Selecting the copy region:</strong> Select the
+region you want to copy by selecting the first cell of the region, and then
+pressing and holding the <i>Shift</i> key
+while selecting the last cell of the range. A darker blue colour shows the selection.
+For a more detailed description of how to select cells see <a
+href="EM_WW_Selecting.htm">Working with EUROMOD - Selecting components and
+values</a>. If no region is selected, the copy operation refers to the focused cell.</li>
+<li><strong>Copying:</strong> Press <i>Ctrl-C</i> or <i>Ctrl-Insert</i> to
+copy the selected region. Alternatively use the right mouse button to click
+within the selection. This opens the context menu providing, amongst others,
+the menu item <i>Copy Value(s)</i>.</li>
+
+<li><strong>Selecting the paste region:</strong> Select the
+top-left cell of the region where you want to paste the copied values. If you
+want to restrict the paste operation to a certain region, select this region as
+described above.</li>
+
+<li><strong>Pasting:</strong> Press <i>Ctrl-V</i> or <i>Shift-Insert</i> to paste the content of the copied region to the
+region selected for paste. Alternatively use the right mouse button to click
+within the selection. This opens the context menu providing, amongst others,
+the menu item <i>Paste Value(s)</i>.<br>
+Please note that, if the copied region refers to one single cell, while the
+paste region is a selection of several cells, all cells of the paste region are
+filled by the value of the copied cell.<br>
+Also note that it may happen that the copied region is too large or too small
+(because the paste region is a selection as well or the cell selected for
+starting the paste operation is too far to the bottom or right). In this case
+only the cells for which there is a matching cell can be filled.</li>
+</ul>
+
+<h4>Spreading parameters over systems</h4>
+<p>A quite common task is to spread parameter
+values from one system to (all) other systems. For example, if one implements a
+new function, one will set the parameter values firstly in one system and then,
+for a start, copy the values to all other systems to finally adapt the values
+as required.</p>
+
+<p>The user interface supports this task by the following
+mechanism: Select the parameters you want to spread as described in <a
+href="EM_WW_Selecting.htm">Working with EUROMOD - Selecting components and
+values</a>. For spreading a single parameter value just focus the respective
+cell <a href="#_ftn2" name="_ftnref2" title="">[2]</a>. Pressing
+<i>Alt-S</i> spreads the selected parameter
+values to all other systems.</p>
+
+<p>Note that parameters are only spread to visible rows and
+columns (systems). This allows limiting the spreading to selected systems (see <a
+href="EM_WW_ColumnChooser.htm">Working with EUROMOD - The column chooser</a>
+for information on hiding systems). Moreover, be aware that functions of
+collapsed policies as well as parameters of collapsed functions are not
+involved in the spreading mechanism (see <a href="EM_WW_ExpandCollapse.htm">Working
+with EUROMOD - Expanding and collapsing policies and functions</a>). Also
+hidden rows are excluded (see <a href="EM_WW_HidingRows.htm">Working with
+EUROMOD - Hiding policies, functions and parameters</a>).</p>
+
+<p>Finally, note that the mechanism checks the selection for
+not exceeding the boundaries of a system. That means if parameters of several
+systems are selected, pressing <i>Alt-S</i>
+is ignored.</p>
+
+<h4>Setting whole functions / policies to n/a</h4>
+<p>There are two options to set the switch of
+a policy or function to <i>n/a</i>: <i>n/a</i> and <i>n/a (all components)</i>. Selecting the former sets the respective
+policy or function to <i>n/a</i>, whereas
+the latter sets all functions and parameters contained in the policy,
+respectively all parameters contained in the function, to <i>n/a</i> as well.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a>
+Note that if the values pasted to policy or function switches are not switch
+values (i.e. on, off, n/a) the user interface displays an empty cell,
+however the pasted values are actually stored in the XML parameter file, thus
+the executable will issue a respective error message (e.g. reporting that
+'grumlmumpf' is not a valid switch). The same is true for any cell displaying a
+drop down list when being edited (e.g. for the parameters <i>TAX_UNIT</i>, <i>who_must_be_elig</i>,
+etc.).</p>
+
+
+<p class="footnote"><a href="#_ftnref2"
+name="_ftn2" title="">[2]</a>
+The focused cell shows a red doted border. You focus the cell by e.g. clicking
+into it. To close any possibly opening editor, use the Escape key.
+Alternatively to the mouse you can use the arrow keys.</p>
+
+</div>
+
+</body>
+
+</html>

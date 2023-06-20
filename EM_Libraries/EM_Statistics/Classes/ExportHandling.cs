@@ -26,15 +26,15 @@ namespace EM_Statistics
             internal List<ExportTable> Tables =  new List<ExportTable>();
         }
 
+
         private class ExportTable
         {
             internal string TableName { get; set; }
             internal string Caption { get; set; }
             internal string SubCaption { get; set; }
             internal string description { get; set; }
-            internal List<string> ColHeaders { get; set; }
-            internal List<string> RowHeaders { get; set; }
-            internal List<bool> RowBold { get; set; }
+            internal List<DisplayResults.DisplayPage.DisplayTable.DisplayColumn> Columns { get; set; }
+            internal List<DisplayResults.DisplayPage.DisplayTable.DisplayRow> Rows { get; set; }
             internal DataTable Content { get; set; }
             internal List<List<string>> NumberFormats = new List<List<string>>();
             internal DisplayResults.DisplayPage.DisplayTable.DisplayGraph Graph { get; set; }
@@ -65,6 +65,16 @@ namespace EM_Statistics
         public static bool ExportMultiPackages(List<DisplayResults> allDisplayResults, out string errMsg, out MemoryStream excelStream)
         {
             return Export(allDisplayResults, false, out errMsg, out excelStream);
+        }
+
+        static string GetColumnName(int index)
+        {
+            const string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var value = "";
+            if (index >= letters.Length)
+                value += letters[index / letters.Length - 1];
+            value += letters[index % letters.Length];
+            return value;
         }
 
         private static bool Export(List<DisplayResults> allDisplayResults, bool splitPackageIntoSheets,
@@ -121,6 +131,8 @@ namespace EM_Statistics
                     var workSheet = excel.Workbook.Worksheets.Add(sheetName);
                     if (!sheetContent.TabColor.Equals(Color.Empty)) workSheet.TabColor = sheetContent.TabColor;
                     int chartCount = 0;
+                    string tableAdress = string.Empty;
+                    List<double> colWidths = new List<double>();
 
                     int rPos = 1;
                     workSheet.Cells[rPos, 1].Style.Font.Bold = true;
@@ -168,24 +180,45 @@ namespace EM_Statistics
                                 workSheet.Cells[rPos, 1].Style.Font.Bold = true;
                                 workSheet.Cells[rPos++, 1].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportTable.SubCaption));
                             }
-                            for (int ch = 0; ch < exportTable.ColHeaders.Count; ++ch)
-                            {
-                                workSheet.Cells[rPos, ch + 2].Style.Font.Italic = true;
-                                workSheet.Cells[rPos, ch + 2].Style.Font.Bold = true;
-                                workSheet.DefaultColWidth = 40;
-                                workSheet.Cells[rPos, ch + 2].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportTable.ColHeaders[ch]));
+                            // first give a border to the top-left corner
+                            workSheet.Cells[rPos, 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                            workSheet.Cells[rPos, 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
 
+                            tableAdress = "A" + rPos + ":" + GetColumnName(exportTable.Columns.Count + 1) + (rPos + exportTable.Rows.Count);
+                            
+                            // then do the columns
+                            for (int ch = 0; ch < exportTable.Columns.Count; ++ch)
+                            {
+                                //if (exportTable.Columns[ch].strong)
+                                    workSheet.Cells[rPos, ch + 2].Style.Font.Bold = true;
+                                workSheet.Cells[rPos, ch + 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                                workSheet.Cells[rPos, ch + 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                if (ch == 0 || exportTable.Columns[ch].hasSeparatorBefore)
+                                    workSheet.Cells[rPos, ch + 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                if (ch == exportTable.Columns.Count - 1)
+                                    workSheet.Cells[rPos, ch + 2].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                                else if (exportTable.Columns[ch].hasSeparatorAfter)
+                                    workSheet.Cells[rPos, ch + 2].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                // right-align all column headers
+                                workSheet.Cells[rPos, ch + 2].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                                workSheet.Cells[rPos, ch + 2].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportTable.Columns[ch].title));
                             }
-                            for (int rh = 1; rh <= exportTable.RowHeaders.Count; ++rh)
+                            // then the rows
+                            for (int rh = 1; rh <= exportTable.Rows.Count; ++rh)
                             {
-                                workSheet.Cells[rPos + rh, 1].Style.Font.Italic = true;
-
-                                if (exportTable.RowBold[rh - 1])
-                                {
+                                if (exportTable.Rows[rh - 1].strong)
                                     workSheet.Cells[rPos + rh, 1].Style.Font.Bold = true;
-                                }
-                                workSheet.Cells[rPos + rh, 1].Value = exportTable.RowHeaders[rh - 1];
+                                if (rh == 1 || exportTable.Rows[rh - 1].hasSeparatorBefore)
+                                    workSheet.Cells[rPos + rh, 1].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                if (rh == exportTable.Rows.Count)
+                                    workSheet.Cells[rPos + rh, 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                                else if (exportTable.Rows[rh - 1].hasSeparatorAfter)
+                                    workSheet.Cells[rPos + rh, 1].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                workSheet.Cells[rPos + rh, 1].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                                workSheet.Cells[rPos + rh, 1].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                workSheet.Cells[rPos + rh, 1].Value = ReplaceBr(EM_Helpers.StripHTMLSpecialCharacters(exportTable.Rows[rh - 1].title));
                             }
+                            // and finally the cells
                             ExcelRangeBase pastedTable = workSheet.Cells[++rPos, 2].LoadFromDataTable(exportTable.Content, false);
                             if (pastedTable != null) // may be null if for example Content does not have any rows (just column-headers)
                             {
@@ -199,10 +232,26 @@ namespace EM_Statistics
                                             workSheet.Cells[r, c].Style.Numberformat.Format = nf[r - pastedTable.Start.Row];
                                         else
                                             workSheet.Cells[r, c].Value = sv[r - pastedTable.Start.Row];
-                                        if (exportTable.RowBold[r - pastedTable.Start.Row])
-                                        {
+                                        if (exportTable.Rows[r - pastedTable.Start.Row].strong || exportTable.Columns[c - pastedTable.Start.Column].strong)
                                             workSheet.Cells[r, c].Style.Font.Bold = true;
-                                        }
+                                        // top border
+                                        if (exportTable.Rows[r - pastedTable.Start.Row].hasSeparatorBefore)
+                                            workSheet.Cells[r, c].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                        // bottom border
+                                        if (r == pastedTable.End.Row)
+                                            workSheet.Cells[r, c].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                                        else if(exportTable.Rows[r - pastedTable.Start.Row].hasSeparatorAfter)
+                                            workSheet.Cells[r, c].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                        // left border
+                                        if (exportTable.Columns[c - pastedTable.Start.Column].hasSeparatorBefore)
+                                            workSheet.Cells[r, c].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                        // right border
+                                        if (c == pastedTable.End.Column)
+                                            workSheet.Cells[r, c].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Medium;
+                                        else if (exportTable.Columns[c - pastedTable.Start.Column].hasSeparatorAfter)
+                                            workSheet.Cells[r, c].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                                        // right-align all values
+                                        workSheet.Cells[r, c].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
                                     }
 
 
@@ -214,9 +263,9 @@ namespace EM_Statistics
                                     ExcelChart baseChart = (ExcelChart)workSheet.Drawings.AddChart("myChart" + (++chartCount), chartTypes[0]);
 
                                     Dictionary<eChartType, ExcelChart> allAreas = new Dictionary<eChartType, ExcelChart>
-                                {
-                                    { chartTypes[0], baseChart }
-                                };
+                                    {
+                                        { chartTypes[0], baseChart }
+                                    };
                                     for (int i = 1; i < chartTypes.Count; i++) allAreas.Add(chartTypes[i], baseChart.PlotArea.ChartTypes.Add(chartTypes[i]));
                                     baseChart.SetSize(900, 500);
                                     baseChart.SetPosition(pastedTable.Start.Row, 0, pastedTable.End.Column, 50);
@@ -263,18 +312,29 @@ namespace EM_Statistics
                                         }
                                     }
                                 }
-                                rPos += exportTable.RowHeaders.Count;
+                                // Find the best fit for this table, and save the column widths 
+                                workSheet.Cells[tableAdress].AutoFitColumns();
+                                for (int i=0; i<=exportTable.Columns.Count; i++)
+                                {
+                                    if (colWidths.Count <= i) colWidths.Add(workSheet.Column(i+1).Width);
+                                    else colWidths[i] = Math.Min(Math.Max(colWidths[i], workSheet.Column(i+1).Width), 140);
+                                }
+
+                                rPos += exportTable.Rows.Count;
                                 if (descriptionMode == HardDefinitions.ExportDescriptionMode.InSheets) InsertDescription(workSheet, ref rPos, exportTable.description);
                                 rPos++; // Keep a space between tables
                             }
                         }
+                        // Aplpy the max required width considering all tables of this sheet
+                        for (int i = 0; i < colWidths.Count; i++)
+                            workSheet.Column(i + 1).Width = colWidths[i];
                         if (descriptionMode == HardDefinitions.ExportDescriptionMode.InSheets) InsertDescription(workSheet, ref rPos, exportPage.description);
                         rPos++; // Keep an extra space between pages
                     }
                 }
                 AddDescriptionPage(excel, allDisplayResults[0], descriptionMode);
-                
 
+                
                 // todo: not yet clear whether the file-selection should be in the presenter or the library
                 excelStream = new MemoryStream();
                 System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -333,12 +393,12 @@ namespace EM_Statistics
                 if (string.IsNullOrEmpty(description)) return;
                 workSheet.Cells[rPos, 1].Style.Font.Bold = true;
                 workSheet.Cells[rPos++, 1].Value = header;
-
-                foreach (string p in Regex.Split(description, "</p>")) // todo: improve ...
+                string des = description.Replace("</p>", "<br>").Replace("<br/>", "<br>").Replace("<br />", "<br>").Replace("<li>", "<br>");    // here use "</p>" because "<p>" can be "<p style...>" and is much more difficult to capture
+                foreach (string p in Regex.Split(des, "<br>"))
                 {
                     string para = p.Replace("\n", " ") // for e.g. "... income from\nother sources ..."
-                                   .Replace("&nbsp;", " ");
-                    para = Regex.Replace(para, "<[^>]*>", " "); // removes <x ...> and </x> (at least I think so)
+                                .Replace("&nbsp;", " ");
+                    para = Regex.Replace(para, "<[^>]+>", ""); // removes <x ...> and </x> (at least I think so)
                     while (para.Contains("  ")) para = para.Replace("  ", " "); // gets rid of multiple blanks
                     while (para.Contains("\n\n")) para = para.Replace("\n\n", "\n"); // gets rid of multiple blank lines
                     para = para.Trim();
@@ -413,9 +473,9 @@ namespace EM_Statistics
         private static string VerifyUniqueSheetName(ExcelWorksheets excelWorksheets, string sheetName)
         {
             if (sheetName.Length > 30) sheetName = sheetName.Substring(0, 30); // Excel does not allow for names with more than 30 characters
-            List<string> sheetNames = new List<string>(); sheetName = sheetName.ToLower(); int i = 0;
-            foreach (ExcelWorksheet s in excelWorksheets) sheetNames.Add(s.Name.ToLower());
-            while(sheetNames.Contains(sheetName)) sheetName = (++i).ToString() + sheetName.Substring(i.ToString().Length);
+            List<string> sheetNames = new List<string>(); int i = 0;
+            foreach (ExcelWorksheet s in excelWorksheets) sheetNames.Add(s.Name);
+            while (sheetNames.Contains(sheetName, true)) { i++; sheetName = sheetName.Substring(0, sheetName.Length - (i.ToString().Length + 3)) + " (" + (i).ToString() + ")"; }
             return sheetName;
         }
 
@@ -474,17 +534,15 @@ namespace EM_Statistics
 
             exportTable.TableName = tableName;
             exportTable.Content = new DataTable();
-            exportTable.ColHeaders = new List<string>();
-            exportTable.RowHeaders = new List<string>();
-            exportTable.RowBold = new List<bool>();
+            exportTable.Columns = new List<DisplayResults.DisplayPage.DisplayTable.DisplayColumn>();
+            exportTable.Rows = new List<DisplayResults.DisplayPage.DisplayTable.DisplayRow>();
 
             exportTable.NumberFormats.Clear();
             exportTable.StringValues.Clear();
 
             foreach (DisplayResults.DisplayPage.DisplayTable.DisplayColumn col in displayTable.columns)
             {
-                string colHeader = ReplaceBr(col.title);
-                exportTable.ColHeaders.Add(colHeader);
+                exportTable.Columns.Add(col);
                 exportTable.Content.Columns.Add(displayTable.columns.IndexOf(col).ToString(), typeof(double));
                 exportTable.NumberFormats.Add(new List<string>());
                 exportTable.StringValues.Add(new List<string>());
@@ -493,9 +551,7 @@ namespace EM_Statistics
             for (int r = 0; r < displayTable.rows.Count; r++)
             {
                 DisplayResults.DisplayPage.DisplayTable.DisplayRow row = displayTable.rows[r];
-                string rowHeader = ReplaceBr(row.title);
-                exportTable.RowHeaders.Add(rowHeader);
-                exportTable.RowBold.Add(row.strong);
+                exportTable.Rows.Add(row);
 
                 object[] cellValues = new object[exportTable.Content.Columns.Count]; int c = 0;
                 foreach (DisplayResults.DisplayPage.DisplayTable.DisplayCell cell in displayTable.cells[r])

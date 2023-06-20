@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Identifiers and the placeholders =cc= and =sys=</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Identifiers and the placeholders =cc= and =sys=</h1>
+
+<h4>Placeholders</h4>
+
+<p>EUROMOD add-ons are commonly designed for being used with not
+just one country, but with several or all countries. (For more information on
+add-ons see <a href="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">EUROMOD Functions - EUROMOD
+add-ons and the special functions AddOn_Applic, AddOn_Pol, AddOn_Func and AddOnPar</a>.) In implementing them it is sometimes necessary
+to refer to components of the tax-benefit implementations, which are in
+principle common, but have country- or system-dependent specifications. As a
+typical example, all countries have some definition of the assessment unit
+household, but specifications (e.g. who is a child) differ, therefore the
+respective assessment units are called tu_household_ee,
+tu_household_dk, etc. To
+be still able to refer to them all at once the placeholder =cc=
+can be used, e.g. tu_household_=cc=. The model will replace the placeholders by the
+respective country acronym at runtime. As another typical example an add-on may
+produce a special output. In order to not overwrite this output if the add-on
+is run for several systems, one may want to use <i>someoutput_=sys=</i> as filename (parameter <i>File</i>
+of function <i><a href="EM_FC_DefOutput.htm">DefOutput</a></i>). Again the model will replace the
+placeholder by the respective system name at runtime, e.g. <i>someoutput_DK_2012</i>. In principle the placeholders not only can be
+used with add-ons but in each parameter file (though probably seldom
+necessary).</p>
+
+<h4>Identifiers</h4>
+
+<p>Each EUROMOD policy, function and parameter possesses a
+unique identifier in the form of a GUID <a href="#_ftn1" name="_ftnref1" title="">[1]</a>.
+More precisely, identifiers are system specific, which means that each policy,
+function or parameter possesses one unique identifier per system. These unique
+identifiers are assigned once a component is created and kept for the whole
+lifetime of the component.</p>
+
+<p>In addition each policy, function and parameter possesses a
+&quot;symbolic identifier&quot;. The symbolic identifier of policies is simply
+their name. The symbolic identifier of a function is composed of the name of
+the policy where the function is located and the order of the function,
+separated by _#. For example <i>tin_es_#3</i>
+refers to the third function in the Spanish income tax policy (<i>tin_es</i>). The
+symbolic identifier of a parameter is composed of the name of the policy where
+the parameter is located, the order of the function containing the parameter
+and the order of the parameter itself, the former order again separated by _#
+and the latter by a point. For example <i>tin_es_#3.7</i>
+refers to the seventh parameter in the third function of the Spanish income tax
+policy.</p>
+
+<p>Symbolic identifiers are constructed somewhat different for
+the functions <i><a href="EM_FC_DefIL.htm">DefIL</a></i> and <i><a
+href="EM_FC_DefVar_DefConst.htm">DefTU</a></i>. Instead of the
+order of the function the incomelist’s or taxunit’s name is used. For example <i>ildef_bg_#ils_dispy</i>
+refers to the function defining disposable income for Bulgaria (more precisely
+the <i>DefIL</i>
+function in the policy <i>ildef_bg</i>
+with parameter <i>name</i> set to <i>ils_dispy</i>). Similarily <i>tudef_bg_#tu_household_bg.3</i>
+refers to the third parameter in the function defining the Bulgarian household
+concept (<i>tu_household_bg</i>). This sort
+of referencing allows an add-on for example to add components to incomelists which exist for all countries, e.g. a benefit
+or tax calculated by the add on can be made part of
+standard disposable income.</p>
+
+<p>Due to their construction symbolic identifiers are not
+system specific and, though unique at a certain time, may change with
+alterations of the order of functions or parameters or the renaming of a
+policy. The reason for still preferring them over the more secure unique
+identifiers is similar to the usage of placeholders, i.e. they are not supposed
+to refer to something unique but to several countries or systems. </p>
+
+<p>Identifiers are used by several functions, most frequently
+by the <i>AddOn_xxx</i>
+functions, but also by the loop functions and <i>ChangeParam</i>. For an example see <a
+href="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">EUROMOD Functions - EUROMOD add-ons and the
+special functions AddOn_Applic, AddOn_Pol,
+AddOn_Func and AddOnPar</a>.
+<strong>Please note that symbolic identifiers
+can only be used within add-ons!</strong> For within country implementations only the use of unique identifiers are allowed.</p>
+
+<p>To use an identifier right click the respective policy,
+function or parameter and select either <i>Copy
+Identifier</i> or <i>Copy Symbolic
+Identifier</i> from the context menu. This copies the respective identifier to
+the clipboard, from where it can be pasted to the required location.</p>
+
+<p>If the user prefers the "manual" way to create identifiers, this summary of syntax may help:<br>
+General: PolicyName[_#FunctionNumber][.ParameterNumber] (examples: tin_es, tin_es_#3, tin_es_#3.7)<br>
+DefIL: PolicyName_#IncomelistName[.ParameterNumber] (examples: ildef_bg_#ils_dispy, ildef_bg_#ils_dispy.6)<br>
+DefTU: PolicyName_#TaxunitName[.ParameterNumber] (examples: tudef_bg_#tu_household_bg, tudef_bg_#tu_household_bg.3)<br>
+
+</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> GUID stands for Globally Unique IDentifier, which is a unique reference number used as an
+identifier in computer software. The value of a GUID is represented as a 32-character hexadecimal string.</p>
+
+</div>
+
+</body>
+
+</html>

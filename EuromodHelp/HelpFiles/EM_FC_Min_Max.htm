@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The policy functions Min and Max</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The policy functions Min and Max</h1>
+
+<p>The
+functions Min and Max
+calculate the maximum respectively the minimum of a number of values. In (the
+not very realistic) example below the minimum of employment income (yem), &quot;some income&quot; (defined by the incomelist il_someinc) and a monthly amount of 100 is calculated.</p>
+
+
+<table class="spine">
+	<caption>Example1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Min</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>val</td>
+		<td>yem</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>val</td>
+		<td>il_someinc</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>val</td>
+		<td>100#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Please note, that formula parameters provide the operators MIN(2) and MAX(2), which may allow a more efficient implementation of minima and maxima. e.g. min(10, 15), max(3,8), etc.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

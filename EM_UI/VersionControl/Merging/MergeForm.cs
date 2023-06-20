@@ -18,13 +18,15 @@ namespace EM_UI.VersionControl.Merging
         internal const string POLICY_SWITCHES = "POLICY SWITCHES";
         internal const string CONDITIONAL_FORMATTING = "CONDITIONAL FORMATTING";
         internal const string UPRATING_INDICES = "UPRATING_INDICES";
+        internal const string INDIRECT_TAXES = "INDIRECT_TAXES";
+        internal const string EXTERNAL_STATISTICS = "EXTERNAL_STATISTICS";
         internal const string EXTENSIONS = "EXTENSIONS";
         internal const string EXT_SWITCHES = "EXT_SWITCHES";
         internal const string LOOK_GROUPS = "LOOK_GROUPS";
         internal const string SEPARATOR = "<SEPARATOR>";
 
         internal const string YEAR_VALUES = "YearValues";
-        public static List<string> UPRATING_INDICES_COLUMNS = new List<string> { "Description", "Reference", "YearValues", "Comment" };
+        public static List<string> ALL_COLUMN_NAMES = new List<string> { "Description", "Reference", "YearValues", "Comment", "Category", "Source", "Destination", "TableName" };
 
         const bool IMAGE_ACCEPT_LOADED = true;
 
@@ -34,6 +36,8 @@ namespace EM_UI.VersionControl.Merging
         MergeControl _mcData = new MergeControl();
         MergeControl _mcCondFormat = new MergeControl();
         MergeControl _mcUpratingIndices = new MergeControl();
+        MergeControl _mcIndirectTaxes = new MergeControl();
+        MergeControl _mcExternalStatistics = new MergeControl();
         MergeControl _mcExtensions = new MergeControl();
         MergeControl _mcExtSwitches = new MergeControl();
         MergeControl _mcLookGroups = new MergeControl();
@@ -51,6 +55,8 @@ namespace EM_UI.VersionControl.Merging
             SetPositionMergeControl(_mcData, tabData);
             SetPositionMergeControl(_mcCondFormat, tabCondForm);
             SetPositionMergeControl(_mcUpratingIndices, tabUpratingIndices);
+            SetPositionMergeControl(_mcIndirectTaxes, tabIndirectTaxes);
+            SetPositionMergeControl(_mcExternalStatistics, tabExternalStatistics);
             SetPositionMergeControl(_mcExtensions, tabExtensions);
             SetPositionMergeControl(_mcExtSwitches, tabExtSwitches);
             SetPositionMergeControl(_mcLookGroups, tabLookGroups);
@@ -60,7 +66,8 @@ namespace EM_UI.VersionControl.Merging
         internal override bool HasDifferences()
         {
             return !_mcSystems.IsEmpty() || !_mcSpine.IsEmpty() || !_mcData.IsEmpty() || !_mcCondFormat.IsEmpty() ||
-                   !_mcUpratingIndices.IsEmpty() || !_mcExtensions.IsEmpty() || !_mcExtSwitches.IsEmpty() || !_mcLookGroups.IsEmpty()
+                   !_mcUpratingIndices.IsEmpty() || !_mcIndirectTaxes.IsEmpty() || !_mcExternalStatistics.IsEmpty() || 
+                   !_mcExtensions.IsEmpty() || !_mcExtSwitches.IsEmpty() || !_mcLookGroups.IsEmpty()
                    //|| picCountryNameChangedLocal.Visible || picCountryNameChangedRemote.Visible; //would prefer to use this over the conditions below, but obviously the dialog is not yet updated and visible is always false
                    || txtNameLocal.Text != txtNameRemote.Text || chkCountryPrivateLocal.Checked != chkCountryPrivateRemote.Checked;
         }
@@ -156,6 +163,8 @@ namespace EM_UI.VersionControl.Merging
                 case SPINE: return _mcSpine;
                 case CONDITIONAL_FORMATTING: return _mcCondFormat;
                 case UPRATING_INDICES: return _mcUpratingIndices;
+                case INDIRECT_TAXES: return _mcIndirectTaxes;
+                case EXTERNAL_STATISTICS: return _mcExternalStatistics;
                 case EXTENSIONS: return _mcExtensions;
                 case EXT_SWITCHES: return _mcExtSwitches;
                 case LOOK_GROUPS: return _mcLookGroups;
@@ -201,9 +210,11 @@ namespace EM_UI.VersionControl.Merging
             else if (!_mcData.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[2];
             else if (!_mcCondFormat.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[3];
             else if (!_mcUpratingIndices.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[4];
-            else if (!_mcExtensions.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[5];
-            else if (!_mcExtSwitches.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[6];
-            else if (!_mcLookGroups.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[7];
+            else if (!_mcIndirectTaxes.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[5];
+            else if (!_mcExternalStatistics.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[6];
+            else if (!_mcExtensions.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[7];
+            else if (!_mcExtSwitches.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[8];
+            else if (!_mcLookGroups.IsEmpty()) tabControl.SelectedTab = tabControl.TabPages[9];
             else tabControl.SelectedTab = tabControl.TabPages[0];
         }
     }

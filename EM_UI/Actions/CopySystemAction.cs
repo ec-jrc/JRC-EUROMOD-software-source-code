@@ -116,6 +116,8 @@ namespace EM_UI.Actions
                                         select f;
             foreach (CountryConfig.FunctionRow functionRow in functionRows)
             {
+                bool autoRenameParam = countryConfigFacade.GetParameterBoolValue(functionRow, DefPar.DefOutput.AutoRenameWhenCopying);
+                if (!autoRenameParam) continue;
                 //within these functions search for parameter File
                 List<CountryConfig.ParameterRow> parameterRows = countryConfigFacade.GetParameterRowsByName(functionRow.ID, DefPar.DefOutput.File);
 

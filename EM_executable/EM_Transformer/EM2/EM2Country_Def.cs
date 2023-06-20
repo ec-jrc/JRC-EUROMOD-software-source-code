@@ -43,6 +43,11 @@ namespace EM_Transformer
             public Dictionary<string, EM2Item> indTax = new Dictionary<string, EM2Item>();
             public List<Dictionary<string, string>> indTaxVal = new List<Dictionary<string, string>>();
 
+            // external statistics properties: similar structure as uprating indices, but with extra dict for numbers
+            public Dictionary<string, EM2Item> exStat = new Dictionary<string, EM2Item>();
+            public List<Dictionary<string, string>> exStatVal = new List<Dictionary<string, string>>();
+            public List<Dictionary<string, string>> exStatNum = new List<Dictionary<string, string>>();
+
             // look groups
             public Dictionary<string, EM2Item> lookGroup = new Dictionary<string, EM2Item>();
             public List<Tuple<string, string>> lookGroupPol = new List<Tuple<string, string>>();

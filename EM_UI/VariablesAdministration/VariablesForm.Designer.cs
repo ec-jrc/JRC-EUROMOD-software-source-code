@@ -856,7 +856,7 @@
             this.treeAcronyms.CellValueChanged += new DevExpress.XtraTreeList.CellValueChangedEventHandler(this.treeAcronyms_CellValueChanged);
             this.treeAcronyms.ShowingEditor += new System.ComponentModel.CancelEventHandler(this.treeAcronyms_ShowingEditor);
             this.treeAcronyms.Enter += new System.EventHandler(this.Control_Enter);
-            this.treeAcronyms.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyUp);
+            this.treeAcronyms.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyDown);
             this.treeAcronyms.Leave += new System.EventHandler(this.Control_Leave);
             // 
             // colAcronym
@@ -910,7 +910,7 @@
             this.dgvDescriptions.SelectionChanged += new System.EventHandler(this.dgvDescriptions_SelectionChanged);
             this.dgvDescriptions.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.dgvDescriptions_SortCompare);
             this.dgvDescriptions.Enter += new System.EventHandler(this.Control_Enter);
-            this.dgvDescriptions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyUp);
+            this.dgvDescriptions.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyDown);
             this.dgvDescriptions.Leave += new System.EventHandler(this.Control_Leave);
             // 
             // colCountry
@@ -949,7 +949,7 @@
             this.dgvCategories.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCategories_CellEndEdit);
             this.dgvCategories.SelectionChanged += new System.EventHandler(this.dgvCategories_SelectionChanged);
             this.dgvCategories.Enter += new System.EventHandler(this.Control_Enter);
-            this.dgvCategories.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyUp);
+            this.dgvCategories.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyDown);
             this.dgvCategories.Leave += new System.EventHandler(this.Control_Leave);
             // 
             // colCategoryValue
@@ -1037,7 +1037,7 @@
             this.dgvVariables.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvVariables_RowPostPaint);
             this.dgvVariables.SelectionChanged += new System.EventHandler(this.dgvVariables_SelectionChanged);
             this.dgvVariables.Enter += new System.EventHandler(this.Control_Enter);
-            this.dgvVariables.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyUp);
+            this.dgvVariables.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyDown);
             this.dgvVariables.Leave += new System.EventHandler(this.Control_Leave);
             // 
             // colVariableName
@@ -1135,7 +1135,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VariablesForm_FormClosing);
             this.Load += new System.EventHandler(this.VariablesForm_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyUp);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.VariablesForm_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).EndInit();

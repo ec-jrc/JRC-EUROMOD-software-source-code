@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Running EUROMOD</title>
+</head>
+
+<body>
+
+<h1>Running EUROMOD</h1>
+
+<p>To run EUROMOD open the
+run dialog by clicking the <i>Run EUROMOD</i>
+button in the left top corner of the user interface.<a href="#_ftn1" name="_ftnref1" title="">[1]</a></p>
+
+<h4>Viewing and selecting systems to run</h4>
+
+<p>The main part of the dialog is formed by a list of systems
+which are ready to run. The content of this list depends on where the dialog
+was opened. Whereas, if the button is pressed in a specific
+country, the systems of this country are displayed. This selection can
+however be changed via the ribbon bar, showing all countries. The country/ies whose systems are currently listed are marked by a
+light blue background. To select a country, i.e. to list the country's systems,
+just click it. Vice versa click a selected country to unselect it, i.e. to not
+any longer list its systems.<a href="#_ftn2" name="_ftnref2" title="">[2]</a></p>
+
+<p>To select a system for running check the tick-box left of
+the system. Note that some systems may be marked with red colour. These are systems that are set as private.
+Before however, you may want to determine the dataset which is
+applied for running the system. For this purpose the system list provides a
+combo-box for each system, which contains all available datasets. As a default
+these boxes show the best matching datasets (see <a href="EM_BC_Terminology.htm">EUROMOD
+Basic Concepts - Terminology</a>). It is however possible to choose another
+dataset by selecting it from the list.<a href="#_ftn3" name="_ftnref3" title="">[3]</a></p>
+
+<p>The purpose of the button groups left of the <i>Run</i> button is to facilitate the
+selection of many countries and/or systems. The two top-most buttons allow for
+the selection of all respectively no country. The two buttons in the middle
+select respectively unselect all displayed (ordinary) systems for running.
+Finally the two buttons on the bottom select respectively unselect all
+displayed add-on systems for running.</p>
+
+<h4>Selecting the output path</h4>
+
+<p>The field <i>Output path</i>
+at the bottom of the dialog defines the folder where the model writes its
+output to. As a default the field shows the output folder defined via the main
+menu's item <i>Open project</i> (see <a
+href="EM_WW_OpenProject.htm">Working with EUROMOD - Open project</a>). The
+folder can be changed by clicking the folder button right of the field and
+selecting the folder via a dialog, or by typing. Please note that the output
+folder must exist, otherwise EUROMOD issues an error message.</p>
+
+<h4>Running the selected system-dataset combinations</h4>
+
+<p>Once the respective system-dataset combinations are
+selected, clicking the button with the green arrow in the ribbon bar starts
+EUROMOD's calculations. An info-window appears, which informs about the
+progress and allows for some manipulation. The window lists all system-dataset
+combinations selected for running and shows their status: <i>running</i>, <i>queued</i>, <i>finished</i> or <i>aborted</i> (either by the user or due to an error). Once a run is
+started, its starting time is displayed, and once it is finished (or aborted),
+the finishing time is indicated as well, together with the time taken.</p>
+
+<p>Moreover, there are three buttons for each run. The <i>Stop</i> button allows for aborting the run.
+Once a run is started, the <i>Run Log</i>
+button is activated. If it is clicked, the field below the list of runs shows
+progress information. If a run produces an error (stopping the run) or a
+warning (allowing to continue the run) the <i>Error Log</i> button is activated. Clicking
+the button shows the run's warnings and/or errors in the field below the list
+of runs. Note that the content of this field is determined by the most recently
+clicked button - its heading indicates what is currently displayed.</p>
+
+<p>Note that the info-window will stay open until it is closed
+by the user, even if all runs are finalised, to allow checking possible error
+logs, respectively inform about the times taken. If the user closes the window
+before all runs are finished, (after a respective warning) the still active
+runs are aborted and the queued runs are taken from the queue. To hide the
+window, use the minimise button.</p>
+
+<p>Also note that, apart from the output files, the model produces a header file, which contains one row of information for each run.
+The information includes: System (e.g. es_2019); Database (es_2017_a3.txt); EUROMOD-Version (e.g. euromodfiles_i1.66); Software-Version (e.g. 3.2.3); Executable-Version (e.g. 1.6);
+Start (e.g. 17 Jan 2020; 14:45:01); End (e.g. 17 Jan 2020; 14:45:29); Duration (e.g. 27.8580001s); Outputfile(s) (e.g. c:\euromod\euromodfiles\output\es_2019_std.txt);
+Currency (e.g. euro); Exchangerate (e.g. 1).<br>
+In addition there is one "column" for each extension available for any of the runs. For example:<br>
+<span style="font-family: Courier New">
+BTA_?&nbsp&nbspUAA_?&nbsp&nbspPBE_*<br>
+&nbsp&nbsp1&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0<br>
+&nbsp&nbsp1&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp0&nbsp&nbsp&nbsp&nbsp&nbsp-1<br>
+</span>
+A value of 1 means that the extension was on for the run, 0 means off. -1 means not available.<a href="#_ftn4" name="_ftnref4" title="">[4]</a><br>
+The name of the header file is yyyymmddhhmm_xxxxxxxxxxxxxx_EUROMOD_Log.txt (e.g. 20221212102923_d8c50fc0c66b41d6aeabce99c333c941_EUROMOD_Log.txt).<br>
+The information about warnings or errors, if any, is saved in the same header file described above under the title <i>ERROR-LOG</i>.
+
+<h4>Limiting the displayed
+datasets and systems</h4>
+
+<p>The ribbon <i>View / Filter / Add-Ons</i> provides options to limit the datasets and systems displayed.</p>
+
+<p>If the field <i>Filter
+Datasets</i> contains a selection criterion the datasets offered for selection
+are limited to those whose name matches the criterion. The selection criterion
+may use * (for any letter) and <i>?</i> (for one arbitrary letter). For
+example, with the selection criterion set to <i>*2009*</i> only 2009 datasets, with the selection criterion set to <i>*200?</i> only
+datasets from 2000 to 2009 are listed.<a href="#_ftn5" name="_ftnref5" title="">[5]</a></p>
+
+<p>If the field <i>Filter
+Systems</i> contains a selection criterion the systems displayed are limited to
+those whose name matches the criterion. As for datasets the selection criterion
+may use * (for any letter) and <i>?</i> (for one arbitrary letter).</p>
+
+<p>If the checkbox <i>Best
+Match Only</i> is activated, only systems with a best matching dataset are
+displayed. Moreover, the combo-box with datasets lists (the usually unique)
+best matching dataset(s) only. For information on the &quot;best match&quot;
+criterion see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD
+terminology</a>.</p>
+
+<p>If the checkbox <i>Regular
+Expression</i> is activated, then the two fields <i>Filter Datasets</i> and <i>Filter
+Systems</i> will be treated as regular expressions. Regular Expressions are
+more complex to define, but allow for much more advanced filters. You can find
+a full description of how Regular Expressions work here: <a
+href="https://en.wikipedia.org/wiki/Regular_expression#Basic_concepts">https://en.wikipedia.org/wiki/Regular_expression#Basic_concepts</a>.</p>
+
+<p>The fact that a(ny)
+filter or <i>Best Match Only</i> is set is
+indicated by a respective image appearing and by red colour.</p>
+
+<h4>Limiting the output to
+selected households</h4>
+
+<p>If the box <i>Show
+selected HH options</i> in the ribbon <i>View
+/ Filter / Add-Ons</i> is checked, two additional columns are displayed in the
+system list: <i>First HH-ID</i> and <i>Last HH-ID</i>. They allow for limiting the
+output from the whole set of households contained in the input data to the
+households with household IDs (<i>idhh</i>) equal to or larger than <i>First HH-ID</i> and equal to or smaller than <i>Last HH-ID</i>.<a href="#_ftn6"
+name="_ftnref6" title="">[6]</a></p>
+
+<h4>Running add-on systems</h4>
+
+<p>The section <i>View
+Add-Ons</i> in the ribbon <i>View / Filter / Add-Ons</i> provides a list with available EUROMOD add-ons. If one or more
+add-ons are selected, additional run-checkboxes are displayed in the system
+list (one for each add-on <a href="#_ftn7"
+name="_ftnref7" title="">[7]</a>).
+Depending on whether the add-on is available for the system, these boxes are
+enabled for selection or not. Note that add-on-systems can be
+run independent of standard tax-benefit calculations. For more information
+concerning add-ons see <a href="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">EUROMOD Functions -
+EUROMOD add-ons and the special functions AddOn_Applic,
+AddOn_Pol, AddOn_Func and AddOnPar</a>.<a href="#_ftn8"
+name="_ftnref8" title="">[8]</a></p>
+
+<h4>Advanced settings</h4>
+
+<p>The ribbon <i>Advanced Settings</i> allows for configuring
+some advanced options with respect to the model run <a href="#_ftn9" name="_ftnref9" title="">[9]</a>:</p>
+
+<p><strong>Add date to output-filename</strong>: Checking this
+box effects that yyyymmddhhmm
+is added to the name of the standard output file. For example, if the run of
+the Spanish 2011 system starts on 11 October 2011 at 12:10, the standard output
+file is called es_2011_std_201110111210.txt. This
+option allows to avoid overwriting the output with
+each model run. Moreover, the header file produced with each model run has the
+same ending (yyyymmddhhmm),
+thus a direct link between header file and corresponding output files is
+generated.</p>
+
+<p><strong>Close dialog after run</strong>: Checking this box effects that the <i>Run EUROMOD</i> dialog is closed after
+launching the programme. This box is checked by default.</p>
+
+<p><strong>Do not pool system's datasets</strong>: Checking this box forces each system-dataset
+combination to be shown in a separate row <a href="#_ftn10" name="_ftnref10" title="">[10]</a>. This (longer and less concise) listing has the advantage that a single system
+can be run with different datasets more conveniently. To avoid, that the output
+of a systemX-datasetA combination is overwritten by
+the output of a systemX-datasetB combination (as the
+name of the default output file is the same), the output is arranged in folders
+named after the datasets. That means there would be one folder named after
+dataset A, containing systemX
+output produced with dataset A and one folder named after dataset B, containing
+systemX output produced with dataset B.</p>
+
+<p><strong>Run public components only</strong>: If this box is checked, any private policies, functions or parameters are ignored, i.e. the result is the same as if they did not exist. Please note that ticking the box does not hide any private systems or datasets (for performance reasons).</p>
+
+<p><strong>Do not show hidden systems</strong>: If this box is checked, systems which are hidden in the country view are not listed (i.e. offered to run). The default value is false, i.e. hidden systems are offered to run.</p>
+
+<p><strong>Warn about useless groups</strong>: If this box is checked, the executable generates warnings about unnecessary group-numbers in the group column.</p>
+
+<p><strong>Number of parallel runs</strong>: This field indicates how many instances of the
+EUROMOD executable run in parallel. For example, if <i>parallel runs</i> is set to three and
+five systems (using different datasets) are selected for running, three runs
+are started immediately, while the remaining two runs are queued. By default this option is set
+to "Auto" in which case the application will automatically determine the most efficient number
+of parallel runs based on the number of available CPU cores.</p>
+
+<p><strong>Run old Executable</strong>: If this box is checked, old executable is run.</p>
+<p><strong>Run first N Households only</strong>: This option allows to select the number of households for which EUROMOD is run.</p>
+<p><strong>All Output in EURO</strong>: If this box is checked, monetary variables in output file are reported in EURO</p>
+<p><strong>Exchange Rate</strong>: Allows to select between two choices, <i>June 30</i> (same as Default) or <i>Year average</i>.  Depending on the selected option, different exchange rates are used when output in EURO is used. </p>
+
+<h4>Switching extensions on or off</h4>
+
+<p>The section <i>Extensions</i> in the ribbon <i>View / Filter / Add-Ons</i> provides a number of checkboxes, which allow for switching on or off certain parts of the EUROMOD calculations.
+Checking, for example, the box <i>Tax Compliance Adjustments</i> extends the list of systems by a column, which provides a button for each system.
+These 'switch buttons' are captioned by either <i>on</i> or <i>off</i>.<br>
+An <i>on</i> button indicates that correction for tax compliance is part of the system's calculations.
+If users want the model to omit these calculations (i.e. see what happens if everybody adheres the rules of tax legislation) they can do so by clicking the <i>on</i> button -
+this changes the caption of the button to <i>off</i>, indicating that the next model run will not carry out the parts of calculation, which correct for tax compliance.
+The same applies for the other checkboxes, thus allowing e.g. taking (not) into account benefit non-take-up, etc.</p>
+
+<p>Moreover a switch button may be captioned by <i>on (default)</i> or <i>off (default)</i>. This indicates that the current setting is the default,
+i.e. if the switch button for tax evasion is captioned by <i>on (default)</i> for a system means that usually tax evasion is part of the system's calculations.
+The button <i>Restore Defaults</i> left of the checkboxes for viewing extension switches allows for setting all switches back to their defaults.
+Alternatively a user may use the context menu (mouse right-click) in any extension switch column to change the switch for all systems to on, off or the default value of each system.
+For more information on how this is accomplished technically see <a href="EM_WW_Extensions.htm">Working with EUROMOD - Changing Countries' Settings - Extensions</a>.</p>
+
+<p>Clicking a switch button opens a context menu, which does not only allow for switching extensions on or off, but also provides the option all.
+If this option is selected the respective system is run twice: once with the extension switched on and once with the extension switched off.<br>
+To prevent overwriting the standard output-file the <i>Auto-Rename</i>-option is activated for this system (see description of the <i>Auto Rename</i>-feature below).</p>
+
+<p>Furthermore a button may also show no caption. This means that the extension is not switchable, because the country (or system) may not foresee respective calculations.
+For example, correction for tax compliance may not be implemented for Denmark or it may just not be implemented for the Danish 2009 system.
+Again, for more information on how this is accomplished technically see <a href="EM_WW_Extensions.htm">Working with EUROMOD - Changing Countries' Settings - Extensions</a>.</p>
+
+<p>As the possibility to display more than one such button column suggests, it is possible to combine different settings, e.g. taking (not) into account tax compliance as well as benefit take-up.</p>
+
+<p>Extension-switch-settings are not only system specific, but in fact system-dataset-combination specific. System specificity implies that the caption of the buttons may be different amongst the systems of a country.
+Dataset specificity means that a system's button may change if another dataset is selected.</p>
+
+<p>The user interface remembers users' settings of switch buttons. That means if a user for example changes a switch button from <i>on (default)</i> to <i>off</i>
+and then closes the run dialog or even the whole interface, next time she opens the run dialog and displays the respective column, the button will still be set to <i>off</i>.</p>
+
+<p>Extension-switches do not only apply for 'ordinary' systems, but also for add-on systems. That means one could for example calculate marginal tax rates with tax evasion switched on or off.</p>
+
+<p>If the switch buttons for an extension are not visible (because the column is not displayed), the model always applies the default settings,
+irrespective of any changes by the user. That means, to avoid misleading results by forgotten extension-switch-changes, changes by the user are only effective if she sees in the run dialog that they are set. If the extension has not been set to a default value, and if it is not visible in the run dialog, a warning will be displayed.</p>
+
+<p>The On/Off-slider <i>Auto Rename</i> left of the button <i>Restore Defaults</i> (in the ribbon <i>View / Filter / Add-Ons</i>) allows for automatic renaming of the output file based on non-default extension-switch-settings.
+If set to On, and if the output file name follows the default format (e.g. <i>xx_YYYY_std</i>), it is automatically renamed to signify which switches have been changed in the  run dialog.
+Specifically, for each switch that has a non-default value, an appropriate text will be appended at the end of the filename, while the <i>_std</i> suffix is removed
+(e.g. <i >ee_2010_std</i> can become <i>ee_2010_btaoff_fyaon</i>).</p>
+
+<p>Finally it may be useful to know that the user interface passes the extension switch settings to the executable via the configuration file
+(see <a href="EM_FS_ConfigurationFile.htm">EUROMOD Installation and Architecture - EUROMOD software (user interface and executable) - The configuration file</a>).</p>
+
+<p>&nbsp</p>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a> You may have to switch to the ribbon <i>Countries</i>, if the button is not visible.</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+Note that this selection is preserved if the dialog is closed. If, you are for
+example working with Ireland and for some reason also select UK systems to be
+shown and then close the dialog, on the next opening (within the same EUROMOD
+session) UK as well as Irish systems will be displayed. In this context note
+that the dialog is country specific, i.e. the respective selection belongs to
+one country. In other words, if you then open Estonia, it still shows only the
+Estonian systems and not the UK ones.</p>
+
+<p class="footnote"><a href="#_ftnref3" name="_ftn3" title="">[3]</a>
+If no best matching dataset is defined for the system the first best dataset is
+displayed. Note that only systems with at least one dataset assigned are listed.</p>
+
+<p class="footnote"><a href="#_ftnref4" name="_ftn4" title="">[4]</a>
+ This value can only occur if there is more than one run and the extension 'belongs' to another run.</p>
+
+<p class="footnote"><a href="#_ftnref5" name="_ftn5" title="">[5]</a>
+Note that limiting datasets may also limit systems, as a system for which no
+dataset is available will not be displayed.</p>
+
+<p class="footnote"><a href="#_ftnref6" name="_ftn6" title="">[6]</a>
+Note that the selection of households is database specific, i.e. if several
+systems are run with the same dataset, the household limitation of the first
+system (if specified) is used, limitations of other systems are ignored.</p>
+
+<p class="footnote"><a href="#_ftnref7" name="_ftn7" title="">[7]</a>
+To be precise, there may be more than one checkbox for each add-on as add-ons
+may contain several systems. Thus there will be one checkbox for each add-on
+system.</p>
+
+<p class="footnote"><a href="#_ftnref8" name="_ftn8" title="">[8]</a>
+Technically running add-ons is accomplished as follows: The user interface
+reads all <i>AddOn_xxx</i>
+functions and follows their instructions with respect to merging the add-on
+system with the selected (base) system. The result of this merging is saved in
+the temporary folder. Consequentially the user interface instructs the
+executable to run the system from there.</p>
+
+<p class="footnote"><a href="#_ftnref9" name="_ftn9" title="">[9]</a>
+Note that these settings are stored with the local implementation of the user
+interface, i.e. they are preserved and will be the same if the interface is
+closed and opened again. Moreover, they are not country specific, i.e. if they
+are e.g. set for Bulgaria and afterwards the run dialog is opened for Hungary,
+the &quot;Bulgarian&quot; settings are overtaken for Hungary.</p>
+
+<p class="footnote"><a href="#_ftnref10" name="_ftn10" title="">[10]</a>
+If for example, the system <i>cc_yyyy</i> can be run with datasets <i>cc_yyy0_a1</i> as well as dataset <i>cc_yyy1_a1</i>,
+it would usually be listed once with the two datasets selectable via the
+combo-box (with the best match being preselected). If <i>Do</i><i> not pool system's datasets</i> is checked, there would be two rows:
+one for the combination of system <i>cc_yyyy</i> with dataset <i>cc_yyy0_a1</i>
+and one for the combination of system <i>cc_yyyy</i> with dataset <i>cc_yyy1_a1</i>.</p>
+
+</body>
+</html>

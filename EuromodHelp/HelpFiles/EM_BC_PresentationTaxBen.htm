@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Presentation of countries' tax-benefit-systems</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Presentation of countries' tax-benefit-systems</h1>
+
+<h4>Loading countries</h4>
+
+<p>Clicking a flag in the user interface's <i>Countries</i> ribbon opens EUROMOD's representation of the respective country's tax-benefit system. The country's name and flag is shown right next to the <i>Run EUROMOD</i> button, to indicate which country is loaded. Further countries can be loaded by clicking their flags. Each country is represented in its own window and one can switch between these windows by again clicking the respective flag or via the Windows taskbar.</p>
+
+<h4>The EUROMOD spine</h4>
+
+<p>The main part of the window displays the representation of the country's tax-benefit system - at the time of opening in a collapsed state. Thus it shows what in EUROMOD lingo is frequently referred to as the <i>spine</i>. The EUROMOD spine is the list of <i>policies</i> worked off in sequence when the model performs its calculations. The term <i>policies</i> refers as well to policies in a narrow sense, i.e. benefits and taxes, as to special EUROMOD policies. These special policies for example define which variables are contained in the output. See <a href="#TM_SpecialEuromodPolicies">Special EUROMOD policies</a> below for further information. Each row of the spine represents one policy.</p>
+
+<h4>EUROMOD policies, functions and parameters</h4>
+
+<p>Expanding a policy by clicking the little <i>triangle </i>button left of the policy's name allows viewing the implementation of the policy. A policy is implemented by so-called <i>functions</i>. Each EUROMOD function is a self-contained building block that has its own parameters and represents a particular component of the respective policy. A typical social assistance benefit may for example be implemented by a function that determines eligibility for the benefit and a function that calculates the benefit amount for all eligible units. In fact these two functions: a function that determines eligibility/liability for benefits/taxes in a very general way and a function that calculates a wide range of benefits/taxes are the two most frequently used functions in EUROMOD. The purpose of using functions as building blocks of the model is to provide a general structure, which can be seen as using a standardised language to describe policy instruments. Once EUROMOD users are accustomed to this language, their understanding of other (foreign) countries' benefits and taxes, and how they are implemented in EUROMOD, improves considerably. The parameters of a function can be viewed by expanding it using the little <i>triangle </i>button left of its name. The section <a href="EM_FC_HeaderPage.htm">EUROMOD Functions</a> gives a detailed description of EUROMOD functions, including their use, the specific behaviour and the parameters they provide to guide this behaviour. Expanded policies and functions can be re-collapsed by the little <i>minus</i> buttons. Note that the policy and function worked on is displayed in the status bar.</p>
+
+<h4>EUROMOD systems</h4>
+
+<p>The changes of a country's tax-benefit system over time are captured by EUROMOD <i>systems</i>. A EUROMOD system either reflects the tax-benefit rules for a specific policy year (assuming annual adaptations of tax-benefit rules) or the rules for an actual (planned) or imaginary reform scenario. The columns of the country's view represent these EUROMOD systems. Thus the value of a specific parameter (e.g. the rate of a particular tax band) for specific systems is defined at the intersection points of the parameter's row and the respective systems' columns (e.g. may take the value of 10% for the 2009-system and the value of 11% for the 2010-system).</p>
+
+<p>The fact that policy reforms are not always as simple as
+changing the value of a specific parameter is taken into account by so called <i>switches</i>. The intersection points of
+policies and functions with the systems represent these <i>switches</i>, i.e. they allow to switch policies and functions on or
+off dependent on the system. The <i>switches</i>
+also provide the settings <i>n/a</i>,
+standing for not applicable. More detailed explanations of these
+settings can be found in the section <a href="EM_FC_CommonParameters.htm">EUROMOD
+Functions - Common Parameters</a>.</p>
+
+<h4><a name="TM_SpecialEuromodPolicies"></a>Special EUROMOD policies</h4>
+
+<p>As mentioned above, the EUROMOD spine comprises policies,
+which do not describe e.g. a tax or benefit. Instead they implement
+definitions, which are necessary for the model's calculation.</p>
+
+<ul>
+<li>The policies <strong><i>ILDef_cc, IlsDef_cc and IlsUDBDef_cc</i></strong> contain
+definitions of so called <i>incomelists</i>.
+Technically an incomelist is the aggregate of several variables, which are
+added or subtracted to build the aggregate. The term &quot;income&quot;list
+indicates that the most common applications of this (important EUROMOD) concept
+are income definitions, for example disposable income, taxable income, etc.</li>
+
+
+<li>The policy <strong><i>SetDEfault_cc</i></strong> sets default values for variables. Depending on systems and dataset used, some variables default values need to be declared. </li>
+<li>The policy <strong><i>random_cc</i></strong> generates random temporary variables that will be used in other policies.</li>
+
+
+<li>The policy <strong><i>TUDef_cc</i></strong> contains
+definitions of assessment units, which are in EUROMOD sometimes referred to as <i>tax units</i> (and are another important
+EUROMOD concept). Many taxes and especially benefits do not concern single
+individuals, but refer to bigger units, for example some sort of family
+definition. Assessment units allow for such definitions by specifying who
+belongs to the unit, who is a child, etc.</li>
+
+<li>Datasets are usually used for
+implementing several systems, by up-dating monetary values to the corresponding
+year. The policy <strong><i>Uprate_cc</i></strong> contains such up-dating of monetary dataset
+variables.</li>
+
+<li>The policies <strong><i>output_std_cc</i></strong> and <strong><i>output_std_hh_cc</i></strong>
+contain the specification of standard output on individual and household level
+(see section <a href="EM_BC_InOut.htm">EUROMOD Basic Concepts - EUROMOD input
+and output</a>).</li>
+</ul>
+
+<p>The listed policies are standard, that means they are
+implemented for each country contained in EUROMOD. Some countries contain
+further special policies like for example <i>ConstDef_cc</i> or <i>InitVars_cc</i>,
+which define basic values which are used all over the implementation, e.g.
+minimum income amount, pension age, etc.</p>
+
+<p>Technically there is no difference between special policies
+and standard policies, both use functions for their implementation and both
+need to be listed in the spine to be performed. Thus calling them special is
+just a matter of better comprehensibility. Moreover, the functions, which are in
+principle dedicated for the implementation of a special policy, like the
+function<i> DefIL </i>for the policy<i> ILDef_cc</i>, can be used in any other
+policy as well, if this seems appropriate.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

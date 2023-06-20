@@ -38,12 +38,12 @@ namespace EM_Statistics
 
         internal double XEleGetDouble(XElement xe, XElement xeParent, string nameParent = null)
         {
-            if (double.TryParse(xe.Value, out double d)) return d; AddXmlTryParseError(xe, xeParent, nameParent); return 0.0;
+            if (double.TryParse(xe.Value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double d)) return d; AddXmlTryParseError(xe, xeParent, nameParent); return 0.0;
         }
 
         internal int XEleGetInt(XElement xe, XElement xeParent, string nameParent = null)
         {
-            if (int.TryParse(xe.Value, out int i)) return i; AddXmlTryParseError(xe, xeParent, nameParent); return 0;
+            if (int.TryParse(xe.Value, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out int i)) return i; AddXmlTryParseError(xe, xeParent, nameParent); return 0;
         }
 
         internal T XEleGetEnum<T>(XElement xe, XElement xeParent, string nameParent = null)

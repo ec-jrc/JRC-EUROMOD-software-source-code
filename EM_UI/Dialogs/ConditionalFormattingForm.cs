@@ -167,7 +167,7 @@ namespace EM_UI.Dialogs
         {
             if (dataGridView.SelectedRows.Count == 0)
             {
-                Tools.UserInfoHandler.ShowError("Please select a row.");
+                EM_UI.Tools.UserInfoHandler.ShowError("Please select a row.");
                 return -1;
             }
             return dataGridView.SelectedRows[0].Index;

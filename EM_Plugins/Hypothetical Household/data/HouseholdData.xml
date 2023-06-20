@@ -585,6 +585,32 @@
                 <xs:element name="ysecwnr" type="xs:string" minOccurs="0" />
                 <xs:element name="bsael" type="xs:string" minOccurs="0" />
                 <xs:element name="drgud" type="xs:string" minOccurs="0" />
+                <xs:element name="xed00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bched05" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_LT" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -1156,6 +1182,32 @@
                 <xs:element name="ysecwnr" type="xs:string" minOccurs="0" />
                 <xs:element name="bsael" type="xs:string" minOccurs="0" />
                 <xs:element name="drgud" type="xs:string" minOccurs="0" />
+                <xs:element name="xed00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bched05" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_LT" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -1727,6 +1779,32 @@
                 <xs:element name="ysecwnr" type="xs:string" minOccurs="0" />
                 <xs:element name="bsael" type="xs:string" minOccurs="0" />
                 <xs:element name="drgud" type="xs:string" minOccurs="0" />
+                <xs:element name="xed00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bched05" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_LT" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -2298,6 +2376,32 @@
                 <xs:element name="ysecwnr" type="xs:string" minOccurs="0" />
                 <xs:element name="bsael" type="xs:string" minOccurs="0" />
                 <xs:element name="drgud" type="xs:string" minOccurs="0" />
+                <xs:element name="xed00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bched05" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_LT" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -2869,6 +2973,32 @@
                 <xs:element name="ysecwnr" type="xs:string" minOccurs="0" />
                 <xs:element name="bsael" type="xs:string" minOccurs="0" />
                 <xs:element name="drgud" type="xs:string" minOccurs="0" />
+                <xs:element name="xed00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bched05" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_LT" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -3440,6 +3570,32 @@
                 <xs:element name="ysecwnr" type="xs:string" minOccurs="0" />
                 <xs:element name="bsael" type="xs:string" minOccurs="0" />
                 <xs:element name="drgud" type="xs:string" minOccurs="0" />
+                <xs:element name="xed00" type="xs:string" minOccurs="0" />
+                <xs:element name="xhl00" type="xs:string" minOccurs="0" />
+                <xs:element name="bched05" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_FI" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01_HR" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02_MT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00_LU" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw02" type="xs:string" minOccurs="0" />
+                <xs:element name="yemajmy" type="xs:string" minOccurs="0" />
+                <xs:element name="yemmy01" type="xs:string" minOccurs="0" />
+                <xs:element name="lemhw01" type="xs:string" minOccurs="0" />
+                <xs:element name="decrg" type="xs:string" minOccurs="0" />
+                <xs:element name="yemls" type="xs:string" minOccurs="0" />
+                <xs:element name="bot01" type="xs:string" minOccurs="0" />
+                <xs:element name="bot02" type="xs:string" minOccurs="0" />
+                <xs:element name="amrtn00" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc_LV" type="xs:string" minOccurs="0" />
+                <xs:element name="dmc" type="xs:string" minOccurs="0" />
+                <xs:element name="lct_LT" type="xs:string" minOccurs="0" />
+                <xs:element name="amrar_LT" type="xs:string" minOccurs="0" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -3689,7 +3845,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|100|False|200|5</yem>
+    <yem>Reference|RefTable_761107280|100|False|200|5</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False|0|0</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -4205,6 +4361,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>1140293655</dataId>
@@ -4222,7 +4394,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|150|False|5000|10</yem>
+    <yem>Reference|RefTable_761107280|150|False|5000|10</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False||</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -4738,6 +4910,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>1862539434</dataId>
@@ -5271,6 +5459,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>1745140455</dataId>
@@ -5804,6 +6008,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Two-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <Two-earner_x0020_couple_x0020_without_x0020_children>
     <dataId>1767758501</dataId>
@@ -5821,7 +6041,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|100|False|0|0</yem>
+    <yem>Reference|RefTable_761107280|100|False|0|0</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False|0|0</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -6337,6 +6557,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Two-earner_x0020_couple_x0020_without_x0020_children>
   <Two-earner_x0020_couple_x0020_without_x0020_children>
     <dataId>767614029</dataId>
@@ -6354,7 +6590,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|150|False|5000|10</yem>
+    <yem>Reference|RefTable_761107280|150|False|5000|10</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False||</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -6870,6 +7106,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Two-earner_x0020_couple_x0020_without_x0020_children>
   <Single_x0020_with_x0020_two_x0020_children>
     <dataId>1168192836</dataId>
@@ -6887,7 +7139,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|100|False|0|0</yem>
+    <yem>Reference|RefTable_761107280|100|False|0|0</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False|0|0</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -7403,6 +7655,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Single_x0020_with_x0020_two_x0020_children>
   <Single_x0020_with_x0020_two_x0020_children>
     <dataId>1614233384</dataId>
@@ -7936,6 +8204,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Single_x0020_with_x0020_two_x0020_children>
   <Single_x0020_with_x0020_two_x0020_children>
     <dataId>651414319</dataId>
@@ -8469,6 +8753,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Single_x0020_with_x0020_two_x0020_children>
   <Single_x0020_without_x0020_children>
     <dataId>786763316</dataId>
@@ -8486,7 +8786,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|100|False|0|0</yem>
+    <yem>Reference|RefTable_761107280|100|False|0|0</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False|0|0</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -9002,6 +9302,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </Single_x0020_without_x0020_children>
   <One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>1488549350</dataId>
@@ -9019,7 +9335,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|100|False|0|0</yem>
+    <yem>Reference|RefTable_761107280|100|False|0|0</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False|0|0</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -9535,6 +9851,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>987413781</dataId>
@@ -10068,6 +10400,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>855049006</dataId>
@@ -10601,6 +10949,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
     <dataId>936121353</dataId>
@@ -11134,6 +11498,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </One-earner_x0020_couple_x0020_with_x0020_two_x0020_children>
   <One-earner_x0020_couple_x0020_without_x0020_children>
     <dataId>216693497</dataId>
@@ -11151,7 +11531,7 @@
     <ddi>0</ddi>
     <drgn1_BE>1</drgn1_BE>
     <drgn1_UK>7</drgn1_UK>
-    <yem>Reference|RefTable_1837444076|100|False|0|0</yem>
+    <yem>Reference|RefTable_761107280|100|False|0|0</yem>
     <poa>Value|RefTable_1188845774|0|False||</poa>
     <yse>Value|RefTable_1188845774|0|False|0|0</yse>
     <lhw>Value|RefTable_1927503380|40|False|0|0</lhw>
@@ -11667,6 +12047,22 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </One-earner_x0020_couple_x0020_without_x0020_children>
   <One-earner_x0020_couple_x0020_without_x0020_children>
     <dataId>1986903142</dataId>
@@ -12200,5 +12596,21 @@
     <ysecwnr>Value|RefTable_1927503380|0|False|0|0</ysecwnr>
     <bsael>1</bsael>
     <drgud>1</drgud>
+    <xed00>Value|RefTable_1837444076|0|False|0|0</xed00>
+    <xhl00>Value|RefTable_1837444076|0|False|0|0</xhl00>
+    <bched05>Value|RefTable_1837444076|0|False|0|0</bched05>
+    <amrar_FI>Value|RefTable_1837444076|95|False|0|0</amrar_FI>
+    <lemhw02_HR>Value|RefTable_1837444076|0|False|0|0</lemhw02_HR>
+    <yemajmy_HR>Value|RefTable_1837444076|0|False|0|0</yemajmy_HR>
+    <yemmy01_HR>Value|RefTable_1837444076|0|False|0|0</yemmy01_HR>
+    <lemhw01_HR>Value|RefTable_1837444076|0|False|0|0</lemhw01_HR>
+    <decrg_LU>0</decrg_LU>
+    <yemls_MT>Value|RefTable_1837444076|0|False|0|0</yemls_MT>
+    <bot01_MT>Value|RefTable_1837444076|0|False|0|0</bot01_MT>
+    <bot02_MT>Value|RefTable_1837444076|0|False|0|0</bot02_MT>
+    <amrtn00_LU>2</amrtn00_LU>
+    <dmc_LV>1</dmc_LV>
+    <lct_LT>1</lct_LT>
+    <amrar_LT>Value|RefTable_761107280|75|False|0|0</amrar_LT>
   </One-earner_x0020_couple_x0020_without_x0020_children>
 </HouseholdSettings>

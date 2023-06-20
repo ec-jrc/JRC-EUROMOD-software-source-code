@@ -12,9 +12,10 @@ namespace EM_Common
         private static List<string> showComponents = null;
 
         public static string GetUserSettingsFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EUROMOD"); }
-        public static string GetPluginFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "EUROMOD", "PlugIns"); }
-        public static string GetUserSelectableTemplateFolder() { return Path.Combine(GetPluginFolder(), "StatisticsPresenter", "UserSelectableTemplates"); }
-        public static string GetSystemTemplateFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "EUROMOD", "SystemTemplates"); }
+        public static string GetProgramDataFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "EUROMOD"); }
+        public static string GetPluginFolder() { return Path.Combine(GetProgramDataFolder(), "PlugIns"); }
+        public static string GetUserSelectableTemplateFolder() { return Path.Combine(GetProgramDataFolder(), "UserSelectableTemplates"); }
+        public static string GetSystemTemplateFolder() { return Path.Combine(GetProgramDataFolder(), "SystemTemplates"); }
         public static string GetApplicationFolder() { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "EUROMOD"); }
 
         public static string GetEM2ExecutableFile()
@@ -76,7 +77,7 @@ namespace EM_Common
                 for (int i = 0; i < showComponents.Count; i++) showComponents[i] = showComponents[i].Trim().ToLower();
             }
 
-            return showComponents.Contains(componentName.Trim().ToLower());
+            return showComponents.Contains(componentName.Trim().ToLower()) || showComponents.Contains(Display.Core_developer.ToLower());
         }
 
         public static string EncloseByQuotes(string path)
@@ -92,6 +93,8 @@ namespace EM_Common
             public static string VC_show = "VC_show";
             public static string HHoT_developer = "HHoT_developer";
             public static string PR_producer = "PR_producer";
+            public static string Core_developer = "Core_developer";
+            public static string Macrovalidation = "Macrovalidation";
         }
     }
 }

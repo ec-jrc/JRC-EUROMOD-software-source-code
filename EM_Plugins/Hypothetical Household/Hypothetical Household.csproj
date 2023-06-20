@@ -117,11 +117,11 @@
     <Compile Include="Import\ImportRefTablesForm.Designer.cs">
       <DependentUpon>ImportRefTablesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OpenProjectForm.cs">
+    <Compile Include="SelectFolderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OpenProjectForm.Designer.cs">
-      <DependentUpon>OpenProjectForm.cs</DependentUpon>
+    <Compile Include="SelectFolderForm.Designer.cs">
+      <DependentUpon>SelectFolderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PrepareProjectForm.cs">
       <SubType>Form</SubType>
@@ -265,8 +265,8 @@
     <EmbeddedResource Include="Import\ImportRefTablesForm.resx">
       <DependentUpon>ImportRefTablesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OpenProjectForm.resx">
-      <DependentUpon>OpenProjectForm.cs</DependentUpon>
+    <EmbeddedResource Include="SelectFolderForm.resx">
+      <DependentUpon>SelectFolderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrepareProjectForm.resx">
       <DependentUpon>PrepareProjectForm.cs</DependentUpon>

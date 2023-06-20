@@ -72,6 +72,20 @@ namespace EM_Executable
             // MAKE INDIRECT TAXES AVAILABLE AS GLOBAL VARIABLES, 1st step (same procedure as for uprating factors)
             foreach (var indTax in infoStore.country.indTaxes) infoStore.operandAdmin.RegisterVar(indTax.Key.ToLower(), "IndirectTaxTable", null, false, true, false, true);
 
+            // MAKE EXTERNAL MACRO AMOUNTS & NUMBERS AVAILABLE AS GLOBAL VARIABLES, 1st step (same procedure as for uprating factors)
+            foreach (var extStat in infoStore.country.extStats)
+            {
+                if (extStat.Value.IsAggregate())
+                {
+                    infoStore.operandAdmin.RegisterVar(DefVarName.EXSTAT_AMOUNT_CONSTANT_PREFIX + extStat.Key.ToLower(), "ExternalStatisticsTable", null, false, true, false, true);
+                    infoStore.operandAdmin.RegisterVar(DefVarName.EXSTAT_NUMBER_CONSTANT_PREFIX + extStat.Key.ToLower(), "ExternalStatisticsTable", null, false, true, false, true);
+                }
+                else
+                {
+                    infoStore.operandAdmin.RegisterVar(DefVarName.EXSTAT_INDICATOR_CONSTANT_PREFIX + extStat.Key.ToLower(), "ExternalStatisticsTable", null, false, true, false, true);
+                }
+            }
+                 
             // IF APPROPRIATE, READ ADD-ONS
             // note: read here to have extension switches (AddOn_ExtensionSwitch) at disposal, as they overwrite any other switches
             // even those set via run-tool, justification: the add-on creator probably knows why she wants sth on or off
@@ -173,6 +187,23 @@ namespace EM_Executable
             // MAKE INDIRECT TAXES AVAILABLE AS GLOBAL VARIABLES, 2nd step: fill with values
             foreach (var indTax in infoStore.country.indTaxes)
                 infoStore.hhAdmin.GlobalSetVar(infoStore.operandAdmin.GetIndexInPersonVarList(indTax.Key.ToLower()), indTax.Value);
+
+            // MAKE EXTERNAL MACRO AMOUNTS & NUMBERS AVAILABLE AS GLOBAL VARIABLES, 2nd step: fill with values
+            foreach (var extStat in infoStore.country.extStats)
+            {
+                if (extStat.Value.IsAggregate())
+                {
+                    if (extStat.Value.GetNumber(infoStore.country.sys.year, out double num))
+                        infoStore.hhAdmin.GlobalSetVar(infoStore.operandAdmin.GetIndexInPersonVarList(DefVarName.EXSTAT_NUMBER_CONSTANT_PREFIX + extStat.Key.ToLower()), num);
+                    if (extStat.Value.GetAmount(infoStore.country.sys.year, out double am))
+                        infoStore.hhAdmin.GlobalSetVar(infoStore.operandAdmin.GetIndexInPersonVarList(DefVarName.EXSTAT_AMOUNT_CONSTANT_PREFIX + extStat.Key.ToLower()), am);
+                } 
+                else 
+                {
+                    if (extStat.Value.GetAmount(infoStore.country.sys.year, out double am))
+                        infoStore.hhAdmin.GlobalSetVar(infoStore.operandAdmin.GetIndexInPersonVarList(DefVarName.EXSTAT_INDICATOR_CONSTANT_PREFIX + extStat.Key.ToLower()), am);
+                }
+            }
 
             foreach (FunBase fun in infoStore.spine.Values) // before reading data the HH.personVarList does not exist and var-parameters
                 fun.ReplaceVarNameByIndex();                // cannot know their index inthere, now the index is available and must be spread

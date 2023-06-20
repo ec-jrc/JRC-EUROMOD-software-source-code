@@ -28,5 +28,8 @@
         public const string UNITLOOP_IS_ELIG = "isulelig_";
         public const string UNITLOOP_IS_ELIG_IN_ITER = "iseliginiter_";
         public const string UNITLOOP_IS_CUR_ELIG = "iscurelig_";
+        public const string EXSTAT_NUMBER_CONSTANT_PREFIX = "$extstat_number_";
+        public const string EXSTAT_AMOUNT_CONSTANT_PREFIX = "$extstat_amount_";
+        public const string EXSTAT_INDICATOR_CONSTANT_PREFIX = "$extstat_";
     }
 }

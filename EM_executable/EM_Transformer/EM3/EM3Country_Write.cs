@@ -101,6 +101,21 @@ namespace EM_Transformer
                     }
                     writer.WriteEndElement();
 
+                    // EXTERNAL STATISTICS - PROPERTIES (name, description, ...)
+                    writer.WriteStartElement(TAGS.Enclosure(TAGS.EXSTAT));
+                    foreach (var exStat in ctryContent.exStat.Values) WriteItem(TAGS.EXSTAT, exStat);
+                    writer.WriteEndElement();
+
+                    // UPRATING INDICES - VALUES PER YEAR
+                    writer.WriteStartElement(TAGS.Enclosure(TAGS.EXSTAT_YEAR));
+                    foreach (var ExStatVal in ctryContent.exStatVal)
+                    {
+                        writer.WriteStartElement(TAGS.EXSTAT_YEAR);
+                        WriteProperties(ExStatVal, TAGS.EXSTAT_YEAR);
+                        writer.WriteEndElement();
+                    }
+                    writer.WriteEndElement();
+
                     // DATASETS
                     writer.WriteStartElement(TAGS.Enclosure(TAGS.DATA));
                     foreach (var data in dataContent.dataSets.Values)

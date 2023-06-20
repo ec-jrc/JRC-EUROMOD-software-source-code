@@ -14,6 +14,7 @@
             public const string IgnoreNCols = "IgnoreNCols";
             public const string DoRanges = "DoRanges";
             public const string RepByEMPath = "RepByEMPath";
+            public const string AutoRenameWhenCopying = "AutoRenameWhenCopying";
 
             internal static void Add(DefinitionAdmin.Fun fun)
             {
@@ -66,6 +67,14 @@
                 {
                     valueType = PAR_TYPE.TEXT,
                     minCount = 0, maxCount = 1
+                });
+                fun.par.Add(AutoRenameWhenCopying, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.BOOLEAN,
+                    minCount = 0,
+                    maxCount = 1,
+                    defaultValue = true,
+                    description = "If set to false, the filename will not be automatically renamed when copying systems."
                 });
             }
         }

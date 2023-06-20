@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Displaying function specifiers</title>
+</head>
+
+<body>
+
+<h1>Displaying function specifiers</h1>
+
+<p>The ribbon <i>Display</i>
+provides a button <i>Show Key Parameters</i>.
+Clicking this button shows an additional row below each functions' name,
+displaying the &quot;key parameter&quot; of the function. For example the row
+below a <i>DefIL</i>
+function shows the name of the respective incomelist.
+More precisely it shows for example <i>Name:
+ils_earns</i>. That means it indicates the name of
+the parameter hosting the key parameter (parameter <i>Name</i>), followed by the parameter's value (<i>ils_earns</i>). If the value of the
+parameter is not equal for all systems, all values are displayed, e.g. <i>Name: ils_earns,
+ils_earns_2008, ils_earns_2012</i>.<a href="#_ftn1"
+name="_ftnref1" title="">[1]</a></p>
+
+<p>For most of the functions the parameter <i>output_var</i> (respectively <i>output_add_var</i>)
+constitutes the key parameter. Exceptions are the functions <i>DefIL</i> and <i>DefTU</i> with parameter <i>Name</i> as key parameter, the functions <i>Uprate</i> and <i>SetDefault</i> with parameter <i>Dataset</i>, the function <i>DefOutput</i> with
+parameter <i>File</i>, the function <i>Elig</i> with
+parameter <i>Elig_Cond</i>
+as well as some other less frequently used functions. Some functions do not
+have a key parameter, as for example functions <i>DefVar</i> and <i>DefConst</i>. For these functions no
+additional row is displayed.</p>
+
+<p>To hide the key parameters press the button <i>Hide Key Parameters</i> (which is the <i>Show Key Parameters</i> button, which
+changed its name while key parameters were displayed).</p>
+
+<p>Note that this change of display affects all open countries,
+e.g. if key parameters are displayed for Romania while Hungary is open too, key
+parameters are displayed for Hungary as well.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+
+<hr align=left size=1 width="33%">
+<div>
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+The information also takes care of the fact that specification parameters may
+appear more than once, like e.g. the parameter <i>Dataset</i> for functions <i>Uprate</i>
+and <i>SetDefault</i>.</p>
+
+</div>
+
+</body>
+
+</html>

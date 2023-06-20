@@ -1,5 +1,4 @@
-﻿using EM_Common;
-using EM_Statistics;
+﻿using EM_Statistics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -181,14 +180,13 @@ namespace HypotheticalHousehold
 
         private static void StartPresenter(string templateName, List<FilePackageContent> filePackages, List<Template.TemplateInfo.UserVariable> userVariables)
         {
-            PiInterface statisticsPresenter = PiLoader.GetPlugIn("Statistics Presenter");
             Dictionary<string, object> args = new Dictionary<string, object>()
             {
                 { "templatename", Path.Combine(Program.getHHOTfolder(), templateName) },
                 { "userinput", userVariables },
                 { "FilePackages", filePackages }
             };
-            statisticsPresenter.Run(args);
+            EM_Statistics.StatisticsPresenter.StatisticsPresenter.Run(args);
         }
     }
 }

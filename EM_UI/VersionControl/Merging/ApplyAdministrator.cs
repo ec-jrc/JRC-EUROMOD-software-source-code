@@ -110,6 +110,8 @@ namespace EM_UI.VersionControl.Merging
         MergeControl _mcData = null;
         MergeControl _mcCondFormat = null;
         MergeControl _mcUpratingFactors = null;
+        MergeControl _mcIndirectTaxes = null;
+        MergeControl _mcExternalStatistics = null;
         MergeControl _mcExtensions = null;
         MergeControl _mcExtSwitches = null;
         MergeControl _mcLookGroups = null;
@@ -155,6 +157,8 @@ namespace EM_UI.VersionControl.Merging
             _mcData = _mergeForm.GetMergeControlByName(MergeForm.DATASETS);
             _mcCondFormat = _mergeForm.GetMergeControlByName(MergeForm.CONDITIONAL_FORMATTING);
             _mcUpratingFactors = _mergeForm.GetMergeControlByName(MergeForm.UPRATING_INDICES);
+            _mcIndirectTaxes = _mergeForm.GetMergeControlByName(MergeForm.INDIRECT_TAXES);
+            _mcExternalStatistics = _mergeForm.GetMergeControlByName(MergeForm.EXTERNAL_STATISTICS);
             _mcExtensions = _mergeForm.GetMergeControlByName(MergeForm.EXTENSIONS);
             _mcExtSwitches = _mergeForm.GetMergeControlByName(MergeForm.EXT_SWITCHES);
             _mcLookGroups = _mergeForm.GetMergeControlByName(MergeForm.LOOK_GROUPS);
@@ -244,6 +248,26 @@ namespace EM_UI.VersionControl.Merging
             //apply locally rejected or remotely accepted changes concerning uprating indices
             //ChangeUpratingIndices(true); ChangeUpratingIndices(false);
             ChangeUpratingIndices();
+
+            //remove locally added and rejected or remotely removed and accepted indirect taxes
+            RemoveIndirectTaxes();
+
+            //add locally removed and rejected or remotely added and accepted indirect taxes
+            AddIndirectTaxes();
+
+            //apply locally rejected or remotely accepted changes concerning indirect taxes
+            //ChangeIndirectTaxes(true); ChangeIndirectTaxes(false);
+            ChangeIndirectTaxes();
+
+            //remove locally added and rejected or remotely removed and accepted external statistics
+            RemoveExternalStatistics();
+
+            //add locally removed and rejected or remotely added and accepted external statistics
+            AddExternalStatistics();
+
+            //apply locally rejected or remotely accepted changes concerning external statistics
+            //ChangeExternalStatistics(true); ChangeExternalStatistics(false);
+            ChangeExternalStatistics();
 
             //apply locally rejected or remotely accepted changes in country-long-name and private-setting
             ChangeCountrySettings();
@@ -900,6 +924,9 @@ namespace EM_UI.VersionControl.Merging
             }
         }
 
+        /**
+         * UPRATING INDICES
+         */
         void RemoveUpratingIndices()
         {
             List<CountryConfig.UpratingIndexRow> remUI = new List<CountryConfig.UpratingIndexRow>();
@@ -941,6 +968,94 @@ namespace EM_UI.VersionControl.Merging
                 }
             }
         }
+
+        /**
+         * INDIRECT TAXES
+         */
+        void RemoveIndirectTaxes()
+        {
+            List<CountryConfig.IndirectTaxRow> remUI = new List<CountryConfig.IndirectTaxRow>();
+            foreach (MergeControl.NodeInfo nodeInfo in _mcIndirectTaxes.GetNodeInfoLocal(MergeForm.INDIRECT_TAXES))
+            {
+                if (nodeInfo.changeType == MergeControl.ChangeType.removed && nodeInfo.changeHandling == MergeControl.ChangeHandling.accept)
+                    remUI.Add((from ui in _ccFacLocal.GetIndirectTaxes() where ui.ID == nodeInfo.ID select ui).First());
+            }
+            foreach (CountryConfig.IndirectTaxRow ittIndex in remUI)
+                ittIndex.Delete();
+            _ccFacLocal.GetCountryConfig().AcceptChanges();
+        }
+
+        void AddIndirectTaxes()
+        {
+            foreach (MergeControl.NodeInfo nodeInfo in _mcIndirectTaxes.GetNodeInfoLocal(MergeForm.INDIRECT_TAXES))
+            {
+                if (nodeInfo.changeType == MergeControl.ChangeType.added && nodeInfo.changeHandling== MergeControl.ChangeHandling.accept)
+                {
+                    CountryConfig.IndirectTaxRow addUI = (from ui in _ccFacRemote.GetIndirectTaxes() where ui.ID == nodeInfo.ID select ui).FirstOrDefault();
+                    if (addUI != null)
+                        _ccFacLocal.GetCountryConfig().IndirectTax.AddIndirectTaxRow(addUI.ID, addUI.Reference, addUI.Comment, addUI.YearValues);
+                }
+            }
+        }
+
+        void ChangeIndirectTaxes()
+        {
+            foreach (MergeControl.NodeInfo nodeInfo in _mcIndirectTaxes.GetNodeInfoLocal(MergeForm.INDIRECT_TAXES))
+            {
+                if (nodeInfo.changeType != MergeControl.ChangeType.changed) { continue; }
+                CountryConfig.IndirectTaxRow indirectTax = (from ui in _ccFacLocal.GetIndirectTaxes() where ui.ID == nodeInfo.ID select ui).First();
+                foreach (MergeControl.CellInfo cellInfo in nodeInfo.cellInfo)
+                {
+                    if (!cellInfo.isChanged) { continue; }
+                    indirectTax[cellInfo.columnID] = cellInfo.text;
+                }
+            }
+        }
+
+        /**
+         * EXTERNAL STATISTICS
+         */
+        void RemoveExternalStatistics()
+        {
+            List<CountryConfig.ExternalStatisticRow> remUI = new List<CountryConfig.ExternalStatisticRow>();
+            foreach (MergeControl.NodeInfo nodeInfo in _mcExternalStatistics.GetNodeInfoLocal(MergeForm.EXTERNAL_STATISTICS))
+            {
+                if (nodeInfo.changeType == MergeControl.ChangeType.removed && nodeInfo.changeHandling == MergeControl.ChangeHandling.accept)
+                    remUI.Add((from ui in _ccFacLocal.GetExternalStatistics() where ui.ID == nodeInfo.ID select ui).First());
+            }
+            foreach (CountryConfig.ExternalStatisticRow ittIndex in remUI)
+                ittIndex.Delete();
+            _ccFacLocal.GetCountryConfig().AcceptChanges();
+        }
+
+        void AddExternalStatistics()
+        {
+            foreach (MergeControl.NodeInfo nodeInfo in _mcExternalStatistics.GetNodeInfoLocal(MergeForm.EXTERNAL_STATISTICS))
+            {
+                if (nodeInfo.changeType == MergeControl.ChangeType.added && nodeInfo.changeHandling == MergeControl.ChangeHandling.accept)
+                {
+                    CountryConfig.ExternalStatisticRow addES = (from es in _ccFacRemote.GetExternalStatistics() where es.ID == nodeInfo.ID select es).FirstOrDefault();
+                    if (addES != null)
+                        _ccFacLocal.GetCountryConfig().ExternalStatistic.AddExternalStatisticRow(addES.ID, addES.Category, addES.Reference, addES.Description, addES.YearValues, addES.Comment, addES.Source, addES.TableName, addES.Destination);
+                }
+            }
+        }
+
+        void ChangeExternalStatistics()
+        {
+            foreach (MergeControl.NodeInfo nodeInfo in _mcExternalStatistics.GetNodeInfoLocal(MergeForm.EXTERNAL_STATISTICS))
+            {
+                if (nodeInfo.changeType != MergeControl.ChangeType.changed) { continue; }
+                CountryConfig.ExternalStatisticRow exStat = (from ui in _ccFacLocal.GetExternalStatistics() where ui.ID == nodeInfo.ID select ui).FirstOrDefault();
+                if (exStat == null) continue;
+                foreach (MergeControl.CellInfo cellInfo in nodeInfo.cellInfo)
+                {
+                    if (!cellInfo.isChanged) { continue; }
+                    exStat[cellInfo.columnID] = cellInfo.text;
+                }
+            }
+        }
+
 
         void ChangeCountrySettings()
         {

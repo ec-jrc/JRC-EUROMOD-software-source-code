@@ -89,9 +89,9 @@ namespace EM_Statistics
                     break;
             }
             // prepare the display info
-            displayResults.info.title = PrettyInfoProvider.GetPrettyText(template.info, template.info.title, baselineSystemInfos[0], reformSystemInfos, packageKey);
-            displayResults.info.subtitle = PrettyInfoProvider.GetPrettyText(template.info, template.info.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey);
-            displayResults.info.button = PrettyInfoProvider.GetPrettyText(template.info, template.info.button, baselineSystemInfos[0], reformSystemInfos, packageKey);
+            displayResults.info.title = PrettyInfoProvider.GetPrettyText(template.info, template.info.title, baselineSystemInfos, reformSystemInfos, packageKey);
+            displayResults.info.subtitle = PrettyInfoProvider.GetPrettyText(template.info, template.info.subtitle, baselineSystemInfos, reformSystemInfos, packageKey);
+            displayResults.info.button = PrettyInfoProvider.GetPrettyText(template.info, template.info.button, baselineSystemInfos, reformSystemInfos, packageKey);
             displayResults.info.description = template.info.generalDescription;
             displayResults.info.exportDescriptionMode = template.info.exportDescriptionMode;
 
@@ -212,7 +212,7 @@ namespace EM_Statistics
 
             // first read header line to get the column-indices of the variables to read
             List<string> headers = dataRows.First().ToLower().Split('\t').ToList();
-            Dictionary<string, int> varColumnIndices = new Dictionary<string, int>();
+            List<VarInfo> varColumnIndices = new List<VarInfo>();
             List<string> missingVars = new List<string>();
             foreach (Template.TemplateInfo.RequiredVariable v in templateInfo.requiredVariables)
             {
@@ -220,7 +220,7 @@ namespace EM_Statistics
                 _dataAndStats[IND].AddVar(v.name, v.monetary, null);
                 int index = headers.IndexOf(v.readVar.ToLower());
                 if (index < 0) missingVars.Add($"'{v.readVar}'");
-                varColumnIndices.Add(v.name, index);
+                varColumnIndices.Add(new VarInfo() { name = v.name, index = index });
             }
             if (missingVars.Any())
             {
@@ -232,13 +232,15 @@ namespace EM_Statistics
                 foreach (Template.TemplateInfo.OptionalVariable v in templateInfo.optionalVariables)
                 {
                     if (_dataAndStats[IND].HasVariable(v.name, null)) continue;
-                    _dataAndStats[IND].AddVar(v.name, v.monetary, null); varColumnIndices.Add(v.name, headers.IndexOf(v.readVar.ToLower()));
+                    _dataAndStats[IND].AddVar(v.name, v.monetary, null);
+                    varColumnIndices.Add(new VarInfo() { name = v.name, index = headers.IndexOf(v.readVar.ToLower()), defaultValue = v.defaultValue });
                 }
             if (templateInfo.userVariables != null)
                 foreach (Template.TemplateInfo.UserVariable v in templateInfo.userVariables.Where(x => x.inputType == HardDefinitions.UserInputType.VariableName))
                 {
                     if (_dataAndStats[IND].HasVariable(v.value, null)) continue;
-                    _dataAndStats[IND].AddVar(v.value, v.monetary, null); varColumnIndices.Add(v.value, headers.IndexOf(v.value));
+                    _dataAndStats[IND].AddVar(v.value, v.monetary, null);
+                    varColumnIndices.Add(new VarInfo() { name = v.name, index = headers.IndexOf(v.value.ToLower()) });
                 }
             _dataAndStats[IND].ConfirmKey();
 
@@ -248,25 +250,24 @@ namespace EM_Statistics
                 string[] splitInputLine = inputLine.Replace(',', '.').Split('\t');
                 if (splitInputLine.Length != headers.Count)
                 {
-                    errorCollector.AddError($"Mismatch between headers and data columns {baseSystemInfo.GetFileName()}."); 
+                    errorCollector.AddError($"Mismatch between headers and data columns {baseSystemInfo.GetFileName()}.");
                     return false;
                 }
 
                 List<double> onePersonsVariablesDouble = new List<double>();
-                foreach (var varColumnIndex in varColumnIndices)
+                foreach (VarInfo vi in varColumnIndices)
                 {
-                    if (varColumnIndex.Value < 0)
+                    if (vi.index < 0)
                     {
-                        // if it is a missing Optional Variable, then use its default value
-                        if (templateInfo.optionalVariables.Exists(x => x.name == varColumnIndex.Key))
-                            onePersonsVariablesDouble.Add(templateInfo.optionalVariables.Find(x => x.name == varColumnIndex.Key).defaultValue);
-                        // else the variable should be there! 
-                        else
+                        if (vi.defaultValue == null)
                         {
-                            errorCollector.AddError($"Variable {varColumnIndex.Key} not found in base file {baseSystemInfo.GetFileName()}."); return false;
+                            errorCollector.AddError($"Variable {vi.name} not found in base file {baseSystemInfo.GetFileName()}."); 
+                            return false;
                         }
+                        else
+                            onePersonsVariablesDouble.Add(vi.defaultValue.Value);
                     }
-                    else onePersonsVariablesDouble.Add(double.Parse(splitInputLine.ElementAt(varColumnIndex.Value), CultureInfo.InvariantCulture));
+                    else onePersonsVariablesDouble.Add(double.Parse(splitInputLine.ElementAt(vi.index), CultureInfo.InvariantCulture));
                 }
                 _dataAndStats[IND].AddObs(onePersonsVariablesDouble);
             }
@@ -310,7 +311,7 @@ namespace EM_Statistics
 
                 // first read header line to get the column-indices of the variables to read
                 headers = dataRows.First().ToLower().Split('\t').ToList();
-                varColumnIndices = new Dictionary<string, int>();
+                varColumnIndices = new List<VarInfo>();
                 foreach (Template.TemplateInfo.RequiredVariable v in templateInfo.requiredVariables)
                 {
                     string refVar = v.name + HardDefinitions.Reform + refNo;
@@ -322,19 +323,21 @@ namespace EM_Statistics
                         errorCollector.AddError($"File {reformSystemInfo.GetFileName()} does not contain required variable '{v.readVar}'.");
                         if (HardDefinitions.alwaysRequiredVariables.ContainsKey(v.name)) return false;
                     }
-                    varColumnIndices.Add(refVar, index);
+                    varColumnIndices.Add(new VarInfo() { name = refVar, index = index });
                 }
                 foreach (Template.TemplateInfo.OptionalVariable v in templateInfo.optionalVariables)
                 {
                     string refVar = v.name + HardDefinitions.Reform + refNo;
                     if (_dataAndStats[IND].HasVariable(refVar, null)) continue;
-                    _dataAndStats[IND].AddVar(refVar, v.monetary, null); varColumnIndices.Add(refVar, headers.IndexOf(v.readVar.ToLower()));
+                    _dataAndStats[IND].AddVar(refVar, v.monetary, null);
+                    varColumnIndices.Add(new VarInfo() { name = refVar, index = headers.IndexOf(v.readVar.ToLower()), defaultValue = v.defaultValue });
                 }
                 foreach (Template.TemplateInfo.UserVariable v in templateInfo.userVariables.Where(x => x.inputType == HardDefinitions.UserInputType.VariableName))
                 {
                     string refVar = v.value + HardDefinitions.Reform + refNo;
                     if (_dataAndStats[IND].HasVariable(refVar, null)) continue;
-                    _dataAndStats[IND].AddVar(refVar, v.monetary, null); varColumnIndices.Add(refVar, headers.IndexOf(v.value));
+                    _dataAndStats[IND].AddVar(refVar, v.monetary, null);
+                    varColumnIndices.Add(new VarInfo() { name = refVar, index = headers.IndexOf(v.value) });
                 }
                 // now read the data-lines, but only add the necessary variables
                 int idPersonIndex = _dataAndStats[IND].GetVarIndex(HardDefinitions.idPerson, null);
@@ -342,20 +345,19 @@ namespace EM_Statistics
                 {
                     string[] splitInputLine = inputLine.Replace(',', '.').Split('\t');
                     List<double> onePersonsVariablesDouble = new List<double>();
-                    foreach (var varColumnIndex in varColumnIndices)
+                    foreach (VarInfo vi in varColumnIndices)
                     {
-                        if (varColumnIndex.Value < 0)
+                        if (vi.index < 0)
                         {
-                            // if it is a missing Optional Variable, then use its default value
-                            if (templateInfo.optionalVariables.Exists(x => x.name == GetBaseVarName(varColumnIndex.Key, refNo)))
-                                onePersonsVariablesDouble.Add(templateInfo.optionalVariables.Find(x => x.name == GetBaseVarName(varColumnIndex.Key, refNo)).defaultValue);
-                            // else the variable should be there! 
-                            else
+                            if (vi.defaultValue == null)
                             {
-                                errorCollector.AddError($"Variable {GetBaseVarName(varColumnIndex.Key, refNo)} not found in reform file {reformSystemInfo.GetFileName()}."); return false;
+                                errorCollector.AddError($"Variable {vi.name} not found in base file {baseSystemInfo.GetFileName()}.");
+                                return false;
                             }
+                            else
+                                onePersonsVariablesDouble.Add(vi.defaultValue.Value); 
                         }
-                        else onePersonsVariablesDouble.Add(double.Parse(splitInputLine.ElementAt(varColumnIndex.Value), CultureInfo.InvariantCulture));
+                        else onePersonsVariablesDouble.Add(double.Parse(splitInputLine.ElementAt(vi.index), CultureInfo.InvariantCulture));
                     }
                     if (!_dataAndStats[IND].HasObs(onePersonsVariablesDouble[idPersonIndex]))
                     {
@@ -368,6 +370,13 @@ namespace EM_Statistics
             }
 
             return true;
+        }
+
+        private class VarInfo 
+        {
+            internal string name;
+            internal int index = -1;
+            internal double? defaultValue = null;
         }
 
         public string GetErrorMessage()
@@ -835,17 +844,26 @@ namespace EM_Statistics
                         break;
 
                     case HardDefinitions.TemplateType.Multi:
-                        if (table.columnGrouping == HardDefinitions.ColumnGrouping.SystemFirst) // Col1/Sys1 .. ColX/Sys1 .... Col1/SysY .. ColX/SysY
+                        if (template.info.doMultiColumns)
                         {
-                            for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
-                                for (int colNo = 0; colNo < table.columns.Count; colNo++)
-                                    CreateBaseColAndCell(displayTable, colNo, dasNo);
-                        }
-                        else if (table.columnGrouping == HardDefinitions.ColumnGrouping.ColumnFirst) // Col1/Sys1 .. Col1/SysY .... ColX/Sys1 .. ColX/SysY
-                        {
-                            for (int c = 0; c < table.columns.Count; c++)
+                            if (table.columnGrouping == HardDefinitions.ColumnGrouping.SystemFirst) // Col1/Sys1 .. ColX/Sys1 .... Col1/SysY .. ColX/SysY
+                            {
                                 for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
-                                    CreateBaseColAndCell(displayTable, c, dasNo);
+                                    for (int colNo = 0; colNo < table.columns.Count; colNo++)
+                                        CreateBaseColAndCell(displayTable, colNo, dasNo);
+                            }
+                            else if (table.columnGrouping == HardDefinitions.ColumnGrouping.ColumnFirst) // Col1/Sys1 .. Col1/SysY .... ColX/Sys1 .. ColX/SysY
+                            {
+                                for (int c = 0; c < table.columns.Count; c++)
+                                    for (int dasNo = 0; dasNo < dataAndStats.Count; dasNo++)
+                                        CreateBaseColAndCell(displayTable, c, dasNo);
+                            }
+                        }
+                        else
+                        {
+                            for (int colNo = 0; colNo < table.columns.Count; colNo++)
+                                CreateBaseColAndCell(displayTable, colNo, string.IsNullOrEmpty(table.columns[colNo].multiNo) ? 0 : int.Parse(table.columns[colNo].multiNo));
+                            break;
                         }
                         break;
 
@@ -1026,7 +1044,7 @@ namespace EM_Statistics
             {
                 listFilters.Add(new Template.Filter(localMap)
                 {
-                    formulaString = $"{(origFilter == null ? string.Empty : $"({origFilter.formulaString}) && ")}DATA_VAR[@valof_var] == {valofValue}",
+                    formulaString = $"{(origFilter == null ? string.Empty : $"({origFilter.formulaString}) && ")}DATA_VAR[@valof_var] == {valofValue.ToString(CultureInfo.InvariantCulture)}",
                     name = ReplaceValuePlaceholder(rowTitle, valofValue), // (mis)use the name to transfer the new title of the row
                     parameters = new List<Template.Parameter>()
                     {
@@ -1126,7 +1144,7 @@ namespace EM_Statistics
             {
                 int dasNo = template.info.templateType == HardDefinitions.TemplateType.Multi ? dataAndStats.IndexOf(data) : 0;
                 displayCell.displayValue = PrettyInfoProvider.GetPrettyText(template.info, cell.cellAction.formulaString,
-                                           baselineSystemInfos[dasNo], reformSystemInfos, packageKey, refNo);
+                                           new List<SystemInfo>() { baselineSystemInfos[dasNo] }, reformSystemInfos, packageKey, refNo);
                 displayCell.isStringValue = true;
             }
             else
@@ -1141,7 +1159,7 @@ namespace EM_Statistics
                     displayCell.stringFormat = cell.stringFormat; // ... though applied here, required for exporting to Excel
                     displayCell.secondarySdcGroups = cell.secondarySdcGroups; // ... required for secondary SDC-check
 
-                    displayCell.displayValue = displayCell.value.ToString(cell.stringFormat, CultureInfo.InvariantCulture);
+                    displayCell.displayValue = displayCell.value == double.PositiveInfinity ? "N/A" : displayCell.value.ToString(cell.stringFormat, CultureInfo.InvariantCulture);
 
                     PrimarySDCCheck(displayCell, cell.sdcDefinition); // check for cells which need to be hidden because they are based on too few observations
                 }
@@ -1178,8 +1196,8 @@ namespace EM_Statistics
             DisplayResults.DisplayPage displayPage = new DisplayResults.DisplayPage()
             {
                 name = page.name,
-                title = PrettyInfoProvider.GetPrettyText(template.info, page.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
-                subtitle = PrettyInfoProvider.GetPrettyText(template.info, page.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
+                title = PrettyInfoProvider.GetPrettyText(template.info, page.title, baselineSystemInfos, reformSystemInfos, packageKey, refNo_PerReform),
+                subtitle = PrettyInfoProvider.GetPrettyText(template.info, page.subtitle, baselineSystemInfos, reformSystemInfos, packageKey, refNo_PerReform),
                 button = new DisplayResults.DisplayPage.VisualDisplayElement()
                 {
                     backgroundColour = page.button.backgroundColour,
@@ -1187,7 +1205,7 @@ namespace EM_Statistics
                     textAlign = page.button.textAlign,
                     strong = page.button.strong ?? false,
                     tooltip = page.button.tooltip,
-                    title = PrettyInfoProvider.GetPrettyText(template.info, page.button.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform)
+                    title = PrettyInfoProvider.GetPrettyText(template.info, page.button.title, baselineSystemInfos, reformSystemInfos, packageKey, refNo_PerReform)
                 },
                 html = page.html,
                 description = page.description,
@@ -1202,8 +1220,8 @@ namespace EM_Statistics
             return new DisplayResults.DisplayPage.DisplayTable()
             {
                 name = table.name,
-                title = PrettyInfoProvider.GetPrettyText(template.info, table.title, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
-                subtitle = PrettyInfoProvider.GetPrettyText(template.info, table.subtitle, baselineSystemInfos[0], reformSystemInfos, packageKey, refNo_PerReform),
+                title = PrettyInfoProvider.GetPrettyText(template.info, table.title, baselineSystemInfos, reformSystemInfos, packageKey, refNo_PerReform),
+                subtitle = PrettyInfoProvider.GetPrettyText(template.info, table.subtitle, baselineSystemInfos, reformSystemInfos, packageKey, refNo_PerReform),
                 //button = SystemInfo.GetCaptionText(template.info, table.button, baselineSystem[0], reformSystems), // table does not have a button
                 description = table.description,
                 stringFormat = table.stringFormat,
@@ -1253,7 +1271,7 @@ namespace EM_Statistics
             }
             return new DisplayResults.DisplayPage.DisplayTable.DisplayColumn()
             {
-                title = PrettyInfoProvider.GetPrettyText(template.info, column.title, baselineSystemInfos[dasNo], reformSystemInfos, packageKey, refNo),
+                title = PrettyInfoProvider.GetPrettyText(template.info, column.title, new List<SystemInfo>() { baselineSystemInfos[dasNo] }, reformSystemInfos, packageKey, refNo),
                 stringFormat = column.stringFormat,
                 tooltip = column.tooltip,
                 hasSeparatorAfter = column.hasSeparatorAfter && (columnGrouping != HardDefinitions.ColumnGrouping.ColumnFirst || isLastSys),
@@ -1385,13 +1403,14 @@ namespace EM_Statistics
 
         private void BlendAction(Template.Action newAction, Template.Action oldAction)
         {
-            if (string.IsNullOrEmpty(newAction.formulaString) && !string.IsNullOrEmpty(oldAction.formulaString)) newAction.formulaString = oldAction.formulaString;
-            if (string.IsNullOrEmpty(newAction._calculationLevel) && !string.IsNullOrEmpty(oldAction._calculationLevel)) newAction._calculationLevel = oldAction._calculationLevel;
-            if (newAction.calculationType == HardDefinitions.CalculationType.NA && oldAction.calculationType != HardDefinitions.CalculationType.NA) newAction.calculationType = oldAction.calculationType;
-            if (string.IsNullOrEmpty(newAction.outputVar) && !string.IsNullOrEmpty(oldAction.outputVar)) newAction.outputVar = oldAction.outputVar;
-            if (newAction._reform == null && oldAction._reform != null) newAction._reform = oldAction._reform;
-            if (newAction._saveResult == null && oldAction._saveResult != null) newAction._saveResult = oldAction._saveResult;
-            if (newAction._blendParameters == null && oldAction._blendParameters != null) newAction._blendParameters = oldAction._blendParameters;
+            if ((string.IsNullOrEmpty(newAction.formulaString) && !string.IsNullOrEmpty(oldAction.formulaString)) || (oldAction.Important && !string.IsNullOrEmpty(oldAction.formulaString))) newAction.formulaString = oldAction.formulaString;
+            if ((string.IsNullOrEmpty(newAction._calculationLevel) && !string.IsNullOrEmpty(oldAction._calculationLevel)) || (oldAction.Important && !string.IsNullOrEmpty(oldAction._calculationLevel))) newAction._calculationLevel = oldAction._calculationLevel;
+            if ((newAction.calculationType == HardDefinitions.CalculationType.NA && oldAction.calculationType != HardDefinitions.CalculationType.NA) || (oldAction.Important && oldAction.calculationType != HardDefinitions.CalculationType.NA)) newAction.calculationType = oldAction.calculationType;
+            if ((string.IsNullOrEmpty(newAction.outputVar) && !string.IsNullOrEmpty(oldAction.outputVar)) || (oldAction.Important && !string.IsNullOrEmpty(oldAction.outputVar))) newAction.outputVar = oldAction.outputVar;
+            if ((newAction._reform == null && oldAction._reform != null) || (oldAction.Important && oldAction._reform != null)) newAction._reform = oldAction._reform;
+            if ((newAction._saveResult == null && oldAction._saveResult != null) || (oldAction.Important && oldAction._saveResult != null)) newAction._saveResult = oldAction._saveResult;
+            if ((newAction._blendParameters == null && oldAction._blendParameters != null) || (oldAction.Important && oldAction._blendParameters != null)) newAction._blendParameters = oldAction._blendParameters;
+            if (!newAction.Important && oldAction.Important) newAction._important = oldAction._important;
 
             if (oldAction.filter != null)
             {

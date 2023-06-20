@@ -158,7 +158,7 @@ namespace EM_UI.Dialogs
             string parameterName = e.ColumnIndex == colCount.Index ? string.Empty : dgvParameter.Rows[e.RowIndex].Cells[colParameter.Index].Value.ToString();
             if (!ParameterValidation.ValidateGroupInput(value, parameterName, ref errorText))
             {
-                Tools.UserInfoHandler.ShowError(errorText);
+                UserInfoHandler.ShowError(errorText);
                 e.Cancel = true;
             }
             else

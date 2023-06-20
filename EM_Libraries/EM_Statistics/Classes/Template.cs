@@ -51,6 +51,7 @@ namespace EM_Statistics
             public List<UserVariable> userVariables = new List<UserVariable>();
             public HardDefinitions.ExportDescriptionMode exportDescriptionMode = HardDefinitions.ExportDescriptionMode.InSheets;
             internal bool endUserFriendlyActionErrorMode = false;
+            internal bool doMultiColumns = true;
 
             public class CalculationLevel
             {
@@ -298,7 +299,8 @@ namespace EM_Statistics
                     sdcMinObsDefault = this.sdcMinObsDefault,
                     sdcHideZeroObs = this.sdcHideZeroObs,
                     exportDescriptionMode = this.exportDescriptionMode,
-                    endUserFriendlyActionErrorMode = this.endUserFriendlyActionErrorMode
+                    endUserFriendlyActionErrorMode = this.endUserFriendlyActionErrorMode,
+                    doMultiColumns = this.doMultiColumns
                 };
                 foreach (CalculationLevel x in this.calculationLevels) inf.calculationLevels.Add(x.Clone());
                 foreach (RequiredVariable x in this.requiredVariables) inf.requiredVariables.Add(x.Clone());
@@ -381,6 +383,7 @@ namespace EM_Statistics
                 if (copyFilter == null) return;
                 if (!string.IsNullOrEmpty(copyFilter.name))
                     name = copyFilter.name + (refNo >= 0 ? HardDefinitions.Reform + refNo : string.Empty);
+                reform = copyFilter.reform;
                 formulaString = copyFilter.formulaString;
                 parameters = new List<Parameter>();
                 foreach (Parameter p in copyFilter.parameters)
@@ -444,6 +447,7 @@ namespace EM_Statistics
             public bool? _reform = null;
             public bool? _saveResult = null;
             public bool? _blendParameters = null; // this could be enum (overwrite, blend, add) instead of bool - or is this a parameter attribute?
+            public bool? _important = null; // this could be enum (overwrite, blend, add) instead of bool - or is this a parameter attribute?
             internal Func<List<double>, double> func;
             internal double result = double.NaN;
             public LocalMap localMap = null;
@@ -452,6 +456,7 @@ namespace EM_Statistics
             public bool Reform { get { return !_reform.HasValue || _reform.Value; } }  // default is true
             public bool SaveResult { get { return !_saveResult.HasValue || _saveResult.Value; } }  // default is true
             public bool BlendParameters { get { return !_blendParameters.HasValue || _blendParameters.Value; } }  // default is true
+            public bool Important { get { return _important.HasValue && _important.Value; } }  // default is false
 
             public Action() { }
             internal Action(LocalMap _localMap) { localMap = _localMap; }
@@ -473,6 +478,7 @@ namespace EM_Statistics
                     filter = new Filter(copyAction.filter, refNo);
                 _reform = refNo == -1 ? copyAction._reform : false; // is this already a reform? if so, it should not be re-reformed! ;)
                 _blendParameters = copyAction._blendParameters;
+                _important = copyAction._important;
                 _saveResult = copyAction._saveResult;
                 localMap = copyAction.localMap;
             }
@@ -558,6 +564,7 @@ namespace EM_Statistics
                 TemplateApi.Merge(ref _reform, apiAction._reform, keep, errorCollector);
                 TemplateApi.Merge(ref _saveResult, apiAction._saveResult, keep, errorCollector);
                 TemplateApi.Merge(ref _blendParameters, apiAction._blendParameters, keep, errorCollector);
+                TemplateApi.Merge(ref _important, apiAction._important, keep, errorCollector);
                 TemplateApi.Merge(ref formulaString, apiAction.formulaString, keep, errorCollector);
                 TemplateApi.MergeParameters(ref parameters, apiAction.parameters, keep, errorCollector);
                 return true;
@@ -735,7 +742,7 @@ namespace EM_Statistics
                 public class TableElement : VisualElement
                 {
                     public string stringFormat = null;
-                    internal Action cellAction = null;
+                    public Action cellAction = null;
                     internal SDCDefinition sdcDefinition = new SDCDefinition();
 
                     internal virtual bool ApiMerge(TableElement apiElement, bool keep, ErrorCollector errorCollector)
@@ -806,6 +813,7 @@ namespace EM_Statistics
                     public bool hasSeparatorBefore = false;
                     public bool hasSeparatorAfter = false;
                     public string tiesWith = null; // this is used to visually tie a reform column to a base column
+                    public string multiNo = null;
 
                     private void Copy(Column c)
                     {
@@ -814,6 +822,7 @@ namespace EM_Statistics
                         hasSeparatorAfter = c.hasSeparatorAfter;
                         hasSeparatorBefore = c.hasSeparatorBefore;
                         tiesWith = c.tiesWith;
+                        multiNo = c.multiNo;
                     }
                     public new Column Clone()
                     {
@@ -830,6 +839,7 @@ namespace EM_Statistics
                         TemplateApi.Merge(ref hasSeparatorBefore, apiColumn.hasSeparatorBefore, false, keep, errorCollector);
                         TemplateApi.Merge(ref hasSeparatorAfter, apiColumn.hasSeparatorAfter, false, keep, errorCollector);
                         TemplateApi.Merge(ref tiesWith, apiColumn.tiesWith, keep, errorCollector);
+                        TemplateApi.Merge(ref multiNo, apiColumn.multiNo, keep, errorCollector);
                         return base.ApiMerge(apiColumn, keep, errorCollector);
                     }
 
@@ -877,7 +887,7 @@ namespace EM_Statistics
                         forEachDataRow = r.forEachDataRow;
                         forEachValueOf = r.forEachValueOf;
                         forEachValueMaxCount = r.forEachValueMaxCount;
-                        foreach (var d in r.forEachValueDescriptions) forEachValueDescriptions.Add(d.Key, d.Value);
+                        if (r.forEachValueDescriptions != null) foreach(var d in r.forEachValueDescriptions) forEachValueDescriptions.Add(d.Key, d.Value);
                     }
                     public new Row Clone()
                     {
@@ -1150,7 +1160,7 @@ namespace EM_Statistics
                                                             HardDefinitions.FormulaParameter.USR_VAR,
                                                             HardDefinitions.FormulaParameter.SAVED_VAR })
             {
-                int pos = formula.IndexOf(XXX_VAR + "@");
+                int pos = formula.IndexOf(XXX_VAR);
                 while (pos > -1)
                 {
                     int startpos = pos + XXX_VAR.Length + 1; // +1 to take "@" into account

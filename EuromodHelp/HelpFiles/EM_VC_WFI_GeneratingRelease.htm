@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Start/Finish Merging</title>
+</head>
+
+<body>
+
+<h1>Start/Finish Merging: Creation of a new online bundle</h1>
+
+<p>If you are working on a given project and you have it on Version Control (VC), 
+you will regularly find the need to save your work by uploading it to VC. You can 
+do this by creating and uploading a new <i>Bundle</i>. This section describes how
+to merge (upload) a new bundle in a VC project. Note that in order to do the following, 
+you need to have 
+the appropriate access rights to create a new bundle for this project.</p>
+
+<p>Before starting the merge, please <b>open in EUROMOD the bundle where you implemented your changes</b> and log in to the Version Control.</p>
+
+<p>Then, follow the steps under the <i>NEW ONLINE BUNDLE</i> group of 
+the VC ribbon):</p>
+
+<h4>1. Connect</h4>
+<p>Open in EUROMOD the bundle where you implemented your changes.</p>
+
+<h4>2. Start new online bundle</h4>
+
+<p>Click on <i>Start new online bundle</i>: This button will lock the online bundle in order to prevent other users from changing it. If any other user tries to start a new online bundle for the same project, he/she will receive a message and will not be allowed to proceed.
+After clicking on <i>Start new online bundle</i>, you will be asked to confirm this action. Click on <i>Yes</i>.</p>
+
+ 
+<p>A message will confirm that a new online bundle has been started for that project. Click on <i>OK</i>.</p>
+
+ 
+<p>All users with access to that project will receive an email in which they will be informed about the fact that you started a new bundle for that project.
+
+</p>
+
+<h4>3. Download latest bundle</h4>
+<p>The latest online bundle should always be used as base for the new online bundle. This step will download the latest bundle and open it in EUROMOD 
+so that it can be used as base project.
+Click on <i>Download latest bundle</i> and fill in the form:
+
+<ul>
+<li>Select a path to store the project.</li>
+<li>Select the components that you would like to download 
+(Note: Switchablepolicyconfig, hicpconfig, input, varconfig, exchangerateconfig and em_log should always be downloaded in order to assure 
+that the downloaded project works properly).</li>
+<li>Click on <i>Download</i> .</li>
+</ul>
+
+ 
+After the online project has been downloaded, a message will appear. Click on <i>OK</i> .
+ 
+This project will be automatically opened in EUROMOD. Another message will inform you about this, click again on <i>OK</i> .
+</p>
+
+<h4>4. Merge changes in countries</h4></p>
+<p>This step will allow you to easily incorporate your changes to the country spines to the latest online bundle.</p>
+<p>In order to do so, first you have to open the country you would like to merge. To do so, click on <i>Countries</i> and then, on the flag of the country:</p>
+ 
+<p>Then, go back to the Version Control tool tab and click on <i>Merge country</i>. You will be asked if you would like to compare this bundle with another 
+local bundle. That local bundle should correspond to the one from which you initiated the process (the one in which you implemented your changes). Click on <i>Yes</i>.</p>
+ </p>
+<p>The merge tool will be opened.
+ 
+<p>The merge tool contains several tabs for the different elements that can be compared and merge. It is divided in
+ two sections (local and remote). The area on the left-hand side displays the values in the local bundle (this is the one you have just downloaded). 
+The area on the right-hand side displays the values in the remote bundle (this is the one from which you initiate the process, the one in which 
+you implemented your changes).</p>
+<p>Accept or reject your changes by right clicking on each change and then accepting or rejecting them. 
+<ul>
+<li><i>Accepting a change</i> means that this value will be copied from the remote bundle to the local bundle (this 
+is, from the bundle where you implemented your changes to the bundle you just downloaded). </li>
+
+<li><i>Rejecting a change</i> means that your modified value will be discarded and the original value will remain. </li>
+</ul>
+Once all changes have been accepted or rejected, click on <i>Apply</i>.A message will appear. Click on <i>OK</i>.</p>
+ 
+<p>If needed, modify the country manually to add additional changes. Save your changes (Ctrl + S).</p>
+<p>Repeat this step (step 4) for all the countries that you need to merge.</p>
+
+
+
+<h4>5. Merge changes in configuration files</h4>
+<p>This step will allow you to easily incorporate the changes you have performed to the configuration files to the latest online bundle.</p>
+<p>Click on <i>Merge config files</i>. You will be asked if you would like to compare this bundle with another local bundle. 
+That local bundle should correspond to the one from which you initiated the process (the one in which you implemented your changes). Click on <i>Yes</i>.</p>
+ 
+<p>Select the configuration file that you would like to compare and click on <i>OK</i>.</p>
+ 
+<p>The merge tool contains several tabs for the different elements that can be compared and merge. 
+It is divided in two sections (local and remote). The area on the left-hand side displays the values in the local bundle 
+(this is the one you have just downloaded). The area on the right-hand side displays the values in the remote bundle (this 
+is the one from which you initiate the process, the one in which you implemented your changes).</p>
+ 
+<p>Accept or reject your changes by right clicking on each change and then accepting or rejecting them. 
+<ul>
+<li><i>Accepting a change</i> means that this value will be copied from the remote bundle to the local bundle (this 
+is, from the bundle where you implemented your changes to the bundle you just downloaded). </li>
+
+<li><i>Rejecting a change</i> means that your modified value will be discarded and the original value will remain. </li>
+</ul>
+
+
+<p>Once all changes have been accepted or rejected, click on </i>Apply</i>. A message will appear. Click on <i>OK</i>.</p>
+ 
+<p>If needed, modify the configuration file manually to add additional changes. Save your changes (Ctrl + S).</p>
+<p>Repeat this step (step 5) for all configuration files (VARCONFIG.xml, EXCHANGERATESCONFIG.xml, HICPCONFIG.xml, SWITCHABLEPOLICYCONFIG.xml).
+</p>
+
+<h4>6. Update the log file</h4>
+<p>From the Windows (or any operating system) file explorer, navigate to the path where you have downloaded the 
+latest version of the model, access the Log folder and update the EM_LOG.xlsx file with the latest changes.</p>
+
+<h4>7. Upload and finish online bundle</h4>
+<p>After performing the previous steps (step 1-6), click on <i>Upload and finish online bundle</i>. You will be asked for confirmation, click on <i>Yes</i>.</p>
+ 
+<p>Then, select the units that you would like to upload. 
+The ones with changes will appear as modified. </p>
+<p>The version may also be changed by ticking the checkbox <i>Manual Version</i> and then manually writing the new version. Click on <i>Upload</i>.</p>
+ 
+<p>Wait until all units are uploaded. A message will appear then. Click on <i>OK</i>.</p>
+ 
+<p>Once the new bundle is created, all users with permissions to access this project will receive an email 
+informing them about the fact that a new bundle has been created by you for this project. </p>
+<p>The online version of the project will also be unlocked once the new bundle is created so that other users can edit it if needed.</p>
+</p>
+
+
+<h1>Abort the creation of a new online bundle</h1>
+
+<p>The creation of a new online bundle can be aborted at any time by clicking <a href="#_ftn4" name="_ftnref4">[4]</a> on the <i>Abort new online bundle</i> button and then clicking on <i>Yes</i>.</p>
+<p>Then click OK on the message that will appear.</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+The previous steps do not need to be performed at once. If you close EUROMOD in the middle of the process and then 
+open it again later, EUROMOD will informed you about the fact that you have an unfinished merge when you connect to the same project again and 
+you will be allowed to continue creating your online bundle from the same step you were performing when you closed EUROMOD.</p>
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+If you would like to continue a merge and you haven't downloaded the latest online bundle yet (you are still in step 1 or 2), 
+you have to open EUROMOD with the bundle in which you implemented 
+your changes and then connect to the project and continue the creation of the new bundle.</p>
+<p class="footnote"><a href="#_ftnref3" name="_ftn3" title="">[3]</a>
+If you would like to continue a merge and you have already downloaded the latest online bundle (you are in step 3 or later), you have to open EUROMOD with the bundle you have downloaded. After connecting to the project you will be asked if you would like to use the current bundle
+as lastest online bundle. Click on <i>Yes</i> to continue from the same step you were performing when you closed EUROMOD. </p>
+<p class="footnote"><a href="#_ftnref4" name="_ftn4" title="">[4]</a>Please, notice that if you abort and then decide to create a new online bundle, you will have to start the process from the very beginning.</p>
+</div>
+
+
+</body>
+
+</html>

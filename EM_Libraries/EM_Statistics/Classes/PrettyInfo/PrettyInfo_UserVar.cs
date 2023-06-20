@@ -4,6 +4,8 @@
     {
         private class PrettyInfo_UserVar: PrettyInfo
         {
+            protected override string ident { get => PRETTY_INFO_USER_VAR; }
+
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
                 string newText = origText;

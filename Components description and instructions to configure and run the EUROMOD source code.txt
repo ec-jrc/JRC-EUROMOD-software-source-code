@@ -1,5 +1,4 @@
-EUROMOD (website: https://euromod-web.jrc.ec.europa.eu/  contact: JRC-EUROMOD@ec.europa.eu ) is a tax-benefit microsimulation model for the European Union and the UK that enables researchers and policy analysts to calculate, 
-in a comparable manner, the effects of taxes and benefits on household incomes and work incentives for the population of each country and for the EU as a whole. 
+EUROMOD (website: https://euromod-web.jrc.ec.europa.eu/  contact: JRC-EUROMOD@ec.europa.eu ) is a tax-benefit microsimulation model for the European Union that enables researchers and policy analysts to calculate, in a comparable manner, the effects of taxes and benefits on household incomes and work incentives for the population of each country and for the EU as a whole. 
 
 EUROMOD comprises a user interface, an executable, plugins and a specific file structure. This repository includes the source code of the software (user interface, executable, plugins and some additional libraries and files).
 
@@ -14,22 +13,15 @@ Elements included in the EUROMOD software source code:
                - EM_Executable
                - EM_ExecutableCaller
                - EM_Transformer
-- EM_Help: EUROMOD help files.
+- EuromodHelp: EUROMOD help files.
 - EM_Libraries: Libraries which are used in other components.
 - EM_Plugins:
                - Hypothetical Household: The Hypothetical Household Tool (HHoT) is a EUROMOD plugin for designing hypothetical households and generating data according to the chosen household characteristics. 
                  This hypothetical household data can then be used to estimate the effects of taxes and benefits on household disposable income.
                - Income List Components: The Income List Components plugin extracts information about the income lists used in the selected countries/years. In particular, it visualises the components of the income list. 
-               - StatisticsPresenter: The Statistics Presenter plugin is an analysis tool that produces a fixed set of statistics on income distribution based on (a) EUROMOD output file(s). 
                - VariablesChecker: The Variables Checker plugin provides methods for validating the EUROMOD variables file. 
                - Web Statistics: it generates summary tables with the baseline estimates on the distribution of different income components (from market income to disposable income) 
 		 as well as on the incidence of taxes and benefits across decile income groups. It also provides summary statistics on income inequality and poverty indicators, as well as on marginal effective tax rates.
-	       - In-depth Analysis: The In-depth Analysis plugin is an advanced Statistics presenter which provides additional indicators and allow extra flexibility in the definition of variables and population groups.
-		 The In-depth Analysis plugin was developed as a part of the project “Support for the Microsimulation Hub of the Council of Economic Advisors in Greece”,
-		 funded by the European Commission’s Structural Reform Support Programme and implemented by the Joint Research Centre
-		 through an administrative arrangement with DG REFORM. All parties agreed to incorporate the plugin to EUROMOD, which implies 
-		 the public distribution of its compiled version under the EUROMOD End-user licence agreement and its source code under the European Union 
-		 Public Licence (EUPL-1.2) or a later version of this licence.
 - EM_UI: EUROMOD user interface.
 - Executable: Source code of the EM2 executable (EUROMOD calculator engine EM2).
 - externallibs: Ionic.Zip.dll (and Readme.txt) which are used in EUROMOD.
@@ -44,17 +36,27 @@ This software is not open source and it is not provided together with EUROMOD.
 
 - Clone the repository.
 - Make sure a valid version of DevExpress is installed in the machine.
-- Generate the help file (otherwise EUROMOD will display an error). In order to do so:
+- Generate the EUROMOD help file (otherwise EUROMOD will display an error). In order to do so:
 	1. Create a folder named "bin" in \EM_UI.
 	2. Create a folder named "help" in \EM_UI\bin\
 	3. Double click on the file \EM_HELP\HelpStructure\AutoRunHelpMaker.xlsm. This file contains a macro which will be automatically run when opening the files. Macros should be enabled. 
 	   This macro will create the EUROMOD help in the folder \EM_UI\bin\help which has been previously created.
 	   The macro will use Microsoft HTML Help Workshop and it will expect it to be installed in 
 	   C:\Program Files (x86)\HTML Help Workshop\hhc.exe. This software is property of Microsoft and it is not provided together with EUROMOD.
-	
+
+- Generate the In-depth help file (otherwise EUROMOD will display an error). In order to do so:
+        1. Create a folder named "bin" in \EM_UI (if it does not exist).
+        2. Create a folder named "help" in \EM_UI\bin\ (if it does not exist)
+        3. Open the “InDepthHelpMaker” project in Visual Studio, build it and execute it. This will use the existing source files in “EuromodHelp\InDepthHelpMaker\” to generate the “In-depthAnalysisHelp.chm” 		file in the same folder. Once the help file is generated, you will need to manually move it in “\EM_UI\bin\help\”.
+	This project will use Microsoft HTML Help Workshop and it will expect it to be installed in C:\Program Files (x86)\HTML Help Workshop\hhc.exe. This software is property of Microsoft and it is not 	provided together with EUROMOD.
+
 - Double click on the solution file EUROMOD development.sln to open the solution.
 - Build the solution by selecting the Solution Configuration Debug and EM_UI.
 - Start the solution.
 
-Note: In order to run the previous version of EUROMOD (EM2), the project under \Executable\core-executable needs to be compiled and the EUROMOD.exe
+Notes: 
+
+- In order to run the previous version of EUROMOD (EM2), the project under \Executable\core-executable needs to be compiled and the EUROMOD.exe
 file needs to be copied to \EM_UI\bin\x64\executable.
+
+- In order to use Statistics presenter, the templates from \Supporting Material\EM Templates\UserSelectable need to be copied to C:\ProgramData\EUROMOD\UserSelectableTemplates (folder "UserSelectableTemplates" needs to be created first).

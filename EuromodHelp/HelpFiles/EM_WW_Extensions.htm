@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Extensions</title>
+</head>
+
+<body>
+
+<h1>Extensions</h1>
+
+<p>The EUROMOD user interface provides a special way to switch
+elements - namely policies, functions or parameters - on or off via the run dialog, i.e. without having to make changes in the parameter files.
+To learn how this works from the user's point of view please see <i><a href="EM_WW_RunDialog.htm">Working with EUROMOD - Running EUROMOD</a></i>, 
+paragraph <i>Switching extensions on or off</i>. The present section concentrates on describing how to administrate the underlying information.</p>
+
+<p>Implementing an extension involves the following steps:
+<ol type="a">
+<li>creating the extension</li>
+<li>implementing the elements (policies/functions/parameters) belonging to the extension</li>
+<li>assigning these elements to the extension, and possibly define elements which are excluded by the extension</li>
+<li>setting default-switches for the extension for the available system-dataset combinations</li>
+</ol>
+
+<h4>a. Creating the extension</h4>
+<p>Extensions can be country specific or global, where the latter means, that they are in principle available for any country, provided they are implemented (points b-d).
+There are two buttons for creating each kind: the button <i>Admin Country</i> in the ribbon <i>Country Tools</i> for country specific extensions
+and the button <i>Admin Global</i> in the ribbon <i>Administration Tools</i> for global extensions.
+Both open a dialog, which provides options for adding, deleting and changing extensions. Once the respective changes are accomplished and the dialog is closed with OK, 
+the information is stored in the country parameter files for country specific extensions, and in the global extensions file for global extensions <a href="#_ftn1" name="_ftnref1" title="">[1]</a>.</p>
+<p>The information required for an extension has three components:</p>
+<ul>
+<li>a short name (e.g. TCA)</li>
+<li>a long, more descriptive name (e.g. <i>Tax Compliance Adjustments</i>)</li>
+<li>and a 'look': for this the dialog allows for selecting a colour, which is used for drawing the markers that represent the extension in the spine</li>
+</ul>
+</p>
+
+<h4>b. Implementing the elements belonging to the extension</h4>
+<p>This simply means that the policies, functions and parameters, which make up the extension, have to be implemented. 
+Thus it is usual developing work and requires no further description at this place.</p>
+
+<h4>c. Assigning elements to the extension</h4>
+<p>Apart from switching the extension itself on or off (in the run-tool or via default switches), the elements of the extension, i.e. policies, functions and parameters, can be on or off.
+This may be best illustrated by an example:<br>
+Consider an extension XYZ that replaces the base-line policy BSA_cc by an extension-policy BSA_XYZ_cc.<br>
+If XYZ is switched on (in the run-tool or by default), BSA_XYZ_cc should be on and the base-line policy BSA_cc should be off.<br>
+If XYZ is switched off, BSA_XYZ_cc should be off and the base-line policy BSA_cc should be on (i.e. a normal base-line-run).</p>
+<p>Assigning elements to the extension is accomplished either via the menu-item <i>Extensions</i> in the context-menu of policies, functions and parameters, or via the analogue buttons in the ribbon <i>Country Tools</i>. 
+The sub-menus respectively buttons <i>Add to, switch on</i> and <i>Add to, switch off</i> allow for adding elements (as on or off) and the sub-menu/button <i>Remove from</i> allows for removing elements. 
+These sub-menus/buttons open a sub-menu showing the extensions available for the respective action, i.e. only those that allow for the action.<br>
+Note that the add/remove concerns all selected elements (and not only the element the context-menu belongs to).</p>
+
+<p>Once an element is added to an extension, the element and all its child-elements (functions and parameters) show an extension-marker in the row-number column in the <b style="color:red">colour</b> of the extension: this is
+<ul>
+<li>a tick (<b style="font-family:Wingdings; color:red">ü</b>) for elements added as on and</li>
+<li>a cross (<b style="font-family:Courier; color:red">x</b>) for elements added as off.</li>
+</ul>
+In addition, if policies and functions are added as on to an extension, they (and in the case of policies, also their child-functions) show <b>switch</b> as their switch, 
+instead of on/off/na, to symbolise that the elements are now switchable (for example) by the run-tool.<br>
+It may also be relevant to know that, if policies and functions are added as off to an extension, they are <i>not touched</i> if the extension is off. 
+That means if this (base-line) element is actually anyway off or n/a it is of course not switched on, if the extension is off. 
+In other words, if the extension is off, base-line-behaviour is fully effective.</p>
+
+<p>As outlined above, in principle, adding a policy to an extension also adds all its functions and parameters to the extension, with the same setting, i.e. on or off. The same is true for a function and its parameters. 
+However, it is possible to overwrite the on-setting of the parent-element (e.g. policy) to off for a sub-element (e.g. function). 
+This feature makes in fact only sense, if a policy or function is part of more than one extension. The following example may illustrate the usage:
+<table class="spine">
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_2020</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td><b style="font-family:Wingdings; color:red">ü</b><b style="font-family:Wingdings; color:blue">ü</b>Policy_Shared_By_BTA_and_TCA_sl</td>
+		<td class="function">switch</td>
+		<td>This policy belongs to two extensions: <span style="color:red">BTA</span> and <span style="color:blue">TCA</span>.</td>
+	</tr>
+	<tr class="function">
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-family:Wingdings; color:red">ü</b><b style="font-family:Wingdings; color:blue">ü</b>DefConst</td>
+		<td class="function">switch</td>
+		<td>This function should run if <span style="color:red">BTA</span> is switched on as well as if <span style="color:blue">TCA</span> is switched on.</td>
+	</tr>
+	<tr class="function">
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;<b style="font-family:Wingdings; color:red">ü</b><b style="color:blue">x</b>ArithOp</td>
+		<td class="function">switch</td>
+		<td>This function should run if <span style="color:red">BTA</span> is switched on.</td>
+	</tr>
+<tr class="function">
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:red">x</b><b style="font-family:Wingdings; color:blue">ü</b>ArithOp</td>
+		<td class="function">switch</td>
+		<td>This function should run if <span style="color:blue">TCA</span> is switched on.</td>
+	</tr></table>
+</p>
+
+<p>An important information for being able to interpret the example is that <b style="font-family:Arial Black; color:deeppink">on always wins!</b><br>
+Thus, if both extensions, <b style="color:red">BTA</b> and <b style="color:blue">TCA</b>, are off, the policy <i>Policy_Shared_By_BTA_and_TCA_sl</i> is off.<br>
+If both extensions are on, the policy is on, as well as all its functions.<br>
+If <b style="color:red">BTA</b> is on and <b style="color:blue">TCA</b> is off, the <i>DefConst</i> and the first <i>ArithOp</i> are on, the seconc <i>ArithOp</i> is off.<br>
+If <b style="color:red">BTA</b> is off and <b style="color:blue">TCA</b> is on, the <i>DefConst</i> and the second <i>ArithOp</i> are on, the first <i>ArithOp</i> is off.</p>
+
+<p>As described above functions which are part of a policy, which is added as on to an extension, in principle show <b>switch</b> as their switch.<br>
+If however, the policy (before being added) has functions, which are set to on or n/a, their switch will not be changed to <b>switch</b>, but still show off or n/a. 
+Such functions are <i>permanently switched off</i> in the sense that, independently of whether the extension is on or off, the function will never be on. 
+Thus this feature serves for information only, as obviously the functions have no effect on the run. It may e.g. be applied for preserving old versions or prearranging new versions of functions.<br>
+Please note that, once a policy is added as on to an extension, all new functions will automatically show <b>switch</b> as their switch, i.e. be switchable by (e.g.) the run-tool.
+<a href="#_ftn2" name="_ftnref2" title="">[2]</a></p>
+
+<h4>d. Setting default-switches for the extension</h4>
+<p>To make an extension available in the run-tool it is necessary to define default-switches on system-dataset-combination-level. 
+That means there can be a different default-switch for each system-dataset-combination.<br>
+Default-switches are set via a dialog activated by the button <i>Set Switches</i> in the <i>Extensions</i>-section of the ribbon <i>Country Tools</i>. 
+</p>
+
+<p>The left part of the dialog provides a list of all existing extensions (global and country specific). 
+Checking an extension of this list fills the table in the right part of the dialog with the respective switches for each system-dataset combination. 
+An empty (and not changeable) cell indicates that the respective system-dataset combination is not available (i.e. the dataset cannot be used to run the system). 
+For the (other) switches three values are possible:</p>
+
+<ul>
+<li><strong><i>on</i></strong> means that the extension is switched on as a default for this system-dataset-combination.</li>
+<li><strong><i>off</i></strong> means that the extension is switched off as a default for this system-dataset-combination.</li>
+<li><strong><i>n/a</i></strong> means that the extension is not switchable for this system-dataset-combination. More precisely that means:<br>
+<b style="font-family:Arial Black; color:deeppink">All policies and functions added as on to the extension are off and all parameters set to n/a.</b><br>
+Elements added as off just have their usual value.<br>
+If for a switch no explicit default value is specified, n/a is used as a default.</li>
+</ul>
+
+<p>These default values are used by the run-dialog to compose the buttons in the extension-switch-columns 
+(see <i><a href="EM_WW_RunDialog.htm">Working with EUROMOD - Running EUROMOD</a></i>), paragraph <i>Switching extensions on or off</i>.</p>
+
+<p>A right click in the switches table opens a context menu, which allows for more convenient definition of the switch values, by allowing
+to set the same value (on, off or n/a) for all system-dataset-combinations of a specific system, a specific dataset or simply for all.</p>
+
+<h4>Extension Actions</h4>
+
+<p>Extensions allow for several 'actions' (similar to groups, see <i><a href="EM_WW_Groups.htm">Groups</a></i>), namely <i>Set Visible, Set Not Visible, Expand, Set Private</i> and <i>Set Not Private</i>.</p>
+<p>The actions are activated by, either the respective sub-menus of the menu-item <i>Extensions</i> in the context-menu of policies, functions and parameters, 
+or by the respective buttons in the <i>Extensions</i>-section of the ribbon <i>Country Tools</i>.<br>
+In addition, the <i>Global Extensions</i>-section of the ribbon <i>Administration Tools</i> provides buttons for the actions <i>Set Private</i> and <i>Set Not Private</i>. 
+While however the menu-items and the buttons in the ribbon <i>Country Tools</i> show extensions of the respective country as well as global extensions, 
+the buttons in the <i>Administration Tools</i> only list global extensions.
+
+<ul>
+<li><strong>Set Visible</strong>: all elements of the extension are shown in the sense that a possible hidden-state is removed, however, the parent-elements are not automatically expanded.</li>
+<li><strong>Set Not Visible</strong>: all elements of the extension are hidden.</li>
+<li><strong>Expand</strong>: all elements of the extension are shown (possible hidden-state removed) and actually made visible by expanding.</li>
+<li><strong>Set Private</strong>: all elements of the extension are set private.</li>
+<li><strong>Set Not Private</strong>: removes the private-attribute from all elements of the extension.</li>
+</ul>
+
+Note that, if the actions <i>Set Private</i> and <i>Set Not Private</i> are applied on a global extension, a request is displayed asking whether the user wants to perform the action for all countries.<br>
+In this context it may be useful to know that the intention of this private (un)setting is to allow for customised Releases: 
+One could release a, in general private, extension to a selected group of people by using <i>Set Not Private</i> for this extension before hitting the <i>Generate Public Version</i> button. 
+Then one can use <i>Set Private</i> to undo the 'publication' for further Releases.</p>
+
+<p>Also note that all actions are ignorant in the sense of not caring about any current or contradicting state: 
+<i>Set Visible</i> does for example not care if elements were actually hidden before. 
+Similarly, if one first sets Group A visible and then Group B not visible, with an element belonging to both groups, the element will be not visible in the end.<br>
+Finally note that the actions are in principle not permanent, i.e. get lost once a country is closed. 
+The visible-state is however part of the <i>view settings</i>, which can be stored (see option in the <i><a href="EM_WW_Configuration.htm">Project Configuration</a></i> dialog).</p>
+
+<p>&nbsp</p>
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+For the old executable that is the file SwitchablePolicyConfig.xml, for the new executable it is the file Extensions.xml, both stored in the respective Config-folder </p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+Actually the 'feature' is a remainder of a previous implementation of extensions, where the functions of extension-policies did not show <b>switch</b>, but the usual settings (on/off/na/toggle). 
+Thus, permanently switched off functions mainly exist to keep this previous implementation compatible. Usually pure information should be provided by other means, e.g. comments or documentation. 
+This also justifies the a bit tedious way to implement a permanently switched off function, if the policy is already added to any extension, as it requires removing the policy from the extension(s), 
+implementing the function as switched off or n/a, and aftewards re-adding the policy.</p>
+
+</body>
+
+</html>

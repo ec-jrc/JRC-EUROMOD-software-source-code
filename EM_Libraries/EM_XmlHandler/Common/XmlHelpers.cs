@@ -1,6 +1,7 @@
 ﻿using EM_Common;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace EM_XmlHandler
 {
@@ -22,6 +23,14 @@ namespace EM_XmlHandler
         /// Value of inner Dictionary: content of property (e.g. SL_demo, 2014, ...)
         /// <param name="singleItem"> true for e.g. COUNTRY, meaning that there is no COUNTRYs (like for SYS -> SYSs) </param>
         /// <returns></returns>
+        public static Dictionary<string, Dictionary<string, string>> GetXmlGroupItems(XElement xe, string tag,
+                                           bool hasId = true, bool uniqueProperties = true, bool singleItem = false)
+        {
+            using (XmlReader reader = xe.CreateReader())
+            {
+                return GetXmlGroupItems(reader, tag, hasId, uniqueProperties, singleItem);
+            }
+        }
         public static Dictionary<string, Dictionary<string, string>> GetXmlGroupItems(XmlReader reader, string tag,
                                            bool hasId = true, bool uniqueProperties = true, bool singleItem = false)
         {

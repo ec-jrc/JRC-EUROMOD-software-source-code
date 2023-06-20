@@ -55,6 +55,8 @@
             this.tabData = new System.Windows.Forms.TabPage();
             this.tabCondForm = new System.Windows.Forms.TabPage();
             this.tabUpratingIndices = new System.Windows.Forms.TabPage();
+            this.tabIndirectTaxes = new System.Windows.Forms.TabPage();
+            this.tabExternalStatistics = new System.Windows.Forms.TabPage();
             this.tabExtensions = new System.Windows.Forms.TabPage();
             this.tabLookGroups = new System.Windows.Forms.TabPage();
             this.tabExtSwitches = new System.Windows.Forms.TabPage();
@@ -304,6 +306,8 @@
             this.tabControl.Controls.Add(this.tabData);
             this.tabControl.Controls.Add(this.tabCondForm);
             this.tabControl.Controls.Add(this.tabUpratingIndices);
+            this.tabControl.Controls.Add(this.tabIndirectTaxes);
+            this.tabControl.Controls.Add(this.tabExternalStatistics);
             this.tabControl.Controls.Add(this.tabExtensions);
             this.tabControl.Controls.Add(this.tabExtSwitches);
             this.tabControl.Controls.Add(this.tabLookGroups);
@@ -362,6 +366,26 @@
             this.tabUpratingIndices.TabIndex = 2;
             this.tabUpratingIndices.Text = "Uprating Indices";
             this.tabUpratingIndices.UseVisualStyleBackColor = true;
+            // 
+            // tabIndirectTaxes
+            // 
+            this.tabIndirectTaxes.Location = new System.Drawing.Point(4, 25);
+            this.tabIndirectTaxes.Name = "tabIndirectTaxes";
+            this.tabIndirectTaxes.Padding = new System.Windows.Forms.Padding(3);
+            this.tabIndirectTaxes.Size = new System.Drawing.Size(819, 421);
+            this.tabIndirectTaxes.TabIndex = 2;
+            this.tabIndirectTaxes.Text = "Indirect Taxes";
+            this.tabIndirectTaxes.UseVisualStyleBackColor = true;
+            // 
+            // tabExternalStatistics
+            // 
+            this.tabExternalStatistics.Location = new System.Drawing.Point(4, 25);
+            this.tabExternalStatistics.Name = "tabExternalStatistics";
+            this.tabExternalStatistics.Padding = new System.Windows.Forms.Padding(3);
+            this.tabExternalStatistics.Size = new System.Drawing.Size(819, 421);
+            this.tabExternalStatistics.TabIndex = 2;
+            this.tabExternalStatistics.Text = "External Statistics";
+            this.tabExternalStatistics.UseVisualStyleBackColor = true;
             // 
             // tabExtensions
             // 
@@ -507,6 +531,8 @@
         private System.Windows.Forms.TabPage tabSpine;
         private System.Windows.Forms.TabPage tabCondForm;
         private System.Windows.Forms.TabPage tabUpratingIndices;
+        private System.Windows.Forms.TabPage tabIndirectTaxes;
+        private System.Windows.Forms.TabPage tabExternalStatistics;
         private System.Windows.Forms.TabPage tabExtensions;
         private System.Windows.Forms.TabPage tabLookGroups;
         private System.Windows.Forms.TabPage tabExtSwitches;

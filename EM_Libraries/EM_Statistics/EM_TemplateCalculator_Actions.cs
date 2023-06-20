@@ -80,6 +80,7 @@ namespace EM_Statistics
             if (data[action.CalculationLevel].HasVariable(action.outputVar, action.localMap)) return true;
 
             bool monetary = true; if (action.HasParameter(PAR_MONETARY)) GetBoolParameterValue(PAR_MONETARY, action, out monetary);
+            bool copyToIndividuals = true; if (action.HasParameter(PAR_COPY_TO_INDIVIDUALS)) GetBoolParameterValue(PAR_COPY_TO_INDIVIDUALS, action, out copyToIndividuals);
             data[action.CalculationLevel].AddVar(action.outputVar, monetary, action.localMap);
             data[action.CalculationLevel].GetData().ForEach(x => x.Add(action.filter.GetFunc(data[action.CalculationLevel])(x) ? 1 : 0));
             return true;
@@ -567,13 +568,14 @@ namespace EM_Statistics
             if (action.HasParameter(PAR_SUMVAR) && !GetVarParameterInfo(PAR_SUMVAR, data, action, out _, out var, null, true)) return ActionErrorBool(action, "No summing variable defined");
             GetBoolParameterValue(PAR_COPY_TO_INDIVIDUALS, action, out bool copyToIndDataset);
             bool? takeFromHead = null; if(action.HasParameter(PAR_COPY_TO_GROUP) && GetBoolParameterValue(PAR_COPY_TO_GROUP, action, out bool b)) takeFromHead = b;
+            Func<List<double>, bool> filter = action.filter?.GetFunc(data[action.CalculationLevel]);
 
-            CreateGroupValue(data, action.CalculationLevel, var, action.outputVar, action.localMap, takeFromHead, copyToIndDataset);
+            CreateGroupValue(data, action.CalculationLevel, var, action.outputVar, action.localMap, takeFromHead, copyToIndDataset, filter);
             return true;
         }
 
         private void CreateGroupValue(Dictionary<string, DataStatsHolder> data, string calculationLevel, string var,
-                                      string outputVar = null, LocalMap localMap = null, bool? takeFromHead = null, bool copyToIndDataset = false)
+                                      string outputVar = null, LocalMap localMap = null, bool? takeFromHead = null, bool copyToIndDataset = false, Func<List<double>, bool> filter = null)
         {
             if (outputVar == null) outputVar = var;
             bool outVarExists_group = data[calculationLevel].HasVariable(outputVar, localMap);
@@ -590,7 +592,7 @@ namespace EM_Statistics
             int indexOutVar_group = data[calculationLevel].GetVarIndex(outputVar, localMap);
             int indexGroupingVar = data[IND].GetVarIndex(template.info.GetCalculationLevelVar(calculationLevel), localMap);
             int indexIdPerson = data[IND].GetKeyIndex();
-
+            
             foreach (var grp in from person in data[IND].GetData()
                                 group person by person[indexGroupingVar] into GRP
                                 select GRP)
@@ -902,7 +904,7 @@ namespace EM_Statistics
             int refNo = ExtractRefFromVarName(msgSwitchVar, out _);
             errorCollector.AddError(PrettyInfoProvider.GetPrettyText(template.info,
                 refNo == -1 ? message.Replace("[ref", "[base") : message, // this allows for using e.g. [refSys] in Global/Page/Table-Actions to address both, base- and reform-systems (also see comment in function-header, all not very clean and could be improved)
-                baselineSystemInfos[0], reformSystemInfos, packageKey, refNo));
+                baselineSystemInfos, reformSystemInfos, packageKey, refNo));
         }
 
         private string GetVarNameCutOff(string outputVarName, double cutOffNumber)

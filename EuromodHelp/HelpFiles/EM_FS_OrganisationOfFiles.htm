@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Organisation of files</title>
+</head>
+
+<body>
+
+<h1>Organisation of files</h1>
+
+<p>The EUROMOD file structure, also referred to as
+&quot;content&quot; (in contrast to &quot;software&quot;) is organised as
+follows:</p>
+
+<table class="info">
+	<tr>
+		<th>Folder&nbsp;/&nbsp;sub&nbsp;folder</th>
+		<th>Content</th>
+	<tr>
+	<tr>
+		<th>XMLParam</th>
+		<td>This folder contains the files where the executable and the user interface draw their information from.</td>
+	</tr>
+	<tr>
+		<th>&nbsp;&nbsp;&nbsp;&nbsp;Countries</th>
+		<td>
+			<p>This folder contains the EUROMOD parameter files, i.e.
+			the files that contain the implementation of the countries' tax-benefit systems
+			in EUROMOD. There is one sub folder for each country. The name of this folder
+			is the short name of the country (e.g. DE for Germany, HU for Hungary, EL for
+			Greece, ...).</p>
+			<p>Each country's folder contains two XML-files (cc stands
+			for the country's short name):</p>
+			<p><i><strong>cc.xml</strong></i> contains the
+			parameters that describe the country's tax-benefit system
+			(and some other information).</p>
+			<p><i><strong>cc_DataConfig.xml</strong></i>
+			contains information on the input datasets that are used to simulate these
+			tax-benefit systems.</p>
+			<p>For the composition of these files see <a
+			href="EM_FS_ParameterFiles.htm">EUROMOD Installation and Architecture -
+			EUROMOD content (parameter files) - Format of country parameter files</a>.</p>
+			<p>Moreover, the country's folder contains an image in
+			portable network graphic format (png) used by the
+			user interface to display the country's flag.<a href="#_ftn1" name="_ftnref1" title="">[1]</a></p>
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;&nbsp;&nbsp;&nbsp;AddOns</th>
+		<td>
+			<p>This folder
+			contains special EUROMOD parameter files, which contain the implementation of
+			EUROMOD add-ons. Similar to countries, there is one sub folder per add-on.
+			The name of the folder is the short name of the add-on (e.g. MTR.xls for the
+			Marginal Tax Rate add-on).</p>
+			<p>Each add-on's
+			folder holds one XML-file containing the parameters that describe the
+			add-on's tasks. The structure of the file is in principle the same as for a
+			country's <i>cc.xml</i>. See <a
+			href="EM_FS_ParameterFiles.htm">EUROMOD Installation and Architecture -
+			EUROMOD content (parameter files) - Format of country parameter files</a> for
+			its composition.</p>
+			<p>Moreover, the
+			add-on's folder contains an image in portable network graphic format (png) used by the user interface to display the add-on's
+			symbol.</p>
+			<p>Also see <a href="EM_FC_AddOn_Applic_AddOn_Pol_AddOn_Func_AddOn_Par.htm">EUROMOD Functions - EUROMOD add-ons and the
+			special functions AddOn_Applic, AddOn_Pol,
+			AddOn_Func and AddOnPar</a>
+			for more information on implementing add-ons and <a href="EM_WW_RunDialog.htm">Working
+			with EUROMOD - Running EUROMOD</a> for information on the application of
+			add-ons.<a href="#_ftn2" name="_ftnref2" title="">[2]</a></p>
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;&nbsp;&nbsp;&nbsp;Config</th>
+		<td>
+			<p>This folder contains four files:</p>
+			<p><i><strong>EXCHANGERATESCONFIG.xml</strong></i> stores the exchange rates as defined in the “Exchange Rates” table (located in the “Administration Tools” ribbon).</p>
+			<p><i><strong>HICPCONFIG.xml</strong></i> stores the Eurostat's Harmonized Index of Consumer Prices (HICP) and other series of uprating indices as defined in the Uprating Indices table (See <a href="EM_WW_DefiningUpratingFactors.htm">Working with EUROMOD - Defining Uprating Factors</a>).</p>
+			<p><i><strong>SWITCHABLEPOLICYCONFIG.xml</strong></i> stores the list of Policy Switches available in EUROMOD (see <a href="EM_WW_Extensions.htm">Working with EUROMOD - Changing Countries’ Settings – Extensions</a>).</p>
+			<p><i><strong>VARCONFIG.xml</strong></i> stores the list of EUROMOD variables in XML-format - see <a href="EM_WW_Variables.htm">Working with EUROMOD - Administration of EUROMOD variables</a>.</p>
+		</td>
+	</tr>
+	<tr>
+		<th>&nbsp;&nbsp;&nbsp;&nbsp;Temp</th>
+		<td>The folder contains temporary files, which can be deleted without consequence.</td>
+	</tr>
+	<tr>
+		<th>Input</th>
+		<td>This folder may contain input data - see <a href="EM_WW_OpenProject.htm">Working with EUROMOD - Open project</a>. </td>
+	</tr>
+	<tr>
+		<th>Output</th>
+		<td>This folder may be used as default output folder - see <a href="EM_WW_OpenProject.htm">Working with EUROMOD - Open project</a>. </td>
+	</tr>
+</table>
+
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1" name="_ftn1" title="">[1]</a>
+In addition the folder may temporary contain a small text file, which contains
+information on who uses the country currently (see <a href="EM_WW_Saving.htm">Working
+with EUROMOD - Saving and file locking</a>).</p>
+
+<p class="footnote"><a href="#_ftnref2" name="_ftn2" title="">[2]</a>
+In addition the folder may temporary contain a small text file, which contains
+information on who uses the add-on currently (see <a href="EM_WW_Saving.htm">Working
+with EUROMOD - Saving and file locking</a>).</p>
+
+</div>
+
+</body>
+
+</html>

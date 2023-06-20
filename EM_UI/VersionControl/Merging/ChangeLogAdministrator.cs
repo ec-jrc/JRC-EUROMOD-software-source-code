@@ -65,7 +65,8 @@ namespace EM_UI.VersionControl.Merging
         private static string GetCellValue(Worksheet w, int r, int c, bool toLower = true)
         {
             if (w[r, c].Value == null) return string.Empty;
-            string cellVal = w[r, c].Value.TextValue; if (cellVal == null) return string.Empty;
+            string cellVal = string.IsNullOrEmpty(w[r, c].Value.TextValue)?w[r, c].Value.NumericValue.ToString() : w[r, c].Value.TextValue; 
+            if (cellVal == null) return string.Empty;
             return toLower ? cellVal = cellVal.Trim().ToLower() : cellVal = cellVal.Trim();
         }
     }

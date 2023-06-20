@@ -1,0 +1,1465 @@
+<Template>
+	<TemplateInfo>
+		<Name><![CDATA[Macrovalidation results]]></Name>
+		<Title><![CDATA[Macrovalidation results]]></Title>
+		<Button>[baseCountry]</Button>
+		<Description/>
+		<GeneralDescription><![CDATA[]]></GeneralDescription>
+		<TemplateType>Multi</TemplateType>
+		<DebugMode>true</DebugMode>
+		<DoMultiColumns>false</DoMultiColumns>
+		<RequiredVariables>
+			<RequiredVariable>
+				<Name>dwt</Name>
+				<ReadVar>dwt</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>dgn</Name>
+				<ReadVar>dgn</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>idhh</Name>
+				<ReadVar>idhh</ReadVar>
+				<Monetary>false</Monetary>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>idperson</Name>
+				<ReadVar>idperson</ReadVar>
+				<Monetary>false</Monetary>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>age</Name>
+				<ReadVar>dag</ReadVar>
+				<Monetary>false</Monetary>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_origy</Name>
+				<ReadVar>ils_origy</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_dispy</Name>
+				<ReadVar>ils_dispy</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_earns</Name>
+				<ReadVar>ils_earns</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_tax</Name>
+				<ReadVar>ils_tax</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_sicdy</Name>
+				<ReadVar>ils_sicdy</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_sicer</Name>
+				<ReadVar>ils_sicer</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_pen</Name>
+				<ReadVar>ils_pen</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_ben</Name>
+				<ReadVar>ils_ben</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_benmt</Name>
+				<ReadVar>ils_benmt</ReadVar>
+			</RequiredVariable>
+			<RequiredVariable>
+				<Name>ils_bennt</Name>
+				<ReadVar>ils_bennt</ReadVar>
+			</RequiredVariable>
+		</RequiredVariables>
+		<OptionalVariables>
+			<OptionalVariable>
+				<Name>ils_sicct</Name>
+				<ReadVar>ils_sicct</ReadVar>
+			</OptionalVariable>
+			<OptionalVariable>
+				<Name>ils_sicot</Name>
+				<ReadVar>ils_sicot</ReadVar>
+			</OptionalVariable>
+			<OptionalVariable>
+				<Name>ils_sicee</Name>
+				<ReadVar>ils_sicee</ReadVar>
+			</OptionalVariable>
+			<OptionalVariable>
+				<Name>ils_sicse</Name>
+				<ReadVar>ils_sicse</ReadVar>
+			</OptionalVariable>
+		</OptionalVariables>
+	</TemplateInfo>
+	<Globals>
+		<Filters>
+			<Filter>
+				<Name>IsMale</Name>
+				<FormulaString><![CDATA[DATA_VAR[@dgn] == 1]]></FormulaString>
+			</Filter>
+			<Filter>
+				<Name>IsFemale</Name>
+				<FormulaString><![CDATA[DATA_VAR[@dgn] == 0]]></FormulaString>
+			</Filter>
+		</Filters>
+		<Actions>
+			<Action>
+				<CalculationType>CreateArithmetic</CalculationType>
+				<OutputVar>ils_sic</OutputVar>
+				<FormulaString><![CDATA[DATA_VAR[@ils_sicdy] + DATA_VAR[@ils_sicer] + DATA_VAR[@ils_sicct]]]></FormulaString>
+			</Action>
+			<Action>
+				<CalculationType>CreateOECDScale</CalculationType>
+				<OutputVar>OECDScale</OutputVar>
+				<Reform>false</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CreateEquivalized</CalculationType>
+				<OutputVar>eqDispy</OutputVar>
+				<Parameters>
+					<Parameter>
+						<VarName>ils_dispy</VarName>
+					</Parameter>
+					<Parameter>
+						<Name>EquivalenceScale</Name>
+						<VarName>OECDScale</VarName>
+						<Source>BASELINE</Source>
+					</Parameter>
+				</Parameters>
+			</Action>
+			<Action>
+				<CalculationType>CalculateSumWeighted</CalculationType>
+				<OutputVar>totalDispy</OutputVar>
+				<FormulaString><![CDATA[DATA_VAR[@eqDispy]]]></FormulaString>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CreateDeciles</CalculationType>
+				<OutputVar>deciles_eqDispy</OutputVar>
+				<Parameters>
+					<Parameter>
+					<Name>IncomeVar</Name>
+						<VarName>eqDispy</VarName>
+						</Parameter>
+					<Parameter>
+						<Name>GroupingVar</Name>
+						<VarName>idhh</VarName>
+					</Parameter>
+				</Parameters>
+			</Action>
+			<Action>
+				<CalculationType>CalculateArithmetic</CalculationType>
+				<FormulaString><![CDATA[SAVED_VAR[@deciles_eqDispy~dec~5] * 0.4]]></FormulaString>
+				<OutputVar>povLine40</OutputVar>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CalculateArithmetic</CalculationType>
+				<FormulaString><![CDATA[SAVED_VAR[@deciles_eqDispy~dec~5] * 0.5]]></FormulaString>
+				<OutputVar>povLine50</OutputVar>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CalculateArithmetic</CalculationType>
+				<FormulaString><![CDATA[SAVED_VAR[@deciles_eqDispy~dec~5] * 0.6]]></FormulaString>
+				<OutputVar>povLine60</OutputVar>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CalculateArithmetic</CalculationType>
+				<FormulaString><![CDATA[SAVED_VAR[@deciles_eqDispy~dec~5] * 0.7]]></FormulaString>
+				<OutputVar>povLine70</OutputVar>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CreateFlag</CalculationType>
+				<OutputVar>IsPoor40</OutputVar>
+				<Filter>
+					<Name>FilterPoor40</Name>
+					<FormulaString><![CDATA[DATA_VAR[@eqDispy] <= SAVED_VAR[@povLine40]]]></FormulaString>
+				</Filter>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CreateFlag</CalculationType>
+				<OutputVar>IsPoor50</OutputVar>
+				<Filter>
+					<Name>FilterPoor50</Name>
+					<FormulaString><![CDATA[DATA_VAR[@eqDispy] <= SAVED_VAR[@povLine50]]]></FormulaString>
+				</Filter>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CreateFlag</CalculationType>
+				<OutputVar>IsPoor60</OutputVar>
+				<Filter>
+					<Name>FilterPoor60</Name>
+					<FormulaString><![CDATA[DATA_VAR[@eqDispy] <= SAVED_VAR[@povLine60]]]></FormulaString>
+				</Filter>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CreateFlag</CalculationType>
+				<OutputVar>IsPoor70</OutputVar>
+				<Filter>
+					<Name>FilterPoor70</Name>
+					<FormulaString><![CDATA[DATA_VAR[@eqDispy] <= SAVED_VAR[@povLine70]]]></FormulaString>
+				</Filter>
+				<Reform>true</Reform>
+			</Action>
+			<Action>
+				<CalculationType>CalculateGini</CalculationType>
+				<OutputVar>Gini</OutputVar>
+				<Parameters>
+					<Parameter>
+						<Name>GroupingVar</Name>
+						<VarName>idhh</VarName>
+					</Parameter>
+					<Parameter>
+						<Name>GiniVar</Name>
+						<VarName>eqDispy</VarName>
+					</Parameter>
+				</Parameters>
+			</Action>
+			<Action>
+				<CalculationType>CalculateS8020</CalculationType>
+				<OutputVar>S8020</OutputVar>
+				<Parameters>
+					<Parameter>
+						<Name>DecileVar</Name>
+						<VarName>deciles_eqDispy</VarName>
+					</Parameter>
+					<Parameter>
+						<Name>S8020Var</Name>
+						<VarName>eqDispy</VarName>
+					</Parameter>
+				</Parameters>
+			</Action>
+		</Actions>
+	</Globals>
+	<Pages>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.1</Name>
+			<Title><![CDATA[Table A3.1. Original income in EUROMOD - Number of recipients (thousands)]]></Title>
+			<Button><![CDATA[Table A3.1. Original income in EUROMOD - Number of recipients (thousands)]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>OriginalIncomeTaxpayersBeneficiaries</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationLevel>Individual</CalculationLevel>
+						<CalculationType>CalculatePopulationCount</CalculationType>
+						<Parameters>
+							<Parameter>
+								<Name>GiveTotals</Name>
+								<BoolValue>true</BoolValue>
+							</Parameter>
+						</Parameters>
+					</CellAction>
+					<StringFormat>#,0</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Simulated</Name>
+							<Title><![CDATA[Simulated (Y/N)]]></Title>
+							<HasSeparatorAfter>true</HasSeparatorAfter>
+						</Column>
+						<Column>
+							<Name>Baseline</Name>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<Title><![CDATA[Baseline/External ratio]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>OriginalIncomeTaxpayersBeneficiaries_ils_earns</Name>
+							<Title><![CDATA[Earnings (ils_earns)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>OriginalIncomeTaxpayersBeneficiaries_OtherOriginalIncome</Name>
+							<Title><![CDATA[Other original income (ils_origy - ils_earns)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>OriginalIncomeTaxpayersBeneficiaries_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+				<Table>
+					<Description></Description>
+					<Actions>
+						<Action>
+							<Name>Units</Name>
+							<CalculationLevel>Household</CalculationLevel>
+							<OutputVar>Units</OutputVar>
+							<CalculationType>CreateArithmetic</CalculationType>
+							<FormulaString>1.0</FormulaString>
+						</Action>
+					</Actions>
+					<Name>OriginalIncomeSourcesAndComments</Name>
+					<Title><![CDATA[Continued...]]></Title>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<Columns>
+						<Column>
+							<Name>Source</Name>
+							<Title><![CDATA[Source]]></Title>
+						</Column>
+						<Column>
+							<Name>Comments</Name>
+							<Title><![CDATA[Comments]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>OriginalIncomeSourcesAndComments_ils_earns</Name>
+							<Title><![CDATA[Earnings (ils_earns)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>OriginalIncomeSourcesAndComments_OtherOriginalIncome</Name>
+							<Title><![CDATA[Other original income (ils_origy - ils_earns)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>OriginalIncomeSourcesAndComments_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.2</Name>
+			<Title><![CDATA[Table A3.2. Original income in EUROMOD - Annual amounts (millions)]]></Title>
+			<Button><![CDATA[Table A3.2. Original income in EUROMOD - Annual amounts (millions)]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>OriginalIncomeAmounts</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationType>CalculateSumWeighted</CalculationType>
+						<FormulaString>1.0</FormulaString>
+					</CellAction>
+					<StringFormat>#,0</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Simulated</Name>
+							<Title><![CDATA[Simulated (Y/N)]]></Title>
+						</Column>
+						<Column>
+							<Name>Baseline</Name>
+							<Title><![CDATA[Total<br>[baseSysLabel]]]></Title>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<Title><![CDATA[External<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<Title><![CDATA[Ratio<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>OriginalIncomeAmounts_ils_earns</Name>
+							<Title><![CDATA[Earnings (ils_earns)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>OriginalIncomeAmounts_OtherOriginalIncome</Name>
+							<Title><![CDATA[Other original income (ils_origy - ils_earns)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>OriginalIncomeAmounts_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.3</Name>
+			<Title><![CDATA[Table A3.3. Taxes and SIC - Number of payers (thousands)]]></Title>
+			<Button><![CDATA[Table A3.3. Taxes and SIC - Number of payers (thousands)]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>TaxesSICPayers</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationLevel>Individual</CalculationLevel>
+						<CalculationType>CalculatePopulationCount</CalculationType>
+						<Parameters>
+							<Parameter>
+								<Name>GiveTotals</Name>
+								<BoolValue>true</BoolValue>
+							</Parameter>
+						</Parameters>
+					</CellAction>
+					<StringFormat>#,0</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Simulated</Name>
+							<Title><![CDATA[Simulated (Y/N)]]></Title>
+						</Column>
+						<Column>
+							<Name>Baseline</Name>
+							<Title><![CDATA[Total<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCValue</Name>
+							<Title><![CDATA[SILC Value]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCRatio</Name>
+							<Title><![CDATA[SILC Ratio]]></Title>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[SILCValue]==0, 0, BASE_COL[Baseline] / BASE_COL[SILCValue])]]></FormulaString>
+							</CellAction>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<Title><![CDATA[External<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<Title><![CDATA[Ratio<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>TaxesSICPayers_ils_tax</Name>
+							<Title><![CDATA[Taxes (ils_tax)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayers_ils_sicee</Name>
+							<Title><![CDATA[Employee Social Insurance Contributions (ils_sicee)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayers_ils_sicse</Name>
+							<Title><![CDATA[Self-employed Social Insurance Contributions (ils_sicse)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayers_ils_sicer</Name>
+							<Title><![CDATA[Employer Social Insurance Contributions (ils_sicer)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayers_ils_sicct</Name>
+							<Title><![CDATA[Employer 2 Contributions (ils_sicct)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayers_ils_sicot</Name>
+							<Title><![CDATA[Employer 3 Contributions (ils_sicot)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayers_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+				<Table>
+					<Description></Description>
+					<Name>TaxesSICPayersSourcesAndComment</Name>
+					<Title><![CDATA[Continued...]]></Title>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<Columns>
+						<Column>
+							<Name>Source</Name>
+							<Title><![CDATA[Source]]></Title>
+						</Column>
+						<Column>
+							<Name>Comments</Name>
+							<Title><![CDATA[Comments]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_tax</Name>
+							<Title><![CDATA[Taxes (ils_tax)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_sicee</Name>
+							<Title><![CDATA[Employee Social Insurance Contributions (ils_sicee)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_sicse</Name>
+							<Title><![CDATA[Self-employed Social Insurance Contributions (ils_sicse)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_sicer</Name>
+							<Title><![CDATA[Employer Social Insurance Contributions (ils_sicer)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_sicct</Name>
+							<Title><![CDATA[Employer 2 Contributions (ils_sicct)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_sicot</Name>
+							<Title><![CDATA[Employer 3 Contributions (ils_sicot)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICPayersSourcesAndComment_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.4</Name>
+			<Title><![CDATA[Table A3.4. Taxes and SIC - Annual amounts (millions)]]></Title>
+			<Button><![CDATA[Table A3.4. Taxes and SIC - Annual amounts (millions)]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>TaxesSICAmounts</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationType>CalculateSumWeighted</CalculationType>
+						<FormulaString>1.0</FormulaString>
+					</CellAction>
+					<StringFormat>#,0</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Simulated</Name>
+							<Title><![CDATA[Simulated (Y/N)]]></Title>
+						</Column>
+						<Column>
+							<Name>Baseline</Name>
+							<Title><![CDATA[Total<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCValue</Name>
+							<Title><![CDATA[SILC Value [baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCRatio</Name>
+							<Title><![CDATA[SILC Ratio]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[SILCValue]==0, 0, BASE_COL[Baseline] / BASE_COL[SILCValue])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<Title><![CDATA[External<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<Title><![CDATA[Ratio<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>TaxesSICAmounts_ils_tax</Name>
+							<Title><![CDATA[Taxes (ils_tax)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICAmounts_ils_sicee</Name>
+							<Title><![CDATA[Employee Social Insurance Contributions (ils_sicee)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICAmounts_ils_sicse</Name>
+							<Title><![CDATA[Self-employed Social Insurance Contributions (ils_sicse)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICAmounts_ils_sicer</Name>
+							<Title><![CDATA[Employer Social Insurance Contributions (ils_sicer)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICAmounts_ils_sicct</Name>
+							<Title><![CDATA[Employer 2 Contributions (ils_sicct)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICAmounts_ils_sicot</Name>
+							<Title><![CDATA[Employer 3 Contributions (ils_sicot)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>TaxesSICAmounts_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.5</Name>
+			<Title><![CDATA[Table A3.5. Benefits - Number of recipients (thousands)]]></Title>
+			<Button><![CDATA[Table A3.5. Benefits - Number of recipients (thousands)]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>BenefitsRecipients</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationLevel>Individual</CalculationLevel>
+						<CalculationType>CalculatePopulationCount</CalculationType>
+						<Parameters>
+							<Parameter>
+								<Name>GiveTotals</Name>
+								<BoolValue>true</BoolValue>
+							</Parameter>
+						</Parameters>
+					</CellAction>
+					<StringFormat>#,0</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Simulated</Name>
+							<Title><![CDATA[Simulated (Y/N)]]></Title>
+						</Column>
+						<Column>
+							<Name>Baseline</Name>
+							<Title><![CDATA[Total<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCValue</Name>
+							<Title><![CDATA[SILC Value]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCRatio</Name>
+							<Title><![CDATA[SILC Ratio]]></Title>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[SILCValue]==0, 0, BASE_COL[Baseline] / BASE_COL[SILCValue])]]></FormulaString>
+							</CellAction>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<Title><![CDATA[External<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<Title><![CDATA[Ratio<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>BenefitsRecipients_ils_pen</Name>
+							<Title><![CDATA[Pensions (ils_pen)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsRecipients_ils_benmt</Name>
+							<Title><![CDATA[Means-tested benefits (ils_benmt)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsRecipients_ils_bennt</Name>
+							<Title><![CDATA[Non-means-tested benefits (ils_bennt)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsRecipients_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+				<Table>
+					<Description></Description>
+					<Name>BenefitsRecipientsSourcesAndComment</Name>
+					<Title><![CDATA[Continued...]]></Title>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<Description></Description>
+					<Columns>
+						<Column>
+							<Name>Source</Name>
+							<Title><![CDATA[Source]]></Title>
+						</Column>
+						<Column>
+							<Name>Comments</Name>
+							<Title><![CDATA[Comments]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>BenefitsRecipientsSourcesAndComment_ils_pen</Name>
+							<Title><![CDATA[Pensions (ils_pen)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsRecipientsSourcesAndComment_ils_benmt</Name>
+							<Title><![CDATA[Means-tested benefits (ils_benmt)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsRecipientsSourcesAndComment_ils_bennt</Name>
+							<Title><![CDATA[Non-means-tested benefits (ils_bennt)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsRecipientsSourcesAndComment_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.6</Name>
+			<Title><![CDATA[Table A3.6. Benefits - Annual amounts (million)]]></Title>
+			<Button><![CDATA[Table A3.6. Benefits - Annual amounts (million)]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>BenefitsAmounts</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationType>CalculateSumWeighted</CalculationType>
+						<FormulaString>1.0</FormulaString>
+					</CellAction>
+					<StringFormat>#,0</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Simulated</Name>
+							<Title><![CDATA[Simulated (Y/N)]]></Title>
+						</Column>
+						<Column>
+							<Name>Baseline</Name>
+							<Title><![CDATA[Total<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCValue</Name>
+							<Title><![CDATA[SILC Value [baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>SILCRatio</Name>
+							<Title><![CDATA[SILC Ratio]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[SILCValue]==0, 0, BASE_COL[Baseline] / BASE_COL[SILCValue])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<Title><![CDATA[External<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<Title><![CDATA[Ratio<br>[baseSysLabel]]]></Title>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>BenefitsAmounts_ils_pen</Name>
+							<Title><![CDATA[Pensions (ils_pen)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsAmounts_ils_benmt</Name>
+							<Title><![CDATA[Means-tested benefits (ils_benmt)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsAmounts_ils_bennt</Name>
+							<Title><![CDATA[Non-means-tested benefits (ils_bennt)]]></Title>
+							<Strong>true</Strong>
+						</Row>
+						<Row>
+							<Name>BenefitsAmounts_ils_extstat_other</Name>
+							<Title><![CDATA[Other external statistics (ils_extstat_other)]]></Title>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+							<Strong>true</Strong>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.7</Name>
+			<Title><![CDATA[Table A3.7. Distribution of equivalised disposable income]]></Title>
+			<Button><![CDATA[Table A3.7. Distribution of equivalised disposable income]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>DistributionalInequality</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationType>CalculateSumWeighted</CalculationType>
+					</CellAction>
+					<StringFormat>#,0.00</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Baseline</Name>
+							<CellAction>
+								<FormulaString><![CDATA[100 * DATA_VAR[@eqDispy] / SAVED_VAR[@totalDispy]]]></FormulaString>
+							</CellAction>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<Important>true</Important>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+							<StringFormat>#,0.00</StringFormat>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>D1</Name>
+							<Title><![CDATA[Decile 1]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 1]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D2</Name>
+							<Title><![CDATA[Decile 2]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 2]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D3</Name>
+							<Title><![CDATA[Decile 3]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 3]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D4</Name>
+							<Title><![CDATA[Decile 4]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 4]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D5</Name>
+							<Title><![CDATA[Decile 5]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 5]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D6</Name>
+							<Title><![CDATA[Decile 6]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 6]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D7</Name>
+							<Title><![CDATA[Decile 7]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 7]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D8</Name>
+							<Title><![CDATA[Decile 8]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 8]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D9</Name>
+							<Title><![CDATA[Decile 9]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 9]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>D10</Name>
+							<Title><![CDATA[Decile 10]]></Title>
+							<CellAction>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@deciles_eqDispy] == 10]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Median</Name>
+							<Title><![CDATA[Median]]></Title>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Mean</Name>
+							<Title><![CDATA[Mean]]></Title>
+							<CellAction>
+								<CalculationType>CalculateWeightedAverage</CalculationType>
+								<CalculationLevel>Household</CalculationLevel>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Gini</Name>
+							<Title><![CDATA[Gini]]></Title>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>S8020</Name>
+							<Title><![CDATA[S80/20]]></Title>
+							<CellAction>
+								<CalculationType>CalculateArithmetic</CalculationType>
+							</CellAction>
+						</Row>
+					</Rows>
+					<Cells>
+						<Cell>
+							<RowName>Median</RowName>
+							<ColName>Baseline</ColName>
+							<CellAction>
+								<FormulaString><![CDATA[12 * SAVED_VAR[@deciles_eqDispy~dec~5]]]></FormulaString>
+							</CellAction>
+						</Cell>
+						<Cell>
+							<RowName>Mean</RowName>
+							<ColName>Baseline</ColName>
+							<CellAction>
+								<FormulaString><![CDATA[12 * DATA_VAR[@eqDispy]]]></FormulaString>
+							</CellAction>
+						</Cell>
+						<Cell>
+							<RowName>Gini</RowName>
+							<ColName>Baseline</ColName>
+							<CellAction>
+								<FormulaString><![CDATA[100 * SAVED_VAR[@Gini]]]></FormulaString>
+							</CellAction>
+						</Cell>
+						<Cell>
+							<RowName>S8020</RowName>
+							<ColName>Baseline</ColName>
+							<CellAction>
+								<FormulaString><![CDATA[SAVED_VAR[@S8020]]]></FormulaString>
+							</CellAction>
+						</Cell>
+					</Cells>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Active>true</Active>
+			<Name>Table A3.8</Name>
+			<Title><![CDATA[Table A3.8. At-risk-of-poverty rates (%) by gender and age]]></Title>
+			<Button><![CDATA[Table A3.8. At-risk-of-poverty rates (%) by gender and age]]></Button>
+			<Description></Description>
+			<Tables>
+				<Table>
+					<Description></Description>
+					<Name>DistributionalPoverty</Name>
+					<Title/>
+					<ColumnGrouping>ColumnFirst</ColumnGrouping>
+					<CellAction>
+						<CalculationType>CalculatePopulationCount</CalculationType>
+					</CellAction>
+					<StringFormat>#,0.00</StringFormat>
+					<Columns>
+						<Column>
+							<Name>Baseline</Name>
+						</Column>
+						<Column>
+							<Name>External</Name>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+						</Column>
+						<Column>
+							<Name>PercentageDifference</Name>
+							<HasSeparatorBefore>true</HasSeparatorBefore>
+							<CellAction>
+								<Important>true</Important>
+								<CalculationType>CalculateArithmetic</CalculationType>
+								<FormulaString><![CDATA[iif(BASE_COL[External]==0, 0, BASE_COL[Baseline] / BASE_COL[External])]]></FormulaString>
+							</CellAction>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>Title40</Name>
+							<Title><![CDATA[40% median HDI by gender]]></Title>
+							<Strong>true</Strong>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Total40</Name>
+							<Title><![CDATA[Total]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor40] * 100]]></FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Male40</Name>
+							<Title><![CDATA[Males]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor40] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsMale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Female40</Name>
+							<Title><![CDATA[Females]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor40] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsFemale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Title50</Name>
+							<Title><![CDATA[50% median HDI by gender]]></Title>
+							<Strong>true</Strong>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Total50</Name>
+							<Title><![CDATA[Total]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor50] * 100]]></FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Male50</Name>
+							<Title><![CDATA[Males]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor50] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsMale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Female50</Name>
+							<Title><![CDATA[Females]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor50] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsFemale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Title60</Name>
+							<Title><![CDATA[60% median HDI by gender]]></Title>
+							<Strong>true</Strong>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Total60</Name>
+							<Title><![CDATA[Total]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Male60</Name>
+							<Title><![CDATA[Males]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsMale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Female60</Name>
+							<Title><![CDATA[Females]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsFemale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Title70</Name>
+							<Title><![CDATA[70% median HDI by gender]]></Title>
+							<Strong>true</Strong>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Total70</Name>
+							<Title><![CDATA[Total]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor70] * 100]]></FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Male70</Name>
+							<Title><![CDATA[Males]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor70] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsMale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Female70</Name>
+							<Title><![CDATA[Females]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor70] * 100]]></FormulaString>
+								<Filter>
+									<Name>IsFemale</Name>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Title60Age</Name>
+							<Title><![CDATA[60% median HDI by age group]]></Title>
+							<Strong>true</Strong>
+							<CellAction>
+								<CalculationType>Empty</CalculationType>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Age0_15</Name>
+							<Title><![CDATA[0-15 years]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@age] >= 0 && DATA_VAR[@age] <= 15]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Age16_24</Name>
+							<Title><![CDATA[16-24 years]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@age] >= 16 && DATA_VAR[@age] <= 24]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Age25_49</Name>
+							<Title><![CDATA[25-49 years]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@age] >= 25 && DATA_VAR[@age] <= 49]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Age50_64</Name>
+							<Title><![CDATA[50-64 years]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@age] >= 50 && DATA_VAR[@age] <= 64]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Age65</Name>
+							<Title><![CDATA[65+ years]]></Title>
+							<CellAction>
+								<FormulaString><![CDATA[DATA_VAR[@IsPoor60] * 100]]></FormulaString>
+								<Filter>
+									<FormulaString><![CDATA[DATA_VAR[@age] >= 65]]></FormulaString>
+								</Filter>
+							</CellAction>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+		<Page>
+			<Name>Metadata</Name>
+			<Title>Metadata</Title>
+			<Button>
+				<Title>Metadata</Title>
+				<BackgroundColour>#f0e68c</BackgroundColour>
+			</Button>
+			<Description>
+				<![CDATA[<p style='line-height:1.5'>The table shows information on the execution: run system, dataset, output file name, add-ons and extensions selected, execution start time, execution end time and execution duration.</p>]]>
+			</Description>
+			<Tables>
+				<Table>
+					<Name>Metadata</Name>
+					<Title></Title>
+					<Columns>
+						<Column>
+							<Name>BaseSys</Name>
+							<Title>[baseSys]</Title>
+						</Column>
+					</Columns>
+					<Rows>
+						<Row>
+							<Name>System name</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseSysPretty]</FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Dataset</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseDataset]</FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Output file name</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseFileName]</FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Extensions</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseRunExtensionSwitches]</FormulaString>
+							</CellAction>
+						</Row>
+
+						<Row>
+							<Name>Add-ons</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseRunAddons]</FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Start time</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseRunStartTime]</FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>End time</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseRunEndTime]</FormulaString>
+							</CellAction>
+						</Row>
+						<Row>
+							<Name>Duration</Name>
+							<CellAction>
+								<CalculationType>Info</CalculationType>
+								<FormulaString>[baseRunDuration]</FormulaString>
+							</CellAction>
+						</Row>
+					</Rows>
+				</Table>
+			</Tables>
+		</Page>
+	</Pages>
+</Template>

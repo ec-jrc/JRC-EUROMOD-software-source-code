@@ -212,6 +212,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -219,7 +220,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\PrettyInfo\PrettyInfo_BaseCountryShort.cs" />
     <Compile Include="Classes\PrettyInfo\PrettyInfo_BaseSysLabel.cs" />
+    <Compile Include="Classes\PrettyInfo\PrettyInfo_BaseSysList.cs" />
     <Compile Include="Classes\PrettyInfo\PrettyInfo_RefTaxSysPretty.cs" />
     <Compile Include="Classes\PrettyInfo\PrettyInfo_RefSysLabel.cs" />
     <Compile Include="Classes\PrettyInfo\PrettyInfo_RefFileList.cs" />
@@ -260,6 +263,56 @@
     <Compile Include="Classes\PrettyInfo\PrettyInfo_BaseSys.cs" />
     <Compile Include="Classes\SystemInfo.cs" />
     <Compile Include="Classes\TemplateApi.cs" />
+    <Compile Include="ExternalStatistics\ExternalStatistic.cs" />
+    <Compile Include="ExternalStatistics\ExternalStatisticAggregate.cs" />
+    <Compile Include="ExternalStatistics\ExternalStatisticDistributional.cs" />
+    <Compile Include="ExternalStatistics\IlVarInfo.cs" />
+    <Compile Include="InDepthAnalysis\BaselineReform\BaselineReformPackage.cs" />
+    <Compile Include="InDepthAnalysis\BaselineReform\SelectBaselinesReforms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysis\BaselineReform\SelectBaselinesReforms.Designer.cs">
+      <DependentUpon>SelectBaselinesReforms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InDepthAnalysis\BaselineReform\SystemInfo.cs" />
+    <Compile Include="InDepthAnalysis\Helpers\CategoryDescriptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Helpers\CategoryDescriptionsForm.Designer.cs">
+      <DependentUpon>CategoryDescriptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Helpers\Breakdowns.cs" />
+    <Compile Include="InDepthAnalysis\Helpers\EMVarInfo.cs" />
+    <Compile Include="InDepthAnalysis\Helpers\FormulaEditor.cs" />
+    <Compile Include="InDepthAnalysis\Helpers\MergedDatasetWriter.cs" />
+    <Compile Include="InDepthAnalysis\InDepthAnalysis.cs" />
+    <Compile Include="InDepthAnalysis\InDepthAnalysisForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysis\InDepthAnalysisForm.Designer.cs">
+      <DependentUpon>InDepthAnalysisForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\ISettings.cs" />
+    <Compile Include="InDepthAnalysis\Settings\Settings.cs" />
+    <Compile Include="InDepthAnalysis\Settings\SettingsDistributional.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\SettingsDistributional.Designer.cs">
+      <DependentUpon>SettingsDistributional.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\SettingsFiscal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\SettingsFiscal.Designer.cs">
+      <DependentUpon>SettingsFiscal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\SettingsInequalityAndPoverty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\SettingsInequalityAndPoverty.Designer.cs">
+      <DependentUpon>SettingsInequalityAndPoverty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InDepthAnalysis\Settings\SettingsMacrovalidation.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -278,16 +331,68 @@
     <Compile Include="Old_EMS_Classes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\Template.cs" />
+    <Compile Include="StatisticsPresenter\PresenterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\PresenterForm.Designer.cs">
+      <DependentUpon>PresenterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectBaseAltsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectBaseAltsForm.Designer.cs">
+      <DependentUpon>SelectBaseAltsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectDefaultTemplateComboForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectDefaultTemplateComboForm.Designer.cs">
+      <DependentUpon>SelectDefaultTemplateComboForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectFilesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectFilesForm.Designer.cs">
+      <DependentUpon>SelectFilesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectPackagesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\SelectPackagesForm.Designer.cs">
+      <DependentUpon>SelectPackagesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticsPresenter\ShowInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\ShowInfoForm.Designer.cs">
+      <DependentUpon>ShowInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticsPresenter\StatisticsPresenter.cs" />
+    <Compile Include="StatisticsPresenter\TakeUserInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsPresenter\TakeUserInput.Designer.cs">
+      <DependentUpon>TakeUserInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="XML_handling.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="InDepthAnalysis\Help.chm" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\em_executable\EM_Transformer\EM_Transformer.csproj">
+      <Project>{7432577b-7f7f-4e06-b222-29d834a42dbe}</Project>
+      <Name>EM_Transformer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EM_BackEnd\EM_BackEnd.csproj">
       <Project>{5127e346-709c-4760-ad9c-81fc4859a3ef}</Project>
       <Name>EM_BackEnd</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EM_CommonMSWin\EM_Common_Win.csproj">
+      <Project>{9cfaccaa-f897-480f-b05f-c6087c3ef15f}</Project>
+      <Name>EM_Common_Win</Name>
     </ProjectReference>
     <ProjectReference Include="..\EM_Common\EM_Common.csproj">
       <Project>{b6e0e449-682d-4e76-b41b-ce98b106fd7c}</Project>
@@ -297,19 +402,71 @@
       <Project>{a9d06cc2-8c4b-4ef8-be54-95b1ba58f189}</Project>
       <Name>EM_Crypt</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EM_XmlHandler\EM_XmlHandler.csproj">
+      <Project>{5f32054e-282a-48d7-b1a9-8588f9ee3475}</Project>
+      <Name>EM_XmlHandler</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InDepthAnalysis\BaselineReform\SelectBaselinesReforms.resx">
+      <DependentUpon>SelectBaselinesReforms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InDepthAnalysis\Helpers\CategoryDescriptionsForm.resx">
+      <DependentUpon>CategoryDescriptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InDepthAnalysis\InDepthAnalysisForm.resx">
+      <DependentUpon>InDepthAnalysisForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InDepthAnalysis\Settings\SettingsDistributional.resx">
+      <DependentUpon>SettingsDistributional.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InDepthAnalysis\Settings\SettingsFiscal.resx">
+      <DependentUpon>SettingsFiscal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InDepthAnalysis\Settings\SettingsInequalityAndPoverty.resx">
+      <DependentUpon>SettingsInequalityAndPoverty.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\PresenterForm.resx">
+      <DependentUpon>PresenterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\SelectBaseAltsForm.resx">
+      <DependentUpon>SelectBaseAltsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\SelectDefaultTemplateComboForm.resx">
+      <DependentUpon>SelectDefaultTemplateComboForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\SelectFilesForm.resx">
+      <DependentUpon>SelectFilesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\SelectPackagesForm.resx">
+      <DependentUpon>SelectPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\ShowInfoForm.resx">
+      <DependentUpon>ShowInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsPresenter\TakeUserInput.resx">
+      <DependentUpon>TakeUserInput.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\statistics.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InDepthAnalysis\InDepthAnalysis.ico" />
     <Content Include="Resources\Content.html" />
+    <None Include="Resources\existing.png" />
+    <None Include="Resources\missing.png" />
+    <None Include="Resources\InDepthAnalysis.ico" />
+    <None Include="Resources\StatisticsPresenter.ico" />
+    <Content Include="StatisticsPresenter\StatisticsPresenter.ico" />
+    <None Include="Resources\Macrovalidation.xml" />
+    <None Include="Resources\dummy.html" />
+    <None Include="Resources\InDepthAnalysis.xml" />
     <Content Include="Resources\LoadStatistics.js" />
     <Content Include="Resources\Button.html" />
   </ItemGroup>
@@ -324,6 +481,7 @@
     <Analyzer Include="..\..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

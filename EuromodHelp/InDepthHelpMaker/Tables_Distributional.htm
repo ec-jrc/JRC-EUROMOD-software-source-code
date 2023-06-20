@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Distributional Tables</h1>
+
+    <h4>General arguments</h4>
+
+    <h6>Breakdown</h6>
+    <p>
+        All Distributional Tables show results for the whole population, as well as broken down over an &lsquo;argument&rsquo; splitting the population into groups.<br />
+        There are two ways to define this argument:
+        <ul style="margin-bottom:0; margin-top:0">
+            <li>
+                by a variable with a restricted number of values<br />
+                For example:
+                <ol type="a">
+                    <li>the variable <i>dgn</i> (gender) will generate two rows, one with results for men and the other with results for women</li>
+                    <li>the variable <i>drgn1</i> (region nuts level 1) will generate one row with results for each region</li>
+                </ol>
+            </li>
+            <li>
+                by quantiles of a variable<br />
+                For, example:
+                <ol type="A">
+                    <li>
+                        the variable <i>ils_dispy</i> (disposable income) together with the option <i>quantiles</i> set to 5 and
+                        the option <i>equivalised</i> to yes, will generate five rows, one with results for each quintile of equivalised individual disposable income
+                    </li>
+                    <li>
+                        the variable <i>yem</i> (employment income) together with the option <i>quantiles</i> set to 2 and
+                        the option <i>equivalised</i> to no, will generate two rows, one with results for the units with employment income below the median
+                        and the other with results for the units with employment income above the median
+                    </li>
+                </ol>
+            </li>
+        </ul>
+    </p>
+	
+<!--
+It seems that when you do not use quantiles and the selected level is household:
+1)	When a variable is non-monetary (e.g. “dag”), the value of the first person in the household is used
+2)	When a variable is monetary (e.g. “bch_s”), the sum of the household is used
+Also, as stated in the help, “equivalised” is ignored since we are not using quantiles. When individual level is selected, everything is calculated at the individual level.
+
+On the other hand, when you do use quantiles, quantiles are always produced at the individual level, and grouped by IDHH . This means that it will generate quantiles with same number of individuals, not households, ordered by the values of individuals, but keeping individuals of the same household together. 
+NOTE: If the value you are using is not equivalised, this can create weird results, as for example individuals with a larger value can be in lower deciles, because they belong to a household whose first person has a zero value. Indeed, it seems like a (forever standing) bug, and it also seems that a better idea would be to sort at the household level, or sort at the individual level but then ignore households altogether, if the value is not equivalised (or always enforce equivalised values for quantiles). 
+
+Idea code for (1): change this to taking the head value. could this be done by comparing "idperson" with "tu_household_cc_HeadID", if available. The models would need to be updated for this to work, and we need to be able to dynamically generate the variable name "tu_household_cc_HeadID" based on the country. maybe generate it in code? it would be cleaner if it could be generated in the xml though.
+
+	
+	
+    <p>
+        Examples (a) and (b) require further explanation, if the level of analysis is the Household.<br />
+        In example (a) the gender variable is taken from the first person in the household (in the output file).
+        That means the population is split into a group of households with the first person being a man and a group with the first person being a woman.<br />
+        For the interpretation of example (b), note that <b><span style="color:darksalmon">quantiles are, independent of any level of analysis setting, always build on
+        individual level</span></b>, i.e. n groups of individuals are built (opposed to n groups of households).
+        As for example (a), the resulting quantile-variable is taken from the first person in the household.<br />
+        Thus, for both examples, analysis on household level delivers rather questionable results.
+        Moreover, in example (b), with any level of analysis, the target population should probably be restricted to units with non-zero employment income.
+    </p>
+-->
+    <p>
+        Note that the <b><span style="color:darksalmon">breakdown always refers to variables of the baseline</span></b>.
+		There are five default breakdowns: <strong>Disposable_Income_Deciles</strong>, <strong>Standard_Labour_Categories</strong>, <strong>Standard_HH_Categories</strong>, <strong>Standard_Gender_Categories</strong>, <strong>Standard_Age_Categories</strong>.
+		For more details on the default breakdowns see the <a href="Settings_Breakdowns.htm">Default Breakdowns</a> page.
+    </p>
+    <p>
+        Also note that, if there are no units taking a certain value of a variable, no row is displayed for this value.
+        If, for example, decile 6, does not have any members in the selected population, the row for decile 6 is omitted.
+    </p>
+    <p>
+        See <a href="Settings_Distributional.htm">Distributional settings / Changing population breakdown</a> for instructions on how to
+        define breakdowns in the settings dialogue.
+    </p>
+
+    <h6>Target population</h6>
+    <p>
+        For all Distributional Tables the respective results can be restricted to a specific target population (separately for each Table).<br />
+        For a description and examples on how to define the respective condition see
+        <a href="Tables.htm">General arguments / Conditions</a>.<br />
+        Note that the condition is evaluated at the <i>Level of analysis</i> selected for the Table.
+    </p>
+
+</body>
+</html>

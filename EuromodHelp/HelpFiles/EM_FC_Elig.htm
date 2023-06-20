@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The policy function Elig</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The policy function Elig</h1>
+
+<p>The
+function Elig is often referred to as eligibility
+function, because it is most frequently used for determining the eligibility
+for receiving a certain benefit. More general, its purpose is to implement
+conditions. Usually such conditions evaluate whether a certain assessment unit
+is eligible for receiving a benefit / liable for paying a tax. The basic use of
+Elig is discussed in sections <a
+href="EM_FC_InteractionsBetweenFunctions.htm">EUROMOD Functions - Interactions
+between functions</a> and <a href="EM_FC_CommonParameters.htm">EUROMOD
+Functions - Common Parameters</a>. Briefly recapitulated, the function sets a
+variable (usually sel_s) to zero or one, based on a
+condition defined by the parameter elig_cond.
+Subsequent functions use this information, together with the setting of the
+parameter who_must_be_elig, to determine whether
+their calculations should be carried out for a certain assessment unit or not.</p>
+
+<h4>Interpreting conditions with respect to the assessment unit</h4>
+
+<p>As briefly
+denoted in section <a href="EM_FC_ParameterValues.htm">EUROMOD Functions - Parameter
+values and the assessment unit</a>, the function Elig
+shows a somewhat different behaviour in determining parameter values with
+respect to the assessment unit and in setting the output variable.</p>
+<ul>
+	<li><strong>Firstly, the output variable </strong>(usually sel_s)<strong> is individually set for each person in the
+	assessment unit </strong>(instead of the head of the unit as for other functions)<strong>.</strong></li>
+
+	<li><strong>The output variable is set to 1 if
+	(a) a person fulfils all personal conditions and (b) the assessment unit the
+	person belongs to fulfils the assessment unit conditions, as defined by
+	parameter elig_cond.</strong></p>
+</ul>
+
+<p>Example 1 may help to understand these rules.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Elig</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>elig_cond</td>
+		<td>nDepChildrenInTaxunit&gt;2 & dag&lt;10 & ils_dispy&lt;20000#y</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>who_must_be_elig</td>
+		<td>one</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>100#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>The benefit of monthly 100 Euro is received by families with more than
+two dependent children, where at least one is younger than ten and family’s
+disposable income is below 20,000 Euro annually. Let’s figure out why. elig_cond consists of three conditions: nDepChildrenInTaxunit&gt;2
+ clearly can be assessed on assessment unit level
+only. ils_dispy&lt;20000#y is also an
+assessment unit level condition, because we know from section <a href="EM_FC_ParameterValues.htm">EUROMOD
+Functions - Parameter values and the assessment unit</a> that incomelists, if not defined elsewise, are
+assessed for the assessment unit. dag&lt;10, on the contrary, is clearly an individual level condition. With
+respect to the rules outlined above, the output variable of Elig, i.e. sel_s, is set to one for all children aged less than 10 years, living in
+familys with more than two dependent children and disposable income below
+20,000 Euro annually. Those children fulfil the individual level condition of
+being younger than ten and their family fulfils the two assessment unit level
+conditions. As the parameter who_must_be_elig states that at least one member of the assessment unit must be
+eligible, all families containing such a child receive the benefit.</p>
+
+<p>The example (hopefully) illustrated why the function Elig needs to be an
+exception with respect to setting its output variable. In general, it could be
+stated that flexibility with respect to the assessment unit is especially
+useful for evaluating (eligibility) conditions. Therefore the possibility of
+changing the assessment unit for single operands is much more likely to be used
+with condition parameters than with formula parameters. Example 2 exemplifies
+such a use of an alternative assessment unit, by changing the means test of
+example 1.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Elig</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>elig_cond</td>
+		<td></td>
+		<td>nDepChildrenInTaxunit&gt;2 & dag&lt;10 & ils_dispy#1&lt;20000#y</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>#_level</td>
+		<td>1</td>
+		<td>household_sl</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>who_must_be_elig</td>
+		<td></td>
+		<td>one</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>100#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>bfa_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>The means test now refers to whole household’s disposable income instead
+of the disposable income of the family.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+
+</body>
+
+</html>

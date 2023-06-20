@@ -99,7 +99,7 @@ namespace EM_Executable
                         description: description,
                         isMonetary: forceMonetaryOutput || infoStore.operandAdmin.GetIsMonetary(varIL.varSpec.name),
                         isGlobal: infoStore.operandAdmin.GetIsGlobal(varIL.varSpec.name),
-                        isWriteable: false, // cannot be used as output variable
+                        isWriteable: true,
                         setInitialised: true,
                         warnForDuplicates: warnIfDuplicateDefinition);
                     if (!infoStore.operandAdmin.Exists(outVarName)) return false; // registration failed

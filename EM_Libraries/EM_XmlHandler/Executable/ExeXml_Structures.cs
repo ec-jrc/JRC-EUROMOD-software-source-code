@@ -77,7 +77,7 @@ namespace EM_XmlHandler
             public bool Get(string year, out double ui)
             {
                 bool allFine = allYears.ContainsKey(year) && allYears[year] != null;
-                ui = allFine ? (double)allYears[year] : 1;
+                ui = allFine ? (double)allYears[year] : 1;  // Note that if get fails, the default returned is 1!
                 return allFine;
             }
             public Dictionary<string, double> GetAll()
@@ -87,6 +87,101 @@ namespace EM_XmlHandler
                     if (item.Value != null) allValidFactors.Add(item.Key, (double)item.Value);
                 return allValidFactors;
             }
+        }
+
+        public class ExStatDict
+        {
+            private bool isAggregate = false; 
+            private Dictionary<string, double?> allYearsValues = new Dictionary<string, double?>();
+            private Dictionary<string, double?> allYearsNumbers = new Dictionary<string, double?>();
+            private Dictionary<string, string> allYearsLevels = new Dictionary<string, string>();
+
+            public ExStatDict(bool isAggregate = false)
+            {
+                this.isAggregate = isAggregate;
+            }
+
+            public bool IsAggregate()
+            {
+                return isAggregate;
+            }
+
+            public void SetYearValues(string year, double num, double amn)
+            {
+                SetYearNumber(year, num);
+                SetYearAmount(year, amn);
+//                SetYearLevel(year, "Individual");
+            }
+
+            public void SetYearAmount(string year, double val)
+            {
+                // This should never really happen, but if for some reason there are duplicate values for the same year & var, keep the last one
+                if (allYearsValues.ContainsKey(year))
+                    allYearsValues[year] = val;
+                else
+                    allYearsValues.Add(year, val);
+            }
+            public void SetYearNumber(string year, double val)
+            {
+                // This should never really happen, but if for some reason there are duplicate values for the same year & var, keep the last one
+                if (allYearsNumbers.ContainsKey(year))
+                    allYearsNumbers[year] = val;
+                else
+                    allYearsNumbers.Add(year, val);
+            }
+            /*
+            public void SetYearLevel(string year, string val)
+            {
+                // This should never really happen, but if for some reason there are duplicate values for the same year & var, keep the last one
+                if (allYearsLevels.ContainsKey(year))
+                    allYearsLevels[year] = val;
+                else
+                    allYearsLevels.Add(year, val);
+            }*/
+            
+            // return the real amount, so value in table * 1000000
+            public bool GetAmount(string year, out double ui)
+            {
+                bool allFine = allYearsValues.ContainsKey(year) && allYearsValues[year] != null;
+                ui = allFine ? (double)allYearsValues[year] : double.NaN;  // Note that if get fails, the default returned is NaN!
+                return allFine;
+            }
+            // return the real number, so value in table * 1000
+            public bool GetNumber(string year, out double ui)
+            {
+                bool allFine = allYearsNumbers.ContainsKey(year) && allYearsNumbers[year] != null;
+                ui = allFine ? (double)allYearsNumbers[year] : double.NaN;  // Note that if get fails, the default returned is NaN!
+                return allFine;
+            }
+            /*
+            public bool GetLevel(string year, out string ui)
+            {
+                bool allFine = allYearsLevels.ContainsKey(year) && allYearsLevels[year] != null;
+                ui = allFine ? allYearsLevels[year] : null;  // Note that if get fails, the default returned is null!
+                return allFine;
+            }*/
+            public Dictionary<string, double> GetAllAmounts()
+            {
+                Dictionary<string, double> allValidValues = new Dictionary<string, double>();
+                foreach (KeyValuePair<string, double?> item in allYearsValues)
+                    if (item.Value != null) allValidValues.Add(item.Key, (double)item.Value);
+                return allValidValues;
+            }
+            public Dictionary<string, double> GetAllNumbers()
+            {
+                Dictionary<string, double> allValidValues = new Dictionary<string, double>();
+                foreach (KeyValuePair<string, double?> item in allYearsNumbers)
+                    if (item.Value != null) allValidValues.Add(item.Key, (double)item.Value);
+                return allValidValues;
+            }
+            /*
+            public Dictionary<string, string> GetAllLevels()
+            {
+                Dictionary<string, string> allValidValues = new Dictionary<string, string>();
+                foreach (KeyValuePair<string, string> item in allYearsLevels)
+                    if (item.Value != null) allValidValues.Add(item.Key, item.Value);
+                return allValidValues;
+            }*/
         }
 
         public class Extension
@@ -115,6 +210,8 @@ namespace EM_XmlHandler
                 new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
             public Dictionary<string, Extension> extensions =
                 new Dictionary<string, Extension>(StringComparer.InvariantCultureIgnoreCase); // key: ID (for e.g. BTA or any ctry-specific extension)
+            public Dictionary<string, ExStatDict> extStats = //External Statistics
+                new Dictionary<string, ExStatDict>(StringComparer.OrdinalIgnoreCase);
         }
 
         public class AddOn

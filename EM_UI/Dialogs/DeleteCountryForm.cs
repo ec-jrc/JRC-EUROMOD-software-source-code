@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using EM_UI.Tools;
 
 namespace EM_UI.Dialogs
 {
@@ -21,7 +22,7 @@ namespace EM_UI.Dialogs
                     ++nSel;
                     if (EM_AppContext.Instance.GetCountryMainForm(it.Text) != null)
                     {
-                        Tools.UserInfoHandler.ShowError("A loaded country cannot be deleted. Please close '" + it.Text + "'.");
+                        EM_UI.Tools.UserInfoHandler.ShowError("A loaded country cannot be deleted. Please close '" + it.Text + "'.");
                         return;
                     }
                 }

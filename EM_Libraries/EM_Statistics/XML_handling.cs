@@ -8,12 +8,13 @@ namespace EM_Statistics
 {
     public static class XML_handling
     {
-        public static bool ParseTemplateInfo(string path, out Template.TemplateInfo templateInfo, out ErrorCollector errorCollector)
+        public static bool ParseTemplateInfo(string pathOrInputString, out Template.TemplateInfo templateInfo, out ErrorCollector errorCollector, bool readFromString = false)
         {
             errorCollector = new ErrorCollector(); templateInfo = new Template.TemplateInfo();
             try
             {
-                using (XmlReader xmlReader = XmlReader.Create(path, new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
+                using (XmlReader xmlReader = readFromString ? XmlReader.Create(new StringReader(pathOrInputString), new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment })
+                                                            : XmlReader.Create(pathOrInputString, new XmlReaderSettings() { ConformanceLevel = ConformanceLevel.Fragment }))
                 {
                     // first element must always be the TemplateInfo!
                     while (xmlReader.NodeType != XmlNodeType.Element || xmlReader.Name != "TemplateInfo")
@@ -199,6 +200,7 @@ namespace EM_Statistics
                     case "HasSeparatorBefore": col.hasSeparatorBefore = errorCollector.XEleGetBool(xe, xeCol, col.title); break;
                     case "HasSeparatorAfter": col.hasSeparatorAfter = errorCollector.XEleGetBool(xe, xeCol, col.title); break;
                     case "TiesWith": col.tiesWith = xe.Value; break;
+                    case "MultiNo": col.multiNo = xe.Value; break;
                     case var ctf when commonTableFields.Contains(ctf): ReadCommonTableField(xe, col, tableLocalMap, errorCollector, xeCol, col.title); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeCol, col.title); break;
                 }
@@ -309,6 +311,7 @@ namespace EM_Statistics
                     case "Reform": action._reform = errorCollector.XEleGetBool(xe, xeAction); break;
                     case "SaveResults": action._saveResult = errorCollector.XEleGetBool(xe, xeAction); break;
                     case "BlendParameters": action._blendParameters = errorCollector.XEleGetBool(xe, xeAction); break;
+                    case "Important": action._important = errorCollector.XEleGetBool(xe, xeAction); break;
                     case "Parameters": action.parameters = ReadElementGroup(xe, ReadParameter, localMap, errorCollector); break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeAction); break;
                 }
@@ -382,6 +385,7 @@ namespace EM_Statistics
                     case "UserVariables": info.userVariables = ReadElementGroup(xe, ReadUserVariable, null, errorCollector); break;
                     case "SDCDefinition": ReadTemplateInfoSDCDefinition(errorCollector, info, xe); break;
                     case "ExportDescriptionMode": info.exportDescriptionMode = errorCollector.XEleGetEnum<HardDefinitions.ExportDescriptionMode>(xe, xeInfo); break;
+                    case "DoMultiColumns": info.doMultiColumns = errorCollector.XEleGetBool(xe, xeInfo); break;
                     case "DebugMode": break;
                     default: errorCollector.AddXmlUnkownEleError(xe, xeInfo); break;
                 }

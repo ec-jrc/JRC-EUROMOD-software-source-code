@@ -17,7 +17,7 @@ namespace EM_UI.UpratingIndices
         internal CountryConfigFacade _countryConfigFacade = null;
         internal DataConfigFacade _dataConfigFacade = null;
         internal const char _separator = '°';
-        internal const char _separatorYear = '|';
+        internal const char _separatorInner = '|';
         const string _colYear = "colYear";
         internal const string _policyUprateFactors_Name = "DefUpratingFactors";
         internal const string _factorValueInvalid = "-99999999999";  // the value if a factor is missing or na
@@ -88,7 +88,7 @@ namespace EM_UI.UpratingIndices
             dgvDataTable.PrimaryKey[0].AutoIncrement = true;
             dgvDataTable.Columns.Add(colIndexDescription.Name);
             dgvDataTable.Columns.Add(colReference.Name);
-            foreach (string year in _countryConfigFacade.GetAllUpratingIndexYears()) AddYearColumn(year);
+            foreach (string year in _countryConfigFacade.GetAllUpratingIndexYears(true)) AddYearColumn(year);
             dgvDataTable.Columns.Add(colComment.Name);
 
             GetHICPFromGlobalTable();
@@ -428,7 +428,7 @@ namespace EM_UI.UpratingIndices
                 foreach (DataGridViewColumn yearColumn in GetYearColumnsAsDisplayed())
                 {
                     if (indexRow.Cells[yearColumn.Index].Value != null)
-                        yearValues +=  yearColumn.HeaderText + _separatorYear + indexRow.Cells[yearColumn.Index].Value.ToString();
+                        yearValues +=  yearColumn.HeaderText + _separatorInner + indexRow.Cells[yearColumn.Index].Value.ToString();
                     yearValues += _separator;
                 }
                 rawIndicesInfo.Add(new Tuple<string, string, string, string>(description, reference, comment,
@@ -503,7 +503,7 @@ namespace EM_UI.UpratingIndices
                                             currentCellColumnIndex + indexColumn == dgvIndices.Columns[colComment.Name].DisplayIndex)
                                         row[GetYearColumnIndexByDisplayIndex(currentCellColumnIndex + indexColumn)] = clipboardCells[indexColumn];
                                     else    // if one of the system columns
-                                        row[GetYearColumnIndexByDisplayIndex(currentCellColumnIndex + indexColumn)] = clipboardCells[indexColumn].Replace(',', '.');    // fix decimal separator
+                                        row[GetYearColumnIndexByDisplayIndex(currentCellColumnIndex + indexColumn)] = EM_Helpers.SetCleanInvariantNumberFormat(clipboardCells[indexColumn]);    // fix decimal separator
                                 }
                                 else
                                     break;
@@ -773,6 +773,26 @@ namespace EM_UI.UpratingIndices
         private void tabIndices_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbDatasets_SelectedIndexChanged(null, null);
+        }
+
+        private void addRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvIndices.Rows)
+            {
+                // if you reached the new  line, you are good!
+                if (row.IsNewRow)
+                {
+                    DataGridViewCell cell = row.Cells[1];
+                    // if the reference is null or empty, focus and exit with false
+                    if (cell.Value == null || cell.Value.ToString() == "")
+                    {
+                        dgvIndices.ClearSelection();
+                        cell.Selected = true;
+                        dgvIndices.CurrentCell = cell;
+                        dgvIndices.BeginEdit(true);
+                    }
+                }   
+            }
         }
     }
 }

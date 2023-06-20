@@ -10,8 +10,8 @@ namespace EM_Statistics
 
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
-                return origText.Replace(ident, EM_Helpers.ShortCountryToFullCountry(resources.baseSystem.GetSystemName().Length >= 2
-                                               ? resources.baseSystem.GetSystemName().Substring(0, 2).ToUpper() : string.Empty));
+                return origText.Replace(ident, EM_Helpers.ShortCountryToFullCountry(resources.baseSystems[0].GetSystemName().Contains("_")
+                                               ? resources.baseSystems[0].GetSystemName().Split('_')[0].ToUpper() : string.Empty));
             }
         }
     }

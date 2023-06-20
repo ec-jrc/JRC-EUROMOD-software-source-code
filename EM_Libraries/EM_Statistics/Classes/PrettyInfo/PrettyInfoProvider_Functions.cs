@@ -6,17 +6,17 @@ namespace EM_Statistics
     public static partial class PrettyInfoProvider
     {
         internal static string GetPrettyText(Template.TemplateInfo templateInfo, string origText,
-                                             SystemInfo baseSystem, List<SystemInfo> reformSystems = null,
+                                             List<SystemInfo> baseSystems, List<SystemInfo> reformSystems = null,
                                              string packageKey = null, int refNo = -1)
         {
             try
             {
                 if (string.IsNullOrEmpty(origText)) return string.Empty;
                 
-                PrettyInfoResources resources = new PrettyInfoResources(templateInfo, baseSystem, reformSystems, packageKey, refNo);
+                PrettyInfoResources resources = new PrettyInfoResources(templateInfo, baseSystems, reformSystems, packageKey, refNo);
 
                 string newText = origText;
-                foreach (PrettyInfo pi in allPrettyInfos) newText = pi.ReplaceText(newText, resources);
+                foreach (PrettyInfo pi in allPrettyInfos) if (newText.Contains(pi.getId())) newText = pi.ReplaceText(newText, resources);
                 return newText;
             }
             catch { return origText; }

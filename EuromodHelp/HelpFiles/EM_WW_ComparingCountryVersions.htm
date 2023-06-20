@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Comparing versions of a country</title>
+</head>
+
+<body>
+
+<h1>Comparing versions of a country</h1>
+
+<p>It may happen that a country is concurrently adapted by two (or more) developers - for example the country is worked on by a JRC developer as well as the country team - which usually asks for later consolidating of the different versions. The user interface offers support for this task by providing an option to compare versions of a country.<a href="#_ftn1" name="_ftnref1" title="">[1]</a></p>
+
+<h4>Performing the comparison</h4>
+
+<p>Open (the user interface's version of) the country and click the button <i>Compare Versions</i> in the ribbon <i>Country Tools</i>. This opens a dialog allowing for selecting the country folder to compare with <a href="#_ftn2" name="_ftnref2" title="">[2]</a>. Once the comparison version is selected the user interface starts its task, whereat it firstly searches for a system with the same unique identifier (in the following abbreviated as UID) in both versions. If it does not find such a system it reports that a comparison is not possible. The user interface uses this &quot;match system&quot; to &quot;symmetrise&quot; the versions, i.e. to take account of the fact that each of the versions may contain components (policies, functions, parameters) which do not exist in the other version, and thus cannot be displayed side by side with a correspondent component (that means, amongst others, that components which do not exist in the interface's version need to be added at an appropriate place).</p>
+
+<p>Further on the user interface imports all systems of the comparison version. The names of the imported systems are prefixed if with <i>1_</i> (e.g. system <i>BE_2010</i> is called <i>1_BE_2010</i>) <a href="#_ftn3" name="_ftnref3" title="">[3]</a>, unless no such system exists in the user interface's version, in which case the name is not changed (e.g. system <i>BE_2014</i>, which exists only in the comparison version is still called <i>BE_2014</i>). Then the user interface compares each &quot;pair of twin systems&quot;, where the twins are identified as systems with the same UID in the user interface's and the comparison version. Please note, that systems with just equal names but unequal UIDs are not recognised as twins! The imported system is still called e.g. <i>1_BE_2013</i>, however point c) below applies instead of point b).</p>
+
+<p>The comparison of twin systems consists of discovering differences in the values of policies, functions and parameters of the two systems, where these components are again matched by their UID.</p>
+
+<h4>Results of the comparison</h4>
+
+<p>There are three possible comparison results for each system imported from the comparison version:</p>
+<ul>
+<li>No differences are found between the twin systems: In this case the user interface removes the imported twin (e.g. system <i>1_BE_2010</i>), as it does not provide any additional information. The user is informed about the equality by an information box displayed after the comparison.</li>
+
+<li>The twin systems show differences: In this case the user interface highlights the concerned cells with colour and expands all policies/functions which show differences. More precisely it implements a &quot;Differences to Base System Formatting&quot; (see <a href="EM_WW_ConditionalFormatting.htm">Working with EUROMOD - Formatting - Conditional formatting</a>).</li>
+
+<li>The imported system does not have a twin: In this case the user is informed about this new system by an information box displayed after the comparison.</li>
+</ul>
+<p>The information box displayed after the comparison may also report the following: <i>&quot;For differences which cannot be reflected in the spine move the mouse over the red and green info markers in the group column.&quot;</i>. The next paragraph explains what this means.</p>
+
+<h4>Differences covered by &quot;info markers&quot;</h4>
+
+<p>If the above mentioned information is issued, the <i>Group</i> column shows so called &quot;info markers&quot;, which are little red or green squares. Moving the mouse over a cell with an info marker shows an information box, which tells for example:</p>
+
+
+<table class="footnote">
+	<tr><td>refers to system(s): 1_BE_2005 1_BE_2006 1_BE_2007 1_BE_2008 1_BE_2009 1_BE_2010 1_BE_2011 1_BE_2012 1_BE_2013</td></tr>
+	<tr><td>(info created 27/11/2013 15:33:06)</td></tr>
+	<tr><td>comment: only excess amount over 11.51 LVL is paid</td></tr>
+</table>
+
+<p>This info denotes that the concerned parameter, function or policy
+has a different comment in the comparison country (see 3rd line). The user
+interface uses this form to hint at different comments in the two version,
+because comments are not system specific and thus there is no obvious
+&quot;place&quot; (like for parameter values and switches) where to indicate
+the difference. The first two lines are shown with each info box and are just
+info on when the markers were created and which systems are concerned (i.e. the
+systems imported from the comparison version).</p>
+
+<h5>Possible differences indicated by info markers</h5>
+
+<p>Differences
+in comments are not the only and not the most relevant not system specific
+discrepancy. More relevant are for example differences in the order of
+policies, functions and parameters, which may be indicated like the following
+example shows:</p>
+
+<table class="footnote">
+	<tr><td>refers to system(s): 1_BE_2005 1_BE_2006 1_BE_2007 1_BE_2008 1_BE_2009 1_BE_2010 1_BE_2011 1_BE_2012 1_BE_2013</td></tr>
+	<tr><td>(info created 27/11/2013 15:33:06)</td></tr>
+	<tr><td>function order:</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;1. BenCalc</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;2. Elig</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;3. ArithOp</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;4. BenCalc</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;5. BenCalc</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;6. Allocate</td></tr>
+</table>
+
+<p>This means that in the comparison version the function <i>Elig</i> comes before
+the function <i>ArithOp</i>
+(the listing refers to the order in the comparison version, while numbers refer
+to the order in the user interface's version). Note that parameter- and function-order
+differences are indicated by an info marker alongside the function respectively
+policy containing them, whereas policy-order differences are indicated by an
+info marker alongside the first policy (as the &quot;containers&quot; of
+policies, i.e. systems, do not have a <i>Group</i>
+column where the info marker could be displayed).</p>
+
+<p>More relevant not system specific differences are denoted by
+red info markers. They concern policy/function/parameter order, policy names,
+parameter settings listed in the <i>Policy</i>
+column (e.g. names of constants/variables in functions <i>DefConst</i><i>/DefVar</i>), private settings of
+policies/functions and parameter groups.</p>
+
+<p>Less relevant not system specific differences are denoted by
+green info markers. They concern comments and private comments.</p>
+
+<h5>Handling info markers</h5>
+
+<p>In order to be able to copy parts of the information
+provided by the info boxes, e.g. the text of a comment, one can display the
+information in a little editable window. To do so, select the cell with the
+info marker and press the <i>F7</i> key.</p>
+
+<p>Together with the <i>Compare
+Versions</i> button the user interface provides three further buttons: <i>Remove Info Markers</i>, <i>Store Info Markers</i> and <i>Load Info Markers</i>. To understand this,
+one needs to know that info markers are not permanent, in the sense that, if
+the interface is closed and reopened, the info markers are gone <a
+href="#_ftn4" name="_ftnref4" title="">[4]</a>. This may be bothersome if for example one wants to continue working only the
+next day, but still not lose the info markers. Therefore the two latter buttons
+(<i>Store</i>, <i>Load</i>) allow storing info markers before closing and reloading them
+on reopening the interface <a href="#_ftn5"
+name="_ftnref5" title="">[5]</a>. The former button (<i>Remove</i>) allows for
+removing info markers to get rid of possibly disturbing red and green squares.</p>
+
+<h4>Differences not covered by the comparison</h4>
+
+<p>The comparison performed by the <i>Compare Versions</i> option only concerns what is displayed in the main
+view of a country. That means any differences in data settings, system settings
+and conditional formatting are not covered.</p>
+
+<h4>Importing systems by matching unique identifiers</h4>
+
+<p>The <i>Import Systems</i>
+dialog (see <a href="EM_WW_ImportingExportingSystems.htm">Working with EUROMOD
+- Importing and exporting Systems</a>) provides a checkbox <i>Match by Unique Identifier</i>. The box is only enabled when such an
+import is possible. Loosely speaking that means that the systems need to be
+imported from another version of the same country. More precisely it means that
+there needs to be at least one system with the same UID in the country from
+which the systems are imported. If the box is ticked, the import follows the
+same rules as in the <i>Compare Versions</i>
+procedure. That means it matches the systems by using the UIDs of systems,
+policies, functions and parameters.</p>
+
+<p>The advantage of this approach is that one may get a better
+conformity between the existing and the imported systems. The main disadvantage
+is however, that one may not get runnable systems, as the
+approach does not correct for not system specific differences. Most
+importantly it does not correct for different orders of policies and functions,
+for different settings of parameter groups (<i>Group</i>
+column) and for renamings in the <i>Policy</i> column (e.g. changing a component of an incomelist
+or renaming a constant). Instead it leaves the respective adaptions to the user
+by providing info markers as described above. (If necessary) The user is warned
+about the discrepancies and informed about the existence of info markers by a
+message issued after the import procedure.</p>
+
+<h4>&quot;Undoing&quot; the changes caused by the comparison</h4>
+
+<p>Note that the changes caused by the comparison cannot be
+undone by using the undo functionality. However, the user interface produces a backup
+before starting the comparison, which can be restored via the button <i>Restore</i> in the ribbon <i>Country Tools</i>. For more information see
+(<a href="EM_WW_BackupRestore.htm">Working with EUROMOD - Backup - Restore</a>).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> For the sake of simplicity the following
+descriptions refer to countries, however comparing versions is available for
+add-ons as well.</p>
+
+<p class="footnote"><a href="#_ftnref2"
+name="_ftn2" title="">[2]</a> For information on the country folder
+see <a href="EM_FS_ParameterFiles.htm">EUROMOD Installation and Architecture -
+EUROMOD content (parameter files) - Format of country parameter files</a>).</p>
+
+<p class="footnote"><a href="#_ftnref3"
+name="_ftn3" title="">[3]</a> More precisely, the systems are
+prefixed with consecutive numbers, i.e. if e.g. <i>1_BE_2010</i> exists in the user interface's version too,
+the imported system is called <i>2_BE_2010</i>.</p>
+
+<p class="footnote"><a href="#_ftnref4"
+name="_ftn4" title="">[4]</a> Technically that means that they are
+neither stored in the country XML-files nor in the
+user settings (like e.g. bookmarks).</p>
+
+<p class="footnote"><a href="#_ftnref5"
+name="_ftn5" title="">[5]</a> The ability to store and reload info
+markers is the main reason for equipping the information with a date. This
+hints at the fact that the displayed information may not be up-to-date anymore.</p>
+
+</div>
+
+</body>
+
+</html>

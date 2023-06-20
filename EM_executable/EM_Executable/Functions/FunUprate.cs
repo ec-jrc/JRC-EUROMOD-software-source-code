@@ -11,6 +11,7 @@ namespace EM_Executable
 
         private class UpVar
         {
+            internal Description description;
             internal const double ALLYEARS = double.MaxValue;
             internal VarSpec varSpec = null;
             internal ParCond parCondition = null;
@@ -34,7 +35,7 @@ namespace EM_Executable
 
         private List<UpVar> upVars = new List<UpVar>();
         private List<AggUpVar> aggUpVars = new List<AggUpVar>();
-        private Dictionary<string, Dictionary<double, double>> upRegExp = new Dictionary<string, Dictionary<double, double>>(); // key: pattern, value: factor(name)
+        private List<UpVar> upRegExp = new List<UpVar>(); // key: pattern, value: factor(name)
         private Dictionary<double, double> defaultFactor = new Dictionary<double, double>() { { UpVar.ALLYEARS, 1.0 } };
         private bool warnIfNoFactor = true;
         private bool warnIfNonMonetary = true;
@@ -94,16 +95,18 @@ namespace EM_Executable
                 {
                     string upVarName = parMain.description.GetParName(); // get the name of the variable to uprate (e.g. yem)
                                                                          // check for double uprating, but take care of conditions, e.g. twice yem-uprating without condition -> warning, yem-uprating different for men and women -> ok
-                    bool exists = ExistsUpVar(upVarName, out bool conditioned);
-                    if (exists && (!conditioned || parCond == null)) infoStore.communicator.ReportError(new Communicator.ErrorInfo()
-                    { isWarning = true, message = $"{parMain.description.Get()}: double uprating of variable {upVarName}" });
+                    string condition = parCond == null ? "" : parCond.xmlValue;
+                    bool exists = ExistsUpVar(upVarName, condition, out string reason);
+                    if (exists) infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+                    { isWarning = true, message = $"{parMain.description.Get()}: {reason}" });
                     Dictionary<double, double> upFactors = GetFactors(internalFactorDefs, parMain);
 
                     upVars.Add(new UpVar()
                     {
                         varSpec = new VarSpec() { name = upVarName },
                         factors = upFactors,
-                        parCondition = parCond
+                        parCondition = parCond,
+                        description = parMain.description
                     });
 
                     // the main purpose of this registration is to ensure the variable exists (an error is issued if not)
@@ -131,7 +134,8 @@ namespace EM_Executable
                 ParVar parName = GetUniqueGroupPar<ParVar>(DefPar.Uprate.AggVar_Name, group);
                 if (parName == null) continue; // error is issued by general checking
 
-                if (ExistsUpVar(parName.name, out bool dummy)) infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+                bool exists = ExistsUpVar(parName.name, "", out string _);
+                if (exists) infoStore.communicator.ReportError(new Communicator.ErrorInfo()
                     { isWarning = true, message = $"{parName.description.Get()}: double uprating of variable {parName.name} (aggregate and normally)" });
 
                 ParNumber parTol = GetUniqueGroupPar<ParNumber>(DefPar.Uprate.AggVar_Tolerance, group);
@@ -148,10 +152,11 @@ namespace EM_Executable
             // (3) VARIABLES DEFINED BY REGULAR EXPRESSION (e.g. for updating expenditure variables)
             foreach (var group in GetParGroups(DefPar.Uprate.GROUP_REGEXP).Values)
             {
+                ParCond parCond = GetUniqueGroupPar<ParCond>(DefPar.Uprate.RegExp_Condition, group);
                 ParBase parDef = GetUniqueGroupPar<ParBase>(DefPar.Uprate.RegExp_Def, group);
                 ParBase parFactor = GetUniqueGroupPar<ParBase>(DefPar.Uprate.RegExp_Factor, group);
                 if (parDef == null || parFactor == null) continue;
-                upRegExp.Add(parDef.xmlValue, GetFactors(internalFactorDefs, parFactor));
+                upRegExp.Add(new UpVar() { varSpec = new VarSpec() { name = parDef.xmlValue }, factors = GetFactors(internalFactorDefs, parFactor), parCondition = parCond, description = parDef.description });
             }
 
             // get default factor ...
@@ -173,13 +178,22 @@ namespace EM_Executable
         internal override void ReplaceVarNameByIndex()
         {
             // add the variables defined by regular expression (e.g. expenditure variables)
-            foreach (var regExp in upRegExp)
+            foreach (UpVar regExp in upRegExp)
             {
-                foreach (string matchVar in infoStore.operandAdmin.GetMatchingVar(pattern: regExp.Key, regExpr: true))
+                foreach (string matchVar in infoStore.operandAdmin.GetMatchingVar(pattern: regExp.varSpec.name, regExpr: true))
                 {
-                    if (ExistsUpVar(matchVar, out bool dummy)) continue; // do not add if already otherwise uprated
-                    if (!infoStore.operandAdmin.GetVarsToUprate().Contains(matchVar)) continue; // only uprate monetary variables
-                    upVars.Add(new UpVar() { varSpec = new VarSpec() { name = matchVar }, factors = regExp.Value });
+                    // if it exists: as non-conditioned, or this RegExp is non-conditioned, or this specific condition already exists
+                    string condition = regExp.parCondition == null ? "" : regExp.parCondition.xmlValue;
+                    bool exists = ExistsUpVar(matchVar, condition, out string reason);
+                    if (exists)
+                    { 
+                        infoStore.communicator.ReportError(new Communicator.ErrorInfo() {
+                            isWarning = true,
+                            message = $"{regExp.description.Get()}:'{reason} This factor will be ignored.'"
+                        });
+                        continue; // do not add if already otherwise uprated and this is not a conditioned uprate
+                    }
+                    upVars.Add(new UpVar() { varSpec = new VarSpec() { name = matchVar }, factors = regExp.factors, parCondition = regExp.parCondition });
                 }
             }
 
@@ -211,7 +225,7 @@ namespace EM_Executable
             string noFac = string.Empty;
             foreach (string v in infoStore.operandAdmin.GetVarsToUprate())
             {
-                if (ExistsUpVar(v, out bool dummy)) continue;
+                if (ExistsUpVar(v, "", out string _)) continue;
                 if ((from auv in aggUpVars where auv.varSpec.name.ToLower() == v.ToLower() select auv).Count() > 0) continue;
                 upVars.Add(new UpVar() { varSpec = new VarSpec() { name = v }, factors = defaultFactor });
                 if (warnIfNoFactor) noFac += v + ", ";
@@ -268,15 +282,45 @@ namespace EM_Executable
                 });
             }
 
+            List<string> failed = new List<string>();
+            List<string> dble = new List<string>();
+            List<string> done = new List<string>();
             // uprating "normal" variables
             foreach (UpVar uv in upVars)
             {
                 if (uv.parCondition == null || // either there is no condition or the condition is fulfilled
                     uv.parCondition.GetPersonValue(hh, tu[0]))
+                {
                     hh.SetPersonValue(hh.GetPersonValue(uv.varSpec.index, tu[0].indexInHH) * uv.GetFactor(isDBYearVarUsed ? hh.GetPersonValue(indDBYearVar, tu[0].indexInHH) : UpVar.ALLYEARS),
                                                         uv.varSpec.index, tu[0].indexInHH);
+                    if (!done.Contains(uv.varSpec.name)) done.Add(uv.varSpec.name);
+                    else dble.Add(uv.varSpec.name);
+                    if (failed.Contains(uv.varSpec.name)) failed.Remove(uv.varSpec.name);
+                }
+                else
+                {
+                    if (!failed.Contains(uv.varSpec.name) && !done.Contains(uv.varSpec.name)) failed.Add(uv.varSpec.name);
+                }
             }
-            // 2nd step of uprating aggregates: build the factor of each aggregate variable as
+/*            if (failed.Count > 0)
+            {
+                infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+                {
+                    isWarning = true, 
+                    runTimeErrorId = description.funID,
+                    message = $"{description.Get()}: idperson {infoStore.GetIDPerson(hh, tu[0].indexInHH)}: the following var(s) were not uprated because they didn't match any of the conditions: {string.Join(", ", failed)}"
+                });
+            }
+            if (dble.Count > 0)
+            {
+                infoStore.communicator.ReportError(new Communicator.ErrorInfo()
+                {
+                    isWarning = true,
+                    runTimeErrorId = description.funID,
+                    message = $"{description.Get()}: idperson {infoStore.GetIDPerson(hh, tu[0].indexInHH)}: the following var(s) were uprated more than once because they matched multiple conditions: {string.Join(", ", dble)}"
+                });
+            }
+*/            // 2nd step of uprating aggregates: build the factor of each aggregate variable as
             // factor_part1 * share_part1 + ... + factor_partN * share_partN =
             // = (part1_new / part1_old) * (part1_old / sum_parts_old) + ... + (partN_new / partN_old) * (partN_old / sum_parts_old)
             foreach (AggUpVar auv in aggUpVars)
@@ -385,12 +429,34 @@ namespace EM_Executable
             return facDefs;
         }
 
-        private bool ExistsUpVar(string varName, out bool conditioned)
+        private bool ExistsUpVar(string varName, string varCondition, out string description)
         {
-            conditioned = false; bool exists = false;
+            description = string.Empty;
             foreach (var uv in upVars)
-                if (uv.varSpec.name.ToLower() == varName.ToLower()) { exists = true; conditioned = uv.parCondition != null; }
-            return exists;
+            {
+                if (uv.varSpec.name.ToLower() == varName.ToLower())
+                {
+                    string condition = (uv.parCondition != null) ? uv.parCondition.xmlValue : "";
+                    string position = uv.description.pol.order + "." + uv.description.fun.order + "." + uv.description.par.order;
+
+                    if (string.IsNullOrEmpty(condition))
+                    {
+                        description = $"Variable '{varName}' is already uprated in {position} without a condition.";
+                        return true;
+                    }
+                    if (string.IsNullOrEmpty(varCondition))
+                    {
+                        description = $"Variable '{varName}' is already uprated in {position} with conditions. You cannot uprate wihout a condition.";
+                        return true;
+                    }
+                    if (condition == varCondition)
+                    {
+                        description = $"Variable '{varName}' is already uprated in {position} with the same condition.";
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

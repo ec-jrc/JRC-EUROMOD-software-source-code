@@ -61,7 +61,7 @@ namespace EM_UI.DataSets
             _countryConfig.AcceptChanges();
 
             MigrateUpratingIndices();
-
+            
             return _countryConfig;
         }
 
@@ -801,6 +801,21 @@ namespace EM_UI.DataSets
             return parameterValues;
         }
 
+        internal bool GetParameterBoolValue(CountryConfig.FunctionRow function, string parameterName)
+        {
+            CountryConfig.ParameterRow paramRow = GetParameterRowByName(function.ID, parameterName);
+            if (paramRow != null && !string.IsNullOrWhiteSpace(paramRow.Value))
+            {
+                if (bool.TryParse(paramRow.Value, out bool res))
+                    return res;
+                else if (paramRow.Value.Equals(DefPar.Value.YES))
+                    return true;
+                else if (paramRow.Value.Equals(DefPar.Value.NO))
+                    return false;
+            }
+            return DefinitionAdmin.GetParDefault<bool>(function.Name, parameterName);
+        }
+
         #endregion parameter_functions
 
         #region general_functions
@@ -1520,20 +1535,19 @@ namespace EM_UI.DataSets
             Dictionary<int, double> yearValues = new Dictionary<int, double>();
             foreach (string yv in index.YearValues.Split(UpratingIndices.UpratingIndicesForm._separator))
             {
-                if (string.IsNullOrEmpty(yv)) continue;
-                int year; double value;
-                bool valEmpty = !EM_Helpers.TryConvertToDouble(yv.Substring(5), out value);
+                int year; double value = -1;
+                bool valEmpty = string.IsNullOrEmpty(yv) || !EM_Helpers.TryConvertToDouble(yv.Substring(5), out value);
                 if (int.TryParse(yv.Substring(0, 4), out year) && !yearValues.ContainsKey(year) && (!valEmpty || includeEmpty))
                     yearValues.Add(year, valEmpty ? -1 : value);
             }
             return yearValues;
         }
 
-        internal List<string> GetAllUpratingIndexYears()
+        internal List<string> GetAllUpratingIndexYears(bool includeEmpty = false)
         {
             List<string> years = new List<string>();
             foreach (CountryConfig.UpratingIndexRow index in _countryConfig.UpratingIndex)
-                foreach(int year in GetUpratingIndexYearValues(index).Keys)
+                foreach(int year in GetUpratingIndexYearValues(index, includeEmpty).Keys)
                     if (!years.Contains(year.ToString())) years.Add(year.ToString());
             return years;
         }
@@ -1578,7 +1592,7 @@ namespace EM_UI.DataSets
                     CountryConfig.UpratingIndexRow upInd = _countryConfig.UpratingIndex.AddUpratingIndexRow(Guid.NewGuid().ToString(),
                                                             infoSplit[0], infoSplit[1], infoSplit[infoSplit.Count - 1].Replace("§$&", "#"), string.Empty);
                     for (int y = 0; y < years.Count; ++y)
-                        upInd.YearValues += years[y] + UpratingIndicesForm._separatorYear + infoSplit[y + 2] + UpratingIndicesForm._separator;
+                        upInd.YearValues += years[y] + UpratingIndicesForm._separatorInner + infoSplit[y + 2] + UpratingIndicesForm._separator;
                     upInd.YearValues = upInd.YearValues.TrimEnd(new char[] { UpratingIndicesForm._separator });
                 }
 
@@ -1590,5 +1604,127 @@ namespace EM_UI.DataSets
         }
 
         #endregion uprating_index_functions
+
+        #region indirect_taxes_functions
+
+        internal List<CountryConfig.IndirectTaxRow> GetIndirectTaxes() { return _countryConfig.IndirectTax.ToList(); }
+
+        internal CountryConfig.IndirectTaxRow GetIndirectTax(string name)
+        {
+            List<CountryConfig.IndirectTaxRow> uis = (from ui in _countryConfig.IndirectTax
+                                                        where ui.Reference.ToLower() == name.ToLower()
+                                                        select ui).ToList();
+            return uis.Count == 0 ? null : uis[0];
+        }
+
+        internal Dictionary<int, double> GetIndirectTaxYearValues(CountryConfig.IndirectTaxRow index, bool includeEmpty = false)
+        {
+            Dictionary<int, double> yearValues = new Dictionary<int, double>();
+            foreach (string yv in index.YearValues.Split(IndirectTaxes.IndirectTaxesForm.separator))
+            {
+                if (string.IsNullOrEmpty(yv)) continue;
+                int year; double value;
+                bool valEmpty = !EM_Helpers.TryConvertToDouble(yv.Substring(5), out value);
+                if (int.TryParse(yv.Substring(0, 4), out year) && !yearValues.ContainsKey(year) && (!valEmpty || includeEmpty))
+                    yearValues.Add(year, valEmpty ? -1 : value);
+            }
+            return yearValues;
+        }
+
+        internal List<string> GetAllIndirectTaxYears()
+        {
+            List<string> years = new List<string>();
+            foreach (CountryConfig.IndirectTaxRow index in _countryConfig.IndirectTax)
+                foreach (int year in GetIndirectTaxYearValues(index).Keys)
+                    if (!years.Contains(year.ToString())) years.Add(year.ToString());
+            return years;
+        }
+
+        internal void UpdateIndirectTaxes(List<Tuple<string, string, string, string>> taxes)
+        {
+            foreach (var tax in taxes)
+            {
+                List<CountryConfig.IndirectTaxRow> ind = (from i in _countryConfig.IndirectTax where i.Reference.ToLower() == tax.Item1.ToLower() select i).ToList();
+                if (ind.Count == 0) _countryConfig.IndirectTax.AddIndirectTaxRow(Guid.NewGuid().ToString(), tax.Item1, tax.Item2, tax.Item3);
+                else { ind[0].Reference = tax.Item1; ind[0].Comment = tax.Item3; ind[0].YearValues = tax.Item4; }
+            }
+            List<string> refs = (from i in taxes select i.Item2.ToLower()).ToList();
+            for (int i = _countryConfig.IndirectTax.Count - 1; i >= 0; --i)
+                if (!refs.Contains(_countryConfig.IndirectTax[i].Reference.ToLower())) _countryConfig.IndirectTax.ElementAt(i).Delete();
+        }
+
+        #endregion indirect_taxes_functions
+
+
+        #region external_statistic_functions
+
+        internal List<CountryConfig.ExternalStatisticRow> GetExternalStatistics() { return _countryConfig.ExternalStatistic.ToList(); }
+
+        internal CountryConfig.ExternalStatisticRow GetEXternalStatistic(string category, string name)
+        {
+            List<CountryConfig.ExternalStatisticRow> uis = (from ui in _countryConfig.ExternalStatistic
+                                                      where ui.Category.ToLower() == category.ToLower() && ui.Reference.ToLower() == name.ToLower()
+                                                      select ui).ToList();
+            return uis.Count == 0 ? null : uis[0];
+        }
+
+        internal Dictionary<int, double> GetExternalStatisticYearValues(CountryConfig.ExternalStatisticRow exStat, bool includeEmpty = false)
+        {
+            Dictionary<int, double> yearValues = new Dictionary<int, double>();
+            foreach (string yv in exStat.YearValues.Split(InDepthDefinitions.SEPARATOR))
+            {
+                if (string.IsNullOrEmpty(yv)) continue;
+                int year; double value;
+                bool valEmpty = !EM_Helpers.TryConvertToDouble(yv.Substring(5), out value);
+                if (int.TryParse(yv.Substring(0, 4), out year) && !yearValues.ContainsKey(year) && (!valEmpty || includeEmpty))
+                    yearValues.Add(year, valEmpty ? -1 : value);
+            }
+            return yearValues;
+        }
+
+        internal void UpdateExternalStatistics(List<ExternalStatistics.ExternalStatsTuple> extStatistics)
+        {
+            foreach (var extSt in extStatistics)
+            {
+                CountryConfig.ExternalStatisticRow ext = (from i in _countryConfig.ExternalStatistic where i.Reference.ToLower() == extSt.name.ToLower() && i.Category.ToLower() == extSt.incomeList.ToLower() select i).FirstOrDefault();
+
+                if (ext == null) _countryConfig.ExternalStatistic.AddExternalStatisticRow(Guid.NewGuid().ToString(), extSt.incomeList, extSt.name, extSt.description, extSt.yearValues, extSt.comment, extSt.source, extSt.tableName, extSt.destination);
+                else
+                {
+                    if (ext.Category.StartsWith("ils_exstat")) { ext.Reference = extSt.name; }
+                    ext.Category = extSt.incomeList; ext.Reference = extSt.name; ext.Description = extSt.description; ext.YearValues = extSt.yearValues; ext.Comment = extSt.comment; ext.Source = extSt.source; ext.TableName = extSt.tableName; ext.Destination = extSt.destination;
+                }
+            }
+            List<string> refs = (from i in extStatistics select i.incomeList.ToLower() + "_" + i.name.ToLower()).ToList();
+            for (int i = _countryConfig.ExternalStatistic.Count - 1; i >= 0; --i)
+            {
+                string currentRef = _countryConfig.ExternalStatistic[i].Category.ToLower() + "_" + _countryConfig.ExternalStatistic[i].Reference.ToLower();
+                if (!refs.Contains(currentRef)){
+                    _countryConfig.ExternalStatistic.ElementAt(i).Delete();
+                }
+            }
+
+            _countryConfig.AcceptChanges();
+        }
+
+        internal List<string> GetAllExternalStatisticsYears()
+        {
+            // try to read the first row of the stored external statistics to see which years are available. 
+            // in theory, all rows should have the same years!
+            List<string> years = new List<string>();
+            CountryConfig.ExternalStatisticRow firstStat = _countryConfig.ExternalStatistic.ToList().FirstOrDefault();
+            if (firstStat == null) return years;
+
+            foreach (string yv in firstStat.YearValues.Split(InDepthDefinitions.SEPARATOR))
+            {
+                if (string.IsNullOrEmpty(yv)) continue;
+                string year = yv.Split(InDepthDefinitions.SEPARATOR_INNER).FirstOrDefault();
+                if (string.IsNullOrEmpty(year)) continue;
+                if (int.TryParse(year, out _))
+                    years.Add(year);
+            }
+            return years;
+        }
+        #endregion external_statistic_functions
     }
 }

@@ -10,8 +10,9 @@ namespace EM_Statistics
 
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
-                return resources.baseSystem.GetFileGenesis(out SystemInfo.FileGenesis fileGenesis) ?
-                    origText.Replace(ident, PrettyInfoFileGenesis.GetPrettyRunAddons(fileGenesis)) : origText.Replace(ident, DefPar.Value.NA);
+                return resources.baseSystems != null && resources.baseSystems.Count > 0 ?
+                    (resources.baseSystems[0].GetFileGenesis(out SystemInfo.FileGenesis fileGenesis) ?
+                    origText.Replace(ident, PrettyInfoFileGenesis.GetPrettyRunAddons(fileGenesis)) : origText.Replace(ident, DefPar.Value.NA)) : origText;
             }
         }
     }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EM_Libraries\EM_Common\EM_Common.csproj" />
-    <ProjectReference Include="..\..\EM_Libraries\EM_XmlHandler\EM_XmlHandler.csproj" />
+    <ProjectReference Include="..\..\em_libraries\EM_XmlHandler\EM_XmlHandler.csproj" />
   </ItemGroup>
 
 </Project>

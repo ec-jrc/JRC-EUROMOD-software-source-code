@@ -8,7 +8,7 @@
 
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
-                return origText.Replace(ident, resources.baseSystem.GetFileName());
+                return origText.Replace(ident, resources.baseSystems[0].GetFileName());
             }
         }
     }

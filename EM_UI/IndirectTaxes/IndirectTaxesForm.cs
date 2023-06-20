@@ -16,9 +16,10 @@ namespace EM_UI.IndirectTaxes
     internal partial class IndirectTaxesForm : Form
     {
         private EM_UI_MainForm mainForm = null;
+        internal CountryConfigFacade _countryConfigFacade = null;
         private const string colYear = "colYear";
         internal const char separator = '°';
-        internal const char separatorYear = '|';
+        internal const char separatorInner = '|';
         private DataSet dataSet = new DataSet();
         private DataTable dataTable = new DataTable("IttDataTable");
         private ADOUndoManager undoManager = new ADOUndoManager();
@@ -32,6 +33,7 @@ namespace EM_UI.IndirectTaxes
             try
             {
                 mainForm = _mainForm;
+                _countryConfigFacade = EM_UI.CountryAdministration.CountryAdministrator.GetCountryConfigFacade(mainForm.GetCountryShortName());
 
                 dataSet.Tables.Add(dataTable);
                 table.DataSource = dataSet;
@@ -53,7 +55,7 @@ namespace EM_UI.IndirectTaxes
 
         void LoadTableContent()
         {
-            CountryConfig countryConfig = CountryAdministrator.GetCountryConfigFacade(mainForm.GetCountryShortName()).GetCountryConfig();
+            CountryConfig countryConfig = _countryConfigFacade.GetCountryConfig();
             keepUndoData = false;
 
             dataTable.PrimaryKey = new DataColumn[] { dataTable.Columns.Add("ID", typeof(Int16)) };
@@ -69,7 +71,7 @@ namespace EM_UI.IndirectTaxes
             foreach (CountryConfig.IndirectTaxRow itr in countryConfig.IndirectTax)
             {
                 DataRow row = dataTable.Rows.Add();
-                row.SetField(colName.Name, itr.Name);
+                row.SetField(colName.Name, itr.Reference);
                 row.SetField(colComment.Name, itr.Comment);
                 foreach (var yv in DecomposeYearValues(itr.YearValues)) row.SetField(colYear + yv.Key.ToString(), yv.Value);
             }
@@ -84,8 +86,8 @@ namespace EM_UI.IndirectTaxes
             Dictionary<string, string> yearValues = new Dictionary<string, string>();
             foreach (string yv in yearValuesString.Split(separator))
             {
-                if (string.IsNullOrEmpty(yv) || yv.Split(separatorYear).Count() != 2) continue;
-                yearValues.Add(yv.Split(separatorYear)[0], yv.Split(separatorYear)[1].
+                if (string.IsNullOrEmpty(yv) || yv.Split(separatorInner).Count() != 2) continue;
+                yearValues.Add(yv.Split(separatorInner)[0], yv.Split(separatorInner)[1].
                     Replace(NumberFormatInfo.CurrentInfo.NumberDecimalSeparator, EM_Helpers.uiDecimalSeparator)); // make sure you always show "." as decimal separator
             }
             return yearValues;
@@ -267,7 +269,7 @@ namespace EM_UI.IndirectTaxes
                                     currentCellColumnIndex + indexColumn == table.Columns[colComment.Name].DisplayIndex)
                                     row[GetYearColumnIndexByDisplayIndex(currentCellColumnIndex + indexColumn)] = clipboardCells[indexColumn];
                                 else    // if one of the system columns
-                                    row[GetYearColumnIndexByDisplayIndex(currentCellColumnIndex + indexColumn)] = clipboardCells[indexColumn].Replace(',', '.');    // fix decimal separator
+                                    row[GetYearColumnIndexByDisplayIndex(currentCellColumnIndex + indexColumn)] = EM_Helpers.SetCleanInvariantNumberFormat(clipboardCells[indexColumn]);    // fix decimal separator
                             }
                             else
                                 break;
@@ -493,7 +495,7 @@ namespace EM_UI.IndirectTaxes
                 foreach (DataGridViewColumn yearColumn in GetYearColumnsAsDisplayed())
                 {
                     if (row.Cells[yearColumn.Index].Value != null)
-                        yearValues += yearColumn.HeaderText + separatorYear + row.Cells[yearColumn.Index].Value.ToString();
+                        yearValues += yearColumn.HeaderText + separatorInner + row.Cells[yearColumn.Index].Value.ToString();
                     yearValues += separator;
                 }
                 indTaxes.Add(new Tuple<string, string, string>(name, comment, yearValues.TrimEnd(new char[] { separator })));
@@ -502,13 +504,13 @@ namespace EM_UI.IndirectTaxes
             CountryConfig countryConfig = CountryAdministrator.GetCountryConfigFacade(mainForm.GetCountryShortName()).GetCountryConfig();
             foreach (var indTax in indTaxes)
             {
-                List<CountryConfig.IndirectTaxRow> its = (from it in countryConfig.IndirectTax where it.Name.ToLower() == indTax.Item1.ToLower() select it).ToList();
+                List<CountryConfig.IndirectTaxRow> its = (from it in countryConfig.IndirectTax where it.Reference.ToLower() == indTax.Item1.ToLower() select it).ToList();
                 if (its.Count == 0) countryConfig.IndirectTax.AddIndirectTaxRow(Guid.NewGuid().ToString(), indTax.Item1, indTax.Item2, indTax.Item3);
-                else { its[0].Name = indTax.Item1; its[0].Comment = indTax.Item2; its[0].YearValues = indTax.Item3; }
+                else { its[0].Reference = indTax.Item1; its[0].Comment = indTax.Item2; its[0].YearValues = indTax.Item3; }
             }
             List<string> itNames = (from i in indTaxes select i.Item1.ToLower()).ToList();
             for (int i = countryConfig.IndirectTax.Count - 1; i >= 0; --i)
-                if (!itNames.Contains(countryConfig.IndirectTax[i].Name.ToLower())) countryConfig.IndirectTax.ElementAt(i).Delete();
+                if (!itNames.Contains(countryConfig.IndirectTax[i].Reference.ToLower())) countryConfig.IndirectTax.ElementAt(i).Delete();
         }
     }
 }

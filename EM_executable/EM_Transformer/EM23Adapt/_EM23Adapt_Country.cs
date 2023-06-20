@@ -92,6 +92,12 @@ namespace EM_Transformer
                 AdaptYearValues(indTax.Value, ctryContent.indTaxVal, EM_XmlHandler.TAGS.INDTAX_ID); // put year-values in own elements (see above)
             }
 
+            // ***  E X S T E R N A L   S T A T I S T I C S  ***
+            foreach (var exStat in ctryContent.exStat)
+            {
+                AdaptYearValuesExStat(exStat.Value, ctryContent.exStatVal); // put year-values in own elements (see comment in function)
+            }
+
             if (dataContent == null) return;
             // BREAK HERE FOR ADD-ONS !!! the rest only concerns countries
             //---------------------------------------------------------------------------------------

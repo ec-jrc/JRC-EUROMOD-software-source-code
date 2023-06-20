@@ -80,7 +80,7 @@ namespace EM_UI.Dialogs
                 string message = "Focused cell does not match. Try 'Search Next/Previous' to find the next match.";
                 if (cboFind.Text.IndexOfAny(new char[] {'?','*'}) >= 0)
                     message += Environment.NewLine + Environment.NewLine + _messageNoWildcards;
-                Tools.UserInfoHandler.ShowError(message);
+                EM_UI.Tools.UserInfoHandler.ShowError(message);
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace EM_UI.Dialogs
                                                             true, GetActiveMainForm().GetTreeListBuilder().GetPolicyColumn()), false);
             else
             {
-                Tools.UserInfoHandler.ShowError("Replace can only change system columns and the comment column.");
+                EM_UI.Tools.UserInfoHandler.ShowError("Replace can only change system columns and the comment column.");
                 return;
             }
             
@@ -276,7 +276,7 @@ namespace EM_UI.Dialogs
             }
 
             if (_foundCells.Count == 0)
-                Tools.UserInfoHandler.ShowError("No match found.");
+                EM_UI.Tools.UserInfoHandler.ShowError("No match found.");
 
             _selectedNodesAtLastSearch = selectedNodes;
             _selectedColumnsAtLastSearch = selectedColumns;
@@ -341,7 +341,7 @@ namespace EM_UI.Dialogs
 
             if (cboFind.Text.IndexOfAny(new char[] { '?', '*' }) >= 0)
             {
-                if (Tools.UserInfoHandler.GetInfo(_messageNoWildcards, MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                if (EM_UI.Tools.UserInfoHandler.GetInfo(_messageNoWildcards, MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                     return;
             }
 

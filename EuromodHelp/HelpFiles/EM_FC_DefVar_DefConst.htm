@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The system functions DefVar and DefConst</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The system functions DefVar and DefConst</h1>
+
+<p>The
+function DefVar allows for the definition of
+intermediate variables, as illustrated by the following example.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefVar</td>
+		<td class="on">on</td>
+		<td>define variables for minimum and maximum of child benefits</td>
+	</tr>
+	<tr>
+		<td>mincb</td>
+		<td>0</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>maxcb</td>
+		<td>0</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>set value of minimum</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>il_earns*20%</td>
+		<td>minimum for child benefits is 20% of earnings</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>mincb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td>set value of maximum</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>il_earns*80%</td>
+		<td>maximum for child benefits is 80% of earnings</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>maxcb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td class="on">on</td>
+		<td>education child benefit</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>mincb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>uplim</td>
+		<td>maxcb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bched_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td class="on">on</td>
+		<td>child benefit for birth/adoption</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>mincb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>uplim</td>
+		<td>maxcb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bchba_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td class="on">on</td>
+		<td>large family child benefit</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>mincb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>uplim</td>
+		<td>maxcb</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>bchlg_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In the example three child benefits are constrained by the same minimum
+(20% of earnings) and maximum (80% of earnings). For this purpose respective
+variables for the miminum (mincb) and maximum (maxcb) are generated with DefVar.
+Note that the variables are initially set to zero and the function <i><a href="EM_FC_ArithOp.htm">ArithOp</a></i>
+is used to define their value. The reason for this approach is that <i>DefVar</i> is designed to define variables
+and possibly initialise them with constants (as e.g. zero), but not to fill
+them with person or household specific values (note that the function has no <i>TAX_UNIT</i>).</p>
+
+<p>In
+principle variables created by DefVar can be used in
+the same way as variables defined in the variable description file (see <a
+href="EM_WW_Variables.htm">Working with EUROMOD - Administration of EUROMOD
+variables</a>). However, good modelling practise requires that they are only
+used as intermediate variables, i.e. storing and outputting of major results is
+reserved to variables described in the variable description file. In contrast
+to these &quot;regular&quot; variables there is no naming convention for
+intermediate variables and it is left to the developer to use
+&quot;telling&quot; names, optimally something that informs about the purpose
+of the variable.</p>
+
+<p>The
+following example shows the usage of the parameter var_monetary.
+The variable age_plus10 is defined as a non-monetary
+variable and respectively set to age plus 10.<br />
+Note that, if var_monetary is not defined, variables (and constants) are considered monetary, 
+except if they are initiallised with a rate (e.g. <i>0.03#mr</i>), in which case they are considered non-monetary.<a href="#_ftn1" name="_ftnref1" title="">[1]</a></p>
+
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefVar</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>define a non-monetary variable</td>
+	</tr>
+	<tr>
+		<td>age_plus10</td>
+		<td>1</td>
+		<td>0</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>var_monetary</td>
+		<td>1</td>
+		<td>no</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>set the variable to age plus 10</td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td></td>
+		<td>dag+10</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>age_plus10</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>some usage of the above defined age variable</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td></td>
+		<td>...</td>
+		<td></td>
+	</tr>
+</table>
+
+
+<p>The function DefConst allows for the definition of constants: it is common practise, 
+that tax-benefit systems use certain &quot;benchmarks&quot; in several policies. For 
+example, the level of a minimum wage may not only determine the minimum wage itself, but
+also be used as a benchmark in other policies. Example 3 illustrates how to use the 
+function DefConst for such a purpose. Using constants, allows you to specify the value 
+only once and to use the constant in several functions. It furthermore allows you 
+to have a better overview of how monetary values change overtime. It is in this sense
+similar to footnotes (x_amount), but pooling information even further (i.e. all key 
+policy parameters in the same place).</p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefConst</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$MinWage</td>
+		<td>1000#m</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>Elig</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>elig_cond</td>
+		<td>yem &lt; $MinWage</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td></td>
+	</tr>
+	<tr class="function">
+		<td>BenCalc</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>who_must_be_elig</td>
+		<td>one</td>
+		<td></td>
+	</tr>
+</table>
+<p>There are multiple differences in the way constants (generated by DefConst) and variables (generated by DefVar) 
+can be used. First of all, variables can be monetary or non-monetary. When they are monetary and used in a function 
+where the TU contains multiple individuals, they will return the sum of values of all TU members. When they are 
+non-monetary, they will return the value of the head. Constants on the other hand, although they are always named 
+as monetary, they will always return the value of the TU head. This is because their purpose is to be used as a 
+fixed (or scalar) number. Secondly, if a constant is defined without a <i>Condition</i>, then the same value will 
+be applied to all observations, and this constant can also be used for run conditions (<i>Run_Cond</i>). In contrast, 
+variables and constants defined with conditions, cannot be used in run conditions, as their value could be different 
+for each individual. Finally, according to the EUROMOD naming conventions, a constant’s name should always start with 
+the $ character (e.g. $MinWage). The designed purpose of conditional constants is to be used for cases where a specific 
+threshold or amount can be different for different observations in the database. For example in UK, the minimum wage 
+or the housing benefit could be different in London compared to other areas.</p>
+
+<table class="spine">
+	<caption>Example 4:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefConst</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$MinWage</td>
+		<td></td>
+		<td>1000#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$ChBen</td>
+		<td></td>
+		<td>200#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$UnivCredit</td>
+		<td></td>
+		<td>500#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Condition</td>
+		<td>1</td>
+		<td>drgn1 = 8</td>
+		<td>London</td>
+	</tr>
+	<tr>
+		<td>$MinWage</td>
+		<td>1</td>
+		<td>1200#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$ChBen</td>
+		<td>1</td>
+		<td>250#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$UnivCredit</td>
+		<td>1</td>
+		<td>600#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Condition</td>
+		<td>2</td>
+		<td>drgn1 >10</td>
+		<td>Rural UK</td>
+	</tr>
+	<tr>
+		<td>$MinWage</td>
+		<td>2</td>
+		<td>800#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$ChBen</td>
+		<td>2</td>
+		<td>180#m</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>$UnivCredit</td>
+		<td>2</td>
+		<td>450#m</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In the above example, the minimum wage, child benefit and universal credit isare different based on the region. Similarly, one 
+could use any condition (e.g. &quot;dag &lt; 25&quot; for the minimum wage in some years in Greece) to specify a different constant 
+value for each individual. Each constant can have only one definition without a condition, which will act as the base/default value, 
+and multiple definitions of the same constant with conditions (also note that each condition group can contain multiple constants). 
+If there is no default value defined, and there is also no matching condition, then a warning is issued and the constant is given 
+the value 0. If more than one conditions are true, the values are applied in group order, so the matching condition with the biggest 
+group number will determine the final constant value. </p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> More precise <i>initiallised with a rate</i> translates to <i>initiallised with something ending with #?r</i>. 
+This means that the mechanism may have unexpected results with formulas. For example <i>300#m * 0.03#mr</i> is considered (counterintuitive)
+as non-monetary and <i>0.03#mr * 2</i> is considered monetary.
+</p>
+
+</div>
+
+</body>
+
+</html>

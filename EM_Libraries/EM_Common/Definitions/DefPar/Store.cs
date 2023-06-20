@@ -9,7 +9,9 @@ namespace EM_Common
             public const string PostFix = "PostFix";
             public const string PostLoop = "PostLoop";
             public const string Var = "Var";
+            public const string VarGroup = "VarGroup";
             public const string IL = "IL";
+            public const string ILGroup = "ILGroup";
             //public const string LoopFromTo = "LoopFromTo"; // *** new *** see description in StoreVar.PrepareNonCommonPar, currently deactivated
             public const string Level = "Level";
             public const string Var_Level = "Var_Level";
@@ -34,9 +36,19 @@ namespace EM_Common
                     valueType = PAR_TYPE.VAR,
                     minCount = 0, maxCount = DefinitionAdmin.MANY
                 });
+                fun.par.Add(VarGroup, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.TEXT,
+                    minCount = 0, maxCount = DefinitionAdmin.MANY
+                });
                 fun.par.Add(IL, new DefinitionAdmin.Par()
                 {
                     valueType = PAR_TYPE.IL,
+                    minCount = 0, maxCount = DefinitionAdmin.MANY
+                });
+                fun.par.Add(ILGroup, new DefinitionAdmin.Par()
+                {
+                    valueType = PAR_TYPE.TEXT,
                     minCount = 0, maxCount = DefinitionAdmin.MANY
                 });
                 //fun.par.Add(LoopFromTo, new DefinitionAdmin.Par()

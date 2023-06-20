@@ -204,6 +204,18 @@ namespace EM_Transformer
                             upiReader.Close();
                             content.upInd.Add(upi.id, upi);
                         }
+                        // *** READ EXTERNAL STATISTICS ***
+                        else if (mainReader.Name == EM2TAGS.EXSTAT)
+                        {
+                            XmlReader xsiReader = mainReader.ReadSubtree(); xsiReader.ReadToDescendant(EM2TAGS.ID);
+                            EM2Item xs = new EM2Item();
+                            do
+                            {
+                                if (xsiReader.NodeType == XmlNodeType.Element) ReadProperty(xsiReader, ref xs);
+                            } while (xsiReader.Read());
+                            xsiReader.Close();
+                            content.exStat.Add(xs.id, xs);
+                        }
                         // *** READ LOOK GROUPS ***
                         else if (mainReader.Name == EM2TAGS.LOOKGROUP)
                         {
@@ -350,7 +362,7 @@ namespace EM_Transformer
                 {
                     case EM2TAGS.ID: item.id = reader.ReadInnerXml(); break;
                     case EM2TAGS.NAME:
-                    case EM2TAGS.REFERENCE: // uprating-factor-name is for some reason called reference
+                    case EM2TAGS.REFERENCE: // uprating-factor-name is for some reason called reference (same for external statistics)
                         item.name = reader.ReadInnerXml(); break;
                     default: item.properties.Add(reader.Name, reader.ReadInnerXml()); break;
                 }

@@ -25,6 +25,32 @@ namespace EM_UI.VersionControl.Merging
         internal enum CellType { info = 1, value = 2, setting = 3 };
         static internal CellType CellTypeFromString(string s) { switch (s) { case "info": return CellType.info; case "value": return CellType.value; default: return CellType.setting; } }
 
+        Color COLOUR_ACCEPT = Color.PaleGreen;
+        Color COLOUR_REJECT = Color.Pink;
+        Color COLOUR_CELLCHANGED = Color.Blue;
+        Color COLOUR_CONFLICTED = Color.DarkMagenta;
+
+        List<ColumnInfo> _columInfo = new List<ColumnInfo>(); //columns are identically for both trees
+        List<NodeInfo> _nodeInfoLocal = null; //what the left tree needs to display: user interface's version
+        List<NodeInfo> _nodeInfoRemote = null; //what the right tree needs to display: version to be merged
+        List<string> _levelInfo = null; //e.g. 'Policy', 'Function', 'Parameter' (also identically for both trees)
+        internal SubNodesSequenceInfo _sequenceInfo = null; //e.g. policy-order (only visualised in left tree)
+        internal bool _needUpdate = true; //_nodeInfoLoca, _nodeInfoRemote and _nodeInfo need to be modified to be back to the YearValues parameter (only once)
+
+        short _isInUnboundLoad = 0;
+
+        internal MergeControl()
+        {
+            InitializeComponent();
+
+            //provides that trees have the same width, irrelevant how large the control is drawn in the dialog
+            splitContainer.SplitterDistance = splitContainer.Width / 2;
+
+            //for images which show whether a component was added/removed/changed and whether the user accepts/rejects the changes
+            BuildNodeImageLists(treeLocal);
+            BuildNodeImageLists(treeRemote);
+        }
+
         internal class NodeInfo //information on a component (e.g. parameter) which is displayed as a node of the trees
         {
             internal NodeInfo(string ID, string parentID = "", List<CellInfo> cellInfo = null, ChangeType changeType = ChangeType.none, ChangeHandling changeHandling = ChangeHandling.none)
@@ -174,32 +200,6 @@ namespace EM_UI.VersionControl.Merging
             internal ChangeHandling changeHandlingLocal;
             internal ChangeHandling changeHandlingRemote;
 
-        }
-
-        Color COLOUR_ACCEPT = Color.PaleGreen;
-        Color COLOUR_REJECT = Color.Pink;
-        Color COLOUR_CELLCHANGED = Color.Blue;
-        Color COLOUR_CONFLICTED = Color.DarkMagenta;
-
-        List<ColumnInfo> _columInfo = new List<ColumnInfo>(); //columns are identically for both trees
-        List<NodeInfo> _nodeInfoLocal = null; //what the left tree needs to display: user interface's version
-        List<NodeInfo> _nodeInfoRemote = null; //what the right tree needs to display: version to be merged
-        List<string> _levelInfo = null; //e.g. 'Policy', 'Function', 'Parameter' (also identically for both trees)
-        internal SubNodesSequenceInfo _sequenceInfo = null; //e.g. policy-order (only visualised in left tree)
-        internal bool _needUpdate = true; //_nodeInfoLoca, _nodeInfoRemote and _nodeInfo need to be modified to be back to the YearValues parameter (only once)
-
-        short _isInUnboundLoad = 0;
-
-        internal MergeControl()
-        {
-            InitializeComponent();
-
-            //provides that trees have the same width, irrelevant how large the control is drawn in the dialog
-            splitContainer.SplitterDistance = splitContainer.Width / 2;
-
-            //for images which show whether a component was added/removed/changed and whether the user accepts/rejects the changes
-            BuildNodeImageLists(treeLocal);
-            BuildNodeImageLists(treeRemote);
         }
 
         internal void SetInfo(List<ColumnInfo> columnInfo, List<NodeInfo> nodeInfoLocal, List<NodeInfo> nodeInfoRemote, bool provideSequenceInfo)
@@ -886,23 +886,42 @@ namespace EM_UI.VersionControl.Merging
 
         void AcceptRejectRange(bool accept, bool mustBeVisible, TreeList tree, TreeListNode topNode = null, string columnID = "")
         {
-            Cursor = Cursors.WaitCursor;
-            foreach (TreeListNode node in GetSubNodes(mustBeVisible, tree, topNode))
+            List<TreeListNode> selectedNodes = new List<TreeListNode>() { topNode };
+            // if you are right-clicking on a row, check if there are multiple selected rows. 
+            if (topNode != null && tree.Selection != null)
             {
-                NodeInfo nodeInfo = GetNodeInfo(node);
-                if (nodeInfo == null || nodeInfo.changeType == ChangeType.none)
-                    continue;
-                
-                if (nodeInfo.changeType == ChangeType.changed)
+                for (int i = 0; i < tree.Selection.Count; i++)
                 {
-                    foreach (CellInfo cellInfo in nodeInfo.cellInfo)
-                        if (columnID == string.Empty || cellInfo.columnID == columnID)
-                            AcceptReject(accept, mustBeVisible, nodeInfo, null, cellInfo);
+                    // if the current node where you right-clicked is part of the selected nodes, apply to all selected nodes
+                    if (tree.Selection[i] == topNode)
+                    {
+                        selectedNodes = new List<TreeListNode>();
+                        for (int j = 0; j < tree.Selection.Count; j++)
+                            selectedNodes.Add(tree.Selection[j]);
+                        break;
+                    }
                 }
-                else if (nodeInfo.changeType == ChangeType.added || nodeInfo.changeType == ChangeType.removed)
+            }
+            Cursor = Cursors.WaitCursor;
+            foreach (TreeListNode tNode in selectedNodes)
+            {
+                foreach (TreeListNode node in GetSubNodes(mustBeVisible, tree, tNode))
                 {
-                    nodeInfo.changeHandling = accept ? ChangeHandling.accept : ChangeHandling.reject;
-                    RefreshNode(nodeInfo.node); //for updating the accept-symbols and the colouring
+                    NodeInfo nodeInfo = GetNodeInfo(node);
+                    if (nodeInfo == null || nodeInfo.changeType == ChangeType.none)
+                        continue;
+
+                    if (nodeInfo.changeType == ChangeType.changed)
+                    {
+                        foreach (CellInfo cellInfo in nodeInfo.cellInfo)
+                            if (columnID == string.Empty || cellInfo.columnID == columnID)
+                                AcceptReject(accept, mustBeVisible, nodeInfo, null, cellInfo);
+                    }
+                    else if (nodeInfo.changeType == ChangeType.added || nodeInfo.changeType == ChangeType.removed)
+                    {
+                        nodeInfo.changeHandling = accept ? ChangeHandling.accept : ChangeHandling.reject;
+                        RefreshNode(nodeInfo.node); //for updating the accept-symbols and the colouring
+                    }
                 }
             }
             Cursor = Cursors.Default;
@@ -1113,11 +1132,9 @@ namespace EM_UI.VersionControl.Merging
 
         internal List<NodeInfo> GetNodeInfoLocal(string type = "none") {
             //_nodeInfoLocal needs to be updated to removed additional columns if uprating indices
-            if (type.Equals(MergeForm.UPRATING_INDICES))
-            {
+            if (type.Equals(MergeForm.UPRATING_INDICES) || type.Equals(MergeForm.INDIRECT_TAXES) || type.Equals(MergeForm.EXTERNAL_STATISTICS))
                 getNodeInfoUprating();
 
-            }
             return _nodeInfoLocal;
         }
 
@@ -1126,11 +1143,8 @@ namespace EM_UI.VersionControl.Merging
         internal List<NodeInfo> GetNodeInfoRemote(string type = "none")
         {
             //_nodeInfoRemote needs to be updated to removed additional columns if uprating indices
-            if (type.Equals(MergeForm.UPRATING_INDICES))
-            {
+            if (type.Equals(MergeForm.UPRATING_INDICES) || type.Equals(MergeForm.INDIRECT_TAXES) || type.Equals(MergeForm.EXTERNAL_STATISTICS))
                 getNodeInfoUprating();
-
-             }
 
             return _nodeInfoRemote;
         }
@@ -1246,7 +1260,7 @@ namespace EM_UI.VersionControl.Merging
             {
                 foreach (MergeControl.CellInfo cell in node.cellInfo)
                 {
-                    if (MergeForm.UPRATING_INDICES_COLUMNS.Contains(cell.columnID) && !cell.columnID.Equals(MergeForm.YEAR_VALUES))
+                    if (MergeForm.ALL_COLUMN_NAMES.Contains(cell.columnID) && !cell.columnID.Equals(MergeForm.YEAR_VALUES))
                     {
                         string nodeColumnId = node.ID + "_" + cell.columnID;
                         string nodeYearId = node.ID + "_" + cell.columnID;
@@ -1265,9 +1279,9 @@ namespace EM_UI.VersionControl.Merging
             {
                 foreach (MergeControl.CellInfo cell in node.cellInfo)
                 {
-                    if (MergeForm.UPRATING_INDICES_COLUMNS.Contains(cell.columnID) &&  !cell.columnID.Equals(MergeForm.YEAR_VALUES))
+                    string nodeYearId = node.ID + "_" + cell.columnID;
+                    if (MergeForm.ALL_COLUMN_NAMES.Contains(cell.columnID) && !cell.columnID.Equals(MergeForm.YEAR_VALUES) && otherFieldsDict.ContainsKey(nodeYearId))
                     {
-                        string nodeYearId = node.ID + "_" + cell.columnID;
                         UpratingYearsComparison upratingYearsComparison = otherFieldsDict[nodeYearId];
                         upratingYearsComparison.valueRemote = cell.text;
                         upratingYearsComparison.isChangedRemote = cell.isChanged;
@@ -1381,7 +1395,7 @@ namespace EM_UI.VersionControl.Merging
             {
                 foreach (MergeControl.CellInfo cell in node.cellInfo)
                 {
-                    if (!MergeForm.UPRATING_INDICES_COLUMNS.Contains(cell.columnID))
+                    if (!MergeForm.ALL_COLUMN_NAMES.Contains(cell.columnID))
                     {
                         string nodeYearId = node.ID + "_" + cell.columnID;
                         UpratingYearsComparison upratingYearsComparison = new UpratingYearsComparison();
@@ -1404,7 +1418,7 @@ namespace EM_UI.VersionControl.Merging
             {
                 foreach (MergeControl.CellInfo cell in node.cellInfo)
                 {
-                    if (!MergeForm.UPRATING_INDICES_COLUMNS.Contains(cell.columnID))
+                    if (!MergeForm.ALL_COLUMN_NAMES.Contains(cell.columnID))
                     {
                         string nodeYearId = node.ID + "_" + cell.columnID;
                         UpratingYearsComparison upratingYearsComparison = dictUpratingYearsComparison[nodeYearId];
@@ -1623,7 +1637,7 @@ namespace EM_UI.VersionControl.Merging
             foreach (ColumnInfo columnInfo in _columInfo)
             {
                 string columnName = columnInfo.name;
-                if (MergeForm.UPRATING_INDICES_COLUMNS.Contains(columnName))
+                if (MergeForm.ALL_COLUMN_NAMES.Contains(columnName))
                 {
                     columnInfoNew.Add(columnInfo);
                 }

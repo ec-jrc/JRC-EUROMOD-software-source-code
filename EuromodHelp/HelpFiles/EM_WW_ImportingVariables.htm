@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Importing variables</title>
+</head>
+
+<body>
+
+<h1>Importing variables</h1>
+
+<p>The following operations are performed with the <strong>variable administration tool</strong>. To open this tool press the button <i>Variables</i> in the ribbon <i>Administration Tools</i> (also see <a href="EM_WW_Variables.htm">Working with EUROMOD - Administration of EUROMOD variables</a> paragraph <i>Administrating variables and acronyms in the EUROMOD user interface</i>).</p>
+
+<p>To import variables from an external variables definition file (VarConfig.xml) select the item <i>Import Variables</i> from the variables administration tool's menu. This firstly allows the selection of the external variables definition file. Once the file is chosen, a dialog shows the possible changes, i.e. differences between the user interface's internal variables definition file and the external one. This means, the dialog lists the variables and acronyms either existing only in the internal respectively external variables definition file or have different attributes in the two files.</p>
+
+<p>Note that importing variables is only possible if no changes were accomplished in the current session of the variables administration tool, otherwise the menu item is disabled. In this case close and open the tool again, saving the changes if required.</p>
+
+<p>Also note that, to begin with, it is assumed that the user wants to overtake all modifications from the external variables definition file. Respective changes are suggested in the <i>Action</i> columns. This behaviour can be changed by ticking/unticking the checkboxes in the <i>Perform</i> columns. This is supported by three buttons, which aim to make selecting more efficient.</p>
+<ul>
+<li>Clicking the button <i>Tick selected variables</i> ticks the checkboxes of all selected rows in the variables list. Selected rows are characterised by blue background colour. Selecting a single row is accomplished by clicking it. Selecting multiple rows is accomplished by holding the <i>Strg</i> key and clicking the respective rows. Selecting a range of rows is accomplished by clicking the first row pressing and holding the <i>Shift</i> key and selecting the last row.</li>
+
+<li>Clicking the button <i>Untick</i><i> selected variables</i> unticks the checkboxes of all selected rows. See above for recognising and choosing selected rows.</li>
+
+<li>Clicking the button <i>Add only</i> unticks the checkboxes of all variables and acronyms for which the <i>Action</i> column is set to <i>delete</i>.</li>
+</ul>
+
+<h4>List of possible changes in variables</h4>
+
+<p>The left part of the dialog shows which variables are different in the external and the internal variables definition file. There are following types of differences:</p>
+<ul>
+<li>A variable exists in the external variables definition file only: The column <i>Action</i> suggests adding this variable.</li>
+
+<li>A variable exists in the internal variables definition file only: The column <i>Action</i> suggests deleting this variable.</li>
+
+<li>The monetary status of a variable is different: The column <i>Action</i> suggests changing the monetary status and the column <i>Info</i> informs about the direction of the change, i.e. to overtake the status defined in the external variables definition file.</li>
+
+<li>One or more of the country specific descriptions of a variable are different: The column <i>Action</i> suggests changing the variable and the column <i>Info</i> tells that the difference is in different descriptions. The concrete differences are displayed in the <i>Descriptions</i> list below the <i>Variables</i> list.<br> Note that, one can either overtake all descriptions of this variable from the external file (checkbox <i>Perform</i> ticked), or keep all descriptions of the internal file (checkbox <i>Perform</i> not ticked), partly overtaking is not foreseen.<br> Also note, that it is possible (though not recommended) to import a variable definitions file that refers to a different set of countries (e.g. a country was added in the external version, which is not yet implemented in the internal version). In this case the importing tool issues a warning, telling that it cannot overtake country specific descriptions.</li>
+</ul>
+<h4>List of possible changes in acronyms</h4>
+<p>The right part of the dialog shows which acronyms are different in the external and the internal variables definition file. There are following types of differences:</p>
+<ul>
+<li>A whole type of acronyms exists in the external variables definition file only: The column <i>Action</i> suggests adding this type (including all levels and acronyms contained).</li>
+
+<li>A whole type of acronyms exists in the internal variables definition file only: The column <i>Action</i> suggests deleting this type (including all levels and acronyms contained).</li>
+
+<li>The description of an acronym type is different (e.g. IN KIND changed to BENEFIT IN KIND): The column <i>Action</i> suggests changing the description and the column <i>Info</i> tells the new description. Note that a change of the shortcut of an acronym type (e.g. K for IN KIND) is treated as deleting the whole type and adding a new type with the new shortcut, as in fact all variable names using the acronyms of this type get invalid.</li>
+
+<li>A whole level of acronyms exists in the external variables definition file only: The column <i>Action</i> suggests adding this level (including all acronyms contained). The tool tries to add the level at the same position as in the external file, by searching for a common predecessor level.</li>
+
+<li>A whole level of acronyms exists in the internal variables definition file only: The column <i>Action</i> suggests deleting this level (including all acronyms contained).</li>
+
+<li>An acronym exists in the external variables definition file only: The column <i>Action</i> suggests adding this acronym.</li>
+
+<li>An acronym exists in the internal variables definition file only: The column <i>Action</i> suggests deleting this acronym.</li>
+
+<li>The description of an acronym is different: The column <i>Action</i> suggests changing the description and the column <i>Info</i> tells the new description. Note that, similar to types, a change of the acronym itself is treated as deleting the acronym and adding a new acronym, as in fact all variable names using the acronym get invalid.</li>
+
+<li>One or more of the categories of an acronym are different: The column <i>Action</i> suggests changing the acronym and the column <i>Info</i> tells that the difference is in different categories. The concrete differences are displayed in the <i>Categories</i> list below the <i>Acronyms</i> list.<br> Note that, one can either overtake all categories of this acronym from the external file (checkbox <i>Perform</i> ticked), or keep all categories of the internal file (checkbox <i>Perform</i> not ticked), partly overtaking is not foreseen.</li>
+</ul>
+<h4>Performing the import</h4>
+<p>To accomplish the import, tick the checkboxes in the <i>Perform</i> columns as required, and press the button <i>Import</i>. For variables you can tick or untick several <i>Perform</i> boxes at once by first selecting the respective rows and then clicking the buttons <i>Tick selected variables</i> respectively <i>Untick</i><i> selected variables</i>.</p>
+
+<p>Note that it is not possible to undo the import via the undo-functionality. However, there is no automatic saving of the variables definitions file. That means closing the variables administration tool without saving can still restore the old state.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

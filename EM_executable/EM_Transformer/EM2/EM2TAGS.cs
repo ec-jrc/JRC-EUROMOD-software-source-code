@@ -24,6 +24,7 @@
         internal const string ORDER = "Order";
         internal const string SWITCH = "Switch";
         internal const string UPINDEX = "UpratingIndex";
+        internal const string EXSTAT = "ExternalStatistic";
         internal const string REFERENCE = "Reference";
         internal const string COUNTRY_ID = "CountryID";
         internal const string EXCHANGE_RATE_EURO = "ExchangeRateEuro";

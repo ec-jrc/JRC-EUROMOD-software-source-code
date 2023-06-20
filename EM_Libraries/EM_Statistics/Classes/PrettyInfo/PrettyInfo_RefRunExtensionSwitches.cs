@@ -1,4 +1,5 @@
 ﻿using EM_Common;
+using System.Collections.Generic;
 
 namespace EM_Statistics
 {
@@ -10,11 +11,26 @@ namespace EM_Statistics
 
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
-                return GetRefSys(out SystemInfo refSys, resources)
-                                ? refSys.GetFileGenesis(out SystemInfo.FileGenesis fileGenesis)
-                                                       ? origText.Replace(ident, PrettyInfoFileGenesis.GetPrettyRunExtensionSwitches(fileGenesis))
-                                                       : origText.Replace(ident, DefPar.Value.NA)
-                                : origText;
+                // if no specific ref, try gettijng all refs
+                if (resources.refNo < 0)
+                {
+                    List<string> allRefs = new List<string>();
+                    foreach (SystemInfo refSys in resources.reformSystems)
+                    {
+                        allRefs.Add(refSys.GetSystemName() + ": " + (refSys.GetFileGenesis(out SystemInfo.FileGenesis fileGenesis)
+                                    ? origText.Replace(ident, PrettyInfoFileGenesis.GetPrettyRunExtensionSwitches(fileGenesis))
+                                    : origText.Replace(ident, DefPar.Value.NA)));
+                    }
+                    return string.Join(",", allRefs);
+                }
+                else    // else get the specific ref
+                {
+                    return GetRefSys(out SystemInfo refSys, resources)
+                                    ? refSys.GetFileGenesis(out SystemInfo.FileGenesis fileGenesis)
+                                                           ? origText.Replace(ident, PrettyInfoFileGenesis.GetPrettyRunExtensionSwitches(fileGenesis))
+                                                           : origText.Replace(ident, DefPar.Value.NA)
+                                    : origText;
+                }
             }
         }
     }

@@ -115,7 +115,7 @@ namespace EM_UI.Dialogs
             {
                 if (!EM_Helpers.IsNonNegInteger(txtAutosaveInterval.Text))
                 {
-                    Tools.UserInfoHandler.ShowError("Please insert an integer number for the Autosave Interval.");
+                    EM_UI.Tools.UserInfoHandler.ShowError("Please insert an integer number for the Autosave Interval.");
                     return false;
                 }
                 EM_AppContext.Instance.GetUserSettingsAdministrator().Get().AutoSaveInterval = EM_Helpers.SaveConvertToInt(txtAutosaveInterval.Text) * 60000;

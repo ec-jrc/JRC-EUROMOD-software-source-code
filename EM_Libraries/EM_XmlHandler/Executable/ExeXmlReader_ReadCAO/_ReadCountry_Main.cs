@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace EM_XmlHandler
 {
     public partial class ExeXmlReader
     {
+        // the point of this addition here is to change the reading process below to make it much faster if only the external statistics or the incomelists are required.
+        public enum ReadCountryOptions { ALL, EXSTAT, ILS };
+
         /// <summary>
         /// reads the relevant content of a country file into an ExeXml.Country structure (see parameters and ExeXml.Country wrt 'relevant')
         /// IMPORTANT NOTES:
@@ -25,38 +29,54 @@ namespace EM_XmlHandler
         /// <param name="ignorePrivate"> if true, private elements are ignored by the reader </param>
         /// <param name="readComment"> if false (default), comments are not read (as the executable does not need them) </param>
         public static ExeXml.Country ReadCountry(string path, string sysIdentifier, string dataIdentifier,
-                                                 bool ignorePrivate, Communicator communicator, bool readComment = false)
+                                                 bool ignorePrivate, Communicator communicator, bool readComment = false, ReadCountryOptions rco = ReadCountryOptions.ALL)
         {
             try
             {
                 ExeXml.Country country = new ExeXml.Country();
 
                 // first read the xlm-file into simple property/value dictionaries ...
-                Dictionary<string, Dictionary<string, string>> ctry, syss, pols, refPols, funs, pars, sysPols, sysFuns, sysPars,
-                                                               upInds, upIndYears, datas, sysDatas, extSwitch, localExt, extPol, extFun, extPar, indTaxes, indTaxYears;
+                Dictionary<string, Dictionary<string, string>> ctry = null, syss = null, pols = null, refPols = null, funs = null, pars = null, sysPols = null, sysFuns = null, sysPars = null,
+                                                               upInds = null, upIndYears = null, datas = null, sysDatas = null, extSwitch = null, localExt = null, extPol = null, extFun = null, extPar = null, indTaxes = null, indTaxYears = null, exStats = null, exStatYears = null;
                 using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
+                // Read the Root Element first, and then the ones within it.
                 using (XmlReader reader = XmlReader.Create(sr))
                 {
-                    ctry = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.COUNTRY, hasId: false, singleItem: true);
-                    syss = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.SYS);
-                    pols = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.POL);
-                    refPols = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.REFPOL);
-                    funs = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.FUN);
-                    pars = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.PAR, hasId: false);
-                    sysPols = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.SYS_POL, hasId: false);
-                    sysFuns = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.SYS_FUN, hasId: false);
-                    sysPars = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.SYS_PAR, hasId: false);
-                    upInds = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.UPIND);
-                    upIndYears = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.UPIND_YEAR, hasId: false);
-                    datas = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.DATA);
-                    sysDatas = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.SYS_DATA, hasId: false);
-                    localExt = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.LOCAL_EXTENSION);
-                    extPol = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.EXTENSION_POL, hasId: false);
-                    extFun = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.EXTENSION_FUN, hasId: false);
-                    extPar = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.EXTENSION_PAR, hasId: false);
-                    extSwitch = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.EXTENSION_SWITCH, hasId: false);
-                    indTaxes = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.INDTAX);
-                    indTaxYears = XmlHelpers.GetXmlGroupItems(reader: reader, tag: TAGS.INDTAX_YEAR, hasId: false);
+                    while (reader.NodeType != XmlNodeType.Element || reader.Name != TAGS.ROOT_ELEMENT)
+                        if (!reader.Read()) return null;
+                    XElement el = XElement.ReadFrom(reader) as XElement;
+                    if (el == null || el.Name != TAGS.ROOT_ELEMENT) return null;
+
+                    foreach (XElement xe in el.Elements())
+                    {
+                        if (xe.Value == null) continue;
+                        switch (GetXEleName(xe))
+                        {
+                            case TAGS.COUNTRY: ctry = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.COUNTRY, hasId: false, singleItem: true); break;
+                            case TAGS.SYS + "s": syss = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.SYS); break;
+                            case TAGS.POL + "s": pols = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.POL); break;
+                            case TAGS.REFPOL + "s": refPols = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.REFPOL); break;
+                            case TAGS.FUN + "s": funs = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.FUN); break;
+                            case TAGS.PAR + "s": pars = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.PAR, hasId: false); break;
+                            case TAGS.SYS_POL + "s": sysPols = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.SYS_POL, hasId: false); break;
+                            case TAGS.SYS_FUN + "s": sysFuns = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.SYS_FUN, hasId: false); break;
+                            case TAGS.SYS_PAR + "s": sysPars = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.SYS_PAR, hasId: false); break;
+                            case TAGS.UPIND + "s": upInds = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.UPIND); break;
+                            case TAGS.UPIND_YEAR + "s": upIndYears = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.UPIND_YEAR, hasId: false); break;
+                            case TAGS.EXSTAT + "s": exStats = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.EXSTAT); break;
+                            case TAGS.EXSTAT_YEAR + "s": exStatYears = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.EXSTAT_YEAR, hasId: false); break;
+                            case TAGS.DATA + "s": datas = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.DATA); break;
+                            case TAGS.SYS_DATA + "s": sysDatas = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.SYS_DATA, hasId: false); break;
+                            case TAGS.LOCAL_EXTENSION + "s": localExt = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.LOCAL_EXTENSION); break;
+                            case TAGS.EXTENSION_POL + "s": extPol = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.EXTENSION_POL, hasId: false); break;
+                            case TAGS.EXTENSION_FUN + "s": extFun = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.EXTENSION_FUN, hasId: false); break;
+                            case TAGS.EXTENSION_PAR + "s": extPar = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.EXTENSION_PAR, hasId: false); break;
+                            case TAGS.EXTENSION_SWITCH + "s": extSwitch = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.EXTENSION_SWITCH, hasId: false); break;
+                            case TAGS.INDTAX + "s": indTaxes = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.INDTAX); break;
+                            case TAGS.INDTAX_YEAR + "s": indTaxYears = XmlHelpers.GetXmlGroupItems(xe: xe, tag: TAGS.INDTAX_YEAR, hasId: false); break;
+                            default: continue;  // simply ignore unknown tags
+                        }
+                    }
                 }
 
                 // ... then analyse the info:
@@ -104,6 +124,8 @@ namespace EM_XmlHandler
                 if (!GetIndTaxInfo(indTaxes, indTaxYears, country))
                     ReportError(communicator, path, $"No values for year {country.data.indirectTaxTableYear} found in Indirect Taxes Table");
 
+                GetExtStatInfo(exStats, exStatYears, country);
+
                 return country;
             }
             catch (Exception exception)
@@ -111,5 +133,6 @@ namespace EM_XmlHandler
                 throw new Exception($"Failure reading file {path}{Environment.NewLine}{exception.Message}");
             }
         }
+        private static string GetXEleName(XElement xe) { return xe.Name == null ? string.Empty : xe.Name.ToString(); }
     }
 }

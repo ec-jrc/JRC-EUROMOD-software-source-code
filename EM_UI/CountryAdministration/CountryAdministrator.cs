@@ -24,7 +24,7 @@ namespace EM_UI.CountryAdministration
 
         static string _imageExtension = ".png";
 
-        static Country GetCountry(string countryShortName)
+        static internal Country GetCountry(string countryShortName)
         {
             if (!_countries.Keys.Contains(countryShortName.ToLower()))
                 return null;

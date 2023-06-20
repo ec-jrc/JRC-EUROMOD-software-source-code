@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using EM_UI.Validate;
+using EM_UI.Tools;
 
 namespace EM_UI.Dialogs
 {
@@ -21,7 +22,7 @@ namespace EM_UI.Dialogs
         {
             if (txtSearchByIdentifier.Text == string.Empty)
             {
-                Tools.UserInfoHandler.ShowError("Please specify the identifier.");
+                UserInfoHandler.ShowError("Please specify the identifier.");
                 return;
             }
 

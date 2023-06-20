@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The system function DefOutput</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The system function DefOutput</h1>
+
+<p>The function DefOutput allows for defining
+EUROMOD output. Usually one policy, containing one function DefOutput, defines the content of one output file. Though
+in principle the function could be applied in any policy this may not be
+advisable for transparency reasons. Example 1 illustrates the different options in
+defining output.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefOutput</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>file</td>
+		<td>example_output_1</td>
+		<td>name of output file</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>idperson</td>
+		<td>id of person</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>ils_dispy</td>
+		<td>disposable income</td>
+	</tr>
+	<tr>
+		<td>DefIL</td>
+		<td>ils_dispy</td>
+		<td>variables contained in incomelist disposable income</td>
+	</tr>
+	<tr>
+		<td>nDecimals</td>
+		<td>2</td>
+		<td>print two decimals</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>individual_sl</td>
+		<td>output on individual level</td>
+	</tr>
+</table>
+
+
+<p>The parameter file indicates the name of the
+text file, where the output should be written to, in the example (not very
+inventive) example_output_1. The extension .txt can
+be omitted. Note, that the output path is defined in the run dialog (see <a
+href="EM_WW_RunDialog.htm">Working with EUROMOD - Running EUROMOD</a>). The
+parameter TAX_UNIT defines whether output should be
+on individual level, as is the case in the example, or on another assessment
+unit’s level – what this means will be explained on basis of example 2. The parameter
+nDecimals defines the number of digits after the
+comma, in the example two. That means, 10.1234 will be outputted as 10.12,
+10.6789 as 10.68 and 10 as 10.00. The rest of the parameters determine the
+content of the output file. The parameter var simply
+tells that the variable idperson should be printed.
+The parameter il tells that the incomelist ils_dispy should be printed. In this case this concerns
+the value of the incomelist (i.e. the sum of the comprised variables). The
+parameter DefIL, in contrast, tells that the value
+of each entry of the incomelist ils_dispy should be
+printed.</p>
+
+<p>In example 2 the parameter TAX_UNIT is set to household level. Therefore, output is
+aggregate on household level (i.e. one row for each household), where rules of
+aggregation are those defined in section <a href="EM_FC_ParameterValues.htm">EUROMOD
+Functions - Parameter values and the assessment unit</a>. That means employment
+income (yem) and disposable income (ils_dispy) are household employment respectively disposable
+income. Similarly the variables comprised in disposable income (parameter DefIL1) are printed on household level. The variable idhh is the same for the whole household, i.e. there is no
+ambiguity. Whereas, the variable dag (d=demographic,
+ag=age) refers to the age of the head of household, as defined by the rules in
+section <a href="EM_FC_ParameterValues.htm">EUROMOD Functions - Parameter
+values and the assessment unit</a>.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefOutput</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>file</td>
+		<td>example_output_2</td>
+		<td>name of output file</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>idhh</td>
+		<td>household id</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>dag</td>
+		<td>age of head of household</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td>yem</td>
+		<td>household employment income</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td>ils_dispy</td>
+		<td>household disposable income</td>
+	</tr>
+	<tr>
+		<td>DefIL1</td>
+		<td>ils_dispy</td>
+		<td>components of disposable income on hh level</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>household_sl</td>
+		<td>output on household level</td>
+	</tr>
+</table>
+
+<p>Example 3 illustrates the application of another couple of parameters
+provided by the function DefOutput. They allow the
+determination of the &quot;status&quot; of single assessment unit members
+within the unit.</p>
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefOutput</td>
+		<td></td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>file</td>
+		<td></td>
+		<td>example_output_3</td>
+		<td>name of output file</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td></td>
+		<td>idperson</td>
+		<td>id of person</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td></td>
+		<td>dag</td>
+		<td>age</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td></td>
+		<td>idpartner</td>
+		<td>partner’s id</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td></td>
+		<td>idmother</td>
+		<td>mother’s id</td>
+	</tr>
+	<tr>
+		<td>var</td>
+		<td></td>
+		<td>idfather</td>
+		<td>father’s id</td>
+	</tr>
+	<tr>
+		<td>il</td>
+		<td></td>
+		<td>ils_origy</td>
+		<td>person’s age</td>
+	</tr>
+	<tr>
+		<td>unitinfo_id</td>
+		<td>1</td>
+		<td>HeadID</td>
+		<td>id of head of household</td>
+	</tr>
+	<tr>
+		<td>unitinfo_id</td>
+		<td>1</td>
+		<td>IsPartner</td>
+		<td>person is partner of head</td>
+	</tr>
+	<tr>
+		<td>unitinfo_id</td>
+		<td>1</td>
+		<td>IsDependentChild</td>
+		<td>person is a dependent child</td>
+	</tr>
+	<tr>
+		<td>unitinfo_id</td>
+		<td>1</td>
+		<td>IsLoneParent</td>
+		<td>person is a lone parent</td>
+	</tr>
+	<tr>
+		<td>unitinfo_tu</td>
+		<td>1</td>
+		<td>household_sl</td>
+		<td>unit info variables refer to whole household</td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>indivdual_sl</td>
+		<td>output on individual level</td>
+	</tr>
+</table>
+
+
+<p>The example may produce the
+following output (inventing two illustrative households and assuming plausible
+head, child, partner and lone parent definitions for the assessment unit household_sl).</p>
+
+<table class="info">
+	<tr>
+		<th>idperson</th>
+		<th>idpartner</th>
+		<th>idmother</th>
+		<th>idfather</th>
+		<th>dag</th>
+		<th>ils_origy</th>
+		<th>household_sl_HeadID</th>
+		<th>household_sl_IsPartner</th>
+		<th>household_sl_IsDepChild</th>
+		<th>household_sl_IsLoneParent</th>
+	</tr>
+	<tr class="separate">
+		<td>101</td>
+		<td>102</td>
+		<td>0</td>
+		<td>0</td>
+		<td>40</td>
+		<td>3000</td>
+		<td>101</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>102</td>
+		<td>101</td>
+		<td>0</td>
+		<td>0</td>
+		<td>35</td>
+		<td>0</td>
+		<td>101</td>
+		<td>1</td>
+		<td>0</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>103</td>
+		<td>0</td>
+		<td>102</td>
+		<td>101</td>
+		<td>3</td>
+		<td>0</td>
+		<td>101</td>
+		<td>0</td>
+		<td>1</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>104</td>
+		<td>0</td>
+		<td>102</td>
+		<td>101</td>
+		<td>1</td>
+		<td>0</td>
+		<td>101</td>
+		<td>0</td>
+		<td>1</td>
+		<td>0</td>
+	</tr>
+	<tr class="separate">
+		<td>201</td>
+		<td>0</td>
+		<td>0</td>
+		<td>0</td>
+		<td>35</td>
+		<td>2500</td>
+		<td>201</td>
+		<td>0</td>
+		<td>0</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>202</td>
+		<td>0</td>
+		<td>201</td>
+		<td>0</td>
+		<td>6</td>
+		<td>0</td>
+		<td>201</td>
+		<td>0</td>
+		<td>1</td>
+		<td>0</td>
+	</tr>
+</table>
+
+<p>The head of household 1 is the 40
+years old father, as his original income (ils_origy)
+is the highest, therefore the variable HeadID is set
+to his idperson for all assessment unit members. The
+variable IsPartner is set to 1 for the 35 years old mother,
+as she is the head’s partner denoted by the variable idpartner.
+For the two children, aged one and three years, the variable IsDepChild is set to 1. The head of household 2 is the 35
+years old mother. The variable IsLoneParent is set
+to 1 for her, as she lives alone with her six years old child. For the child
+the variable IsDepChild is set to 1.</p>
+
+<p>Note, that the parameter unitinfo_tu
+set to household_sl is the relevant assessment unit
+for determining the variables HeadId, IsPartner, IsDepChild and IsLoneParent, while the parameter TAX_UNIT
+is set to individual_sl. Setting the parameter TAX_UNIT to e.g. household_sl
+would not make much sense, as there would be only one row for each household,
+not allowing for a proper indication of the assessment unit variables.</p>
+
+<p>Finally, a comment on a specific warning in
+context with DefOutput. If a variable not contained
+in the variable description file is listed in standard output (any output file
+named *_std*.txt) the program, as an attempt to keep
+standard output clean, issues the warning &quot;Use of non-standard variable
+'xxx' in standard output. Consider to use a standard variable instead.&quot;.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

@@ -139,23 +139,30 @@ namespace EM_UI.VariablesAdministration
         void btnSearchAcronym_ItemClick(object sender, ItemClickEventArgs e) { _acronymManager.SearchAcronymsByNameOrDescription(true); }
         void btnSearchAcronymDescription_ItemClick(object sender, ItemClickEventArgs e) { _acronymManager.SearchAcronymsByNameOrDescription(false); }
 
-        void VariablesForm_KeyUp(object sender, KeyEventArgs keyEventArgs)
+        private void VariablesForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (keyEventArgs.Control && keyEventArgs.KeyCode == Keys.S)
+            if (e.Control && e.KeyCode == Keys.S)
             {
                 if (_isReadOnly)
                     UserInfoHandler.ShowInfo("File is in read-only mode.");
                 else
                     SaveChanges();
             }
-            if (keyEventArgs.Control && keyEventArgs.KeyCode == Keys.Z)
+            if (e.Control && e.KeyCode == Keys.Z)
                 PerformAction(new VariablesUndoAction(_undoManager));
-            if (keyEventArgs.Control && keyEventArgs.KeyCode == Keys.Y)
+            if (e.Control && e.KeyCode == Keys.Y)
                 PerformAction(new VariablesRedoAction(_undoManager));
             if (treeAcronyms.Focused == true)
-                _acronymManager.HandleEnterKey(keyEventArgs);
+                _acronymManager.HandleEnterKey(e);
+            if (e.Control && e.KeyCode == Keys.V && dgvVariables.Focused == true)
+                CopyVariablesFromClipboard();
         }
-        
+
+        void CopyVariablesFromClipboard()
+        {
+			// TODO
+        }
+
         void VariablesForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (_hasChangedSinceLastSave && !_isReadOnly)

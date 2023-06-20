@@ -105,7 +105,7 @@ namespace HypotheticalHousehold
             projectPath = null;
             try
             {
-                OpenProjectForm openProjectForm = new OpenProjectForm();
+                SelectFolderForm openProjectForm = new SelectFolderForm();
                 if (openProjectForm.ShowDialog() == DialogResult.Cancel) return false;
                 projectPath = openProjectForm.GetProjectPath();
                
@@ -197,6 +197,23 @@ namespace HypotheticalHousehold
                             bool fixEditorType = OLD_EDITORTYPE_TABLES.Contains(tbl.TableName);
                             CopyTableContent(settingsData.Tables[tbl.TableName], tbl, false, fixEditorType);
                         }
+                    }
+                    else if (oldSet.Tables.Contains("Cur_DerivedVariables") && oldSet.Tables.Contains("Cur_DerivedVariablesDetail") && !oldSet.Tables["Cur_DerivedVariables"].Columns.Contains("Id"))
+                    {
+                        // first copy tables
+                        foreach (DataTable tbl in oldSet.Tables)
+                        {
+                            CopyTableContent(settingsData.Tables[tbl.TableName], tbl);
+                        }
+                        // then match the derived variable ids
+                        foreach (DataRow row in settingsData.Tables["Cur_DerivedVariablesDetail"].Rows)
+                            foreach (DataRow prow in settingsData.Tables["Cur_DerivedVariables"].Rows)
+                                if (prow["VariableName"].ToString().Equals(row["VariableName"]))
+                                {
+                                    row["VarId"] = prow["Id"];
+                                    break;
+                                }
+                                
                     }
                     else    // latest file, just read
                     {
@@ -922,7 +939,10 @@ namespace HypotheticalHousehold
                 foreach (DataRow r in tbl.Rows)
                 {
                     if (r.Field<string>("VariableType") == EDITOR_TYPE_COMBO || r.Field<string>("VariableType") == EDITOR_TYPE_CONNECTION || r.Field<string>("VariableType") == EDITOR_TYPE_NUMERIC)
-                        gridData.Columns.Add(r.Field<string>("VariableName"), typeof(string));
+                    {
+                        if (!gridData.Columns.Contains(r.Field<string>("VariableName")))
+                            gridData.Columns.Add(r.Field<string>("VariableName"), typeof(string));
+                    }
                 }
             }
             return gridData;

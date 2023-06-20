@@ -12,7 +12,7 @@ namespace EM_Statistics
             internal override string ReplaceText(string origText, PrettyInfoResources resources)
             {
                 string label = labels == null ? null : (from l in labels where l.packageKey == resources.packageKey select l.baseSystemLabel).FirstOrDefault();
-                string replacement = string.IsNullOrEmpty(label) ? EM_Helpers.OutputNameToPretty(resources.baseSystem.GetFileName()) : label;
+                string replacement = string.IsNullOrEmpty(label) ? EM_Helpers.OutputNameToPretty(resources.baseSystems[0].GetFileName()) : label;
                 return origText.Replace(ident, replacement);
             }
         }

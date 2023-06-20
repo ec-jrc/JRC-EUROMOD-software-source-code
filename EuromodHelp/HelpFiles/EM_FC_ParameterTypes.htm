@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Types of parameter values</title>
+</head>
+
+<body>
+
+<div class=WordSection1>
+
+<h1>Types of parameter values</h1>
+
+<p>Apart from classifying parameters with respect to their functionality (i.e. affecting output, limiting result, etc.) or into compulsory/optional, there is another possible grouping. Parameters can be classified by the values they take as follows:</p>
+
+<h4>Yes/no parameters</h4>
+
+<p>Such parameters allow only for two values: yes (or 1) and no (or 0).</p>
+
+<h4>Amount parameters</h4>
+
+<p>Amount parameters take either monetary or non-monetary amounts. Example 1 shows the tax schedule of a simple income tax policy. There are two bands: one for taxable income below 5,000 Euro annually and one for income above this amount. For the first band a tax of 10% of taxable income is due, for the second the rate is 25%. The parameters band_uplim and band_rate are amount parameters, where the former takes monetary amounts and the latter non-monetary amounts.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td>Grp/No</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>SchedCalc</td>
+		<td></td>
+		<td class="on">on</td>
+		<td>tax schedule</td>
+	</tr>
+	<tr>
+		<td>base</td>
+		<td></td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>band_upLim</td>
+		<td>1</td>
+		<td>5000#y</td>
+		<td>for annual taxable income up to 5,000</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>1</td>
+		<td>0.1</td>
+		<td>the tax amounts to 10% of taxable income</td>
+	</tr>
+	<tr>
+		<td>band_rate</td>
+		<td>2</td>
+		<td>0.25</td>
+		<td>and 25% for income above this amount</td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td></td>
+		<td>tin_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td></td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>Usually amount parameter values are followed by their &quot;period&quot;, for example the band limit of 5000 is followed by #y for yearly. EUROMOD internally converts all amounts to monthly, e.g. the 5000 are divided by 12. It is good practise to always indicate a period, though #m for monthly has no real effect, as no conversion to monthly is necessary. It is however more transparent to explicitly state whether amounts are annual, monthly or some other period. Of course there are amounts where a period does not make sense, as for example for the two rate parameters or capital values.</p>
+
+<p>The period can take on the following values:</p>
+<ul>
+	<li>#m for monthly (no conversion)</li>
+	<li>#y for yearly (divided by 12, more precisely multiplied by 0.08333333333333)</li>
+	<li>#q for quarterly (divided by 3, more precisely multiplied by 0.3333333333333)</li>
+	<li>#w for weekly (multiplied by 4.34 =365/12/7)</li>
+	<li>#d for daily (multiplied by 30.5)</li>
+	<li>#l for labour day (multiplied by 21.73)</li> 
+	<li>#s for labour day in a six days week (multiplied by 26.07)</li>
+	<li>#c for capital (no conversion)</li>
+</ul>
+
+<p>Moreover each period can be used with r for rate, e.g. #mr for monthly rate. Rules for conversion are the same.</p>
+
+<p>Note that, despite of numbers, constants as defined by <a href="EM_FC_DefVar_DefConst.htm">func_DefConst</a> can be used as amount parameter values.</p>
+
+<h4>Variable parameters</h4>
+
+<p>Variable parameters take EUROMOD variables as values (see <a href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>). In most of the examples we come across a very important variable parameter, the parameter output_var. If variable parameters are used with an assessment unit that comprises more than one person the question arises how to interpret this. This issue is dealt with in section <a href="EM_FC_ParameterValues.htm">EUROMOD Functions - Parameter values and the assessment unit</a>.</p>
+
+<h4>Incomelist parameters</h4>
+
+<p>Incomelist parameters take EUROMOD incomelists as values. Incomelists are important EUROMOD concepts. They are usually defined in the special policy ILDef_cc of a country’s parameter file (see <a href="EM_BC_PresentationTaxBen.htm">EUROMOD Basic Concepts - Presentation of countries' tax-benefit-systems</a>). Section <a href="EM_FC_DefIL.htm">EUROMOD Functions - The system function DefIL</a> describes how to define an incomelist. Generally speaking an incomelist is a variable, which is composed of other variables, e.g. the incomelist il_earns may be the sum of the variables yem (y=income, em=employment) and yse (se=self employment). The name of an incomelist by convention starts with il_ or ils_, where il_ is used for &quot;normal&quot; incomelists and ils_ for system incomelists. The latter are incomelists, which exist in all countries’ models and have a certain definition, for example ils_dispy is the incomelist for disposable income as defined in EUROMOD. In principle incomelists (once defined) are applied in the same way as variables, therefore there is roughly any parameter which takes only incomelists but not variables.</p>
+
+<h4>Variable-incomelist parameters</h4>
+
+<p>A few parameters take as well variables as incomelists as values. As an example, the parameter <i>Share_Prop</i> of the function <i><a href="EM_FC_Allocate.htm">Allocate</a></i> features this type.</p>
+
+<h4>Name parameters</h4>
+
+<p>Such parameters allow for indicating names, e.g. the name of a file, incomelist, etc. As an example, the parameter <i>File</i> of the function <i><a href="EM_FC_DefOutput.htm">DefOutput</a></i> is a <i>name</i> parameter, taking the name of the output file.</p>
+
+<h4>Query parameters</h4>
+
+<p>EUROMOD offers the so-called &quot;queries&quot; which allow for more complex questions, as for example how many children are in the assessment unit. These queries are listed and described in the section <a href="EM_FC_Queries.htm">EUROMOD Functions - Queries</a>. The result of a query is either yes or no, e.g. for the query IsLoneParent, or some (monetary or non monetary) value, e.g. for the queries GetPartnerIncome respectively nDepChildrenInTu. Actually, there are no &quot;pure&quot; query parameters, i.e. parameters that only take queries as their values, rather queries are usually used within formulas and conditions.</p>
+
+<h4>Formula parameters</h4>
+
+<p>Formula parameters are in fact little calculators. Example 2 shows a somewhat more complex application, by calculating a benefit for persons in education, amounting to 500 Euro monthly, supplemented by half of the expenditure on education. Any other education benefit is deducted from the resulting amount, where a lower limit ensures that no negative benefit results. For determining whether a person is in education the formula applies a query (IsInEducation), the basic benefit is indicated as monetary amount (500#m), the supplement for expenditure on education is calculated by using a variable (xed) and dividing it by a non monetary amount (2). Finally, an incomelist is used to determine other education benefits (il_OthEducBen).</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>ArithOp</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>formula</td>
+		<td>IsInEducation * (500#m + xed / 2) – il_OthEducBen</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>lowlim</td>
+		<td>0</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>output_var</td>
+		<td>stm01_s</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_individual_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<p>In general formula parameters take amounts (monetary and non monetary), variables, incomelists and queries as operands and combine them by simple arithmetic operations to calculate some result. Consequently, formula parameters can be used as amount, variable, incomelist and query parameters (by using just one operand of the respective type and no arithmetic operations). In fact, there are no pure query parameters and very few pure amount and incomelist parameters. Section <a href="EM_FC_ArithOp.htm">EUROMOD Functions - The policy function ArithOp</a> provides a more detailed description of the formula parameter.</p>
+
+<h4>Condition parameters</h4>
+
+<p>Similar to formula parameters condition parameters take amounts, variables, incomelists and queries as operands. However, they combine them by logical and comparison operators to evaluate a condition with a yes/no result. Example 3 shows a somewhat more complex application, which tests whether there is at least one dependent child in the family and if so, whether earnings are below 15,000 Euro annually or unemployment benefits are received. A more detailed description of condition parameters is provided in the section <a href="EM_FC_Elig.htm">EUROMOD Functions - The policy function Elig</a>.</p>
+
+
+<table class="spine">
+	<caption>Example 3:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>Elig</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>elig_cond</td>
+		<td>nDepChildrenInTu&gt;1 &amp; (il_earns&lt;15000#y | bun&gt;0)</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TAX_UNIT</td>
+		<td>tu_sben_family_sl</td>
+		<td></td>
+	</tr>
+</table>
+
+<h4>Taxunit parameters</h4>
+
+<p>A few parameters take assessment units as their values, the most important is the parameter TAX_UNIT, which is described in more detail in section <a href="EM_FC_CommonParameters.htm">EUROMOD Functions - Common Parameters</a>. The name of assessment units by convention starts with tu_.</p>
+
+<h4>Categorical parameters</h4>
+
+<p>Some parameters take a limited number of defined values, as for example the parameter who_must_be_elig, taking the values one_member / one_adult / all / all_adults (also see section <a href="EM_FC_CommonParameters.htm">EUROMOD Functions - Common Parameters</a>).</p>
+
+<h4>Footnote parameters</h4>
+
+<p>Finally, there are parameters that serve the further specification of other parameters. They can be easily identified by names starting with the character #, e.g. #_amount. The application of such parameters is described in detail in section <a href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote parameters for the further specification of operands</a>.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

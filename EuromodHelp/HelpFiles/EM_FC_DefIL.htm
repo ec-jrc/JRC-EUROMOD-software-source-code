@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>The system function DefIL</title>
+</head>
+
+<body>
+
+<div class=Section1>
+
+<h1>The system function DefIL</h1>
+
+<p>The
+function DefIL allows for defining incomelists (see <a
+href="EM_BC_Terminology.htm">EUROMOD Basic Concepts - EUROMOD terminology</a>).
+In principle the function can be applied in any policy. For reasons of
+transparency incomelists are however usually defined centrally in the special
+policy ILDef_cc. This rule may be disregarded if a
+particular incomelist is just used temporarily in one special policy. Anyway,
+an incomelist, once defined, is available for all subsequent functions and
+policies. The examples below illustrate different possibilities to define
+incomelists.</p>
+
+<table class="spine">
+	<caption>Example 1:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td class="on">on</td>
+		<td>taxable income</td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td>il_taxableY</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>+</td>
+		<td>employment income</td>
+	</tr>
+	<tr>
+		<td>yse</td>
+		<td>+</td>
+		<td>plus self-employment income</td>
+	</tr>
+	<tr>
+		<td>tscee_s</td>
+		<td>-</td>
+		<td>minus employee insurance contributions</td>
+	</tr>
+	<tr>
+		<td>tscse_s</td>
+		<td>-</td>
+		<td>minus self-employed insurance contributions</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td class="on">on</td>
+		<td>extended taxable income</td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td>il_taxableY_ext</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>il_taxableY</td>
+		<td>+</td>
+		<td>taxable income</td>
+	</tr>
+	<tr>
+		<td>poa</td>
+		<td>+</td>
+		<td>plus old age pension</td>
+	</tr>
+	<tr class="function">
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr>
+		<td>...</td>
+		<td>...</td>
+		<td>...</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td class="on">on</td>
+		<td>disposable income</td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td>ils_dispy</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>ils_origy</td>
+		<td>+</td>
+		<td>original income</td>
+	</tr>
+	<tr>
+		<td>ils_ben</td>
+		<td>+</td>
+		<td>plus benefits</td>
+	</tr>
+	<tr>
+		<td>ils_tax</td>
+		<td>-</td>
+		<td>minus taxes</td>
+	</tr>
+	<tr>
+		<td>ils_sicee</td>
+		<td>-</td>
+		<td>minus employee insurance contributions</td>
+	</tr>
+	<tr>
+		<td>ils_sicse</td>
+		<td>-</td>
+		<td>minus self-employed insurance contributions</td>
+	</tr>
+</table>
+
+<p>Example 1 shows the most common approaches to define incomelists. The
+first function illustrates the most basic definition of an incomelist as the
+sum of several variables. The incomelist specifies taxable income and is named il_taxableY (parameter name).
+It consists of two variables, which are added (+), yem (y=income, em=employment) and yse
+(se=self-employment), and two variables, which are subtracted (–), tscee_s (t=tax, sc=social contribution, ee=employee, _s=simulated)
+and tscse_s (se=self-employed). The second function
+in example 1 illustrates that incomelists can be components of other
+incomelists. It defines extended taxable income by an incomelist named il_taxableY_ext to be composed of the incomelist il_taxableY and the variable poa
+(p=pension, oa=old age). The third function in example 1 shows the standard
+definition of EUROMOD disposable income by the incomelist ils_dispy.
+It is composed of five other incomelists, where original income (ils_origy) and benefits (ils_ben)
+are added, whereas taxes (ils_tax) and social
+insurance contributions for employees (ils_sicee)
+and self-employed (ils_sicse) are subtracted. Note,
+that the names of incomelists always start with il_
+or ils_, where ils_
+denotes system or standard incomelists. These are incomelists, which must be
+defined for each country. Also note the ... in example 1. They imply that some
+definitions are not visible in the example 1, i.e. the definitions of ils_origy,
+ils_ben, etc. However, please note that it is not possible to use an
+incomelist as a component of another incomelist without defining it beforehand.
+Moreover, if an incomelist is composed of one or more simulated variables,
+these variables must be calculated before any use of the incomelist, otherwise
+the model issues a warning.<a href="#_ftn1"
+name="_ftnref1" title="">[1]</a>
+For example, if the simulated variable bch_s
+(b=benefit, ch=child, _s=simulated) is a component of a means-test-incomelist,
+the respective child benefit must be calculated before the means test.</p>
+
+<table class="spine">
+	<caption>Example 2:</caption>
+	<tr class="policy">
+		<td>Policy</td>
+		<td class="system">SL_demo</td>
+		<td>Comment</td>
+	</tr>
+	<tr class="function">
+		<td>DefIL</td>
+		<td class="on">on</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td>il_AbstractExample</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>yem</td>
+		<td>+0.5</td>
+		<td>half of employment income</td>
+	</tr>
+	<tr>
+		<td>ils_ben</td>
+		<td>–2</td>
+		<td>minus 2*benefits</td>
+	</tr>
+</table>
+
+
+<p>Example 2 creates a not very realistic incomelist called il_AbstractExample, to illustrate that the components of
+an incomelist can be fractions or multiples of variables or other incomelists.
+It subtracts incomelist ils_ben twice from half of
+the variable yem.</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> The model initialises all simulated
+variables by a value called VOID, which amounts to 0.0000000000001, and issues
+an error message if such a VOID-variable is used (except of course as an output
+variable).</p>
+
+</div>
+
+</body>
+
+</html>

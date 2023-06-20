@@ -5,6 +5,7 @@ namespace EM_XmlHandler
     public static partial class TAGS
     {
         // GENERAL TAGS
+        public const string ROOT_ELEMENT = "RootElement";
         public const string ID = "ID";
         public const string NAME = "Name";
         public const string SHORT_NAME = "ShortName";       // used e.g in <COUNTRY>, <EXTENSION>
@@ -23,6 +24,8 @@ namespace EM_XmlHandler
         public const string SYS_PAR = "SYS_PAR";
         public const string UPIND = "UPIND";
         public const string UPIND_YEAR = "UPIND_YEAR"; // uprating index year values
+        public const string EXSTAT = "EXSTAT";
+        public const string EXSTAT_YEAR = "EXSTAT_YEAR"; // uprating index year values
         public const string DATA = "DATA";
         public const string SYS_DATA = "SYS_DATA";
         public const string LOOKGROUP = "LOOKGROUP";
@@ -44,6 +47,7 @@ namespace EM_XmlHandler
         public const string FUN_ID = "FunID";
         public const string PAR_ID = "ParID";
         public const string UPIND_ID = "UpIndID";
+        public const string EXSTAT_ID = "ExStatID";
         public const string DATA_ID = "DataID";
         public const string LOOKGROUP_ID = "LookGroupID";
         public const string EXTENSION_ID = "ExtensionID";
@@ -55,8 +59,10 @@ namespace EM_XmlHandler
         public const string SWITCH = "Switch";
         public const string GROUP = "Group";
         public const string VALUE = "Value";
+        public const string NUMBER = "Number";
+        public const string LEVEL = "Level";
         public const string RUN_OPTION = "RunOption";
-        public const string YEAR = "Year"; // used in <UPIND_YEAR>
+        public const string YEAR = "Year"; // used in <UPIND_YEAR>, <EXSTAT_YEAR>
         public const string PRIVATE_MAIN = "PRIVATE_MAIN"; // actually no tag, but the <Name> of the currently only private-group
         public const string HEAD_DEF_INC = "HeadDefInc";
         public const string CURRENCY_PARAM = "CurrencyParam";
@@ -70,6 +76,7 @@ namespace EM_XmlHandler
         public const string INDIRECT_TAX_TABLE_YEAR = "IndirectTaxTableYear";
         public const string BEST_MATCH = "BestMatch";
         public const string COMMENT = "Comment";
+        public const string TABLENAME = "TableName";    // used in <EXSTAT> 
 
         // VARIABLES FILE - MAIN TAGS
         public const string VAR = "VAR";

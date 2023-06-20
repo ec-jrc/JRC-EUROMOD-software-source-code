@@ -26,6 +26,8 @@ namespace EM_Executable
         internal List<StoreVar> vars = new List<StoreVar>();
         private int varIndexLoopCounter = NOTAP;
         private int varIndexCurElig = NOTAP; // only relevant for UnitLoop
+        List<ParVar> varGroup = new List<ParVar>();
+        List<ParIL> ilGroup= new List<ParIL>();
 
         private Dictionary<string, string> ilLevels = new Dictionary<string, string>();
         private Dictionary<string, string> varLevels = new Dictionary<string, string>();
@@ -40,6 +42,7 @@ namespace EM_Executable
 
             // level parameters are only relevant for UnitLoops (they are prepared here and "consumed" in RegisterUnitLoopOperands)
             PrepareLevelPar(out bool hasLevelPar);
+            PrepareVarILPar();
             if (hasLevelPar && storeType != STORETYPE.UNITLOOP) infoStore.communicator.ReportError(new Communicator.ErrorInfo() { isWarning = true,
                 message = $"{description.Get()}: Level parameters can only be used with UnitLoop (parameters are ignored)" });
 
@@ -70,6 +73,49 @@ namespace EM_Executable
             //        if (!GetFromTo(parIteration, out List<int> iterations)) continue;
             //        foreach (int iteration in iterations) RegisterOperands(iteration);
             //    }
+        }
+
+        private void PrepareVarILPar()
+        {
+            // for each variable or IL that matches the pattern (note: "for each" refers to what's currenlty in the operandAdmin's
+            // list of operands, which perfectly takes into account that DefOutput can run in spine, but usually comes last)
+            // create an "artifical" ParIL/ParVar-parameter, which needs to be administrated by the fun,
+            // e.g. take care for calling CheckAndPrepare, ReplaceVarNameByIndex, ...
+            foreach (ParBase pattern in GetNonUniquePar<ParBase>(DefPar.DefOutput.VarGroup))
+            {
+                foreach (string outName in infoStore.operandAdmin.GetMatchingVar(pattern.xmlValue))
+                    AddToVarILGroup(outName, pattern.description);
+
+                // check all variables in the input-data if they match the pattern, and if yes, look if there is an appropriate definition in the var-file
+                // we may want to add sth like: if (infoStore.runConfig.ReadInputVariablesOnlyUsedInOutputVargroup)
+                foreach (string potOutName in infoStore.allDataVariables)
+                {
+                    if (infoStore.operandAdmin.indexVarConfig.ContainsKey(potOutName) &&
+                        EM_Helpers.DoesValueMatchPattern(pattern.xmlValue, potOutName))
+                        AddToVarILGroup(potOutName, pattern.description);
+                }
+            }
+            foreach (ParBase pattern in GetNonUniquePar<ParBase>(DefPar.DefOutput.ILGroup))
+                foreach (string outName in infoStore.operandAdmin.GetMatchingIL(pattern.xmlValue))
+                    AddToVarILGroup(outName, pattern.description, true);
+        }
+
+        private void AddToVarILGroup(string outName, Description description, bool isIL = false)
+        {
+            if (!isIL)
+            {
+                if (varGroup.Exists(x => x.xmlValue == outName)) return;
+                ParVar var = new ParVar(infoStore) { description = description, xmlValue = outName };
+                var.CheckAndPrepare(this);
+                varGroup.Add(var);
+            }
+            else
+            {
+                if (ilGroup.Exists(x => x.xmlValue == outName)) return;
+                ParIL il = new ParIL(infoStore) { description = description, xmlValue = outName };
+                il.CheckAndPrepare(this);
+                ilGroup.Add(il);
+            }
         }
 
         private bool GetFromTo(ParBase parFromTo, out List<int> iterations) // not activated (see above)
@@ -183,6 +229,10 @@ namespace EM_Executable
             foreach (ParVar par in GetNonUniquePar<ParVar>(DefPar.Store.Var))
                 RegisterVar(par.name, par.description, iteration);
             foreach (ParIL par in GetNonUniquePar<ParIL>(DefPar.Store.IL))
+                RegisterILAndContent(par, iteration);
+            foreach (ParVar par in varGroup)
+                RegisterVar(par.name, par.description, iteration);
+            foreach (ParIL par in ilGroup)
                 RegisterILAndContent(par, iteration);
         }
 

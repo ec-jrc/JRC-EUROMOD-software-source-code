@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Backup - Restore</title>
+</head>
+
+<body>
+
+<h1>Backup - Restore</h1>
+
+<p>Some actions, like for example importing and exporting systems,
+do not allow for undo (see <a href="EM_WW_Undo.htm">Working with EUROMOD - Undo
+and redo</a>) <a href="#_ftn1" name="_ftnref1"
+title="">[1]</a>. However,
+in order to still enable going back to the state before the action, the user
+interface generates a backup of the XML-files, which allows for restoring this state.</p>
+
+<h4>Backup</h4>
+
+<p>Before the action starts, the user interface stores all
+changes to the XML-files and clears the undo-list. The latter means that no previous
+actions can be undone anymore. Then it generates the backup in form of a
+folder, which is stored in the backup-folder of the user interface's temporary
+folder (see <a href="EM_FS_OrganisationOfFiles.htm">EUROMOD Installation and
+Architecture - EUROMOD content (parameter files) – Organisation of files</a>).
+The folder is called <i>cc_yyyy</i><i>-mm-dd_hh-mm-ss</i>, for example <i>RO_2013-12-29_14-12-00</i>,
+for a backup of Romania on the 29th December 2013, at twelve past two pm <a
+href="#_ftn2" name="_ftnref2" title="">[2]</a>. After the (successful) termination of the action the user interface issues a
+message, which indicates the existence of the backup, how the file is called
+and where it is stored. The message also informs about the possibility to
+restore this version via the button <i>Restore</i>
+in the ribbon <i>Country Tools</i>.</p>
+
+<p>Note that backups are stored for three days in the temporary
+folder. Older backups are automatically removed by the user interface.</p>
+
+<h4>Restore</h4>
+
+<p>Clicking the button <i>Restore</i>
+in the ribbon <i>Country Tools</i> opens a dialog
+allowing for selecting the backup-folder as described in paragraph <i>Backup</i> above <a href="#_ftn3" name="_ftnref3" title="">[3]</a>. Once the appropriate folder is selected, the user interface performs the restore
+and informs about success (or failing).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+<div>
+
+<hr align=left size=1 width="33%">
+
+<p class="footnote"><a href="#_ftnref1"
+name="_ftn1" title="">[1]</a> The concerned &quot;actions&quot; are
+quite complex procedures, in fact a collection of connected actions.</p>
+
+<p class="footnote"><a href="#_ftnref2"
+name="_ftn2" title="">[2]</a> As one may guess, the folder contains
+Romania's XML-files (RO.xml and RO_DataConfig.xml). If the backup concerns an
+add-on, it still takes the form of a folder called e.g. <i>MTR_2014-01-12_10-57-18</i>, containing the add-ons XML-file (i.e. MTR.xml).</p>
+
+<p class="footnote"><a href="#_ftnref3"
+name="_ftn3" title="">[3]</a> In fact the backup-folder must
+contain the country's (or add-on's) XML-files, but actually it is not
+necessary, that the folder was produced by a backup generated via the user
+interface.</p>
+
+</div>
+
+</body>
+
+</html>

@@ -122,7 +122,7 @@ namespace EM_UI.Editor
 
         List<IntelliItem> GetIntelliItems()
         {
-           List<IntelliItem> intelliItems = new List<IntelliItem>();
+            List<IntelliItem> intelliItems = new List<IntelliItem>();
             intelliItems.Clear();
 
             try
@@ -187,6 +187,32 @@ namespace EM_UI.Editor
                     CountryConfigFacade ccf = CountryAdministration.CountryAdministrator.GetCountryConfigFacade(cc);
                     foreach (CountryConfig.UpratingIndexRow ur in ccf.GetUpratingIndices())
                         intelliItems.Add(new IntelliItem(ur.Reference, ur.Description, _intelliImageConstant));
+                }
+                
+                // indirect taxes
+                if (specficIntelliItems == null || specficIntelliItems.Contains(_intelliContainsIndTaxFactor))
+                {
+                    string cc = EM_AppContext.Instance.GetActiveCountryMainForm().GetCountryShortName();
+                    CountryConfigFacade ccf = CountryAdministration.CountryAdministrator.GetCountryConfigFacade(cc);
+                    foreach (CountryConfig.IndirectTaxRow it in ccf.GetIndirectTaxes())
+                        intelliItems.Add(new IntelliItem(it.Reference, it.Comment, _intelliImageConstant));
+                }
+
+                // external statistics
+                if (specficIntelliItems == null || specficIntelliItems.Contains(_intelliContainsExternalStatistic))
+                {
+                    string cc = EM_AppContext.Instance.GetActiveCountryMainForm().GetCountryShortName();
+                    CountryConfigFacade ccf = CountryAdministration.CountryAdministrator.GetCountryConfigFacade(cc);
+                    foreach (CountryConfig.ExternalStatisticRow es in ccf.GetExternalStatistics())
+                    {
+                        if (!es.IsTableNameNull() && es.TableName.Equals("Aggregates"))
+                        {
+                            intelliItems.Add(new IntelliItem(DefVarName.EXSTAT_NUMBER_CONSTANT_PREFIX + es.Reference, es.Description, _intelliImageConstant));
+                            intelliItems.Add(new IntelliItem(DefVarName.EXSTAT_AMOUNT_CONSTANT_PREFIX + es.Reference, es.Description, _intelliImageConstant));
+                        }
+                        else
+                            intelliItems.Add(new IntelliItem(DefVarName.EXSTAT_INDICATOR_CONSTANT_PREFIX + es.Reference, es.Description, _intelliImageConstant));
+                    }
                 }
 
                 //standard variables defined in VarConfig (idhh, yem, poa, ...)
@@ -524,6 +550,8 @@ namespace EM_UI.Editor
         internal static int _intelliContainsRandAbsMinMax = 7;
         internal static int _intelliContainsDefTUMembers = 8;
         internal static int _intelliContainsUpRateFactor = 9;
+        internal static int _intelliContainsIndTaxFactor = 10;
+        internal static int _intelliContainsExternalStatistic = 11;
 
         internal FormulaEditorManager(ListBox lstIntelli, Label lblComboBoxEditorToolTip, ImageList imlIntelliIcons, TreeList treeList)
         {

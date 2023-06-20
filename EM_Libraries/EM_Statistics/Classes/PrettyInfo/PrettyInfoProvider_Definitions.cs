@@ -13,11 +13,13 @@ namespace EM_Statistics
         public static List<PackageLabels> labels = null; // can be set by api (SetLabels) to replace system-names
 
         public const string PRETTY_INFO_BASE_COUNTRY = "[baseCountry]"; // alias of [country] for downwards-compatibility
+        public const string PRETTY_INFO_BASE_COUNTRY_SHORT = "[baseCountryShort]"; // allows for keeping the short country name only
         public const string PRETTY_INFO_BASE_TAX_SYS_PRETTY = "[baseTaxSysPretty]";
         public const string PRETTY_INFO_REFORM_TAX_SYS_PRETTY = "[reformTaxSysPretty]";
 
         public const string PRETTY_INFO_BASE_SYS = "[baseSys]";
         public const string PRETTY_INFO_BASE_SYS_PRETTY = "[baseSysPretty]";
+        public const string PRETTY_INFO_BASE_SYS_LIST = "[baseSysList]";
         public const string PRETTY_INFO_BASE_SYS_LABEL = "[baseSysLabel]";
         public const string PRETTY_INFO_BASE_FILENAME = "[baseFileName]";
         public const string PRETTY_INFO_BASE_DATASET = "[baseDataset]";
@@ -47,11 +49,15 @@ namespace EM_Statistics
         public const string PRETTY_INFO_REF_SYS_LIST = "[refSysList]";
         public const string PRETTY_INFO_REF_FILE_LIST = "[refFileList]";
 
+        public const string PRETTY_INFO_USER_VAR = "[@";
+
         private static List<PrettyInfo> allPrettyInfos = new List<PrettyInfo>()
         {
             new PrettyInfo_BaseCountry(),
+            new PrettyInfo_BaseCountryShort(),
             new PrettyInfo_BaseSys(),
             new PrettyInfo_BaseSysPretty(),
+            new PrettyInfo_BaseSysList(),
             new PrettyInfo_BaseSysLabel(),
             new PrettyInfo_BaseTaxSysPretty(),
             new PrettyInfo_RefTaxSysPretty(),

@@ -12,6 +12,7 @@ using EM_UI.DataSets;
 using EM_UI.DeveloperInfo;
 using EM_UI.DeveloperInfo.ReleaseValidation;
 using EM_UI.Dialogs;
+using EM_UI.Dialogs.Tools;
 using EM_UI.Editor;
 using EM_UI.ExtensionAndGroupManagement;
 using EM_UI.GlobalAdministration;
@@ -48,6 +49,7 @@ namespace EM_UI
         TreeListBuilder _treeListBuilder = null;
         TreeListManager _treeListManager = null;
         ComponentUseForm _componentUseForm = null;
+        EM_Statistics.InDepthAnalysis.InDepthAnalysisForm _InDepthAnalysisForm = null;
 
         ADOUndoManager _undoManager = null;
         FormulaEditorManager _formulaEditorManager = null;
@@ -182,6 +184,15 @@ namespace EM_UI
             {
                 e.Cancel = true;
                 return;
+            }
+            if (_InDepthAnalysisForm != null && !_InDepthAnalysisForm.IsDisposed)
+            {
+                if (MessageBox.Show("InDepthAnalysis is still open, would you like to close EUROMOD anyway?", "Closing EUROMOD", MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else _InDepthAnalysisForm.Close();
             }
             if (_componentUseForm != null) _componentUseForm.Close();
             EM_AppContext.Instance.RemoveCountryMainForm(this);
@@ -517,6 +528,7 @@ namespace EM_UI
             btnSetNotPrivateExtensionL.Enabled = _countryConfigFacade != null && !_isAddOn;
             btnExpandLookGroup.Enabled = _countryConfigFacade != null && !_isAddOn;
             btnUpratingIndices.Enabled = _countryConfigFacade != null && !_isAddOn;
+            btnExternalStatistics.Enabled = _countryConfigFacade != null && !_isAddOn;
             btnIndirectTaxes.Enabled = _countryConfigFacade != null && !_isAddOn;
             btnRestore.Enabled = _countryConfigFacade != null && !(_treeListBuilder != null && _treeListBuilder.SinglePolicyView);
             btnMergeCountry.Enabled = _countryConfigFacade != null && !(_treeListBuilder != null && _treeListBuilder.SinglePolicyView);
@@ -540,6 +552,9 @@ namespace EM_UI
             txtSinglePolicy.Enabled = _countryConfigFacade != null;
             btnShowMatrixViewOfIncomelists.Enabled = _countryConfigFacade != null;
             btnShowHiddenSystems.Enabled = _countryConfigFacade != null;
+
+            btnExternalStatistics.Visibility = BarItemVisibility.Always;
+            btnMacroValidation.Visibility = BarItemVisibility.Always;
 
             ribbonPageLookGroup.Visible = !_isAddOn;
             ribbonPageGroupExtensions.Visible = !_isAddOn;
@@ -1113,6 +1128,7 @@ namespace EM_UI
 
         void btnRun_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) { if (_runMainForm == null || _runMainForm.IsDisposed) _runMainForm = new RunMainForm(); _runMainForm.Show(_countryShortName); }
         void btnUpratingIndices_ItemClick(object sender, ItemClickEventArgs e) { (new UpratingIndices.UpratingIndicesForm(this)).ShowDialog(); }
+        void barExternalStatistics_ItemClick(object sender, ItemClickEventArgs e){ new ExternalStatistics.ExternalStatisticsForm(this).ShowDialog(); }
         void btnIndirectTaxes_ItemClick(object sender, ItemClickEventArgs e) { new IndirectTaxes.IndirectTaxesForm(this).ShowDialog(); }
         void btnHICP_ItemClick(object sender, ItemClickEventArgs e) { GlobalAdministrator.ShowHICPDialog(); }
         void btnExchangeRates_ItemClick(object sender, ItemClickEventArgs e) { GlobalAdministrator.ShowExchangeRatesDialog(); }
@@ -1303,6 +1319,19 @@ namespace EM_UI
             if (!_componentUseForm.Visible) _componentUseForm.Show();
         }
 
+        internal void ShowStatisticsPresetnerForm()
+        {
+            EM_Statistics.StatisticsPresenter.StatisticsPresenter.Run();
+        }
+
+        internal void ShowInDepthAnalysisForm()
+        {
+            if (_InDepthAnalysisForm == null || _InDepthAnalysisForm.IsDisposed)
+                _InDepthAnalysisForm = new EM_Statistics.InDepthAnalysis.InDepthAnalysisForm();
+            if (!_InDepthAnalysisForm.Visible) _InDepthAnalysisForm.Show();
+            _InDepthAnalysisForm.BringToFront();
+        }
+
         void OpenOutputFile()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -1417,6 +1446,22 @@ namespace EM_UI
             pc.Show(this);
         }
 
+        private void btnMacroValidation_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new Macrovalidation.MacrovalidationForm();
+            //if (mf != null && !mf.IsDisposed) mf.Show();
+        }
+
+        private void btnStatistics_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            EM_UI.Dialogs.Tools.ChooseStatistics cs = new EM_UI.Dialogs.Tools.ChooseStatistics();
+            cs.ShowDialog();
+            if (cs.selection == ChooseStatistics.SelectionType.StatisticsPresenter)
+                ShowStatisticsPresetnerForm();
+            else if (cs.selection == ChooseStatistics.SelectionType.InDepthAnalysis)
+                ShowInDepthAnalysisForm();
+        }
+
         private void btnShowHiddenSystems_ItemClick(object sender, ItemClickEventArgs e)
         {
             showHiddenSystemsBox();
@@ -1513,8 +1558,9 @@ namespace EM_UI
             }
         }
 
-        #endregion plugins
 
+
+        #endregion plugins
     }  
         
  }

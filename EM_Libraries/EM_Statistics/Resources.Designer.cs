@@ -19,10 +19,10 @@ namespace EM_Statistics {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace EM_Statistics {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EM_Statistics.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace EM_Statistics {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,22 +61,72 @@ namespace EM_Statistics {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;a id=&quot;emsta-button-id-PLACEHOLDER_PACKAGE_KEY&quot; onclick=&quot;PLACEHOLDER_LINK&quot; class=&quot;w3-bar-item w3-button w3-hover-gray&quot;&gt;PLACEHOLDER_TEXT&lt;/a&gt;
+        ///   Looks up a localized string similar to &lt;a id=&quot;emsta-package-button-PLACEHOLDER_PACKAGE_KEY&quot; onclick=&quot;PLACEHOLDER_LINK&quot; class=&quot;emsta-package-button w3-bar-item w3-button&quot;&gt;PLACEHOLDER_TEXT&lt;/a&gt;
         ///.
         /// </summary>
-        internal static string Button_html {
+        public static string Button_html {
             get {
                 return ResourceManager.GetString("Button_html", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;div id=&quot;TabContent-PLACEHOLDER_PACKAGE_KEY&quot; class=&quot;w3-container w3-cell-middle&quot; style=&quot;height: 100%&quot;&gt;&lt;/div&gt;
+        ///   Looks up a localized string similar to &lt;div id=&quot;emsta-package-page-contents-PLACEHOLDER_PACKAGE_KEY&quot; class=&quot;emsta-package-page-contents w3-container w3-cell-middle&quot; style=&quot;display:none; height: 100%&quot; loaded=&quot;false&quot;&gt;&lt;/div&gt;
         ///.
         /// </summary>
-        internal static string Content_html {
+        public static string Content_html {
             get {
                 return ResourceManager.GetString("Content_html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=10&quot; /&gt; &lt;!-- instead of IE4 use version 10 of Internet Explorer, or the installed version, if lower --&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+        ///&lt;/head&gt;
+        ///&lt;body&gt;&lt;/body&gt;
+        ///&lt;/html&gt;.
+        /// </summary>
+        public static string dummy_html {
+            get {
+                return ResourceManager.GetString("dummy_html", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap existing_png {
+            get {
+                object obj = ResourceManager.GetObject("existing_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Template&gt;
+        ///  &lt;TemplateInfo&gt;
+        ///    &lt;Name&gt;&lt;![CDATA[In-depth Analysis]]&gt;&lt;/Name&gt;
+        ///    &lt;Title&gt;&lt;![CDATA[In-depth Analysis]]&gt;&lt;/Title&gt;
+        ///    &lt;Button&gt;[baseCountry]&lt;/Button&gt;
+        ///    &lt;Description&gt;&lt;/Description&gt;
+        ///    &lt;GeneralDescription&gt;&lt;![CDATA[]]&gt;&lt;/GeneralDescription&gt;
+        ///    &lt;TemplateType&gt;BaselineReform&lt;/TemplateType&gt;
+        ///    &lt;DebugMode&gt;true&lt;/DebugMode&gt;
+        ///    &lt;RequiredVariables&gt;
+        ///      &lt;RequiredVariable&gt;
+        ///        &lt;Name&gt;dwt&lt;/Name&gt;
+        ///        &lt;ReadVar&gt;dwt&lt;/ReadVar&gt;
+        ///      &lt;/RequiredVariable&gt;
+        ///      &lt;RequiredVariable&gt;
+        ///        &lt;Nam [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string InDepthAnalysis_xml {
+            get {
+                return ResourceManager.GetString("InDepthAnalysis_xml", resourceCulture);
             }
         }
         
@@ -86,20 +136,54 @@ namespace EM_Statistics {
         ///
         ///var CONTAINER_HEAD_ID_PREFIX = &quot;ContainerHead_&quot;;
         ///var CONTAINER_BODY_ID_PREFIX = &quot;ContainerBody_&quot;;
+        ///var SERVER_UPDATE_MILLISECONDS = 200;
         ///
+        ///var firstLoad = true;
+        ///var currentTab = 0;
+        ///var changingPackage = false;
+        ///var serverRecallTimeout = null;
         ///
         ///// This calls the BackEnd to get the progress update and runs HandleProgress once the response is back
-        ///function GetStatsAgain() {
-        ///    embe_BackEndRequest(emsta_MakeStatisticsUI, responderKey + &quot;_LoadStatistics&quot;, param);
-        ///}
-        ///
-        ///function GetStatsContent(key)
-        ///{
-        ///    emb [rest of string was truncated]&quot;;.
+        ///function TryGetStat [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string LoadStatistics_js {
+        public static string LoadStatistics_js {
             get {
                 return ResourceManager.GetString("LoadStatistics_js", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Template&gt;
+        ///	&lt;TemplateInfo&gt;
+        ///		&lt;Name&gt;&lt;![CDATA[Macrovalidation results]]&gt;&lt;/Name&gt;
+        ///		&lt;Title&gt;&lt;![CDATA[Macrovalidation results]]&gt;&lt;/Title&gt;
+        ///		&lt;Button&gt;[baseCountry]&lt;/Button&gt;
+        ///		&lt;Description/&gt;
+        ///		&lt;GeneralDescription&gt;&lt;![CDATA[]]&gt;&lt;/GeneralDescription&gt;
+        ///		&lt;TemplateType&gt;Multi&lt;/TemplateType&gt;
+        ///		&lt;DebugMode&gt;true&lt;/DebugMode&gt;
+        ///		&lt;DoMultiColumns&gt;false&lt;/DoMultiColumns&gt;
+        ///		&lt;RequiredVariables&gt;
+        ///			&lt;RequiredVariable&gt;
+        ///				&lt;Name&gt;dwt&lt;/Name&gt;
+        ///				&lt;ReadVar&gt;dwt&lt;/ReadVar&gt;
+        ///			&lt;/RequiredVariable&gt;
+        ///			&lt;RequiredVariable&gt;
+        ///				&lt;Name&gt;dgn&lt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string Macrovalidation_xml {
+            get {
+                return ResourceManager.GetString("Macrovalidation_xml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap missing_png {
+            get {
+                object obj = ResourceManager.GetObject("missing_png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -112,11 +196,10 @@ namespace EM_Statistics {
         ///    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;w3.css&quot;&gt;
         ///    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;Chart.min.css&quot;&gt;
         ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;tlite.css&quot; /&gt;
-        ///    &lt;!--change w3-css default font-size (15px) and line-spacing(1.5) to use less space--&gt;
-        ///    &lt;style&gt;
-        ///        html, bod [rest of string was truncated]&quot;;.
+        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;BackEnd.css&quot; /&gt;
+        ///    &lt;!--change w3-css default font-size (15px) and line-spacing(1.5) to [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string statistics_html {
+        public static string statistics_html {
             get {
                 return ResourceManager.GetString("statistics_html", resourceCulture);
             }

@@ -294,6 +294,7 @@ namespace Web_Statistics
             createPovertyRiskSheet(wb, titleYears);
             createPovertyGapSheet(wb, titleYears);
             createPovertyLinesSheet(wb, titleYears);
+            createNrrSheet(wb, titleYears);
             createMetrSheet(wb, titleYears);
             ws = wb.Worksheets.Add("Datasets");
             setDefaultSheetStyle(ws);
@@ -306,6 +307,7 @@ namespace Web_Statistics
             int gap_row = 4;
             int lines_row = 4;
             int metr_row = 5;
+            int nrr_row = 5;
             int pop_row = 3;
             foreach (EM_Country country in Plugin.countries)
             {
@@ -322,6 +324,8 @@ namespace Web_Statistics
                 ws.Cells[gap_row, 0].Value = country.name;
                 ws = wb.Worksheets["Poverty lines"];
                 ws.Cells[lines_row, 0].Value = country.name;
+                ws = wb.Worksheets["NRR"];
+                ws.Cells[nrr_row, 0].Value = country.name;
                 ws = wb.Worksheets["METR"];
                 ws.Cells[metr_row, 0].Value = country.name;
                 ws = wb.Worksheets["Population"];
@@ -482,7 +486,7 @@ namespace Web_Statistics
                     ws.Cells[lines_row, 1].Value = yrStr;
                     ws.Cells[lines_row, 2].Value = double.Parse(wsin.Cells[33,1].Value.ToString());
                     lines_row++;
-
+                                   
                     // add the METR data
                     ws = wb.Worksheets["METR"];
                     ws.Rows[risk_row].RowHeight *= 0.90;
@@ -498,6 +502,22 @@ namespace Web_Statistics
                     ws.Cells[metr_row, 7].Value = double.Parse(wsin.Cells[45,6].Value.ToString());
                     ws.Cells[metr_row, 8].Value = double.Parse(wsin.Cells[45,7].Value.ToString());
                     metr_row++;
+
+                    // add the NRR data
+                    ws = wb.Worksheets["NRR"];
+                    ws.Rows[risk_row].RowHeight *= 0.90;
+                    setCellStyle(ws.Cells[gini_row, 1], "Normal", false, "c", "b");
+                    setCellStyle(ws.Range.FromLTRB(2, gini_row, 5, gini_row), "Normal", false, "r", "b", "", "#,##0.00");
+                    setCellStyle(ws.Range.FromLTRB(5, gini_row, 8, gini_row), "Normal", false, "r", "b", "", "#,##0");
+                    ws.Cells[nrr_row, 1].Value = yrStr;
+                    ws.Cells[nrr_row, 2].Value = double.Parse(wsin.Cells[49, 1].Value.ToString());
+                    ws.Cells[nrr_row, 3].Value = double.Parse(wsin.Cells[49, 2].Value.ToString());
+                    ws.Cells[nrr_row, 4].Value = double.Parse(wsin.Cells[49, 3].Value.ToString());
+                    ws.Cells[nrr_row, 5].Value = double.Parse(wsin.Cells[49, 4].Value.ToString());
+                    ws.Cells[nrr_row, 6].Value = double.Parse(wsin.Cells[49, 5].Value.ToString());
+                    ws.Cells[nrr_row, 7].Value = double.Parse(wsin.Cells[49, 6].Value.ToString());
+                    ws.Cells[nrr_row, 8].Value = double.Parse(wsin.Cells[49, 7].Value.ToString());
+                    nrr_row++;
 
                     // add the Population data
                     ws = wb.Worksheets["Population"];
@@ -515,6 +535,7 @@ namespace Web_Statistics
                 wb.Worksheets["Poverty risk"].Range.FromLTRB(0, risk_row - 1, 8, risk_row - 1).Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
                 wb.Worksheets["Poverty gap"].Range.FromLTRB(0, gap_row - 1, 8, gap_row - 1).Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
                 wb.Worksheets["Poverty lines"].Range.FromLTRB(0, lines_row - 1, 2, lines_row - 1).Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
+                wb.Worksheets["NRR"].Range.FromLTRB(0, nrr_row - 1, 8, nrr_row - 1).Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
                 wb.Worksheets["METR"].Range.FromLTRB(0, metr_row - 1, 8, metr_row - 1).Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
                 wb.Worksheets["Population"].Range.FromLTRB(0, pop_row - 1, 3, pop_row - 1).Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
 
@@ -713,6 +734,17 @@ namespace Web_Statistics
             ws.Cells[lines_row + 4, 0].Value = "Source: EUROMOD version no. " + Plugin.euromod_version;
             ws.Cells[lines_row + 5, 0].Value = "Last updated " + DateTime.Now.ToShortDateString();
 
+            // then do the Notes for NRR
+            ws = wb.Worksheets["NRR"];
+            nrr_row++;
+            ws.Cells[nrr_row, 0].Value = "Notes:";
+            setCellStyle(ws.Cells[nrr_row, 0], "Title");
+            ws.Cells[nrr_row + 1, 0].Value = "The NRR Add-On simulates disposable income in case of unemployment for all people currently in work (i.e. all people observed with positive earnings in the data). The net replacement rate measures the proportion of household disposable income that is maintained after an individual gets unemployment. The net replacement rate can be negative (e.g. in case of an obligatory SIC) or exceed 100% (indicating that a person is better off if not working).";
+            ws.Range.FromLTRB(0, nrr_row + 1, 5, nrr_row + 1).Merge();
+            setCellStyle(ws.Range.FromLTRB(0, nrr_row + 1, 5, nrr_row + 1), "Normal", true);
+            setRowAutoHeight(ws, nrr_row + 1, 0, 5);
+            ws.Cells[nrr_row + 3, 0].Value = "Source: EUROMOD version no. " + Plugin.euromod_version;
+            ws.Cells[nrr_row + 4, 0].Value = "Last updated " + DateTime.Now.ToShortDateString();
 
             // then do the Notes for METR
             ws = wb.Worksheets["METR"];
@@ -1056,6 +1088,57 @@ namespace Web_Statistics
             ws.Columns[8].WidthInPixels = 100;
         }
 
+        private void createNrrSheet(IWorkbook wb, string titleYears)
+        {
+            Worksheet ws = wb.Worksheets.Add("NRR");
+            setDefaultSheetStyle(ws);
+            ws.Cells[0, 0].Value = "Net Replacement Rate, " + titleYears + " policies";
+            setCellStyle(ws.Cells[0, 0], "Header");
+            ws.Range["A2:I2"].Borders.BottomBorder.LineStyle = BorderLineStyle.Medium;
+            ws.Cells[2, 0].Value = "Countries";
+            ws.Range["A3:A5"].Merge();
+            setCellStyle(ws.Range["A3:A5"], "Normal", false, "l", "c", "b2");
+            ws.Cells[2, 1].Value = "Policy Year";
+            ws.Range["B3:B5"].Merge();
+            setCellStyle(ws.Range["B3:B5"], "Normal", false, "c", "c", "b2");
+            ws.Cells[2, 2].Value = "Net Replacement Rate (NRR)";
+            ws.Range["C3:F3"].Merge();
+            setCellStyle(ws.Range["C3:F3"], "Bold", false, "c", "c", "b1");
+            ws.Range["G3:I3"].Borders.BottomBorder.LineStyle = BorderLineStyle.Thin;
+            ws.Cells[3, 2].Value = "mean";
+            ws.Range["C4:C5"].Merge();
+            setCellStyle(ws.Range["C4:C5"], "Normal", false, "r", "c", "b2");
+            ws.Cells[3, 3].Value = "median";
+            ws.Range["D4:D5"].Merge();
+            setCellStyle(ws.Range["D4:D5"], "Normal", false, "r", "c", "b2");
+            ws.Cells[3, 4].Value = "percentiles";
+            ws.Range["E4:F4"].Merge();
+            setCellStyle(ws.Range["E4:F4"], "Normal", false, "c", "c");
+            ws.Cells[4, 4].Value = "25%";
+            setCellStyle(ws.Cells[4, 4], "Normal", false, "r", "c", "b2");
+            ws.Cells[4, 5].Value = "75%";
+            setCellStyle(ws.Cells[4, 5], "Normal", false, "r", "c", "b2");
+            ws.Cells[3, 6].Value = "active population";
+            setCellStyle(ws.Cells[3, 6], "Red", false, "c", "c");
+            ws.Cells[4, 6].Value = "unweighted";
+            setCellStyle(ws.Cells[4, 6], "Red", false, "c", "c", "b2");
+            ws.Cells[3, 7].Value = "numb. Obs.";
+            setCellStyle(ws.Cells[3, 7], "Red", false, "c", "c");
+            ws.Cells[4, 7].Value = "NRR<0";
+            setCellStyle(ws.Cells[4, 7], "Red", false, "c", "c", "b2");
+            ws.Cells[3, 8].Value = "numb. Obs.";
+            setCellStyle(ws.Cells[3, 8], "Red", false, "c", "c");
+            ws.Cells[4, 8].Value = "NRR>100";
+            setCellStyle(ws.Cells[4, 8], "Red", false, "c", "c", "b2");
+            ws.Rows[2].RowHeight *= 2;
+            ws.Rows[3].RowHeight *= 1.2;
+            ws.Rows[4].RowHeight *= 1.2;
+            ws.Columns[0].WidthInPixels = 120;
+            ws.Columns[6].WidthInPixels = 120;
+            ws.Columns[7].WidthInPixels = 100;
+            ws.Columns[8].WidthInPixels = 100;
+        }
+
         private void createPopulationSheet(IWorkbook wb, string titleYears)
         {
             Worksheet ws = wb.Worksheets.Add("Population");
@@ -1076,5 +1159,6 @@ namespace Web_Statistics
             ws.Columns[2].WidthInPixels = 120;
             ws.Columns[3].WidthInPixels = 140;
         }
+
     }
 }

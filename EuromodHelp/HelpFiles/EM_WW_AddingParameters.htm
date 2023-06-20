@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<link rel="stylesheet" href="files/style.css" />
+<title>Adding Parameters</title>
+</head>
+
+<body>
+
+<h1>Adding Parameters</h1>
+
+<h4>The <i>Add Parameter</i> Form</h4>
+
+<p>Open the <i>Add Parameter Form</i> to add a
+parameter to a function. The form is opened by right-clicking the respective
+function to open its context menu which provides the menu item <i>Show Add Parameter Form</i>. Alternatively the
+form can be opened by selecting the function and pressing <i>Control-A</i>. The dialog is non-modal, which means it can be kept open
+while working on other things. Accordingly it can be resized, shifted and
+minimised - except for the latter it stays on top of all windows.</p>
+
+<p>The form shows all parameters that can be added to the
+function (in the column <i>Parameter</i>)
+with a description (in the column <i>Description</i>).
+That means, amongst others, that &quot;normal&quot; parameters that are
+already part of the function are not listed (e.g. the parameter<i> TAX_UNIT</i> or the parameter<i> formula</i> of the function<i> <a href="EM_FC_ArithOp.htm">ArithOp</a></i>).
+Excepted from this rule are &quot;special&quot; parameters, i.e. parameters,
+which can be added more than once (e.g. the parameter<i> Var</i> of the function<i> <a
+href="EM_FC_DefOutput.htm">DefOutput</a></i> or the parameter<i> Comp_Cond</i> of the function<i> <a href="EM_FC_BenCalc.htm">BenCalc</a></i>)
+and parameters that have &quot;aliases&quot; (see <a href="#TM_Alias">Replacing
+an &quot;alias&quot; parameter</a> below).</p>
+
+<p>In consideration of its non-modality the form observes what
+the user is doing and adapts its content respectively. If a function or one of
+its parameters is selected, the content adjusts to this function. If a policy
+is selected, the content is cleared (as the form would not know which function
+of the policy it should refer to).</p>
+
+<p>Two options allow for a possibly more manageable content of
+the form:</p>
+<ul>
+<li><strong><i>Show
+Common Parameters</i>:</strong> If this option is unchecked, the form shows only
+parameters that are specific to the respective function, i.e. it hides
+parameters that are common to all (or most) functions, like <i>TAX_UNIT</i>, <i>Output_Var</i>, <i>Who_Must_Be_Elig</i>,
+etc.</li>
+
+<li><strong><i>Show
+Footnote Parameters</i>:</strong> If this option is unchecked, the form hides
+footnote parameters (parameters starting with a #). For detailed information
+see <a href="EM_FC_FootnoteParameters.htm">EUROMOD Functions - Footnote
+parameters for the further specification of operands</a>.</li>
+</ul>
+<p>To assess help on the function displayed by the<i><strong> Add
+Parameter Form</strong></i> use the buttons</p>
+<ul>
+<li><strong><i>Description</i></strong>: leading to a
+descriptive explanation of the function, usually with a couple of examples.
+Alternatively press the <strong><i>F5 key</i></strong>.</li>
+
+<li><strong><i>Summary</i></strong>: leading to a full (but
+brief) description of the parameters of the function. Alternatively press the <strong><i>F6 key</i></strong>.</li>
+<li>For information on the handling of the form
+press the <strong><i>F1 key</i></strong>, in fact
+leading to the page you are looking at.</li>
+</ul>
+
+<p>Note that pressing the <i>Escape</i>
+key closes the form (without any consequences) unless an editable field in the
+table has the focus.</p>
+
+<h4>Adding parameters</h4>
+
+<p>To add one or more parameters to the function select them by
+ticking the corresponding check boxes. Then click the <i>Add</i> button (the button with the green plus).</p>
+
+<p>You can also use the keyboard to add parameters. Tick/untick
+the corresponding check boxes: first use the arrow keys (<i>up, down, left, right</i>) to move the focus to their row in the <i>Add</i> column, then press the <i>Space</i> key. Press the <i>Enter</i> key to add the selected
+parameters. Note that pressing the <i>Enter</i>
+key always adds the selected parameters, unless an editable field in the table
+(e.g. <i>Count</i>) has the focus.</p>
+
+<p>Note that if in the main view a parameter is selected, new
+parameters are added after this parameter, whereas if a function is selected,
+new parameters are added at the end of the function.</p>
+
+<h4><a name="TM_BulkAdd"></a>Adding parameters that allow for more than one incidence</h4>
+
+<p>Parameters that allow for more than one incidence (e.g.
+the parameter<i> Var</i> of the function<i> <a href="EM_FC_DefOutput.htm">DefOutput</a></i>)
+can be added in bulk. To add X incidences of a parameter to the function, put X
+the <i>Count</i> column of the parameter,
+which automatically selects the parameter (i.e. its check box is ticked). Press
+the <i>Add</i> button or the <i>Enter</i> key to add the parameters to the
+function.</p>
+
+<h4>Adding group parameters</h4>
+
+<p>For group parameters
+(e.g. the parameters <i>Comp_Cond</i> and <i>Comp_PerTU</i> of function<i> <a href="EM_FC_BenCalc.htm">BenCalc</a></i>)
+the form suggests the next available group number in the <i>Grp/No</i> column. The group number can be changed, though this is not
+recommended, as it should not be necessary. If group parameters are added in
+bulk (see above) the adding process assigns the group number indicated in the <i>Grp/No</i> column to the first incidence and
+automatically augments the group number for each further incidence.</p>
+
+<p>See <a href="EM_WW_ParameterPresentation.htm">Working with
+EUROMOD - Presentation of (normal and) special parameters</a> for more
+information on group parameters.</p>
+
+<h4><a name="TM_Alias"></a>Replacing an &quot;alias&quot; parameter</h4>
+
+<p>As mentioned above, parameters having an &quot;alias&quot;
+(e.g. the parameter <i>Output_Var</i> with
+its alias <i>Output_Add_Var</i>) are still
+listed even if they are already part of the function. More precisely they are
+listed in the column <i>Replaces</i> while
+the column <i>Parameter</i> contains their
+alias. Once the <i>Add</i> button (or the <i>Enter</i> key) is pressed the parameter is
+replaced by its alias. The replaced parameter keeps its value: if for example <i>Output_Var</i> was set to the variable <i>bun_s</i>, <i>Output_Add_Var</i> will still be set to this variable.</p>
+
+<p>Note that if both aliases (e.g. as well <i>Output_Var</i> as<i> Output_Add_Var</i>)
+are removed from the function, they both appear in the <i>Add Parameter Form's</i>
+list. However, trying to add them both leads to an error message.</p>
+
+<h4>Adding the parameter [Placeholder]</h4>
+
+<p>For some functions (<i><a href="EM_FC_DefVar_DefConst.htm">DefConst</a>, <a href="EM_FC_DefVar_DefConst">DefVar</a>, <a
+href="EM_FC_Uprate.htm">Uprate</a>, <a href="EM_FC_SetDefault.htm">SetDefault</a>,
+<a href="EM_FC_DefIL.htm">DefIL</a></i>) the form contains the special
+parameter <i>[Placeholder]</i>. If this
+parameter is added, its <i>Policy</i> column
+is editable (while the <i>Policy</i> column
+is read only for any other parameter). This allows the user to replace <i>[Placeholder]</i> by an appropriate value
+(usually the name of a variable). The <i>Policy</i>
+column stays editable after replacing <i>[Placeholder]</i>,
+to allow for later changes of the value. Also see <a
+href="EM_WW_ParameterPresentation.htm">Working with EUROMOD - Presentation of
+(normal and) special parameters</a>.</p>
+
+<p>Note that the parameter <i>[Placeholder]</i>
+can always be added in bulk (see <a href="#TM_BulkAdd">Adding parameters that
+allow for more than one incidence</a> above).</p>
+
+<p>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

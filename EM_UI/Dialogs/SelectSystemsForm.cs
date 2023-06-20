@@ -28,7 +28,7 @@ namespace EM_UI.Dialogs
         {
             if (_enforceSelection && lstSystems.CheckedItems.Count == 0)
             {
-                Tools.UserInfoHandler.ShowError("Please select a system.");
+                EM_UI.Tools.UserInfoHandler.ShowError("Please select a system.");
                 return;
             }
 

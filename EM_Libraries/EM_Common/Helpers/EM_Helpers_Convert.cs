@@ -30,8 +30,24 @@ namespace EM_Common
 
         public static string AdaptDecimalSign(string formula)
         {
-            char sep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-            return formula.Trim().Replace(sep == '.' ? ',' : '.', sep);
+            char decsep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            return formula.Trim().Replace(decsep == '.' ? ',' : '.', decsep);
+        }
+
+        public static string SetCleanInvariantNumberFormat(string formula)
+        {
+            char decsep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            string grpsep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator;
+            formula = formula.Replace(grpsep, "");
+            if (decsep != '.') formula = formula.Replace(decsep, '.');
+            return formula;
+        }
+
+        public static string SetRegionalFromInvariantNumberFormat(string formula)
+        {
+            char decsep = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
+            char decsepinv = System.Globalization.CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator[0];
+            return formula.Replace(decsepinv, decsep);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace EM_UI.PlugInService
 {
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // DO NOT DELETE THESE FUNCTIONS, THOUGH THEY SEEM TO BE NOT USED
-    // SEE EM_Common.UISessionInfo FOR UNDERSTANDING THEIR APPLICATION
+    // SEE EM_Common_Win.UISessionInfo FOR UNDERSTANDING THEIR APPLICATION
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public class SessionInfo

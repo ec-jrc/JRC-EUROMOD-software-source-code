@@ -64,7 +64,7 @@ namespace EM_UI.TreeListManagement
         internal const string _policyColumnName = "Policy";
         internal const string _commentColumnName = "Comment";
 
-        internal TreeListBuilder(EM_UI_MainForm mainForm, CountryConfigFacade countryConfigFacade) 
+        internal TreeListBuilder(EM_UI_MainForm mainForm, CountryConfigFacade countryConfigFacade)
         {
             _mainForm = mainForm;
             _countryConfigFacade = countryConfigFacade;
@@ -192,6 +192,8 @@ namespace EM_UI.TreeListManagement
 
                 InsertPolicyNode(distinctPolicyRow);
             } //end foreach distinctPolicyRow
+
+            CheckPrivatePublicInconsistencies();
 
             //try to fit in columns in the tree list in a way that allows - if possible - to see all systems without scrolling
             AdaptTreeListColumnWidth();
@@ -352,7 +354,7 @@ namespace EM_UI.TreeListManagement
 
         internal void SetSystemFormats()
         {//set backcolor and foreColor of systems' cells according to the conditional formatting settings defined by the user
-            
+
             //first clear all current formats
             foreach (TreeListColumn formatColumn in _mainForm._specialFormatCells.Keys)
                 _mainForm._specialFormatCells[formatColumn].Clear();
@@ -512,7 +514,7 @@ namespace EM_UI.TreeListManagement
                             _idsDisplayedSinglePolicy.Add(policyRow.ID);
                 }
             }
-            
+
             RedrawTreeForPolicyView(); //update the tree to realise the selected view
         }
 
@@ -622,5 +624,105 @@ namespace EM_UI.TreeListManagement
             if (_availablePolicies.Contains(policyRow))
                 _availablePolicies.Remove(policyRow);
         }
+
+        internal void CheckPrivatePublicInconsistencies()
+        {
+
+            List<TreeListNode> allNodes = _mainForm.treeList.GetNodeList();
+            List<TreeListNode> inconsistencies = new List<TreeListNode>();
+            inconsistencies = new List<TreeListNode>();
+            foreach (TreeListNode node in allNodes)
+            {
+                PolicyTreeListTag polTag = node.Tag as PolicyTreeListTag;
+                FunctionTreeListTag funTag = node.Tag as FunctionTreeListTag;
+                ParameterTreeListTag parTag = node.Tag as ParameterTreeListTag;
+
+                string firstIsPrivate = String.Empty;
+
+                if (polTag != null)
+                {
+                    foreach (CountryConfig.PolicyRow policyRow in polTag.GetPolicyRows())
+                    {
+                        string currentIsPrivate = policyRow.Private;
+
+                        if (String.IsNullOrEmpty(currentIsPrivate)) currentIsPrivate = DefPar.Value.NO;
+                        if (String.IsNullOrEmpty(firstIsPrivate)) firstIsPrivate = currentIsPrivate;
+                        else
+                        { 
+                            if (firstIsPrivate != currentIsPrivate && !inconsistencies.Contains(node)) inconsistencies.Add(node);
+                        }
+                    }
+                }
+
+                else if (funTag != null)
+                {
+                    foreach (CountryConfig.FunctionRow funRow in funTag.GetFunctionRows())
+                    {
+                        string currentIsPrivate = funRow.Private;
+
+                        if (String.IsNullOrEmpty(currentIsPrivate)) currentIsPrivate = DefPar.Value.NO;
+                        if (String.IsNullOrEmpty(firstIsPrivate)) firstIsPrivate = currentIsPrivate;
+                        else
+                        {
+                            if (firstIsPrivate != currentIsPrivate && !inconsistencies.Contains(node)) inconsistencies.Add(node);
+                        }
+                    }
+
+                }
+                else if (parTag != null)
+                {
+                    foreach (CountryConfig.ParameterRow parRow in parTag.GetParameterRows())
+                    {
+                        string currentIsPrivate = parRow.Private;
+
+                        if (String.IsNullOrEmpty(currentIsPrivate)) currentIsPrivate = DefPar.Value.NO;
+                        if (String.IsNullOrEmpty(firstIsPrivate)) firstIsPrivate = currentIsPrivate;
+                        else
+                        {
+                            if (firstIsPrivate != currentIsPrivate)
+                            {
+                                if (!inconsistencies.Contains(node) && !inconsistencies.Contains(node)) inconsistencies.Add(node);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(inconsistencies != null && inconsistencies.Any())
+            {
+                foreach (TreeListNode node in inconsistencies)
+                {
+                    PolicyTreeListTag polTag = node.Tag as PolicyTreeListTag;
+                    FunctionTreeListTag funTag = node.Tag as FunctionTreeListTag;
+                    ParameterTreeListTag parTag = node.Tag as ParameterTreeListTag;
+
+
+                    if (parTag != null)
+                    {
+                        node.StateImageIndex = DefGeneral.IMAGE_IND_INCONS;
+
+                        //Function and Policy also needs to be signaled as inconsistent
+                        if (node.ParentNode != null) node.ParentNode.StateImageIndex = node.ParentNode.StateImageIndex == DefGeneral.IMAGE_IND_FUN ? DefGeneral.IMAGE_IND_FUN_INCONS : DefGeneral.IMAGE_IND_PRIV_FUN_INCONS;
+                        if (node.ParentNode.ParentNode != null) node.ParentNode.ParentNode.StateImageIndex = node.ParentNode.ParentNode.StateImageIndex == DefGeneral.IMAGE_IND_POL ? DefGeneral.IMAGE_IND_POL_INCONS : DefGeneral.IMAGE_IND_PRIV_POL_INCONS;
+
+                    }
+                    else if (funTag != null)
+                    {
+                        node.StateImageIndex = DefGeneral.IMAGE_IND_INCONS;
+
+                        //Policy also needs to be signaled as inconsistent
+                        if (node.ParentNode != null) node.ParentNode.StateImageIndex = node.ParentNode.StateImageIndex == DefGeneral.IMAGE_IND_POL ? DefGeneral.IMAGE_IND_POL_INCONS : DefGeneral.IMAGE_IND_PRIV_POL_INCONS;
+                    }
+                    else if (polTag != null)
+                    {
+                        node.StateImageIndex = DefGeneral.IMAGE_IND_INCONS;
+
+                    }
+                    
+                }
+            }
+
+        }
     }
+
 }
