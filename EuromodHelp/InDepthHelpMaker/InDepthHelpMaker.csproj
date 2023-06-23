@@ -5,8 +5,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot; -file C:\Users\Public\SIGNEXEC\signExecInDepthHelp.ps1" />
-  </Target>
-
 </Project>
