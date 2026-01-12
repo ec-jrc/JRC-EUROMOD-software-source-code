@@ -1,0 +1,6 @@
+*/bin/
+*/obj/
+/example_*
+/output_checks/
+/Working area/
+_old/*

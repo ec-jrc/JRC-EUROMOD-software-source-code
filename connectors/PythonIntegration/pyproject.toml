@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=64",  "wheel"]
+build-backend = "setuptools.build_meta"
+
+[pip.conf]
+no-build-isolation = true
+
+[project]
+name = "euromod"
+version = "0.2.18" 
+
+
+requires-python = ">=3.8"
+authors = [  
+    {name = "Irina Belousova", email = "iri.belousova@gmail.com"},
+    {name = "Hannes Serruys", email = "hannes.serruys@ec.europa.eu"},
+    
+        ]
+maintainers = [
+   {name = "Hannes Serruys", email = "hannes.serruys@ec.europa.eu"},
+            ]
+description = "Run the microsimulation model EUROMOD. The latest model and software versions of EUROMOD are available at https://euromod-web.jrc.ec.europa.eu/download-euromod ."
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+keywords = ["Euromod", "Microsimulation"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: Other/Proprietary License",
+    "Operating System :: Microsoft",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+            ]
+dependencies = [ 
+  "pandas", 
+  "pythonnet", 
+  "numpy",
+  "polars",
+            ]
+            
+
+[project.urls]
+Documentation = "http://pythonconnectoreuromod.readthedocs.io/"
+GitHub = "https://github.com/ec-jrc/pythonconnectoreuromod"
+Issues = "https://github.com/ec-jrc/pythonconnectoreuromod/discussions"
+EUROMOD = "https://euromod-web.jrc.ec.europa.eu/"
+
+[tool.setuptools]
+include-package-data = true
+
+
+
+[tool.setuptools.packages.find]
+namespaces = false
+where = ["src"]
+include = ["euromod*"]
+
+

@@ -1,0 +1,26 @@
+v 3
+d EUROMOD Stata Integration Package
+d EUROMOD Stata Integration - Commands for interfacing with EUROMOD microsimulation model
+d Distribution-Date: 20251130
+d Version: 1.1.0
+d
+d Author: Hannes Serruys
+d Support: hannes.serruys@ec.europa.eu
+d
+d Requires: Stata version 14 or higher
+d
+f euromod.ado
+f euromod_getdata.ado
+f euromod_getinfo.ado
+f euromod_setinfo.ado
+f euromod_getmodel.ado
+f euromod_run.ado
+f euromod.sthlp
+f euromod_getdata.sthlp
+f euromod_getinfo.sthlp
+f euromod_setinfo.sthlp
+f euromod_getmodel.sthlp
+f euromod_run.sthlp
+f euromod_getmodel.ado
+f euromod_getmodel.sthlp
+e

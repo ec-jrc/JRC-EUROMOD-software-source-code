@@ -1,0 +1,69 @@
+	clear
+	discard
+	//global EUROMOD_PATH = "C:/Program Files/EUROMOD/Executable"
+	global EUROMOD_PATH = "C:/Users/serruha/Projects/EUROMOD/Connector_development/x64/Release" //path of the euromod library
+	adopath + "C:/Users/serruha/Projects/EUROMOD/Connector_development/Connectors/StataIntegration/StataCommand" // path were stata command will be stored
+
+	global system  "BG_2023"
+	global model_path "R:\\B2\\04 - EUROMOD JRC\\06 - Working area\\02 - Developers\\Hannes\\pl\\Y14\\02 - Model\\02 - Internal release\\EUROMOD_MASTER_VERSION_I5_100a\\"
+	global dataset "BG_2021_c1"
+	global input_data_path "R:\\B2\\04 - EUROMOD JRC\\01 - Repository\\03 - Datasets\\All data\\All countries\\"
+
+	import delimited "$input_data_path$dataset.txt",clear
+	global extraSettings = "'EXTENSION_SWITCH1': 'UAA=on', 'FORCE_OUTPUT_EURO': 'no'"
+	euromod_getinfo, 
+	euromod_getinfo, model("$model_path") country("BG")
+	local r : word count $EM_bestmatch_datasets
+	forvalues i = 1/`r' {
+		local dataset : word `i' of $EM_bestmatch_datasets
+		local system : word `i' of $EM_bestmatch_systems
+		di "`system'"
+		di "`dataset'"
+		import delimited "$input_data_path`dataset'.txt",clear
+		euromod_run, dataset(`dataset') model($model_path) system(`system')
+		if 
+		su ils_dispy
+	}
+		
+	euromod_run, dataset($dataset) model($model_path) system($system) prefix("EM1_") extensions(UAA=on) country(BG) constants("flat_rate = '0.2'") forceEuro forceSequentialOutput
+	//euromod_getdata,outputdata("bg_2022_base_mtr.txt") prefix("EM1_")
+	euromod_run, dataset($dataset) model($model_path) system($system) prefix("EM2_")  country(BG) constants("f_hourly_wage_lindi_6(2022) = '100' f_cpi(2022)='100'")
+
+	euromod_run, dataset("$dataset") model($model_path) system($system) prefix("EM3_")  country(BG) 
+	su *ils_dispy
+
+	euromod_run if idhh < 2629100, dataset($dataset) model($model_path) system($system) prefix("EM2_") country(BG)
+
+	 
+	global output_vars "yem lhw"
+	global il_output "ils_tax ils_dispy"
+	global output_TU "tu_individual_bg"
+
+
+	euromod_run, dataset($dataset) model($model_path) system($system) prefix("EMlol_") vars_output($output_vars) il_output($il_output)
+	su EM1_ils_dispy
+
+
+	global ConstToChange "flat_rate = '0.2'"
+	run_euromod, dataset($dataset) model($model_path) system($system) prefix("EM2_") tu_output($output_TU) vars_output($output_vars) il_output($il_output) replace_const($ConstToChange)
+	su EM2_ils_dispy
+
+	global ConstToChange "flat_rate = '0.2' tintart='0.5'"
+	run_euromod, dataset($dataset) model($model_path) system($system) prefix("EM3_") tu_output($output_TU) vars_output($output_vars) il_output($il_output) replace_const($ConstToChange)
+	su EM3_ils_dispy
+
+	global hours "0 20 38 45"
+	forvalues i=1(1)4 {
+		local pref = "cf`i'_"
+		local hour : word `i' of $hours
+		replace yem = yivwg * 4.3333 * `hour'
+		run_euromod, dataset($dataset) model($model_path) system($system) prefix(`pref') tu_output($output_TU) vars_output($output_vars) il_output($il_output) replace_const($ConstToChange)
+	}
+
+
+	global output_vars "sin60_s"	
+	run_euromod, dataset($dataset) model($model_path) system($system) prefix("search_") tu_output($output_TU) vars_output($output_vars) il_output($il_output)	
+
+
+	run_euromod if idmother == 0 & idfather == 0, dataset($dataset) model($model_path) system($system) prefix("macabre_") tu_output($output_TU) vars_output($output_vars) il_output($il_output)
+	*/

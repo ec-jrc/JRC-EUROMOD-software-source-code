@@ -1,0 +1,4 @@
+include src/euromod/libs/*.dll
+include src/euromod/README.pdf
+include LICENSE.txt
+include NOTICE.txt

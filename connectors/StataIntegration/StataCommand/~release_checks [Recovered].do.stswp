@@ -1,0 +1,44 @@
+	clear
+	discard
+	//global EUROMOD_PATH = "C:/Program Files/EUROMOD/Executable"
+	global EUROMOD_PATH = "R:/B2/04 - EUROMOD JRC/06 - Working area/02 - Developers/Hannes/non_country/Release" //path of the euromod library
+	adopath + "C:/Users/serruha/Projects/EUROMOD/Connector_development/Connectors/StataIntegration/StataCommand" // path were stata command will be stored
+
+	global system  "BG_2023"
+	global model_path "\\net1.cec.eu.int\jrc-services\svq-users\serruha\desktop\bg_master_a0.39\"
+	global dataset "BG_2021_c1"
+	global input_data_path "R:\\B2\\04 - EUROMOD JRC\\01 - Repository\\03 - Datasets\\All data\\All countries\\"
+
+	import delimited "$input_data_path$dataset.txt",clear
+
+	euromod_getinfo, model("$model_path") country("BG")
+	local specific_systems ""
+	local r : word count $EM_all_datasets
+	forvalues i = 1/`r' {
+		local dataset : word `i' of $EM_all_datasets
+		local system : word `i' of $EM_all_systems
+		import delimited "$input_data_path`dataset'.txt",clear
+		di "Starting for dataset `dataset' with sytem `system'"
+		capture euromod_run, dataset(`dataset') model($model_path) system(`system')
+		if $n_errors_euromod > 0 {
+			di in r "Warning or error has been returned for running system"
+
+		}
+		capture euromod_run, dataset(`dataset') model($model_path) system(`system') publiccomponentsonly
+		if $n_errors_euromod > 0 {
+			di in r "Warning or error has been returned"
+			
+		}
+		di "Running MTR"
+		capture euromod_run, dataset(`dataset') model($model_path) system(`system') addons(MTR|MTR_BG)
+		if $n_errors_euromod > 0 {
+			di in r "Warning or error has been returned for running with MTR"
+			exit
+		}
+		capture euromod_run, dataset(`dataset') model($model_path) system(`system') addons(NRR|NRR_BG)
+		di "Running NRR"
+		if $n_errors_euromod > 0 {
+			di in r "Warning or error has been returned for running with NRR"
+			exit
+		}
+	}

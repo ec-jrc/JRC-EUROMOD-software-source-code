@@ -1,0 +1,9 @@
+sphinx-autoapi
+myst_parser
+myst-nb
+furo
+sphinxcontrib-napoleon
+euromod
+pythonnet>=3.0.2
+pandas
+numpy

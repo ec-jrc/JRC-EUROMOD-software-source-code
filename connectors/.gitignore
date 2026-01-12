@@ -1,0 +1,14 @@
+**/bin/
+**/obj/
+**/x64/*
+**/x86/*
+**/Win32/*
+**/Release/*
+**/Debug/*
+**/__pycache__/*
+*.dll
+*.whl
+**/dist
+**/build
+**/*.dll
+

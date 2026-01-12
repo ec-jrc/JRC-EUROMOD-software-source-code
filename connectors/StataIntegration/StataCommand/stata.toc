@@ -1,0 +1,3 @@
+v 3
+d  Hannes Serruys, European Commision JRC.B2 Fiscal Policy
+p euromod EUROMOD Stata Integration
