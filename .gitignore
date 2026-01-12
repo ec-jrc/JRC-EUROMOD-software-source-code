@@ -1,3 +1,6 @@
 bin
 obj
 packages
+connectors/MatlabIntegration
+connectors/**/*.dll
+testplugin
