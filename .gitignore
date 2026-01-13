@@ -4,3 +4,5 @@ packages
 connectors/MatlabIntegration
 connectors/**/*.dll
 testplugin
+connectors/PythonIntegration/*.txt
+connectors/PythonIntegration/*.md
