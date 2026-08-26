@@ -1,7 +1,7 @@
 # Methods
 
 A method — a *methodology* — is a reviewed implementation that turns shocks into
-transformed EUROMOD input plus run parameters. It is the science of the linkage: which people
+transformed EUROMOD input plus run parameters. It is the modelling of the linkage: which people
 move, how they are ranked, what a new worker earns, what a growth rate multiplies.
 
 Each one lives in its own module under `euromod_linking.methods`, and is referred to
@@ -28,13 +28,16 @@ same scenario could be handled by a different method than the one that produced 
 result, and nothing in either output would say so. Resolving from the shocks means a scenario
 that dispatches differently is a scenario that *is* different.
 
-Two consequences follow:
+A consequence follows. Because the scenario never names the method, nothing in the document
+changes when the method itself changes — so the guard against a stale result has to live
+somewhere other than the scenario. `registry.code_fingerprint` hashes a method's own source
+into the [scenario fingerprint](../concepts/scenarios.md), so editing an implementation
+invalidates cached results rather than serving answers computed by the earlier code.
 
-- **Methods are versioned.** `lma_labour_alignment` is a fixed contract. Changing the
-  science means `@2`, not an edit.
-- **Their code is fingerprinted.** `registry.code_fingerprint` hashes a method's own source
-  into the [scenario fingerprint](../concepts/scenarios.md), so editing an implementation
-  invalidates cached results rather than serving stale ones.
+Methods deliberately carry **no version number**. A content-derived identity cannot be
+forgotten the way a hand-maintained version integer can, and the integer would have to be
+remembered on exactly the occasion it is easiest to overlook: a small correction to the
+modelling that changes the numbers.
 
 If two methods ever claim the same channel, dispatch raises `MethodLookupError` listing
 both, and the scenario's `methodology` field is how you choose. That is the field's only

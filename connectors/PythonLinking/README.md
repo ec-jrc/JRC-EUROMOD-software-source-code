@@ -99,7 +99,7 @@ scenario["shocks"] = {"file": "projections.xlsx", "mapping": "regional_projectio
 
 The transformation is **never chosen by the caller**. It is resolved from the shock channels and
 echoed back, so a scenario cannot silently be handled by a different method than the one that
-produced an earlier result. Their code is content-fingerprinted into the scenario id — changing the science invalidates cached results rather than serving stale
+produced an earlier result. Their code is content-fingerprinted into the scenario id — changing the modelling invalidates cached results rather than serving stale
 ones.
 
 - **`lma_labour_alignment`** (`align`) — two-level hierarchical alignment to external

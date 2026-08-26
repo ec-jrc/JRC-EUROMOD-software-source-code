@@ -2,7 +2,7 @@
 
 A scenario binds shocks to a country and system. It is a plain dict, validated against a
 JSON Schema shipped with the package (`schemas/scenario.v1.schema.json`), and it is
-deliberately thin: it selects *data*, never science.
+deliberately thin: it selects *data*, never modelling.
 
 ```python
 scenario = {
@@ -99,5 +99,5 @@ while it is still cheap to fix.
 
 `scenario.fingerprint()` reduces a scenario to a canonical hash. It folds in the shock
 table's content id *and* the resolved methodology's `code_fingerprint` — a hash of the
-method's own source. So editing the science invalidates cached results instead of serving
+method's own source. So editing the modelling invalidates cached results instead of serving
 answers computed by a previous version of it.

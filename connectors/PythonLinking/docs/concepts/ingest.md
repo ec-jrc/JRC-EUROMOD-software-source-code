@@ -4,7 +4,7 @@ An external model's results arrive as a file — usually a spreadsheet with a la
 chose deliberately: a couple of unnamed leading columns, one sheet per quantity, one column
 per projection period. Turning that into shock records is exactly the kind of work that
 accretes bespoke parsing functions, one per model, each subtly different and none of them
-reviewed as carefully as the science they feed.
+reviewed as carefully as the modelling they feed.
 
 So it is data instead. A **mapping spec** describes the file's layout declaratively. It is
 validated against `mapping.v1.schema.json`, and it can be a YAML file or a plain dict.

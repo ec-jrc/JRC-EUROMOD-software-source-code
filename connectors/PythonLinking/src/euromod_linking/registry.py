@@ -6,7 +6,7 @@ parameters. Methodology lives in code; a scenario can only select a method and
 supply scenario-semantics params validated against the method's own
 params_schema.
 
-Methods carry no version number. What guards against an edit to the science
+Methods carry no version number. What guards against an edit to the modelling
 silently serving results computed by earlier code is `code_fingerprint`, which
 hashes a method's own source into the scenario fingerprint — a content-derived
 identity that cannot be forgotten the way a hand-maintained version integer can.
@@ -89,7 +89,7 @@ def code_fingerprint(spec: MethodSpec) -> str:
 
     Results are cached on the scenario fingerprint, but a scenario document does
     not change when the *methodology* does — so without this, editing a
-    method's science silently serves results computed by the earlier code.
+    method's modelling silently serves results computed by the earlier code.
     Hashing the implementation makes any code change invalidate its cached runs,
     the same content-addressed discipline used for shock tables and scores.
     Empty string if the source cannot be read, which leaves caching keyed on the

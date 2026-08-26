@@ -17,7 +17,7 @@ parameters, so macro results can be evaluated at household level::
 Shocks arrive in one canonical form (the shock table); each external model's
 file format is handled by a declarative mapping spec. The transformation
 methodology is resolved from the shock channels rather than chosen by the
-caller — a scenario selects data, never science.
+caller — a scenario selects data, never modelling.
 
 Scope: this targets the JRC's EUROMOD model for the 27 EU member states, and
 only that model — not the EUROMOD *software* in general. Models built on the
