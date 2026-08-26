@@ -14,23 +14,33 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the Licence for the specific language governing permissions and limitations under the Licence.
 '''
 
-import os 
-import sys
-
-# ### path to the euromod package
-MODEL_PATH = os.path.dirname(__file__)
-if MODEL_PATH not in sys.path:
-    sys.path.insert(0, MODEL_PATH)
-del os, sys, MODEL_PATH
-    
-from core import Model,Country,Policy,System,ReferencePolicy, PolicyInSystem, FunctionInSystem, Parameter, ParameterInSystem, Function, Dataset, DatasetInSystem, Extension
-from info import Info
-from base import ExtensionSwitch
-from utils.euromod_parsing import is_valid_model
+from .core import Model,Country,Addon,Policy,System,AddonSystem,ReferencePolicy, PolicyInSystem, FunctionInSystem, Parameter, ParameterInSystem, Function, Dataset, DatasetInSystem, Extension
+from .info import Info
+from .base import ExtensionSwitch
+from .utils.euromod_parsing import is_valid_model
+# Software-version compatibility info, resolved at import (see utils._version).
+from .utils._paths import SOFTWARE_VERSION as software_version
+from .utils._paths import USING_BUNDLED_FALLBACK as using_bundled_fallback
+from .utils._version import REQUIRED_SOFTWARE_VERSION as required_software_version
+try:
+    from .statistics import Statistics, StatisticsResult
+except ImportError as _stats_err:
+    import warnings as _warnings
+    _warnings.warn(
+        f"[euromod] Statistics module unavailable: {_stats_err}\n"
+        "  The euromod package will work normally, but statistics functionality is disabled.\n"
+        "  Ensure EM_Statistics.dll is placed in the libs folder or EUROMOD installation directory.",
+        ImportWarning,
+        stacklevel=1,
+    )
+    Statistics = None
+    StatisticsResult = None
 
 __all__ = ["Model",
            "Country",
+           "Addon",
            "System",
+           "AddonSystem",
            "Dataset",
            "DatasetInSystem",
            "Policy",
@@ -42,7 +52,12 @@ __all__ = ["Model",
            "ParameterInSystem",
            "Extension",
            "ExtensionSwitch",
+           "Statistics",
+           "StatisticsResult",
            "is_valid_model",
+           "software_version",
+           "required_software_version",
+           "using_bundled_fallback",
            "__version__",
            "__doc__"]
 

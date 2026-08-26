@@ -15,8 +15,42 @@ See the Licence for the specific language governing permissions and limitations 
 '''
 
 import clr
+import os
 import System as SystemCs
 import polars as pl
+
+_console_hardened = False
+
+
+def harden_dotnet_console() -> None:
+    """Detach the .NET Console from the process's console handle.
+
+    The EUROMOD engine prints progress and also prints every warning to the
+    Windows console. In a process without a valid console handle -- a service, a
+    detached or background launch, some notebook kernels -- that write raises
+    ``IOException: The handle is invalid``, turning a harmless engine warning
+    into a failed simulation.
+
+    Redirecting Console.Out/Error to ``TextWriter.Null`` removes the fragile
+    channel. Nothing is lost: warnings are still delivered through the
+    structured simulation result, which surfaces them as errors/warnings.
+
+    Idempotent and best-effort. Set ``EUROMOD_KEEP_CONSOLE=1`` to skip, e.g.
+    when watching engine progress interactively.
+    """
+    global _console_hardened
+    if _console_hardened:
+        return
+    if os.environ.get("EUROMOD_KEEP_CONSOLE", "").strip().lower() in ("1", "true", "yes", "on"):
+        _console_hardened = True
+        return
+    try:
+        SystemCs.Console.SetOut(SystemCs.IO.TextWriter.Null)
+        SystemCs.Console.SetError(SystemCs.IO.TextWriter.Null)
+    except Exception:
+        pass
+    _console_hardened = True
+
 
 def convert_list_of_str(list_to_convert):
     list_cs = SystemCs.Collections.Generic.List[SystemCs.String]()

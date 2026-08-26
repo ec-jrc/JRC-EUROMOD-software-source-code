@@ -9,9 +9,18 @@ import os
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Euromod Connector'
-copyright = '2024 European Commission. EUROMOD is licensed under the EUPL, Version 1.2'
+copyright = '2026 European Commission. EUROMOD is licensed under the EUPL, Version 1.2'
 author = 'Belousova Irina, Serruys Hannes'
-release = "0.2.4"
+
+# Keep the documented release in sync with the installed package version when
+# it is available; fall back to a literal for local checkouts.
+try:
+    from importlib.metadata import version as _pkg_version
+    release = _pkg_version("euromod")
+except Exception:
+    release = "0.3.2"
+
+version = release
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -35,6 +44,14 @@ intersphinx_mapping = {
      "pandas": ("https://pandas.pydata.org/docs/", None),
  }
 
+# -- MyST-NB notebook execution ----------------------------------------------
+# The example notebooks run real EUROMOD simulations, which need the model, the
+# .NET engine and input microdata — none of which exist on the CI runner. We
+# therefore ship the notebooks with their outputs already committed and do NOT
+# re-execute them at build time. Re-run them locally (see docs/README) when the
+# API changes, then commit the refreshed outputs.
+nb_execution_mode = "off"
+
 # -- Plausible support
 ENABLE_PLAUSIBLE = os.environ.get("READTHEDOCS_VERSION_TYPE", "") in ["branch", "tag"]
 html_context = {"enable_plausible": ENABLE_PLAUSIBLE}
@@ -49,8 +66,13 @@ autoapi_options = [
     "undoc-members", # Display objects without docstrings. ??If this is removed API reference is not generated??
     # "show-inheritance", # Display a list of base classes below the class signature.
     "show-module-summary", # summary at the top
-    "imported-members", # display objects imported from the same top level package or module
+    # "imported-members" removed: it pulled re-exported names (and their
+    # third-party origins) into the reference, producing noise and duplicate
+    # object descriptions.
 ]
+
+# Do not document internal implementation modules in the public API reference.
+autoapi_ignore = ["*/calibrate/*", "*/calibrate.py", "*/test/*", "*/euromod_cli.py"]
 autoapi_keep_files = True
 # autoapi_generate_api_docs = False
 
@@ -84,6 +106,11 @@ todo_include_todos = False
 
 html_theme = 'furo'
 
+# Ship a small stylesheet that keeps wide notebook outputs (pandas DataFrames)
+# scrolling inside their cell instead of overflowing the content area.
+html_static_path = ['_static']
+html_css_files = ['custom.css']
+
 # extensions.append("sphinxjp.themes.basicstrap")
 # html_theme = 'basicstrap'
 
@@ -99,7 +126,11 @@ html_theme = 'furo'
 # #     "css/custom.css",
 # # ]
 # html_style = 'css/theme.css' 
-html_title = 'Euromod Connector'
+# The release goes in the title because that is the only place furo shows it:
+# its sidebar brand template renders the title and nothing else, so a bare
+# project name leaves the reader with no way to tell which version of the
+# package the page describes.
+html_title = f'Euromod Connector {release}'
 html_short_title = 'Euromod'
 html_last_updated_fmt = ''
 html_use_index = True
@@ -133,7 +164,10 @@ autoapi_prepare_jinja_env = prepare_jinja_env
 
 
 def skip_member(app, what, name, obj, skip, options):
-    if what == "method" and "add" in name:
+    # Hide the internal Container.add() helpers. Match the *method* name exactly
+    # ("...add") rather than any name containing the substring "add", which would
+    # also hide legitimate members such as a future add_dataset().
+    if what == "method" and name.rsplit(".", 1)[-1] == "add":
        skip = True
     if what == "package" and "utils" in name:
        skip = True
@@ -161,8 +195,23 @@ def skip_member(app, what, name, obj, skip, options):
        skip = True
     if what == "class" and "CountryContainer" in name:
        skip = True
+    if what == "class" and "AddonContainer" in name:
+       skip = True
     return skip
 
+def _summarylabel_role(name, rawtext, text, lineno, inliner, options=None, content=None):
+    """Inline role used by the autoapi summary templates (``:summarylabel:``).
+
+    Renders the label text in an inline node carrying the ``summarylabel`` CSS
+    class. Registering it here prevents "Unknown interpreted text role" errors
+    when the summary tables are rendered.
+    """
+    from docutils import nodes
+    return [nodes.inline(rawtext, text, classes=["summarylabel"])], []
+
+
 def setup(sphinx):
+   from docutils.parsers.rst import roles
+   roles.register_local_role("summarylabel", _summarylabel_role)
    sphinx.connect("autoapi-skip-member", skip_member)
 

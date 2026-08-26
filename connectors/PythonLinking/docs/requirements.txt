@@ -1,0 +1,20 @@
+# Documentation toolchain.
+#
+# Note what is NOT here: euromod and pythonnet. autoapi parses the source
+# statically, and the method-reference directive imports euromod_linking, whose
+# own euromod import is lazy — so the build never loads .NET. Install the
+# package itself with --no-deps to keep it that way.
+sphinx-autoapi
+myst-nb
+furo
+sphinx-copybutton
+
+# Imported by euromod_linking at import time, so the method-reference
+# directive needs them present.
+pandas
+numpy
+jsonschema
+pyyaml
+statsmodels
+scikit-learn
+scipy

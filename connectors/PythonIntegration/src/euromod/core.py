@@ -19,24 +19,24 @@ import os
 import pandas as pd
 import polars as pl
 import numpy as np
-from utils.debug import create_debug_df
-from utils._paths import CWD_PATH, DLL_PATH
-from base import SystemElement, Euromod_Element, SpineElement
+from .utils.debug import create_debug_df
+from .utils._paths import CWD_PATH, DLL_PATH
+from .base import SystemElement, Euromod_Element, SpineElement
 import clr as clr
 import System as SystemCs
-from utils.clr_array_convert import asNetArray,asNumpyArray
-from utils.utils import is_iterable,convert_list_of_str,convert_numeric_columns_to_float64
+from .utils.clr_array_convert import asNetArray,asNumpyArray
+from .utils.utils import is_iterable,convert_list_of_str,convert_numeric_columns_to_float64
 clr.AddReference(os.path.join(DLL_PATH, "EM_Executable.dll" ))
 from EM_Executable import Control
 clr.AddReference(os.path.join(DLL_PATH, "EM_XmlHandler.dll" ))
-from EM_XmlHandler import CountryInfoHandler,TAGS, ReadCountryOptions,ModelInfoHandler, ReadModelOptions
+from EM_XmlHandler import CountryInfoHandler,AddOnInfoHandler,TAGS, ReadCountryOptions,ModelInfoHandler, ReadModelOptions
 clr.AddReference(os.path.join(DLL_PATH, "EM_Common.dll" ))
-from EM_Common import EMPath
+from EM_Common import EMPath, DefGeneral
 clr.AddReference(os.path.join(DLL_PATH, "EM_Transformer.dll" ))
-from EM_Transformer import EM3Global
-from container import Container
-from typing import Dict, Tuple, Optional, List
-from utils.euromod_parsing import evaluate_expression
+from EM_Transformer import EM3Global, EM3Country
+from .container import Container
+from typing import Dict, Tuple, Optional, List, Union
+from .utils.euromod_parsing import evaluate_expression
 
 
 class Model(Euromod_Element):
@@ -73,8 +73,11 @@ class Model(Euromod_Element):
         if not os.path.exists(self._emPath.GetExtensionsFilePath(False)) & os.path.exists(model_path):
             EM3Global.Transform(self._emPath.GetFolderEuromodFiles(), _errors, True)
         
-        self.model_path: str = model_path 
+        self.model_path: str = model_path
         """: Path to the EUROMOD project."""
+
+        self.software_version: str = str(DefGeneral.UI_VERSION)
+        """: Version of the EUROMOD software (engine) actually loaded."""
         
         ## EM3Translate if needed
         
@@ -91,6 +94,13 @@ class Model(Euromod_Element):
         self._hasMIH: bool = False;
         countries = os.listdir(os.path.join(model_path,'XMLParam','Countries'))
         self._load_country(countries)
+        self.addons: Container[Addon] = AddonContainer() #: Container with `core.Addon` objects
+        """: A :class:`Container` with :class:`Addon` objects."""
+        addons_path = os.path.join(model_path,'XMLParam','AddOns')
+        if os.path.isdir(addons_path):
+            for addon in os.listdir(addons_path):
+                if os.path.isfile(os.path.join(addons_path, addon, addon + '.xml')):
+                    self.addons.add(addon, self)
 
 
     #def __repr__(self):
@@ -444,6 +454,148 @@ class CountryContainer(Container):
         self.containerList.append(countryObject)
 
 
+class Addon(Euromod_Element):
+    """A EUROMOD add-on (e.g. MTR, LMA, NRR).
+
+    This class instantiates a EUROMOD add-on. An add-on is stored like a country
+    and can be navigated in the same way: it contains :class:`AddonSystem`,
+    :class:`Policy` (with their :class:`Function` and :class:`Parameter`) and
+    :class:`Extension` objects. Unlike a :class:`Country` it has no datasets,
+    local extensions or uprating factors, and its systems cannot be run on their
+    own: an add-on is integrated on top of a base country system via the `addons`
+    parameter of :func:`System.run`.
+
+    A class instance is automatically generated and stored in the attribute
+    :obj:`addons` of the base class :class:`Model`.
+
+    Parameters
+    ----------
+    name : :obj:`str`
+        Name of the add-on (e.g. "MTR").
+    model : :obj:`Model`
+        A class containing the EUROMOD base model.
+
+    Returns
+    -------
+    Addon
+        A class containing a EUROMOD add-on.
+
+    Example
+    --------
+    >>> from euromod import Model
+    >>> mod=Model("C:\\EUROMOD_RELEASES_I6.0+")
+    >>> mod.addons['MTR']
+    """
+
+    def __init__(self, name: str, model: Model):
+        """Instance of a EUROMOD add-on.
+        """
+        self.name: str = name
+        """: Name of the add-on."""
+        self.model: Model = model
+        """":class:`Model` Returns the base :class:`Model` object."""
+        self._hasAIH: bool = False
+        self._applicability = None
+        self.systems: Container[AddonSystem] | None = None
+        """: A :obj:`Container` with :class:`AddonSystem` objects."""
+        self.policies: Container[Policy] | None = None
+        """: A :obj:`Container` with :class:`Policy` objects."""
+        self.extensions: Container[Extension] | None = None
+        """: A :obj:`Container` with :class:`Extension` objects. Add-ons only reference the model extensions."""
+
+    def _load(self):
+        if not self._hasAIH:
+            _errors = SystemCs.Collections.Generic.List[SystemCs.String]()
+            ret = EM3Country.TransformAddOn(self.model.model_path, self.name, _errors)
+            # pythonnet returns (bool, List[str]) for the out-parameter
+            success, errors = (ret[0], ret[1]) if isinstance(ret, tuple) else (ret, _errors)
+            if not success:
+                raise Exception("AddOn XML EM3 Translation failed: " + "; ".join(str(e) for e in errors))
+            self._countryInfoHandler = AddOnInfoHandler(self.model.model_path, self.name)
+            self._hasAIH = True
+
+    def __getattribute__(self,name):
+        if name == "systems" and self.__dict__["systems"] is None:
+            self._load()
+            self._load_systems()
+            return self.systems
+        if name == "policies" and self.__dict__["policies"] is None:
+            self._load()
+            self._load_policies()
+            return self.policies
+        if name == "extensions" and self.__dict__["extensions"] is None:
+            self._load()
+            self._load_extensions()
+            return self.extensions
+        return super().__getattribute__(name)
+
+    def _load_systems(self):
+        self.systems = Container(True)
+        systems = self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.SYS)
+        for sys in systems:
+            self.systems.add(sys.Value["Name"],AddonSystem(sys.Value,self),sys.Value["ID"])
+
+    def _load_policies(self):
+        self.policies = Container(True)
+        for el in self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.POL):
+            pol = Policy(el.Value,self)
+            pol.order = self._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.SYS_POL,self.systems[-1].ID + pol.ID)["Order"]
+            self.policies.add(pol.ID,pol,pol.ID)
+        for el in self._countryInfoHandler.GetTypeInfo(ReadCountryOptions.REFPOL):
+            ref_pol = ReferencePolicy(el.Value,self)
+            self.policies.add(ref_pol.ID,ref_pol,ref_pol.ID)
+            self.policies[-1].order = self._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.SYS_POL,self.systems[-1].ID + ref_pol.ID)["Order"]
+        self.policies.containerList.sort(key=lambda x: int(x.order))
+
+    def _load_extensions(self):
+        self.extensions = self.model.extensions
+
+    def _get_applicability(self):
+        if self._applicability is None:
+            self._load()
+            self._applicability = {a.sysName: a for a in self._countryInfoHandler.GetSystemApplicability()}
+        return self._applicability
+
+    def get_applicable_systems(self, base_system):
+        """Get the add-on systems that apply to the given base country system.
+
+        Parameters
+        ----------
+        base_system : :obj:`str` | :class:`System`
+            Name of the base country system (e.g. "SE_2021"), or a :class:`System` object.
+
+        Returns
+        -------
+        Container[AddonSystem]
+            The :class:`AddonSystem` objects whose ``AddOn_Applic`` patterns match
+            the base system (add-on systems without an ``AddOn_Applic`` function are
+            never applicable).
+        """
+        name = base_system if isinstance(base_system, str) else base_system.name
+        applicable = Container(True)
+        for sys in self.systems:
+            if sys.is_applicable(name):
+                applicable.add(sys.name, sys, sys.ID)
+        return applicable
+
+    def __getitem__(self, system):
+        return self.systems[system]
+
+    def _short_repr(self):
+        return f"Addon {self.name}"
+    def _container_middle_repr(self):
+        return ""
+
+
+class AddonContainer(Container):
+    """Container class storing Addon objects.
+    """
+    def add(self,name,model):
+        addonObject = Addon(name,model)
+        self.containerDict[name] = addonObject
+        self.containerList.append(addonObject)
+
+
 class UprateFactorYearsContainer(Container):
     """Container class storing Country objects.
     """
@@ -470,7 +622,7 @@ class Simulation(Euromod_Element):
         A class with simulation output.
     """
     
-    def __init__(self, out, constantsToOverwrite,polars):
+    def __init__(self, out, constantsToOverwrite,polars, keep_clr_data=True):
         '''
         A class with results from the simulation :obj:`run`.
         
@@ -481,6 +633,9 @@ class Simulation(Euromod_Element):
             For indexing use an integer or a label from :obj:`output_filenames`."""
         self.output_filenames: list[str] | [] = []
         """ A :obj:`list` of file-names of simulation output."""
+        self._clr_data: dict = {}
+        """Raw CLR data arrays retained for efficient statistics calculation. 
+           Keys are output filenames, values are (variable_names_list, double_2d_array) tuples."""
         if constantsToOverwrite is None:
             constantsToOverwrite = {}
 
@@ -500,22 +655,105 @@ class Simulation(Euromod_Element):
                     
                 self.output_filenames.append(key)
 
+                # Retain CLR arrays for direct use in statistics calculation.
+                # EM_TemplateCalculator.PrepareFromData expects data shaped
+                # [numVars, numObs], whereas the output array is [numObs, numVars],
+                # so store the transposed, stats-ready array (matches the
+                # DataFrame conversion path in statistics._dataframe_to_clr_data).
+                if keep_clr_data:
+                    stats_arr = asNetArray(np.ascontiguousarray(temp.T, dtype=np.float64))
+                    self._clr_data[key] = (variableNameDict[key], stats_arr)
+
         self.errors: list[str] = [x.message for x in out.Item4]
         """: A :obj:`list` with errors and warnings from the simulation run."""
         
         self.constantsToOverwrite: dict[tuple(str,str),str] = constantsToOverwrite.copy()
         """: A :obj:`dict`-type object with user-defined constants.""" 
 
+    def statistics(self, template_path: str, variable: str = None, reforms=None,
+                   pages=None, tables=None):
+        """Calculate statistics from this simulation's output.
+
+        Convenience method that creates a Statistics instance and calls
+        calculate() with this Simulation as the baseline.
+
+        Parameters
+        ----------
+        template_path : str
+            Path to the template XML file.
+        variable : str, optional
+            Variable name for Variable-type templates.
+        reforms : list[Simulation], optional
+            Reform simulation outputs for comparison templates.
+        pages : list[str], optional
+            If given, only these template pages are calculated (partial execution).
+        tables : list[str], optional
+            If given, only these tables are calculated.
+
+        Returns
+        -------
+        StatisticsResult
+            Calculation results with multiple access patterns.
+        """
+        from .statistics import Statistics
+        stats = Statistics(template_path, variable=variable)
+        return stats.calculate(self, reforms=reforms, pages=pages, tables=tables)
 
 
 
-class System(Euromod_Element):   
+
+class SystemBase(Euromod_Element):
+    """Base class for systems, holding the navigation shared by :class:`System`
+    (in a country) and :class:`AddonSystem` (in an add-on): the system attributes
+    and the lazy `policies` container (policies -> functions -> parameters).
+    """
+    def __init__(self,*arg):
+        self.ID: str
+        """Identifier number of the system."""
+        self.comment: str
+        """Comment specific to the system."""
+        self.currencyOutput: str
+        """Currency of the simulation results."""
+        self.currencyParam: str
+        """Currency of the monetary parameters in the system."""
+        self.headDefInc: str
+        """Main income definition."""
+        self.name: str
+        """Name of the system."""
+        self.order: str
+        """System order in the spine."""
+        self.private: str
+        """Access type."""
+        self.year: str
+        """System year."""
+
+        super().__init__(*arg)
+        self.policies: Container[PolicyInSystem] | None = None
+        """: A :obj:`Container` of :class:`PolicyInSystem` objects in the system."""
+    def __getattribute__(self,name):
+        if name == 'policies' and self.__dict__["policies"] is None:
+            self._load_policies()
+            return self.policies
+        return super().__getattribute__(name)
+    def _load_policies(self):
+        self.policies = Container()
+        for pol in self.parent.policies:
+            id = self.ID + pol.ID
+            syspol = self.parent._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.SYS_POL,id)
+            self.policies.add(id,PolicyInSystem(syspol, id, self, pol,self))
+    def _short_repr(self):
+        return f"{self.name}"
+    def _container_middle_repr(self):
+        return ""
+
+
+class System(SystemBase):
     """A EUROMOD tax-benefit system.
-    
+
     This class represents a EUROMOD tax system.
     Instances of this class are generated when loading the EUROMOD base model.
     These are collected in a :obj:`Container` as attribute `systems` of the :class:`Country`.
-    
+
     Returns
     -------
     System
@@ -530,43 +768,19 @@ class System(Euromod_Element):
     def __init__(self,*arg):
         self.parent: Country
         """: The country-specific class."""
-        self.ID: str 
-        """Identifier number of the system."""
-        self.comment: str 
-        """Comment specific to the system."""
-        self.currencyOutput: str 
-        """Currency of the simulation results."""
-        self.currencyParam: str 
-        """Currency of the monetary parameters in the system."""
-        self.headDefInc: str 
-        """Main income definition."""
-        self.name: str 
-        """Name of the system."""
-        self.order: str 
-        """System order in the spine."""
-        self.private: str 
-        """Access type."""
-        self.year: str 
-        """System year."""
-        
         super().__init__(*arg)
         self.datasets: Container[DatasetInSystem] | None = None
         """: A :obj:`Container` of :class:`DatasetInSystem` objects in the system."""
-        self.policies: Container[PolicyInSystem] | None = None
-        """: A :obj:`Container` of :class:`PolicyInSystem` objects in the system."""
         self.bestmatch_datasets: Container[Dataset] | None = None
         """: A :obj:`Container` with best-match :class:`Dataset` objects in the system."""
     def __getattribute__(self,name):
-        if name == 'policies' and self.__dict__["policies"] is None:
-            self._load_policies()
-            return self.policies
         if name == 'datasets' and self.__dict__["datasets"] is None:
             self._load_datasets()
             return self.datasets
         if name == 'bestmatch_datasets' and self.__dict__["bestmatch_datasets"] is None:
             self._load_bestmatchdatasets()
             return self.bestmatch_datasets
-        
+
         return super().__getattribute__(name)
     def _load_bestmatchdatasets(self):
         self.bestmatch_datasets = Container()
@@ -606,12 +820,6 @@ class System(Euromod_Element):
             if len(sysdata) > 0:
                 self.datasets.add(id,DatasetInSystem(sysdata, id, self, dataset,self))
 
-    def _load_policies(self):
-        self.policies = Container()
-        for pol in self.parent.policies:
-            id = self.ID + pol.ID
-            syspol = self.parent._countryInfoHandler.GetPieceOfInfo(ReadCountryOptions.SYS_POL,id)
-            self.policies.add(id,PolicyInSystem(syspol, id, self, pol,self))
     def _get_dataArray(self, df):
         ### check data format
         if type(df) == pd.core.frame.DataFrame:
@@ -695,13 +903,14 @@ class System(Euromod_Element):
     def run(self,data: pd.DataFrame,dataset_id: str,
             constantsToOverwrite: Optional[Dict[Tuple[str, str], str]] = None,
             verbose: bool = True,outputpath: str = "",
-            addons: List[Tuple[str, str]] = [],  switches: List[Tuple[str, bool]] = [],
+            addons: List[Union[str, Tuple[str, str]]] = [],  switches: List[Tuple[str, bool]] = [],
             nowarnings=False,euro=False,public_components_only=False,
             requested_vars: List[str] = [],requested_incomelists: List[str] = [],
             requested_vargroups: List[str] = [],
             requested_ilgroups: List[str] = [],
             suppress_other_output: bool =False,
-            breakfun_id: str = None,) -> Simulation:
+            breakfun_id: str = None,
+            keep_clr_data: bool = True,) -> Simulation:
         """Run the simulation of a EUROMOD tax-benefit system by passing the pandas or polars dataframe in memory to EUROMOD. Note that string variables will not be passed.
         
 
@@ -719,9 +928,13 @@ class System(Euromod_Element):
             If True then information on the output will be printed. Default is :obj:`True`.
         outputpath : :obj:`str`, optional
             When the output path is provided, there will be anoutput file generated. Default is "".
-        addons : :obj:`list` [ :obj:`tuple` [ :obj:`str`, :obj:`str` ]], optional
-            List of tuples with addons to be integrated in the spine. The first element of the tuple is the name of the addon
-            and the second element is the name of the system in the Addon to be integrated. Default is [].
+        addons : :obj:`list` [ :obj:`str` | :obj:`tuple` [ :obj:`str`, :obj:`str` ]], optional
+            List of addons to be integrated in the spine. Each entry is either the name of the addon (as a :obj:`str`),
+            or a :obj:`tuple` of which the first element is the name of the addon and the second element is the name of
+            the system in the addon to be integrated. When only the addon name is given, the applicable addon system is
+            resolved automatically (like the EUROMOD user interface does) by matching the run's system against the
+            addon's ``AddOn_Applic`` definitions; an error is raised if no system, or more than one system, applies (in
+            which case the system must be given explicitly as a tuple). Default is [].
         switches : :obj:`list` [ :obj:`tuple` [ :obj:`str`, :obj:`bool` ]], optional
             List of tuples with extensions to be switched on or of. The first element of the tuple is the short name of the extension.
             The second element is a boolean Default is [].
@@ -743,6 +956,9 @@ class System(Euromod_Element):
             ilgroups requested in a new separate output. The default is [].
         suppress_other_output : bool, optional
             If True and custom output is specified then DefOutput from the model get suppressed. The default is False.
+        keep_clr_data : bool, optional
+            If True, retains the raw CLR data arrays on the Simulation object for efficient
+            downstream use (e.g., statistics calculation without re-conversion). Default is True.
         
        
         Raises
@@ -773,13 +989,37 @@ class System(Euromod_Element):
         
         if len(addons) > 0:
             for i,addon in enumerate(addons):
-                if not is_iterable(addon):
+                if isinstance(addon, str):
+                    name, system = addon, None
+                elif is_iterable(addon):
+                    addon = list(addon)
+                    if len(addon) == 1:
+                        name, system = addon[0], None
+                    elif len(addon) == 2:
+                        name, system = addon[0], addon[1]
+                    else:
+                        raise(ValueError("An addon must be the addon name, or a (name, system) pair, got: " + str(addon)))
+                else:
                     raise(TypeError(str(type(addon)) + " is incorrect type for defining addon"))
-                configSettings[TAGS.CONFIG_ADDON + str(i)] = addon[0] + "|" +  addon[1]
+                # system omitted (or empty) -> let EUROMOD auto-resolve the applicable addon system
+                configSettings[TAGS.CONFIG_ADDON + str(i)] = name if system in (None, "") else name + "|" + system
         if len(switches) > 0:
+            # An extension name the model does not know is dropped by the engine
+            # with only a console message, so the simulation completes normally
+            # while the behaviour that was asked for never happened -- a silent
+            # wrong answer, and a hard one to spot because nothing fails. Reject
+            # it here instead. An empty set of known names means the model could
+            # not be read, which is "cannot validate", not "nothing is valid".
+            from .introspect import system_extension_names
+            known = system_extension_names(self)
             for i,switch in enumerate(switches):
                 if not is_iterable(switch):
                     raise(TypeError(str(type(switch)) + " is incorrect type for defining extension switch"))
+                if known and switch[0] not in known:
+                    raise(ValueError(
+                        "Unknown extension switch '" + str(switch[0]) + "'. This system accepts: "
+                        + ", ".join(sorted(known)) + ". An unknown switch is silently ignored by "
+                        "the engine, so the run would appear to succeed without applying it."))
                 status = "on" if switch[1] else "off"
                 configSettings[TAGS.CONFIG_EXTENSION_SWITCH + str(i)] = switch[0] + '=' +  status
         
@@ -811,7 +1051,7 @@ class System(Euromod_Element):
                                       constantsToOverwrite = constantsToOverwrite_,countryInfoHandler = self.parent._countryInfoHandler,suppressOtherOutput = suppress_other_output
                                       ,newOutput=new_requested_output,breakAfterFunId=breakfun_id)
         os.chdir(CWD_PATH)
-        sim = Simulation(out, constantsToOverwrite,polars) 
+        sim = Simulation(out, constantsToOverwrite,polars, keep_clr_data=keep_clr_data) 
         for error in out.Item4:
             if error.isWarning and verbose:
             	print(f"Warning: {error.message}")
@@ -825,12 +1065,80 @@ class System(Euromod_Element):
             raise Exception(f"Simulation for system {self.name} with dataset {dataset_id} aborted with errors.")
       
         return sim
-    
-    
-    def _short_repr(self):
-        return f"{self.name}"
-    def _container_middle_repr(self):
-        return ""
+
+
+class AddonSystem(SystemBase):
+    """A system of a EUROMOD add-on.
+
+    This class represents a system inside an add-on (e.g. MTR_SE). It is navigable
+    like a :class:`System` (policies -> functions -> parameters), but it cannot be
+    run on its own and has no datasets: an add-on system is integrated on top of a
+    base country system when running a simulation (see the `addons` parameter of
+    :func:`System.run`). In addition it exposes the applicability declared by the
+    add-on's ``AddOn_Applic`` function: the base-system patterns are available as
+    the read-only attributes :obj:`applies_to_patterns` and
+    :obj:`not_applicable_patterns`, and the :func:`is_applicable` method tests a
+    given base system against them.
+
+    Instances of this class are collected in a :obj:`Container` as attribute
+    `systems` of the :class:`Addon`.
+
+    Returns
+    -------
+    AddonSystem
+        A class with an add-on system.
+
+    Example
+    --------
+    >>> from euromod import Model
+    >>> mod=Model("C:\\EUROMOD_RELEASES_I6.0+")
+    >>> mod.addons['MTR'].systems[0]
+    """
+    def __init__(self,*arg):
+        self.parent: Addon
+        """: The add-on-specific class."""
+        super().__init__(*arg)
+    def _get_applic(self):
+        return self.parent._get_applicability().get(self.name)
+    @property
+    def applies_to_patterns(self) -> list[str]:
+        """:obj:`list` [ :obj:`str` ]: Base-system patterns this add-on system applies to
+        (the ``Sys`` parameters of the ``AddOn_Applic`` function). Empty when the system
+        has no ``AddOn_Applic`` function."""
+        applic = self._get_applic()
+        return [] if applic is None else list(applic.sys)
+    @property
+    def not_applicable_patterns(self) -> list[str]:
+        """:obj:`list` [ :obj:`str` ]: Base-system patterns this add-on system is NOT
+        applicable to (the ``SysNA`` parameters of the ``AddOn_Applic`` function, which
+        prevail over the ``Sys`` patterns). Empty when the system has no ``AddOn_Applic``
+        function."""
+        applic = self._get_applic()
+        return [] if applic is None else list(applic.sysNA)
+    def is_applicable(self, base_system) -> bool:
+        """Whether this add-on system applies to the given base country system.
+
+        Uses the same wildcard pattern-matching of the ``AddOn_Applic`` ``Sys``/``SysNA``
+        parameters as the EUROMOD user interface (``SysNA`` prevails over ``Sys``).
+        A system without an ``AddOn_Applic`` function is never applicable.
+
+        Parameters
+        ----------
+        base_system : :obj:`str` | :class:`System`
+            Name of the base country system (e.g. "SE_2021"), or a :class:`System` object.
+
+        Returns
+        -------
+        bool
+            True if this add-on system applies to the base system.
+        """
+        name = base_system if isinstance(base_system, str) else base_system.name
+        applic = self._get_applic()
+        if applic is None:
+            return False
+        return bool(AddOnInfoHandler.IsSystemApplicable(applic, name))
+
+
 class OutputContainer(Container):
     def add(self,name,data):
         self.containerDict[name] = data

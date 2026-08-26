@@ -1,0 +1,61 @@
+[project]
+name = "euromod-linking"
+version = "0.1.0"
+description = "Link external economic models to EUROMOD by transforming input microdata and run parameters"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "EUPL-1.2"
+license-files = ["LICENSE.txt"]
+authors = [{ name = "Hannes Serruys", email = "hannes.serruys@ec.europa.eu" }]
+keywords = ["EUROMOD", "microsimulation", "macro-micro linking", "tax-benefit", "microdata"]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "euromod>=0.3.1",
+    "pandas>=2.0",
+    "numpy",
+    "jsonschema>=4.0",
+    "pyyaml>=6.0",
+    "statsmodels>=0.14",
+    "scikit-learn>=1.4",
+    "scipy>=1.11",
+]
+
+[project.optional-dependencies]
+# Mapping specs that read spreadsheets (.xlsx/.xlsm via openpyxl, .xls via xlrd).
+excel = ["openpyxl>=3.1", "xlrd>=2.0.1"]
+dev = ["pytest>=8", "openpyxl>=3.1", "xlrd>=2.0.1"]
+
+[project.urls]
+Documentation = "https://ec-jrc.github.io/JRC-EUROMOD-software-source-code/python-linking/"
+Source = "https://github.com/ec-jrc/JRC-EUROMOD-software-source-code/tree/master/connectors/PythonLinking"
+"EUROMOD model" = "https://euromod-web.jrc.ec.europa.eu/download-euromod"
+
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["euromod_linking*"]
+namespaces = false
+
+# include-package-data alone does not ship these: they must be declared.
+[tool.setuptools.package-data]
+"euromod_linking" = ["schemas/*.json", "mappings/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not live'"
+markers = [
+    "live: tests requiring a locally configured EUROMOD model (EUROMOD_MODEL_PATH)",
+]

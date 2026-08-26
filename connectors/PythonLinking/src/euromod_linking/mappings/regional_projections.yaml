@@ -1,0 +1,58 @@
+# Regional employment/unemployment projections -> canonical shock table.
+#
+# Layout: one sheet per quantity ('employment', 'unemployment'), three unnamed
+# leading columns (status label, NUTS-2 region code, education class), then
+# numeric column headers 1..10 holding decimal growth rates against baseline for
+# each projection period (e.g. 0.024 = +2.4%).
+#
+# Shipped as a worked example as much as a working spec: copy it and adjust the
+# positions, period range and class labels to whatever your own model publishes.
+mapping_version: 1
+name: regional_projections
+description: >-
+  Regional employment/unemployment projections (Excel workbook, sheets
+  'employment'/'unemployment', NUTS-2 x education class, periods 1-10 as decimal
+  growth rates against baseline).
+
+reader:
+  format: excel
+  sheets:
+    - sheet: employment
+      channel: align
+      metric: employment
+    - sheet: unemployment
+      channel: align
+      metric: unemployment
+
+columns:
+  status: {position: 0}
+  region_code: {position: 1}
+  education: {position: 2}
+
+periods:
+  mode: numbered_columns
+  range: [1, 10]
+
+value_semantics:
+  op: grow          # decimal growth rates vs baseline: target = baseline * (1 + value)
+  unit: rate
+
+group:
+  region:
+    from: region_code
+    transform: nuts_code    # "AT12" -> region=12 (rows for other countries filtered at ingest)
+  # An external model's own education/skill bands are its private recoding of the
+  # EUROMOD education variable. Translate them here, at the model boundary, so the
+  # shock table and everything downstream speak plain EUROMOD variables — deh=3-4,
+  # not a label only that model understands.
+  deh:
+    from: education
+    allowed: [low, medium, high]
+    values:
+      low:    "0-2"         # up to lower secondary
+      medium: "3-4"         # upper / post secondary
+      high:   "5-99"        # tertiary
+
+filters:
+  - column: region_code
+    not_null: true

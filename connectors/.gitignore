@@ -11,4 +11,15 @@
 **/dist
 **/build
 **/*.dll
+**/*.egg-info/
+**/.pytest_cache/
+
+# Sphinx output. `**/build` above does not catch these: the output directory is
+# `_build`, with a leading underscore. autoapi_keep_files=True also writes the
+# generated API .rst back into the source tree, so docs/autoapi is generated too.
+# Without these rules a sync stages ~44 MB of built HTML.
+**/docs/_build/
+**/docs/autoapi/
+**/docs/jupyter_execute/
+**/.ipynb_checkpoints/
 

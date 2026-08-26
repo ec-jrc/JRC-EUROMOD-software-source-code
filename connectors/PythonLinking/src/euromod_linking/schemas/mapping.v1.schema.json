@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "euromod-linking/mapping.v1",
+  "title": "External-model mapping spec",
+  "description": "Declarative recipe turning one external model's output file into canonical shock-table records. Repo-versioned; describes the external model's data layout and classification, never estimation methodology.",
+  "type": "object",
+  "required": ["mapping_version", "name", "description", "reader", "value_semantics"],
+  "additionalProperties": false,
+  "properties": {
+    "mapping_version": {"const": 1},
+    "name": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "description": {"type": "string"},
+    "reader": {
+      "type": "object",
+      "required": ["format", "sheets"],
+      "additionalProperties": false,
+      "properties": {
+        "format": {"enum": ["excel", "csv"]},
+        "sheets": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["sheet", "channel", "metric"],
+            "additionalProperties": false,
+            "properties": {
+              "sheet": {"type": "string"},
+              "channel": {"enum": ["align", "constant", "scale", "reweight", "inject"]},
+              "metric": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "columns": {
+      "type": "object",
+      "description": "Role -> source column, by header position or name.",
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false,
+        "properties": {
+          "position": {"type": "integer", "minimum": 0},
+          "name": {"type": "string"}
+        }
+      }
+    },
+    "periods": {
+      "type": "object",
+      "required": ["mode"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": {"enum": ["numbered_columns", "column"]},
+        "range": {"type": "array", "items": {"type": "integer"}, "minItems": 2, "maxItems": 2},
+        "column": {"type": "string"}
+      }
+    },
+    "value_semantics": {
+      "type": "object",
+      "required": ["op"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"enum": ["set", "grow", "mult", "add"]},
+        "unit": {"type": "string"}
+      }
+    },
+    "group": {
+      "type": "object",
+      "description": "Cell key -> derivation from a role column. Keys should be EUROMOD input variables (deh, dgn, dag, ...) or 'region'; use `as` and `values` to translate the external model's own labels into them.",
+      "additionalProperties": {
+        "type": "object", "required": ["from"], "additionalProperties": false,
+        "properties": {
+          "from": {"type": "string"},
+          "transform": {"enum": ["identity", "strip", "nuts_code"]},
+          "allowed": {"type": "array", "items": {"type": "string"}},
+          "as": {"type": "string", "description": "Emit under this key instead (e.g. an education column -> deh)."},
+          "values": {
+            "type": "object",
+            "description": "External class -> EUROMOD value spec, e.g. {medium: '3-4'}.",
+            "additionalProperties": {"type": "string"}
+          }
+        }
+      }
+    },
+    "filters": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["column"], "additionalProperties": false,
+        "properties": {
+          "column": {"type": "string"},
+          "not_null": {"type": "boolean"},
+          "equals": {}
+        }
+      }
+    }
+  }
+}

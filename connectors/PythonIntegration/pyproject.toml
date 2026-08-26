@@ -7,7 +7,7 @@ no-build-isolation = true
 
 [project]
 name = "euromod"
-version = "0.2.18" 
+version = "0.3.2"
 
 
 requires-python = ">=3.8"
@@ -41,13 +41,18 @@ dependencies = [
             
 
 [project.urls]
-Documentation = "http://pythonconnectoreuromod.readthedocs.io/"
-GitHub = "https://github.com/ec-jrc/pythonconnectoreuromod"
-Issues = "https://github.com/ec-jrc/pythonconnectoreuromod/discussions"
+Documentation = "https://ec-jrc.github.io/JRC-EUROMOD-software-source-code/"
+GitHub = "https://github.com/ec-jrc/JRC-EUROMOD-software-source-code"
+Issues = "https://github.com/ec-jrc/JRC-EUROMOD-software-source-code/issues"
 EUROMOD = "https://euromod-web.jrc.ec.europa.eu/"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.pytest.ini_options]
+markers = [
+    "live: tests requiring a locally installed EUROMOD model (EUROMOD_MODEL_PATH)",
+]
 
 
 

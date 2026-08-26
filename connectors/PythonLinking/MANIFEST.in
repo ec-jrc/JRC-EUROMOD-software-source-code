@@ -1,0 +1,13 @@
+# The wheel gets schemas/ and mappings/ from [tool.setuptools.package-data]; the
+# sdist needs them named here too, along with the tests, so a source release can
+# be checked out and run.
+include LICENSE.txt
+include README.md
+include CHANGELOG.md
+recursive-include src/euromod_linking/schemas *.json
+recursive-include src/euromod_linking/mappings *.yaml
+recursive-include tests *.py
+
+prune docs
+prune build
+global-exclude __pycache__ *.py[cod] .DS_Store

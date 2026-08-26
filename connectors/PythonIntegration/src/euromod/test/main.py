@@ -17,7 +17,7 @@ See the Licence for the specific language governing permissions and limitations 
 import pandas as pd
 import os
 
-from core import Model
+from ..core import Model
 
 
 def simpleland():

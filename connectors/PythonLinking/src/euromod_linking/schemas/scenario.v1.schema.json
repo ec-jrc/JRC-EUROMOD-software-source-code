@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "euromod-linking/scenario.v1",
+  "title": "Model-linking scenario",
+  "description": "Declares the shocks to apply, constant overrides and scenario-semantics params. The transformation methodology is resolved from the shock channels, fixed in reviewed code, and NOT expressible here (scoring models, matching variables, hierarchies are never scenario inputs).",
+  "type": "object",
+  "required": ["country_code", "system_name", "shocks"],
+  "additionalProperties": false,
+  "properties": {
+    "scenario_version": {"const": 1, "default": 1},
+    "name": {"type": "string", "description": "Optional human-readable label."},
+    "methodology": {
+      "type": "string", "minLength": 1,
+      "description": "Optional pin: 'name@version' (or bare name, latest version). Normally OMIT — the methodology is resolved automatically from the shock channels and echoed in the response. Pin only to reproduce an old run exactly or to disambiguate when several methodologies handle the same channel."
+    },
+    "country_code": {"type": "string", "pattern": "^[A-Za-z]{2}$"},
+    "system_name": {"type": "string", "minLength": 1},
+    "dataset_name": {"type": ["string", "null"]},
+    "shocks": {
+      "oneOf": [
+        {
+          "type": "object", "required": ["inline"], "additionalProperties": false,
+          "properties": {"inline": {"type": "array", "minItems": 1}}
+        },
+        {
+          "type": "object", "required": ["file", "mapping"], "additionalProperties": false,
+          "properties": {
+            "file": {"type": "string", "minLength": 1, "description": "Path to the external model's output file."},
+            "mapping": {"type": "string", "minLength": 1, "description": "Name of a mapping spec in euromod_linking/mappings/."}
+          }
+        }
+      ]
+    },
+    "constants": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["name", "value"], "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string", "pattern": "^\\$.+"},
+          "group": {"type": "string", "description": "Constant group; uprating factors use the year (e.g. '2023'). Empty/omitted = ungrouped."},
+          "value": {"type": ["string", "number"]}
+        }
+      }
+    },
+    "params": {
+      "type": "object",
+      "description": "Scenario-semantics parameters, validated against the selected method's params_schema."
+    },
+    "addons": {"type": ["array", "null"], "description": "Extra add-ons beyond the method's own requirements."},
+    "extensions": {"type": ["array", "null"], "description": "Extra [extension, on/off] pairs beyond the method's own."}
+  }
+}

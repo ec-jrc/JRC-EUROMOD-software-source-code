@@ -16,7 +16,7 @@ See the Licence for the specific language governing permissions and limitations 
 
 import clr as clr
 import os
-from utils._paths import CWD_PATH, DLL_PATH
+from .utils._paths import CWD_PATH, DLL_PATH
 clr.AddReference(os.path.join(DLL_PATH, "EM_XmlHandler.dll" ))
 from EM_XmlHandler import CountryInfoHandler
 

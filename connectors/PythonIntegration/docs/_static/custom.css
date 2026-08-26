@@ -1,0 +1,22 @@
+/* Contain wide notebook outputs (e.g. pandas DataFrames) so they scroll
+   horizontally within their cell instead of overflowing the page/container. */
+.cell_output {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+/* pandas renders results as <table class="dataframe">; let the table keep its
+   natural width but scroll inside the output box rather than spilling out. */
+.cell_output table.dataframe {
+    width: auto;
+    max-width: none;
+    white-space: nowrap;
+}
+
+/* stdout/stderr text blocks and rich HTML outputs: scroll, don't overflow */
+.cell_output .output,
+.cell_output .highlight,
+.cell_output pre {
+    overflow-x: auto;
+    max-width: 100%;
+}

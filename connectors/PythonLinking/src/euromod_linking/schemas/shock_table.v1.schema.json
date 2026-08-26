@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "euromod-linking/shock_table.v1",
+  "title": "Canonical shock table",
+  "type": "object",
+  "required": ["records"],
+  "additionalProperties": false,
+  "properties": {
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["channel", "metric", "op", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "channel": {"enum": ["align", "constant", "scale", "reweight", "inject"]},
+          "metric": {"type": "string", "minLength": 1},
+          "group": {"type": "string", "default": ""},
+          "period": {"type": ["string", "number"], "default": ""},
+          "op": {"enum": ["set", "grow", "mult", "add"]},
+          "value": {"type": "number"},
+          "unit": {"type": "string"},
+          "source": {"type": "string"}
+        }
+      }
+    }
+  }
+}

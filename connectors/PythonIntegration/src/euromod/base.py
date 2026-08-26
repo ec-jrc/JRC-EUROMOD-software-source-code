@@ -16,10 +16,10 @@ See the Licence for the specific language governing permissions and limitations 
 
 import os
 import clr 
-from utils._paths import  DLL_PATH
+from .utils._paths import  DLL_PATH
 clr.AddReference(os.path.join(DLL_PATH, "EM_XmlHandler.dll" ))
 from EM_XmlHandler import  XmlHelpers, ReadModelOptions
-from container import Container
+from .container import Container
 
 class Base_Element:
     
@@ -108,10 +108,10 @@ class Euromod_Element(Base_Element):
         if self.__class__._extensionType is None:
             return
         parent = self.parent
-        while (parent.__class__.__name__ != "Country"):
+        while (parent.__class__.__name__ not in ("Country", "Addon")):
             parent = parent.parent
         ctry = parent
-        for el in (ctry.local_extensions.containerList + ctry.model.extensions.containerList):
+        for el in ctry.extensions.containerList:
             _info = ctry._countryInfoHandler.GetPieceOfInfo(self.__class__._extensionType,self.ID + el.ID )
             if len(_info) == 0:
                 continue

@@ -4,5 +4,19 @@ packages
 connectors/MatlabIntegration
 connectors/**/*.dll
 testplugin
-connectors/PythonIntegration/*.txt
-connectors/PythonIntegration/*.md
+# Credential-bearing files, named explicitly.
+#
+# These replace two blanket rules (`connectors/PythonIntegration/*.txt` and
+# `*.md`) that were added a day after the files they meant to hold back had
+# already been committed. .gitignore does not untrack, so those rules never
+# removed anything — README.md, CHANGELOG.md, CONTRIBUTING.md and the rest stayed
+# tracked and public — while still being broad enough to silently swallow a
+# legitimate new top-level .md or .txt.
+#
+# This is a backstop, not the mechanism: what reaches this repository is decided
+# by the allowlist in connectors/tools/sync_public_mirror.py in the source repo.
+**/HOW_TO.txt
+**/.pypirc
+**/.env
+**/.env.*
+!**/.env.example

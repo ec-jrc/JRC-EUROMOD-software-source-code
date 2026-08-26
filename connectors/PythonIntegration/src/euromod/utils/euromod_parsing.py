@@ -5,7 +5,7 @@ Created on Thu Oct 17 11:52:58 2024
 @author: serruha
 """
 
-from utils._paths import  DLL_PATH
+from ._paths import  DLL_PATH
 import os
 import clr
 clr.AddReference(os.path.join(DLL_PATH, "EM_Common.dll" ))
