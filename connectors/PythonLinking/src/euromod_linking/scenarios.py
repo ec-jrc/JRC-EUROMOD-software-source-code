@@ -53,7 +53,7 @@ class ScenarioError(ValueError):
 
 # --- the scenario document ----------------------------------------------------
 
-def validate_structure(scenario: dict) -> list[str]:
+def _validate_structure(scenario: dict) -> list[str]:
     """JSON-Schema problems with the scenario document ([] = ok)."""
     import jsonschema
 
@@ -65,7 +65,7 @@ def validate_structure(scenario: dict) -> list[str]:
     return problems
 
 
-def validate_params(scenario: dict, spec) -> list[str]:
+def _validate_params(scenario: dict, spec) -> list[str]:
     """Validate scenario['params'] against the method's own params_schema.
     additionalProperties: false in that schema is what blocks methodology knobs."""
     import jsonschema
@@ -78,7 +78,7 @@ def validate_params(scenario: dict, spec) -> list[str]:
     return problems
 
 
-def resolve_shocks(scenario: dict) -> tuple:
+def _resolve_shocks(scenario: dict) -> tuple:
     """Resolve scenario['shocks'] to (DataFrame, shock_table_id, summary, warnings).
 
     Two forms: {inline: [records]} or {file, mapping} (ingested here). The id is
@@ -112,7 +112,7 @@ def resolve_shocks(scenario: dict) -> tuple:
     raise ScenarioError(["shocks must be one of {inline}, {file, mapping}"])
 
 
-def scenario_constants(scenario: dict) -> dict:
+def _scenario_constants(scenario: dict) -> dict:
     """Scenario constants as the {(name, group): value} form the run takes."""
     out = {}
     for e in scenario.get("constants") or []:
@@ -136,7 +136,7 @@ def fingerprint(scenario: dict, shock_table_id: str, methodology: str,
         "dataset": scenario.get("dataset_name") or "",
         "shocks": shock_table_id,
         "constants": sorted((f"{n}|{g}" if g else n, v)
-                            for (n, g), v in scenario_constants(scenario).items()),
+                            for (n, g), v in _scenario_constants(scenario).items()),
         "params": scenario.get("params") or {},
         "addons": sorted([list(map(str, a)) for a in (scenario.get("addons") or [])]),
         "extensions": sorted([[str(e[0]), bool(e[1])] for e in (scenario.get("extensions") or [])]),
@@ -159,7 +159,7 @@ class NoEffectError(RuntimeError):
 
 # --- pieces of the plan -------------------------------------------------------
 
-def split_constant_shocks(shocks):
+def _split_constant_shocks(shocks):
     """Separate ``channel=constant`` records into {(name, group): value}.
 
     Returns (population_shocks, constant_overrides). Raises ScenarioError when a
@@ -177,7 +177,7 @@ def split_constant_shocks(shocks):
     return shocks[shocks["channel"] != "constant"], overrides
 
 
-def resolve_methodology(scenario: dict, population_shocks):
+def _resolve_methodology(scenario: dict, population_shocks):
     """The pinned methodology, else dispatch from the shock channels.
     None when the scenario is constants-only."""
     pin = scenario.get("methodology")
@@ -189,7 +189,7 @@ def resolve_methodology(scenario: dict, population_shocks):
                                          set(population_shocks["metric"].unique()))
 
 
-def check_contract(spec, population_shocks) -> list[str]:
+def _check_contract(spec, population_shocks) -> list[str]:
     """Shocks vs the methodology's declared contract (a safety net for pinned
     references — dispatch already guarantees channels and metrics match)."""
     problems = []
@@ -271,15 +271,15 @@ def check_scenario(scenario: dict) -> dict:
     scenario without paying to load a model. Raises ScenarioError with
     `.problems`; returns the resolved pieces for `apply_scenario`.
     """
-    problems = validate_structure(scenario)
+    problems = _validate_structure(scenario)
     if problems:
         raise ScenarioError(problems)
 
-    shocks, shock_id, summary, warnings = resolve_shocks(scenario)
-    population_shocks, shock_constants = split_constant_shocks(shocks)
-    spec = resolve_methodology(scenario, population_shocks)   # MethodLookupError propagates
+    shocks, shock_id, summary, warnings = _resolve_shocks(scenario)
+    population_shocks, shock_constants = _split_constant_shocks(shocks)
+    spec = _resolve_methodology(scenario, population_shocks)   # MethodLookupError propagates
 
-    context_constants = scenario_constants(scenario)
+    context_constants = _scenario_constants(scenario)
     clash = sorted(set(context_constants) & set(shock_constants))
     if clash:
         raise ScenarioError([
@@ -291,8 +291,8 @@ def check_scenario(scenario: dict) -> dict:
             raise ScenarioError(["params require a methodology; a constants-only "
                                  "scenario takes none"])
     else:
-        problems = validate_params(scenario, spec)
-        problems += check_contract(spec, population_shocks)
+        problems = _validate_params(scenario, spec)
+        problems += _check_contract(spec, population_shocks)
         if problems:
             raise ScenarioError(problems)
 

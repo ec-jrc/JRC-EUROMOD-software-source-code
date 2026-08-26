@@ -138,14 +138,25 @@ autoapi_prepare_jinja_env = prepare_jinja_env
 def skip_member(app, what, name, obj, skip, options):
     """Prune the API reference.
 
-    Nothing is pruned. Every module here is something a caller may legitimately
-    reach for — `session.get_model` and `env.configure` are part of how you set
-    the package up, and the `methods` subpackages carry the economics, which is
-    the most useful part of the reference. autoapi already hides underscore-
-    prefixed names, which is the only distinction this package draws.
+    Every *module* here is something a caller may legitimately reach for —
+    `session.get_model` and `env.configure` are part of how you set the package
+    up, and the `methods` subpackages carry the economics, which is the most
+    useful part of the reference. Which *members* of those modules are API is
+    decided in the source, by the underscore prefix autoapi already honours,
+    rather than by a list here: a list would be a denylist, so every helper
+    added later would be published until someone remembered to add it.
 
-    The hook stays wired so there is an obvious place to add a rule when one is
-    genuinely needed."""
+    The one rule worth encoding is structural rather than a per-name judgement.
+    Each module defines `logger = logging.getLogger(__name__)`, which autoapi
+    reports as module data. It is an implementation detail in every module, now
+    and in every module added later, so matching on the kind and the exact
+    attribute name stays correct without maintenance.
+
+    Matching is on the last path segment, not a substring: the equivalent hook
+    in the euromod connector tests `"add" in name`, which also hides any member
+    whose name merely contains it."""
+    if what == "data" and name.rsplit(".", 1)[-1] == "logger":
+        return True
     return skip
 
 
