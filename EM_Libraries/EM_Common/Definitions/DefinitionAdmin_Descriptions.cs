@@ -148,6 +148,7 @@ namespace EM_Common
             { DefFun.Totals+"|"+DefPar.Totals.Use_Weights, "If set to yes weights are used to calculate the aggregates." },
             { DefFun.Totals+"|"+DefPar.Totals.Weight_Var, "Specifies an alternative weight variable." },
             { DefFun.RandSeed+"|"+DefPar.RandSeed.Seed, "Integer value as starting point for random number generation." },
+            { DefFun.RandSeed+"|"+DefPar.RandSeed.SeedByHHId, "If set to yes each household's random stream is seeded by a deterministic combination of Seed and the household's idhh, so its draws do not depend on the household's position in, or the composition of, the input data (the identical household with the identical idhh draws identically in any run).\nDefault no: household seeds are drawn from one shared sequence in input order." },
             { DefFun.CallProgramme+"|"+DefPar.CallProgramme.Programme, "Name of the application to be called.\nExample: Excel.exe" },
             { DefFun.CallProgramme+"|"+DefPar.CallProgramme.Path, "Path to the application.\nDispensable if the application is  installed at the standard path for programmes.\nHowever, note that the path is also used as the working directory for the application.\nExample: C:\\Program Files\\Microsoft Office\\ \nNote that spaces can be used without encapsulating the path by '." },
             { DefFun.CallProgramme+"|"+DefPar.CallProgramme.Argument, "Programme argument to be passed to the application.\nExample: C:\\EuromodFiles\\Tools\\EMT_FillTemplate.xls (to e.g. open Excel with this workbook)" },
