@@ -49,6 +49,10 @@ class MethodSpec:
                                            # same rows so the two runs stay observation-paired
     min_model_release: str | None = None   # earliest EUROMOD release shipping what this method
                                            # needs, e.g. "J2.54" — advisory only, see compat.py
+    composes: tuple[str, ...] = ()         # methods this one delegates to, in the order it runs
+                                           # them — their source is folded into this method's
+                                           # code_fingerprint, since editing a delegate changes
+                                           # what this method does
     factory: Callable = field(repr=False, default=None)  # () -> method instance
 
 
@@ -84,8 +88,8 @@ def list_specs() -> list[MethodSpec]:
 _code_fp_cache: dict[str, str] = {}
 
 
-def code_fingerprint(spec: MethodSpec) -> str:
-    """Content hash of the methodology's own source.
+def code_fingerprint(spec: MethodSpec, _seen: frozenset = frozenset()) -> str:
+    """Content hash of the methodology's own source, and of anything it composes.
 
     Results are cached on the scenario fingerprint, but a scenario document does
     not change when the *methodology* does — so without this, editing a
@@ -93,7 +97,12 @@ def code_fingerprint(spec: MethodSpec) -> str:
     Hashing the implementation makes any code change invalidate its cached runs,
     the same content-addressed discipline used for shock tables and scores.
     Empty string if the source cannot be read, which leaves caching keyed on the
-    methodology name alone."""
+    methodology name alone.
+
+    A composing method's own file says almost nothing about what it does — the
+    modelling lives in its delegates. Folding their fingerprints in is what
+    stops an edit to ``scale_variables`` from leaving a composite's cached
+    results untouched."""
     if spec.name in _code_fp_cache:
         return _code_fp_cache[spec.name]
     import hashlib
@@ -108,6 +117,14 @@ def code_fingerprint(spec: MethodSpec) -> str:
         for f in files:
             h.update(f.name.encode())
             h.update(f.read_bytes())
+        # Delegates in declared order: the order is part of what the method does.
+        # _seen guards a spec that names itself, directly or through a cycle.
+        seen = _seen | {spec.name}
+        for name in spec.composes:
+            if name in seen:
+                continue
+            h.update(name.encode())
+            h.update(code_fingerprint(_REGISTRY[name], seen).encode())
         fp = h.hexdigest()[:12]
     except Exception:
         pass
@@ -131,6 +148,15 @@ def resolve_for_channels(channels: set[str], metrics: set[str]) -> MethodSpec:
             + (f" with metrics {sorted(metrics)}" if metrics else "")
             + f". Supported channels: {supported}",
             available_names())
+    if len(candidates) > 1:
+        # Most specific wins. A composing method declares every channel it can
+        # take (align + scale), which by the subset test above also makes it a
+        # candidate for a table carrying only one of them — where the dedicated
+        # method is the right answer. Narrowing to the fewest declared channels
+        # picks that, and leaves genuine ambiguity (two methods claiming the
+        # same channels) as the error it should be.
+        fewest = min(len(s.channels_consumed) for s in candidates)
+        candidates = [s for s in candidates if len(s.channels_consumed) == fewest]
     if len(candidates) > 1:
         names = sorted(s.name for s in candidates)
         raise MethodLookupError(

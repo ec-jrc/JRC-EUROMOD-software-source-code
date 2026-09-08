@@ -53,4 +53,4 @@ __all__ = [
     "ScenarioError", "RunError", "NoEffectError", "MethodLookupError", "ShockTableError",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

@@ -2,6 +2,38 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (08/09/2026)
+
+- **Shocks in one scenario can now carry both `scale` and `align` channels.** A new
+  composing method, `align_with_scaling`, dispatches for a table holding both and runs the
+  two registered methods in a fixed order - scaling first, then alignment - so new workers
+  enter at counterfactual wages via `yivwg`. Neither half is reimplemented; their diagnostics
+  come back unflattened under `scale` and `align`. The order is methodology, not a scenario
+  input: record order is discarded at normalisation, as before.
+- **Dispatch prefers the most specific method.** A composing method declares every channel
+  it can take, which made it a candidate for each channel alone; resolution now narrows to
+  the fewest declared channels, so a `scale`-only table still gets `scale_variables`. Genuine
+  ambiguity is still an error.
+- **`MethodSpec.composes`.** A method that delegates names its delegates, and their source
+  is folded into its `code_fingerprint`, so editing `scale_variables` invalidates cached
+  runs of the composite too.
+- **Descriptive names for income lists.** A `scale` metric may name the economic concept -
+  `"employment income"` - instead of `ils_udb_yem`. Names come from the model's own `DefIl`
+  comments across the 27 country files, plus the short forms an analyst would type; matching
+  ignores case, separators and punctuation. Resolution happens at normalisation, so the
+  canonical table always holds the `ils_udb_*` name and the content id does not depend on
+  spelling. A misspelt concept fails at normalisation naming the closest matches. The
+  catalogue lives in the new `euromod_linking.income_lists` module; the accepted spellings
+  are generated into the `scale_variables` docs from it.
+- **Income-list catalogue corrected against the model.** `ils_udb_yds` was described as
+  total market income and filed as scalable; the model defines it as disposable income, an
+  aggregate of all twenty other lists including taxes, and it now sits in an `aggregate`
+  group. `ils_udb_yot` is income of people under 16 (not "other income") and `ils_udb_tpr`
+  is taxes on wealth. `ils_udb_kfbcc` (company car) and `ils_udb_xmp` (private transfers
+  paid) were missing and are both data-reported. The live test now asserts the catalogue is
+  exactly the set the model defines.
+- Fixed a `KeyError` in the documented `income_lists()` example.
+
 ## v0.1.0 (25/08/2026)
 
 First release.

@@ -90,7 +90,8 @@ def _flag(argument):
 
 class IncomeLists(SphinxDirective):
     """Render the ``ils_udb_*`` catalogue as a table, from the package's own
-    ``INCOME_LISTS``, so the documented names cannot drift from the shipped ones.
+    ``income_lists.CATALOGUE``, so neither the documented names nor the accepted
+    spellings can drift from the shipped ones.
 
     Usage::
 
@@ -103,19 +104,34 @@ class IncomeLists(SphinxDirective):
     required_arguments = 0
 
     def run(self):
-        from euromod_linking.methods.scale_variables import INCOME_LISTS
+        from euromod_linking import income_lists as cat
 
+        effects = {
+            "market income": "Scales the recorded input variables",
+            "benefits and taxes": "Mostly recomputed — see below",
+            "aggregate": "Fans out over every other list",
+        }
         lines = []
-        for group, entries in INCOME_LISTS.items():
-            scalable = "scalable" in group
+        for group in cat.GROUPS:
+            entries = [e for e in cat.CATALOGUE if e.group == group]
+            if not entries:
+                continue
             lines += [f"**{group[0].upper()}{group[1:]}**", ""]
-            lines += [".. list-table::", "   :header-rows: 1", "   :widths: 24 56 20", ""]
-            lines += ["   * - Income list", "     - Concept", "     - Scaling it"]
-            for name, concept in entries.items():
-                effect = ("Scales the recorded input variables"
-                          if scalable else "Mostly recomputed — see below")
-                lines += [f"   * - ``{name}``", f"     - {concept}", f"     - {effect}"]
+            lines += [cat.GROUP_NOTES[group], ""]
+            lines += [".. list-table::", "   :header-rows: 1",
+                      "   :widths: 20 30 34 16", ""]
+            lines += ["   * - Income list", "     - Concept",
+                      "     - Also accepted as", "     - Scaling it"]
+            for e in entries:
+                # The label is column two; the rest are the alternative spellings
+                # a scenario may use for it.
+                also = ", ".join(f"``{a}``" for a in e.accepted[1:]) or "—"
+                lines += [f"   * - ``{e.name}``", f"     - {e.label}",
+                          f"     - {also}", f"     - {effects[group]}"]
             lines += [""]
+            for e in entries:
+                if e.note:
+                    lines += [f".. note:: ``{e.name}`` — {e.note}", ""]
 
         node = nodes.section()
         node.document = self.state.document

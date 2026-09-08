@@ -1,6 +1,6 @@
 [project]
 name = "euromod-linking"
-version = "0.1.0"
+version = "0.2.0"
 description = "Link external economic models to EUROMOD by transforming input microdata and run parameters"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -49,7 +49,21 @@ where = ["src"]
 include = ["euromod_linking*"]
 namespaces = false
 
-# include-package-data alone does not ship these: they must be declared.
+# setuptools warns "Package would be ignored" for euromod_linking.schemas and
+# .mappings on every build. It is benign and there is no clean way to silence it:
+# they are data directories, not packages — resources.py reads them as
+# `resources.files("euromod_linking") / "mappings/x.yaml"`, i.e. as data of the
+# parent — and `exclude` here does not suppress the check, because find_packages
+# never discovered them in the first place. Giving them __init__.py to quiet it
+# would move them out of the parent's package-data globs below, which is how the
+# files would actually go missing. release_script.ps1 verifies the built
+# artifacts instead of trusting either the config or the warning.
+
+# These ship by two independent routes: this table, and MANIFEST.in combined with
+# include_package_data, which setuptools defaults to true for pyproject config.
+# Deleting either one on its own therefore changes nothing and looks safe — which
+# is why release_script.ps1 checks the built artifacts against src/ rather than
+# reasoning about this configuration.
 [tool.setuptools.package-data]
 "euromod_linking" = ["schemas/*.json", "mappings/*.yaml"]
 

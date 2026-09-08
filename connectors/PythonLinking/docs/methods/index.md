@@ -7,7 +7,7 @@ move, how they are ranked, what a new worker earns, what a growth rate multiplie
 Each one lives in its own module under `euromod_linking.methods`, and is referred to
 everywhere by its plain name.
 
-Two ship with the package:
+Three ship with the package:
 
 [`scale_variables`](scale-variables.md)
 : Cell-level arithmetic on input variables and income lists. Multiply, grow, add or set.
@@ -16,6 +16,9 @@ Two ship with the package:
 [`lma_labour_alignment`](lma-labour-alignment.md)
 : Two-level hierarchical alignment of the population to external employment and unemployment
   targets. Consumes `align` shocks.
+
+[`align_with_scaling`](align-with-scaling.md)
+: Both of the above in one scenario, scaling first. Consumes `scale` **and** `align` shocks.
 
 ## The caller never picks one
 
@@ -32,14 +35,22 @@ A consequence follows. Because the scenario never names the method, nothing in t
 changes when the method itself changes — so the guard against a stale result has to live
 somewhere other than the scenario. `registry.code_fingerprint` hashes a method's own source
 into the [scenario fingerprint](../concepts/scenarios.md), so editing an implementation
-invalidates cached results rather than serving answers computed by the earlier code.
+invalidates cached results rather than serving answers computed by the earlier code. A
+composing method's own file says almost nothing about what it does, so it declares what it
+`composes` and their fingerprints are folded into its own — editing `scale_variables`
+invalidates a composed run too.
 
 Methods deliberately carry **no version number**. A content-derived identity cannot be
 forgotten the way a hand-maintained version integer can, and the integer would have to be
 remembered on exactly the occasion it is easiest to overlook: a small correction to the
 modelling that changes the numbers.
 
-If two methods ever claim the same channel, dispatch raises `MethodLookupError` listing
+A method declares every channel it can take, so a *composing* method like `align_with_scaling`
+is also a candidate for each of its channels alone. Dispatch resolves that by preferring the
+**most specific** claim — the fewest declared channels — so a `scale`-only table still gets
+`scale_variables`, and the composite is chosen only when both channels are actually present.
+
+If two methods claim the *same* channels, dispatch raises `MethodLookupError` listing
 both, and the scenario's `methodology` field is how you choose. That is the field's only
 purpose, alongside reproducing an old run exactly.
 

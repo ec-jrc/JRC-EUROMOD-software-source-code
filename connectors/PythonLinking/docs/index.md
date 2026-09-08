@@ -119,6 +119,7 @@ concepts/compatibility.md
 methods/index.md
 methods/scale-variables.md
 methods/lma-labour-alignment.md
+methods/align-with-scaling.md
 ```
 
 ```{toctree}

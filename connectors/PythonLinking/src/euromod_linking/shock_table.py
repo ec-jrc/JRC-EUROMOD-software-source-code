@@ -4,7 +4,7 @@ must be expressed in before it can drive a EUROMOD scenario.
 One tidy record per shock::
 
     channel  align|constant|scale|reweight|inject   which EUROMOD lever
-    metric   e.g. "employment", "$f_cpi", "yem"      channel-specific referent
+    metric   "employment", "$f_cpi", "yem", "employment income"   see below
     group    canonical "key=value;..." string        population cell ("" = all)
     period   external-model period label (str)
     op       set|grow|mult|add                       value semantics
@@ -16,6 +16,13 @@ A table's identity is its content: `content_id` hashes the canonical records
 into ``shk_`` + 12 hex digits, so the same economic scenario always has the same
 id whatever file or code path produced it. Nothing is stored — the id is derived
 on demand, and the table itself is a DataFrame the caller holds.
+
+Two fields are canonicalised on the way in, which is what makes that identity
+hold. Group keys are sorted, so ``"region=12;deh=3-4"`` and
+``"deh=3-4;region=12"`` are one cell. And a ``scale`` metric written as an
+economic concept is resolved to the model's name for it, so ``"employment
+income"`` and ``ils_udb_yem`` are one metric — see
+:mod:`euromod_linking.income_lists` for the accepted names.
 """
 
 import hashlib
@@ -24,7 +31,7 @@ import logging
 
 import pandas as pd
 
-from euromod_linking import dimensions
+from euromod_linking import dimensions, income_lists
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +65,15 @@ def normalize(records: list[dict]) -> pd.DataFrame:
             problems.append(f"record {i}: channel {channel!r} not in {CHANNELS}")
         if not metric:
             problems.append(f"record {i}: metric is required")
+        elif channel == "scale":
+            # A scale metric may be written as the economic concept ("employment
+            # income") rather than the model's name for it. Canonicalising here,
+            # beside the group, is what keeps the content id a property of the
+            # scenario rather than of how it was spelled — and it makes the two
+            # spellings collide in the duplicate check below, as they should.
+            metric, problem = income_lists.resolve_metric(metric)
+            if problem:
+                problems.append(f"record {i}: {problem}")
         if op not in OPS:
             problems.append(f"record {i}: op {op!r} not in {OPS}")
         try:

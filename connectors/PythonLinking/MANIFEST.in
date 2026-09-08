@@ -8,6 +8,7 @@ recursive-include src/euromod_linking/schemas *.json
 recursive-include src/euromod_linking/mappings *.yaml
 recursive-include tests *.py
 
-prune docs
-prune build
+# No `prune docs` / `prune build`: this file is an allowlist, and the sdist's
+# default set never reaches outside src/, so both pruned nothing while warning
+# on every build. Warnings nobody can act on are how real ones get ignored.
 global-exclude __pycache__ *.py[cod] .DS_Store

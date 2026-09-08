@@ -328,17 +328,29 @@ class TestIncomeListCatalogue:
     def test_catalogue_is_grouped_and_named(self):
         from euromod_linking.methods.scale_variables import INCOME_LISTS, income_lists
         cat = income_lists()
-        assert set(cat) == {"lists", "notes"}
+        assert set(cat) == {"lists", "groups", "aliases", "notes"}
         flat = {k: v for grp in INCOME_LISTS.values() for k, v in grp.items()}
         assert all(n.startswith("ils_udb_") for n in flat), sorted(flat)
         assert all(d and d[0].isupper() for d in flat.values()), flat
 
     def test_market_income_is_marked_scalable_and_benefits_are_not(self):
-        from euromod_linking.methods.scale_variables import INCOME_LISTS
-        market = next(g for k, g in INCOME_LISTS.items() if "market income" in k)
-        assert {"ils_udb_yem", "ils_udb_yse", "ils_udb_yiy"} <= set(market)
-        other = next(g for k, g in INCOME_LISTS.items() if "market income" not in k)
-        assert "ils_udb_tis" in other and "ils_udb_yem" not in other
+        from euromod_linking.income_lists import BY_NAME
+        for name in ("ils_udb_yem", "ils_udb_yse", "ils_udb_yiy", "ils_udb_kfbcc",
+                     "ils_udb_xmp"):
+            assert BY_NAME[name].scalable, name
+        for name in ("ils_udb_tis", "ils_udb_tpr", "ils_udb_bun"):
+            assert not BY_NAME[name].scalable, name
+
+    def test_disposable_income_is_an_aggregate_not_market_income(self):
+        """ils_udb_yds holds no variables of its own, only the other twenty lists
+        including taxes. Filing it as scalable market income sent a caller after
+        an aggregate that fans out over everything."""
+        from euromod_linking.income_lists import BY_NAME
+        yds = BY_NAME["ils_udb_yds"]
+        assert yds.group == "aggregate"
+        assert not yds.scalable
+        assert "disposable" in yds.label.lower()
+        assert yds.note
 
     def test_notes_state_the_mult_grow_restriction(self):
         from euromod_linking.methods.scale_variables import income_lists
@@ -346,14 +358,36 @@ class TestIncomeListCatalogue:
         assert "'mult' and 'grow' only" in notes
         assert "extension-specific" in notes
 
+    def test_every_list_has_a_label_and_at_least_one_alias(self):
+        from euromod_linking.income_lists import CATALOGUE
+        for e in CATALOGUE:
+            assert e.label and e.label[0].isupper(), e.name
+            assert e.accepted[0] == e.label, e.name
+            assert len(e.accepted) >= 2, e.name
+
+    def test_no_alias_is_claimed_by_two_lists(self):
+        """_build_index raises on a collision, so importing at all proves it —
+        but assert the shape too, since a silent last-wins would be worse than
+        an import error."""
+        from euromod_linking import income_lists as il
+        seen = {}
+        for e in il.CATALOGUE:
+            for spelling in e.accepted:
+                k = il._key(spelling)
+                assert seen.setdefault(k, e.name) == e.name, spelling
+        assert len(il._INDEX) >= len(il.CATALOGUE) * 2
+
     @pytest.mark.live
-    def test_every_catalogued_name_resolves_in_a_real_model(self, be_system_raw):
-        """Guards against the catalogue drifting from the model. Marked live:
-        needs EUROMOD_MODEL_PATH."""
-        from euromod_linking.methods.scale_variables import INCOME_LISTS
-        defined = set(be_system_raw["il_occ"])
-        catalogued = {k for grp in INCOME_LISTS.values() for k in grp}
-        assert catalogued <= defined, sorted(catalogued - defined)
+    def test_catalogue_is_exactly_what_the_model_defines(self, be_system_raw):
+        """Guards against the catalogue drifting from the model in either
+        direction — a name that no longer resolves, or a list the model gained
+        that nobody can name. Marked live: needs EUROMOD_MODEL_PATH."""
+        from euromod_linking.income_lists import names
+        defined = {n for n in be_system_raw["il_occ"] if n.startswith("ils_udb_")}
+        assert set(names()) == defined, {
+            "missing from catalogue": sorted(defined - set(names())),
+            "absent from model": sorted(set(names()) - defined),
+        }
 
 
 class TestSimulatedComponentsAreNotScalable:

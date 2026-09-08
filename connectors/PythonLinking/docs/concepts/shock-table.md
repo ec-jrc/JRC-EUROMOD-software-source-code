@@ -14,8 +14,9 @@ One tidy record per shock, eight columns:
    (``reweight`` and ``inject`` are reserved; no methodology consumes them yet.) The
    channel is what selects the methodology — see :doc:`/methods/index`.
 :``metric``: What the lever acts on, interpreted per channel: ``employment`` or
-   ``unemployment`` for ``align``, an input variable (``yem``) or an income list
-   (``ils_udb_yem``) for ``scale``, a constant name (``$f_cpi``) for ``constant``.
+   ``unemployment`` for ``align``, an input variable (``yem``), an income list
+   (``ils_udb_yem``) or its descriptive name (``"employment income"``) for ``scale``,
+   a constant name (``$f_cpi``) for ``constant``.
 :``group``: Which people. A population cell over real EUROMOD input variables,
    ``"deh=3-4;dgn=1"``, or ``""`` for everyone. See :doc:`population-cells`.
 :``period``: The external model's own period label, as a string. A shock table usually
@@ -63,9 +64,18 @@ scenario always has the same id no matter which file, mapping spec or code path 
 it. Two runs that claim to be the same scenario can be checked, and a result cache cannot
 serve one scenario's answer for another's question.
 
+Canonicalisation is what makes that true, and it applies to two fields. Group keys are
+sorted, so `"region=12;deh=3-4"` and `"deh=3-4;region=12"` are one cell. And a `scale`
+metric written as an economic concept is resolved to the model's name for it, so
+`"employment income"`, `employment_income` and `ils_udb_yem` are one metric with one id.
+The accepted names are listed under [scale_variables](../methods/scale-variables.md).
+
 Group syntax is validated here, but *not* whether a key is a real column of your dataset —
 that check needs the data and happens later, in `apply_scenario`. A well-formed
-`planet=3` passes normalisation and fails when it meets the microdata.
+`planet=3` passes normalisation and fails when it meets the microdata. A metric is
+treated the same way, with one exception: a `scale` metric containing whitespace can only
+have been meant as a concept name, since no EUROMOD variable or list name contains a space,
+so an unrecognised one fails here — naming the closest matches — rather than later.
 
 ## Nothing is stored
 

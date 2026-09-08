@@ -18,8 +18,8 @@ exactly that pass-through when the scaled inputs are simulated.
 
 ### What a shock names
 
-The `metric` is either an **input variable** — `yem`, `lhw`, `yiy` — or an **EUROMOD income
-list** such as `ils_udb_yem`.
+The `metric` is an **input variable** — `yem`, `lhw`, `yiy` — an **EUROMOD income list** such
+as `ils_udb_yem`, or the **descriptive name** of one: `"employment income"`.
 
 Income lists matter because an economic concept like "employment income" is not one variable.
 Scaling the list scales every component the model itself counts under that concept, so the
@@ -31,12 +31,45 @@ Lists accept `mult` and `grow` only. A proportional factor distributes exactly o
 absolute `add` or `set` on an aggregate has no unique per-component allocation, so it is
 rejected rather than resolved arbitrarily.
 
+### Naming a concept instead of a list
+
+`ils_udb_yem` is the model's name for employment income, not anybody's. So a `scale` metric may
+also be written as the concept:
+
+```python
+{"channel": "scale", "metric": "employment income", "group": "deh=3-4",
+ "period": "1", "op": "grow", "value": 0.03}
+```
+
+The names come from the model itself — each list's own `DefIl` comment, taken as the majority
+spelling across the 27 country files — plus the other comments the model uses for the same list
+elsewhere and the short forms an analyst is likely to type. Matching ignores case, underscores,
+hyphens and punctuation, so `Employment income`, `employment_income` and `EMPLOYMENT INCOME` are
+one name. The table below lists every accepted spelling.
+
+Resolution happens during **normalisation**, the way group keys are canonicalised there, and it
+has three consequences worth knowing:
+
+- The shock table always holds `ils_udb_yem`, whichever spelling produced it. So the content id
+  identifies the *scenario*, not how it was written — `"employment income"` and `ils_udb_yem`
+  give the same `shk_` id and hit the same cache entry.
+- Writing both spellings in one table is caught as a duplicate shock, not applied twice.
+- A misspelt concept fails at normalisation, naming the closest matches, **before** a model is
+  loaded — rather than surfacing later as "not a column of the input dataset".
+
+A metric with no whitespace is never touched: `yem` stays the raw variable, and only the raw
+variable. Concept names are the way to reach the list.
+
 ### The income concepts you can name
 
 These are EUROMOD's User Database output lists. The **names** are standardised across the EU-27
 countries; their **membership** is not — it is country- and extension-specific, which is why a
 list is resolved against the live model at run time rather than tabulated here. A name a given
-system does not define fails with the list of names it does.
+system does not define fails with the list of names it does: the nine benefit lists are defined
+in 25 of the 27 countries, the rest in all 27.
+
+The table is generated from the package's own catalogue, so the names and the accepted spellings
+here are the ones the code will accept.
 
 ```{eval-rst}
 .. income-lists::
@@ -48,11 +81,15 @@ A variable whose name ends in `_s` is a **simulated output**: EUROMOD computes i
 run from the input microdata and the policy rules. It is not a column of the input, so there
 is nothing to scale — and even if there were, the engine would overwrite it on the next run.
 
-This is the difference between the two groups above. Market-income lists resolve to
-*data-reported* variables: `ils_udb_yem` is employment income as the survey recorded it, and
-scaling it changes what the model is given. Benefit and tax lists resolve largely to what the
-model *produces*: `ils_udb_tis` is income tax and social insurance contributions, every
-component of which EUROMOD calculates.
+This is the difference between the groups above. Market-income lists resolve to *data-reported*
+variables: across all 27 countries `ils_udb_yiy`, `ypr`, `ypp`, `ypt`, `yot`, `kfbcc` and `xmp`
+resolve to no simulated component at all, and `yem` and `yse` to three apiece against 26 and 23
+reported ones. `ils_udb_yem` is employment income as the survey recorded it, and scaling it
+changes what the model is given.
+
+Benefit and tax lists resolve largely to what the model *produces*. `ils_udb_tis` is tax on
+income and social security contributions, and carries **one** reported component against 121
+simulated ones — so scaling it moves almost nothing, whatever the factor.
 
 The package refuses to pretend otherwise, in three steps:
 
@@ -157,13 +194,33 @@ The expansion report is worth reading before a full run: it names exactly which 
 variables the list resolved to for this country and system, and which components were skipped
 because the model simulates them.
 
-To see the catalogue of standardised lists and what each covers:
+The same shock can be written as the concept, which normalises to exactly the same table:
+
+```python
+scenario["shocks"] = {"inline": [
+    {"channel": "scale", "metric": "employment income", "group": "region=21",
+     "period": "1", "op": "grow", "value": 0.05},
+]}
+
+plan = apply_scenario(system, data, scenario, validate_only=True)
+plan["shocks"]["metrics"]
+# ['ils_udb_yem']
+```
+
+To see the catalogue of standardised lists, what each covers and every spelling that reaches it:
 
 ```python
 from euromod_linking.methods.scale_variables import income_lists
 
-income_lists()["market income (scalable)"]
+income_lists()["lists"]["market income"]
+# {'ils_udb_yem': 'Employment income', 'ils_udb_yse': 'Self-employment income', ...}
+
+income_lists()["aliases"]["ils_udb_yem"]
+# ['Employment income', 'earnings', 'wages and salaries', 'employee income', ...]
 ```
+
+`income_lists()["groups"]` carries the same thing with the per-list notes — which lists are
+worth scaling, and why `ils_udb_yds` is not one of them.
 
 ### Checking the size of a shock first
 

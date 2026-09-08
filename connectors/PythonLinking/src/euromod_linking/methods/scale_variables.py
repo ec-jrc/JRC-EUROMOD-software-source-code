@@ -1,9 +1,11 @@
 """scale_variables — cell-level scaling of numeric input variables.
 
 Consumes the ``scale`` channel: nominal wage changes, hours shocks, any income
-component adjustment. metric = an input variable (e.g. ``yem``) or an EUROMOD
-income list (e.g. ``ils_udb_yem``), which the orchestrator expands
-extension-aware into its component input variables (ctx.metric_expansions).
+component adjustment. metric = an input variable (e.g. ``yem``), an EUROMOD
+income list (e.g. ``ils_udb_yem``), or the descriptive name of one (e.g.
+``"employment income"``, resolved to ``ils_udb_yem`` during normalisation — see
+:mod:`euromod_linking.income_lists`). A list is expanded extension-aware into
+its component input variables against the live model.
 
 Economic intuition
 ------------------
@@ -31,62 +33,42 @@ untransformed run. Overlapping ``set`` shocks on one metric are rejected
 (order-dependent); ``mult``/``grow`` compose commutatively.
 """
 
-#: The standardised ``ils_udb_*`` income lists, published so a caller shocking an
-#: economic concept ("investment income") can name the model's own aggregate for
-#: it instead of guessing which raw variables belong to it.
+from euromod_linking import income_lists as _catalogue
+
+#: The standardised ``ils_udb_*`` income lists as ``{group: {name: label}}``,
+#: published so a caller shocking an economic concept ("investment income") can
+#: name the model's own aggregate for it instead of guessing which raw variables
+#: belong to it — or, better, write the concept itself and let
+#: :mod:`euromod_linking.income_lists` resolve it.
 #:
-#: These are EUROMOD's User Database output lists. The names are standardised
-#: across countries; their *membership* is not — it is country- and
-#: extension-specific, which is why they are resolved against the live model at
-#: run time rather than hard-coded. A name absent from a given system fails with
-#: the list of names that system does define.
-#:
-#: The market-income lists are the ones to reach for. Benefit and tax lists are
-#: built largely from *simulated* components (``bun_s``, ``tin_s``, …) that
-#: EUROMOD recomputes from the inputs, so scaling those changes nothing — they
-#: are reported as ``skipped_not_in_input``, and a list with no input component
-#: at all (``ils_udb_tis``) is rejected outright. Some do carry data-reported
-#: components as well (``ils_udb_bun`` resolves to ``bun``, ``bun_s``, ``byr``,
-#: …), so scaling one shifts the recorded part while leaving the simulated part
-#: to be recomputed — rarely what is meant. To change what a benefit or tax pays
-#: out, shock its policy parameters through the ``constant`` channel instead.
+#: A view over :data:`euromod_linking.income_lists.CATALOGUE`, which carries the
+#: labels, the accepted spellings and the per-list notes. Defined there rather
+#: than here because ``shock_table`` canonicalises a descriptive metric during
+#: normalisation and must not import a method to do it.
 INCOME_LISTS = {
-    "market income (scalable)": {
-        "ils_udb_yem": "Employment income",
-        "ils_udb_yse": "Self-employment income",
-        "ils_udb_yiy": "Investment income",
-        "ils_udb_ypr": "Property income",
-        "ils_udb_ypp": "Private pension income",
-        "ils_udb_ypt": "Private transfers received",
-        "ils_udb_yot": "Other income",
-        "ils_udb_yds": "Total market income — employment, self-employment, private "
-                       "pension, property, investment income and private transfers "
-                       "combined",
-    },
-    "benefits and taxes (mostly simulated — see notes)": {
-        "ils_udb_bun": "Unemployment benefits",
-        "ils_udb_bsa": "Social assistance",
-        "ils_udb_bho": "Housing benefits",
-        "ils_udb_bhl": "Health-related benefits",
-        "ils_udb_bed": "Education benefits",
-        "ils_udb_bfa": "Family benefits",
-        "ils_udb_boa": "Old-age pensions",
-        "ils_udb_bsu": "Survivors' benefits",
-        "ils_udb_bdi": "Disability benefits",
-        "ils_udb_tis": "Income tax and social insurance contributions",
-        "ils_udb_tpr": "Property tax",
-    },
+    group: {e.name: e.label for e in _catalogue.CATALOGUE if e.group == group}
+    for group in _catalogue.GROUPS
 }
 
 
 def income_lists() -> dict:
-    """The ``ils_udb_*`` catalogue as data, with usage notes. See INCOME_LISTS."""
+    """The ``ils_udb_*`` catalogue as data: what each list covers, what it
+    answers to, and the usage notes. See :mod:`euromod_linking.income_lists`."""
+    cat = _catalogue.catalogue()
     return {
         "lists": {k: dict(v) for k, v in INCOME_LISTS.items()},
+        "groups": cat["groups"],
+        "aliases": cat["aliases"],
         "notes": [
+            "A metric may be an input variable, an income list, or a descriptive "
+            "name for one ('employment income' -> ils_udb_yem). Descriptive names "
+            "are resolved during normalisation, ignoring case, underscores, hyphens "
+            "and punctuation, so the shock table always holds the ils_udb_* name and "
+            "the content id does not depend on the spelling. See 'aliases'.",
             "Naming is standardised across countries; membership is country- and "
             "extension-specific and is resolved against the live model, so an unknown "
-            "name fails with the names that system does define.",
+            "name fails with the names that system does define. The nine benefit lists "
+            "are defined in 25 of the 27 countries, the rest in all 27.",
             "Scaling a list scales every component the model counts under that concept, "
             "which keeps the shock consistent with EUROMOD's own accounting. Prefer it "
             "over naming raw variables when the shock is about an economic concept.",
@@ -95,9 +77,13 @@ def income_lists() -> dict:
             "Benefit and tax lists are built largely from simulated components that "
             "EUROMOD recomputes, so scaling them mostly has no effect: those components "
             "are reported as 'skipped_not_in_input', and a list with none in the input "
-            "at all is rejected. Where one also carries data-reported components, "
-            "scaling shifts only those — rarely what is meant. To change what a benefit "
-            "or tax pays out, shock its policy parameters through the 'constant' channel.",
+            "at all is rejected. ils_udb_tis carries one reported component against 121 "
+            "simulated ones. Where a list carries both, scaling shifts only the reported "
+            "part — rarely what is meant. To change what a benefit or tax pays out, "
+            "shock its policy parameters through the 'constant' channel.",
+            "ils_udb_yds is disposable income and holds no variables of its own, only "
+            "the other twenty lists including taxes, so scaling it fans out over all of "
+            "them at once. Name a component list instead.",
         ],
     }
 
