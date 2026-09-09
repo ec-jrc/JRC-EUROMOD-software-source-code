@@ -58,20 +58,31 @@ def run(cmd: list, **kw) -> subprocess.CompletedProcess:
 
 
 def released_minors(repo: Path, tag_prefix: str) -> list[tuple[str, str]]:
-    """``[(minor, tag)]`` newest first — the highest patch tag of each minor."""
-    tag_re = re.compile(rf"^{re.escape(tag_prefix)}(\d+)\.(\d+)\.(\d+)$")
+    """``[(minor, tag)]`` newest first — the newest tag of each minor.
+
+    Newest by patch, then by PEP 440 post-release number: a tag such as
+    ``python_connector_v0.3.2.post1`` is how a documentation-only correction
+    to a released version reaches that version's pages. The site root is
+    built from the latest *tag*, deliberately, so a docs fix merged to master
+    would otherwise appear only under dev/ until the next software release.
+    A post-release names the same software with corrected docs — which is
+    precisely what PEP 440 defines it for — and needs no PyPI upload."""
+    tag_re = re.compile(
+        rf"^{re.escape(tag_prefix)}(\d+)\.(\d+)\.(\d+)(?:\.post(\d+))?$")
     out = subprocess.run(["git", "tag", "--list", f"{tag_prefix}*"],
                          cwd=repo, check=True, capture_output=True, text=True).stdout
-    best: dict[tuple[int, int], tuple[int, str]] = {}
+    best: dict[tuple[int, int], tuple[tuple[int, int], str]] = {}
     for tag in out.split():
         m = tag_re.match(tag)
         if not m:
-            print(f"  ignoring tag {tag!r}: not {tag_prefix}<major>.<minor>.<patch>")
+            print(f"  ignoring tag {tag!r}: not "
+                  f"{tag_prefix}<major>.<minor>.<patch>[.post<n>]")
             continue
-        major, minor, patch = (int(x) for x in m.groups())
-        if (major, minor) not in best or patch > best[(major, minor)][0]:
-            best[(major, minor)] = (patch, tag)
-    return [(f"{maj}.{mi}", tag) for (maj, mi), (_p, tag) in
+        major, minor, patch = (int(x) for x in m.groups()[:3])
+        rank = (patch, int(m.group(4) or 0))
+        if (major, minor) not in best or rank > best[(major, minor)][0]:
+            best[(major, minor)] = (rank, tag)
+    return [(f"{maj}.{mi}", tag) for (maj, mi), (_rank, tag) in
             sorted(best.items(), reverse=True)]
 
 
