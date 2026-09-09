@@ -113,11 +113,19 @@ class Builder:
 def build_all(repo: Path, out: Path, builder: Builder, tag_prefix: str,
               dev_name: str) -> list[dict]:
     minors = released_minors(repo, tag_prefix)
-    if not minors:
-        sys.exit(f"no {tag_prefix}* tags: nothing released to build")
-    print("releases:", ", ".join(f"{m} <- {t}" for m, t in minors))
+    if minors:
+        print("releases:", ", ".join(f"{m} <- {t}" for m, t in minors))
+    else:
+        # No release tags in this checkout: a repository that has never
+        # tagged a release, or a checkout made before its tags were pushed.
+        # Publishing nothing would take the site down over a missing tag, so
+        # the branch tip is built alone and stands in at the root — and the
+        # log says so, since it is not what a released package should show.
+        print(f"\n::warning::no {tag_prefix}* tags in this checkout: building "
+              f"'{dev_name}' only and serving it at the root\n", flush=True)
 
     versions: list[dict] = []
+    skipped: list[str] = []
     with tempfile.TemporaryDirectory(prefix="versioned-docs-") as tmp:
         tmp = Path(tmp)
         for i, (minor, tag) in enumerate(minors):
@@ -125,20 +133,35 @@ def build_all(repo: Path, out: Path, builder: Builder, tag_prefix: str,
             run(["git", "worktree", "add", "--detach", wt, tag], cwd=repo)
             try:
                 builder.build(wt, out / minor, tmp / f"doctrees-{minor}")
+            except subprocess.CalledProcessError as e:
+                # An old release whose docs no longer build under today's
+                # toolchain must not stop today's docs from publishing. It is
+                # dropped from the site and said loudly; the latest release is
+                # what this run exists to publish, so that one still fails.
+                if i == 0:
+                    raise
+                print(f"\n::warning::{tag}: docs did not build ({e}); "
+                      f"{minor} is left out of this deployment\n", flush=True)
+                shutil.rmtree(out / minor, ignore_errors=True)
+                skipped.append(tag)
+                continue
             finally:
                 run(["git", "worktree", "remove", "--force", wt], cwd=repo)
             versions.append({"version": minor, "tag": tag, "path": f"{minor}/",
                              "name": f"{minor} (latest)" if i == 0 else minor,
                              "latest": i == 0})
+        if skipped:
+            print("NOT BUILT (old releases whose docs failed):", ", ".join(skipped))
 
-        # The branch tip: what is merged but not yet released.
+        # The branch tip: what is merged but not yet released. With no release
+        # to stand at the root it is the latest there is, and is marked so.
         builder.build(repo, out / dev_name, tmp / "doctrees-dev")
         versions.append({"version": dev_name, "tag": None, "path": f"{dev_name}/",
-                         "name": f"{dev_name} (unreleased)", "latest": False})
+                         "name": f"{dev_name} (unreleased)", "latest": not minors})
 
     # The latest release also lives at the root, so existing links and the
     # intersphinx inventory the other package points at both keep resolving.
-    latest = out / minors[0][0]
+    latest = out / (minors[0][0] if minors else dev_name)
     for item in latest.iterdir():
         dest = out / item.name
         if item.is_dir():

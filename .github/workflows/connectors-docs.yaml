@@ -29,17 +29,14 @@
 # package's install decide what the other documents.
 name: Build and Deploy Connector Documentation
 
+# No paths filter, on purpose: a paths filter alongside a tags filter stopped
+# tag pushes from triggering at all (observed 2026-09-09: six release tags
+# pushed, zero runs). Every push to this mirror is a sync touching these two
+# packages anyway, so the filter bought nothing.
 on:
   push:
     branches:
       - master
-    paths:
-      - 'connectors/PythonIntegration/docs/**'
-      - 'connectors/PythonIntegration/src/**'
-      - 'connectors/PythonLinking/docs/**'
-      - 'connectors/PythonLinking/src/**'
-      - '.github/workflows/connectors-docs.yaml'
-      - '.github/scripts/**'
     tags:
       - 'python_connector_v*'
       - 'python_linking_v*'
