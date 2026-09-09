@@ -69,8 +69,12 @@ jobs:
 
       # The build script keeps every doctree cache in a temporary directory,
       # so nothing but HTML reaches the artifact.
+      # On failure the tail of the build log is re-emitted as ::error::
+      # annotations: those are readable through the public API by anyone,
+      # whereas the run log itself needs admin rights on the repository.
       - name: Build euromod connector docs, every released minor (site root)
         run: |
+          set -o pipefail
           python -m venv .venv-connector
           .venv-connector/bin/pip install --quiet --upgrade pip
           .venv-connector/bin/pip install --quiet -r connectors/PythonIntegration/docs/requirements.txt
@@ -78,7 +82,10 @@ jobs:
             --python .venv-connector/bin/python \
             --tag-prefix python_connector_v \
             --package connectors/PythonIntegration \
-            --out site
+            --out site 2>&1 | tee "$RUNNER_TEMP/build-connector.log" || {
+              tail -n 10 "$RUNNER_TEMP/build-connector.log" | while IFS= read -r line; do echo "::error::${line}"; done
+              exit 1
+            }
 
       # Built after the connector, into the connector's root: the script skips
       # a nested site that has its own versions.json, so order does not matter
@@ -86,6 +93,7 @@ jobs:
       # output directory, so it has to go first.
       - name: Build euromod-linking docs, every released minor (site/python-linking)
         run: |
+          set -o pipefail
           python -m venv .venv-linking
           .venv-linking/bin/pip install --quiet --upgrade pip
           .venv-linking/bin/pip install --quiet -r connectors/PythonLinking/docs/requirements.txt
@@ -94,7 +102,10 @@ jobs:
             --tag-prefix python_linking_v \
             --package connectors/PythonLinking \
             --no-deps --nitpicky \
-            --out site/python-linking
+            --out site/python-linking 2>&1 | tee "$RUNNER_TEMP/build-linking.log" || {
+              tail -n 10 "$RUNNER_TEMP/build-linking.log" | while IFS= read -r line; do echo "::error::${line}"; done
+              exit 1
+            }
 
       - name: Check both sites were produced, versioned
         run: |
