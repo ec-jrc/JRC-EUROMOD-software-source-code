@@ -235,7 +235,17 @@ def main() -> None:
         shutil.rmtree(out)
     out.mkdir(parents=True)
 
-    builder = Builder(args.python.resolve(), args.package,
+    # absolute(), not resolve(): on Linux a venv's bin/python is a symlink to
+    # the base interpreter, and resolving it silently builds with a Python
+    # that has no Sphinx. (Run #6, 2026-09-09: "No module named sphinx".)
+    python = args.python.absolute()
+    try:
+        subprocess.run([str(python), "-c", "import sphinx"], check=True,
+                       capture_output=True)
+    except (subprocess.CalledProcessError, OSError) as e:
+        sys.exit(f"{python}: not a Python with sphinx installed ({e}); pass the "
+                 "docs venv's interpreter as --python")
+    builder = Builder(python, args.package,
                       args.docs or args.package / "docs", args.no_deps, args.nitpicky)
     versions = build_all(repo, out, builder, args.tag_prefix, args.dev_name)
     n = install_switcher(out, versions)
