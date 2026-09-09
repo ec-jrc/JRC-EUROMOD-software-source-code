@@ -15,7 +15,7 @@ from euromod_linking.methods.base import MethodContext, MethodError, MethodResul
 from euromod_linking.methods.lma_labour_alignment import (  # noqa: F401
     hierarchy, imputation, scoring, states, targets as targets_mod, weights,
 )
-from euromod_linking.registry import MethodSpec, register
+from euromod_linking.registry import STAGE_PEOPLE, MethodSpec, register
 
 logger = logging.getLogger(__name__)
 
@@ -352,6 +352,7 @@ register(MethodSpec(
         "are only: period (which external-model period to apply, required) and "
         "tolerance_pct (reporting threshold, default 5)."),
     channels_consumed=("align",),
+    stage=STAGE_PEOPLE,   # after value changes: entrants are paid from the scaled yivwg
     metrics_consumed=("employment", "unemployment",
                       "employment_rate", "participation_rate", "inactivity_rate"),
     cell_variables="Any input variable (deh=3-4, dgn=1, dag=25-34, les=5) and/or 'region'.",

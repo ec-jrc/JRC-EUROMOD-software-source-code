@@ -1,6 +1,6 @@
 [project]
 name = "euromod-linking"
-version = "0.2.0"
+version = "0.3.0"
 description = "Link external economic models to EUROMOD by transforming input microdata and run parameters"
 readme = "README.md"
 requires-python = ">=3.11"

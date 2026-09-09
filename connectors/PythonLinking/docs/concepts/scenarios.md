@@ -61,7 +61,9 @@ methodology's own `params_schema` with `additionalProperties: false` — so a ty
 error, not a silently ignored setting. Every shipped methodology takes `period`, selecting
 which of the external model's periods to apply; `lma_labour_alignment` also takes
 `tolerance_pct`. The full list per methodology is in the
-[Methods](../methods/index.md) section.
+[Methods](../methods/index.md) section. When a scenario runs
+[several methods](composition.md), it is validated against the union of their schemas — one
+scenario has one set of params, and every method reads the same `period`.
 
 A constants-only scenario takes no params.
 
@@ -69,8 +71,11 @@ A constants-only scenario takes no params.
 
 There is a `methodology` field, and you should normally leave it out. It exists to pin a
 run for exact reproduction, or to disambiguate on the day two methodologies claim the same
-channel. Under normal use the methodology is resolved from the shocks and echoed back to
-you — see [Methods](../methods/index.md) for why.
+channel. Under normal use each shock channel is resolved to its method and the result echoes
+the reference back to you — `lma_labour_alignment`, or
+`scale_variables+lma_labour_alignment` when several ran, in run order — see
+[Methods](../methods/index.md) for why. A pin takes the same form and must cover every channel
+in the table.
 
 ## Validating cheaply
 
@@ -98,6 +103,7 @@ while it is still cheap to fix.
 ## Fingerprints
 
 `scenario.fingerprint()` reduces a scenario to a canonical hash. It folds in the shock
-table's content id *and* the resolved methodology's `code_fingerprint` — a hash of the
-method's own source. So editing the modelling invalidates cached results instead of serving
-answers computed by a previous version of it.
+table's content id *and* the resolved methods' `pipeline_fingerprint` — a hash of each
+method's own source, in run order. So editing the modelling, or a change in which methods run
+or in which order, invalidates cached results instead of serving answers computed by a
+previous version of it.

@@ -55,6 +55,8 @@ def _rows(spec):
 
     rows = [
         ("Shock channels", code_list(spec.channels_consumed)),
+        ("Stage", f"``{spec.stage}`` — its place in the run order when a scenario "
+                  "carries several channels (lower runs first)"),
         ("Metrics", code_list(spec.metrics_consumed) if spec.metrics_consumed
          else "any input variable or income list"),
         ("Population cells", spec.cell_variables),

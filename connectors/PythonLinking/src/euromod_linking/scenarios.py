@@ -4,7 +4,7 @@ Two entry points:
 
 ``apply_scenario(system, data, scenario)``
    The core. Turns external-model shocks into transformed EUROMOD input —
-   the counterfactual and, when the methodology restructures rows, a matching
+   the counterfactual and, when a methodology restructures rows, a matching
    baseline built on the same rows. Executes nothing.
 
 ``run_scenario(system, scenario, input_path=...)``
@@ -15,9 +15,13 @@ Applications that need caching, retries or their own response envelope build on
 `apply_scenario` and run the frames themselves; that is why nothing here knows
 about caches or run ids.
 
-The API exposes *shocks*, not methodologies: the transformation methodology is
-resolved from the shock table's channels/metrics and reported back. An optional
-``methodology`` pin exists only for exact reproduction or disambiguation.
+The API exposes *shocks*, not methodologies: each shock channel in the table is
+dispatched to the methodology that consumes it, and the resolved methods are
+reported back. A table carrying several channels is handled by several methods,
+run one after another in their declared stage order — see
+:mod:`euromod_linking.registry` for why the order is theirs and not the
+caller's. An optional ``methodology`` pin exists only for exact reproduction or
+disambiguation.
 
 Constants semantics:
 
@@ -65,13 +69,35 @@ def _validate_structure(scenario: dict) -> list[str]:
     return problems
 
 
-def _validate_params(scenario: dict, spec) -> list[str]:
-    """Validate scenario['params'] against the method's own params_schema.
-    additionalProperties: false in that schema is what blocks methodology knobs."""
+def params_schema(specs) -> dict:
+    """The one ``params`` schema a scenario is validated against: the union of
+    its methods' schemas.
+
+    ``params`` are scenario semantics — *which* external-model period, a
+    reporting threshold — and one scenario has one set of them however many
+    methods it runs, so every method reads the same ``period``. The union keeps
+    ``additionalProperties: false``, which is what blocks methodology knobs: a
+    param no method declares is still an error."""
+    properties, required = {}, []
+    for spec in specs:
+        schema = spec.params_schema or {}
+        for name, sub in (schema.get("properties") or {}).items():
+            properties.setdefault(name, sub)   # first (earliest stage) wins on a clash
+        for name in schema.get("required") or ():
+            if name not in required:
+                required.append(name)
+    out = {"type": "object", "additionalProperties": False, "properties": properties}
+    if required:
+        out["required"] = required
+    return out
+
+
+def _validate_params(scenario: dict, specs) -> list[str]:
+    """Validate scenario['params'] against the methods' merged params_schema."""
     import jsonschema
 
     problems = []
-    validator = jsonschema.Draft202012Validator(spec.params_schema)
+    validator = jsonschema.Draft202012Validator(params_schema(specs))
     for err in sorted(validator.iter_errors(scenario.get("params") or {}), key=lambda e: list(e.path)):
         loc = "/".join(map(str, err.path)) or "params"
         problems.append(f"params/{loc}: {err.message}")
@@ -124,7 +150,11 @@ def fingerprint(scenario: dict, shock_table_id: str, methodology: str,
                 code_fingerprint: str = "") -> str:
     """Canonical scenario hash for a result-cache key. Shocks are represented by
     the table's content id, so inline vs stored vs re-ingested identical shocks
-    hit the same cache entry. Excludes the free-text 'name' label."""
+    hit the same cache entry. Excludes the free-text 'name' label.
+
+    ``methodology`` is the run's method reference (``registry.pipeline_name``)
+    and ``code_fingerprint`` its ``registry.pipeline_fingerprint``: both carry
+    the order the methods ran in, which is part of what the run did."""
     payload = {
         "scenario_version": 1,
         "methodology": methodology,
@@ -177,41 +207,62 @@ def _split_constant_shocks(shocks):
     return shocks[shocks["channel"] != "constant"], overrides
 
 
-def _resolve_methodology(scenario: dict, population_shocks):
-    """The pinned methodology, else dispatch from the shock channels.
-    None when the scenario is constants-only."""
+def _resolve_methods(scenario: dict, population_shocks) -> list:
+    """The pinned methods, else one per shock channel by dispatch, in run
+    order. [] when the scenario is constants-only."""
     pin = scenario.get("methodology")
     if pin:
-        return registry.resolve(pin)
+        return registry.resolve_pipeline(pin)
     if population_shocks.empty:
-        return None
-    return registry.resolve_for_channels(set(population_shocks["channel"].unique()),
-                                         set(population_shocks["metric"].unique()))
+        return []
+    by_channel = {str(ch): set(sub["metric"].unique())
+                  for ch, sub in population_shocks.groupby("channel")}
+    return registry.resolve_for_channels(by_channel)
 
 
-def _check_contract(spec, population_shocks) -> list[str]:
-    """Shocks vs the methodology's declared contract (a safety net for pinned
+def own_shocks(population_shocks, spec):
+    """The records a method is handed: those of the channels it consumes."""
+    return population_shocks[population_shocks["channel"].isin(spec.channels_consumed)]
+
+
+def _check_contract(specs, population_shocks) -> list[str]:
+    """Shocks vs the methods' declared contracts (a safety net for pinned
     references — dispatch already guarantees channels and metrics match)."""
     problems = []
-    for ch in sorted(population_shocks["channel"].unique()):
-        if ch not in spec.channels_consumed:
-            problems.append(f"Methodology {spec.name} does not consume channel '{ch}' "
-                            f"(consumes: {sorted(spec.channels_consumed)})")
-    for m in sorted(population_shocks["metric"].unique()):
-        if spec.metrics_consumed and m not in spec.metrics_consumed:
-            problems.append(f"Methodology {spec.name} does not consume metric '{m}' "
-                            f"(consumes: {sorted(spec.metrics_consumed)})")
+    consumed = {ch for s in specs for ch in s.channels_consumed}
+    for ch in sorted(set(population_shocks["channel"].unique()) - consumed):
+        problems.append(f"No pinned methodology consumes channel '{ch}' "
+                        f"(pinned: {[s.name for s in specs]})")
+    for spec in specs:
+        own = own_shocks(population_shocks, spec)
+        if own.empty:
+            problems.append(f"Methodology {spec.name} consumes channels "
+                            f"{sorted(spec.channels_consumed)}, but the shock table carries none")
+            continue
+        for m in sorted(own["metric"].unique()):
+            if spec.metrics_consumed and m not in spec.metrics_consumed:
+                problems.append(f"Methodology {spec.name} does not consume metric '{m}' "
+                                f"(consumes: {sorted(spec.metrics_consumed)})")
     return sorted(set(problems))
 
 
-def run_arguments(scenario: dict, spec) -> tuple[list, list]:
-    """Add-ons and extension switches the run needs: the methodology's own
+def run_arguments(scenario: dict, specs) -> tuple[list, list]:
+    """Add-ons and extension switches the run needs: every method's own
     requirements (with ``{cc}`` resolved) plus anything the scenario adds."""
     cc = str(scenario["country_code"]).upper()
-    addon_entries, switch_entries = (spec.addon_requirements or ((), ())) if spec else ((), ())
-    addons = [[str(x).format(cc=cc) for x in a] if isinstance(a, (list, tuple))
-              else str(a).format(cc=cc) for a in addon_entries]
-    switches = [[str(s[0]).format(cc=cc), bool(s[1])] for s in switch_entries]
+    addons: list = []
+    switches: list = []
+    for spec in specs or ():
+        addon_entries, switch_entries = (spec.addon_requirements or ((), ()))
+        for a in addon_entries:
+            entry = ([str(x).format(cc=cc) for x in a] if isinstance(a, (list, tuple))
+                     else str(a).format(cc=cc))
+            if entry not in addons:
+                addons.append(entry)
+        for s in switch_entries:
+            entry = [str(s[0]).format(cc=cc), bool(s[1])]
+            if entry not in switches:
+                switches.append(entry)
     addons += list(scenario.get("addons") or [])
     switches += [[str(e[0]), bool(e[1])] for e in (scenario.get("extensions") or [])]
     return addons, switches
@@ -261,15 +312,38 @@ def cell_population(data, population_shocks) -> dict:
     return counts
 
 
+def _stages(specs) -> list[dict]:
+    """What ran, in order — the run's own account of its composition."""
+    return [{"method": s.name, "stage": s.stage, "channels": sorted(s.channels_consumed)}
+            for s in specs]
+
+
+def _nest(specs, parts: dict) -> dict:
+    """Per-method diagnostics as the plan reports them.
+
+    One method: its diagnostics as they are, flat — the common case, and what
+    every reader of a single-method run expects. Several: each method's
+    diagnostics UNFLATTENED under its name, with ``order`` naming the sequence
+    and ``stages`` saying which channels each one took, so anything you read
+    from a method on its own is in the same place one level down."""
+    if len(specs) == 1:
+        return dict(parts[specs[0].name])
+    out = {"order": [s.name for s in specs], "stages": _stages(specs)}
+    for spec in specs:
+        out[spec.name] = dict(parts[spec.name])
+    out["warnings"] = _merge_warnings(*(parts[s.name].get("warnings") for s in specs))
+    return out
+
+
 # --- the core transform -------------------------------------------------------
 
 def check_scenario(scenario: dict) -> dict:
     """Validate everything that does not need the model or the data.
 
     Structure, shock resolution, methodology dispatch, declared params and the
-    methodology's contract. Separated so a caller can reject a malformed
-    scenario without paying to load a model. Raises ScenarioError with
-    `.problems`; returns the resolved pieces for `apply_scenario`.
+    methods' contracts. Separated so a caller can reject a malformed scenario
+    without paying to load a model. Raises ScenarioError with `.problems`;
+    returns the resolved pieces for `apply_scenario`.
     """
     problems = _validate_structure(scenario)
     if problems:
@@ -277,7 +351,7 @@ def check_scenario(scenario: dict) -> dict:
 
     shocks, shock_id, summary, warnings = _resolve_shocks(scenario)
     population_shocks, shock_constants = _split_constant_shocks(shocks)
-    spec = _resolve_methodology(scenario, population_shocks)   # MethodLookupError propagates
+    specs = _resolve_methods(scenario, population_shocks)   # MethodLookupError propagates
 
     context_constants = _scenario_constants(scenario)
     clash = sorted(set(context_constants) & set(shock_constants))
@@ -286,20 +360,22 @@ def check_scenario(scenario: dict) -> dict:
             f"Constants appear both as scenario context and as shocks: {clash}. Context "
             "constants apply to both runs; shock constants only to the counterfactual."])
 
-    if spec is None:
+    if not specs:
         if scenario.get("params"):
             raise ScenarioError(["params require a methodology; a constants-only "
                                  "scenario takes none"])
     else:
-        problems = _validate_params(scenario, spec)
-        problems += _check_contract(spec, population_shocks)
+        problems = _validate_params(scenario, specs)
+        problems += _check_contract(specs, population_shocks)
         if problems:
             raise ScenarioError(problems)
 
-    addons, extensions = run_arguments(scenario, spec)
+    addons, extensions = run_arguments(scenario, specs)
     return {
-        "spec": spec,
-        "methodology": spec.name if spec else "constants-only",
+        "specs": specs,
+        "methodology": registry.pipeline_name(specs) if specs else "constants-only",
+        "methods": [s.name for s in specs],
+        "stages": _stages(specs),
         "population_shocks": population_shocks,
         "shock_constants": shock_constants,
         "context_constants": context_constants,
@@ -319,16 +395,25 @@ def apply_scenario(system, data, scenario: dict, *, dataset_name: str | None = N
     Returns a dict with::
 
       counterfactual  the transformed input
-      baseline        the matching baseline (same rows) when the methodology
+      baseline        the matching baseline (same rows) when a methodology
                       restructures rows, else None — run the untouched `data`
-      diagnostics     the methodology's account of what it did
-      methodology     the resolved reference, e.g. "lma_labour_alignment"
+      diagnostics     the methods' account of what they did: flat for one
+                      method, nested under each method's name (with ``order``)
+                      for several
+      methodology     the resolved reference, e.g. "lma_labour_alignment" or
+                      "scale_variables+lma_labour_alignment" (run order)
+      methods, stages what ran, and in which order
       constants       {(name, group): value} for the counterfactual run
       context_constants  ... applied to BOTH runs
       addons, extensions   what the runs must activate
-      compatibility   what the methodology needs from the model and whether
-                      this model has it (a CompatibilityReport), or None when
-                      the model could not be inspected
+      compatibility   what each method needs from the model and whether this
+                      model has it: a list of CompatibilityReport, one per
+                      method (None entries when the model could not be inspected)
+
+    Several methods run in stage order, each on the frame the previous one
+    produced. The paired ``baseline`` is the one built by the last method that
+    restructured rows, on the frame it received — so it carries every earlier
+    stage's changes, which is what keeps it row-aligned with the counterfactual.
 
     Raises ScenarioError (with .problems) when the scenario cannot be applied.
     """
@@ -341,33 +426,45 @@ def apply_scenario(system, data, scenario: dict, *, dataset_name: str | None = N
     adopt(system)
 
     result = check_scenario(scenario)
-    spec = result.pop("spec")
+    specs = result.pop("specs")
     population_shocks = result.pop("population_shocks")
     shock_constants = result["shock_constants"]
 
     cc = str(scenario["country_code"]).upper()
     system_name = scenario["system_name"]
 
-    if spec is None:
+    if not specs:
         # Constants-only: the input is unchanged; the two runs differ in overrides.
         result["counterfactual"] = data
+        result["compatibility"] = []
         return result
+
+    # A problem is prefixed with the method it comes from only when there are
+    # several to tell apart; a single method's messages stay as that method
+    # wrote them.
+    def tag(spec, message):
+        return f"[{spec.name}] {message}" if len(specs) > 1 else message
 
     problems = []
     columns = list(data.columns)
-    missing = [c for c in spec.dataset_requirements if c not in columns]
-    if missing:
-        problems.append(f"Dataset lacks required columns {missing}")
-    method = spec.factory()
-    problems += method.check_dataset(columns, population_shocks)
+    steps = []   # (spec, method instance, the records it gets)
+    for spec in specs:
+        missing = [c for c in spec.dataset_requirements if c not in columns]
+        if missing:
+            problems.append(tag(spec, f"Dataset lacks required columns {missing}"))
+        method = spec.factory()
+        own = own_shocks(population_shocks, spec)
+        problems += [tag(spec, p) for p in method.check_dataset(columns, own)]
+        steps.append((spec, method, own))
 
     # The model side of the contract. A missing add-on or extension switch is
     # dropped by the engine without failing, so without this the scenario runs
     # both simulations and only then raises NoEffectError. Checking here means
     # validate_only catches it too, before anything expensive happens.
-    result["compatibility"] = _compatibility(system, spec)
-    if result["compatibility"] is not None:
-        problems += list(result["compatibility"].problems)
+    result["compatibility"] = [_compatibility(system, spec) for spec in specs]
+    for report in result["compatibility"]:
+        if report is not None:
+            problems += list(report.problems)
 
     if problems:
         raise ScenarioError(problems)
@@ -375,42 +472,60 @@ def apply_scenario(system, data, scenario: dict, *, dataset_name: str | None = N
     ctx = MethodContext(country_code=cc, system_name=system_name,
                         dataset_name=dataset_name,
                         extensions=scenario.get("extensions"))
+    params = scenario.get("params") or {}
 
     if validate_only:
         # Everything above is validation; the transform below is the expensive
         # part (it runs the whole alignment), so stop here — but not before
-        # asking the methodology what it would target. That preview is what
-        # makes a mis-sized shock visible while it is still cheap to fix.
-        diagnostics = {"cell_population": cell_population(data, population_shocks)}
-        preview = getattr(method, "preview", None)
-        if callable(preview):
+        # asking each method what it would target. That preview is what makes
+        # a mis-sized shock visible while it is still cheap to fix.
+        #
+        # A later stage previews against what the earlier ones would hand it,
+        # where an earlier method says its apply() is cheap enough to run here
+        # (preview_by_applying). A preview that sized an alignment against the
+        # untouched input could disagree with the run it previews.
+        frame = data
+        parts = {}
+        for spec, method, own in steps:
+            preview = getattr(method, "preview", None)
             try:
-                diagnostics.update(preview(data, population_shocks,
-                                           scenario.get("params") or {}, ctx))
+                parts[spec.name] = dict(preview(frame, own, params, ctx)) if callable(preview) else {}
+                if spec.preview_by_applying:
+                    frame = method.apply(frame, own, params, ctx).data
             except MethodError as e:
                 raise ScenarioError([f"[{spec.name}] {e}"])
+        diagnostics = _nest(specs, parts)
+        diagnostics["cell_population"] = cell_population(data, population_shocks)
         result["diagnostics"] = diagnostics
         result["warnings"] = _merge_warnings(result["warnings"], diagnostics.get("warnings"))
         return result
 
-    try:
-        applied = method.apply(data, population_shocks, scenario.get("params") or {}, ctx)
-    except MethodError as e:
-        raise ScenarioError([f"[{spec.name}] {e}"])
+    frame, baseline, parts = data, None, {}
+    for spec, method, own in steps:
+        try:
+            applied = method.apply(frame, own, params, ctx)
+        except MethodError as e:
+            raise ScenarioError([f"[{spec.name}] {e}"])
+        frame = applied.data
+        if applied.baseline is not None:
+            # Built on the frame this method received, so it carries the
+            # earlier stages and pairs row for row with what comes out.
+            baseline = applied.baseline
+        parts[spec.name] = dict(applied.diagnostics or {})
 
-    diagnostics = dict(applied.diagnostics or {})
+    diagnostics = _nest(specs, parts)
     diagnostics["cell_population"] = cell_population(data, population_shocks)
     if shock_constants:
         diagnostics["constant_shocks_applied"] = {
             f"{n}|{g}" if g else n: v for (n, g), v in sorted(shock_constants.items())}
 
-    result["counterfactual"] = applied.data
-    result["baseline"] = applied.baseline
+    result["counterfactual"] = frame
+    result["baseline"] = baseline
     result["diagnostics"] = diagnostics
-    # The methodology's warnings are the ones about the shock itself ("moves
-    # 0.035 people", "consumes 60% of the pool"). Kept in diagnostics for
-    # existing readers, but surfaced at top level too — a caller scanning
-    # `warnings` must not miss them.
+    # The methods' warnings are the ones about the shock itself ("moves 0.035
+    # people", "consumes 60% of the pool"). Kept in diagnostics for existing
+    # readers, but surfaced at top level too — a caller scanning `warnings`
+    # must not miss them.
     result["warnings"] = _merge_warnings(result["warnings"], diagnostics.get("warnings"))
     return result
 

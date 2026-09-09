@@ -94,7 +94,7 @@ import pandas as pd
 from euromod_linking import dimensions as dims_mod
 from euromod_linking.methods import cells
 from euromod_linking.methods.base import MethodContext, MethodError, MethodResult
-from euromod_linking.registry import MethodSpec, register
+from euromod_linking.registry import STAGE_VALUES, MethodSpec, register
 
 logger = logging.getLogger(__name__)
 
@@ -347,6 +347,12 @@ register(MethodSpec(
         "params: period (optional when the shock table has one period)."),
     channels_consumed=("scale",),
     metrics_consumed=(),  # open: any input variable or income list
+    # Runs before anything that moves people: the values it changes are the
+    # environment those transitions happen in (an entrant is paid from yivwg).
+    stage=STAGE_VALUES,
+    # Arithmetic only — cheap enough that a later stage's preview can be sized
+    # against the scaled frame instead of the untouched input.
+    preview_by_applying=True,
     cell_variables="Any input variable (deh=3-4, dgn=1, dag=25-34) and/or 'region'.",
     dataset_requirements=("idhh", "idperson", "dwt"),
     addon_requirements=((), ()),

@@ -108,6 +108,7 @@ resolved from the shocks rather than chosen by the caller.
 concepts/shock-table.md
 concepts/population-cells.md
 concepts/scenarios.md
+concepts/composition.md
 concepts/ingest.md
 concepts/compatibility.md
 ```
@@ -119,7 +120,6 @@ concepts/compatibility.md
 methods/index.md
 methods/scale-variables.md
 methods/lma-labour-alignment.md
-methods/align-with-scaling.md
 ```
 
 ```{toctree}

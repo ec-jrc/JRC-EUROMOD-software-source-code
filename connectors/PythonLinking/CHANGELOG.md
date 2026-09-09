@@ -2,6 +2,29 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (09/09/2026)
+
+- **Composition moves from a method into the engine.** A shock table carrying several
+  channels no longer dispatches to a composite method; each channel dispatches to its own
+  method and `apply_scenario` runs them in **stage** order. `MethodSpec.stage` says what kind
+  of transformation a method is (`STAGE_VALUES` for `scale_variables`, `STAGE_PEOPLE` for
+  `lma_labour_alignment`), so the order holds for every combination without a method being
+  written for each pair - and dispatch is per channel, so a mistyped `align` metric is
+  refused by name whatever else the table carries. `align_with_scaling` and
+  `MethodSpec.composes` are removed. See the new *Several shocks in one scenario* page.
+- **Diagnostics of a multi-method run nest under each method's name**, with `order` and
+  `stages`; a single-method run stays flat. `plan["methodology"]` is the methods in run order
+  joined with `+` (`scale_variables+lma_labour_alignment`) and is accepted back as a pin;
+  `plan["methods"]` and `plan["stages"]` say what ran. `plan["compatibility"]` is a list, one
+  report per method.
+- **`params` are validated against the union of the methods' schemas**, so `tolerance_pct`
+  is accepted whenever `lma_labour_alignment` runs and refused otherwise.
+- **Previews see what the run will hand them.** A method may declare `preview_by_applying`
+  (as `scale_variables` does) so a later stage's preview is sized against its output.
+- Registry API: `resolve_for_channel`, `resolve_for_channels({channel: metrics})`,
+  `pipeline`, `resolve_pipeline`, `pipeline_name`, `pipeline_fingerprint`;
+  `check_scenario()` returns `specs` (a list) instead of `spec`.
+
 ## v0.2.0 (08/09/2026)
 
 - **Shocks in one scenario can now carry both `scale` and `align` channels.** A new

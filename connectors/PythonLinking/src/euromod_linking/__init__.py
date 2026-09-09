@@ -15,9 +15,10 @@ parameters, so macro results can be evaluated at household level::
     }, input_path=INPUT_PATH)
 
 Shocks arrive in one canonical form (the shock table); each external model's
-file format is handled by a declarative mapping spec. The transformation
-methodology is resolved from the shock channels rather than chosen by the
-caller — a scenario selects data, never modelling.
+file format is handled by a declarative mapping spec. Each shock channel is
+dispatched to the methodology that consumes it rather than chosen by the
+caller — a scenario selects data, never modelling — and a table carrying
+several channels runs several methods, in their declared stage order.
 
 Scope: this targets the JRC's EUROMOD model for the 27 EU member states, and
 only that model — not the EUROMOD *software* in general. Models built on the
@@ -53,4 +54,4 @@ __all__ = [
     "ScenarioError", "RunError", "NoEffectError", "MethodLookupError", "ShockTableError",
 ]
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
