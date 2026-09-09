@@ -1,0 +1,55 @@
+/* Version switcher, injected by build_versioned_docs.py. Styled with furo's
+   own custom properties so it follows the theme, light or dark, and degrades
+   to plain sensible values on any page that is not furo. */
+
+.version-switcher {
+  margin: 0.25rem 1rem 0.75rem;
+  font-size: var(--sidebar-item-font-size, 0.9rem);
+}
+.version-switcher label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-sidebar-caption-text, #6b6b6b);
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.version-switcher select {
+  flex: 1;
+  min-width: 0;
+  padding: 0.25rem 0.4rem;
+  font: inherit;
+  font-size: 1.1em;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-sidebar-link-text, inherit);
+  background: var(--color-sidebar-background, #fff);
+  border: 1px solid var(--color-sidebar-background-border, #ccc);
+  border-radius: 0.25rem;
+}
+.version-switcher--floating {
+  position: fixed;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 1000;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  background: var(--color-background-primary, #fff);
+  border: 1px solid var(--color-background-border, #ccc);
+  border-radius: 0.25rem;
+}
+
+.version-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  align-items: baseline;
+  margin: 0 0 1.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.95em;
+  border-left: 4px solid var(--color-admonition-title-background--caution, #f0b37e);
+  background: var(--color-admonition-background, rgba(240, 179, 126, 0.12));
+  border-radius: 0 0.25rem 0.25rem 0;
+}

@@ -9,6 +9,19 @@
 # The connector stays at the root so the URLs published since January keep
 # working.
 #
+# Every released minor version of each package is built, from its own source
+# at its release tag, plus the branch tip as "dev":
+#
+#     /0.3/  /0.2/  /dev/                          euromod
+#     /python-linking/0.3/  /0.2/  /0.1/  /dev/    euromod-linking
+#
+# with the latest release also copied to each package's root, and a switcher
+# injected into every page. Releases are the tags python_connector_v<x.y.z>
+# and python_linking_v<x.y.z> on this repository, created on the sync commit
+# that carried the release across. Pushing such a tag is what publishes a
+# version; pushing to master rebuilds everything, including "dev". See
+# .github/scripts/build_versioned_docs.py for the layout and the reasoning.
+#
 # Each package is built in its own virtualenv. They disagree about dependencies
 # on purpose: the connector installs euromod and pythonnet, while euromod-linking
 # installs with --no-deps precisely to keep .NET off the runner (importing it is
@@ -26,6 +39,10 @@ on:
       - 'connectors/PythonLinking/docs/**'
       - 'connectors/PythonLinking/src/**'
       - '.github/workflows/connectors-docs.yaml'
+      - '.github/scripts/**'
+    tags:
+      - 'python_connector_v*'
+      - 'python_linking_v*'
   workflow_dispatch:
 
 permissions:
@@ -41,42 +58,66 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Every release tag is built, so the checkout needs the whole history
+      # and the tags, not the default single commit.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      # -d keeps the doctree cache out of the published tree. Without it every
-      # deployment also serves .doctrees/ and its environment.pickle, which is
-      # most of the artifact's size and none of its content.
-      - name: Build euromod connector docs (site root)
+      # The build script keeps every doctree cache in a temporary directory,
+      # so nothing but HTML reaches the artifact.
+      - name: Build euromod connector docs, every released minor (site root)
         run: |
           python -m venv .venv-connector
           .venv-connector/bin/pip install --quiet --upgrade pip
           .venv-connector/bin/pip install --quiet -r connectors/PythonIntegration/docs/requirements.txt
-          .venv-connector/bin/pip install --quiet -e connectors/PythonIntegration
-          .venv-connector/bin/sphinx-build -b html \
-            -d "${RUNNER_TEMP}/doctrees-connector" \
-            -D nb_execution_mode=off \
-            connectors/PythonIntegration/docs site
+          python .github/scripts/build_versioned_docs.py \
+            --python .venv-connector/bin/python \
+            --tag-prefix python_connector_v \
+            --package connectors/PythonIntegration \
+            --out site
 
-      - name: Build euromod-linking docs (site/python-linking)
+      # Built after the connector, into the connector's root: the script skips
+      # a nested site that has its own versions.json, so order does not matter
+      # for the switcher — but the connector's build starts by clearing its
+      # output directory, so it has to go first.
+      - name: Build euromod-linking docs, every released minor (site/python-linking)
         run: |
           python -m venv .venv-linking
           .venv-linking/bin/pip install --quiet --upgrade pip
           .venv-linking/bin/pip install --quiet -r connectors/PythonLinking/docs/requirements.txt
-          .venv-linking/bin/pip install --quiet -e connectors/PythonLinking --no-deps
-          .venv-linking/bin/sphinx-build -b html -n \
-            -d "${RUNNER_TEMP}/doctrees-linking" \
-            connectors/PythonLinking/docs site/python-linking
+          python .github/scripts/build_versioned_docs.py \
+            --python .venv-linking/bin/python \
+            --tag-prefix python_linking_v \
+            --package connectors/PythonLinking \
+            --no-deps --nitpicky \
+            --out site/python-linking
 
-      - name: Check both sites were produced
+      - name: Check both sites were produced, versioned
         run: |
-          test -f site/index.html || { echo "connector docs missing"; exit 1; }
-          test -f site/python-linking/index.html || { echo "linking docs missing"; exit 1; }
-          test ! -d site/.doctrees || { echo "doctrees leaked into the artifact"; exit 1; }
+          for root in site site/python-linking; do
+            test -f "$root/index.html"          || { echo "$root: front page missing"; exit 1; }
+            test -f "$root/versions.json"       || { echo "$root: versions.json missing"; exit 1; }
+            test -f "$root/dev/index.html"      || { echo "$root: dev build missing"; exit 1; }
+            test -f "$root/_versions/switcher.js" || { echo "$root: switcher missing"; exit 1; }
+            python - "$root" <<'PY'
+          import json, os, sys
+          root = sys.argv[1]
+          for v in json.load(open(os.path.join(root, "versions.json"))):
+              page = os.path.join(root, v["path"], "index.html")
+              assert os.path.isfile(page), f"{root}: {v['name']} listed but {page} missing"
+          print(root + ":", ", ".join(v["name"] for v in json.load(open(os.path.join(root, "versions.json")))))
+          PY
+          done
+          if find site -name .doctrees -o -name environment.pickle | grep -q .; then
+            echo "doctrees leaked into the artifact"; exit 1
+          fi
           du -sh site
 
       - name: Upload artifact
