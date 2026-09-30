@@ -18,7 +18,7 @@ try:
     from importlib.metadata import version as _pkg_version
     release = _pkg_version("euromod")
 except Exception:
-    release = "0.3.2"
+    release = "0.4.0"
 
 version = release
 
@@ -72,7 +72,7 @@ autoapi_options = [
 ]
 
 # Do not document internal implementation modules in the public API reference.
-autoapi_ignore = ["*/calibrate/*", "*/calibrate.py", "*/test/*", "*/euromod_cli.py"]
+autoapi_ignore = ["*/euromod/calibrate/*", "*/calibrate.py", "*/test/*", "*/euromod_cli.py"]
 autoapi_keep_files = True
 # autoapi_generate_api_docs = False
 

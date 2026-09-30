@@ -864,7 +864,9 @@ class System(SystemBase):
             if type(new_constdict) == dict:
                 constantsToOverwrite = SystemCs.Collections.Generic.Dictionary[SystemCs.Tuple[SystemCs.String, SystemCs.String],SystemCs.String]()
                 for keys,value in new_constdict.items():
-                    if not is_iterable(keys):
+                    # A string is iterable too: "$name" would be read as the
+                    # constant "$" in group "n". Only a (name, group) pair is valid.
+                    if not is_iterable(keys) or isinstance(keys, str) or len(keys) != 2:
                         raise TypeError("Parameter 'constantsToOverwrite' must be a dictionary, with an iterable containing the constant name and groupnumber as key and a string as value (Example: {('$f_h_cpi','2022'):'1000'}).")
                     key1 = keys[0]
                     key2 = keys[1] if keys[1] != "" else "-2147483648" 

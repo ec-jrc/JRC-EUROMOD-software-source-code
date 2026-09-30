@@ -20,7 +20,7 @@ Below are listed the main public classes of the {{ obj.name }} module.
 
 
 {% block submodules %}
-{% set visible_submodules = obj.submodules|selectattr("display")|list %}
+{% set visible_submodules = (obj.submodules + obj.subpackages)|selectattr("display")|list %}
 {% if visible_submodules %}
 
 .. toctree::

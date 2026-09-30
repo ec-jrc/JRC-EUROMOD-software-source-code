@@ -22,7 +22,8 @@ only way to have a type-less signature if `autodoc_typehints` is `signature` or
      {%- if sig -%}
        \ (
        {%- for arg in obj.obj.args -%}
-          {%- if arg[0] %}{{ arg[0]|replace('*', '\*') }}{% endif -%}{{  arg[1] -}}
+          {#- arg[1] is None for a bare "*"; a name ending in "_" would be read as a link -#}
+          {%- if arg[0] %}{{ arg[0]|replace('*', '\*') }}{% endif -%}{{ (arg[1] or '')|replace('_', '\_') -}}
           {%- if not loop.last  %}, {% endif -%}
        {%- endfor -%}
        ){%- endif -%}

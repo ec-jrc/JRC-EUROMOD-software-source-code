@@ -498,21 +498,30 @@ class Calibration:
 
     def to_json(self, path: str):
         """Serialize calibration metadata to JSON."""
+        # Constants are keyed by (name, group), which JSON cannot hold as a key:
+        # store them as records. The text is built before the file is opened, so a
+        # failure cannot leave a truncated file behind.
+        constants = [
+            {"name": key, "group": "", "value": value} if isinstance(key, str)
+            else {"name": key[0], "group": key[1], "value": value}
+            for key, value in self.constantsToOverwrite.items()
+        ]
+        text = json.dumps({
+            "model_version": self.model_version,
+            "system": self.system,
+            "dataset_id": self.dataset_id,
+            "functional_form": str(self.functional_form),
+            "constantsToOverwrite": constants,
+            "parameter_vars": self.parameter_vars,
+            "data_vars": self.data_vars,
+            "estimates": self.estimates,
+            "target_variable": self.target_variable,
+            "function_type": self.function_type,
+            "group_filters": self.group_filters,
+            "variable_labels": self.variable_labels,
+        }, indent=2)
         with open(path, "w") as json_file:
-            json.dump({
-                "model_version": self.model_version,
-                "system": self.system,
-                "dataset_id": self.dataset_id,
-                "functional_form": str(self.functional_form),
-                "constantsToOverwrite": self.constantsToOverwrite,
-                "parameter_vars": self.parameter_vars,
-                "data_vars": self.data_vars,
-                "estimates": self.estimates,
-                "target_variable": self.target_variable,
-                "function_type": self.function_type,
-                "group_filters": self.group_filters,
-                "variable_labels": self.variable_labels,
-            }, json_file, indent=2)
+            json_file.write(text)
 
     @staticmethod
     def from_json(system: System | None, path: str) -> "Calibration":
@@ -526,6 +535,13 @@ class Calibration:
         with open(path, "r") as json_file:
             data = json.load(json_file)
             functional_form = sympy.sympify(data["functional_form"])
+            # Back to the (name, group) keys that System.run expects. Files
+            # written before 0.4.0 hold a plain dict instead of records.
+            constants = data.get("constantsToOverwrite", {})
+            if isinstance(constants, list):
+                constants = {(c["name"], c.get("group", "")): c["value"] for c in constants}
+            else:
+                constants = {(name, ""): value for name, value in constants.items()}
             return Calibration(
                 model_version=data["model_version"],
                 system=data["system"],
@@ -537,7 +553,7 @@ class Calibration:
                 target_variable=data.get("target_variable", ""),
                 function_type=data.get("function_type", "individual"),
                 group_filters=data.get("group_filters", {}),
-                constantsToOverwrite=data.get("constantsToOverwrite", {}),
+                constantsToOverwrite=constants,
                 variable_labels=data.get("variable_labels", {}),
             )
 

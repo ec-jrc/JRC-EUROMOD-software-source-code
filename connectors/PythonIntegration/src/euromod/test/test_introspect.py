@@ -116,6 +116,34 @@ class TestServiceParameters:
         for name in ("Name", "TAX_UNIT", "Run_Cond", "Output_Var", "Warn_If_NonPositive"):
             assert introspect._il_component_name(name) is False
 
+    def test_service_parameters_are_recognised_in_any_case(self):
+        for name in ("name", "tax_unit", "RUN_COND", "output_var"):
+            assert introspect._il_component_name(name) is False
+
+
+class TestExtract:
+    """The spine walk, on stand-in objects with the attributes it reads."""
+
+    @staticmethod
+    def system(*parameters):
+        from types import SimpleNamespace as Element
+        function = Element(name="DefIl", switch="on", order="1", extensions=None,
+                           parameters=[Element(name=name, value=value, private="no",
+                                               extensions=None)
+                                       for name, value in parameters])
+        policy = Element(name="IlsDef_xx", switch="on", spineOrder="1", order="1",
+                         comment="", type="", extensions=None, functions=[function])
+        return Element(name="XX_2024", year="2024", parent=None, datasets=[], policies=[policy])
+
+    def test_a_list_is_found_however_its_name_parameter_is_spelled(self):
+        for spelling in ("Name", "name", "NAME"):
+            raw = introspect._extract(self.system((spelling, "ils_x"), ("yem", "+"), ("tin", "-")))
+            assert introspect._resolve_income_list(raw, {}, "ils_x") == [("yem", "+"), ("tin", "-")]
+
+    def test_a_component_marked_not_applicable_is_left_out(self):
+        raw = introspect._extract(self.system(("name", "ils_x"), ("yem", "+"), ("old_tax", "n/a")))
+        assert introspect._resolve_income_list(raw, {}, "ils_x") == [("yem", "+")]
+
     def test_comment_rows_are_not_components(self):
         assert introspect._il_component_name("#comment") is False
 

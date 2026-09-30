@@ -142,6 +142,27 @@ PolicyInSystem
 ```
 
 
+## Tools for the EU model
+
+The package `euromod.eu_euromod` holds tools written for one model: the model of
+the 27 EU member states maintained by the Joint Research Centre. Its first module
+estimates a parametric tax-benefit function from a simulation. The functions need
+the folder of the model, the folder with the input datasets and the name of a
+system:
+
+```python
+from euromod.eu_euromod.calibrate import prepare_sample, fit_hsv
+
+baseline = prepare_sample(r"C:\EUROMOD_RELEASES_J2.0+", r"C:\EUROMOD_DATA", "PT_2022")
+fit = fit_hsv(baseline)        # net tax rate = 1 - (1 - lambda) * income**(-tau)
+fit["lambda"], fit["tau"]      # level and progressivity
+```
+
+A reform is a counterfactual system of the model, or a baseline system with
+constants overridden (`prepare_sample(..., constants={"$tin00_rate9": 0.58})`).
+See "Calibrating a tax-benefit function" in the documentation.
+
+
 ## License
 
 &copy; Copyright 2024 European Commission. EUROMOD is licensed under the [EUPL, Version 1.2](https://joinup.ec.europa.eu/software/page/eupl). See the

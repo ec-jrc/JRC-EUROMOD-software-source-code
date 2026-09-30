@@ -7,7 +7,7 @@ no-build-isolation = true
 
 [project]
 name = "euromod"
-version = "0.3.2"
+version = "0.4.0"
 
 
 requires-python = ">=3.8"
@@ -38,6 +38,10 @@ dependencies = [
   "numpy",
   "polars",
             ]
+
+[project.optional-dependencies]
+# euromod.calibrate, and exporting an euromod.eu_euromod.calibrate fit to it
+calibrate = ["sympy", "numba", "scipy"]
             
 
 [project.urls]
@@ -51,10 +55,14 @@ include-package-data = true
 
 [tool.pytest.ini_options]
 markers = [
-    "live: tests requiring a locally installed EUROMOD model (EUROMOD_MODEL_PATH)",
+    "live: tests requiring a locally installed EUROMOD model (EUROMOD_MODEL_PATH; EUROMOD_DATA_PATH for the ones that run on input data)",
 ]
 
 
+
+[tool.setuptools.package-data]
+# the published estimates, read by euromod.eu_euromod.calibrate.load_estimates()
+euromod = ["eu_euromod/calibrate/*.json"]
 
 [tool.setuptools.packages.find]
 namespaces = false

@@ -23,6 +23,7 @@ Contents
 notebooks/getstarted.ipynb
 notebooks/userguide.ipynb
 notebooks/example.ipynb
+eu_euromod/index.md
 autoapi/index.rst
 license.md
 ```

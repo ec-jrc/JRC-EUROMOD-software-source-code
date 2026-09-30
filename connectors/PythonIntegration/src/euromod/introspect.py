@@ -50,8 +50,9 @@ __all__ = [
     "clear_cache",
 ]
 
-#: DefIl parameters that configure the list rather than contribute to it.
-_IL_SERVICE_PARAMS = {"Name", "Run_Cond", "Output_Var", "TAX_UNIT", "Warn_If_NonPositive"}
+#: DefIl parameters that configure the list rather than contribute to it, in lower
+#: case: EUROMOD parameter names are not case-sensitive, and models spell them both ways.
+_IL_SERVICE_PARAMS = {"name", "run_cond", "output_var", "tax_unit", "warn_if_nonpositive"}
 
 _IDENTIFIER = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
@@ -178,7 +179,7 @@ def _active(base_switch, ext_links, cfg):
 def _il_component_name(name):
     """Whether a DefIl parameter name denotes a component (a variable or nested
     income list) rather than a service parameter such as ``TAX_UNIT``."""
-    if name in _IL_SERVICE_PARAMS or name.startswith("#"):
+    if name.lower() in _IL_SERVICE_PARAMS or name.startswith("#"):
         return False
     return bool(_IDENTIFIER.fullmatch(name))
 
@@ -270,12 +271,14 @@ def _extract(system):
                     par_name = _attr(par, "name")
                     if not isinstance(par_name, str) or not par_name:
                         continue
-                    if par_name == "Name":
-                        il_name = str(_attr(par, "value")).strip()
-                    elif (_il_component_name(par_name)
+                    value = str(_attr(par, "value")).strip()
+                    if par_name.lower() == "name":
+                        il_name = value
+                    elif (_il_component_name(par_name) and value.lower() != "n/a"
                           and str(_attr(par, "private")).lower() != "yes"):
-                        components.append((par_name, str(_attr(par, "value")).strip(),
-                                           _ext_links(par)))
+                        # "n/a" marks a component that is not part of the list in
+                        # this system.
+                        components.append((par_name, value, _ext_links(par)))
                 if il_name:
                     il_occ.setdefault(il_name, []).append({
                         "key": (spine_order, fun_order), "fun_ext": fun_ext,

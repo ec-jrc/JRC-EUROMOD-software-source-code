@@ -2,6 +2,65 @@
 
 <!--next-version-placeholder-->
 
+## v0.4.0 (30/09/2026)
+
+### Feature
+
+- **New opt-in `euromod.eu_euromod` package, for tools that are specific to the
+  JRC's model of the 27 EU member states.** The rest of the connector works with
+  any model built for the EUROMOD software; the modules in this package rely on
+  the EU model's income lists, variable names and system names, and say exactly
+  what they need. Like `euromod.calibrate` and `euromod.introspect`, it is not
+  imported by `euromod/__init__`.
+- **`euromod.eu_euromod.calibrate`: estimate a parametric tax-benefit function
+  from a simulation.** It fits the function of Heathcote, Storesletten and
+  Violante, `net tax rate = 1 - (1 - lambda) * income**(-tau)`, by weighted least
+  squares in logs. The functions need a path to the model, a path to the folder
+  with the input data and the name of a system:
+  - `prepare_sample()` runs a system and builds the household sample
+    (`simulate()` followed by `household_sample()`). A reform is a counterfactual
+    system (`"PT_2022_ref"`) or a baseline system with `constants=` overridden.
+  - `fit_hsv()` estimates level and progressivity, or progressivity alone with
+    `lambda_fixed=`; `calibrate_hsv()` does several systems and household types in
+    one call and can add a pooled estimate such as the euro area.
+  - `fit_diagnostics()` and the functions of `descriptives` measure the fit and
+    describe the sample.
+  - `hsv()` evaluates a fitted function with numpy; `to_calibration()` exports it
+    as a `euromod.calibrate.Calibration`, which gives a numba-compiled function
+    and a JSON file.
+  - `load_estimates()` returns the published estimates for the 27 EU member
+    states and the euro area (policy year 2022, seven household types), which
+    ship with the package; `save_estimates()` and `load_estimates(path)` keep a
+    table of your own estimates as a JSON file; `schedule()` turns a row of
+    either into a `Schedule` that computes net tax rates, net taxes and
+    disposable incomes.
+
+  The module needs numpy and pandas only. See the new documentation page
+  "Calibrating a tax-benefit function".
+- **New optional extra `euromod[calibrate]`** installs sympy, numba and scipy, which
+  `euromod.calibrate` and `to_calibration()` need.
+
+### Fix
+
+- **`Calibration.to_json()` no longer fails when constants were overridden.**
+  Constants are keyed by `(name, group)`, which JSON cannot hold as a key, so the
+  export raised `TypeError` and left a truncated file behind. They are now written
+  as a list of `{name, group, value}` records and read back into the same keys by
+  `from_json()`. Files written by earlier versions still load.
+- **`run()` rejects a `constantsToOverwrite` key that is not a `(name, group)`
+  pair.** A plain string key such as `"$tin_rate"` was taken apart character by
+  character and read as the constant `"$"` in group `"t"`, so the override was
+  silently not applied. It now raises `TypeError`.
+
+- **`introspect.income_list_components()` finds every income list.** A `DefIl`
+  function whose name parameter is spelled `name` rather than `Name` was skipped,
+  so in the EU model standard lists such as `ils_dispy` and `ils_taxsim` were
+  reported as unknown and were not expanded inside other lists. Parameter names
+  are now matched without regard to case. A component marked `n/a`, which is
+  not part of the list in that system, is no longer returned as a `+` component.
+
+The bundled EUROMOD engine is unchanged at version 3.8.8.
+
 ## v0.3.2 (10/08/2026)
 
 ### Fix
