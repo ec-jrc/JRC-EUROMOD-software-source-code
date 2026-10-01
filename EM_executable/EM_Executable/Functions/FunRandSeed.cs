@@ -10,6 +10,7 @@ namespace EM_Executable
         internal FunRandSeed(InfoStore infoStore) : base(infoStore) { }
 
         private int seed = 1;
+        private bool seedByHHId = false;
 
         object randLock = new object();     // used for thread-safety
 
@@ -20,6 +21,9 @@ namespace EM_Executable
             ParNumber parSeed = GetUniquePar<ParNumber>(DefPar.RandSeed.Seed);
             seed = parSeed != null ? (int)parSeed.GetValue() :
                 DefinitionAdmin.GetParDefault<int>(DefFun.RandSeed, DefPar.RandSeed.Seed);
+            ParBool parSeedByHHId = GetUniquePar<ParBool>(DefPar.RandSeed.SeedByHHId);
+            seedByHHId = parSeedByHHId != null ? parSeedByHHId.GetBoolValue() :
+                DefinitionAdmin.GetParDefault<bool>(DefFun.RandSeed, DefPar.RandSeed.SeedByHHId);
         }
 
         // RandSeed is the only non-TU based function that runs on HH instead of individuals! 
@@ -37,7 +41,7 @@ namespace EM_Executable
                     if (!hasRun)        // double-check after the lock, just in case...
                     {
                         // if this RandSeed has not run before, then add new seeds for this RandSeed to all HHs
-                        infoStore.hhAdmin.SetSeed(description.funID, seed);
+                        infoStore.hhAdmin.SetSeed(description.funID, seed, seedByHHId);
                         hasRun = true;
                     }
                 }

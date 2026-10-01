@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EM_Common;
+using System;
 using System.Collections.Generic;
 
 namespace EM_Executable
@@ -32,13 +33,38 @@ namespace EM_Executable
         }
 
         /// <summary>
-        /// This function will accept a seed and calculate new seeds for each HH
+        /// This function will accept a seed and calculate new seeds for each HH.
+        /// By default each HH draws its seed from one shared sequence, i.e. in input order,
+        /// so a household's seed depends on its position in (and the composition of) the data.
+        /// With seedByHHId the seed is instead a deterministic mix of the RandSeed seed and
+        /// the household's idhh: draws become independent of input order, of the presence of
+        /// other households, and of subsetting, while staying reproducible for a given seed.
         /// </summary>
-        internal void SetSeed(string funID, int seed)
+        internal void SetSeed(string funID, int seed, bool seedByHHId = false)
         {
+            if (seedByHHId)
+            {
+                int indexIDHH = infoStore.operandAdmin.GetIndexInPersonVarList(DefVarName.IDHH);
+                foreach (HH hh in hhs)
+                    hh.SetSeed(funID, GetHHIdKeyedSeed(seed, hh.GetPersonValue(indexIDHH, 0)));
+                return;
+            }
             Random random = new Random(seed);
             foreach (HH hh in hhs)
                 hh.SetSeed(funID, random.Next());
+        }
+
+        /// <summary> mix seed and household id into a per-household seed (SplitMix64-style avalanche) </summary>
+        private static int GetHHIdKeyedSeed(int seed, double hhId)
+        {
+            unchecked
+            {
+                ulong z = ((ulong)(uint)seed << 32) ^ (ulong)(long)hhId;
+                z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9UL;
+                z = (z ^ (z >> 27)) * 0x94D049BB133111EBUL;
+                z ^= z >> 31;
+                return (int)(z >> 33); // non-negative 31-bit seed for Random
+            }
         }
     }
 }
