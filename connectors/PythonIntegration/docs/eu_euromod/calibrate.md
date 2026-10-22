@@ -56,14 +56,18 @@ output into one row per household:
 3. Incomes, taxes and benefits are summed over the members of the household.
    Gross income is original income plus replacement income (`ils_origrepy`);
    disposable income is `ils_dispy`.
-4. Households with non-positive gross or disposable income, or negative taxes, are
-   dropped.
+4. Households with non-positive gross income, original income, disposable income
+   or income after taxes are dropped. Households whose taxes are negative in total
+   are kept: refundable tax credits are support like a benefit, and dropping their
+   recipients would make the sample depend on whether a country pays its support
+   through the tax system. Version 0.4 dropped them, which removed up to a fifth of
+   the households in some countries; `drop_negative_tax=True` does so again.
 5. Households below the 2.5th or above the 99th weighted percentile of gross
    income are dropped.
 6. Incomes are divided by the weighted mean gross income of the households that
    remain, so that 1.0 is mean income.
 
-Every choice in steps 2, 3 and 5 is an argument of `household_sample`, e.g.
+Every choice in steps 2, 3, 4 and 5 is an argument of `household_sample`, e.g.
 `prepare_sample(MODEL, DATA, "PT_2022", head_age=(25, 64), trim=(1, 99))`.
 
 ### The estimator
@@ -103,10 +107,10 @@ child is a member aged 18 or under with a parent in the data.
 system and household type:
 
 ```python
-from euromod.eu_euromod import EURO_AREA_19, eu27_systems
+from euromod.eu_euromod import euro_area, eu27_systems
 from euromod.eu_euromod.calibrate import calibrate_hsv
 
-table = calibrate_hsv(MODEL, DATA, eu27_systems(2022), pooled={"EA": EURO_AREA_19})
+table = calibrate_hsv(MODEL, DATA, eu27_systems(2022), pooled={"EA_2022": euro_area(2022)})
 table.loc["PT_2022", ["lambda", "tau", "se_tau", "r2", "n"]]
 ```
 ```
@@ -120,7 +124,8 @@ single                 0.2012  0.1530  0.0036  0.9478  3135
 
 `pooled` adds an estimate on the pooled sample of a group of countries. Each
 country keeps its own income scale and its own survey weights, so it counts in
-proportion to its population.
+proportion to its population. `euro_area(year)` gives the members of a year: 19 up
+to 2022, 20 from 2023, when Croatia joined.
 
 ### How well the function fits
 
@@ -155,16 +160,17 @@ benefit_ratio_by_quantile(baseline)  # means-tested benefits over gross income, 
 
 ### The published estimates
 
-The estimates for the 27 EU member states and the euro area, policy year 2022,
-ship with the package. They need neither the model nor any data:
+The estimates for the 27 EU member states and the euro area, policy years 2022
+to 2025, ship with the package. They need neither the model nor any data:
 
 ```python
 from euromod.eu_euromod.calibrate import load_estimates, schedule
 
 baseline = load_estimates()          # one row per system and household type
 baseline.loc[("PT_2022", "all"), ["lambda", "tau"]]      # 0.1925, 0.1631
-baseline.xs("married", level="household_type")["tau"]    # all countries, married households
-baseline.attrs                       # model release, policy year, sample definition
+baseline.xs("married", level="household_type")["tau"]    # every system, married households
+baseline.loc[[("PT_2022", "all"), ("PT_2025", "all")], "tau"]   # 0.1631, 0.1730
+baseline.attrs                       # model release, policy years, sample definition
 
 portugal = schedule(baseline, "PT_2022")                 # the fitted function, ready to use
 portugal.net_tax_rate([0.5, 1.0, 2.0])                   # array([0.0958, 0.1925, 0.2788])
@@ -177,9 +183,11 @@ schedule(baseline, "PT_2022", "married")                 # the same for one hous
 Incomes are in multiples of mean gross income: 2.0 is twice the mean, and a
 disposable income of 1.4424 is 1.4424 times mean gross income.
 
-The systems are `AT_2022` ... `SK_2022` and `EA`, the pooled sample of the 19
-euro-area members of 2022. The columns are those of `fit_hsv` and
-`fit_diagnostics`. `schedule` works on any table of estimates, including your own.
+The systems are `AT_2022` ... `SK_2025`, every member state in every year, and
+`EA_2022` ... `EA_2025`, the pooled euro area of each year (19 members in 2022, 20
+from 2023). Each system runs on the dataset the model marks as its best match. The
+columns are those of `fit_hsv` and `fit_diagnostics`. `schedule` works on any table
+of estimates, including your own.
 
 ### Saving and loading your own
 

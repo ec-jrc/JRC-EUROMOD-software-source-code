@@ -8,7 +8,7 @@ with any notes on how it was made, and :func:`load_estimates` reads it back, so 
 model can use estimates without running EUROMOD.
 
 The package ships one such file: the estimates for the 27 EU member states and the
-euro area, policy year 2022. ``load_estimates()`` without a path returns them, and
+euro area, policy years 2022 to 2025. ``load_estimates()`` without a path returns them, and
 :func:`schedule` turns a row of any table into a :class:`Schedule` that computes
 tax rates, taxes and disposable incomes.
 """
@@ -22,7 +22,7 @@ from .estimation import hsv, marginal_hsv
 
 __all__ = ["save_estimates", "load_estimates", "schedule", "Schedule"]
 
-_BASELINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "baseline_2022.json")
+_BASELINE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "baseline_estimates.json")
 _INDEX = ["system", "household_type"]
 
 
@@ -62,8 +62,9 @@ def load_estimates(path=None):
     ----------
     path : :obj:`str`, optional
         A file written by :func:`save_estimates`. Default: the estimates that ship
-        with the package, for the 27 EU member states (``"AT_2022"``, ...) and the
-        euro area (``"EA"``), policy year 2022, by household type.
+        with the package, by household type, for the 27 EU member states
+        (``"AT_2022"``, ..., ``"SK_2025"``) and the euro area (``"EA_2022"``, ...,
+        ``"EA_2025"``: 19 members in 2022, 20 from 2023), policy years 2022 to 2025.
 
     Returns
     -------
@@ -150,7 +151,7 @@ def schedule(estimates, system, household_type="all"):
         A table of estimates, from :func:`load_estimates` or
         :func:`~euromod.eu_euromod.calibrate.calibrate_hsv`.
     system : :obj:`str`
-        A system in the table, e.g. ``"PT_2022"`` or ``"EA"``.
+        A system in the table, e.g. ``"PT_2022"`` or ``"EA_2025"``.
     household_type : :obj:`str`
         A household type in the table; default all households.
 

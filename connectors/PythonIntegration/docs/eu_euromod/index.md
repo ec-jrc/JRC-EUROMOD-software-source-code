@@ -13,12 +13,14 @@ work, and each module states exactly what it needs.
 The package is not loaded by `import euromod`. Import what you need:
 
 ```python
-from euromod.eu_euromod import EU27, EURO_AREA_19, eu27_systems
+from euromod.eu_euromod import EU27, euro_area, eu27_systems
 from euromod.eu_euromod.calibrate import prepare_sample, fit_hsv
 ```
 
-`EU27` and `EURO_AREA_19` are tuples of country codes, and `eu27_systems(2022)`
-returns the baseline system names `["AT_2022", "BE_2022", ..., "SK_2022"]`.
+`EU27` is a tuple of country codes, `euro_area(2023)` the euro-area members of a
+year (`EURO_AREA_19` up to 2022, `EURO_AREA_20` with Croatia from 2023), and
+`eu27_systems(2022)` returns the baseline system names
+`["AT_2022", "BE_2022", ..., "SK_2022"]`.
 
 ```{toctree}
 :maxdepth: 1

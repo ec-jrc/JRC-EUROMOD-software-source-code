@@ -2,6 +2,28 @@
 
 <!--next-version-placeholder-->
 
+## v0.5.0 (21/10/2026)
+
+### Breaking
+
+- **`household_sample()` keeps households whose taxes are negative in total.**
+  Version 0.4 dropped every household with negative `ils_taxsim`. Refundable tax
+  credits are support like a benefit, so the rule made the sample depend on whether
+  a country pays its support through the tax system: it removed about a fifth of
+  the households in Austria, a tenth in Luxembourg and 6-7% in Belgium and Italy,
+  mostly in the bottom deciles, and none in 19 countries. The new argument
+  `drop_negative_tax=True` restores the old sample. Estimates change for AT, BE,
+  IT, LU, and slightly for IE, LT, NL and PL.
+- **The published estimates cover policy years 2022 to 2025.** `load_estimates()`
+  returns one table with every year, re-estimated under the new sample rule. The
+  pooled euro area is named by year, `EA_2022` ... `EA_2025`, like the country
+  systems; it was `EA`. The file is now `baseline_estimates.json`.
+
+### Feature
+
+- **`euro_area(year)` and `EURO_AREA_20`.** The euro area has 20 members from 2023,
+  when Croatia joined; `euro_area(year)` returns the members of a policy year.
+
 ## v0.4.0 (30/09/2026)
 
 ### Feature

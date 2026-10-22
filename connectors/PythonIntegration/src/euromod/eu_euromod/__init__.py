@@ -19,7 +19,7 @@ calibrate
     Calibrating a parametric tax-benefit function on EUROMOD output.
 """
 
-__all__ = ["EU27", "EURO_AREA_19", "eu27_systems"]
+__all__ = ["EU27", "EURO_AREA_19", "EURO_AREA_20", "euro_area", "eu27_systems"]
 
 #: Country codes of the 27 EU member states, as used in the EU model.
 EU27 = ("AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES", "FI", "FR",
@@ -29,6 +29,29 @@ EU27 = ("AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES", "FI", "FR",
 #: Euro-area members up to 2022. Croatia joined in 2023.
 EURO_AREA_19 = ("AT", "BE", "CY", "DE", "EE", "EL", "ES", "FI", "FR", "IE", "IT",
                 "LT", "LU", "LV", "MT", "NL", "PT", "SI", "SK")
+
+#: Euro-area members from 2023.
+EURO_AREA_20 = ("AT", "BE", "CY", "DE", "EE", "EL", "ES", "FI", "FR", "HR", "IE",
+                "IT", "LT", "LU", "LV", "MT", "NL", "PT", "SI", "SK")
+
+
+def euro_area(year):
+    """
+    Euro-area members in a policy year (from 2015, when Lithuania joined).
+
+    Parameters
+    ----------
+    year : :obj:`int`
+        Policy year.
+
+    Returns
+    -------
+    tuple of :obj:`str`
+        :data:`EURO_AREA_19` up to 2022, :data:`EURO_AREA_20` from 2023.
+    """
+    if year < 2015:
+        raise ValueError("euro_area() knows the members from 2015 on.")
+    return EURO_AREA_19 if year <= 2022 else EURO_AREA_20
 
 
 def eu27_systems(year):

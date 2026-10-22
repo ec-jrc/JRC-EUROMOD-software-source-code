@@ -20,8 +20,8 @@ It works in two steps, one module each:
 :mod:`~euromod.eu_euromod.calibrate.descriptives` describes the sample,
 :mod:`~euromod.eu_euromod.calibrate.weighted` holds the weighted statistics, and
 :mod:`~euromod.eu_euromod.calibrate.estimates` saves and loads estimates. The
-estimates for the 27 EU member states and the euro area (policy year 2022) ship
-with the package::
+estimates for the 27 EU member states and the euro area, policy years 2022 to
+2025, ship with the package::
 
     from euromod.eu_euromod.calibrate import load_estimates, schedule
 
@@ -84,7 +84,7 @@ def calibrate_hsv(model_path, data_path, systems, *, household_types=HOUSEHOLD_T
         Conditions by name; default :data:`HOUSEHOLD_TYPES`.
     pooled : :obj:`dict`, optional
         Groups of countries to estimate on a pooled sample as well, e.g.
-        ``{"EA": EURO_AREA_19}``. Every country of a group must be among
+        ``{"EA_2022": euro_area(2022)}``. Every country of a group must be among
         ``systems``.
     lambda_fixed : float, optional
         Hold the level at this value and estimate only ``tau``.
@@ -102,8 +102,9 @@ def calibrate_hsv(model_path, data_path, systems, *, household_types=HOUSEHOLD_T
 
     Example
     -------
-    >>> from euromod.eu_euromod import EURO_AREA_19, eu27_systems
-    >>> table = calibrate_hsv(MODEL, DATA, eu27_systems(2022), pooled={"EA": EURO_AREA_19})
+    >>> from euromod.eu_euromod import euro_area, eu27_systems
+    >>> table = calibrate_hsv(MODEL, DATA, eu27_systems(2022),
+    ...                       pooled={"EA_2022": euro_area(2022)})
     >>> table.loc[("PT_2022", "all"), ["lambda", "tau"]]
     """
     samples = {system: prepare_sample(model_path, data_path, system, constants=constants,

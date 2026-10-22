@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from euromod.eu_euromod import EU27, EURO_AREA_19, eu27_systems
+from euromod.eu_euromod import EU27, EURO_AREA_19, EURO_AREA_20, eu27_systems, euro_area
 from euromod.eu_euromod import calibrate
 from euromod.eu_euromod.calibrate import (
     HOUSEHOLD_TYPES, benefit_ratio_by_quantile, binned_means, calibrate_hsv,
@@ -99,6 +99,13 @@ class TestHouseholdSample:
     def test_households_without_positive_income_are_dropped(self):
         sample = household_sample(output(person(1, 40, 2000), person(2, 40, 0)), **NO_TRIM)
         assert list(sample["idhh"]) == [1]
+
+    def test_households_with_negative_taxes_are_kept_unless_asked(self):
+        credit = {**person(2, 40, 1000), "ils_taxsim": -100.0, "ils_dispy": 1100.0}
+        data = output(person(1, 40, 2000), credit)
+        assert list(household_sample(data, **NO_TRIM)["idhh"]) == [1, 2]
+        assert household_sample(data, **NO_TRIM)["tax_rate"].min() == pytest.approx(-0.1)
+        assert list(household_sample(data, drop_negative_tax=True, **NO_TRIM)["idhh"]) == [1]
 
     def test_incomes_are_in_multiples_of_the_weighted_mean(self):
         sample = household_sample(output(person(1, 40, 1000, dwt=300), person(2, 40, 3000, dwt=100)),
@@ -279,7 +286,13 @@ class TestCalibrateHsv:
         assert table.loc[("core", "all"), "n"] == 120
 
     def test_euro_area_is_a_subset_of_the_union(self):
-        assert set(EURO_AREA_19) < set(EU27) and len(EU27) == 27 and len(EURO_AREA_19) == 19
+        assert set(EURO_AREA_19) < set(EURO_AREA_20) < set(EU27) and len(EU27) == 27
+        assert set(EURO_AREA_20) - set(EURO_AREA_19) == {"HR"}
+
+    def test_croatia_joins_the_euro_area_in_2023(self):
+        assert euro_area(2022) == EURO_AREA_19 and euro_area(2023) == EURO_AREA_20
+        with pytest.raises(ValueError):
+            euro_area(2014)
 
 
 class TestEstimatesFiles:
@@ -295,13 +308,16 @@ class TestEstimatesFiles:
 
     def test_the_published_estimates_ship_with_the_package(self):
         baseline = load_estimates()
+        years = (2022, 2023, 2024, 2025)
         systems = baseline.index.get_level_values("system").unique()
-        assert set(systems) == set(eu27_systems(2022)) | {"EA"}
-        assert len(baseline) == 28 * len(HOUSEHOLD_TYPES)
+        assert set(systems) == {system for year in years
+                                for system in eu27_systems(year) + [f"EA_{year}"]}
+        assert len(baseline) == 4 * 28 * len(HOUSEHOLD_TYPES)
         portugal = baseline.loc[("PT_2022", "all")]
         assert portugal["lambda"] == pytest.approx(0.1925, abs=5e-5)
         assert portugal["tau"] == pytest.approx(0.1631, abs=5e-5)
-        assert baseline.attrs["policy_year"] == 2022
+        assert baseline.attrs["policy_years"] == list(years)
+        assert baseline.attrs["euro_area"]["2023"] == list(EURO_AREA_20)
         assert baseline[["lambda", "tau", "se_tau", "r2", "n"]].notna().all().all()
 
     def test_a_row_of_estimates_becomes_a_schedule(self):
@@ -310,7 +326,8 @@ class TestEstimatesFiles:
         married = schedule(baseline, "PT_2022", "married")
         assert married.net_tax_rate(1.0) == pytest.approx(row["lambda"])
         assert married([0.5, 2.0]) == pytest.approx(hsv([0.5, 2.0], row["lambda"], row["tau"]))
-        assert schedule(baseline, "EA")(1.0) == pytest.approx(baseline.loc[("EA", "all"), "lambda"])
+        assert schedule(baseline, "EA_2025")(1.0) == pytest.approx(
+            baseline.loc[("EA_2025", "all"), "lambda"])
 
     def test_a_schedule_gives_taxes_and_incomes(self):
         flat = schedule(pd.DataFrame({"lambda": [0.2], "tau": [0.0]},

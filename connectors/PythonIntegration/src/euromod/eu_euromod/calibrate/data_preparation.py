@@ -18,8 +18,12 @@ Two steps, each a function:
        self-employed face different rules and their incomes are measured less
        reliably.
     3. Incomes, taxes and benefits are summed over the members of a household.
-    4. Households with non-positive income, non-positive disposable income or
-       negative taxes are dropped.
+    4. Households with non-positive gross income, original income, disposable
+       income or income after taxes are dropped. Households whose taxes
+       (``ils_taxsim``) are negative in total are kept: refundable tax credits
+       are support like a benefit, and dropping their recipients would make the
+       sample depend on whether a country pays its support through the tax
+       system. ``drop_negative_tax=True`` drops them, as version 0.4 did.
     5. The bottom and top of the gross-income distribution are trimmed at weighted
        percentiles (``trim``).
     6. Incomes are divided by the weighted mean gross income of the households
@@ -167,7 +171,8 @@ def simulate(model_path, data_path, system, *, dataset=None, constants=None,
 
 
 def household_sample(output, *, income="ils_origrepy", disposable="ils_dispy",
-                     head_age=(25, 60), trim=(2.5, 99), drop_self_employed=True):
+                     head_age=(25, 60), trim=(2.5, 99), drop_self_employed=True,
+                     drop_negative_tax=False):
     """
     Build the household sample from EUROMOD's individual-level output.
 
@@ -190,6 +195,9 @@ def household_sample(output, *, income="ils_origrepy", disposable="ils_dispy",
         households are dropped.
     drop_self_employed : :obj:`bool`
         Drop households in which any member has self-employment income.
+    drop_negative_tax : :obj:`bool`
+        Drop households whose taxes (``ils_taxsim``, summed over the members) are
+        negative. Off by default; version 0.4 always dropped them.
 
     Returns
     -------
@@ -251,7 +259,9 @@ def household_sample(output, *, income="ils_origrepy", disposable="ils_dispy",
     hh["n_children"] = is_child.groupby(df["idhh"]).sum()
 
     hh = hh[(hh[income] > 0) & (hh["ils_origy"] > 0) & (hh["ils_dispy"] > 0)
-            & (hh["ils_taxsim"] >= 0) & (hh["posttax_income"] > 0)]
+            & (hh["posttax_income"] > 0)]
+    if drop_negative_tax:
+        hh = hh[hh["ils_taxsim"] >= 0]
     low, high = (weighted_percentile(hh[income].to_numpy(), hh["dwt"].to_numpy(), p)
                  for p in trim)
     hh = hh[(hh[income] >= low) & (hh[income] <= high)].copy()
@@ -285,7 +295,7 @@ def prepare_sample(model_path, data_path, system, *, dataset=None, constants=Non
         As in :func:`simulate`.
     **sample_options
         ``income``, ``disposable``, ``head_age``, ``trim``, ``drop_self_employed``,
-        as in :func:`household_sample`.
+        ``drop_negative_tax``, as in :func:`household_sample`.
 
     Returns
     -------
