@@ -4,10 +4,10 @@ Written by `connectors/tools/sync_public_mirror.py`. Do not edit by hand.
 
 | | |
 |---|---|
-| source commit | `4bee160554fe297c9967bcbb03f9a650d3c4f53a` |
+| source commit | `9274de6f53eed10901f3091bdab11bb34afc8f6e` |
 | source branch | `develop` |
-| mirrored packages | clean at `4bee160554fe` |
-| synced at | 2026-10-22 14:04:14 UTC |
+| mirrored packages | clean at `9274de6f53ee` |
+| synced at | 2026-10-23 07:36:03 UTC |
 
 The source repository is private (EC CITnet). Only files are copied here; its
 git history is never mirrored, and must never be — see the module docstring of

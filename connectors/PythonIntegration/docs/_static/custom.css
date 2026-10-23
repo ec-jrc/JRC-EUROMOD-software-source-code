@@ -13,6 +13,53 @@
     white-space: nowrap;
 }
 
+/* DataFrames: pandas writes border="1" and no style, which browsers draw as a
+   grid of double lines (recent myst-nb no longer styles these tables; older ones
+   striped them in fixed light colours, unreadable in the dark theme). Instead:
+   one rule under the header, faint row lines, no vertical lines, figures
+   right-aligned in equal-width digits. Colours are furo's variables, so the
+   table follows the light and dark themes. The div.cell_output prefix outranks
+   the older myst-nb rules. */
+div.cell_output table.dataframe {
+    border: none;
+    border-collapse: collapse;
+    margin: 0.5rem 0 1rem;
+    color: var(--color-foreground-primary);
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+    table-layout: auto;
+}
+div.cell_output table.dataframe thead,
+div.cell_output table.dataframe tbody tr,
+div.cell_output table.dataframe tbody tr:nth-child(odd) {
+    background: transparent;
+    border: none;
+}
+div.cell_output table.dataframe th,
+div.cell_output table.dataframe td {
+    border: none;
+    border-bottom: 1px solid var(--color-background-border);
+    padding: 0.3rem 0.75rem;
+    text-align: right;
+    line-height: 1.4;
+}
+div.cell_output table.dataframe thead th {
+    border-bottom: 1.5px solid var(--color-foreground-muted);
+    font-weight: 600;
+    vertical-align: bottom;
+}
+div.cell_output table.dataframe tbody th {      /* the index */
+    color: var(--color-foreground-muted);
+    font-weight: normal;
+}
+div.cell_output table.dataframe tbody tr:last-child th,
+div.cell_output table.dataframe tbody tr:last-child td {
+    border-bottom: none;
+}
+div.cell_output table.dataframe tbody tr:hover {
+    background: var(--color-background-hover);
+}
+
 /* stdout/stderr text blocks and rich HTML outputs: scroll, don't overflow */
 .cell_output .output,
 .cell_output .highlight,
